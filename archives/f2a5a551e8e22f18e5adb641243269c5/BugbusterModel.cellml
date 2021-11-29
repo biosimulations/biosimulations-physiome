@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model name="BugbusterModel_SVBM" cmeta:id="BugbusterModel_SVBM"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:dc="http://purl.org/dc/elements/1.0/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+    xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+    xmlns:dcterms="http://purl.org/dc/terms/">
+    
+    <rdf:RDF>
+           <rdf:Description rdf:about="">
+             <!--
+               The Model Builder Metadata.  The Dublin Core "creator" element is used  
+               to indicate the person who translated the model into CellML.
+               The rdf:about of the Description has to remain blank for PMR2 to pick this up properly....
+             -->
+             <dc:creator rdf:parseType="Resource">
+               <vCard:N rdf:parseType="Resource">
+                 <vCard:Family>Cooling</vCard:Family>
+                 <vCard:Given>Mike</vCard:Given>
+               </vCard:N>
+               <vCard:EMAIL rdf:parseType="Resource">
+                 <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                 <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+               </vCard:EMAIL>
+               <vCard:ORG rdf:parseType="Resource">
+                 <vCard:Orgname>The University of Auckland</vCard:Orgname>
+                 <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+               </vCard:ORG>
+             </dc:creator>
+       </rdf:Description>
+       
+           <rdf:Description rdf:about="#BugbusterModel_SVBM">
+               <bqs:reference rdf:parseType="Resource">
+                   <bqs:JournalArticle rdf:parseType="Resource">
+                       <dc:creator>
+                           <rdf:Seq>
+                           <rdf:li rdf:parseType="Resource">
+                               <vCard:N rdf:parseType="Resource">
+                               <vCard:Family>Cooling</vCard:Family>
+                               <vCard:Given>Mike</vCard:Given>
+                               </vCard:N>
+                               <vCard:EMAIL rdf:parseType="Resource">
+                               <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                               <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                               </vCard:EMAIL>
+                               <vCard:ORG rdf:parseType="Resource">
+                               <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                               <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+                               </vCard:ORG>
+                           </rdf:li>
+   			<rdf:li rdf:parseType="Resource">
+   			    <vCard:N rdf:parseType="Resource">
+   			    <vCard:Family>Rouilly</vCard:Family>
+   			    <vCard:Given>Vincent</vCard:Given>
+   			    </vCard:N>
+                           </rdf:li>
+   			<rdf:li rdf:parseType="Resource">
+   			    <vCard:N rdf:parseType="Resource">
+   			    <vCard:Family>Misirli</vCard:Family>
+   			    <vCard:Given>Goksel</vCard:Given>
+   			    </vCard:N>
+   			</rdf:li>
+   			<rdf:li rdf:parseType="Resource">
+   			    <vCard:N rdf:parseType="Resource">
+   			    <vCard:Family>Lawson</vCard:Family>
+   			    <vCard:Given>James</vCard:Given>
+   			    </vCard:N>
+   			</rdf:li>			
+   			<rdf:li rdf:parseType="Resource">
+   			    <vCard:N rdf:parseType="Resource">
+   			    <vCard:Family>Yu</vCard:Family>
+   			    <vCard:Given>Tommy</vCard:Given>
+   			    </vCard:N>
+   			</rdf:li>
+   			<rdf:li rdf:parseType="Resource">
+   			    <vCard:N rdf:parseType="Resource">
+   			    <vCard:Family>Hallinan</vCard:Family>
+   			    <vCard:Given>Jennifer</vCard:Given>
+   			    </vCard:N>
+   			</rdf:li>
+   			<rdf:li rdf:parseType="Resource">
+   			    <vCard:N rdf:parseType="Resource">
+   			    <vCard:Family>Wipat</vCard:Family>
+   			    <vCard:Given>Anil</vCard:Given>
+   			    </vCard:N>
+   			</rdf:li>
+                           </rdf:Seq>
+                       </dc:creator>
+                       <dc:title>Standard Virtual Biological Parts: A Repository of Modular Modeling Components for Synthetic Biology</dc:title>
+                       <bqs:volume>26</bqs:volume>
+                       <bqs:first_page>925</bqs:first_page>
+                       <bqs:last_page>931</bqs:last_page>
+                       <bqs:Journal rdf:parseType="Resource">
+                               <dc:title>Bioinformatics</dc:title>
+                       </bqs:Journal>
+                       <dcterms:issued rdf:parseType="Resource">
+                               <dcterms:W3CDTF>2010-00-00 00:00</dcterms:W3CDTF>
+                       </dcterms:issued>
+                   </bqs:JournalArticle>
+               </bqs:reference>
+           </rdf:Description>
+    </rdf:RDF>
+
+    <import xlink:href="SVP_00000031/Chassis_Bacillus.cellml">
+        <component name="ChassisBacillus" component_ref="Chassis_Bacillus" />
+    </import>
+
+    <import xlink:href="SVP_Templates200906/Time.cellml">
+        <component name="Time" component_ref="Time" />
+    </import>
+    
+        <component name="Subtilin">
+            <variable name="concentration" units="nM" initial_value="1000" public_interface="out"/>
+    </component>
+    
+    <component name="SpeciesInitialConcentrations">
+        <variable name="RNA1" units="nM" initial_value="0" public_interface="out" />
+        <variable name="RNA2" units="nM" initial_value="0" public_interface="out" />
+        <variable name="spaK" units="nM" initial_value="0" public_interface="out" />
+        <variable name="spaR" units="nM" initial_value="0" public_interface="out" />
+        <variable name="spaKactive" units="nM" initial_value="0" public_interface="out" />
+        <variable name="spaRactive" units="nM" initial_value="0" public_interface="out" />
+        <variable name="GFP" units="nM" initial_value="0" public_interface="out" />
+    </component>
+
+    <import xlink:href="SVP_00000023/Bugbuster_Promoter1.cellml">
+        <units name="nM_per_s" units_ref="nM_per_s" />
+        <component name="Bugbuster_Promoter1" component_ref="Bugbuster_Promoter1" />
+    </import>
+
+    <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+            <units name="nM" units_ref="nM" />
+            <component name="RNA1" component_ref="Template_Species" />
+    </import>
+    
+    <component name="RNA1_interface">
+        <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+        <variable name="JGain" units="nM_per_s" public_interface="out"/>
+        <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JGain</ci>
+                <apply>
+                    <minus/>
+                    <ci>JPlusProduction</ci>
+                    <ci>JMinusDegradation</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    
+    <import xlink:href="SVP_00000001/Bioenvironment_Degradation_BugbusterRNA1.cellml">
+        <units name="per_s" units_ref="per_s" />
+        <component name="Bioenvironment_Degradation_RNA1" component_ref="Bioenvironment_Degradation_BugbusterRNA1" />
+    </import>
+    
+      <import xlink:href="SVP_00000030/Bugbuster_RBS_spaR.cellml">
+            <component name="Bugbuster_RBS_spaR" component_ref="Bugbuster_RBS_spaR" />
+        </import>
+        
+        <import xlink:href="SVP_00000027/Bugbuster_ProteinCDS_spaR.cellml">
+            <component name="Bugbuster_ProteinCDS_spaR" component_ref="Bugbuster_ProteinCDS_spaR" />
+        </import>
+    
+        <import xlink:href="SVP_00000029/Bugbuster_RBS_spaK.cellml">
+                <component name="Bugbuster_RBS_spaK" component_ref="Bugbuster_RBS_spaK" />
+        </import>
+        
+        <import xlink:href="SVP_00000026/Bugbuster_ProteinCDS_spaK.cellml">
+                <component name="Bugbuster_ProteinCDS_spaK" component_ref="Bugbuster_ProteinCDS_spaK" />
+        </import>
+            
+       <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+                         <component name="spaK" component_ref="Template_Species" />
+       </import>
+            
+<component name="spaK_interface">
+    <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+    <variable name="JPlusspaRActivation" units="nM_per_s" public_interface="in"/>
+    <variable name="JPlusspaKActiveDephosphorylation" units="nM_per_s" public_interface="in"/>
+    <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+    <variable name="JMinusspaKActivation" units="nM_per_s" public_interface="in"/>
+    <variable name="JGain" units="nM_per_s" public_interface="out"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+     <apply>
+        <eq/>
+        <ci>JGain</ci>
+        <apply>
+        	<minus/>
+		<apply>
+			<plus/>
+			<ci>JPlusProduction</ci>
+			<ci>JPlusspaRActivation</ci>
+			<ci>JPlusspaKActiveDephosphorylation</ci>
+		</apply>
+		<apply>
+			<plus/>
+			<ci>JMinusspaKActivation</ci>
+			<ci>JMinusDegradation</ci>
+		</apply>
+        </apply>
+     </apply>
+    </math>
+    </component>
+               
+       <import xlink:href="SVP_00000010/Bioenvironment_Degradation_spaK.cellml">
+               <component name="Bioenvironment_Degradation_spaK" component_ref="Bioenvironment_Degradation_spaK" />
+       </import>
+       
+         <import xlink:href="SVP_00000020/Bioenvironment_RxR2P1_spaKActivation.cellml">
+               <component name="spaKActivation" component_ref="Bioenvironment_RxR2P1_spaKActivation" />
+    </import>
+    
+    <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+            <component name="spaKactive" component_ref="Template_Species" />
+        </import>
+        
+      <component name="spaKactive_interface">
+             <variable name="JPlusspaKActivation" units="nM_per_s" public_interface="in"/>
+             <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+             <variable name="JMinusDephosphorylation" units="nM_per_s" public_interface="in"/>
+             <variable name="JMinusspaRActivation" units="nM_per_s" public_interface="in"/>
+             <variable name="JGain" units="nM_per_s" public_interface="out"/>
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                 <eq/>
+                 <ci>JGain</ci>
+                 <apply>
+                    <minus/>
+                       <ci>JPlusspaKActivation</ci>
+                    	  <apply>
+                    	    <plus />
+                    	    <ci>JMinusDegradation</ci>
+                    	    <ci>JMinusDephosphorylation</ci>
+                    	    <ci>JMinusspaRActivation</ci>
+                       </apply>
+                 </apply>
+              </apply>
+             </math>
+    </component>
+    
+     <import xlink:href="SVP_00000016/Bioenvironment_Dephosphorylation_spaKactive.cellml">
+                <component name="Bioenvironment_Dephosphorylation_spaKactive" component_ref="Bioenvironment_Dephosphorylation_spaKactive" />
+    </import>
+    
+      <import xlink:href="SVP_00000011/Bioenvironment_Degradation_spaKactive.cellml">
+                <component name="Bioenvironment_Degradation_spaKactive" component_ref="Bioenvironment_Degradation_spaKactive" />
+    </import>
+    
+     <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+                <component name="spaR" component_ref="Template_Species" />
+        </import>
+        
+        <component name="spaR_interface">
+	        <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+	        <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+	        <variable name="JMinusspaRActivation" units="nM_per_s" public_interface="in"/>
+	        <variable name="JPlusspaRActiveDephosphorylation" units="nM_per_s" public_interface="in"/>
+	        <variable name="JGain" units="nM_per_s" public_interface="out"/>
+	        <math xmlns="http://www.w3.org/1998/Math/MathML">
+	         <apply>
+	            <eq/>
+	            <ci>JGain</ci>
+	            <apply>
+	              <minus />
+	              	<apply>
+	              		<plus/>
+	              		<ci>JPlusProduction</ci>
+	              		<ci>JPlusspaRActiveDephosphorylation</ci>
+	              	</apply>
+	              	<apply>
+				<plus/>
+				<ci>JMinusDegradation</ci>
+				<ci>JMinusspaRActivation</ci>
+	              	</apply>
+	            </apply>
+	         </apply>
+	        </math>
+    </component>
+	
+	    <import xlink:href="SVP_00000012/Bioenvironment_Degradation_spaR.cellml">
+	            <component name="Bioenvironment_Degradation_spaR" component_ref="Bioenvironment_Degradation_spaR" />
+	    </import>
+    
+    
+    <import xlink:href="SVP_00000021/Bioenvironment_RxR2P1_spaRActivation.cellml">
+            <component name="spaRActivation" component_ref="Bioenvironment_RxR2P1_spaRActivation" />
+        </import>
+        
+        <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+            <component name="spaRactive" component_ref="Template_Species" />
+        </import>
+        
+    <component name="spaRactive_interface">
+        <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+        <variable name="JMinusDephosphorylation" units="nM_per_s" public_interface="in"/>
+        <variable name="JPlusspaRActivation" units="nM_per_s" public_interface="in"/>
+        <variable name="JGain" units="nM_per_s" public_interface="out"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>JGain</ci>
+                <apply>
+                  <minus/>
+                  <ci>JPlusspaRActivation</ci>
+                  <apply>
+                    <plus />
+               		<ci>JMinusDegradation</ci>
+               		<ci>JMinusDephosphorylation</ci>        
+                  </apply>
+                </apply>
+         </apply>
+        </math>
+    </component>
+    
+     <import xlink:href="SVP_00000017/Bioenvironment_Dephosphorylation_spaRactive.cellml">
+                <component name="Bioenvironment_Dephosphorylation_spaRactive" component_ref="Bioenvironment_Dephosphorylation_spaRactive" />
+    </import>
+    
+        <import xlink:href="SVP_00000013/Bioenvironment_Degradation_spaRactive.cellml">
+                <component name="Bioenvironment_Degradation_spaRactive" component_ref="Bioenvironment_Degradation_spaRactive" />
+    </import>
+    
+      <import xlink:href="SVP_00000024/Bugbuster_Promoter2.cellml">
+                 <component name="Bugbuster_Promoter2" component_ref="Bugbuster_Promoter2" />
+        </import>  
+        
+        <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+                <component name="RNA2" component_ref="Template_Species" />
+        </import>
+        
+<component name="RNA2_interface">
+        <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+        <variable name="JGain" units="nM_per_s" public_interface="out"/>
+        <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JGain</ci>
+                <apply>
+                    <minus/>
+                    <ci>JPlusProduction</ci>
+                    <ci>JMinusDegradation</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    
+    <import xlink:href="SVP_00000002/Bioenvironment_Degradation_BugbusterRNA2.cellml">
+        <component name="Bioenvironment_Degradation_RNA2" component_ref="Bioenvironment_Degradation_BugbusterRNA2" />
+    </import>
+    
+        <import xlink:href="SVP_00000028/Bugbuster_RBS_GFP.cellml">
+                    <component name="Bugbuster_RBS_GFP" component_ref="Bugbuster_RBS_GFP" />
+        </import>
+        
+        <import xlink:href="SVP_00000025/Bugbuster_ProteinCDS_GFP.cellml">
+                <component name="Bugbuster_ProteinCDS_GFP" component_ref="Bugbuster_ProteinCDS_GFP" />
+        </import>
+        
+        <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+             <component name="GFP" component_ref="Template_Species" />
+        </import>
+            
+<component name="GFP_interface">
+        <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+        <variable name="JGain" units="nM_per_s" public_interface="out"/>
+        <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>JGain</ci>
+                <apply>
+                    <minus/>
+                    <ci>JPlusProduction</ci>
+                    <ci>JMinusDegradation</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    
+    <import xlink:href="SVP_00000005/Bioenvironment_Degradation_GFP.cellml">
+         <component name="Bioenvironment_Degradation_GFP" component_ref="Bioenvironment_Degradation_GFP" />
+    </import>
+    
+              
+    <connection>
+          <map_components component_1="Bugbuster_Promoter1" component_2="ChassisBacillus"/>
+          <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+    </connection>
+
+    <connection>
+        <map_components component_1="RNA1" component_2="Time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    
+    <connection>
+        <map_components component_1="RNA1" component_2="SpeciesInitialConcentrations"/>
+        <map_variables variable_1="concentrationInitialValue" variable_2="RNA1"/>
+    </connection>
+    
+    <connection>
+        <map_components component_1="RNA1" component_2="RNA1_interface"/>
+        <map_variables variable_1="JGain" variable_2="JGain"/>
+    </connection>       
+
+    <connection>
+        <map_components component_1="RNA1_interface" component_2="Bugbuster_Promoter1"/>
+        <map_variables variable_1="JPlusProduction" variable_2="JRNA"/>
+    </connection>
+    
+    <connection>
+        <map_components component_1="RNA1_interface" component_2="Bioenvironment_Degradation_RNA1"/>
+        <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+    </connection>
+    
+    <connection>
+        <map_components component_1="Bioenvironment_Degradation_RNA1" component_2="RNA1"/>
+        <map_variables variable_1="concentration" variable_2="concentration"/>
+    </connection>
+    
+     <connection>
+              <map_components component_1="Bugbuster_RBS_spaR" component_2="ChassisBacillus"/>
+              <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+        </connection> 
+    
+        <connection>
+              <map_components component_1="Bugbuster_RBS_spaR" component_2="RNA1"/>
+              <map_variables variable_1="RNA" variable_2="concentration"/>
+        </connection> 
+    
+        <connection>
+              <map_components component_1="Bugbuster_ProteinCDS_spaR" component_2="ChassisBacillus"/>
+              <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+        </connection>
+    
+        <connection>
+              <map_components component_1="Bugbuster_ProteinCDS_spaR" component_2="Bugbuster_RBS_spaR"/>
+              <map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+        </connection>
+        
+        <connection>
+            <map_components component_1="Bugbuster_RBS_spaK" component_2="RNA1"/>
+            <map_variables variable_1="RNA" variable_2="concentration"/>
+        </connection>
+    
+        <connection>
+              <map_components component_1="Bugbuster_RBS_spaK" component_2="ChassisBacillus"/>
+              <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="Bugbuster_ProteinCDS_spaK" component_2="ChassisBacillus"/>
+              <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="Bugbuster_ProteinCDS_spaK" component_2="Bugbuster_RBS_spaK"/>
+              <map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+        </connection>   
+    
+        <connection>
+              <map_components component_1="spaK" component_2="spaK_interface"/>
+              <map_variables variable_1="JGain" variable_2="JGain"/>
+        </connection>
+    
+        <connection>
+              <map_components component_1="spaK" component_2="Time"/>
+              <map_variables variable_1="time" variable_2="time"/>
+        </connection>
+    
+        <connection>
+              <map_components component_1="spaK" component_2="SpeciesInitialConcentrations"/>
+              <map_variables variable_1="concentrationInitialValue" variable_2="spaK"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaK_interface" component_2="Bugbuster_ProteinCDS_spaK"/>
+              <map_variables variable_1="JPlusProduction" variable_2="J"/>
+        </connection>
+        
+        <connection>
+                 <map_components component_1="spaK_interface" component_2="Bioenvironment_Degradation_spaK"/>
+                 <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+    </connection>
+    
+       <connection>
+              <map_components component_1="spaK_interface" component_2="spaKActivation"/>
+              <map_variables variable_1="JMinusspaKActivation" variable_2="J"/>
+    </connection>
+    
+        <connection>
+              <map_components component_1="spaK_interface" component_2="Bioenvironment_Dephosphorylation_spaKactive"/>
+              <map_variables variable_1="JPlusspaKActiveDephosphorylation" variable_2="J"/>
+    </connection>
+    
+       <connection>
+              <map_components component_1="spaK_interface" component_2="spaRActivation"/>
+              <map_variables variable_1="JPlusspaRActivation" variable_2="J"/>
+    </connection>
+    
+    
+        <connection>
+            <map_components component_1="Bioenvironment_Degradation_spaK" component_2="spaK"/>
+            <map_variables variable_1="concentration" variable_2="concentration"/>
+    </connection>
+    
+     <connection>
+              <map_components component_1="spaKActivation" component_2="Subtilin"/>
+              <map_variables variable_1="reactant1" variable_2="concentration"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaKActivation" component_2="spaK"/>
+              <map_variables variable_1="reactant2" variable_2="concentration"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaKactive" component_2="spaKactive_interface"/>
+              <map_variables variable_1="JGain" variable_2="JGain"/>
+        </connection>
+    
+        <connection>
+              <map_components component_1="spaKactive" component_2="Time"/>
+              <map_variables variable_1="time" variable_2="time"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaKactive" component_2="SpeciesInitialConcentrations"/>
+              <map_variables variable_1="concentrationInitialValue" variable_2="spaKactive"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaKactive_interface" component_2="spaKActivation"/>
+              <map_variables variable_1="JPlusspaKActivation" variable_2="J"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaKactive_interface" component_2="Bioenvironment_Dephosphorylation_spaKactive"/>
+              <map_variables variable_1="JMinusDephosphorylation" variable_2="J"/>
+    </connection>
+    
+    <connection>
+              <map_components component_1="spaKactive_interface" component_2="Bioenvironment_Degradation_spaKactive"/>
+              <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+    </connection>
+    
+     <connection>
+              <map_components component_1="spaKactive_interface" component_2="spaRActivation"/>
+              <map_variables variable_1="JMinusspaRActivation" variable_2="J"/>
+    </connection>
+    
+    <connection>
+            <map_components component_1="Bioenvironment_Dephosphorylation_spaKactive" component_2="spaKactive"/>
+            <map_variables variable_1="concentration" variable_2="concentration"/>
+        </connection>
+        
+            <connection>
+	        <map_components component_1="Bioenvironment_Degradation_spaKactive" component_2="spaKactive"/>
+	        <map_variables variable_1="concentration" variable_2="concentration"/>
+    </connection>
+    
+    
+<connection>
+          <map_components component_1="spaR" component_2="spaR_interface"/>
+          <map_variables variable_1="JGain" variable_2="JGain"/>
+    </connection>
+
+    <connection>
+          <map_components component_1="spaR" component_2="Time"/>
+          <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+
+    <connection>
+          <map_components component_1="spaR" component_2="SpeciesInitialConcentrations"/>
+          <map_variables variable_1="concentrationInitialValue" variable_2="spaR"/>
+    </connection>
+    
+    <connection>
+          <map_components component_1="spaR_interface" component_2="Bugbuster_ProteinCDS_spaR"/>
+          <map_variables variable_1="JPlusProduction" variable_2="J"/>
+    </connection>
+    
+        <connection>
+              <map_components component_1="spaR_interface" component_2="Bioenvironment_Degradation_spaR"/>
+              <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+    </connection>
+    
+     <connection>
+              <map_components component_1="spaR_interface" component_2="spaRActivation"/>
+              <map_variables variable_1="JMinusspaRActivation" variable_2="J"/>
+    </connection>
+    
+            <connection>
+                  <map_components component_1="spaR_interface" component_2="Bioenvironment_Dephosphorylation_spaRactive"/>
+                  <map_variables variable_1="JPlusspaRActiveDephosphorylation" variable_2="J"/>
+    </connection>
+    
+        <connection>
+            <map_components component_1="Bioenvironment_Degradation_spaR" component_2="spaR"/>
+            <map_variables variable_1="concentration" variable_2="concentration"/>
+    </connection>  
+    
+     <connection>
+              <map_components component_1="spaRActivation" component_2="spaKactive"/>
+              <map_variables variable_1="reactant1" variable_2="concentration"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaRActivation" component_2="spaR"/>
+              <map_variables variable_1="reactant2" variable_2="concentration"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaRactive" component_2="spaRactive_interface"/>
+              <map_variables variable_1="JGain" variable_2="JGain"/>
+        </connection>
+    
+        <connection>
+              <map_components component_1="spaRactive" component_2="Time"/>
+              <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    
+     <connection>
+              <map_components component_1="spaRactive" component_2="SpeciesInitialConcentrations"/>
+              <map_variables variable_1="concentrationInitialValue" variable_2="spaRactive"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaRactive_interface" component_2="spaRActivation"/>
+              <map_variables variable_1="JPlusspaRActivation" variable_2="J"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="spaRactive_interface" component_2="Bioenvironment_Dephosphorylation_spaRactive"/>
+              <map_variables variable_1="JMinusDephosphorylation" variable_2="J"/>
+        </connection>
+        
+    <connection>
+          <map_components component_1="spaRactive_interface" component_2="Bioenvironment_Degradation_spaRactive"/>
+          <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+    </connection>
+    
+     <connection>
+            <map_components component_1="Bioenvironment_Dephosphorylation_spaRactive" component_2="spaRactive"/>
+            <map_variables variable_1="concentration" variable_2="concentration"/>
+    </connection>
+    
+        <connection>
+            <map_components component_1="Bioenvironment_Degradation_spaRactive" component_2="spaRactive"/>
+            <map_variables variable_1="concentration" variable_2="concentration"/>
+    </connection>
+    
+    <connection>
+            <map_components component_1="Bugbuster_Promoter2" component_2="ChassisBacillus"/>
+            <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+        </connection>
+        
+        <connection>
+                <map_components component_1="Bugbuster_Promoter2" component_2="spaRactive"/>
+                <map_variables variable_1="tFactor" variable_2="concentration"/>
+        </connection>
+        
+        <connection>
+            <map_components component_1="RNA2" component_2="Time"/>
+            <map_variables variable_1="time" variable_2="time"/>
+        </connection>
+        
+        <connection>
+            <map_components component_1="RNA2" component_2="SpeciesInitialConcentrations"/>
+            <map_variables variable_1="concentrationInitialValue" variable_2="RNA2"/>
+        </connection>
+        
+        <connection>
+            <map_components component_1="RNA2" component_2="RNA2_interface"/>
+            <map_variables variable_1="JGain" variable_2="JGain"/>
+        </connection>       
+    
+        <connection>
+            <map_components component_1="RNA2_interface" component_2="Bugbuster_Promoter2"/>
+            <map_variables variable_1="JPlusProduction" variable_2="JRNA"/>
+        </connection>
+        
+            <connection>
+	        <map_components component_1="RNA2_interface" component_2="Bioenvironment_Degradation_RNA2"/>
+	        <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	    </connection>
+	    
+	    <connection>
+	        <map_components component_1="Bioenvironment_Degradation_RNA2" component_2="RNA2"/>
+	        <map_variables variable_1="concentration" variable_2="concentration"/>
+    </connection>
+    
+     <connection>
+              <map_components component_1="Bugbuster_RBS_GFP" component_2="ChassisBacillus"/>
+              <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+        </connection> 
+    
+        <connection>
+              <map_components component_1="Bugbuster_RBS_GFP" component_2="RNA2"/>
+              <map_variables variable_1="RNA" variable_2="concentration"/>
+        </connection> 
+        
+        <connection>
+              <map_components component_1="Bugbuster_ProteinCDS_GFP" component_2="ChassisBacillus"/>
+              <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="Bugbuster_ProteinCDS_GFP" component_2="Bugbuster_RBS_GFP"/>
+              <map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+        </connection> 
+        
+        <connection>
+              <map_components component_1="GFP" component_2="GFP_interface"/>
+              <map_variables variable_1="JGain" variable_2="JGain"/>
+        </connection>
+    
+        <connection>
+              <map_components component_1="GFP" component_2="Time"/>
+              <map_variables variable_1="time" variable_2="time"/>
+        </connection>
+    
+        <connection>
+              <map_components component_1="GFP" component_2="SpeciesInitialConcentrations"/>
+              <map_variables variable_1="concentrationInitialValue" variable_2="GFP"/>
+        </connection>
+        
+        <connection>
+              <map_components component_1="GFP_interface" component_2="Bugbuster_ProteinCDS_GFP"/>
+              <map_variables variable_1="JPlusProduction" variable_2="J"/>
+        </connection>
+        
+         <connection>
+	            <map_components component_1="GFP_interface" component_2="Bioenvironment_Degradation_GFP"/>
+	            <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	    </connection>
+	    
+	    <connection>
+	            <map_components component_1="Bioenvironment_Degradation_GFP" component_2="GFP"/>
+	            <map_variables variable_1="concentration" variable_2="concentration"/>
+    </connection>
+    
+    
+    
+  
+</model>

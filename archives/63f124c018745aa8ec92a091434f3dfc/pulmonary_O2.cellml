@@ -1,0 +1,927 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model 
+	name="pulmonary_O2_uptake_model"
+	cmeta:id="pulmonary_O2_uptake_model"
+	
+	xmlns="http://www.cellml.org/cellml/1.1#"
+	xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+	xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+		<rdf:Description rdf:about="#pulmonary_O2_uptake_model">
+			<rdf:value>
+			This section calculates the dynamics of oxygen uptake by the lungs, and calculates 
+			also the combination of the oxygen with the hemoglobin of the blood.  
+			</rdf:value>
+		</rdf:Description>
+	</rdf:RDF>
+
+<!-- =============================================	Import the required units from the Units file	==================================================== -->
+	<import xlink:href="units.cellml">
+		<units name="minute" units_ref="minute"/>
+		<units name="per_minute" units_ref="per_minute"/>
+		<units name="beats_per_minute" units_ref="beats_per_minute"/>
+		<units name="beats_per_minute_per_mmHg" units_ref="beats_per_minute_per_mmHg"/>
+		<units name="minute_per_L" units_ref="minute_per_L"/>
+		<units name="mmHg" units_ref="mmHg"/>
+		<units name="per_mmHg" units_ref="per_mmHg"/>
+		<units name="mmHg_per_mL" units_ref="mmHg_per_mL"/>
+		<units name="mmHg_L" units_ref="mmHg_L"/>
+		<units name="per_mmHg2" units_ref="per_mmHg2"/>
+		<units name="mmHg3" units_ref="mmHg3"/>
+		<units name="monovalent_mEq" units_ref="monovalent_mEq"/>
+		<units name="monovalent_mEq_per_minute" units_ref="monovalent_mEq_per_minute"/>
+		<units name="monovalent_mEq_per_litre" units_ref="monovalent_mEq_per_litre"/>
+		<units name="mOsm" units_ref="mOsm"/>
+		<units name="mOsm_per_litre" units_ref="mOsm_per_litre"/>
+		<units name="mOsm_per_minute" units_ref="mOsm_per_minute"/>
+		<units name="monovalent_mEq_per_litre_per_minute" units_ref="monovalent_mEq_per_litre_per_minute"/>
+		<units name="litre2_per_monovalent_mEq_per_minute" units_ref="litre2_per_monovalent_mEq_per_minute"/>
+		<units name="L_per_minute" units_ref="L_per_minute"/>
+		<units name="per_mmHg_per_minute" units_ref="per_mmHg_per_minute"/>
+		<units name="mL" units_ref="mL"/>
+		<units name="gram_per_L" units_ref="gram_per_L"/>
+		<units name="L_mmHg_per_gram" units_ref="L_mmHg_per_gram"/>
+		<units name="L2_mmHg_per_gram2" units_ref="L2_mmHg_per_gram2"/>
+		<units name="mmHg_minute_per_L" units_ref="mmHg_minute_per_L"/>
+		<units name="mmHg_L_per_minute" units_ref="mmHg_L_per_minute"/>
+		<units name="gram_per_minute" units_ref="gram_per_minute"/>
+		<units name="mL_per_L" units_ref="mL_per_L"/>
+		<units name="mL_per_L_per_mmHg" units_ref="mL_per_L_per_mmHg"/>
+		<units name="mL_per_L_per_minute" units_ref="mL_per_L_per_minute"/>
+		<units name="mL_per_minute_per_mmHg" units_ref="mL_per_minute_per_mmHg"/>
+		<units name="L_mL_per_minute_per_mmHg" units_ref="L_mL_per_minute_per_mmHg"/>
+		<units name="L_per_mL" units_ref="L_per_mL"/>
+		<units name="L_per_mmHg" units_ref="L_per_mmHg"/>
+		<units name="mL_per_minute" units_ref="mL_per_minute"/>
+		<units name="L_per_minute_per_mmHg" units_ref="L_per_minute_per_mmHg"/>
+		<units name="L_per_minute_per_mmHg2" units_ref="L_per_minute_per_mmHg2"/>
+	</import>
+
+<!-- =====================================	Import all Parameters and State Variables from the Parameter file	============================================== -->
+	<import xlink:href="parameters.cellml">
+		<component component_ref="parameter_values" name="parameter_values"/>
+		<component component_ref="state_variables" name="state_variables"/>
+	</import>
+
+
+<!-- ========================================	PULMONARY OXYGEN UPTAKE TOP-LEVEL COMPONENT	============================================= -->
+	<component 	name="pulmonary_O2_uptake" 
+				cmeta:id="pulmonary_O2_uptake">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#pulmonary_O2_uptake">
+				<rdf:value>
+				Encapsulation grouping component containing all the components in the Pulmonary Oxygen Uptake Model. 
+				The inputs and outputs of the Pulmonary Oxygen Uptake Model must be passed by this component.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+
+		<variable name="time"	units="minute"	private_interface="out" public_interface="in"/>
+
+<!-- Inputs from components in other models -->
+		<variable name="VPF"	units="litre" 			private_interface="out" public_interface="in"/>
+		<variable name="DOB"	units="mL_per_minute"	private_interface="out" public_interface="in"/>
+		<variable name="QRO"	units="L_per_minute"  	private_interface="out" public_interface="in"/>
+		<variable name="RMO"	units="mL_per_minute" 	private_interface="out" public_interface="in"/>
+		<variable name="HM"		units="dimensionless" 	private_interface="out" public_interface="in"/>
+
+<!-- Outputs to components in other models -->
+		<variable	cmeta:id="pulmonary_O2_uptake_OVA"
+					name="OVA" 	units="dimensionless" private_interface="in" public_interface="out"/>
+		<variable 	cmeta:id="pulmonary_O2_uptake_PO2ART"
+					name="PO2ART" 	units="mmHg" private_interface="in" public_interface="out"/>
+		<variable 	cmeta:id="pulmonary_O2_uptake_OSA"
+					name="OSA" 	units="dimensionless" private_interface="in" public_interface="out"/>
+	</component>
+
+<!-- OUTPUT CONNECTIONS -->
+<!--	<connection>
+		<map_components component_1="pulmonary_O2_uptake" component_2="O2_volume_of_arterial_blood"/>
+		<map_variables variable_1="OVA" variable_2="OVA"/>
+	</connection> -->
+<!--	<connection>
+		<map_components component_1="pulmonary_O2_uptake" component_2="arterial_PO2"/>
+		<map_variables variable_1="PO2ART" variable_2="PO2ART"/>
+		<map_variables variable_1="OSA" variable_2="OSA"/>
+	</connection> -->
+
+<!-- ========================================	TOTAL O2 UTILIZATION	============================================= -->
+	<component 	name="total_O2_utilization" 
+				cmeta:id="total_O2_utilization">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#total_O2_utilization">
+				<rdf:value>
+				PO1:  
+				Calculation of total oxygen utilization by the body (O2UTIL) by adding the oxygen
+				usage by the muscles (RMO) plus oxygen usage by non-muscle parts of the body (DOB).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#PO1">
+				<rdf:value>
+				PO1:  
+				Calculation of total oxygen utilization by the body (O2UTIL) by adding the oxygen
+				usage by the muscles (RMO) plus oxygen usage by non-muscle parts of the body (DOB).
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="DOB"	units="mL_per_minute" private_interface="none" public_interface="in"/>
+		<variable name="RMO"	units="mL_per_minute" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="O2UTIL" 	units="mL_per_minute" private_interface="none" public_interface="out"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="PO1">
+				<eq/>
+				<ci>O2UTIL</ci>
+				<apply>
+					<plus/>
+					<ci>DOB</ci>
+					<ci>RMO</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="total_O2_utilization" component_2="pulmonary_O2_uptake"/>
+		<map_variables variable_1="DOB" variable_2="DOB"/>
+		<map_variables variable_1="RMO" variable_2="RMO"/>
+	</connection>
+
+<!-- ========================================	ALVEOLAR VENTILATION	============================================= -->
+	<component 	name="alveolar_ventilation" 
+				cmeta:id="alveolar_ventilation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#alveolar_ventilation">
+				<rdf:value>
+				PO2:  
+				Calculation of alveolar ventilation (ALVENT).  The details of this block will 
+				be discussed in relation to blocks 14 through 24.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#PO2">
+				<rdf:value>
+				PO2:  
+				Calculation of alveolar ventilation (ALVENT).  The details of this block will 
+				be discussed in relation to blocks 14 through 24.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="O2UTIL"	units="mL_per_minute" private_interface="none" public_interface="in"/>
+		<variable name="O2VAD2"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="O2VTS2"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="ALVENT" 	units="L_per_minute" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="VNTSTM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="PO2">
+				<eq/>
+				<ci>ALVENT</ci>
+				<apply>
+					<times/>
+					<ci>O2UTIL</ci>
+					<ci>VNTSTM</ci>
+					<cn cellml:units="L_per_mL">0.026667</cn>
+					<ci>O2VTS2</ci>
+					<ci>O2VAD2</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="alveolar_ventilation" component_2="total_O2_utilization"/>
+		<map_variables variable_1="O2UTIL" variable_2="O2UTIL"/>
+	</connection>
+	<connection>
+		<map_components component_1="alveolar_ventilation" component_2="progressive_chemoreceptor_adaptation_of_alveolar_ventilation"/>
+		<map_variables variable_1="O2VAD2" variable_2="O2VAD2"/>
+	</connection>
+	<connection>
+		<map_components component_1="alveolar_ventilation" component_2="acute_chemoreceptor_adaptation_of_alveolar_ventilation"/>
+		<map_variables variable_1="O2VTS2" variable_2="O2VTS2"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="alveolar_ventilation" component_2="parameter_values"/>
+		<map_variables variable_1="VNTSTM" variable_2="VNTSTM"/>
+	</connection>
+
+<!-- ========================================	ALVEOLAR OXYGEN PRESSURE	============================================= -->
+	<component 	name="alveolar_PO2" 
+				cmeta:id="alveolar_PO2">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#alveolar_PO2">
+				<rdf:value>
+				PO3 and PO4:  
+				The output of block 3 is the decrease in oxygen pressure between the humidified
+				air breathed into the trachea and the PO2 in the alveoli.  It is calculated by 
+				dividing the rate of oxygen utilization (O2UTIL) by the rate of alveolar 
+				ventilation (ALVENT) and by a constant.  Block PO4 calculates the alveolar PO2 (PO2ALV) 
+				by subtracting the PO2 decrease (output of block 3) from the PO2 of ambient 
+				humidified air (PO2AMB) entering the trachea.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#PO3_and_PO4">
+				<rdf:value>
+				PO3 and PO4:  
+				The output of block 3 is the decrease in oxygen pressure between the humidified
+				air breathed into the trachea and the PO2 in the alveoli.  It is calculated by 
+				dividing the rate of oxygen utilization (O2UTIL) by the rate of alveolar 
+				ventilation (ALVENT) and by a constant.  Block PO4 calculates the alveolar PO2 (PO2ALV) 
+				by subtracting the PO2 decrease (output of block 3) from the PO2 of ambient 
+				humidified air (PO2AMB) entering the trachea.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="O2UTIL"	units="mL_per_minute" private_interface="none" public_interface="in"/>
+		<variable name="ALVENT"	units="L_per_minute" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="PO2ALV" 	units="mmHg" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="PO2AMB"	units="mmHg" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="PO3_and_PO4">
+				<eq/>
+				<ci>PO2ALV</ci>
+				<apply>
+					<minus/>
+					<ci>PO2AMB</ci>
+					<apply>
+						<divide/>
+						<apply>
+							<divide/>
+							<ci>O2UTIL</ci>
+							<ci>ALVENT</ci>
+						</apply>
+						<cn cellml:units="mL_per_L_per_mmHg">0.761</cn>
+					</apply>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="alveolar_PO2" component_2="total_O2_utilization"/>
+		<map_variables variable_1="O2UTIL" variable_2="O2UTIL"/>
+	</connection>
+	<connection>
+		<map_components component_1="alveolar_PO2" component_2="alveolar_ventilation"/>
+		<map_variables variable_1="ALVENT" variable_2="ALVENT"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="alveolar_PO2" component_2="parameter_values"/>
+		<map_variables variable_1="PO2AMB" variable_2="PO2AMB"/>
+	</connection>
+
+<!-- ========================================	RESPIRATORY OXYGEN DIFFUSION INTO CAPILLARIES	============================================= -->
+	<component 	name="respiratory_O2_diffusion_into_capillaries" 
+				cmeta:id="respiratory_O2_diffusion_into_capillaries">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#respiratory_O2_diffusion_into_capillaries">
+				<rdf:value>
+				PO5:  Calculation of the pressure difference between alveolar PO2 (PO2ALV) and 
+				arterialized blood PO2 (PO2ART) leaving the lungs.
+
+				PO6 and PO7:  
+				Calculation of the respiratory diffusion coefficient (RSPDFC) for diffusion of 
+				oxygen between the alveoli and the blood leaving the pulmonary capillaries.  
+				Block PO6 calculates a resistance to oxygen diffusion that varies in proportion
+				to the amount of free fluid in the alveoli (VPF) and the amount of pulmonary tissue 
+				through which the oxygen must diffuse (VPTISS).  Block 7 calculates the respiratory 
+				diffusion coefficient (RSPDFC) by dividing a constant (PL2) by the resistance to 
+				diffusion as calculated from block 6.
+
+				PO8:  
+				Calculation of the rate of oxygen diffusion through the pulmonary membrane into 
+				the capillaries (O2DFS) by multiplying the pressure difference (output of Block PO5)
+				between the alveoli and the pulmonary arterialized capillary blood times the respiratory
+				diffusion coefficient (RSPDFC).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#PO6_and_PO7">
+				<rdf:value>
+				PO6 and PO7:  
+				Calculation of the respiratory diffusion coefficient (RSPDFC) for diffusion of 
+				oxygen between the alveoli and the blood leaving the pulmonary capillaries.  
+				Block PO6 calculates a resistance to oxygen diffusion that varies in proportion
+				to the amount of free fluid in the alveoli (VPF) and the amount of pulmonary tissue 
+				through which the oxygen must diffuse (VPTISS).  Block 7 calculates the respiratory 
+				diffusion coefficient (RSPDFC) by dividing a constant (PL2) by the resistance to 
+				diffusion as calculated from block 6.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#PO5_and_PO8">
+				<rdf:value>
+				PO5:  Calculation of the pressure difference between alveolar PO2 (PO2ALV) and 
+				arterialized blood PO2 (PO2ART) leaving the lungs.
+
+				PO8:  
+				Calculation of the rate of oxygen diffusion through the pulmonary membrane into 
+				the capillaries (O2DFS) by multiplying the pressure difference (output of Block PO5)
+				between the alveoli and the pulmonary arterialized capillary blood times the respiratory
+				diffusion coefficient (RSPDFC).
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="PO2ALV"	units="mmHg" private_interface="none" public_interface="in"/>
+		<variable name="PO2ART"	units="mmHg" private_interface="none" public_interface="in"/>
+		<variable name="VPF"	units="litre" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="O2DFS" 	units="mL_per_minute" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="PL2"	units="L_mL_per_minute_per_mmHg" private_interface="none" public_interface="in"/>
+		<variable name="VPTISS"	units="litre" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="RSPDFC"	units="mL_per_minute_per_mmHg" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="PO6_and_PO7">
+				<eq/>
+				<ci>RSPDFC</ci>
+				<apply>
+					<divide/>
+					<ci>PL2</ci>
+					<apply>
+						<plus/>
+						<ci>VPTISS</ci>
+						<ci>VPF</ci>
+					</apply>
+				</apply>
+			</apply>
+			<apply id="PO5_and_PO8">
+				<eq/>
+				<ci>O2DFS</ci>
+				<apply>
+					<times/>
+					<apply>
+						<minus/>
+						<ci>PO2ALV</ci>
+						<ci>PO2ART</ci>
+					</apply>
+					<ci>RSPDFC</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="respiratory_O2_diffusion_into_capillaries" component_2="alveolar_PO2"/>
+		<map_variables variable_1="PO2ALV" variable_2="PO2ALV"/>
+	</connection>
+	<connection>
+		<map_components component_1="respiratory_O2_diffusion_into_capillaries" component_2="arterial_PO2"/>
+		<map_variables variable_1="PO2ART" variable_2="PO2ART"/>
+	</connection>
+	<connection>
+		<map_components component_1="respiratory_O2_diffusion_into_capillaries" component_2="pulmonary_O2_uptake"/>
+		<map_variables variable_1="VPF" variable_2="VPF"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="respiratory_O2_diffusion_into_capillaries" component_2="parameter_values"/>
+		<map_variables variable_1="PL2" variable_2="PL2"/>
+		<map_variables variable_1="VPTISS" variable_2="VPTISS"/>
+	</connection>
+
+<!-- ========================================	OXYGEN VOLUME OF ARTERIAL BLOOD	============================================= -->
+	<component 	name="O2_volume_of_arterial_blood" 
+				cmeta:id="O2_volume_of_arterial_blood">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#O2_volume_of_arterial_blood">
+				<rdf:value>
+				PO9:  
+				Calculation of the difference between oxygen diffusion into the capillary blood 
+				of the lungs (O2DFS) and the rate of oxygen utilization by the body (O2UTIL).
+
+				PO10:  
+				Calculation of the rate of change of oxygen per liter of blood passing through 
+				the lungs (DOVA) by dividing the rate of change of total amount of oxygen entering 
+				the arterial blood per minute (output of Block 9) by the rate of blood flow through 
+				the lungs (QRO).  
+
+				PO11:  
+				Calculation of the volume of oxygen in milliliters in each liter of arterial blood (OVA) 
+				leaving the left ventricle by integrating the rate of change of oxygen in the 
+				arterial blood (DOVA) with respect to time.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#PO9_and_PO10">
+				<rdf:value>
+				PO9:  
+				Calculation of the difference between oxygen diffusion into the capillary blood 
+				of the lungs (O2DFS) and the rate of oxygen utilization by the body (O2UTIL).
+
+				PO10:  
+				Calculation of the rate of change of oxygen per liter of blood passing through 
+				the lungs (DOVA) by dividing the rate of change of total amount of oxygen entering 
+				the arterial blood per minute (output of Block 9) by the rate of blood flow through 
+				the lungs (QRO).  
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#PO11">
+				<rdf:value>
+				PO11:  
+				Calculation of the volume of oxygen in milliliters in each liter of arterial blood (OVA) 
+				leaving the left ventricle by integrating the rate of change of oxygen in the 
+				arterial blood (DOVA) with respect to time.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="O2DFS"	units="mL_per_minute" private_interface="none" public_interface="in"/>
+		<variable name="O2UTIL"	units="mL_per_minute" private_interface="none" public_interface="in"/>
+		<variable name="QRO"	units="L_per_minute" private_interface="none" public_interface="in"/>
+		<variable name="OVA_init"	units="mL_per_L" private_interface="none" public_interface="in"/>
+		<variable name="time"	units="minute" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable 	cmeta:id="O2_volume_of_arterial_blood_OVA"
+					name="OVA" 	initial_value="OVA_init"	units="mL_per_L" private_interface="none" public_interface="out"/>
+
+<!-- Internal variables -->
+		<variable name="DOVA"	units="mL_per_L_per_minute" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="PO9_and_PO10">
+				<eq/>
+				<ci>DOVA</ci>
+				<apply>
+					<divide/>
+					<apply>
+						<minus/>
+						<ci>O2DFS</ci>
+						<ci>O2UTIL</ci>
+					</apply>
+					<apply>
+						<times/>
+						<ci>QRO</ci>
+						<cn cellml:units="minute">1.0</cn>
+					</apply>
+				</apply>
+			</apply>
+			<apply id="PO11">
+				<eq/>
+				<apply>
+					<diff/>
+					<bvar>
+						<ci>time</ci>
+					</bvar>
+					<ci>OVA</ci>
+				</apply>
+				<ci>DOVA</ci>
+			</apply>
+		</math>
+	</component>
+
+<!-- STATE VARIABLES INITIAL VALUE -->
+	<connection>
+		<map_components component_1="O2_volume_of_arterial_blood" component_2="state_variables"/>
+		<map_variables variable_1="OVA_init" variable_2="OVA_init"/> 
+	</connection>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="O2_volume_of_arterial_blood" component_2="respiratory_O2_diffusion_into_capillaries"/>
+		<map_variables variable_1="O2DFS" variable_2="O2DFS"/>
+	</connection>
+	<connection>
+		<map_components component_1="O2_volume_of_arterial_blood" component_2="total_O2_utilization"/>
+		<map_variables variable_1="O2UTIL" variable_2="O2UTIL"/>
+	</connection>
+	<connection>
+		<map_components component_1="O2_volume_of_arterial_blood" component_2="pulmonary_O2_uptake"/>
+		<map_variables variable_1="QRO" variable_2="QRO"/>
+		<map_variables variable_1="OVA" variable_2="OVA"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+<!-- ========================================	ARTERIAL OXYGEN PRESSURE	============================================= -->
+	<component 	name="arterial_PO2" 
+				cmeta:id="arterial_PO2">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#arterial_PO2">
+				<rdf:value>
+				PO12:  
+				Calculation of the arterial oxygen saturation (OSA) by dividing concentration 
+				of arterial oxygen in the arterial blood (OVA) by the hematocrit (HM) and by a
+				constant that relates the saturation to oxygen content.
+
+				PO13:  
+				Calculation of PO2 in the arterial blood (PO2ART) at each level of arterial 
+				hemoglobin oxygen saturation (OSA).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#PO12">
+				<rdf:value>
+				PO12:  
+				Calculation of the arterial oxygen saturation (OSA) by dividing concentration 
+				of arterial oxygen in the arterial blood (OVA) by the hematocrit (HM) and by a
+				constant that relates the saturation to oxygen content.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#PO13">
+				<rdf:value>
+				PO13:  
+				Calculation of PO2 in the arterial blood (PO2ART) at each level of arterial 
+				hemoglobin oxygen saturation (OSA).
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="OVA"	units="mL_per_L" private_interface="none" public_interface="in"/>
+		<variable name="HM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable 	cmeta:id="arterial_PO2_PO2ART"
+					name="PO2ART" 	units="mmHg" private_interface="none" public_interface="out"/>
+		<variable 	cmeta:id="arterial_PO2_OSA"
+					name="OSA" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="PO12">
+				<eq/>
+				<ci>OSA</ci>
+				<apply>
+					<divide/>
+					<apply>
+						<divide/>
+						<ci>OVA</ci>
+						<ci>HM</ci>
+					</apply>
+					<cn cellml:units="dimensionless">5.25</cn>
+				</apply>
+			</apply>
+			<apply id="PO13">
+				<eq/>
+				<ci>PO2ART</ci>
+				<piecewise>
+					<piece>
+						<apply>
+							<plus/>
+							<cn cellml:units="mmHg">114</cn>
+							<apply>
+								<times/>
+								<apply>
+									<minus/>
+									<ci>OSA</ci>
+									<cn cellml:units="dimensionless">1</cn>
+								</apply>
+								<cn cellml:units="mmHg">6667</cn>
+							</apply>
+						</apply>
+						<apply>
+							<gt/>
+							<ci>OSA</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+					</piece>
+					<piece>
+						<apply>
+							<plus/>
+							<cn cellml:units="mmHg">74</cn>
+							<apply>
+								<times/>
+								<apply>
+									<minus/>
+									<ci>OSA</ci>
+									<cn cellml:units="dimensionless">0.936</cn>
+								</apply>
+								<cn cellml:units="mmHg">625</cn>
+							</apply>
+						</apply>
+						<apply>
+							<and/>
+							<apply>
+								<gt/>
+								<ci>OSA</ci>
+								<cn cellml:units="dimensionless">0.936</cn>
+							</apply>
+							<apply>
+								<leq/>
+								<ci>OSA</ci>
+								<cn cellml:units="dimensionless">1</cn>
+							</apply>
+						</apply>
+					</piece>
+					<piece>
+						<apply>
+							<plus/>
+							<cn cellml:units="mmHg">46</cn>
+							<apply>
+								<times/>
+								<apply>
+									<minus/>
+									<ci>OSA</ci>
+									<cn cellml:units="dimensionless">0.8</cn>
+								</apply>
+								<cn cellml:units="mmHg">205.882</cn>
+							</apply>
+						</apply>
+						<apply>
+							<and/>
+							<apply>
+								<gt/>
+								<ci>OSA</ci>
+								<cn cellml:units="dimensionless">0.8</cn>
+							</apply>
+							<apply>
+								<leq/>
+								<ci>OSA</ci>
+								<cn cellml:units="dimensionless">0.936</cn>
+							</apply>
+						</apply>
+					</piece>
+					<otherwise>
+						<apply>
+							<times/>
+							<ci>OSA</ci>
+							<cn cellml:units="mmHg">57.5</cn>
+						</apply>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="arterial_PO2" component_2="O2_volume_of_arterial_blood"/>
+		<map_variables variable_1="OVA" variable_2="OVA"/>
+	</connection>
+	<connection>
+		<map_components component_1="arterial_PO2" component_2="pulmonary_O2_uptake"/>
+		<map_variables variable_1="PO2ART" variable_2="PO2ART"/>
+		<map_variables variable_1="OSA" variable_2="OSA"/>
+		<map_variables variable_1="HM" variable_2="HM"/>
+	</connection>
+
+<!-- =====================================		CHEMORECEPTOR ADAPTATION OF ALVEOLAR VENTILATION		========================================= -->
+	<component 	name="chemoreceptor_adaptation_of_alveolar_ventilation" 
+				cmeta:id="chemoreceptor_adaptation_of_alveolar_ventilation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#chemoreceptor_adaptation_of_alveolar_ventilation">
+				<rdf:value>
+				Containment grouping component for "acute_chemoreceptor_adaptation_of_alveolar_ventilation"
+				and "progressive_chemoreceptor_adaptation_of_alveolar_ventilation".
+
+				PO14, PO15, PO16, PO17, PO18, PO19, PO20, PO21, PO22, PO23, PO24, and PO22:  
+				This system of blocks calculates the effect of the O2 chemoreceptors in the carotid 
+				and aortic bodies on alveoli ventilation (ALVENT).  That is, when the arterial PO2 
+				from Block 13 (PO2ART) falls below normal, this increases the alveolar ventilation 
+				because of increased chemoreceptor stimulation.  The increase in ventilation occurs 
+				in two stages.  One of these is an acute stage (calculated in Blocks 14-18) which 
+				becomes fully activated within a few minutes.  The second stage is a progressive 
+				adaptation of this chemoreceptor control mechanism to increase pulmonary ventilation 
+				another several fold over 1 to 3 days (calculated in Blocks 19-24).  
+
+				The output of Block 18 (O2VTS2) is the initial acute adjustment of ventilation.  
+				Blocks 16 and 17 set the upper and lower limits to this acute response to low oxygen.  
+				The delayed effect on ventilation is the output of Block 24 (O2VAD2).  Blocks 19, 20, 
+				and 21 adjust the sensitivity of this delayed response.  Block 22 provides the time 
+				constant for this response.  Block 2 multiplies the short-time constant response (O2VST2) 
+				times the long-time constant response (O2VAD2).  Another input to Block 2 is the rate 
+				of oxygen utilization by the body [O2UTIL].  Physiologically, this is not a stimulus 
+				to ventilation.  However, in this model we do not calculate CO2 in the blood which is 
+				a powerful stimulant of ventilation.  Since the amount of carbon dioxide that is formed
+				over a period of minutes is approximately proportional to the rate of oxygen utilization, 
+				we have used this O2UTIL factor as one of the normalized stimulatory factors of alveolar 
+				ventilation in Block 2, but realizing that this is simply a substitute for rate of carbon 
+				dioxide formation if the model were worked out in much greater detail.  Still another input
+				is a special factor (VNTSTM) which allows the overall level of alveolar ventilation to be 
+				increased or decreased artificially.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+
+	</component>
+	
+<!-- ===================================	ACUTE CHEMORECEPTOR ADAPTATION OF ALVEOLAR VENTILATION		================================== -->
+	<component 	name="acute_chemoreceptor_adaptation_of_alveolar_ventilation" 
+				cmeta:id="acute_chemoreceptor_adaptation_of_alveolar_ventilation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#acute_chemoreceptor_adaptation_of_alveolar_ventilation">
+				<rdf:value>
+				See description in "chemoreceptor_adaptation_of_alveolar_ventilation".
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="PO2ART"	units="mmHg" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="O2VTS2" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Internal variables -->
+		<variable name="O2VTST"	units="dimensionless" private_interface="none" public_interface="none"/>
+		<variable name="O2VTST1"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="PO14_and_PO15">
+				<eq/>
+				<ci>O2VTST1</ci>
+				<apply>
+					<divide/>
+					<apply>
+						<minus/>
+						<ci>PO2ART</ci>
+						<cn cellml:units="mmHg">67</cn>
+					</apply>
+					<cn cellml:units="mmHg">30</cn>
+				</apply>
+			</apply>
+			<apply id="PO16_and_PO17">
+				<eq/>
+				<ci>O2VTST</ci>
+				<piecewise>
+					<piece>
+						<cn cellml:units="dimensionless">1</cn>
+						<apply>
+							<gt/>
+							<ci>O2VTST1</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+					</piece>
+					<piece>
+						<cn cellml:units="dimensionless">0.6</cn>
+						<apply>
+							<lt/>
+							<ci>O2VTST1</ci>
+							<cn cellml:units="dimensionless">0.6</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>O2VTST1</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+			<apply id="PO18">
+				<eq/>
+				<ci>O2VTS2</ci>
+				<apply>
+					<divide/>
+					<cn cellml:units="dimensionless">1</cn>
+					<ci>O2VTST</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="acute_chemoreceptor_adaptation_of_alveolar_ventilation" component_2="arterial_PO2"/>
+		<map_variables variable_1="PO2ART" variable_2="PO2ART"/>
+	</connection>
+
+<!-- ==============================	PROGRESSIVE CHEMORECEPTOR ADAPTATION OF ALVEOLAR VENTILATION	================================== -->
+	<component 	name="progressive_chemoreceptor_adaptation_of_alveolar_ventilation" 
+				cmeta:id="progressive_chemoreceptor_adaptation_of_alveolar_ventilation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#progressive_chemoreceptor_adaptation_of_alveolar_ventilation">
+				<rdf:value>
+				See description in chemoreceptor_adaptation_of_alveolar_ventilation.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="O2VTS2"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="O2VAD1_init"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="time"	units="minute" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="O2VAD2" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Internal variables -->
+		<variable name="DO2VAD"	units="per_minute" private_interface="none" public_interface="none"/>
+		<variable name="O2VAD1"	initial_value="O2VAD1_init"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="PO19_to_PO22">
+				<eq/>
+				<ci>DO2VAD</ci>
+				<apply>
+					<times/>
+					<apply>
+						<minus/>
+						<apply>
+							<times/>
+							<apply>
+								<minus/>
+								<ci>O2VTS2</ci>
+								<cn cellml:units="dimensionless">1</cn>
+							</apply>
+							<cn cellml:units="dimensionless">3</cn>
+						</apply>
+						<ci>O2VAD1</ci>
+					</apply>
+					<cn cellml:units="per_minute">0.0005</cn>
+				</apply>
+			</apply>
+			<apply id="PO23">
+				<eq/>
+				<apply>
+					<diff/>
+					<bvar>
+						<ci>time</ci>
+					</bvar>
+					<ci>O2VAD1</ci>
+				</apply>
+				<ci>DO2VAD</ci>
+			</apply>
+			<apply id="PO24">
+				<eq/>
+				<ci>O2VAD2</ci>
+				<apply>
+					<plus/>
+					<ci>O2VAD1</ci>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- STATE VARIABLES INITIAL VALUE -->
+	<connection>
+		<map_components component_1="progressive_chemoreceptor_adaptation_of_alveolar_ventilation" component_2="state_variables"/>
+		<map_variables variable_1="O2VAD1_init" variable_2="O2VAD1_init"/> 
+	</connection>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="progressive_chemoreceptor_adaptation_of_alveolar_ventilation" component_2="acute_chemoreceptor_adaptation_of_alveolar_ventilation"/>
+		<map_variables variable_1="O2VTS2" variable_2="O2VTS2"/>
+	</connection>
+	<connection>
+		<map_components component_1="progressive_chemoreceptor_adaptation_of_alveolar_ventilation" component_2="pulmonary_O2_uptake"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	
+<!-- ============================================================		GROUPING		=============================================================== -->
+	<group>
+		<relationship_ref relationship="containment"/>
+		<component_ref component="pulmonary_O2_uptake">
+			<component_ref component="total_O2_utilization"/>
+			<component_ref component="alveolar_ventilation"/>
+			<component_ref component="alveolar_PO2"/>
+			<component_ref component="respiratory_O2_diffusion_into_capillaries"/>
+			<component_ref component="O2_volume_of_arterial_blood"/>
+			<component_ref component="arterial_PO2"/>
+			<component_ref component="chemoreceptor_adaptation_of_alveolar_ventilation">
+				<component_ref component ="acute_chemoreceptor_adaptation_of_alveolar_ventilation"/>
+				<component_ref component ="progressive_chemoreceptor_adaptation_of_alveolar_ventilation"/>
+			</component_ref>
+		</component_ref>
+	</group>
+
+	<group>
+		<relationship_ref relationship="encapsulation"/>
+		<component_ref component="pulmonary_O2_uptake">
+			<component_ref component="parameter_values"/>
+			<component_ref component="state_variables"/>
+			<component_ref component="total_O2_utilization"/>
+			<component_ref component="alveolar_ventilation"/>
+			<component_ref component="alveolar_PO2"/>
+			<component_ref component="respiratory_O2_diffusion_into_capillaries"/>
+			<component_ref component="O2_volume_of_arterial_blood"/>
+			<component_ref component="arterial_PO2"/>
+			<component_ref component="chemoreceptor_adaptation_of_alveolar_ventilation"/>
+			<component_ref component ="acute_chemoreceptor_adaptation_of_alveolar_ventilation"/>
+			<component_ref component ="progressive_chemoreceptor_adaptation_of_alveolar_ventilation"/>
+		</component_ref>
+	</group>
+   
+</model>   

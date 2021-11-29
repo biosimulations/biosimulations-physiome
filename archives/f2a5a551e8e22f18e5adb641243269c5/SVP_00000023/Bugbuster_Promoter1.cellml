@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model name="Bugbuster_Promoter1" cmeta:id="Bugbuster_Promoter1" 
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.0/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+    >
+            
+    <rdf:RDF>
+            <rdf:Description rdf:about="#Bugbuster_Promoter1">
+            <dc:creator>
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Mike</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            </vCard:EMAIL>
+            <vCard:ORG rdf:parseType="Resource">
+                <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+            </vCard:ORG>
+            </dc:creator>
+            </rdf:Description>
+   </rdf:RDF>
+
+  <import xlink:href="SVP_Templates200906/Template_Promoter_Constitutive.cellml">
+    <units name="femtoliter" units_ref="femtoliter" />
+    <units name="nM_per_s" units_ref="nM_per_s" />
+    <units name="PoPs" units_ref="PoPs" />
+    <component name="Template_Promoter_Constitutive" component_ref="Template_Promoter_Constitutive" />
+  </import>
+
+   <component name="Bugbuster_Promoter1">
+    <variable name="localVolume" units="femtoliter" public_interface="in" private_interface="out"/>
+    <variable name="k" units="PoPs" initial_value="0.04" private_interface="out"/>
+    <variable name="JRNA" units="nM_per_s" private_interface="in" public_interface="out" />
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation" />
+    <component_ref component="Bugbuster_Promoter1">
+      <component_ref component="Template_Promoter_Constitutive" />
+    </component_ref>
+   </group> 
+  
+   <connection>
+      <map_components component_1="Template_Promoter_Constitutive" component_2="Bugbuster_Promoter1"/>
+      <map_variables variable_1="localVolume" variable_2="localVolume"/>
+      <map_variables variable_1="k" variable_2="k"/>
+      <map_variables variable_1="JRNA" variable_2="JRNA"/>
+   </connection>
+
+</model>

@@ -1,0 +1,136 @@
+<?xml version='1.0'?>
+<!-- This CellML file was generated from:
+ Ostby, Ivar, et al. "Astrocytic mechanisms explaining neural-activity-induced shrinkage of extraneuronal space." PLoS Comput Biol 5.1 (2009): e1000272.-->
+<model cmeta:id="Ostby_2009_NBC" name="Ostby_2009_NBC" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<rdf:Description rdf:about="">
+			<dc:title>A kinetically defined Na+/HCO3- cotransporter (NBC) within a mathematical model of the brain.</dc:title>
+		</rdf:Description>
+		<rdf:Description rdf:about="#Ostby_2009_NBC">
+			<bqs:reference rdf:parseType="Resource">
+				<dc:subject rdf:parseType="Resource">
+					<bqs:subject_type>keyword</bqs:subject_type>
+					<rdf:value>
+						<rdf:Bag>
+							<rdf:li>protein module</rdf:li>
+						</rdf:Bag>
+					</rdf:value>
+				</dc:subject>
+			</bqs:reference>
+		</rdf:Description>
+	</rdf:RDF>
+    
+    <import xlink:href="Units/Units.cellml">
+        <units name="mM" units_ref="mM"/>
+        <units name="mM_per_s" units_ref="mM_per_s"/>
+        <units name="joule_per_mmole_kelvin" units_ref="joule_per_mmole_kelvin"/>
+        <units name="coulomb_per_mmole" units_ref="coulomb_per_mmole"/>
+        <units name="mS_per_cm2" units_ref="mS_per_cm2"/>
+    </import>
+    <component name="NBC">
+        <variable name="V_m" public_interface="in" units="volt"/>
+        <variable name="Na_int" public_interface="in" units="mM"/>
+        <variable name="Na_ext" public_interface="in" units="mM"/>
+        <variable name="HCO3_int" public_interface="in" units="mM"/>
+        <variable name="HCO3_ext" public_interface="in" units="mM"/>
+        <variable initial_value="0.08" name="g_NBC" public_interface="out" units="mS_per_cm2"/>
+        <variable initial_value="96.5" name="F" units="coulomb_per_mmole"/>
+        <variable initial_value="0.008315" name="R" units="joule_per_mmole_kelvin"/>
+        <variable initial_value="300" name="T" units="kelvin"/>
+        <variable initial_value="2" name="n" units="dimensionless"/>
+        <variable name="E_NBC" public_interface="out" units="volt"/>
+        <variable name="J_NBC_Na" public_interface="out" units="mM_per_s"/>
+        <variable name="J_NBC_HCO3" public_interface="out" units="mM_per_s"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>E_NBC</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>R</ci>
+                            <ci>T</ci>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <minus/>
+                                <cn cellml:units="dimensionless">1</cn>
+                                <ci>n</ci>
+                            </apply>
+                            <ci>F</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <divide/>
+                                <ci>Na_ext</ci>
+                                <ci>Na_int</ci>
+                            </apply>
+                            <apply>
+                                <power/>
+                                <apply>
+                                    <divide/>
+                                    <ci>HCO3_ext</ci>
+                                    <ci>HCO3_int</ci>
+                                </apply>
+                                <cn cellml:units="dimensionless">2</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_NBC_Na</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>g_NBC</ci>
+                        <apply>
+                            <minus/>
+                            <ci>E_NBC</ci>
+                            <ci>V_m</ci>
+                        </apply>
+                    </apply>
+                    <ci>F</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_NBC_HCO3</ci>
+                <apply>
+                    <times/>
+                    <cn cellml:units="dimensionless">3.0</cn>
+                    <ci>J_NBC_Na</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A kinetic model of Na+/HCO3- cotransporter (NBC)</dc:title>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#Oyehaug_2009_NBC">
+            <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <bqs:subject_type xmlns:bqs="http://www.cellml.org/bqs/1.0#">keyword</bqs:subject_type>
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <rdf:Bag xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">protein module</rdf:li>
+                        </rdf:Bag>
+                    </rdf:value>
+                </dc:subject>
+            </bqs:reference>
+        </rdf:Description>
+    </rdf:RDF>
+</model>
