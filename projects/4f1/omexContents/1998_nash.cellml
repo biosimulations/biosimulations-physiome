@@ -1,0 +1,265 @@
+<?xml version='1.0'?>
+<model cmeta:id="nash_1998" name="nash_1998" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--
+    Generally, we want to move away from initial/default values being
+    stored in the model directly. But until we are using CellML 1.1
+    it is probably quite useful to include the values in the model.
+  -->
+    <!-- Global units -->
+    <units name="ms">
+        <unit prefix="milli" units="second"/>
+    </units>
+    <units name="pms">
+        <unit exponent="-1" prefix="milli" units="second"/>
+    </units>
+    <units name="nmol">
+        <unit prefix="nano" units="mole"/>
+    </units>
+    <units name="mM">
+        <unit units="nmol"/>
+        <unit exponent="-3" prefix="milli" units="metre"/>
+    </units>
+    <units name="pmspmM">
+        <unit units="pms"/>
+        <unit exponent="-1" units="mM"/>
+    </units>
+    <units name="kPa">
+        <unit prefix="kilo" units="pascal"/>
+    </units>
+    <component cmeta:id="interface" name="interface">
+        <!-- Variables we expect to be set/controlled externally -->
+        <variable name="time" private_interface="out" units="ms"/>
+        <variable initial_value="1" name="lambda" private_interface="out" units="dimensionless"/>
+        <variable initial_value="1" name="Ca_max" private_interface="out" units="mM"/>
+        <variable initial_value="1.45" name="beta" private_interface="out" units="dimensionless"/>
+        <variable initial_value="0.5" name="c50" private_interface="out" units="mM"/>
+        <variable initial_value="3" name="h" private_interface="out" units="dimensionless"/>
+        <variable initial_value="100" name="T_ref" private_interface="out" units="kPa"/>
+        <!-- Variables we want to make available externally -->
+        <variable name="T" private_interface="in" public_interface="out" units="kPa"/>
+        <variable initial_value="0" name="Ca_actn" private_interface="out" public_interface="out" units="mM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="dummy_ode_eq">
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>Ca_actn</ci>
+                </apply>
+                <apply>
+                    <times/>
+                    <ci>time</ci>
+                    <ci>Ca_max</ci>
+                </apply>
+            </apply>
+        </math>
+        <!--        Ca_actn ={Ca_actn_calculation} sel
+            case time <= 5.0{ms}:
+                time*Ca_max;
+            case time >= 2.0{ms}:
+                (2.0{ms}-time)*Ca_max;
+            otherwise:
+                0.0{mM};
+        endsel;-->
+    </component>
+    <!--interface-->
+    <component name="active_contraction">
+        <!-- Inputs -->
+        <variable name="time" public_interface="in" units="ms"/>
+        <variable name="lambda" public_interface="in" units="dimensionless"/>
+        <variable name="Ca_max" public_interface="in" units="mM"/>
+        <variable name="beta" public_interface="in" units="dimensionless"/>
+        <variable name="c50" public_interface="in" units="mM"/>
+        <variable name="h" public_interface="in" units="dimensionless"/>
+        <variable name="T_ref" public_interface="in" units="kPa"/>
+        <variable name="Ca_actn" public_interface="in" units="mM"/>
+        <!-- Outputs computed here -->
+        <variable name="T" public_interface="out" units="kPa"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="T_calculation">
+                <eq/>
+                <ci>T</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>Ca_max</ci>
+                            <apply>
+                                <power/>
+                                <ci>Ca_actn</ci>
+                                <ci>h</ci>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <power/>
+                                <ci>Ca_actn</ci>
+                                <ci>h</ci>
+                            </apply>
+                            <apply>
+                                <power/>
+                                <ci>c50</ci>
+                                <ci>h</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <ci>T_ref</ci>
+                    <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1.0</cn>
+                        <apply>
+                            <times/>
+                            <ci>beta</ci>
+                            <apply>
+                                <minus/>
+                                <ci>lambda</ci>
+                                <cn cellml:units="dimensionless">1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!--active_contraction-->
+    <connection>
+        <map_components component_1="interface" component_2="active_contraction"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="Ca_actn" variable_2="Ca_actn"/>
+        <map_variables variable_1="lambda" variable_2="lambda"/>
+        <map_variables variable_1="Ca_max" variable_2="Ca_max"/>
+        <map_variables variable_1="beta" variable_2="beta"/>
+        <map_variables variable_1="c50" variable_2="c50"/>
+        <map_variables variable_1="h" variable_2="h"/>
+        <map_variables variable_1="T_ref" variable_2="T_ref"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="interface">
+            <component_ref component="active_contraction"/>
+        </component_ref>
+    </group>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+            <creator xmlns="http://purl.org/dc/elements/1.1/">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n1"/>
+            </creator>
+            <created xmlns="http://purl.org/dc/terms/">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n2"/>
+            </created>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n1">
+            <N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n3"/>
+            </N>
+            <EMAIL xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n4"/>
+            </EMAIL>
+            <ORG xmlns="http://www.w3.org/2001/vcard-rdf/3.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n5"/>
+            </ORG>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n2">
+            <W3CDTF xmlns="http://purl.org/dc/terms/" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">2003-12-08</W3CDTF>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n3">
+            <Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">Nickerson</Family>
+            <Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">David</Given>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n4">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="http://imc.org/vCard/3.0#internet"/>
+            </rdf:type>
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">d.nickerson@auckland.ac.nz</rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n5">
+            <Orgname xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">The University of Auckland</Orgname>
+            <Orgunit xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">The Bioengineering Institute</Orgunit>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#nash_1998">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n6"/>
+            </cmeta:comment>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n6">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+          This is a CellML version of the steady-state length-tension-calcium 
+          relationship described by Martyn Nash in his thesis.
+        </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#interface">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n7"/>
+            </cmeta:comment>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n7">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+            We'll use this component as the "interface" to the model, all 
+            other components are hidden via encapsulation in this component.
+            With this model, we expect the extension ratio to be
+            controlled externally for non-isometric simulations.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#lambda_for_cmiss_eq">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n8"/>
+            </cmeta:comment>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n8">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+            A dummy equation that we simply use to make grabbing the
+            value in CMISS much easier.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#dummy_ode_eq">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n9"/>
+            </cmeta:comment>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n9">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+            We need a dummy ODE to establish time as the bound variable to
+            get things to work properly with CMISS.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#active_contraction_eq">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n10"/>
+            </cmeta:comment>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n10">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+            The component which defines the kinetics of the active
+            tension development.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#T_calculation_eq">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n11"/>
+            </cmeta:comment>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n11">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+            The kinetics of the active tension development using the
+            steady-state description from the Nash model.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#Ca_actn_calculation_eq">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n12"/>
+            </cmeta:comment>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:nodeID="n12">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:lang="en" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+            Here we define the calcium activation transient which simply
+            goes from 0 to 1 and back to 0 over a period of 2ms.
+          </rdf:value>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

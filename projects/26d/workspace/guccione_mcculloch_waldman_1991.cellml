@@ -1,0 +1,1608 @@
+<?xml version='1.0' encoding='utf-8'?>
+<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="PoleZero" name="guccione_mcculloch_waldman_1991_version03">
+    
+
+  <!-- Global units -->
+  <units name="strain">
+    <unit units="dimensionless"/>
+  </units>
+  <units name="stress">
+    <unit units="dimensionless"/>
+  </units>
+
+  <component name="interface" cmeta:id="interface">
+
+    
+  
+    <!-- Variables we expect to be set/controlled externally -->
+    <variable units="strain" private_interface="out" name="E11"/>
+    <variable units="strain" private_interface="out" name="E22"/>
+    <variable units="strain" private_interface="out" name="E33"/>
+    <variable units="strain" private_interface="out" name="E12"/>
+    <variable units="strain" private_interface="out" name="E13"/>
+    <variable units="strain" private_interface="out" name="E23"/>
+    <variable units="strain" private_interface="out" name="aff" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="afn" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="afs" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="ann" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="ans" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="ass" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="bff" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="bfn" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="bfs" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="bnn" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="bns" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="bss" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="kff" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="kfn" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="kfs" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="knn" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="kns" initial_value="0"/>
+    <variable units="strain" private_interface="out" name="kss" initial_value="0"/>
+        
+    <!-- Variables we want to make available externally -->
+    <variable units="stress" public_interface="out" private_interface="in" name="Tdev11"/>
+    <variable units="stress" public_interface="out" private_interface="in" name="Tdev22"/>
+    <variable units="stress" public_interface="out" private_interface="in" name="Tdev33"/>
+    <variable units="stress" public_interface="out" private_interface="in" name="Tdev12"/>
+    <variable units="stress" public_interface="out" private_interface="in" name="Tdev13"/>
+    <variable units="stress" public_interface="out" private_interface="in" name="Tdev23"/>
+
+  </component> <!--interface-->
+
+  <component name="equations" cmeta:id="equations">
+
+    
+
+    <!-- Inputs -->
+    <variable units="strain" public_interface="in" name="E11"/>
+    <variable units="strain" public_interface="in" name="E22"/>
+    <variable units="strain" public_interface="in" name="E33"/>
+    <variable units="strain" public_interface="in" name="E12"/>
+    <variable units="strain" public_interface="in" name="E13"/>
+    <variable units="strain" public_interface="in" name="E23"/>
+    <variable units="strain" public_interface="in" name="aff"/>
+    <variable units="strain" public_interface="in" name="afn"/>
+    <variable units="strain" public_interface="in" name="afs"/>
+    <variable units="strain" public_interface="in" name="ann"/>
+    <variable units="strain" public_interface="in" name="ans"/>
+    <variable units="strain" public_interface="in" name="ass"/>
+    <variable units="strain" public_interface="in" name="bff"/>
+    <variable units="strain" public_interface="in" name="bfn"/>
+    <variable units="strain" public_interface="in" name="bfs"/>
+    <variable units="strain" public_interface="in" name="bnn"/>
+    <variable units="strain" public_interface="in" name="bns"/>
+    <variable units="strain" public_interface="in" name="bss"/>
+    <variable units="strain" public_interface="in" name="kff"/>
+    <variable units="strain" public_interface="in" name="kfn"/>
+    <variable units="strain" public_interface="in" name="kfs"/>
+    <variable units="strain" public_interface="in" name="knn"/>
+    <variable units="strain" public_interface="in" name="kns"/>
+    <variable units="strain" public_interface="in" name="kss"/>
+    
+    <!-- Outputs computed here -->
+    <variable units="stress" public_interface="out" name="Tdev11"/>
+    <variable units="stress" public_interface="out" name="Tdev22"/>
+    <variable units="stress" public_interface="out" name="Tdev33"/>
+    <variable units="stress" public_interface="out" name="Tdev12"/>
+    <variable units="stress" public_interface="out" name="Tdev13"/>
+    <variable units="stress" public_interface="out" name="Tdev23"/>
+    
+    <!-- Temporary variables -->
+
+    <variable units="strain" name="elim11"/>
+    <variable units="strain" name="elim22"/>
+    <variable units="strain" name="elim33"/>
+    <variable units="strain" name="elim12"/>
+    <variable units="strain" name="elim13"/>
+    <variable units="strain" name="elim23"/>
+    <variable units="strain" name="etol11"/>
+    <variable units="strain" name="etol22"/>
+    <variable units="strain" name="etol33"/>
+    <variable units="strain" name="etol12"/>
+    <variable units="strain" name="etol13"/>
+    <variable units="strain" name="etol23"/>
+    <variable units="dimensionless" name="tol" initial_value="0.9"/>
+    <variable units="dimensionless" name="signE11"/>
+    <variable units="dimensionless" name="signE22"/>
+    <variable units="dimensionless" name="signE33"/>
+    <variable units="dimensionless" name="signE12"/>
+    <variable units="dimensionless" name="signE13"/>
+    <variable units="dimensionless" name="signE23"/>
+    <variable units="strain" name="eabs11"/>
+    <variable units="strain" name="eabs22"/>
+    <variable units="strain" name="eabs33"/>
+    <variable units="strain" name="eabs12"/>
+    <variable units="strain" name="eabs13"/>
+    <variable units="strain" name="eabs23"/>
+    <variable units="strain" name="aMeabs11"/>
+    <variable units="strain" name="aMeabs22"/>
+    <variable units="strain" name="aMeabs33"/>
+    <variable units="strain" name="aMeabs12"/>
+    <variable units="strain" name="aMeabs13"/>
+    <variable units="strain" name="aMeabs23"/>
+    <variable units="strain" name="mbffM1"/>
+    <variable units="strain" name="mbfnM1"/>
+    <variable units="strain" name="mbfsM1"/>
+    <variable units="strain" name="mbnnM1"/>
+    <variable units="strain" name="mbnsM1"/>
+    <variable units="strain" name="mbssM1"/>
+    <variable units="strain" name="p11"/>
+    <variable units="strain" name="p12"/>
+    <variable units="strain" name="p13"/>
+    <variable units="strain" name="p22"/>
+    <variable units="strain" name="p23"/>
+    <variable units="strain" name="p33"/>
+    <variable units="strain" name="q11"/>
+    <variable units="strain" name="q12"/>
+    <variable units="strain" name="q13"/>
+    <variable units="strain" name="q22"/>
+    <variable units="strain" name="q23"/>
+    <variable units="strain" name="q33"/>
+    
+    <!-- Calculating strain limits for where the slope-extrapolation starts-->
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="elim11_calculation_eq">
+      <apply id="elim11_calculation">
+        <eq/>
+        <ci>elim11</ci>
+        <apply>
+          <times/>
+          <ci>tol</ci>
+          <ci>aff</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="elim22_calculation_eq">
+      <apply id="elim22_calculation">
+        <eq/>
+        <ci>elim22</ci>
+        <apply>
+          <times/>
+          <ci>tol</ci>
+          <ci>ass</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="elim33_calculation_eq">
+      <apply id="elim33_calculation">
+        <eq/>
+        <ci>elim33</ci>
+        <apply>
+          <times/>
+          <ci>tol</ci>
+          <ci>ann</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="elim12_calculation_eq">
+      <apply id="elim12_calculation">
+        <eq/>
+        <ci>elim12</ci>
+        <apply>
+          <times/>
+          <ci>tol</ci>
+          <ci>afs</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="elim13_calculation_eq">
+      <apply id="elim13_calculation">
+        <eq/>
+        <ci>elim13</ci>
+        <apply>
+          <times/>
+          <ci>tol</ci>
+          <ci>afn</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="elim23_calculation_eq">
+      <apply id="elim23_calculation">
+        <eq/>
+        <ci>elim23</ci>
+        <apply>
+          <times/>
+          <ci>tol</ci>
+          <ci>ans</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <!-- Calculating strain limits for where the slope-extrapolation starts-->
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="etol11_calculation_eq">
+      <apply id="etol11_calculation">
+        <eq/>
+        <ci>etol11</ci>
+        <apply>
+          <minus/>
+            <ci>aff</ci>
+            <ci>elim11</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="etol22_calculation_eq">
+      <apply id="etol22_calculation">
+        <eq/>
+        <ci>etol22</ci>
+        <apply>
+          <minus/>
+            <ci>ass</ci>
+            <ci>elim22</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="etol33_calculation_eq">
+      <apply id="etol33_calculation">
+        <eq/>
+        <ci>etol33</ci>
+        <apply>
+          <minus/>
+            <ci>ann</ci>
+            <ci>elim33</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="etol12_calculation_eq">
+      <apply id="etol12_calculation">
+        <eq/>
+        <ci>etol12</ci>
+        <apply>
+          <minus/>
+            <ci>afs</ci>
+            <ci>elim12</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="etol13_calculation_eq">
+      <apply id="etol13_calculation">
+        <eq/>
+        <ci>etol13</ci>
+        <apply>
+          <minus/>
+            <ci>afn</ci>
+            <ci>elim13</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="etol23_calculation_eq">
+      <apply id="etol23_calculation">
+        <eq/>
+        <ci>etol23</ci>
+        <apply>
+          <minus/>
+            <ci>ans</ci>
+            <ci>elim23</ci>
+        </apply>
+      </apply>
+    </math>
+
+    <!-- Calculation of Signs -->
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="signE11_calculation_eq">
+      <apply id="signE11_calculation">
+        <eq/>
+        <ci>signE11</ci>
+        <piecewise>
+          <piece>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply>
+              <geq/>
+              <ci>E11</ci>
+              <cn cellml:units="strain">0.0</cn>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="dimensionless">-1.0</cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="signE22_calculation_eq">
+      <apply id="signE22_calculation">
+        <eq/>
+        <ci>signE22</ci>
+        <piecewise>
+          <piece>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply>
+              <geq/>
+              <ci>E22</ci>
+              <cn cellml:units="strain">0.0</cn>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="dimensionless">-1.0</cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="signE33_calculation_eq">
+      <apply id="signE33_calculation">
+        <eq/>
+        <ci>signE33</ci>
+        <piecewise>
+          <piece>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply>
+              <geq/>
+              <ci>E33</ci>
+              <cn cellml:units="strain">0.0</cn>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="dimensionless">-1.0</cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="signE12_calculation_eq">
+      <apply id="signE12_calculation">
+        <eq/>
+        <ci>signE12</ci>
+        <piecewise>
+          <piece>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply>
+              <geq/>
+              <ci>E12</ci>
+              <cn cellml:units="strain">0.0</cn>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="dimensionless">-1.0</cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="signE13_calculation_eq">
+      <apply id="signE13_calculation">
+        <eq/>
+        <ci>signE13</ci>
+        <piecewise>
+          <piece>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply>
+              <geq/>
+              <ci>E13</ci>
+              <cn cellml:units="strain">0.0</cn>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="dimensionless">-1.0</cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="signE23_calculation_eq">
+      <apply id="signE23_calculation">
+        <eq/>
+        <ci>signE23</ci>
+        <piecewise>
+          <piece>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply>
+              <geq/>
+              <ci>E23</ci>
+              <cn cellml:units="strain">0.0</cn>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="dimensionless">-1.0</cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <!-- Calculation of altered constants -->
+    
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="mbffM1_calculation_eq">
+      <apply id="mbffM1_calculation">
+        <eq/>
+        <ci>mbffM1</ci>
+        <apply>
+          <minus/>
+            <cn cellml:units="strain">-1</cn>
+            <ci>bff</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="mbfnM1_calculation_eq">
+      <apply id="mbfnM1_calculation">
+        <eq/>
+        <ci>mbfnM1</ci>
+        <apply>
+          <minus/>
+            <cn cellml:units="strain">-1</cn>
+            <ci>bfn</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="mbfsM1_calculation_eq">
+      <apply id="mbfsM1_calculation">
+        <eq/>
+        <ci>mbfsM1</ci>
+        <apply>
+          <minus/>
+            <cn cellml:units="strain">-1</cn>
+            <ci>bfs</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="mbnnM1_calculation_eq">
+      <apply id="mbnnM1_calculation">
+        <eq/>
+        <ci>mbnnM1</ci>
+        <apply>
+          <minus/>
+            <cn cellml:units="strain">-1</cn>
+            <ci>bnn</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="mbnsM1_calculation_eq">
+      <apply id="mbnsM1_calculation">
+        <eq/>
+        <ci>mbnsM1</ci>
+        <apply>
+          <minus/>
+            <cn cellml:units="strain">-1</cn>
+            <ci>bns</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="mbssM1_calculation_eq">
+      <apply id="mbssM1_calculation">
+        <eq/>
+        <ci>mbssM1</ci>
+        <apply>
+          <minus/>
+            <cn cellml:units="strain">-1</cn>
+            <ci>bss</ci>
+        </apply>
+      </apply>
+    </math>
+        
+    <!-- Calculation of Absolute values -->
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="eabs11_calculation_eq">
+      <apply id="eabs11_calculation">
+        <eq/>
+        <ci>eabs11</ci>
+        <apply>
+          <times/>
+            <ci>signE11</ci>
+            <ci>E11</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="eabs22_calculation_eq">
+      <apply id="eabs22_calculation">
+        <eq/>
+        <ci>eabs22</ci>
+        <apply>
+          <times/>
+            <ci>signE22</ci>
+            <ci>E22</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="eabs33_calculation_eq">
+      <apply id="eabs33_calculation">
+        <eq/>
+        <ci>eabs33</ci>
+        <apply>
+          <times/>
+            <ci>signE33</ci>
+            <ci>E33</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="eabs12_calculation_eq">
+      <apply id="eabs12_calculation">
+        <eq/>
+        <ci>eabs12</ci>
+        <apply>
+          <times/>
+            <ci>signE12</ci>
+            <ci>E12</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="eabs13_calculation_eq">
+      <apply id="eabs13_calculation">
+        <eq/>
+        <ci>eabs13</ci>
+        <apply>
+          <times/>
+            <ci>signE13</ci>
+            <ci>E13</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="eabs23_calculation_eq">
+      <apply id="eabs23_calculation">
+        <eq/>
+        <ci>eabs23</ci>
+        <apply>
+          <times/>
+            <ci>signE23</ci>
+            <ci>E23</ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <!-- Calculation of aMAbs values -->
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="aMeabs11_calculation_eq">
+      <apply id="aMeabs11_calculation">
+        <eq/>
+        <ci>aMeabs11</ci>
+            <apply>
+          <minus/>
+                <ci>aff</ci> 
+                <ci>eabs11</ci>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="aMeabs12_calculation_eq">
+      <apply id="aMeabs12_calculation">
+        <eq/>
+        <ci>aMeabs12</ci>
+            <apply>
+          <minus/>
+                <ci>afs</ci> 
+                <ci>eabs12</ci>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="aMeabs13_calculation_eq">
+      <apply id="aMeabs13_calculation">
+        <eq/>
+        <ci>aMeabs13</ci>
+            <apply>
+          <minus/>
+                <ci>afn</ci> 
+                <ci>eabs13</ci>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="aMeabs22_calculation_eq">
+      <apply id="aMeabs22_calculation">
+        <eq/>
+        <ci>aMeabs22</ci>
+            <apply>
+          <minus/>
+                <ci>ass</ci> 
+                <ci>eabs22</ci>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="aMeabs23_calculation_eq">
+      <apply id="aMeabs23_calculation">
+        <eq/>
+        <ci>aMeabs23</ci>
+            <apply>
+          <minus/>
+                <ci>ans</ci> 
+                <ci>eabs23</ci>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="aMeabs33_calculation_eq">
+      <apply id="aMeabs33_calculation">
+        <eq/>
+        <ci>aMeabs33</ci>
+            <apply>
+          <minus/>
+                <ci>ann</ci> 
+                <ci>eabs33</ci>
+            </apply>
+      </apply>
+    </math>
+    
+    <!-- Calculation of p&q values values -->
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="p11_calculation_eq">
+      <apply id="p11_calculation">
+        <eq/>
+        <ci>p11</ci>
+            <apply>
+          <times/>
+                <apply>
+            <power/>
+                    <ci>etol11</ci>   
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bff</ci>
+                    </apply>
+                </apply>
+                <ci>kff</ci>
+                <apply>
+            <plus/>
+                    <cn cellml:units="dimensionless">2</cn>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">4</cn>
+                        <ci>bff</ci>
+                        <ci>elim11</ci>
+                        <ci>signE11</ci>
+                        <apply>
+                <power/>
+                            <ci>etol11</ci>   
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                        </apply>
+                    </apply>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bff</ci>
+                        <apply>
+                <power/>
+                            <ci>elim11</ci>   
+                            <cn cellml:units="dimensionless">2.0</cn>
+                        </apply>
+                        <ci>mbffM1</ci>
+                        <apply>
+                <power/>
+                            <ci>etol11</ci>   
+                            <cn cellml:units="dimensionless">-2.0</cn>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="q11_calculation_eq">
+      <apply id="q11_calculation">
+        <eq/>
+        <ci>q11</ci>
+            <apply>
+          <minus/>
+                <apply>
+            <times/>
+                    <apply>
+              <power/>
+                        <ci>etol11</ci>   
+                        <apply>
+                <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bff</ci>
+                        </apply>
+                    </apply>
+                    <ci>kff</ci>
+                    <ci>elim11</ci>
+                    <apply>
+              <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                <times/>
+                            <ci>elim11</ci>
+                            <ci>bff</ci>
+                            <ci>signE11</ci>
+                            <apply>
+                  <power/>
+                                <ci>etol11</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+            <times/>
+                    <ci>p11</ci>
+                    <ci>elim11</ci>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="p12_calculation_eq">
+      <apply id="p12_calculation">
+        <eq/>
+        <ci>p12</ci>
+            <apply>
+          <times/>
+                <apply>
+            <power/>
+                    <ci>etol12</ci>   
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bfs</ci>
+                    </apply>
+                </apply>
+                <ci>kfs</ci>
+                <apply>
+            <plus/>
+                    <cn cellml:units="dimensionless">2</cn>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">4</cn>
+                        <ci>bfs</ci>
+                        <ci>elim12</ci>
+                        <ci>signE12</ci>
+                        <apply>
+                <power/>
+                            <ci>etol12</ci>   
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                        </apply>
+                    </apply>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bfs</ci>
+                        <apply>
+                <power/>
+                            <ci>elim12</ci>   
+                            <cn cellml:units="dimensionless">2.0</cn>
+                        </apply>
+                        <ci>mbfsM1</ci>
+                        <apply>
+                <power/>
+                            <ci>etol12</ci>   
+                            <cn cellml:units="dimensionless">-2.0</cn>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="q12_calculation_eq">
+      <apply id="q12_calculation">
+        <eq/>
+        <ci>q12</ci>
+            <apply>
+          <minus/>
+                <apply>
+            <times/>
+                    <apply>
+              <power/>
+                        <ci>etol12</ci>   
+                        <apply>
+                <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bfs</ci>
+                        </apply>
+                    </apply>
+                    <ci>kfs</ci>
+                    <ci>elim12</ci>
+                    <apply>
+              <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                <times/>
+                            <ci>elim12</ci>
+                            <ci>bfs</ci>
+                            <ci>signE12</ci>
+                            <apply>
+                  <power/>
+                                <ci>etol12</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+            <times/>
+                    <ci>p12</ci>
+                    <ci>elim12</ci>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="p13_calculation_eq">
+      <apply id="p13_calculation">
+        <eq/>
+        <ci>p13</ci>
+            <apply>
+          <times/>
+                <apply>
+            <power/>
+                    <ci>etol13</ci>   
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bfn</ci>
+                    </apply>
+                </apply>
+                <ci>kfn</ci>
+                <apply>
+            <plus/>
+                    <cn cellml:units="dimensionless">2</cn>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">4</cn>
+                        <ci>bfn</ci>
+                        <ci>elim13</ci>
+                        <ci>signE13</ci>
+                        <apply>
+                <power/>
+                            <ci>etol13</ci>   
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                        </apply>
+                    </apply>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bfn</ci>
+                        <apply>
+                <power/>
+                            <ci>elim13</ci>   
+                            <cn cellml:units="dimensionless">2.0</cn>
+                        </apply>
+                        <ci>mbfnM1</ci>
+                        <apply>
+                <power/>
+                            <ci>etol13</ci>   
+                            <cn cellml:units="dimensionless">-2.0</cn>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="q13_calculation_eq">
+      <apply id="q13_calculation">
+        <eq/>
+        <ci>q13</ci>
+            <apply>
+          <minus/>
+                <apply>
+            <times/>
+                    <apply>
+              <power/>
+                        <ci>etol13</ci>   
+                        <apply>
+                <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bfn</ci>
+                        </apply>
+                    </apply>
+                    <ci>kfn</ci>
+                    <ci>elim13</ci>
+                    <apply>
+              <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                <times/>
+                            <ci>elim13</ci>
+                            <ci>bfn</ci>
+                            <ci>signE13</ci>
+                            <apply>
+                  <power/>
+                                <ci>etol13</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+            <times/>
+                    <ci>p13</ci>
+                    <ci>elim13</ci>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="p22_calculation_eq">
+      <apply id="p22_calculation">
+        <eq/>
+        <ci>p22</ci>
+            <apply>
+          <times/>
+                <apply>
+            <power/>
+                    <ci>etol22</ci>   
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bss</ci>
+                    </apply>
+                </apply>
+                <ci>kss</ci>
+                <apply>
+            <plus/>
+                    <cn cellml:units="dimensionless">2</cn>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">4</cn>
+                        <ci>bss</ci>
+                        <ci>elim22</ci>
+                        <ci>signE22</ci>
+                        <apply>
+                <power/>
+                            <ci>etol22</ci>   
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                        </apply>
+                    </apply>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bss</ci>
+                        <apply>
+                <power/>
+                            <ci>elim22</ci>   
+                            <cn cellml:units="dimensionless">2.0</cn>
+                        </apply>
+                        <ci>mbssM1</ci>
+                        <apply>
+                <power/>
+                            <ci>etol22</ci>   
+                            <cn cellml:units="dimensionless">-2.0</cn>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="q22_calculation_eq">
+      <apply id="q22_calculation">
+        <eq/>
+        <ci>q22</ci>
+            <apply>
+          <minus/>
+                <apply>
+            <times/>
+                    <apply>
+              <power/>
+                        <ci>etol22</ci>   
+                        <apply>
+                <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bss</ci>
+                        </apply>
+                    </apply>
+                    <ci>kss</ci>
+                    <ci>elim22</ci>
+                    <apply>
+              <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                <times/>
+                            <ci>elim22</ci>
+                            <ci>bss</ci>
+                            <ci>signE22</ci>
+                            <apply>
+                  <power/>
+                                <ci>etol22</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+            <times/>
+                    <ci>p22</ci>
+                    <ci>elim22</ci>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="p23_calculation_eq">
+      <apply id="p23_calculation">
+        <eq/>
+        <ci>p23</ci>
+            <apply>
+          <times/>
+                <apply>
+            <power/>
+                    <ci>etol23</ci>   
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bns</ci>
+                    </apply>
+                </apply>
+                <ci>kns</ci>
+                <apply>
+            <plus/>
+                    <cn cellml:units="dimensionless">2</cn>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">4</cn>
+                        <ci>bns</ci>
+                        <ci>elim23</ci>
+                        <ci>signE23</ci>
+                        <apply>
+                <power/>
+                            <ci>etol23</ci>   
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                        </apply>
+                    </apply>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bns</ci>
+                        <apply>
+                <power/>
+                            <ci>elim23</ci>   
+                            <cn cellml:units="dimensionless">2.0</cn>
+                        </apply>
+                        <ci>mbnsM1</ci>
+                        <apply>
+                <power/>
+                            <ci>etol23</ci>   
+                            <cn cellml:units="dimensionless">-2.0</cn>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="q23_calculation_eq">
+      <apply id="q23_calculation">
+        <eq/>
+        <ci>q23</ci>
+            <apply>
+          <minus/>
+                <apply>
+            <times/>
+                    <apply>
+              <power/>
+                        <ci>etol23</ci>   
+                        <apply>
+                <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bns</ci>
+                        </apply>
+                    </apply>
+                    <ci>kns</ci>
+                    <ci>elim23</ci>
+                    <apply>
+              <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                <times/>
+                            <ci>elim23</ci>
+                            <ci>bns</ci>
+                            <ci>signE23</ci>
+                            <apply>
+                  <power/>
+                                <ci>etol23</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+            <times/>
+                    <ci>p23</ci>
+                    <ci>elim23</ci>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="p33_calculation_eq">
+      <apply id="p33_calculation">
+        <eq/>
+        <ci>p33</ci>
+            <apply>
+          <times/>
+                <apply>
+            <power/>
+                    <ci>etol33</ci>   
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bnn</ci>
+                    </apply>
+                </apply>
+                <ci>knn</ci>
+                <apply>
+            <plus/>
+                    <cn cellml:units="dimensionless">2</cn>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">4</cn>
+                        <ci>bnn</ci>
+                        <ci>elim33</ci>
+                        <ci>signE33</ci>
+                        <apply>
+                <power/>
+                            <ci>etol33</ci>   
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                        </apply>
+                    </apply>
+                    <apply>
+              <times/>
+                        <cn cellml:units="dimensionless">-1.0</cn>
+                        <ci>bnn</ci>
+                        <apply>
+                <power/>
+                            <ci>elim33</ci>   
+                            <cn cellml:units="dimensionless">2.0</cn>
+                        </apply>
+                        <ci>mbnnM1</ci>
+                        <apply>
+                <power/>
+                            <ci>etol33</ci>   
+                            <cn cellml:units="dimensionless">-2.0</cn>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="q33_calculation_eq">
+      <apply id="q33_calculation">
+        <eq/>
+        <ci>q33</ci>
+            <apply>
+          <minus/>
+                <apply>
+            <times/>
+                    <apply>
+              <power/>
+                        <ci>etol33</ci>   
+                        <apply>
+                <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bnn</ci>
+                        </apply>
+                    </apply>
+                    <ci>knn</ci>
+                    <ci>elim33</ci>
+                    <apply>
+              <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                <times/>
+                            <ci>elim33</ci>
+                            <ci>bnn</ci>
+                            <ci>signE33</ci>
+                            <apply>
+                  <power/>
+                                <ci>etol33</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+            <times/>
+                    <ci>p33</ci>
+                    <ci>elim33</ci>
+                </apply>
+            </apply>
+      </apply>
+    </math>
+
+    <!-- Calculation of Stress -->
+
+    <!-- 11 direction -->
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="Tdev11_calculation_eq">
+      <apply id="Tdev11_calculation">
+        <eq/>
+        <ci>Tdev11</ci>
+        <piecewise>
+          <piece>
+              <apply>
+              <times/>
+                    <apply>
+                <power/>
+                        <ci>aMeabs11</ci>   
+                        <apply>
+                  <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bff</ci>
+                        </apply>
+                    </apply>
+                    <ci>kff</ci>
+                    <ci>E11</ci>
+                    <apply>
+                <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                  <times/>
+                            <ci>E11</ci>
+                            <ci>bff</ci>
+                            <ci>signE11</ci>
+                            <apply>
+                    <power/>
+                                <ci>aMeabs11</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+              <leq/>
+                    <ci>eabs11</ci>
+                    <ci>elim11</ci>
+                </apply>
+          </piece>
+          <otherwise>
+              <apply>
+              <plus/>
+                  <apply>
+                <times/>
+                      <ci>p11</ci>
+                      <ci>E11</ci>
+                  </apply>
+                  <ci>q11</ci>
+              </apply>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+
+    <!-- 22 direction -->
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="Tdev22_calculation_eq">
+      <apply id="Tdev22_calculation">
+        <eq/>
+        <ci>Tdev22</ci>
+        <piecewise>
+          <piece>
+              <apply>
+              <times/>
+                    <apply>
+                <power/>
+                        <ci>aMeabs22</ci>   
+                        <apply>
+                  <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bss</ci>
+                        </apply>
+                    </apply>
+                    <ci>kss</ci>
+                    <ci>E22</ci>
+                    <apply>
+                <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                  <times/>
+                            <ci>E22</ci>
+                            <ci>bss</ci>
+                            <ci>signE22</ci>
+                            <apply>
+                    <power/>
+                                <ci>aMeabs22</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+              <leq/>
+                    <ci>eabs22</ci>
+                    <ci>elim22</ci>
+                </apply>
+          </piece>
+          <otherwise>
+              <apply>
+              <plus/>
+                  <apply>
+                <times/>
+                      <ci>p22</ci>
+                      <ci>E22</ci>
+                  </apply>
+                  <ci>q22</ci>
+              </apply>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <!-- 33 direction -->
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="Tdev33_calculation_eq">
+      <apply id="Tdev33_calculation">
+        <eq/>
+        <ci>Tdev33</ci>
+        <piecewise>
+          <piece>
+              <apply>
+              <times/>
+                    <apply>
+                <power/>
+                        <ci>aMeabs33</ci>   
+                        <apply>
+                  <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bnn</ci>
+                        </apply>
+                    </apply>
+                    <ci>knn</ci>
+                    <ci>E33</ci>
+                    <apply>
+                <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                  <times/>
+                            <ci>E33</ci>
+                            <ci>bnn</ci>
+                            <ci>signE33</ci>
+                            <apply>
+                    <power/>
+                                <ci>aMeabs33</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+              <leq/>
+                    <ci>eabs33</ci>
+                    <ci>elim33</ci>
+                </apply>
+          </piece>
+          <otherwise>
+              <apply>
+              <plus/>
+                  <apply>
+                <times/>
+                      <ci>p33</ci>
+                      <ci>E33</ci>
+                  </apply>
+                  <ci>q33</ci>
+              </apply>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <!-- 12 direction -->
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="Tdev12_calculation_eq">
+      <apply id="Tdev12_calculation">
+        <eq/>
+        <ci>Tdev12</ci>
+        <piecewise>
+          <piece>
+              <apply>
+              <times/>
+                    <apply>
+                <power/>
+                        <ci>aMeabs12</ci>   
+                        <apply>
+                  <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bfs</ci>
+                        </apply>
+                    </apply>
+                    <ci>kfs</ci>
+                    <ci>E12</ci>
+                    <apply>
+                <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                  <times/>
+                            <ci>E12</ci>
+                            <ci>bfs</ci>
+                            <ci>signE12</ci>
+                            <apply>
+                    <power/>
+                                <ci>aMeabs12</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+              <leq/>
+                    <ci>eabs12</ci>
+                    <ci>elim12</ci>
+                </apply>
+          </piece>
+          <otherwise>
+              <apply>
+              <plus/>
+                  <apply>
+                <times/>
+                      <ci>p12</ci>
+                      <ci>E12</ci>
+                  </apply>
+                  <ci>q12</ci>
+              </apply>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <!-- 13 direction -->
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="Tdev13_calculation_eq">
+      <apply id="Tdev13_calculation">
+        <eq/>
+        <ci>Tdev13</ci>
+        <piecewise>
+          <piece>
+              <apply>
+              <times/>
+                    <apply>
+                <power/>
+                        <ci>aMeabs13</ci>   
+                        <apply>
+                  <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bfn</ci>
+                        </apply>
+                    </apply>
+                    <ci>kfn</ci>
+                    <ci>E13</ci>
+                    <apply>
+                <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                  <times/>
+                            <ci>E13</ci>
+                            <ci>bfn</ci>
+                            <ci>signE13</ci>
+                            <apply>
+                    <power/>
+                                <ci>aMeabs13</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+              <leq/>
+                    <ci>eabs13</ci>
+                    <ci>elim13</ci>
+                </apply>
+          </piece>
+          <otherwise>
+              <apply>
+              <plus/>
+                  <apply>
+                <times/>
+                      <ci>p13</ci>
+                      <ci>E13</ci>
+                  </apply>
+                  <ci>q13</ci>
+              </apply>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    <!-- 23 direction -->
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="Tdev23_calculation_eq">
+      <apply id="Tdev23_calculation">
+        <eq/>
+        <ci>Tdev23</ci>
+        <piecewise>
+          <piece>
+              <apply>
+              <times/>
+                    <apply>
+                <power/>
+                        <ci>aMeabs23</ci>   
+                        <apply>
+                  <times/>
+                            <cn cellml:units="dimensionless">-1.0</cn>
+                            <ci>bns</ci>
+                        </apply>
+                    </apply>
+                    <ci>kns</ci>
+                    <ci>E23</ci>
+                    <apply>
+                <plus/>
+                        <cn cellml:units="dimensionless">2.0</cn>
+                        <apply>
+                  <times/>
+                            <ci>E23</ci>
+                            <ci>bns</ci>
+                            <ci>signE23</ci>
+                            <apply>
+                    <power/>
+                                <ci>aMeabs23</ci>   
+                                <cn cellml:units="dimensionless">-1.0</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+                <apply>
+              <leq/>
+                    <ci>eabs23</ci>
+                    <ci>elim23</ci>
+                </apply>
+          </piece>
+          <otherwise>
+              <apply>
+              <plus/>
+                  <apply>
+                <times/>
+                      <ci>p23</ci>
+                      <ci>E23</ci>
+                  </apply>
+                  <ci>q23</ci>
+              </apply>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    
+    
+    <!-- END END END END END END END END END END END END END END END -->
+    
+  </component>
+  <!--membrane-->
+
+  <connection>
+    <map_components component_2="equations" component_1="interface"/>
+    <map_variables variable_2="E11" variable_1="E11"/>
+    <map_variables variable_2="E22" variable_1="E22"/>
+    <map_variables variable_2="E33" variable_1="E33"/>
+    <map_variables variable_2="E12" variable_1="E12"/>
+    <map_variables variable_2="E13" variable_1="E13"/>
+    <map_variables variable_2="E23" variable_1="E23"/>
+    <map_variables variable_2="Tdev11" variable_1="Tdev11"/>
+    <map_variables variable_2="Tdev22" variable_1="Tdev22"/>
+    <map_variables variable_2="Tdev33" variable_1="Tdev33"/>
+    <map_variables variable_2="Tdev12" variable_1="Tdev12"/>
+    <map_variables variable_2="Tdev13" variable_1="Tdev13"/>
+    <map_variables variable_2="Tdev23" variable_1="Tdev23"/>
+    <map_variables variable_2="aff" variable_1="aff"/>
+    <map_variables variable_2="afn" variable_1="afn"/>
+    <map_variables variable_2="afs" variable_1="afs"/>
+    <map_variables variable_2="ann" variable_1="ann"/>
+    <map_variables variable_2="ans" variable_1="ans"/>
+    <map_variables variable_2="ass" variable_1="ass"/>
+    <map_variables variable_2="bff" variable_1="bff"/>
+    <map_variables variable_2="bfn" variable_1="bfn"/>
+    <map_variables variable_2="bfs" variable_1="bfs"/>
+    <map_variables variable_2="bnn" variable_1="bnn"/>
+    <map_variables variable_2="bns" variable_1="bns"/>
+    <map_variables variable_2="bss" variable_1="bss"/>
+    <map_variables variable_2="kff" variable_1="kff"/>
+    <map_variables variable_2="kfn" variable_1="kfn"/>
+    <map_variables variable_2="kfs" variable_1="kfs"/>
+    <map_variables variable_2="knn" variable_1="knn"/>
+    <map_variables variable_2="kns" variable_1="kns"/>
+    <map_variables variable_2="kss" variable_1="kss"/>
+  </connection>
+  
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="interface">
+      <component_ref component="equations"/>
+    </component_ref>
+  </group>
+
+</model>

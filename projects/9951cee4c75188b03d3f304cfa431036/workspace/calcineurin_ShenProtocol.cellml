@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model
+    name="calcineurin"
+    cmeta:id="calcineurin"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+	>
+<!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+   <units name="s">
+      <unit units="second"/>
+   </units>
+   
+   <units  name="nM">
+         <unit units="mole" prefix="nano"/>
+         <unit units="liter" exponent="-1"/>
+      </units>
+
+<!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+     <component name="calcineurin">
+		<variable cmeta:id="v0" name="Ntot" units="nM" initial_value="1000" public_interface="out"/>
+		<variable cmeta:id="v1" name="M" units="nM" initial_value="6000"/>
+		<variable cmeta:id="v2" name="K_mN" units="nM" initial_value="535"/>
+		<variable cmeta:id="v3" name="n" units="dimensionless" initial_value="2.92"/>
+		<variable cmeta:id="v4" name="Ca" units="nM" public_interface="in"/>
+		<variable cmeta:id="v5" name="act_N" units="dimensionless"/>
+		<variable cmeta:id="v6" name="K_dN" units="nM" initial_value="1760"/>
+		<variable cmeta:id="v7" name="t"   units="s" public_interface="in"/>
+		<variable cmeta:id="v8" name="act_Napp" units="dimensionless" public_interface="out"/>
+		<variable cmeta:id="v9" name="tau_actN" units="s" initial_value="0.070059"/>
+		<variable cmeta:id="v10" name="tNinhib" units="s" initial_value="3600"/>
+      
+       <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+                  <eq/>
+                  <ci>act_N</ci>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <power/>
+                        <ci>Ca</ci>
+                        <ci>n</ci>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <apply>
+                           <power/>
+                           <ci>Ca</ci>
+                           <ci>n</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <apply>
+                              <power/>
+                              <ci>K_mN</ci>
+                              <ci>n</ci>
+                           </apply>
+                           <apply>
+                              <plus/>
+                              <cn cellml:units="dimensionless">1</cn>
+                              <apply>
+                                 <divide/>
+                                 <ci>K_dN</ci>
+                                 <ci>M</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+               <apply>
+                  <eq/>
+                  <ci>act_Napp</ci>
+                  <piecewise>
+                     <piece>
+                        <ci>act_N</ci>
+                        <apply>
+                           <lt/>
+                           <ci>t</ci>
+                           <ci>tNinhib</ci>
+                        </apply>
+                     </piece>
+                     <piece>
+                        <apply>
+                           <times/>
+                           <ci>act_N</ci>
+                           <apply>
+                              <power/>
+                              <exponentiale/>
+                              <apply>
+                                 <divide/>
+                                 <apply>
+                                    <minus/>
+                                    <apply>
+                                       <minus/>
+                                       <ci>t</ci>
+                                       <ci>tNinhib</ci>
+                                    </apply>
+                                 </apply>
+                                 <ci>tau_actN</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                        <apply>
+                           <geq/>
+                           <ci>t</ci>
+                           <ci>tNinhib</ci>
+                        </apply>
+                     </piece>
+                  </piecewise>
+         </apply>
+         </math>
+   </component>
+
+  
+</model>

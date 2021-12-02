@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model name="ElectrEcoBluModel_SVBM" cmeta:id="ElectrEcoBluModel_SVBM"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:dc="http://purl.org/dc/elements/1.0/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    
+	<rdf:Description rdf:about="">
+      <dc:title>ElectrEcoBluModel: including a positive feedback loop</dc:title>
+	  <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Cooling</vCard:Family>
+          <vCard:Given>Mike</vCard:Given>
+        </vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>The University of Auckland</vCard:Orgname>
+          <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+    </rdf:Description>
+  </rdf:RDF>
+    
+   <import xlink:href="SVP_00000032/Chassis_EColi.cellml">
+       <component name="eColiCell" component_ref="Chassis_EColi" />
+   </import>
+   
+   <import xlink:href="SVP_Templates200906/Time.cellml">
+       <component name="Time" component_ref="Time" />
+   </import>  
+          
+  <component name="SpeciesInitialConcentrations">
+        <variable name="RNA_Device1" units="nM" initial_value="0" public_interface="out" />
+        <variable name="TF" units="nM" initial_value="8621" public_interface="out" />
+        <variable name="TFS" units="nM" initial_value="0" public_interface="out" />
+        <variable name="RNA_Device2" units="nM" initial_value="0" public_interface="out" />
+        <variable name="IC" units="nM" initial_value="0" public_interface="out" />
+        <variable name="PhzS" units="nM" initial_value="0" public_interface="out" />
+        <variable name="PhzM" units="nM" initial_value="0" public_interface="out" />
+        <variable name="PYO" units="nM" initial_value="0" public_interface="out" />
+  </component>
+    
+  <import xlink:href="SVP_00000033/ElectrEcoBluDevice1_Promoter.cellml">
+        <units name="nM_per_s" units_ref="nM_per_s" />
+        <component name="ElectrEcoBluDevice1_Promoter" component_ref="ElectrEcoBluDevice1_Promoter" />
+  </import>
+     
+  <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+     <units name="nM" units_ref="nM" />
+    <component name="RNA_Device1" component_ref="Template_Species" />
+  </import>
+
+  <component name="RNA_Device1_interface">
+           <variable name="JPlusPromoter" units="nM_per_s" public_interface="in"/>
+           <variable name="JGain" units="nM_per_s" public_interface="out"/>
+           <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+           <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                 <eq/>
+                 <ci>JGain</ci>
+                 <apply>
+                    <minus/>
+                    <ci>JPlusPromoter</ci>
+                    <ci>JMinusDegradation</ci>
+                 </apply>
+              </apply>
+           </math>
+  </component>
+  
+  <import xlink:href="SVP_00000003/Bioenvironment_Degradation_ElectrEcoBluDevice1RNA.cellml">
+         <units name="per_s" units_ref="per_s" />
+         <component name="Bioenvironment_Degradation_Device1RNA" component_ref="Bioenvironment_Degradation_ElectrEcoBluDevice1RNA" />
+  </import>
+  
+  <import xlink:href="SVP_00000035/ElectrEcoBluDevice1_RBS.cellml">
+          <component name="ElectrEcoBluDevice1_RBS" component_ref="ElectrEcoBluDevice1_RBS" />
+  </import>
+  
+  <import xlink:href="SVP_00000039/ElectrEcoBluDevice1_ProteinCDS_TF.cellml">
+              <component name="ElectrEcoBluDevice1_ProteinCDS_TF" component_ref="ElectrEcoBluDevice1_ProteinCDS_TF" />
+  </import>
+  
+  <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+             <component name="TF" component_ref="Template_Species" />
+  </import> 
+  
+  <component name="TF_interface">
+        <variable name="JPlusProductionDevice1" units="nM_per_s" public_interface="in"/>
+        <variable name="JPlusProductionDevice2" units="nM_per_s" public_interface="in"/>
+        <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+        <variable name="JMinusTFSFormation" units="nM_per_s" public_interface="in"/>
+        <variable name="JGain" units="nM_per_s" public_interface="out"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+           <apply>
+              <eq/>
+              <ci>JGain</ci>
+              <apply>
+                 <minus/>
+                 <apply>
+                    <minus/>
+                    <apply>
+                       <plus/>
+                       <ci>JPlusProductionDevice1</ci>
+                       <ci>JPlusProductionDevice2</ci>
+                    </apply>
+                    <ci>JMinusDegradation</ci>
+                 </apply>
+                 <ci>JMinusTFSFormation</ci>
+              </apply>
+           </apply>
+        </math>
+   </component>
+  
+   <import xlink:href="SVP_00000014/Bioenvironment_Degradation_TF.cellml">
+               <component name="Bioenvironment_Degradation_TF" component_ref="Bioenvironment_Degradation_TF" />
+   </import>
+   
+   <component name="S">
+      <variable name="concentration" units="nM" initial_value="5000" public_interface="out"/>
+   </component>   
+   
+  <import xlink:href="SVP_00000022/Bioenvironment_RxR2P1Rev_TFSFormation.cellml">
+         <component name="RxR2P1_TFSformation" component_ref="Bioenvironment_RxR2P1Rev_TFSFormation" />
+  </import>
+  
+  <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+             <component name="TFS" component_ref="Template_Species" />
+  </import>  
+  
+   <component name="TFS_interface">
+      <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+      <variable name="JGain" units="nM_per_s" public_interface="out"/>
+      <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>JGain</ci>
+            <apply>
+               <minus/>
+               <ci>JPlusProduction</ci>
+               <ci>JMinusDegradation</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   
+  <import xlink:href="SVP_00000015/Bioenvironment_Degradation_TFS.cellml">
+         <component name="Bioenvironment_Degradation_TFS" component_ref="Bioenvironment_Degradation_TFS" />
+  </import>
+  
+  <import xlink:href="SVP_00000034/ElectrEcoBluDevice2_Promoter.cellml">
+         <component name="ElectrEcoBluDevice2_Promoter" component_ref="ElectrEcoBluDevice2_Promoter" />
+  </import>  
+  
+  <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+             <component name="RNA_Device2" component_ref="Template_Species" />
+  </import>
+  
+   <component name="RNA_Device2_interface">
+      <variable name="JPlusPromoter" units="nM_per_s" public_interface="in"/>
+      <variable name="JGain" units="nM_per_s" public_interface="out"/>
+      <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>JGain</ci>
+            <apply>
+               <minus/>
+               <ci>JPlusPromoter</ci>
+               <ci>JMinusDegradation</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   
+   <import xlink:href="SVP_00000004/Bioenvironment_Degradation_ElectrEcoBluDevice2RNA.cellml">
+         <component name="Bioenvironment_Degradation_Device2RNA" component_ref="Bioenvironment_Degradation_ElectrEcoBluDevice2RNA" />
+   </import>   
+  
+    <import xlink:href="SVP_00000036/ElectrEcoBluDevice2_RBS_PhzM.cellml">
+               <component name="ElectrEcoBluDevice2_RBS_PhzM" component_ref="ElectrEcoBluDevice2_RBS_PhzM" />
+    </import>
+    
+    <import xlink:href="SVP_00000040/ElectrEcoBluDevice2_ProteinCDS_PhzM.cellml">
+                  <component name="ElectrEcoBluDevice2_ProteinCDS_PhzM" component_ref="ElectrEcoBluDevice2_ProteinCDS_PhzM" />
+    </import>
+
+    <import xlink:href="SVP_00000037/ElectrEcoBluDevice2_RBS_PhzS.cellml">
+               <component name="ElectrEcoBluDevice2_RBS_PhzS" component_ref="ElectrEcoBluDevice2_RBS_PhzS" />
+    </import>
+    
+    <import xlink:href="SVP_00000041/ElectrEcoBluDevice2_ProteinCDS_PhzS.cellml">
+                  <component name="ElectrEcoBluDevice2_ProteinCDS_PhzS" component_ref="ElectrEcoBluDevice2_ProteinCDS_PhzS" />
+    </import>
+    
+    <import xlink:href="SVP_00000038/ElectrEcoBluDevice2_RBS_TF.cellml">
+                   <component name="ElectrEcoBluDevice2_RBS_TF" component_ref="ElectrEcoBluDevice2_RBS_TF" />
+    </import>
+    
+    <import xlink:href="SVP_00000042/ElectrEcoBluDevice2_ProteinCDS_TF.cellml">
+                  <component name="ElectrEcoBluDevice2_ProteinCDS_TF" component_ref="ElectrEcoBluDevice2_ProteinCDS_TF" />
+    </import>  
+  
+    <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+             <component name="PhzM" component_ref="Template_Species" />
+    </import>  
+    
+   <component name="PhzM_interface">
+      <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+      <variable name="JGain" units="nM_per_s" public_interface="out"/>
+      <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>JGain</ci>
+            <apply>
+               <minus/>
+               <ci>JPlusProduction</ci>
+               <ci>JMinusDegradation</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   
+  <import xlink:href="SVP_00000007/Bioenvironment_Degradation_PhzM.cellml">
+                  <component name="Bioenvironment_Degradation_PhzM" component_ref="Bioenvironment_Degradation_PhzM" />
+  </import>
+  
+  <component name="PCA">
+          <variable name="concentration" units="nM" initial_value="2" public_interface="out"/>
+  </component>
+  
+  <import xlink:href="SVP_00000018/Bioenvironment_RxR1P1MM_ICFormation.cellml">
+             <component name="RxR1P1MM_ICformation" component_ref="Bioenvironment_RxR1P1MM_ICFormation" />
+  </import>
+  
+  <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+             <component name="IC" component_ref="Template_Species" />
+  </import>
+  
+  <component name="IC_interface">
+      <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+      <variable name="JGain" units="nM_per_s" public_interface="out"/>
+      <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+      <variable name="JMinusPYOFormation" units="nM_per_s" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>JGain</ci>
+            <apply>
+               <minus/>
+               <apply>
+                  <minus/>
+                  <ci>JPlusProduction</ci>
+                  <ci>JMinusDegradation</ci>
+               </apply>
+               <ci>JMinusPYOFormation</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+  
+  <import xlink:href="SVP_00000006/Bioenvironment_Degradation_IC.cellml">
+                     <component name="Bioenvironment_Degradation_IC" component_ref="Bioenvironment_Degradation_IC" />
+  </import>
+  
+  <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+             <component name="PhzS" component_ref="Template_Species" />
+  </import>
+  
+  <component name="PhzS_interface">
+      <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+      <variable name="JGain" units="nM_per_s" public_interface="out"/>
+      <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>JGain</ci>
+            <apply>
+               <minus/>
+               <ci>JPlusProduction</ci>
+               <ci>JMinusDegradation</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>  
+  
+  <import xlink:href="SVP_00000008/Bioenvironment_Degradation_PhzS.cellml">
+          <component name="Bioenvironment_Degradation_PhzS" component_ref="Bioenvironment_Degradation_PhzS" />
+  </import>  
+  
+  <import xlink:href="SVP_00000019/Bioenvironment_RxR1P1MM_PYOFormation.cellml">
+            <component name="RxR1P1MM_PYOformation" component_ref="Bioenvironment_RxR1P1MM_PYOFormation" />
+  </import>  
+  
+  <import xlink:href="SVP_Templates200906/Template_Species.cellml">
+             <component name="PYO" component_ref="Template_Species" />
+  </import>
+
+   <component name="PYO_interface">
+      <variable name="JPlusProduction" units="nM_per_s" public_interface="in"/>
+      <variable name="JGain" units="nM_per_s" public_interface="out"/>
+      <variable name="JMinusDegradation" units="nM_per_s" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>JGain</ci>
+            <apply>
+               <minus/>
+               <ci>JPlusProduction</ci>
+               <ci>JMinusDegradation</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   
+  <import xlink:href="SVP_00000009/Bioenvironment_Degradation_PYO.cellml">
+             <component name="Bioenvironment_Degradation_PYO" component_ref="Bioenvironment_Degradation_PYO" />
+  </import>
+  
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice1_Promoter" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RNA_Device1" component_2="Time"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RNA_Device1" component_2="SpeciesInitialConcentrations"/>
+      <map_variables variable_1="concentrationInitialValue" variable_2="RNA_Device1"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RNA_Device1_interface" component_2="Bioenvironment_Degradation_Device1RNA"/>
+      <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RNA_Device1" component_2="RNA_Device1_interface"/>
+      <map_variables variable_1="JGain" variable_2="JGain"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RNA_Device1_interface" component_2="ElectrEcoBluDevice1_Promoter"/>
+      <map_variables variable_1="JPlusPromoter" variable_2="JRNA"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="Bioenvironment_Degradation_Device1RNA" component_2="RNA_Device1"/>
+      <map_variables variable_1="concentration" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice1_RBS" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice1_RBS" component_2="RNA_Device1"/>
+      <map_variables variable_1="RNA" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice1_ProteinCDS_TF" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice1_ProteinCDS_TF" component_2="ElectrEcoBluDevice1_RBS"/>
+      <map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+   </connection>
+  
+   <connection>
+      <map_components component_1="TF" component_2="Time"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="TF" component_2="TF_interface"/>
+      <map_variables variable_1="JGain" variable_2="JGain"/>
+   </connection>
+   
+   <connection>
+         <map_components component_1="TF" component_2="SpeciesInitialConcentrations"/>
+         <map_variables variable_1="concentrationInitialValue" variable_2="TF"/>
+   </connection>
+  
+   <connection>
+      <map_components component_1="TF_interface" component_2="ElectrEcoBluDevice1_ProteinCDS_TF"/>
+      <map_variables variable_1="JPlusProductionDevice1" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="TF_interface" component_2="ElectrEcoBluDevice2_ProteinCDS_TF"/>
+      <map_variables variable_1="JPlusProductionDevice2" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="TF_interface" component_2="Bioenvironment_Degradation_TF"/>
+      <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="TF_interface" component_2="RxR2P1_TFSformation"/>
+      <map_variables variable_1="JMinusTFSFormation" variable_2="J"/>
+   </connection>
+   
+   <connection>
+       <map_components component_1="Bioenvironment_Degradation_TF" component_2="TF"/>
+       <map_variables variable_1="concentration" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+       <map_components component_1="RxR2P1_TFSformation" component_2="TF"/>
+       <map_variables variable_1="reactant1" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RxR2P1_TFSformation" component_2="S"/>
+      <map_variables variable_1="reactant2" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RxR2P1_TFSformation" component_2="TFS"/>
+      <map_variables variable_1="product" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="TFS" component_2="Time"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="TFS" component_2="TFS_interface"/>
+      <map_variables variable_1="JGain" variable_2="JGain"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="TFS_interface" component_2="RxR2P1_TFSformation"/>
+      <map_variables variable_1="JPlusProduction" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="TFS" component_2="SpeciesInitialConcentrations"/>
+      <map_variables variable_1="concentrationInitialValue" variable_2="TFS"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="TFS_interface" component_2="Bioenvironment_Degradation_TFS"/>
+      <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="Bioenvironment_Degradation_TFS" component_2="TFS"/>
+      <map_variables variable_1="concentration" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_Promoter" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_Promoter" component_2="TFS"/>
+      <map_variables variable_1="tFactor" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RNA_Device2_interface" component_2="ElectrEcoBluDevice2_Promoter"/>
+      <map_variables variable_1="JPlusPromoter" variable_2="JRNA"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RNA_Device2_interface" component_2="Bioenvironment_Degradation_Device2RNA"/>
+      <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+   </connection>
+  
+   <connection>
+      <map_components component_1="RNA_Device2" component_2="RNA_Device2_interface"/>
+      <map_variables variable_1="JGain" variable_2="JGain"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RNA_Device2" component_2="Time"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   
+   <connection>
+       <map_components component_1="RNA_Device2" component_2="SpeciesInitialConcentrations"/>
+       <map_variables variable_1="concentrationInitialValue" variable_2="RNA_Device2"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="Bioenvironment_Degradation_Device2RNA" component_2="RNA_Device2"/>
+      <map_variables variable_1="concentration" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_RBS_PhzM" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_RBS_PhzM" component_2="RNA_Device2"/>
+      <map_variables variable_1="RNA" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_ProteinCDS_PhzM" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_ProteinCDS_PhzM" component_2="ElectrEcoBluDevice2_RBS_PhzM"/>
+      <map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_RBS_PhzS" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_RBS_PhzS" component_2="RNA_Device2"/>
+      <map_variables variable_1="RNA" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_ProteinCDS_PhzS" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_ProteinCDS_PhzS" component_2="ElectrEcoBluDevice2_RBS_PhzS"/>
+      <map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_RBS_TF" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_RBS_TF" component_2="RNA_Device2"/>
+      <map_variables variable_1="RNA" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_ProteinCDS_TF" component_2="eColiCell"/>
+      <map_variables variable_1="localVolume" variable_2="cellVolume"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="ElectrEcoBluDevice2_ProteinCDS_TF" component_2="ElectrEcoBluDevice2_RBS_TF"/>
+      <map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PhzM" component_2="Time"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PhzM" component_2="PhzM_interface"/>
+      <map_variables variable_1="JGain" variable_2="JGain"/>
+   </connection>
+   
+   <connection>
+    <map_components component_1="PhzM" component_2="SpeciesInitialConcentrations"/>
+    <map_variables variable_1="concentrationInitialValue" variable_2="PhzM"/>
+   </connection> 
+   
+   <connection>
+      <map_components component_1="PhzM_interface" component_2="ElectrEcoBluDevice2_ProteinCDS_PhzM"/>
+      <map_variables variable_1="JPlusProduction" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PhzM_interface" component_2="Bioenvironment_Degradation_PhzM"/>
+      <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+   </connection>
+   
+   <connection>
+       <map_components component_1="Bioenvironment_Degradation_PhzM" component_2="PhzM"/>
+       <map_variables variable_1="concentration" variable_2="concentration"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="RxR1P1MM_ICformation" component_2="PCA"/>
+      <map_variables variable_1="reactant" variable_2="concentration"/>
+   </connection> 
+
+   <connection>
+      <map_components component_1="RxR1P1MM_ICformation" component_2="PhzM"/>
+      <map_variables variable_1="catalyst" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+    <map_components component_1="IC" component_2="SpeciesInitialConcentrations"/>
+    <map_variables variable_1="concentrationInitialValue" variable_2="IC"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="IC" component_2="Time"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="IC" component_2="IC_interface"/>
+      <map_variables variable_1="JGain" variable_2="JGain"/>
+   </connection>  
+   
+   <connection>
+      <map_components component_1="IC_interface" component_2="Bioenvironment_Degradation_IC"/>
+      <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="IC_interface" component_2="RxR1P1MM_ICformation"/>
+      <map_variables variable_1="JPlusProduction" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="IC_interface" component_2="RxR1P1MM_PYOformation"/>
+      <map_variables variable_1="JMinusPYOFormation" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="Bioenvironment_Degradation_IC" component_2="IC"/>
+      <map_variables variable_1="concentration" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PhzS" component_2="Time"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PhzS" component_2="PhzS_interface"/>
+      <map_variables variable_1="JGain" variable_2="JGain"/>
+   </connection>
+   
+   <connection>
+    <map_components component_1="PhzS" component_2="SpeciesInitialConcentrations"/>
+    <map_variables variable_1="concentrationInitialValue" variable_2="PhzS"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PhzS_interface" component_2="Bioenvironment_Degradation_PhzS"/>
+      <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PhzS_interface" component_2="ElectrEcoBluDevice2_ProteinCDS_PhzS"/>
+      <map_variables variable_1="JPlusProduction" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="Bioenvironment_Degradation_PhzS" component_2="PhzS"/>
+      <map_variables variable_1="concentration" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RxR1P1MM_PYOformation" component_2="IC"/>
+      <map_variables variable_1="reactant" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="RxR1P1MM_PYOformation" component_2="PhzS"/>
+      <map_variables variable_1="catalyst" variable_2="concentration"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PYO" component_2="Time"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PYO" component_2="PYO_interface"/>
+      <map_variables variable_1="JGain" variable_2="JGain"/>
+   </connection>
+   
+   <connection>
+       <map_components component_1="PYO" component_2="SpeciesInitialConcentrations"/>
+       <map_variables variable_1="concentrationInitialValue" variable_2="PYO"/>
+   </connection>
+      
+   <connection>
+      <map_components component_1="PYO_interface" component_2="Bioenvironment_Degradation_PYO"/>
+      <map_variables variable_1="JMinusDegradation" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="PYO_interface" component_2="RxR1P1MM_PYOformation"/>
+      <map_variables variable_1="JPlusProduction" variable_2="J"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="Bioenvironment_Degradation_PYO" component_2="PYO"/>
+      <map_variables variable_1="concentration" variable_2="concentration"/>
+   </connection>
+   
+</model>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="fast_inward_current_model">
+  <component name="fast_inward_current">
+    <variable name="J_fi" private_interface="out" public_interface="out" units="per_ms"/>
+    <variable name="tau_d" private_interface="out" public_interface="out" units="ms"/>
+    <variable name="g_fi_max" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="Cm" private_interface="out" public_interface="in" units="uF_per_mm2"/>
+    <variable name="p" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="q" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="u_c" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="u" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="v" private_interface="out" public_interface="in" units="dimensionless"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="tau_d_calculation_eq">
+      <apply id="tau_d_calculation"><eq/>
+        <ci>tau_d</ci>
+        <apply><divide/>
+          <ci>Cm</ci>
+          <ci>g_fi_max</ci>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="J_fi_calculation_eq">
+      <apply id="J_fi_calculation"><eq/>
+        <ci> J_fi </ci>
+        <apply><times/>
+          <apply><minus/>
+            <ci> v </ci>
+          </apply>
+          <ci> p </ci>
+          <apply><minus/>
+            <ci> u </ci>
+            <ci> u_c </ci>
+          </apply>
+          <apply><divide/>
+            <apply><minus/>
+              <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+              <ci> u </ci>
+            </apply>
+            <ci> tau_d </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fenton_karma_model_1998_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+  </import>
+</model>

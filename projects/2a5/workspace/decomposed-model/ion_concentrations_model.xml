@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="ion_concentrations_model">
+  <component name="ion_concentrations">
+    <variable initial_value="V_initial" name="V" private_interface="out" public_interface="out" units="volt"/>
+    <variable name="V_initial" public_interface="in" units="volt"/>
+    <variable name="Na_i" private_interface="out" public_interface="in" units="M"/>
+    <variable name="Na_o" private_interface="out" public_interface="in" units="M"/>
+    <variable name="glucose_i" private_interface="out" public_interface="in" units="M"/>
+    <variable name="glucose_o" private_interface="out" public_interface="in" units="M"/>
+    <variable name="time" private_interface="out" public_interface="in" units="second"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+           <eq/>
+           <apply>
+              <diff/>
+              <bvar>
+                 <ci>time</ci>
+              </bvar>
+              <ci>V</ci>
+           </apply>
+           <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" type="e-notation" cellml:units="volt_per_second">1<sep/>-3</cn>
+        </apply>
+     </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mackenzie_1996_units_model.xml">
+    <units name="per_second" units_ref="per_second"/>
+    <units name="per_second5" units_ref="per_second5"/>
+    <units name="per_mol" units_ref="per_mol"/>
+    <units name="umol" units_ref="umol"/>
+    <units name="M" units_ref="M"/>
+    <units name="um2" units_ref="um2"/>
+    <units name="mol_per_um2" units_ref="mol_per_um2"/>
+    <units name="mM" units_ref="mM"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="J_per_K_per_mol" units_ref="J_per_K_per_mol"/>
+    <units name="pA_per_cm2" units_ref="pA_per_cm2"/>
+    <units name="uA" units_ref="uA"/>
+    <units name="uA_per_um2" units_ref="uA_per_um2"/>
+    <units name="uA_per_A" units_ref="uA_per_A"/>
+    <units name="umol_per_mol" units_ref="umol_per_mol"/>
+    <units name="umol_per_second" units_ref="umol_per_second"/>
+    <units name="C_per_mol" units_ref="C_per_mol"/>
+    <units name="per_M2_per_second" units_ref="per_M2_per_second"/>
+    <units name="M2" units_ref="M2"/>
+    <units name="M3" units_ref="M3"/>
+    <units name="M2_per_second" units_ref="M2_per_second"/>
+    <units name="per_M2_per_second5" units_ref="per_M2_per_second5"/>
+    <units name="M_per_second" units_ref="M_per_second"/>
+    <units name="per_M_per_second" units_ref="per_M_per_second"/>
+    <units name="volt_per_second" units_ref="volt_per_second"/>
+  </import>
+</model>

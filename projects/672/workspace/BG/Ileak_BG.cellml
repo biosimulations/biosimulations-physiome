@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Ileak_BG" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../cellLib/BG/units_BG.cellml">
+        <units name="fS" units_ref="fS"/>
+        <units name="fA" units_ref="fA"/>
+    </import>
+    <component name="Ileak_BG">
+        <!--Parameters-->
+        <variable name="g_leak" public_interface="in" units="fS"/>
+        <variable name="V_leak" public_interface="in" units="volt"/>
+        <!--Inputs        -->
+        <variable name="V_m" public_interface="in" units="volt"/>
+        <!--Outputs-->
+        <variable name="I_leak" public_interface="out" units="fA"/>
+        <!--Intermediate variables-->
+        <variable name="V" units="volt"/>
+        <!-- Constitutive relation of the R:leak-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>V</ci>
+                <apply>
+                    <divide/>
+                    <ci>I_leak</ci>
+                    <ci>g_leak</ci>
+                </apply>
+            </apply>
+            <!--Conservation laws-->
+            <apply>
+                <eq/>
+                <ci>V_m</ci>
+                <apply>
+                    <plus/>
+                    <ci>V</ci>
+                    <ci>V_leak</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

@@ -1,0 +1,233 @@
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+	CellML model for the model of 
+	Karagiannis and Popel 2004
+
+Contribution by 
+   - Lucie GATTEPAILLE 	(lucie.gattepaille@gmail.com)
+   - Eric FANCHON 	(eric.fanchon@imag.fr)
+   - Philippe TRACQUI	(philippe.tracqui@imag.fr)
+Lab: TIMC-IMAG, Grenoble
+Teams: Dynacell, TIMB
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+In this file we explain how to get the figures 1 to 6 shown in 
+the Karagiannis and Popel paper (JBC, 2004). 
+
+*****************
+THE MODEL:
+*****************
+
+The model can be found in the KaragiannisPopel2004.cellml file. It 
+describes the reactions system given in Figure 1 of the paper. Three
+Quasi-Steady State Approximations (QSSA) are made, one on the MT1-MT1 
+complex, one on the MT1-C1 complex and one on the MT1-T2-M2P-MT1 
+complex.
+
+
+
+	The variables:
+
+There are 13 variables in the cellml model.
+
+Variable		Associated protein
+---------------------------------------------------------------------
+MT1			Membrane Type 1 Matrix MetalloProteinase 
+			(MT1-MMP)
+MT1cat			The cleaved catalytic domain of MT1-MMP
+T2			Tissue Inhibitor of MetalloProteinases 2
+			(TIMP2)
+MT1T2			The MT1-MMP/TIMP2 complex
+M2			Matrix MetalloProteinase 2 (MMP2)
+M2P			The proenzyme of MMP2
+MT1T2M2P		The MT1-MMP/T2/M2P complex
+M2T2			The MMP2/TIMP2 complex
+M2T2star		A stable isoform of the MMP2/TIMP2 complex
+C1			Type 1 collagene
+M2C1			The MMP2/Collagene I complex
+C1dmt1			Collagene I degraded by MT1-MMP
+C1dm2			Collagene I degraded by MMP2
+
+
+
+
+	The chemical reactions:
+
+MT1 + MT1 (kshed_eff)---> MT1 + MT1cat
+
+MT1 + T2 <---(ki_MT1T2 / kon_MT1T2)---> MT1T2
+
+MT1T2 + M2P <---(koff_MT1T2M2P / kon_MT1T2M2P)---> MT1T2M2P
+
+MT1T2M2P + MT1 (kact_eff_m2)---> MT1 + M2
+
+M2 + T2 <---(ki_M2T2 / kon_M2T2)---> M2T2
+
+M2T2 <---(k_iso_M2T2 / kiso_M2T2)---> M2T2star
+
+M2 + C1 <---(koff_M2C1 / kon_M2C1)---> M2C1
+
+M2C1 (kcat_M2C1)---> C1dm2 + M2
+
+MT1 + C1 (kcat_MT1C1/Km_MT1C1)---> C1dmt1 + MT1
+
+
+
+
+*****************
+THE FIGURES
+*****************
+
+
+
+	Figures 2A and 2B
+	---------------------
+They study the subsystem
+	MT1 + T2 <---(ki_MT1T2 / kon_MT1T2)---> MT1T2
+	MT1T2 + M2P <---(koff_MT1T2M2P / kon_MT1T2M2P)---> MT1T2M2P
+
+So in the global model, one must set 
+- kshed_eff=0
+- kact_eff_m2=0
+- all the initial conditions to 0, except MT1, T2 and M2P
+
+We found the very same curves, in replacing [T2]_0=4 nM by [T2]_0=2 nM
+
+
+
+
+	Figure 2C
+	---------------------
+They study the subsystem
+	MT1T2M2P + MT1 (kact_eff_m2)---> MT1 + M2
+
+So in the global model, one must set 
+- kshed_eff=0
+- koff_MT1T2M2P=0
+- all the initial conditions to 0, except...
+- [MT1]_0=0.09e-6 M
+- [MT1T2M2P]_0=0.9e-6 M
+
+This part is meant at finding a kact_eff_m2 that would best fit the data. 
+We found the value of 3.62e3 to have a better fit than 2.8e3 given in the 
+paper and yeild a Figure 2D that look more like the figure plotted in the
+paper.
+
+
+
+
+	Figure 2D
+	---------------------
+The two previous subsystems are combined to study the proportion of MMP2
+that gets activated.
+	MT1 + T2 <---(ki_MT1T2 / kon_MT1T2)---> MT1T2
+	MT1T2 + M2P <---(koff_MT1T2M2P / kon_MT1T2M2P)---> MT1T2M2P
+	MT1T2M2P + MT1 (kact_eff_m2)---> MT1 + M2
+
+So in the global model, one must set 
+- kshed_eff=0
+- kon_m2t2=0
+- all the initial conditions to 0, except MT1, T2 and M2P
+
+
+
+
+	Figures 3A, 3B, 3C and 3D
+	---------------------
+The ectodomain-shedding of MT1-MMP is added to the previous subsystem.
+	MT1 + MT1 (kshed_eff)---> MT1 + MT1cat
+	MT1 + T2 <---(ki_MT1T2 / kon_MT1T2)---> MT1T2
+	MT1T2 + M2P <---(koff_MT1T2M2P / kon_MT1T2M2P)---> MT1T2M2P
+	MT1T2M2P + MT1 (kact_eff_m2)---> MT1 + M2
+
+So in the global model, one must set 
+- kon_m2t2=0
+- all the initial conditions to 0, except MT1, T2 and M2P, depending on 
+the figure.
+
+We could not get the exact same curves, expecially for 3B and 3D, but the 
+shapes are extremely similar.
+
+
+
+
+	Figures 4A and 4B
+	---------------------
+The equilibrium between the two isoforms of the MMP2/TIMP2 complex is
+considered. We study the two following reactions :
+	M2 + T2 <---(ki_M2T2 / kon_M2T2)---> M2T2
+	M2T2 <---(k_iso_M2T2 / kiso_M2T2)---> M2T2star
+
+So in the global model, one must set 
+- all the initial conditions to 0 except M2 and T2, varying according to
+the desired ratios
+
+
+
+
+	Figure 5B
+	---------------------
+Comparison between the one isoform...
+	M2 + T2 <---(ki_M2T2 / kon_M2T2)---> M2T2
+...and the two isoforms approaches
+	M2 + T2 <---(ki_M2T2 / kon_M2T2)---> M2T2
+	M2T2 <---(k_iso_M2T2 / kiso_M2T2)---> M2T2star
+
+So in the global model, one must set 
+- all the initial conditions to 0 except M2 and T2, varying according to
+the desired ratios
+- ki_M2T2=7.2e-9 and kiso_M2T2=0 for the one isoform approach
+
+The curves we found have a similar shape but differ a bit from the paper
+quantitatively. It may be some parameter difference between our model and
+tyhe one used by Karagiannis and Popel to simulate the results.
+
+
+
+
+	Figure 5C
+	---------------------
+Same comparison as in figure 5B, with added collagenolysis. So, is compared
+	M2 + T2 <---(ki_M2T2 / kon_M2T2)---> M2T2
+	M2 + C1 <---(koff_M2C1 / kon_M2C1)---> M2C1
+	M2C1 (kcat_M2C1)---> C1dm2 + M2
+with
+	M2 + T2 <---(ki_M2T2 / kon_M2T2)---> M2T2
+	M2T2 <---(k_iso_M2T2 / kiso_M2T2)---> M2T2star
+	M2 + C1 <---(koff_M2C1 / kon_M2C1)---> M2C1
+	M2C1 (kcat_M2C1)---> C1dm2 + M2
+
+So in the global model, one must set 
+- all the initial conditions to 0 except M2 and T2, varying according to
+the desired ratios, and C1
+- ki_M2T2=7.2e-9 and kiso_M2T2=0 for the one isoform approach
+
+The initial value for C1 has been omitted in the paper but for 1e-6 M, the 
+shape of the simulated curves are the same, though the values are different. 
+
+
+
+
+	Figures 6A and 6B
+	---------------------
+In this figure, the whole model is considered. All the modules that have 
+been studied separately are now combined together. The one isoform approach 
+is used and the constant of the ectodomain shedding reaction of MT1-MMP is
+divided by ten.
+
+So one must set 
+- ki_M2T2=7.2e-9 
+- kiso_M2T2=0
+- kshed_eff=0.28e3
+- all the initial conditions to 0 except MT1, M2, T2, M2P and C1
+
+Once again, the shapes of the curves we obtain are similar, but the curves 
+are a bit different quantitatively.
+
+
+
+
+If you have any question, please contact us.

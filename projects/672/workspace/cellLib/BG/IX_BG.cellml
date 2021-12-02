@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- The BG of ion channel model that combines channel current and gating modules. -->
+<model name="IX_BG" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="units_BG.cellml">
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+        <units name="J_per_mol" units_ref="J_per_mol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="fA" units_ref="fA"/>
+    </import>
+    <import xlink:href="constants_BG.cellml">
+        <component component_ref="constants_BG" name="constants_BG"/>
+    </import>
+    <component name="IX_BG">
+        <!--Parameters-->
+        <variable name="F" private_interface="in" units="C_per_mol"/>
+        <!--Inputs-->
+        <variable name="V_m" public_interface="in" units="volt"/>
+        <variable name="v_p_X" public_interface="in" units="fmol_per_sec"/>
+        <variable name="v_g_X" public_interface="in" units="fmol_per_sec"/>
+        <!--Outputs-->
+        <variable name="mu_p" public_interface="out" units="J_per_mol"/>
+        <variable name="I_X" public_interface="out" units="fA"/>
+        <!--Intermediate variables-->
+        <variable name="v_X" units="fmol_per_sec"/>
+        <!-- Constitutive relation of the TF:F-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>mu_p</ci>
+                <apply>
+                    <times/>
+                    <ci>F</ci>
+                    <ci>V_m</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>I_X</ci>
+                <apply>
+                    <times/>
+                    <ci>F</ci>
+                    <ci>v_X</ci>
+                </apply>
+            </apply>
+            <!--Conservation laws-->
+            <apply>
+                <eq/>
+                <ci>v_X</ci>
+                <apply>
+                    <minus/>
+                    <ci>v_g_X</ci>
+                    <ci>v_p_X</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="IX_BG">
+            <component_ref component="constants_BG"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="IX_BG" component_2="constants_BG"/>
+        <map_variables variable_1="F" variable_2="F"/>
+    </connection>
+</model>

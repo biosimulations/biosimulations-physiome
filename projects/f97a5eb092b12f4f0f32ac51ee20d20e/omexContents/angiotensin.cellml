@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model 
+	name="angiotensin_model"
+	cmeta:id="angiotensin_model"
+	
+	xmlns="http://www.cellml.org/cellml/1.1#"
+	xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+	xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+		<rdf:Description rdf:about="#angiotensin_model">
+			<rdf:value>
+			This section calculates the control functions of angiotensin, beginning with the 
+			control of angiotensin formation by the kidneys in response to changes in the rate 
+			of flow of fluid in the renal tubules at the macula densa (MDFLW), and extending 
+			through a series of curve-fitting and sensitivity controlled equations to determine 
+			the multiple feedback effects of angiotensin to control the various aspects of 
+			circulatory function.
+			</rdf:value>
+		</rdf:Description>
+	</rdf:RDF>
+
+<!-- =============================================	Import the required units from the Units file	==================================================== -->
+	<import xlink:href="units.cellml">
+		<units name="minute" units_ref="minute"/>
+		<units name="per_minute" units_ref="per_minute"/>
+		<units name="beats_per_minute" units_ref="beats_per_minute"/>
+		<units name="beats_per_minute_per_mmHg" units_ref="beats_per_minute_per_mmHg"/>
+		<units name="minute_per_L" units_ref="minute_per_L"/>
+		<units name="mmHg" units_ref="mmHg"/>
+		<units name="per_mmHg" units_ref="per_mmHg"/>
+		<units name="mmHg_per_mL" units_ref="mmHg_per_mL"/>
+		<units name="mmHg_L" units_ref="mmHg_L"/>
+		<units name="per_mmHg2" units_ref="per_mmHg2"/>
+		<units name="mmHg3" units_ref="mmHg3"/>
+		<units name="monovalent_mEq" units_ref="monovalent_mEq"/>
+		<units name="monovalent_mEq_per_minute" units_ref="monovalent_mEq_per_minute"/>
+		<units name="monovalent_mEq_per_litre" units_ref="monovalent_mEq_per_litre"/>
+		<units name="mOsm" units_ref="mOsm"/>
+		<units name="mOsm_per_litre" units_ref="mOsm_per_litre"/>
+		<units name="mOsm_per_minute" units_ref="mOsm_per_minute"/>
+		<units name="monovalent_mEq_per_litre_per_minute" units_ref="monovalent_mEq_per_litre_per_minute"/>
+		<units name="litre2_per_monovalent_mEq_per_minute" units_ref="litre2_per_monovalent_mEq_per_minute"/>
+		<units name="L_per_minute" units_ref="L_per_minute"/>
+		<units name="per_mmHg_per_minute" units_ref="per_mmHg_per_minute"/>
+		<units name="mL" units_ref="mL"/>
+		<units name="gram_per_L" units_ref="gram_per_L"/>
+		<units name="L_mmHg_per_gram" units_ref="L_mmHg_per_gram"/>
+		<units name="L2_mmHg_per_gram2" units_ref="L2_mmHg_per_gram2"/>
+		<units name="mmHg_minute_per_L" units_ref="mmHg_minute_per_L"/>
+		<units name="mmHg_L_per_minute" units_ref="mmHg_L_per_minute"/>
+		<units name="gram_per_minute" units_ref="gram_per_minute"/>
+		<units name="mL_per_L" units_ref="mL_per_L"/>
+		<units name="mL_per_L_per_mmHg" units_ref="mL_per_L_per_mmHg"/>
+		<units name="mL_per_L_per_minute" units_ref="mL_per_L_per_minute"/>
+		<units name="mL_per_minute_per_mmHg" units_ref="mL_per_minute_per_mmHg"/>
+		<units name="L_mL_per_minute_per_mmHg" units_ref="L_mL_per_minute_per_mmHg"/>
+		<units name="L_per_mL" units_ref="L_per_mL"/>
+		<units name="L_per_mmHg" units_ref="L_per_mmHg"/>
+		<units name="mL_per_minute" units_ref="mL_per_minute"/>
+		<units name="L_per_minute_per_mmHg" units_ref="L_per_minute_per_mmHg"/>
+		<units name="L_per_minute_per_mmHg2" units_ref="L_per_minute_per_mmHg2"/>
+	</import>
+
+<!-- =====================================	Import all Parameters and State Variables from the Parameter file	============================================== -->
+	<import xlink:href="parameters.cellml">
+		<component component_ref="parameter_values" name="parameter_values"/>
+		<component component_ref="state_variables" name="state_variables"/>
+	</import>
+
+
+<!-- ========================================	ANGIOTENSIN TOP-LEVEL COMPONENT	============================================= -->
+	<component 	name="angiotensin" 
+				cmeta:id="angiotensin">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#angiotensin">
+				<rdf:value>
+				Encapsulation grouping component containing all the components in the Angiotensin Model. The inputs and 
+				outputs of the Angiotensin Model must be passed by this component.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+
+		<variable name="time"	units="minute"	private_interface="out" public_interface="in"/>
+
+<!-- Inputs from components in other models -->
+		<variable name="MDFLW"	units="L_per_minute" private_interface="out" public_interface="in"/>
+
+<!-- Outputs to components in other models -->
+		<variable 	cmeta:id="angiotensin_ANUVN" name="ANUVN" units="dimensionless" private_interface="in" public_interface="out"/>
+		<variable 	cmeta:id="angiotensin_ANU" name="ANU"	units="dimensionless" private_interface="in" public_interface="out"/>
+		<variable 	cmeta:id="angiotensin_ANM" name="ANM" 	units="dimensionless" private_interface="in" public_interface="out"/>
+	</component>
+
+<!-- OUTPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="angiotensin" component_2="angiotensin_effect_on_venous_constriction"/>
+		<map_variables variable_1="ANUVN" variable_2="ANUVN"/>
+	</connection>
+	<connection>
+		<map_components component_1="angiotensin" component_2="angiotensin_effect_on_circulation"/>
+		<map_variables variable_1="ANU" variable_2="ANU"/>
+	</connection>
+	<connection>
+		<map_components component_1="angiotensin" component_2="general_angiotensin_multiplier"/>
+		<map_variables variable_1="ANM" variable_2="ANM"/>
+	</connection>
+
+<!-- ========================================	INSTANTANEOUS ANGIONTENSIN FORMATION	============================================= -->
+	<component 	name="instantaneous_angiotensin_formation" 
+				cmeta:id="instantaneous_angiotensin_formation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#instantaneous_angiotensin_formation">
+				<rdf:value>
+				AN1:  
+				This block damps the variations in rate of fluid flow in the renal tubules at 
+				the macula densa (MDFLW).  The damped outflow is the variable MDFLW3.
+				NB - REMOVED DAMPING FORM AN1!!!!
+
+				AN2:  
+				This block calculates the formation rate of angiotensin (ANGSCR) at different 
+				levels of MDFLW3.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN1">
+				<rdf:value>
+				AN1:  
+				This block damps the variations in rate of fluid flow in the renal tubules at 
+				the macula densa (MDFLW).  The damped outflow is the variable MDFLW3.
+				NB - REMOVED DAMPING FORM AN1!!!!
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN2">
+				<rdf:value>
+				AN2:  
+				This block calculates the formation rate of angiotensin (ANGSCR) at different 
+				levels of MDFLW3.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="MDFLW"	units="L_per_minute" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="ANGSCR" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Internal variables -->
+		<variable name="MDFLW3"	units="L_per_minute" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AN1">
+				<eq/>
+				<ci>MDFLW3</ci>
+				<ci>MDFLW</ci>
+			</apply>
+			<apply id="AN2">
+				<eq/>
+				<ci>ANGSCR</ci>
+				<piecewise>
+					<piece>
+						<apply>
+							<divide/>
+							<cn cellml:units="L_per_minute">1</cn>
+							<apply>
+								<plus/>
+								<cn cellml:units="L_per_minute">1</cn>
+								<apply>
+									<times/>
+									<apply>
+										<minus/>
+										<ci>MDFLW3</ci>
+										<cn cellml:units="L_per_minute">1</cn>
+									</apply>
+									<cn cellml:units="dimensionless">72</cn>
+								</apply>
+							</apply>
+						</apply>
+						<apply>
+							<gt/>
+							<ci>MDFLW3</ci>
+							<cn cellml:units="L_per_minute">1</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<apply>
+							<minus/>
+							<cn cellml:units="dimensionless">10</cn>
+							<apply>
+								<divide/>
+								<cn cellml:units="L_per_minute">9</cn>
+								<apply>
+									<plus/>
+									<cn cellml:units="L_per_minute">1</cn>
+									<apply>
+										<times/>
+										<apply>
+											<minus/>
+											<cn cellml:units="L_per_minute">1</cn>
+											<ci>MDFLW3</ci>
+										</apply>
+										<cn cellml:units="dimensionless">8</cn>
+									</apply>
+								</apply>
+							</apply>
+						</apply>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="instantaneous_angiotensin_formation" component_2="angiotensin"/>
+		<map_variables variable_1="MDFLW" variable_2="MDFLW"/>
+	</connection>
+
+<!-- ========================================	TIME-DELAYED ANGIOTENSIN FORMATION	============================================= -->
+	<component 	name="time_delayed_angiotensin_formation" 
+				cmeta:id="time_delayed_angiotensin_formation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#time_delayed_angiotensin_formation">
+				<rdf:value>
+				AN4, AN5, AN6, AN7, and AN8:  
+				Calculation of additional formation of angiotensin caused after a long-term delay.  
+				That is, when the JG cells are stimulated over long periods of time, in addition to
+				their acute effects on secretion rate of renin and subsequent formation of angiotensin,
+				there is a long-term increase in numbers of active JG cells to give a long-term delayed 
+				response over a period of days.  The variable ANXM adjusts the magnitude of this 
+				delayed response.  ANX is the total response without regard to the time delay.  ANV is 
+				the time-constant of the time delay.  ANX1 is the total extra secretion after factoring
+				in the time delay effects of blocks 6, 7, and 8.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN4_and_AN5">
+				<rdf:value>
+				AN4, AN5, AN6, AN7, and AN8:  
+				Calculation of additional formation of angiotensin caused after a long-term delay.  
+				That is, when the JG cells are stimulated over long periods of time, in addition to
+				their acute effects on secretion rate of renin and subsequent formation of angiotensin,
+				there is a long-term increase in numbers of active JG cells to give a long-term delayed 
+				response over a period of days.  The variable ANXM adjusts the magnitude of this 
+				delayed response.  ANX is the total response without regard to the time delay.  ANV is 
+				the time-constant of the time delay.  ANX1 is the total extra secretion after factoring
+				in the time delay effects of blocks 6, 7, and 8.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN6_to_AN8">
+				<rdf:value>
+				AN4, AN5, AN6, AN7, and AN8:  
+				Calculation of additional formation of angiotensin caused after a long-term delay.  
+				That is, when the JG cells are stimulated over long periods of time, in addition to
+				their acute effects on secretion rate of renin and subsequent formation of angiotensin,
+				there is a long-term increase in numbers of active JG cells to give a long-term delayed 
+				response over a period of days.  The variable ANXM adjusts the magnitude of this 
+				delayed response.  ANX is the total response without regard to the time delay.  ANV is 
+				the time-constant of the time delay.  ANX1 is the total extra secretion after factoring
+				in the time delay effects of blocks 6, 7, and 8.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ANGSCR"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ANX1_init"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="time"	units="minute" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="ANX1" 	initial_value="ANX1_init"	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ANXM"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ANV"	units="minute" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="ANX"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AN4_and_AN5">
+				<eq/>
+				<ci>ANX</ci>
+				<apply>
+					<times/>
+					<apply>
+						<minus/>
+						<ci>ANGSCR</ci>
+						<cn cellml:units="dimensionless">1</cn>
+					</apply>
+					<ci>ANXM</ci>
+				</apply>
+			</apply>
+			<apply id="AN6_to_AN8">
+				<eq/>
+				<apply>
+					<diff/>
+					<bvar>
+						<ci>time</ci>
+					</bvar>
+					<ci>ANX1</ci>
+				</apply>
+				<apply>
+					<divide/>
+					<apply>
+						<minus/>
+						<ci>ANX</ci>
+						<ci>ANX1</ci>
+					</apply>
+					<ci>ANV</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- STATE VARIABLES INITIAL VALUE -->
+	<connection>
+		<map_components component_1="time_delayed_angiotensin_formation" component_2="state_variables"/>
+		<map_variables variable_1="ANX1_init" variable_2="ANX1_init"/>
+	</connection>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="time_delayed_angiotensin_formation" component_2="instantaneous_angiotensin_formation"/>
+		<map_variables variable_1="ANGSCR" variable_2="ANGSCR"/>
+	</connection>
+	<connection>
+		<map_components component_1="time_delayed_angiotensin_formation" component_2="angiotensin"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="time_delayed_angiotensin_formation" component_2="parameter_values"/>
+		<map_variables variable_1="ANXM" variable_2="ANXM"/>
+		<map_variables variable_1="ANV" variable_2="ANV"/>
+	</connection>
+
+<!-- ========================================	TOTAL ANGIOTENSIN FORMATION	============================================= -->
+	<component 	name="total_angiotensin_formation" 
+				cmeta:id="total_angiotensin_formation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#total_angiotensin_formation">
+				<rdf:value>
+				AN9:  
+				Summation of instantaneous formation of angiotensin (ANGSCR) plus the time delayed 
+				formation of angiotensin (ANX1).
+
+				AN10:  
+				Calculation of the total rate of formation of angiotensin (ANPR) in case some of 
+				the renal mass (and therefore some of the JG cells) has been removed or destroyed. 
+				Factor REK is equal to the proportion of kidney mass that is still functional.
+
+				AN11:  
+				This sets the lower limit of ANPR to a very low level, almost zero, below which 
+				this cannot fall.  The reason for this is to prevent a negative value from appearing.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN9_and_AN10">
+				<rdf:value>
+				AN9:  
+				Summation of instantaneous formation of angiotensin (ANGSCR) plus the time delayed 
+				formation of angiotensin (ANX1).
+
+				AN10:  
+				Calculation of the total rate of formation of angiotensin (ANPR) in case some of 
+				the renal mass (and therefore some of the JG cells) has been removed or destroyed. 
+				Factor REK is equal to the proportion of kidney mass that is still functional.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN11">
+				<rdf:value>
+				AN11:  
+				This sets the lower limit of ANPR to a very low level, almost zero, below which 
+				this cannot fall.  The reason for this is to prevent a negative value from appearing.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ANGSCR"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ANX1"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="ANPR" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="REK"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="ANPRT"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AN9_and_AN10">
+				<eq/>
+				<ci>ANPRT</ci>
+				<apply>
+					<times/>
+					<apply>
+						<plus/>
+						<ci>ANGSCR</ci>
+						<ci>ANX1</ci>
+					</apply>
+					<ci>REK</ci>
+				</apply>
+			</apply>
+			<apply id="AN11">
+				<eq/>
+				<ci>ANPR</ci>
+				<piecewise>
+					<piece>
+						<cn cellml:units="dimensionless">0.00001</cn>
+						<apply>
+							<lt/>
+							<ci>ANPRT</ci>
+							<cn cellml:units="dimensionless">0.00001</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>ANPRT</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="total_angiotensin_formation" component_2="instantaneous_angiotensin_formation"/>
+		<map_variables variable_1="ANGSCR" variable_2="ANGSCR"/>
+	</connection>
+	<connection>
+		<map_components component_1="total_angiotensin_formation" component_2="time_delayed_angiotensin_formation"/>
+		<map_variables variable_1="ANX1" variable_2="ANX1"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="total_angiotensin_formation" component_2="parameter_values"/>
+		<map_variables variable_1="REK" variable_2="REK"/>
+	</connection>
+
+<!-- ========================================	ARTIFICIAL ANGIOTENSIN FORMATION	============================================= -->
+	<component 	name="artificial_angiotensin_formation" 
+				cmeta:id="artificial_angiotensin_formation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#artificial_angiotensin_formation">
+				<rdf:value>
+				AN11A:  
+				This block allows the addition of infused angiotensin (ANGINF) to the amount of 
+				angiotensin that is formed in the body (ANPR).
+
+				AN11B:  
+				This block allows one to disregard all the previous blocks and to set the total 
+				rate of angiotensin entering the circulatory system (ANPR1) to a constant level, ANGKNS. 
+				When ANGKNS is equal to zero or less, then Block 11B is ineffective.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN11A_and_AN11B">
+				<rdf:value>
+				AN11A:  
+				This block allows the addition of infused angiotensin (ANGINF) to the amount of 
+				angiotensin that is formed in the body (ANPR).
+
+				AN11B:  
+				This block allows one to disregard all the previous blocks and to set the total 
+				rate of angiotensin entering the circulatory system (ANPR1) to a constant level, ANGKNS. 
+				When ANGKNS is equal to zero or less, then Block 11B is ineffective.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ANPR"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="ANPR1" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ANGKNS"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ANGINF"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AN11A_and_AN11B">
+				<eq/>
+				<ci>ANPR1</ci>
+				<piecewise>
+					<piece>
+						<ci>ANGKNS</ci>
+						<apply>
+							<gt/>
+							<ci>ANGKNS</ci>
+							<cn cellml:units="dimensionless">0</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<apply>
+							<plus/>
+							<ci>ANPR</ci>
+							<ci>ANGINF</ci>
+						</apply>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="artificial_angiotensin_formation" component_2="total_angiotensin_formation"/>
+		<map_variables variable_1="ANPR" variable_2="ANPR"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="artificial_angiotensin_formation" component_2="parameter_values"/>
+		<map_variables variable_1="ANGKNS" variable_2="ANGKNS"/>
+		<map_variables variable_1="ANGINF" variable_2="ANGINF"/>
+	</connection>
+
+<!-- ========================================	ANGIOTENSIN CONCENTRATION	============================================= -->
+	<component 	name="angiotensin_concentration" 
+				cmeta:id="angiotensin_concentration">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#angiotensin_concentration">
+				<rdf:value>
+				AN12, AN13, and AN14:  
+				These blocks convert the rate of entry of angiotensin into the body fluids (ANPR1), 
+				into the concentration of angiotensin (ANC) considering the normal value to be the 
+				numeral 1.  The value ANT is the time constant for rate of change of angiotensin 
+				concentration in the body fluids.  The value Z12 is a damping coefficient to allow 
+				damping of this conversion so that the model can be run faster for long-term simulations.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN12_to_AN14">
+				<rdf:value>
+				AN12, AN13, and AN14:  
+				These blocks convert the rate of entry of angiotensin into the body fluids (ANPR1), 
+				into the concentration of angiotensin (ANC) considering the normal value to be the 
+				numeral 1.  The value ANT is the time constant for rate of change of angiotensin 
+				concentration in the body fluids.  The value Z12 is a damping coefficient to allow 
+				damping of this conversion so that the model can be run faster for long-term simulations.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ANPR1"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ANC_init"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="time"	units="minute" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="ANC" 	initial_value="ANC_init"	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ANT"	units="minute" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AN12_to_AN14">
+				<eq/>
+				<apply>
+					<diff/>
+					<bvar>
+						<ci>time</ci>
+					</bvar>
+					<ci>ANC</ci>
+				</apply>
+				<apply>
+					<divide/>
+					<apply>
+						<minus/>
+						<ci>ANPR1</ci>
+						<ci>ANC</ci>
+					</apply>
+					<ci>ANT</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- STATE VARIABLES INITIAL VALUE -->
+	<connection>
+		<map_components component_1="angiotensin_concentration" component_2="state_variables"/>
+		<map_variables variable_1="ANC_init" variable_2="ANC_init"/>
+	</connection>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="angiotensin_concentration" component_2="artificial_angiotensin_formation"/>
+		<map_variables variable_1="ANPR1" variable_2="ANPR1"/>
+	</connection>
+	<connection>
+		<map_components component_1="angiotensin_concentration" component_2="angiotensin"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="angiotensin_concentration" component_2="parameter_values"/>
+		<map_variables variable_1="ANT" variable_2="ANT"/>
+	</connection>
+
+<!-- ========================================	GENERAL ANGIOTENSIN MULTIPLIER	============================================= -->
+	<component 	name="general_angiotensin_multiplier" 
+				cmeta:id="general_angiotensin_multiplier">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#general_angiotensin_multiplier">
+				<rdf:value>
+				AN15:  
+				This is an equation that allows one to convert the concentration of angiotensin (ANC) 
+				into an angiotensin multiplier (ANM) which describes the multiplicative effect of 
+				angiotensin on various physiological functions, assuming the normal value of ANM 
+				to be 1.0.  The value ANMUL is the upper limit to the level of ANM.  ANMLL is the 
+				lower limit of ANM.  And the value ANCSNS is a sensitivity value for adjusting the 
+				quantitative effect of ANC on ANM.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN15">
+				<rdf:value>
+				AN15:  
+				This is an equation that allows one to convert the concentration of angiotensin (ANC) 
+				into an angiotensin multiplier (ANM) which describes the multiplicative effect of 
+				angiotensin on various physiological functions, assuming the normal value of ANM 
+				to be 1.0.  The value ANMUL is the upper limit to the level of ANM.  ANMLL is the 
+				lower limit of ANM.  And the value ANCSNS is a sensitivity value for adjusting the 
+				quantitative effect of ANC on ANM.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ANC"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="ANM" 	units="dimensionless" private_interface="none" public_interface="out"/>
+<!--		<variable 	cmeta:id="general_angiotensin_multiplier_ANM"
+					name="ANM" 	units="dimensionless" private_interface="none" public_interface="out"/> -->
+
+<!-- Parameters from parameter_file -->
+		<variable name="ANMUL"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ANMLL"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ANCSNS"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AN15">
+				<eq/>
+				<ci>ANM</ci>
+				<apply>
+					<minus/>
+					<ci>ANMUL</ci>
+					<apply>
+						<divide/>
+						<apply>
+							<minus/>
+							<ci>ANMUL</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<apply>
+							<plus/>
+							<apply>
+								<times/>
+								<apply>
+									<divide/>
+									<apply>
+										<minus/>
+										<ci>ANMLL</ci>
+										<cn cellml:units="dimensionless">1</cn>
+									</apply>
+									<apply>
+										<minus/>
+										<ci>ANMLL</ci>
+										<ci>ANMUL</ci>
+									</apply>
+								</apply>
+								<apply>
+									<minus/>
+									<ci>ANC</ci>
+									<cn cellml:units="dimensionless">1</cn>
+								</apply>
+								<ci>ANCSNS</ci>
+							</apply>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+					</apply>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="general_angiotensin_multiplier" component_2="angiotensin_concentration"/>
+		<map_variables variable_1="ANC" variable_2="ANC"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="general_angiotensin_multiplier" component_2="parameter_values"/>
+		<map_variables variable_1="ANMUL" variable_2="ANMUL"/>
+		<map_variables variable_1="ANMLL" variable_2="ANMLL"/>
+		<map_variables variable_1="ANCSNS" variable_2="ANCSNS"/>
+	</connection>
+
+<!-- ========================================	ANGIOTENSIN EFFECT ON CIRCULATION	============================================= -->
+	<component 	name="angiotensin_effect_on_circulation" 
+				cmeta:id="angiotensin_effect_on_circulation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#angiotensin_effect_on_circulation">
+				<rdf:value>
+				AN16, AN17, and AN18:  
+				These blocks are a sensitivity controller for converting the basic effect of the 
+				angiotensin multiplier (ANM) on other functional systems of the circulation (ANU).  
+				The sensitivity adjustment is the factor ANUM in Block 17.
+
+				AN19:  
+				This block sets the lower limit to which ANU can fall (ANULL).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN16_to_AN18">
+				<rdf:value>
+				AN16, AN17, and AN18:  
+				These blocks are a sensitivity controller for converting the basic effect of the 
+				angiotensin multiplier (ANM) on other functional systems of the circulation (ANU).  
+				The sensitivity adjustment is the factor ANUM in Block 17.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN19">
+				<rdf:value>
+				AN19:  
+				This block sets the lower limit to which ANU can fall (ANULL).
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ANM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+<!--		<variable 	cmeta:id="angiotensin_effect_on_circulation_ANU"
+					name="ANU" 	units="dimensionless" private_interface="none" public_interface="out"/> -->
+		<variable name="ANU" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ANUM"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ANULL"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="ANU1"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AN16_to_AN18">
+				<eq/>
+				<ci>ANU1</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<apply>
+							<minus/>
+							<ci>ANM</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<ci>ANUM</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+			<apply id="AN19">
+				<eq/>
+				<ci>ANU</ci>
+				<piecewise>
+					<piece>
+						<ci>ANULL</ci>
+						<apply>
+							<lt/>
+							<ci>ANU1</ci>
+							<ci>ANULL</ci>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>ANU1</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="angiotensin_effect_on_circulation" component_2="general_angiotensin_multiplier"/>
+		<map_variables variable_1="ANM" variable_2="ANM"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="angiotensin_effect_on_circulation" component_2="parameter_values"/>
+		<map_variables variable_1="ANUM" variable_2="ANUM"/>
+		<map_variables variable_1="ANULL" variable_2="ANULL"/>
+	</connection>
+
+<!-- ========================================	ANGIOTENSIN EFFECT ON VENOUS CONSTRICTION	============================================= -->
+	<component 	name="angiotensin_effect_on_venous_constriction" 
+				cmeta:id="angiotensin_effect_on_venous_constriction">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#angiotensin_effect_on_venous_constriction">
+				<rdf:value>
+				AN20, AN21, and AN22:  
+				Calculation of the effect of angiotensin on venous constriction (ANUVN), with 
+				sensitivity controlled by ANUVM in Block 21.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AN20_to_AN22">
+				<rdf:value>
+				AN20, AN21, and AN22:  
+				Calculation of the effect of angiotensin on venous constriction (ANUVN), with 
+				sensitivity controlled by ANUVM in Block 21.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ANU"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+<!--		<variable 	cmeta:id="angiotensin_effect_on_venous_constriction_ANUVN" 
+					name="ANUVN" 	units="dimensionless" private_interface="none" public_interface="out"/> -->
+		<variable	name="ANUVN" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ANUVM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AN20_to_AN22">
+				<eq/>
+				<ci>ANUVN</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<apply>
+							<minus/>
+							<ci>ANU</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<ci>ANUVM</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="angiotensin_effect_on_venous_constriction" component_2="angiotensin_effect_on_circulation"/>
+		<map_variables variable_1="ANU" variable_2="ANU"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="angiotensin_effect_on_venous_constriction" component_2="parameter_values"/>
+		<map_variables variable_1="ANUVM" variable_2="ANUVM"/>
+	</connection>
+
+	
+<!-- ============================================================		GROUPING		=============================================================== -->
+   <group>
+      <relationship_ref relationship="containment"/>
+      <component_ref component="angiotensin">
+			<component_ref component="instantaneous_angiotensin_formation"/>
+			<component_ref component="time_delayed_angiotensin_formation"/>
+			<component_ref component="total_angiotensin_formation"/>
+			<component_ref component="artificial_angiotensin_formation"/>
+			<component_ref component="angiotensin_concentration"/>
+			<component_ref component="general_angiotensin_multiplier"/>
+			<component_ref component="angiotensin_effect_on_circulation"/>
+			<component_ref component="angiotensin_effect_on_venous_constriction"/>
+      </component_ref>
+   </group>
+
+
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="angiotensin">
+			<component_ref component="parameter_values"/>
+			<component_ref component="state_variables"/>
+			<component_ref component="instantaneous_angiotensin_formation"/>
+			<component_ref component="time_delayed_angiotensin_formation"/>
+			<component_ref component="total_angiotensin_formation"/>
+			<component_ref component="artificial_angiotensin_formation"/>
+			<component_ref component="angiotensin_concentration"/>
+			<component_ref component="general_angiotensin_multiplier"/>
+			<component_ref component="angiotensin_effect_on_circulation"/>
+			<component_ref component="angiotensin_effect_on_venous_constriction"/>
+      </component_ref>
+   </group>
+
+</model>   

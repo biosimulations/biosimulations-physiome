@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Four-state kinetic model of Yang et al (2003)
+ Yang, Jin, et al. "The myogenic response in isolated rat cerebrovascular arteries: smooth muscle cell model."
+ Medical engineering & physics 25.8 (2003): 691-709.-->
+<model name="CB4Yang" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="units.cellml">
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="ms" units_ref="ms"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="per_mM_ms" units_ref="per_mM_ms"/>
+        <units name="per_mMsq_ms" units_ref="per_mMsq_ms"/>
+    </import>
+    <component name="CB4Yang">
+        <variable name="time" public_interface="in" units="ms"/>
+        <variable name="R00_init" public_interface="in" units="dimensionless"/>
+        <variable name="R10_init" public_interface="in" units="dimensionless"/>
+        <variable name="R01_init" public_interface="in" units="dimensionless"/>
+        <variable name="R11_init" public_interface="in" units="dimensionless"/>
+        <variable name="K_r1" public_interface="in" units="per_mMsq_ms"/>
+        <variable name="K_r1minus" public_interface="in" units="per_ms"/>
+        <variable name="K_r2" public_interface="in" units="per_mM_ms"/>
+        <variable name="K_r2minus" public_interface="in" units="per_ms"/>
+        <variable name="Cai" public_interface="in" units="mM"/>
+        <variable name="norm" units="dimensionless"/>
+        <variable initial_value="R00_init" name="R_00" public_interface="out" units="dimensionless"/>
+        <variable initial_value="R10_init" name="R_10" public_interface="out" units="dimensionless"/>
+        <variable initial_value="R01_init" name="R_01" public_interface="out" units="dimensionless"/>
+        <variable initial_value="R11_init" name="R_11" public_interface="out" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>norm</ci>
+                <apply>
+                    <plus/>
+                    <ci>R_00</ci>
+                    <ci>R_10</ci>
+                    <ci>R_01</ci>
+                    <ci>R_11</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>R_00</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <apply>
+                            <minus/>
+                            <apply>
+                                <plus/>
+                                <apply>
+                                    <times/>
+                                    <ci>K_r1</ci>
+                                    <apply>
+                                        <power/>
+                                        <ci>Cai</ci>
+                                        <cn cellml:units="dimensionless">2</cn>
+                                    </apply>
+                                </apply>
+                                <apply>
+                                    <times/>
+                                    <ci>K_r2</ci>
+                                    <ci>Cai</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <ci>R_00</ci>
+                    </apply>
+                    <ci>norm</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>R_10</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <ci>K_r1</ci>
+                                <apply>
+                                    <power/>
+                                    <ci>Cai</ci>
+                                    <cn cellml:units="dimensionless">2</cn>
+                                </apply>
+                                <ci>R_00</ci>
+                            </apply>
+                            <ci>norm</ci>
+                        </apply>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <apply>
+                                    <plus/>
+                                    <ci>K_r1minus</ci>
+                                    <apply>
+                                        <times/>
+                                        <ci>K_r2</ci>
+                                        <ci>Cai</ci>
+                                    </apply>
+                                </apply>
+                                <ci>R_10</ci>
+                            </apply>
+                            <ci>norm</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>K_r2minus</ci>
+                            <ci>R_11</ci>
+                        </apply>
+                        <ci>norm</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>R_01</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <ci>K_r2</ci>
+                                <ci>Cai</ci>
+                                <ci>R_00</ci>
+                            </apply>
+                            <ci>norm</ci>
+                        </apply>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <ci>K_r1minus</ci>
+                                <ci>R_11</ci>
+                            </apply>
+                            <ci>norm</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <plus/>
+                                <ci>K_r2minus</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>K_r1</ci>
+                                    <apply>
+                                        <power/>
+                                        <ci>Cai</ci>
+                                        <cn cellml:units="dimensionless">2</cn>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <ci>R_01</ci>
+                        </apply>
+                        <ci>norm</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>R_11</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <ci>K_r2</ci>
+                                <ci>Cai</ci>
+                                <ci>R_10</ci>
+                            </apply>
+                            <ci>norm</ci>
+                        </apply>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <apply>
+                                    <plus/>
+                                    <ci>K_r1minus</ci>
+                                    <ci>K_r2minus</ci>
+                                </apply>
+                                <ci>R_11</ci>
+                            </apply>
+                            <ci>norm</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>K_r1</ci>
+                            <apply>
+                                <power/>
+                                <ci>Cai</ci>
+                                <cn cellml:units="dimensionless">2</cn>
+                            </apply>
+                            <ci>R_01</ci>
+                        </apply>
+                        <ci>norm</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

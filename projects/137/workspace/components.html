@@ -1,0 +1,1221 @@
+<html>
+<body>
+
+<h1>Metabolic Component Library for CellML</h1>
+<b>Matthias Koenig</b> [1] & <b>Randall Britten</b> [2]<br />
+[1] Charite Berlin, matthias.koenig@charite.de<br />
+[2] Auckland Bioengineering Institute<br />
+
+<p>
+Implementation of standardized reaction kinetics in CellML for reuse in metabolic models. 
+The library covers the metabolic function definitions for processes from COPASI 4.8 (Bulid 35).
+</p>
+
+<h2>Components</h2>
+<b>Substrate(s)</b> : S (S1, S2, ...)<br />
+<b>Product(s)</b>  : P (P1, P2, ... )<br />
+<b>Inhibitor(s)</b> : I (I1, I2, ...)<br />
+<b>Activator(s)</b> :  A (A1, A2, ...)<br />
+<b>Modifier(s)</b> : M (M1, M2, ...)<br />
+<hr />
+
+
+
+	<h3>AllostericInhibitionEmpirical</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/AllostericInhibitionEmpirical.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			I [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			n [dimensionless]<br />
+			Ki [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/AllostericInhibitionEmpirical.png" alt="AllostericInhibitionEmpirical" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_I<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_I.png" alt="UniUniRev_I" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>AllostericInhibitionMWC</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/AllostericInhibitionMWC.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 1)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			I [mM]<br />
+			V [mM_per_second]<br />
+			Km_S [mM]<br />
+			n [dimensionless]<br />
+			L [dimensionless]<br />
+			Ki [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/AllostericInhibitionMWC.png" alt="AllostericInhibitionMWC" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniIrrev_I<br />
+			UniBiIrrev_I<br />
+			UniNullIrrev_I<br />
+		</td><td>
+			<img src="sbgn/UniUniIrrev_I.png" alt="UniUniIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev_I.png" alt="UniBiIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniNullIrrev_I.png" alt="UniNullIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>BiIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/BiIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S1 [mM]<br />
+			S2 [mM]<br />
+			V [mM_per_second]<br />
+			Km_S1 [mM]<br />
+			Km_S2 [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/BiIrrev.png" alt="BiIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			BiNullIrrev<br />
+			BiBiIrrev<br />
+			BiUniIrrev<br />
+		</td><td>
+			<img src="sbgn/BiNullIrrev.png" alt="BiNullIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/BiBiIrrev.png" alt="BiBiIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/BiUniIrrev.png" alt="BiUniIrrev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>CatalyticActivationIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/CatalyticActivationIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			A [mM]<br />
+			V [mM_per_second]<br />
+			Km_S [mM]<br />
+			Km_A [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/CatalyticActivationIrrev.png" alt="CatalyticActivationIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniIrrev_A<br />
+			UniBiIrrev_A<br />
+			UniNullIrrev_A<br />
+		</td><td>
+			<img src="sbgn/UniUniIrrev_A.png" alt="UniUniIrrev_A" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev_A.png" alt="UniBiIrrev_A" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniNullIrrev_A.png" alt="UniNullIrrev_A" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>CatalyticActivationRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/CatalyticActivationRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			A [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			Km_A [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/CatalyticActivationRev.png" alt="CatalyticActivationRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_A<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_A.png" alt="UniUniRev_A" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>CompetitiveInhibitionIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/CompetitiveInhibitionIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			I [mM]<br />
+			V [mM_per_second]<br />
+			Km_S [mM]<br />
+			Ki [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/CompetitiveInhibitionIrrev.png" alt="CompetitiveInhibitionIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniIrrev_I<br />
+			UniBiIrrev_I<br />
+			UniNullIrrev_I<br />
+		</td><td>
+			<img src="sbgn/UniUniIrrev_I.png" alt="UniUniIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev_I.png" alt="UniBiIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniNullIrrev_I.png" alt="UniNullIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>CompetitiveInhibitionRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/CompetitiveInhibitionRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			I [mM]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			Ki [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/CompetitiveInhibitionRev.png" alt="CompetitiveInhibitionRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_I<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_I.png" alt="UniUniRev_I" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>ConstantFluxIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/ConstantFluxIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			V [mM_per_second]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/ConstantFluxIrrev.png" alt="ConstantFluxIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniNullIrrev<br />
+			UniUniIrrev<br />
+			UniBiIrrev<br />
+			BiBiIrrev<br />
+			BiUniIrrev<br />
+		</td><td>
+			<img src="sbgn/UniNullIrrev.png" alt="UniNullIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniUniIrrev.png" alt="UniUniIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev.png" alt="UniBiIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/BiBiIrrev.png" alt="BiBiIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/BiUniIrrev.png" alt="BiUniIrrev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>Hill1ModifierRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/Hill1ModifierRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			M [mM]<br />
+			V [mM_per_second]<br />
+			Keq [dimensionless]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			Km_M [mM]<br />
+			a [dimensionless]<br />
+			h [dimensionless]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/Hill1ModifierRev.png" alt="Hill1ModifierRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_M<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_M.png" alt="UniUniRev_M" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>Hill2ModifierRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/Hill2ModifierRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			M1 [mM]<br />
+			M2 [mM]<br />
+			V [mM_per_second]<br />
+			Keq [dimensionless]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			Km_M1 [mM]<br />
+			Km_M2 [mM]<br />
+			a_A [dimensionless]<br />
+			a_B [dimensionless]<br />
+			a_AB [dimensionless]<br />
+			h [dimensionless]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/Hill2ModifierRev.png" alt="Hill2ModifierRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_M2<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_M2.png" alt="UniUniRev_M2" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>HillIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/HillIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 1)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			V [mM_per_second]<br />
+			Km_S [mM]<br />
+			n [dimensionless]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/HillIrrev.png" alt="HillIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniNullIrrev<br />
+			UniUniIrrev<br />
+			UniBiIrrev<br />
+		</td><td>
+			<img src="sbgn/UniNullIrrev.png" alt="UniNullIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniUniIrrev.png" alt="UniUniIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev.png" alt="UniBiIrrev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>HillRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/HillRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			V [mM_per_second]<br />
+			Keq [dimensionless]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			h [dimensionless]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/HillRev.png" alt="HillRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev<br />
+		</td><td>
+			<img src="sbgn/UniUniRev.png" alt="UniUniRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>HyperbolicModifierIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/HyperbolicModifierIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			M [mM]<br />
+			V [mM_per_second]<br />
+			Kd [mM]<br />
+			Km_S [mM]<br />
+			a [dimensionless]<br />
+			b [dimensionless]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/HyperbolicModifierIrrev.png" alt="HyperbolicModifierIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniNullIrrev_M<br />
+			UniUniIrrev_M<br />
+			UniBiIrrev_M<br />
+		</td><td>
+			<img src="sbgn/UniNullIrrev_M.png" alt="UniNullIrrev_M" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniUniIrrev_M.png" alt="UniUniIrrev_M" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev_M.png" alt="UniBiIrrev_M" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>HyperbolicModifierRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/HyperbolicModifierRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			M [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Kd [mM]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			a [dimensionless]<br />
+			b [dimensionless]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/HyperbolicModifierRev.png" alt="HyperbolicModifierRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_M<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_M.png" alt="UniUniRev_M" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>IsoUniUni</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/IsoUniUni.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			V [mM_per_second]<br />
+			Keq [dimensionless]<br />
+			Ki [mM]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/IsoUniUni.png" alt="IsoUniUni" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev<br />
+		</td><td>
+			<img src="sbgn/UniUniRev.png" alt="UniUniRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MassActionBiBiRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MassActionBiBiRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S1 [mM]<br />
+			S2 [mM]<br />
+			P1 [mM]<br />
+			P2 [mM]<br />
+			k_f [per_mM_per_second]<br />
+			k_b [per_mM_per_second]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MassActionBiBiRev.png" alt="MassActionBiBiRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			BiBiRev<br />
+		</td><td>
+			<img src="sbgn/BiBiRev.png" alt="BiBiRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MassActionBiIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MassActionBiIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S1 [mM]<br />
+			S2 [mM]<br />
+			k_f [per_mM_per_second]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MassActionBiIrrev.png" alt="MassActionBiIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			BiNullIrrev<br />
+			BiBiIrrev<br />
+			BiUniIrrev<br />
+		</td><td>
+			<img src="sbgn/BiNullIrrev.png" alt="BiNullIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/BiBiIrrev.png" alt="BiBiIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/BiUniIrrev.png" alt="BiUniIrrev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MassActionBiUniRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MassActionBiUniRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S1 [mM]<br />
+			S2 [mM]<br />
+			P [mM]<br />
+			k_f [per_mM_per_second]<br />
+			k_b [per_second]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MassActionBiUniRev.png" alt="MassActionBiUniRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			BiUniRev<br />
+		</td><td>
+			<img src="sbgn/BiUniRev.png" alt="BiUniRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MassActionUniBiRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MassActionUniBiRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P1 [mM]<br />
+			P2 [mM]<br />
+			k_f [per_second]<br />
+			k_b [per_mM_per_second]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MassActionUniBiRev.png" alt="MassActionUniBiRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniBiRev<br />
+		</td><td>
+			<img src="sbgn/UniBiRev.png" alt="UniBiRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MassActionUniIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MassActionUniIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			k_f [per_second]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MassActionUniIrrev.png" alt="MassActionUniIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniNullIrrev<br />
+			UniUniIrrev<br />
+			UniBiIrrev<br />
+		</td><td>
+			<img src="sbgn/UniNullIrrev.png" alt="UniNullIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniUniIrrev.png" alt="UniUniIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev.png" alt="UniBiIrrev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MassActionUniUniRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MassActionUniUniRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			k_f [per_second]<br />
+			k_b [per_second]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MassActionUniUniRev.png" alt="MassActionUniUniRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev<br />
+		</td><td>
+			<img src="sbgn/UniUniRev.png" alt="UniUniRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MichaelisMentenIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MichaelisMentenIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			V [mM_per_second]<br />
+			Km_S [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MichaelisMentenIrrev.png" alt="MichaelisMentenIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniNullIrrev<br />
+			UniUniIrrev<br />
+			UniBiIrrev<br />
+		</td><td>
+			<img src="sbgn/UniNullIrrev.png" alt="UniNullIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniUniIrrev.png" alt="UniUniIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev.png" alt="UniBiIrrev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MichaelisMentenRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MichaelisMentenRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MichaelisMentenRev.png" alt="MichaelisMentenRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev<br />
+		</td><td>
+			<img src="sbgn/UniUniRev.png" alt="UniUniRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MixedActivationIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MixedActivationIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			A [mM]<br />
+			V [mM_per_second]<br />
+			Kac [mM]<br />
+			Kas [mM]<br />
+			Km_S [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MixedActivationIrrev.png" alt="MixedActivationIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniIrrev_A<br />
+			UniBiIrrev_A<br />
+			UniNullIrrev_A<br />
+		</td><td>
+			<img src="sbgn/UniUniIrrev_A.png" alt="UniUniIrrev_A" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev_A.png" alt="UniBiIrrev_A" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniNullIrrev_A.png" alt="UniNullIrrev_A" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MixedActivationRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MixedActivationRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			A [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Kac [mM]<br />
+			Kas [mM]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MixedActivationRev.png" alt="MixedActivationRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_A<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_A.png" alt="UniUniRev_A" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MixedInhibitionIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MixedInhibitionIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			I [mM]<br />
+			V [mM_per_second]<br />
+			Kis [mM]<br />
+			Kic [mM]<br />
+			Km_S [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MixedInhibitionIrrev.png" alt="MixedInhibitionIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniIrrev_I<br />
+			UniBiIrrev_I<br />
+			UniNullIrrev_I<br />
+		</td><td>
+			<img src="sbgn/UniUniIrrev_I.png" alt="UniUniIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev_I.png" alt="UniBiIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniNullIrrev_I.png" alt="UniNullIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>MixedInhibitionRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/MixedInhibitionRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			I [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Kis [mM]<br />
+			Kic [mM]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/MixedInhibitionRev.png" alt="MixedInhibitionRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_I<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_I.png" alt="UniUniRev_I" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>NoncompetitiveInhibitionIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/NoncompetitiveInhibitionIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			V [mM_per_second]<br />
+			Km_S [mM]<br />
+			I [mM]<br />
+			Ki [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/NoncompetitiveInhibitionIrrev.png" alt="NoncompetitiveInhibitionIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniIrrev_I<br />
+			UniBiIrrev_I<br />
+			UniNullIrrev_I<br />
+		</td><td>
+			<img src="sbgn/UniUniIrrev_I.png" alt="UniUniIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev_I.png" alt="UniBiIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniNullIrrev_I.png" alt="UniNullIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>NoncompetitiveInhibitionRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/NoncompetitiveInhibitionRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			I [mM]<br />
+			Ki [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/NoncompetitiveInhibitionRev.png" alt="NoncompetitiveInhibitionRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_I<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_I.png" alt="UniUniRev_I" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>OrderedBiBi</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/OrderedBiBi.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S1 [mM]<br />
+			S2 [mM]<br />
+			P1 [mM]<br />
+			P2 [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Keq [dimensionless]<br />
+			Km_S1 [mM]<br />
+			Km_S2 [mM]<br />
+			Km_P1 [mM]<br />
+			Km_P2 [mM]<br />
+			Ki_S1 [mM]<br />
+			Ki_S2 [mM]<br />
+			Ki_P1 [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/OrderedBiBi.png" alt="OrderedBiBi" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			BiBiRev<br />
+		</td><td>
+			<img src="sbgn/BiBiRev.png" alt="BiBiRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>OrderedBiUni</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/OrderedBiUni.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S1 [mM]<br />
+			S2 [mM]<br />
+			P [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Keq [per_mM]<br />
+			Km_S1 [mM]<br />
+			Km_S2 [mM]<br />
+			Km_P [mM]<br />
+			Ki_S1 [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/OrderedBiUni.png" alt="OrderedBiUni" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			BiUniRev<br />
+		</td><td>
+			<img src="sbgn/BiUniRev.png" alt="BiUniRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>OrderedUniBi</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/OrderedUniBi.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P1 [mM]<br />
+			P2 [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Keq [mM]<br />
+			Km_S [mM]<br />
+			Km_P1 [mM]<br />
+			Km_P2 [mM]<br />
+			Ki_P1 [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/OrderedUniBi.png" alt="OrderedUniBi" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniBiRev<br />
+		</td><td>
+			<img src="sbgn/UniBiRev.png" alt="UniBiRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>PingPongBiBi</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/PingPongBiBi.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S1 [mM]<br />
+			S2 [mM]<br />
+			P1 [mM]<br />
+			P2 [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Keq [dimensionless]<br />
+			Km_S1 [mM]<br />
+			Km_S2 [mM]<br />
+			Km_P1 [mM]<br />
+			Km_P2 [mM]<br />
+			Ki_S1 [mM]<br />
+			Ki_P2 [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/PingPongBiBi.png" alt="PingPongBiBi" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			BiBiRev<br />
+		</td><td>
+			<img src="sbgn/BiBiRev.png" alt="BiBiRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>SpecificActivationIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/SpecificActivationIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			A [mM]<br />
+			V [mM_per_second]<br />
+			Km_S [mM]<br />
+			Km_A [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/SpecificActivationIrrev.png" alt="SpecificActivationIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniIrrev_A<br />
+			UniBiIrrev_A<br />
+			UniNullIrrev_A<br />
+		</td><td>
+			<img src="sbgn/UniUniIrrev_A.png" alt="UniUniIrrev_A" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev_A.png" alt="UniBiIrrev_A" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniNullIrrev_A.png" alt="UniNullIrrev_A" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>SpecificActivationRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/SpecificActivationRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			A [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			Km_A [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/SpecificActivationRev.png" alt="SpecificActivationRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev_A<br />
+		</td><td>
+			<img src="sbgn/UniUniRev_A.png" alt="UniUniRev_A" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>SubstrateActivationIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/SubstrateActivationIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			V [mM_per_second]<br />
+			K_sa [mM]<br />
+			K_sc [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/SubstrateActivationIrrev.png" alt="SubstrateActivationIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniNullIrrev<br />
+			UniUniIrrev<br />
+			UniBiIrrev<br />
+		</td><td>
+			<img src="sbgn/UniNullIrrev.png" alt="UniNullIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniUniIrrev.png" alt="UniUniIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev.png" alt="UniBiIrrev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>SubstrateInhibitionIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/SubstrateInhibitionIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			V [mM_per_second]<br />
+			I [mM]<br />
+			Km_S [mM]<br />
+			Ki [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/SubstrateInhibitionIrrev.png" alt="SubstrateInhibitionIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniNullIrrev<br />
+			UniUniIrrev<br />
+			UniBiIrrev<br />
+		</td><td>
+			<img src="sbgn/UniNullIrrev.png" alt="UniNullIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniUniIrrev.png" alt="UniUniIrrev" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev.png" alt="UniBiIrrev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>SubstrateInhibitionRev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/SubstrateInhibitionRev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			P [mM]<br />
+			V_f [mM_per_second]<br />
+			V_b [mM_per_second]<br />
+			Km_S [mM]<br />
+			Km_P [mM]<br />
+			Ki [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/SubstrateInhibitionRev.png" alt="SubstrateInhibitionRev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniRev<br />
+		</td><td>
+			<img src="sbgn/UniUniRev.png" alt="UniUniRev" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+	<h3>UncompetitiveInhibitionIrrev</h3>
+	<table>
+	<tr>
+	<td>
+	<a href="library/UncompetitiveInhibitionIrrev.cellml"><img src="logo-cellml.png" height=40></a>  (Validation Errors: 0)<br /><br />
+			J [mM_per_second]<br />
+			S [mM]<br />
+			V [mM_per_second]<br />
+			I [mM]<br />
+			Km_S [mM]<br />
+			K_I [mM]<br />
+		<br />
+	</td>
+	<td>
+	 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	 <img src="formula/UncompetitiveInhibitionIrrev.png" alt="UncompetitiveInhibitionIrrev" height=110><br />
+	</td></tr>
+	<tr><td>
+	<b>Mechanisms</b><br />
+			UniUniIrrev_I<br />
+			UniBiIrrev_I<br />
+			UniNullIrrev_I<br />
+		</td><td>
+			<img src="sbgn/UniUniIrrev_I.png" alt="UniUniIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniBiIrrev_I.png" alt="UniBiIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+			<img src="sbgn/UniNullIrrev_I.png" alt="UniNullIrrev_I" width=180>&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	</table>
+	
+	<hr />
+
+</body>
+</html>

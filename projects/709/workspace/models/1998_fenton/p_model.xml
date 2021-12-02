@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="p_model">
+  <component name="p">
+    <variable name="p" private_interface="out" public_interface="out" units="dimensionless"/>
+    <variable name="u_c" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="u" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="p_calculation"><eq/>
+        <ci> p </ci>
+        <piecewise>
+          <piece>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 0.0 </cn>
+            <apply><lt/>
+              <ci> u </ci> 
+              <ci> u_c </ci>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fenton_karma_model_1998_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+  </import>
+</model>

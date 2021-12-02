@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink" name="hh_gating_variable" cmeta:id="hh_gating_variable_model">
+  
+  <import xlink:href="units.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+  </import>
+  <component name="hh_gating_variable_dynamic" cmeta:id="hh_gating_variable_dynamic">
+    
+    <variable cmeta:id="time" name="time" public_interface="in" private_interface="out" units="ms"/>
+    <variable cmeta:id="gate_dynamic" name="gate" initial_value="gate_initial" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="gate_initial_dynamic" name="gate_initial" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="alpha_dynamic" name="alpha" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable cmeta:id="beta_dynamic" name="beta" public_interface="in" private_interface="out" units="per_ms"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="dynamic_gate_calculation"><eq/>
+        <apply><diff/>
+          <bvar><ci>time</ci></bvar>
+          <ci>gate</ci>
+        </apply>
+        <apply><minus/>
+          <apply><times/>
+            <ci>alpha</ci>
+            <apply><minus/>
+              <cn cellml:units="dimensionless">1.0</cn>
+              <ci>gate</ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci>beta</ci>
+            <ci>gate</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <component name="hh_gating_variable_steady_state" cmeta:id="hh_gating_variable_steady_state">
+    
+    <variable cmeta:id="gate_steady_state" name="gate" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="time_steady_state" name="time" public_interface="in" private_interface="out" units="ms"/>
+    <variable cmeta:id="gate_initial_steady_state" name="gate_initial" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="alpha_steady_state" name="alpha" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable cmeta:id="beta_steady_state" name="beta" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable cmeta:id="gate_inf" name="gate_inf" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="tau" name="tau" public_interface="out" private_interface="out" units="ms"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="steady_state_gate_calculation"><eq/>
+        <ci>gate</ci>
+        <apply><minus/>
+          <ci>gate_inf</ci>
+          <apply><times/>
+            <apply><minus/>
+              <ci>gate_inf</ci>
+              <ci>gate_initial</ci>
+            </apply>
+            <apply><minus/>
+              <apply><divide/>
+                <ci>time</ci>
+                <ci>tau</ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="gate_inf_calculation"><eq/>
+        <ci>gate_inf</ci>
+        <apply><divide/>
+          <ci>alpha</ci>
+          <apply><plus/>
+            <ci>alpha</ci>
+            <ci>beta</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="tau_calculation"><eq/>
+        <ci>tau</ci>
+        <apply><divide/>
+          <cn cellml:units="ms">1.0</cn>
+          <apply><plus/>
+            <ci>alpha</ci>
+            <ci>beta</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+</model>

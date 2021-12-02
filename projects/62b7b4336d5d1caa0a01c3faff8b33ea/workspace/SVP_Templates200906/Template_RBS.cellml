@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<model name="Template_RBS" cmeta:id="Template_RBS"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.0/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+    >
+        
+    <rdf:RDF>
+            <rdf:Description rdf:about="#Template_RBS">
+            <dc:creator>
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Mike</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            </vCard:EMAIL>
+            <vCard:ORG rdf:parseType="Resource">
+                <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+            </vCard:ORG>
+            </dc:creator>
+            </rdf:Description>
+   </rdf:RDF>
+   
+   <units name="M">
+      <unit units="mole"/>
+      <unit units="liter" exponent="-1"/>
+   </units> 
+   <units name="nM">
+      <unit units="M" prefix="nano"/>
+   </units>
+   <units name="RiPs">
+         <unit units="second" exponent="-1"/>
+   </units>
+   <units name="RiPsInAttoMoles">
+         <unit units="mole" prefix="atto"/>
+         <unit units="second" exponent="-1"/>
+   </units>
+   <units name="femtoliter">
+         <unit units="liter" prefix="femto"/>
+   </units>
+   <units name="perfemto">
+         <unit units="dimensionless" prefix="femto" exponent="-1"/>
+   </units>
+   <units name="attospernano">
+         <unit units="mole" prefix="atto"/>
+         <unit units="mole" prefix="nano" exponent="-1"/>
+   </units>
+  
+    <component name="Template_RBS">
+       <variable name="RNA" units="nM" public_interface="in"/>
+       <variable name="RNARiPs" units="RiPsInAttoMoles" public_interface="out"/>
+       <variable name="k" units="RiPs" public_interface="in"/>
+       <variable name="localVolume" units="femtoliter" public_interface="in"/>
+       <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+             <eq/>
+             <ci>RNARiPs</ci>
+             <apply>
+                <times/>
+                <cn type="e-notation" cellml:units="attospernano">1<sep/>9</cn>
+                <ci>k</ci>
+                <ci>RNA</ci>
+                <ci>localVolume</ci>
+                <cn type="e-notation" cellml:units="perfemto">1<sep/>-15</cn>
+             </apply>
+          </apply>
+       </math>
+   </component>
+   
+   
+</model>
+
+

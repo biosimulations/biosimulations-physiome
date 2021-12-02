@@ -1,0 +1,2506 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--  FILE :  joseph_model_2003.xml
+
+CREATED :  9th April 2004
+
+LAST MODIFIED : 27th April 2005
+
+AUTHOR :  Catherine Lloyd
+          Bioengineering Institute
+          The University of Auckland
+          
+MODEL STATUS :  This model conforms to the CellML 1.0 Specification released on
+10th August 2001, and the 16/1/02 CellML Metadata 1.0 Specification.
+
+DESCRIPTION :  This file contains a CellML description of Joseph et al.'s 2003 mathematical model of human gastric acid secretion.
+CHANGES: 
+   27/04/2005 - PJV - Changed unit dimensions to make them consistent. 
+  
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="joseph_zavros_merchant_kirschner_2003_version01" name="joseph_zavros_merchant_kirschner_2003_version01">
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Modelling Human Gastric Acid Secretion</title>
+  <author>
+    <firstname>Catherine</firstname>
+          <surname>Lloyd</surname>
+    <affiliation>
+      <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+            This is the original unchecked version of the model imported from the previous
+            CellML model repository, 24-Jan-2006.
+          </para>
+  </section>
+  <sect1 id="sec_structure">
+<title>Model Structure</title>
+
+<para>
+Acid secretion from parietal cells in the stomach is a highly regulated, complex, and dynamic process which is optimised to facilitate food digestion.  It involves both the central and the enteric nervous systems (CNS and ENS respectively), in addition to a network of paracrine and endocrine cells.  The overall aim is to maintain stomach luminal pH within a narrow range such that food digestion is optimised. 
+</para>
+
+<para>
+Four cell populations and their secretory products form the core acid secretory process in humans.  These four cell populations are gastrin (G)- and somatostatin (D)-secreting cells, endochromaffin-like (ECL) cells, and parietal cells.  G and ECL cell products stimulate acid secretion (positive feedback) and D cells inhibit acid release (negative feedback).  Exactly how these feedback loops interact is species specific, however, the basic requirement for acid secretion is conserved amongst species.  Mathematical modelling provides a powerful tool for investigating the integrated system, and it is also immune to the inconsistencies of <emphasis>in vivo</emphasis> and <emphasis>in vitro</emphasis> experimental studies. 
+</para>
+
+<para>
+ 
+</para>
+
+<para>
+In the Joseph <emphasis>et al.</emphasis> 2003 publication described here, the authors use a novel mathematical model to describe the complex system of gastric acid regulation (see <xref linkend="fig_cell_diagram1"/> and <xref linkend="fig_cell_diagram2"/> below).  They use experimental data to validate their model simulations, and then go onto use the model to study conditions that are not yet experimentally reproducible.
+</para>
+
+<para>
+The model has been described here in CellML (the raw CellML description of the Joseph <emphasis>et al.</emphasis> 2003 model can be downloaded in various formats as described in <xref linkend="sec_download_this_model"/>).     
+</para>
+
+<para>
+The complete original paper reference is cited below:
+</para>
+
+<para>
+A model for integrative study of human gastric acid secretion, Ian M.P. Joseph, Yana Zavros, Juanita L. Merchant, and Denise Kirschner, 2003, <emphasis>Journal of Applied Physiology</emphasis>
+, 94, 1602-1618.  <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=12433865&amp;dopt=Abstract">PubMed ID: 12433865</ulink>
+</para>
+
+<informalfigure float="0" id="fig_cell_diagram1">
+          <mediaobject>
+            <imageobject>
+              <objectinfo>
+                <title>cell diagram1</title>
+              </objectinfo>
+              <imagedata fileref="joseph_2003.png"/>
+            </imageobject>
+            <caption>
+Development of G, D, ECL, and parietal cells from the underlying antral and corpus stem cells.  A: differentiation within the antrum and B: differentiation within the corpus.
+</caption>
+          </mediaobject>
+        </informalfigure>
+
+</sect1>
+</article>
+</documentation>
+  
+  
+  
+  <units name="hour">
+    <unit units="second" multiplier="3600.0"/>
+  </units>
+
+  <units name="first_order_rate_constant">
+    <unit units="hour" exponent="-1"/>
+  </units>
+  
+  <units name="molar">
+    <unit units="mole"/>
+    <unit units="litre" exponent="-1"/>
+  </units>
+  
+  <units name="molar_per_hour_cell">
+    <unit units="molar"/>
+    <unit units="hour" exponent="-1"/>
+    <unit units="cell" exponent="-1"/>
+  </units>
+  
+  <units base_units="yes" name="cell"/>
+
+  
+  <component name="environment">
+    <variable units="hour" public_interface="out" name="time"/>
+  </component>
+  
+  <component cmeta:id="Asc" name="Asc">
+    <rdf:RDF>
+      <rdf:Description rdf:about="Asc">
+        <dc:title>Asc</dc:title>
+        <dcterms:alternative>antral stem cells</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cell" public_interface="out" name="Asc"/>
+    
+    <variable units="first_order_rate_constant" name="C_Asc"/>
+    <variable units="first_order_rate_constant" name="gamma_Asc"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="pG"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="pDA"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="T_Asc"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>Asc</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> gamma_Asc </ci>
+            <ci> Asc </ci>
+            <apply>
+              <minus/>
+              <ci> C_Asc </ci>
+              <ci> Asc </ci>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <plus/>
+              <ci> pG </ci>
+              <ci> pDA </ci> 
+            </apply>
+            <ci> T_Asc </ci>
+            <ci> Asc </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="Csc" name="Csc">
+    <rdf:RDF>
+      <rdf:Description rdf:about="Csc">
+        <dc:title>Csc</dc:title>
+        <dcterms:alternative>corpus stem cells</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cell" public_interface="out" name="Csc"/>
+    
+    <variable units="cell" name="C_Csc"/>
+    <variable units="first_order_rate_constant" name="gamma_Csc"/>
+    <variable units="first_order_rate_constant" name="alpha_Csc"/>
+    <variable units="first_order_rate_constant" name="gmax"/>
+    
+    <variable units="molar" public_interface="in" name="GtnC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="pE"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="pDC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="pP"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="T_Csc"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>Csc</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> gamma_Csc </ci>
+              <ci> Csc </ci>
+              <apply>
+                <minus/>
+                <ci> C_Csc </ci>
+                <ci> Csc </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> gmax </ci>
+                  <apply>
+                    <power/>
+                    <ci> GtnC </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <power/>
+                    <ci> GtnC </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                  <apply>
+                    <power/>
+                    <ci> alpha_Csc </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                </apply>
+              </apply>
+              <ci> Csc </ci>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <plus/>
+              <ci> pE </ci>
+              <ci> pDC </ci>
+              <ci> pP </ci>
+            </apply>
+            <ci> T_Csc </ci>
+            <ci> Csc </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="G" name="G">
+    <rdf:RDF>
+      <rdf:Description rdf:about="G">
+        <dc:title>G</dc:title>
+        <dcterms:alternative>G cells</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cell" public_interface="out" name="G"/>
+    
+    <variable units="first_order_rate_constant" name="k_gmax"/>
+    <variable units="first_order_rate_constant" name="gamma_Gc"/>
+    
+    <variable units="molar" public_interface="in" name="AC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Fd"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="alpha_HA"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="pG"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="gamma_Fdmax"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="alpha_Fd"/>
+    <variable units="cell" public_interface="in" name="Asc"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="T_Asc"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>G</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> pG </ci>
+              <ci> T_Asc </ci>
+              <ci> Asc </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> k_gmax </ci>
+              <apply>
+                <minus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <power/>
+                    <ci> AC </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <power/>
+                      <ci> AC </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn> 
+                    </apply>
+                    <apply>
+                      <power/>
+                      <ci> alpha_HA </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn> 
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> G </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> gamma_Fdmax </ci>
+              <apply>
+                <minus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <power/>
+                    <ci> Fd </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <power/>
+                      <ci> Fd </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn> 
+                    </apply>
+                    <apply>
+                      <power/>
+                      <ci> alpha_Fd </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn> 
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> G </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> gamma_Gc </ci>
+              <ci> G </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="DA" name="DA">
+    <rdf:RDF>
+      <rdf:Description rdf:about="DA">
+        <dc:title>DA</dc:title>
+        <dcterms:alternative>antral D cells</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cell" public_interface="out" name="DA"/>
+    
+    <variable units="first_order_rate_constant" name="k_dmax"/>
+    <variable units="first_order_rate_constant" name="gamma_DA"/>
+    
+    <variable units="molar" public_interface="in" name="AC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Fd"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="pDA"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="alpha_HA"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="gamma_Fdmax"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="alpha_Fd"/>
+    <variable units="cell" public_interface="in" name="Asc"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="T_Asc"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>DA</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> pDA </ci>
+              <ci> T_Asc </ci>
+              <ci> Asc </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> k_dmax </ci>
+                  <apply>
+                    <power/>
+                    <ci> AC </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <power/>
+                    <ci> AC </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                  <apply>
+                    <power/>
+                    <ci> alpha_HA </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                </apply>
+              </apply>
+              <ci> DA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> gamma_Fdmax </ci>
+              <apply>
+                <minus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <power/>
+                    <ci> Fd </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <power/>
+                      <ci> Fd </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn> 
+                    </apply>
+                    <apply>
+                      <power/>
+                      <ci> alpha_Fd </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn> 
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> DA </ci>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> gamma_DA </ci>
+            <ci> DA </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="DC" name="DC">
+    <rdf:RDF>
+      <rdf:Description rdf:about="DC">
+        <dc:title>DC</dc:title>
+        <dcterms:alternative>corpus D cells</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cell" public_interface="out" name="DC"/>
+    
+    <variable units="first_order_rate_constant" name="gamma_DC"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="pDC"/>
+    <variable units="cell" public_interface="in" name="Csc"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="T_Asc"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>DC</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> pDC </ci>
+            <ci> T_Asc </ci>
+            <ci> Csc </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> gamma_DC </ci>
+            <ci> DC </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+    
+  <component cmeta:id="E" name="E">
+    <rdf:RDF>
+      <rdf:Description rdf:about="E">
+        <dc:title>E</dc:title>
+        <dcterms:alternative>ECL cells</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cell" public_interface="out" name="E"/>
+    
+    <variable units="first_order_rate_constant" name="k_Emax"/>
+    <variable units="first_order_rate_constant" name="gamma_E"/>
+    <variable units="first_order_rate_constant" name="alpha_E"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="pE"/>
+    <variable units="molar" public_interface="in" name="GtnC"/>
+    <variable units="cell" public_interface="in" name="Csc"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="T_Csc"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>E</ci> 
+        </apply>
+        <apply>
+          <plus/>
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> pE </ci>
+              <ci> T_Csc </ci>
+              <ci> Csc </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> gamma_E </ci>
+              <ci> E </ci>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> k_Emax </ci>
+                <apply>
+                  <power/>
+                  <ci> GtnC </ci>
+                  <cn cellml:units="dimensionless"> 2.0 </cn> 
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <apply>
+                  <power/>
+                  <ci> GtnC </ci>
+                  <cn cellml:units="dimensionless"> 2.0 </cn> 
+                </apply>
+                <apply>
+                  <power/>
+                  <ci> alpha_E </ci>
+                  <cn cellml:units="dimensionless"> 2.0 </cn> 
+                </apply>
+              </apply>
+            </apply>
+            <ci> E </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="P" name="P">
+    <rdf:RDF>
+      <rdf:Description rdf:about="P">
+        <dc:title>P</dc:title>
+        <dcterms:alternative>parietal cells</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cell" public_interface="out" name="P"/>
+    
+    <variable units="first_order_rate_constant" name="gamma_P"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="pP"/>
+    <variable units="cell" public_interface="in" name="Csc"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="T_Csc"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>P</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> pP </ci>
+            <ci> T_Csc </ci>
+            <ci> Csc </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> gamma_P </ci>
+            <ci> P </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="feedback_mechanisms">  
+    <variable units="first_order_rate_constant" public_interface="out" name="pG"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="pDA"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="pP"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="pE"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="pDC"/>
+    
+    <variable units="dimensionless" name="f"/>
+    <variable units="cell" name="N_"/>
+    
+    <variable units="cell" public_interface="in" name="G"/>
+    <variable units="cell" public_interface="in" name="DA"/>
+    <variable units="cell" public_interface="in" name="DC"/>
+    <variable units="cell" public_interface="in" name="E"/>
+    <variable units="cell" public_interface="in" name="P"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>pG</ci> 
+        <apply>
+          <exp/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> f </ci>
+              </apply>
+              <apply>
+                <power/>
+                <ci> G </ci>
+                <cn cellml:units="dimensionless"> 2.0 </cn> 
+              </apply>
+            </apply>
+            <apply>
+              <power/>
+              <ci> N_ </ci>
+              <cn cellml:units="dimensionless"> 2.0 </cn> 
+            </apply>
+          </apply>
+        </apply>
+      </apply> 
+      
+      <apply>
+        <eq/> 
+        <ci>pDA</ci> 
+        <apply>
+          <exp/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> f </ci>
+              </apply>
+              <apply>
+                <power/>
+                <ci> DA </ci>
+                <cn cellml:units="dimensionless"> 2.0 </cn> 
+              </apply>
+            </apply>
+            <apply>
+              <power/>
+              <ci> N_ </ci>
+              <cn cellml:units="dimensionless"> 2.0 </cn> 
+            </apply>
+          </apply>
+        </apply>
+      </apply> 
+      
+      <apply>
+        <eq/> 
+        <ci>pDC</ci> 
+        <apply>
+          <exp/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> f </ci>
+              </apply>
+              <apply>
+                <power/>
+                <ci> DC </ci>
+                <cn cellml:units="dimensionless"> 2.0 </cn> 
+              </apply>
+            </apply>
+            <apply>
+              <power/>
+              <ci> N_ </ci>
+              <cn cellml:units="dimensionless"> 2.0 </cn> 
+            </apply>
+          </apply>
+        </apply>
+      </apply> 
+      
+      <apply>
+        <eq/> 
+        <ci>pP</ci> 
+        <apply>
+          <exp/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> f </ci>
+              </apply>
+              <apply>
+                <power/>
+                <ci> P </ci>
+                <cn cellml:units="dimensionless"> 2.0 </cn> 
+              </apply>
+            </apply>
+            <apply>
+              <power/>
+              <ci> N_ </ci>
+              <cn cellml:units="dimensionless"> 2.0 </cn> 
+            </apply>
+          </apply>
+        </apply>
+      </apply> 
+      
+      <apply>
+        <eq/> 
+        <ci>pE</ci> 
+        <apply>
+          <exp/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> f </ci>
+              </apply>
+              <apply>
+                <power/>
+                <ci> E </ci>
+                <cn cellml:units="dimensionless"> 2.0 </cn> 
+              </apply>
+            </apply>
+            <apply>
+              <power/>
+              <ci> N_ </ci>
+              <cn cellml:units="dimensionless"> 2.0 </cn> 
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="GtnA" name="GtnA">
+    <rdf:RDF>
+      <rdf:Description rdf:about="GtnA">
+        <dc:title>GtnA</dc:title>
+        <dcterms:alternative>antral gastrin</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="molar" public_interface="out" name="GtnA"/>
+    
+    <variable units="molar_per_hour_cell" name="KNG1" initial_value="6.28E-17"/>
+    <variable units="molar_per_hour_cell" name="KNG2" initial_value="8.75E-17"/>
+    <variable units="first_order_rate_constant" name="KFG"/>
+    <variable units="molar" name="kAG"/>
+    <variable units="molar" name="kSG" initial_value="9.0E-11"/>
+    <variable units="first_order_rate_constant" name="kG"/>
+    <variable units="molar" name="alpha_NG1" initial_value="1.0E-10"/>
+    <variable units="molar" name="alpha_NG2" initial_value="1.0E-10"/>
+   
+    <variable units="first_order_rate_constant" public_interface="in" name="alpha_Fd"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="beta_G"/>
+    <variable units="molar" public_interface="in" name="AC"/>
+    <variable units="cell" public_interface="in" name="G"/>
+    <variable units="molar" public_interface="in" name="SA"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NE"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Fd"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>GtnA</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> G </ci>
+            <apply>
+              <plus/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KNG1 </ci>
+                  <ci> NE </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> NE </ci>
+                    <ci> alpha_NG1 </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SA </ci>
+                      <ci> kSG </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <power/>
+                        <ci> AC </ci>
+                        <cn cellml:units="dimensionless"> 2.0 </cn> 
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <apply>
+                          <power/>
+                          <ci> AC </ci>
+                          <cn cellml:units="dimensionless"> 2.0 </cn> 
+                        </apply>
+                        <apply>
+                          <power/>
+                          <ci> kAG </ci>
+                          <cn cellml:units="dimensionless"> 2.0 </cn> 
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KNG2 </ci>
+                  <ci> NC </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> NC </ci>
+                    <ci> alpha_NG2 </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SA </ci>
+                      <ci> kSG </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <power/>
+                        <ci> AC </ci>
+                        <cn cellml:units="dimensionless"> 2.0 </cn> 
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <apply>
+                          <power/>
+                          <ci> AC </ci>
+                          <cn cellml:units="dimensionless"> 2.0 </cn> 
+                        </apply>
+                        <apply>
+                          <power/>
+                          <ci> kAG </ci>
+                          <cn cellml:units="dimensionless"> 2.0 </cn> 
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KFG </ci>
+                  <ci> Fd </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> Fd </ci>
+                    <ci> alpha_Fd </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SA </ci>
+                      <ci> kSG </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <apply>
+                        <power/>
+                        <ci> AC </ci>
+                        <cn cellml:units="dimensionless"> 2.0 </cn> 
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <apply>
+                          <power/>
+                          <ci> AC </ci>
+                          <cn cellml:units="dimensionless"> 2.0 </cn> 
+                        </apply>
+                        <apply>
+                          <power/>
+                          <ci> kAG </ci>
+                          <cn cellml:units="dimensionless"> 2.0 </cn> 
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <plus/>
+                <ci> kG </ci>
+                <ci> beta_G </ci>
+              </apply>
+              <ci> GtnA </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="GtnC" name="GtnC">
+    <rdf:RDF>
+      <rdf:Description rdf:about="GtnC">
+        <dc:title>GtnC</dc:title>
+        <dcterms:alternative>corpus gastrin</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="molar" public_interface="out" name="GtnC"/>
+    
+    <variable units="molar_per_hour_cell" name="kappa_G"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="beta_G"/>
+    <variable units="molar" public_interface="in" name="GtnA"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>GtnC</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> beta_G </ci>
+            <ci> GtnA </ci> 
+          </apply>
+          <apply>
+            <times/>
+            <ci> kappa_G </ci>
+            <ci> GtnC </ci> 
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="SA" name="SA">
+    <rdf:RDF>
+      <rdf:Description rdf:about="SA">
+        <dc:title>SA</dc:title>
+        <dcterms:alternative>antral somatostatin</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="molar" public_interface="out" name="SA"/>
+    
+    <variable units="molar_per_hour_cell" name="KAS" initial_value="8.04E-15"/>
+    <variable units="molar" name="alpha_AS" initial_value="0.05"/>
+    
+    <variable units="molar_per_hour_cell" public_interface="in" name="kappa_S"/>
+    <variable units="molar" public_interface="in" name="alpha_NS"/>
+    <variable units="molar" public_interface="in" name="kNS"/>
+    <variable units="molar" public_interface="in" name="kSS"/>
+    <variable units="molar_per_hour_cell" public_interface="in" name="KGS"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NE"/>
+    <variable units="molar" public_interface="in" name="AA"/>
+    <variable units="cell" public_interface="in" name="DA"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>SA</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> DA </ci>
+            <apply>
+              <plus/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KAS </ci>
+                  <ci> AA </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> AA </ci>
+                    <ci> alpha_AS </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SA </ci>
+                      <ci> kSS </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> NC </ci>
+                      <ci> kNS </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KGS </ci>
+                  <ci> NE </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> NE </ci>
+                    <ci> alpha_NS </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SA </ci>
+                      <ci> kSS </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> NC </ci>
+                      <ci> kNS </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> kappa_S </ci>
+              <ci> SA </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+            
+  <component cmeta:id="SC" name="SC">
+    <rdf:RDF>
+      <rdf:Description rdf:about="SC">
+        <dc:title>SC</dc:title>
+        <dcterms:alternative>corpus somatostatin</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="molar" public_interface="out" name="SC"/>
+    
+    <variable units="molar_per_hour_cell" name="KNS" initial_value="1.14E-15"/>
+    <variable units="molar" name="alpha_GS" initial_value="5.20E-12"/>
+    
+    <variable units="molar_per_hour_cell" public_interface="in" name="kappa_S"/>
+    <variable units="molar" public_interface="in" name="alpha_NS"/>
+    <variable units="molar" public_interface="in" name="kNS"/>
+    <variable units="molar" public_interface="in" name="kSS"/>
+    <variable units="molar_per_hour_cell" public_interface="in" name="KGS"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NE"/>
+    <variable units="cell" public_interface="in" name="DC"/>
+    <variable units="molar" public_interface="in" name="GtnC"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>SC</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> DC </ci>
+            <apply>
+              <plus/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KNS </ci>
+                  <ci> NE </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> NE </ci>
+                    <ci> alpha_NS </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SC </ci>
+                      <ci> kSS </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> NC </ci>
+                      <ci> kNS </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KGS </ci>
+                  <ci> GtnC </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> GtnC </ci>
+                    <ci> alpha_GS </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SC </ci>
+                      <ci> kSS </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> NC </ci>
+                      <ci> kNS </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> kappa_S </ci>
+              <ci> SC </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+            
+  <component cmeta:id="HC" name="HC">
+    <rdf:RDF>
+      <rdf:Description rdf:about="HC">
+        <dc:title>HC</dc:title>
+        <dcterms:alternative>corpus histamine</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="molar" public_interface="out" name="HC"/>
+    
+    <variable units="molar_per_hour_cell" name="KNH" initial_value="7.59E-16"/>
+    <variable units="molar_per_hour_cell" name="KGH" initial_value="7.77E-16"/>
+    <variable units="molar" name="kSH" initial_value="9.0E-10"/>
+    <variable units="molar" name="alpha_GH" initial_value="3.0E-10"/>
+    <variable units="molar" name="alpha_NH" initial_value="3.25E-8"/>
+    <variable units="first_order_rate_constant" name="kappa_H"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="E"/>
+    <variable units="molar" public_interface="in" name="SC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NE"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NC"/>
+    <variable units="molar" public_interface="in" name="GtnC"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>HC</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> E </ci>
+            <apply>
+              <plus/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KNH </ci>
+                  <ci> NE </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> NE </ci>
+                    <ci> alpha_NH </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SC </ci>
+                      <ci> kSH </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KGH </ci>
+                  <ci> GtnC </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> GtnC </ci>
+                    <ci> alpha_GH </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SC </ci>
+                      <ci> kSH </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> kappa_H </ci>
+              <ci> HC </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="AC" name="AC">
+    <rdf:RDF>
+      <rdf:Description rdf:about="AC">
+        <dc:title>AC</dc:title>
+        <dcterms:alternative>corpus gastric acid</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="molar" public_interface="out" name="AC"/>
+    
+    <variable units="molar_per_hour_cell" name="KNA" initial_value="2.33E-11"/>
+    <variable units="molar_per_hour_cell" name="KHA" initial_value="7.96E-10"/>
+    <variable units="molar_per_hour_cell" name="KGA" initial_value="4.98E-11"/>
+    <variable units="molar" name="kSA" initial_value="9.0E-10"/>
+    <variable units="molar" name="alpha_NA" initial_value="5.0E-6"/>
+    <variable units="molar" name="alpha_GA" initial_value="1.8E-10"/>
+    <variable units="first_order_rate_constant" name="k_Fdmax"/>
+     
+    <variable units="cell" public_interface="in" name="P"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="beta_A"/>
+    <variable units="molar" public_interface="in" name="BC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="hb"/>
+    <variable units="molar" public_interface="in" name="alpha_HA"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Fd"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="alpha_Fd"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NC"/>
+    <variable units="molar" public_interface="in" name="SC"/>
+    <variable units="molar" public_interface="in" name="HC"/>
+    <variable units="molar" public_interface="in" name="GtnC"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>AC</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> P </ci>
+            <apply>
+              <plus/>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KNA </ci>
+                  <ci> NC </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> NC </ci>
+                    <ci> alpha_NA </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SC </ci>
+                      <ci> kSA </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <ci> HC </ci>
+                <apply>
+                  <plus/>
+                  <ci> HC </ci>
+                  <ci> alpha_HA </ci>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KGA </ci>
+                  <ci> GtnC </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> GtnC </ci>
+                    <ci> alpha_GA </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SC </ci>
+                      <ci> kSA </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> KHA </ci>
+                  <ci> HC </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> HC </ci>
+                    <ci> alpha_HA </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                      <divide/>
+                      <ci> SC </ci>
+                      <ci> kSA </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> hb </ci>
+                <ci> AC </ci>
+                <ci> BC </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <times/>
+                    <ci> k_Fdmax </ci>
+                    <ci> Fd </ci>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <ci> Fd </ci>
+                    <ci> alpha_Fd </ci>
+                  </apply>
+                </apply>
+                <ci> AC </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> beta_A </ci>
+                <ci> AC </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="AA" name="AA">
+    <rdf:RDF>
+      <rdf:Description rdf:about="AA">
+        <dc:title>AA</dc:title>
+        <dcterms:alternative>antral gastric acid</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="molar" public_interface="out" name="AA"/>
+    
+    <variable units="first_order_rate_constant" name="kappa_A"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="beta_A"/>
+    <variable units="molar" public_interface="in" name="AC"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>AA</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> beta_A </ci>
+            <ci> AC </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> kappa_A </ci>
+            <ci> AA </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="BC" name="BC">
+    <rdf:RDF>
+      <rdf:Description rdf:about="BC">
+        <dc:title>BC</dc:title>
+        <dcterms:alternative>corpus bicarbonate</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="molar" public_interface="out" name="BC"/>
+    
+    <variable units="first_order_rate_constant" name="k_BCmax"/>
+    <variable units="first_order_rate_constant" name="beta_B"/>
+   
+    <variable units="first_order_rate_constant" public_interface="in" name="alpha_NB"/>
+    <variable units="molar" public_interface="in" name="AC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="hb"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NC"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>BC</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> k_BCmax </ci>
+              <ci> NC </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> NC </ci>
+              <ci> alpha_NB </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> hb </ci>
+              <ci> AC </ci>
+              <ci> BC </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> beta_B </ci>
+              <ci> BC </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="BA" name="BA">
+    <rdf:RDF>
+      <rdf:Description rdf:about="BA">
+        <dc:title>BA</dc:title>
+        <dcterms:alternative>corpus bicarbonate</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="molar" public_interface="out" name="BA"/>
+    
+    <variable units="first_order_rate_constant" name="k_BAmax"/>
+    <variable units="first_order_rate_constant" name="kappa_B"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="alpha_NB"/>
+    <variable units="molar" public_interface="in" name="AA"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="hb"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="NC"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>BA</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> k_BAmax </ci>
+              <ci> NC </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> NC </ci>
+              <ci> alpha_NB </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> hb </ci>
+              <ci> AA </ci>
+              <ci> BA </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> kappa_B </ci>
+              <ci> BA </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="NC" name="NC">
+    <rdf:RDF>
+      <rdf:Description rdf:about="NC">
+        <dc:title>NC</dc:title>
+        <dcterms:alternative>central neural activity</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="first_order_rate_constant" public_interface="out" name="NC"/>
+    
+    <variable units="first_order_rate_constant" name="Nmax1"/>
+    <variable units="first_order_rate_constant" name="kAN1"/>
+    <variable units="first_order_rate_constant" name="kappa_NC"/>
+    <variable units="first_order_rate_constant" name="Bas1"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="kFd"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Fd"/>
+    <variable units="molar" public_interface="in" name="AC"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>NC</ci> 
+        </apply>
+        <apply>
+          <plus/>
+          <apply>
+            <minus/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> Nmax1 </ci>
+                <ci> Fd </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <ci> Fd </ci>
+                  <ci> kFd </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless"> 1.0 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <power/>
+                      <ci> AC </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn> 
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <power/>
+                        <ci> AC </ci>
+                        <cn cellml:units="dimensionless"> 2.0 </cn> 
+                      </apply>
+                      <apply>
+                        <power/>
+                        <ci> kAN1 </ci>
+                        <cn cellml:units="dimensionless"> 2.0 </cn> 
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> kappa_NC </ci>
+              <ci> NC </ci>
+            </apply>
+          </apply>
+          <ci> Bas1 </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="NE" name="NE">
+    <rdf:RDF>
+      <rdf:Description rdf:about="NE">
+        <dc:title>NE</dc:title>
+        <dcterms:alternative>enteric neural activity</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="first_order_rate_constant" public_interface="out" name="NE"/>
+    
+    <variable units="first_order_rate_constant" name="Nmax2"/>
+    <variable units="first_order_rate_constant" name="kAN2"/>
+    <variable units="first_order_rate_constant" name="kappa_NE"/>
+    <variable units="first_order_rate_constant" name="Bas2"/>
+    
+    <variable units="first_order_rate_constant" public_interface="in" name="kFd"/>
+    <variable units="molar" public_interface="in" name="AC"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Fd"/>
+    <variable units="hour" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>NE</ci> 
+        </apply>
+        <apply>
+          <plus/>
+          <apply>
+            <minus/>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> Nmax2 </ci>
+                <ci> Fd </ci>
+              </apply>
+              <apply>
+                <times/>
+                <apply>
+                  <plus/>
+                  <ci> Fd </ci>
+                  <apply>
+                    <power/>
+                    <ci> kFd </ci> 
+                    <cn cellml:units="dimensionless"> 2.0 </cn> 
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless"> 1.0 </cn>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <power/>
+                      <ci> AC </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn> 
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <power/>
+                        <ci> AC </ci>
+                        <cn cellml:units="dimensionless"> 2.0 </cn> 
+                      </apply>
+                      <apply>
+                        <power/>
+                        <ci> kAN2 </ci>
+                        <cn cellml:units="dimensionless"> 2.0 </cn> 
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> kappa_NE </ci>
+              <ci> NE </ci>
+            </apply>
+          </apply>
+          <ci> Bas2 </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="model_parameters">
+    <variable units="first_order_rate_constant" public_interface="out" name="beta_G" initial_value="1.5"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="beta_A" initial_value="2.72"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="kFd"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="Fd"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="gamma_Fdmax"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="alpha_Fd"/>
+    <variable units="molar_per_hour_cell" public_interface="out" name="kappa_S"/>
+    <variable units="molar" public_interface="out" name="alpha_NS" initial_value="6.28E-7"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="alpha_NB"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="alpha_HA" initial_value="2.0E-8"/>
+    <variable units="molar" public_interface="out" name="kNS" initial_value="1.0E-9"/>
+    <variable units="molar" public_interface="out" name="kSS" initial_value="9.0E-11"/>
+    <variable units="molar_per_hour_cell" public_interface="out" name="KGS" initial_value="2.54E-18"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="T_Asc"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="T_Csc"/>
+    <variable units="dimensionless" public_interface="out" name="hb"/>
+  </component>
+  
+  
+  <connection>
+    <map_components component_2="environment" component_1="Asc"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="Csc"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="G"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="DA"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="DC"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="P"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="E"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="GtnA"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="GtnC"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="SA"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="SC"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="HC"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="AC"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="AA"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="BC"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="BA"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="NC"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="NE"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="Asc"/>
+    <map_variables variable_2="T_Asc" variable_1="T_Asc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="feedback_mechanisms" component_1="Asc"/>
+    <map_variables variable_2="pG" variable_1="pG"/>
+    <map_variables variable_2="pDA" variable_1="pDA"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="Csc"/>
+    <map_variables variable_2="T_Csc" variable_1="T_Csc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="GtnC" component_1="Csc"/>
+    <map_variables variable_2="GtnC" variable_1="GtnC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="feedback_mechanisms" component_1="Csc"/>
+    <map_variables variable_2="pE" variable_1="pE"/>
+    <map_variables variable_2="pDC" variable_1="pDC"/>
+    <map_variables variable_2="pP" variable_1="pP"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="G" component_1="feedback_mechanisms"/>
+    <map_variables variable_2="G" variable_1="G"/>
+    <map_variables variable_2="pG" variable_1="pG"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="DA" component_1="feedback_mechanisms"/>
+    <map_variables variable_2="DA" variable_1="DA"/>
+    <map_variables variable_2="pDA" variable_1="pDA"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="DC" component_1="feedback_mechanisms"/>
+    <map_variables variable_2="DC" variable_1="DC"/>
+    <map_variables variable_2="pDC" variable_1="pDC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="P" component_1="feedback_mechanisms"/>
+    <map_variables variable_2="P" variable_1="P"/>
+    <map_variables variable_2="pP" variable_1="pP"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="E" component_1="feedback_mechanisms"/>
+    <map_variables variable_2="E" variable_1="E"/>
+    <map_variables variable_2="pE" variable_1="pE"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="G"/>
+    <map_variables variable_2="T_Asc" variable_1="T_Asc"/>
+    <map_variables variable_2="Fd" variable_1="Fd"/>
+    <map_variables variable_2="alpha_Fd" variable_1="alpha_Fd"/>
+    <map_variables variable_2="alpha_HA" variable_1="alpha_HA"/>
+    <map_variables variable_2="gamma_Fdmax" variable_1="gamma_Fdmax"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="AC" component_1="G"/>
+    <map_variables variable_2="AC" variable_1="AC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Asc" component_1="G"/>
+    <map_variables variable_2="Asc" variable_1="Asc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="DA"/>
+    <map_variables variable_2="T_Asc" variable_1="T_Asc"/>
+    <map_variables variable_2="Fd" variable_1="Fd"/>
+    <map_variables variable_2="alpha_Fd" variable_1="alpha_Fd"/>
+    <map_variables variable_2="alpha_HA" variable_1="alpha_HA"/>
+    <map_variables variable_2="gamma_Fdmax" variable_1="gamma_Fdmax"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Asc" component_1="DA"/>
+    <map_variables variable_2="Asc" variable_1="Asc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="AC" component_1="DA"/>
+    <map_variables variable_2="AC" variable_1="AC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="DC"/>
+    <map_variables variable_2="T_Asc" variable_1="T_Asc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Csc" component_1="DC"/>
+    <map_variables variable_2="Csc" variable_1="Csc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Csc" component_1="E"/>
+    <map_variables variable_2="Csc" variable_1="Csc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="GtnC" component_1="E"/>
+    <map_variables variable_2="GtnC" variable_1="GtnC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="E"/>
+    <map_variables variable_2="T_Csc" variable_1="T_Csc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Csc" component_1="P"/>
+    <map_variables variable_2="Csc" variable_1="Csc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="P"/>
+    <map_variables variable_2="T_Csc" variable_1="T_Csc"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="G" component_1="GtnA"/>
+    <map_variables variable_2="G" variable_1="G"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NE" component_1="GtnA"/>
+    <map_variables variable_2="NE" variable_1="NE"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NC" component_1="GtnA"/>
+    <map_variables variable_2="NC" variable_1="NC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="GtnA"/>
+    <map_variables variable_2="Fd" variable_1="Fd"/>
+    <map_variables variable_2="alpha_Fd" variable_1="alpha_Fd"/>
+    <map_variables variable_2="beta_G" variable_1="beta_G"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="SA" component_1="GtnA"/>
+    <map_variables variable_2="SA" variable_1="SA"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="AC" component_1="GtnA"/>
+    <map_variables variable_2="AC" variable_1="AC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="GtnA" component_1="GtnC"/>
+    <map_variables variable_2="GtnA" variable_1="GtnA"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="GtnC"/>
+    <map_variables variable_2="beta_G" variable_1="beta_G"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="DA" component_1="SA"/>
+    <map_variables variable_2="DA" variable_1="DA"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="AA" component_1="SA"/>
+    <map_variables variable_2="AA" variable_1="AA"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NE" component_1="SA"/>
+    <map_variables variable_2="NE" variable_1="NE"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NC" component_1="SA"/>
+    <map_variables variable_2="NC" variable_1="NC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="SA"/>
+    <map_variables variable_2="kappa_S" variable_1="kappa_S"/>
+    <map_variables variable_2="kSS" variable_1="kSS"/>
+    <map_variables variable_2="kNS" variable_1="kNS"/>
+    <map_variables variable_2="alpha_NS" variable_1="alpha_NS"/>
+    <map_variables variable_2="KGS" variable_1="KGS"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="SC"/>
+    <map_variables variable_2="kappa_S" variable_1="kappa_S"/>
+    <map_variables variable_2="kSS" variable_1="kSS"/>
+    <map_variables variable_2="kNS" variable_1="kNS"/>
+    <map_variables variable_2="alpha_NS" variable_1="alpha_NS"/>
+    <map_variables variable_2="KGS" variable_1="KGS"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="GtnC" component_1="SC"/>
+    <map_variables variable_2="GtnC" variable_1="GtnC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NE" component_1="SC"/>
+    <map_variables variable_2="NE" variable_1="NE"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NC" component_1="SC"/>
+    <map_variables variable_2="NC" variable_1="NC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="DC" component_1="SC"/>
+    <map_variables variable_2="DC" variable_1="DC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="GtnC" component_1="HC"/>
+    <map_variables variable_2="GtnC" variable_1="GtnC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="SC" component_1="HC"/>
+    <map_variables variable_2="SC" variable_1="SC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NE" component_1="HC"/>
+    <map_variables variable_2="NE" variable_1="NE"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NC" component_1="HC"/>
+    <map_variables variable_2="NC" variable_1="NC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="E" component_1="HC"/>
+    <map_variables variable_2="E" variable_1="E"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="P" component_1="AC"/>
+    <map_variables variable_2="P" variable_1="P"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NC" component_1="AC"/>
+    <map_variables variable_2="NC" variable_1="NC"/>
+    <map_variables variable_2="AC" variable_1="AC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="HC" component_1="AC"/>
+    <map_variables variable_2="HC" variable_1="HC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="SC" component_1="AC"/>
+    <map_variables variable_2="SC" variable_1="SC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="AC"/>
+    <map_variables variable_2="alpha_HA" variable_1="alpha_HA"/>
+    <map_variables variable_2="hb" variable_1="hb"/>
+    <map_variables variable_2="Fd" variable_1="Fd"/>
+    <map_variables variable_2="alpha_Fd" variable_1="alpha_Fd"/>
+    <map_variables variable_2="beta_A" variable_1="beta_A"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="GtnC" component_1="AC"/>
+    <map_variables variable_2="GtnC" variable_1="GtnC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="BC" component_1="AC"/>
+    <map_variables variable_2="BC" variable_1="BC"/>
+    <map_variables variable_2="AC" variable_1="AC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="AC" component_1="AA"/>
+    <map_variables variable_2="AC" variable_1="AC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="AA"/>
+    <map_variables variable_2="beta_A" variable_1="beta_A"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NC" component_1="BC"/>
+    <map_variables variable_2="NC" variable_1="NC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="BC"/>
+    <map_variables variable_2="hb" variable_1="hb"/>
+    <map_variables variable_2="alpha_NB" variable_1="alpha_NB"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="NC" component_1="BA"/>
+    <map_variables variable_2="NC" variable_1="NC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="BA"/>
+    <map_variables variable_2="hb" variable_1="hb"/>
+    <map_variables variable_2="alpha_NB" variable_1="alpha_NB"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="AA" component_1="BA"/>
+    <map_variables variable_2="AA" variable_1="AA"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="NC"/>
+    <map_variables variable_2="Fd" variable_1="Fd"/>
+    <map_variables variable_2="kFd" variable_1="kFd"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="AC" component_1="NE"/>
+    <map_variables variable_2="AC" variable_1="AC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="model_parameters" component_1="NE"/>
+    <map_variables variable_2="Fd" variable_1="Fd"/>
+    <map_variables variable_2="kFd" variable_1="kFd"/>
+  </connection>
+  
+
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Bag rdf:about="rdf:#857efc0b-72b0-41d8-9548-8442097805b5">
+    <rdf:li>gastric</rdf:li>
+    <rdf:li>acid secretion</rdf:li>
+    <rdf:li>gastric acid</rdf:li>
+    <rdf:li>parietal cell</rdf:li>
+  </rdf:Bag>
+  <rdf:Seq rdf:about="rdf:#f635859b-71bc-4ff5-a60f-47244bd9c6ef">
+    <rdf:li rdf:resource="rdf:#05ca819f-e528-4126-9166-de54be872089"/>
+    <rdf:li rdf:resource="rdf:#b64369e0-ba12-4a07-9877-f556cbae0d3d"/>
+    <rdf:li rdf:resource="rdf:#2821dbc0-3622-422b-8a87-38b6f6f0d20b"/>
+    <rdf:li rdf:resource="rdf:#e1a4df41-94c7-4f03-9fdc-b54b627eb0dc"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#b64369e0-ba12-4a07-9877-f556cbae0d3d">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#5ed1c6c9-b6b3-4ca6-b8b8-f6e1ff706a58"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8c651838-2660-4691-9b8e-d2539c09fb30">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d8cb9e36-bf96-47c7-b230-80882dac0e88">
+    <dc:creator rdf:resource="rdf:#f635859b-71bc-4ff5-a60f-47244bd9c6ef"/>
+    <dc:title>
+            A model for integrative study of human gastric acid secretion
+          </dc:title>
+    <bqs:volume>94</bqs:volume>
+    <bqs:first_page>1602</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#bc2fed02-f680-48e2-8a51-5688440c3729"/>
+    <dcterms:issued rdf:resource="rdf:#f08aaf08-c0ef-4dde-94f6-3c8be9904c64"/>
+    <bqs:last_page>1618</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>
+        The University of Auckland, Bioengineering Institute
+      </dc:publisher>
+    <dcterms:created rdf:resource="rdf:#950b9b43-8869-4f89-ad9e-1e76a05d493e"/>
+    <dc:creator rdf:resource="rdf:#61b33781-4b4a-447a-adaa-934326f001bf"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#de73e035-ecfd-494e-ad88-2e9020a472e9">
+    <vCard:Given>Juanita</vCard:Given>
+    <vCard:Family>Merchant</vCard:Family>
+    <vCard:Other>L</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#72af8bb0-84ea-4130-bdf5-39aeadbc3690">
+    <vCard:Given>Ian</vCard:Given>
+    <vCard:Family>Joseph</vCard:Family>
+    <vCard:Other>M</vCard:Other>
+    <vCard:Other>P</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#98a02b43-a074-46dc-be96-ab8c3839e41d">
+    <dc:subject rdf:resource="rdf:#8d880101-c3d7-45dd-8e8a-42881eea1945"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#05ca819f-e528-4126-9166-de54be872089">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#72af8bb0-84ea-4130-bdf5-39aeadbc3690"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bc2fed02-f680-48e2-8a51-5688440c3729">
+    <dc:title>Journal of Applied Physiology</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#178cf870-8fdd-48fb-a957-7ce9bd25807f">
+    <dc:creator rdf:resource="rdf:#a0938c8f-f52c-4189-bc0c-e80747fe332f"/>
+    <rdf:value>
+          This is the CellML description of Joseph et al.'s 2003 mathematical model of human gastric acid secretion.
+        </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#201f8a75-d2a8-4553-9b25-7e0438312225">
+    <bqs:Pubmed_id>12433865</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#d8cb9e36-bf96-47c7-b230-80882dac0e88"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#joseph_zavros_merchant_kirschner_2003_version01">
+    <dc:title>
+        Joseph et al.'s 2003 mathematical model of human gastric acid secretion.
+      </dc:title>
+    <cmeta:comment rdf:resource="rdf:#178cf870-8fdd-48fb-a957-7ce9bd25807f"/>
+    <bqs:reference rdf:resource="rdf:#201f8a75-d2a8-4553-9b25-7e0438312225"/>
+    <bqs:reference rdf:resource="rdf:#98a02b43-a074-46dc-be96-ab8c3839e41d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#950b9b43-8869-4f89-ad9e-1e76a05d493e">
+    <dcterms:W3CDTF>2004-04-09</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#61b33781-4b4a-447a-adaa-934326f001bf">
+    <vCard:ORG rdf:resource="rdf:#24bdb7ad-97f5-46c5-89d4-fe2f10075416"/>
+    <vCard:EMAIL rdf:resource="rdf:#8c651838-2660-4691-9b8e-d2539c09fb30"/>
+    <vCard:N rdf:resource="rdf:#7a9a4189-5fd6-4859-9543-947e4fcecc37"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5ed1c6c9-b6b3-4ca6-b8b8-f6e1ff706a58">
+    <vCard:Given>Yana</vCard:Given>
+    <vCard:Family>Zavros</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#24bdb7ad-97f5-46c5-89d4-fe2f10075416">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>The Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f08aaf08-c0ef-4dde-94f6-3c8be9904c64">
+    <dcterms:W3CDTF>2003-04</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a0938c8f-f52c-4189-bc0c-e80747fe332f">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2821dbc0-3622-422b-8a87-38b6f6f0d20b">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#de73e035-ecfd-494e-ad88-2e9020a472e9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8d880101-c3d7-45dd-8e8a-42881eea1945">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value rdf:resource="rdf:#857efc0b-72b0-41d8-9548-8442097805b5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7a9a4189-5fd6-4859-9543-947e4fcecc37">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e1a4df41-94c7-4f03-9fdc-b54b627eb0dc">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#4d4b9fb4-31ec-4cf5-9782-4c7e4e8339f9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4d4b9fb4-31ec-4cf5-9782-4c7e4e8339f9">
+    <vCard:Given>Denise</vCard:Given>
+    <vCard:Family>Kirschner</vCard:Family>
+  </rdf:Description>
+</rdf:RDF>
+</model>

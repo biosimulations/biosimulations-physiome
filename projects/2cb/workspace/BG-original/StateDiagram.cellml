@@ -1,0 +1,1738 @@
+<?xml version='1.0'?>
+<model name="StateDiagram" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <component name="state">
+        <variable name="t" public_interface="in" units="second"/>
+        <variable initial_value="8.314" name="R" units="J_per_mol_K"/>
+        <variable initial_value="300" name="T" units="kelvin"/>
+        <variable initial_value="2" name="z" units="dimensionless"/>
+        <variable initial_value="96485" name="F" units="C_per_mol"/>
+        <!-- Parameters-->
+        <variable name="K_q_1" public_interface="in" units="per_mM"/>
+        <variable name="K_q_2" public_interface="in" units="per_mM"/>
+        <variable name="K_q_3" public_interface="in" units="per_mM"/>
+        <variable name="K_q_4" public_interface="in" units="per_mM"/>
+        <variable name="K_q_5" public_interface="in" units="per_mM"/>
+        <variable name="K_q_6" public_interface="in" units="per_mM"/>
+        <variable name="K_q_7" public_interface="in" units="per_mM"/>
+        <variable name="K_q_8" public_interface="in" units="per_mM"/>
+        <variable name="K_q_9" public_interface="in" units="per_mM"/>
+        <variable name="K_q_10" public_interface="in" units="per_mM"/>
+        <variable name="K_q_11" public_interface="in" units="per_mM"/>
+        <variable name="K_q_12" public_interface="in" units="per_mM"/>
+        <variable name="K_q_13" public_interface="in" units="per_mM"/>
+        <variable name="K_q_14" public_interface="in" units="per_mM"/>
+        <variable name="K_q_15" public_interface="in" units="per_mM"/>
+        <variable name="K_q_16" public_interface="in" units="per_mM"/>
+        <variable name="K_q_17" public_interface="in" units="per_mM"/>
+        <variable name="K_q_18" public_interface="in" units="per_mM"/>
+        <variable name="K_q_19" public_interface="in" units="per_mM"/>
+        <variable name="K_q_20" public_interface="in" units="per_mM"/>
+        <variable name="K_q_21" public_interface="in" units="per_mM"/>
+        <variable name="K_q_22" public_interface="in" units="per_mM"/>
+        <variable name="K_E" public_interface="in" units="per_mM"/>
+        <variable name="K_Re_1" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_2" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_3" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_4" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_5" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_6" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_7" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_8" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_9" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_10" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_11" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_12" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_13" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_14" public_interface="in" units="mM_per_s"/>
+        <variable name="K_Re_15" public_interface="in" units="mM_per_s"/>
+        <!-- State variables-->
+        <variable name="q_1_init" public_interface="in" units="mM"/>
+        <variable name="q_2_init" public_interface="in" units="mM"/>
+        <variable name="q_3_init" public_interface="in" units="mM"/>
+        <variable name="q_4_init" public_interface="in" units="mM"/>
+        <variable name="q_5_init" public_interface="in" units="mM"/>
+        <variable name="q_6_init" public_interface="in" units="mM"/>
+        <variable name="q_7_init" public_interface="in" units="mM"/>
+        <variable name="q_8_init" public_interface="in" units="mM"/>
+        <variable name="q_9_init" public_interface="in" units="mM"/>
+        <variable name="q_10_init" public_interface="in" units="mM"/>
+        <variable name="q_11_init" public_interface="in" units="mM"/>
+        <variable name="q_12_init" public_interface="in" units="mM"/>
+        <variable name="q_13_init" public_interface="in" units="mM"/>
+        <variable name="q_14_init" public_interface="in" units="mM"/>
+        <variable name="q_15_init" public_interface="in" units="mM"/>
+        <variable name="q_16_init" public_interface="in" units="mM"/>
+        <variable name="q_17_init" public_interface="in" units="mM"/>
+        <variable name="q_18_init" public_interface="in" units="mM"/>
+        <variable name="q_19_init" public_interface="in" units="mM"/>
+        <variable name="q_20_init" public_interface="in" units="mM"/>
+        <variable name="q_21_init" public_interface="in" units="mM"/>
+        <variable name="q_22_init" public_interface="in" units="mM"/>
+        <!--        var q_E_init: mM {pub: in};-->
+        <variable initial_value="0.0" name="q_1_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_2_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_3_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_4_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_5_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_6_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_7_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_8_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_9_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_10_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_11_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_12_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_13_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_14_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_15_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_16_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_17_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_18_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_19_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_20_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_21_aux" units="mM"/>
+        <variable initial_value="0.0" name="q_22_aux" units="mM"/>
+        <!--        var q_E_aux: mM {init: 0.0};-->
+        <variable name="q_1" public_interface="out" units="mM"/>
+        <variable name="q_2" public_interface="out" units="mM"/>
+        <variable name="q_3" public_interface="out" units="mM"/>
+        <variable name="q_4" public_interface="out" units="mM"/>
+        <variable name="q_5" public_interface="out" units="mM"/>
+        <variable name="q_6" public_interface="out" units="mM"/>
+        <variable name="q_7" public_interface="out" units="mM"/>
+        <variable name="q_8" public_interface="out" units="mM"/>
+        <variable name="q_9" public_interface="out" units="mM"/>
+        <variable name="q_10" public_interface="out" units="mM"/>
+        <variable name="q_11" public_interface="out" units="mM"/>
+        <variable name="q_12" public_interface="out" units="mM"/>
+        <variable name="q_13" public_interface="out" units="mM"/>
+        <variable name="q_14" public_interface="out" units="mM"/>
+        <variable name="q_15" public_interface="out" units="mM"/>
+        <variable name="q_16" public_interface="out" units="mM"/>
+        <variable name="q_17" public_interface="out" units="mM"/>
+        <variable name="q_18" public_interface="out" units="mM"/>
+        <variable name="q_19" public_interface="out" units="mM"/>
+        <variable name="q_20" public_interface="out" units="mM"/>
+        <variable name="q_21" public_interface="out" units="mM"/>
+        <variable name="q_22" public_interface="out" units="mM"/>
+        <!--        var q_E: mM {pub: out};-->
+        <variable name="v_Re_1" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_2" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_3" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_4" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_5" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_6" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_7" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_8" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_9" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_10" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_11" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_12" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_13" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_14" public_interface="out" units="mM_per_s"/>
+        <variable name="v_Re_15" public_interface="out" units="mM_per_s"/>
+        <variable name="u_1" public_interface="out" units="J_per_mol"/>
+        <variable name="u_2" public_interface="out" units="J_per_mol"/>
+        <variable name="u_3" public_interface="out" units="J_per_mol"/>
+        <variable name="u_4" public_interface="out" units="J_per_mol"/>
+        <variable name="u_5" public_interface="out" units="J_per_mol"/>
+        <variable name="u_6" public_interface="out" units="J_per_mol"/>
+        <variable name="u_7" public_interface="out" units="J_per_mol"/>
+        <variable name="u_8" public_interface="out" units="J_per_mol"/>
+        <variable name="u_9" public_interface="out" units="J_per_mol"/>
+        <variable name="u_10" public_interface="out" units="J_per_mol"/>
+        <variable name="u_11" public_interface="out" units="J_per_mol"/>
+        <variable name="u_12" public_interface="out" units="J_per_mol"/>
+        <variable name="u_13" public_interface="out" units="J_per_mol"/>
+        <variable name="u_14" public_interface="out" units="J_per_mol"/>
+        <variable name="u_15" public_interface="out" units="J_per_mol"/>
+        <variable name="u_16" public_interface="out" units="J_per_mol"/>
+        <variable name="u_17" public_interface="out" units="J_per_mol"/>
+        <variable name="u_18" public_interface="out" units="J_per_mol"/>
+        <variable name="u_19" public_interface="out" units="J_per_mol"/>
+        <variable name="u_20" public_interface="out" units="J_per_mol"/>
+        <variable name="u_21" public_interface="out" units="J_per_mol"/>
+        <variable name="u_22" public_interface="out" units="J_per_mol"/>
+        <variable name="u_23" public_interface="out" units="J_per_mol"/>
+        <variable name="u_24" public_interface="out" units="J_per_mol"/>
+        <variable name="u_25" public_interface="out" units="J_per_mol"/>
+        <variable name="u_26" public_interface="out" units="J_per_mol"/>
+        <variable name="u_27" public_interface="out" units="J_per_mol"/>
+        <variable name="u_28" public_interface="out" units="J_per_mol"/>
+        <variable name="u_29" public_interface="out" units="J_per_mol"/>
+        <variable name="u_30" public_interface="out" units="J_per_mol"/>
+        <variable name="u_31" public_interface="out" units="J_per_mol"/>
+        <variable name="u_32" public_interface="out" units="J_per_mol"/>
+        <variable name="u_33" public_interface="out" units="J_per_mol"/>
+        <variable name="u_34" public_interface="out" units="J_per_mol"/>
+        <variable name="u_35" public_interface="out" units="J_per_mol"/>
+        <variable name="u_36" public_interface="out" units="J_per_mol"/>
+        <variable name="u_E" public_interface="in" units="J_per_C"/>
+        <!-- Conservation laws-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_1_aux</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <ci>v_Re_1</ci>
+                    <ci>v_Re_3</ci>
+                    <ci>v_Re_5</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_2_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <minus/>
+                            <ci>v_Re_2</ci>
+                        </apply>
+                        <ci>v_Re_4</ci>
+                    </apply>
+                    <ci>v_Re_6</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_3_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>v_Re_7</ci>
+                    </apply>
+                    <ci>v_Re_9</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_4_aux</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <ci>v_Re_8</ci>
+                    <ci>v_Re_10</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_5_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_11</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_6_aux</ci>
+                </apply>
+                <ci>v_Re_12</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_7_aux</ci>
+                </apply>
+                <ci>v_Re_13</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_8_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_5</ci>
+                    <ci>v_Re_7</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_9_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_7</ci>
+                    <ci>v_Re_9</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_10_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_9</ci>
+                    <ci>v_Re_13</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_11_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_13</ci>
+                    <ci>v_Re_11</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_12_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_11</ci>
+                    <ci>v_Re_14</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_13_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_14</ci>
+                    <ci>v_Re_10</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_14_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_10</ci>
+                    <ci>v_Re_8</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_15_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_8</ci>
+                    <ci>v_Re_6</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_16_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_6</ci>
+                    <ci>v_Re_4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_17_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_4</ci>
+                    <ci>v_Re_2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_18_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_2</ci>
+                    <ci>v_Re_12</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_19_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_12</ci>
+                    <ci>v_Re_15</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_20_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_15</ci>
+                    <ci>v_Re_1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_21_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_1</ci>
+                    <ci>v_Re_3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q_22_aux</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_Re_3</ci>
+                    <ci>v_Re_5</ci>
+                </apply>
+            </apply>
+            <!--        ode(q_E_aux, t) = z*v_Re_15;-->
+            <apply>
+                <eq/>
+                <ci>q_1</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_1_aux</ci>
+                    <ci>q_1_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_2</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_2_aux</ci>
+                    <ci>q_2_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_3</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_3_aux</ci>
+                    <ci>q_3_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_4</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_4_aux</ci>
+                    <ci>q_4_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_5</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_5_aux</ci>
+                    <ci>q_5_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_6</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_6_aux</ci>
+                    <ci>q_6_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_7</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_7_aux</ci>
+                    <ci>q_7_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_8</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_8_aux</ci>
+                    <ci>q_8_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_9</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_9_aux</ci>
+                    <ci>q_9_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_10</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_10_aux</ci>
+                    <ci>q_10_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_11</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_11_aux</ci>
+                    <ci>q_11_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_12</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_12_aux</ci>
+                    <ci>q_12_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_13</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_13_aux</ci>
+                    <ci>q_13_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_14</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_14_aux</ci>
+                    <ci>q_14_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_15</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_15_aux</ci>
+                    <ci>q_15_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_16</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_16_aux</ci>
+                    <ci>q_16_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_17</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_17_aux</ci>
+                    <ci>q_17_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_18</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_18_aux</ci>
+                    <ci>q_18_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_19</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_19_aux</ci>
+                    <ci>q_19_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_20</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_20_aux</ci>
+                    <ci>q_20_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_21</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_21_aux</ci>
+                    <ci>q_21_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_22</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_22_aux</ci>
+                    <ci>q_22_init</ci>
+                </apply>
+            </apply>
+            <!--        q_E = q_E_init;-->
+            <apply>
+                <eq/>
+                <ci>u_23</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_1</ci>
+                    <ci>u_21</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_24</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_1</ci>
+                    <ci>u_22</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_25</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_1</ci>
+                    <ci>u_8</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_26</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_3</ci>
+                    <ci>u_8</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_27</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_3</ci>
+                    <ci>u_9</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_28</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_11</ci>
+                    <ci>u_7</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_29</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_11</ci>
+                    <ci>u_5</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_30</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_4</ci>
+                    <ci>u_14</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_31</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_4</ci>
+                    <ci>u_15</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_32</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_2</ci>
+                    <ci>u_15</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_33</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_2</ci>
+                    <ci>u_16</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_34</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_2</ci>
+                    <ci>u_17</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_35</ci>
+                <apply>
+                    <plus/>
+                    <ci>u_19</ci>
+                    <ci>u_6</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_36</ci>
+                <apply>
+                    <minus/>
+                    <ci>u_19</ci>
+                    <apply>
+                        <times/>
+                        <ci>z</ci>
+                        <ci>F</ci>
+                        <ci>u_E</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <!-- Constitu_tive relations-->
+            <apply>
+                <eq/>
+                <ci>u_1</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_1</ci>
+                            <ci>q_1</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_2</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_2</ci>
+                            <ci>q_2</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_3</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_3</ci>
+                            <ci>q_3</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_4</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_4</ci>
+                            <ci>q_4</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_5</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_5</ci>
+                            <ci>q_5</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_6</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_6</ci>
+                            <ci>q_6</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_7</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_7</ci>
+                            <ci>q_7</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_8</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_8</ci>
+                            <ci>q_8</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_9</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_9</ci>
+                            <ci>q_9</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_10</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_10</ci>
+                            <ci>q_10</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_11</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_11</ci>
+                            <ci>q_11</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_12</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_12</ci>
+                            <ci>q_12</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_13</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_13</ci>
+                            <ci>q_13</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_14</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_14</ci>
+                            <ci>q_14</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_15</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_15</ci>
+                            <ci>q_15</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_16</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_16</ci>
+                            <ci>q_16</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_17</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_17</ci>
+                            <ci>q_17</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_18</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_18</ci>
+                            <ci>q_18</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_19</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_19</ci>
+                            <ci>q_19</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_20</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_20</ci>
+                            <ci>q_20</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_21</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_21</ci>
+                            <ci>q_21</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>u_22</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_q_22</ci>
+                            <ci>q_22</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <!--        u_E = (R*T)*K_E*q_E;-->
+            <apply>
+                <eq/>
+                <ci>v_Re_1</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_1</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_20</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_23</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_2</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_2</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_34</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_18</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_3</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_3</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_21</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_24</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_4</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_4</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_33</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_17</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_5</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_5</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_22</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_25</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_6</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_6</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_32</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_16</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_7</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_7</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_26</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_9</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_8</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_8</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_14</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_31</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_9</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_9</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_27</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_10</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_10</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_10</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_13</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_30</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_11</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_11</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_29</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_12</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_12</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_12</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_18</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_35</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_13</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_13</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_10</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_28</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_14</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_14</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_12</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_13</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_Re_15</ci>
+                <apply>
+                    <times/>
+                    <ci>K_Re_15</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_36</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <ci>u_20</ci>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> 
+<title>Collier et al (1996) Delta-Notch model</title> 
+</head> 
+<body> 
+<p> 
+	An initial attempt to demonstrate one use of CellML with multicellular models using the Delta-Notch model of Collier et al (1996) as an example. In the current state of this workspace, I show the two cell variant of the Collier model as described in Figure 3 of the <a href="http://www.ncbi.nlm.nih.gov/pubmed/9015458">Collier article</a>. In this encoding of the model, we use CellML 1.1 to separate the single cell dynamics from the population model. In the single cell model I have encoded the two ODEs which make up the dynamics (Equation 2 in the Collier paper) and left the initial conditions and parameters undefined. The population model (collier-2cell.xml) uses the CellML import feature to <i>"instantiate"</i> two cells, as shown in the diagram below:
+</p>
+<div align="center">
+   <img src="collier-2cell-hierarchy.png"/>
+   <br /><span>Model hierarchy (generated using <a href="http://cellml.sourceforge.net/CellML2Dot">CellML2Dot</a>) of the two cell variant of the Collier et al Delta-Notch signalling model.</span>
+</div>
+<p>
+	The two single cell models are then connected together in the two cell variant of the Collier model. The parent model defines the parameters to be used in both instances of the single cell model along with the different initial conditions for each cell. I define a neighbourhood average for delta for each of the cells, which for the two cell variant simply consists of the delta value from the other cell and the zero boundary condition. The connections between the single cell models can be seen in the figure below:
+</p>
+<div align="center">
+   <img width="100%" src="collier-2cell-variable-connections.png"/>
+   <br /><span>Model connections (generated using <a href="http://cellml.sourceforge.net/CellML2Dot">CellML2Dot</a>) of the two cell variant of the Collier et al Delta-Notch signalling model. The common model parameters can be seen as well as the initial conditions for the individual cells.</span>
+</div>
+<p>
+	Simulations of the two cell variant of the Collier model can be performed to demonstrate that the model is correctly encoded. A reproduction of the results from Figure 3 of the Collier et al (1996) article can be seen below, using the two cell variant as encoded in CellML.
+</p>
+<div align="center">
+   <img width="100%" src="collier-2cell-graph.png"/>
+   <br /><span>Simulation results (generated using <a href="http://cellml.sourceforge.net/CellMLSimulator">CellMLSimulator</a>) of the two cell variant of the Collier Delta-Notch signalling model. These results correspond to those shown in Figure 3 of the Collier et al (1996) article.</span>
+</div>
+</body> 
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+This CellML file was generated on 4/12/2013 at 12:26:13 at PM using:
+
+COR (0.9.31.1409)
+Copyright 2002-2013 Dr Alan Garny
+http://cor.physiol.ox.ac.uk/ - cor@physiol.ox.ac.uk
+
+CellML 1.0 was used to generate this model
+http://www.cellml.org/
+--><model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.1#" cmeta:id="Example_MassAction_1" name="Example_MassAction_1">
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml"><component component_ref="MassActionUniUniRev" name="R1_MassActionUniUniRev"/><units name="mM" units_ref="mM"/><units name="per_second" units_ref="per_second"/><units name="mM_per_second" units_ref="mM_per_second"/><units name="per_mM_per_second" units_ref="per_mM_per_second"/><units name="per_mM" units_ref="per_mM"/></import>   <component name="Network">
+      <variable name="t" units="second"/>
+      <variable name="v1" public_interface="in" units="mM_per_second"/>
+      <variable initial_value="1" name="A" public_interface="out" units="mM"/>
+      <variable initial_value="0" name="B" public_interface="out" units="mM"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>A</ci></apply><apply><minus/><ci>v1</ci></apply></apply>
+         <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>B</ci></apply><ci>v1</ci></apply>
+      </math>
+   </component>
+   <component name="Reaction_1">
+      <variable name="v1" private_interface="in" public_interface="out" units="mM_per_second"/>
+      <variable name="A" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="B" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="k_f" private_interface="out" units="per_second"/>
+      <variable name="k_b" private_interface="out" units="per_second"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k_f</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_second">10</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>k_b</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_second">3</cn>
+         </apply>
+      </math>
+   </component>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="Reaction_1">
+         <component_ref component="R1_MassActionUniUniRev"/>
+      </component_ref>
+   </group>
+   <connection>
+      <map_components component_1="Network" component_2="Reaction_1"/>
+      <map_variables variable_1="v1" variable_2="v1"/>
+      <map_variables variable_1="A" variable_2="A"/>
+      <map_variables variable_1="B" variable_2="B"/>
+   </connection>
+   <connection>
+      <map_components component_1="Reaction_1" component_2="R1_MassActionUniUniRev"/>
+      <map_variables variable_1="v1" variable_2="J"/>
+      <map_variables variable_1="A" variable_2="S"/>
+      <map_variables variable_1="B" variable_2="P"/>
+      <map_variables variable_1="k_f" variable_2="k_f"/>
+      <map_variables variable_1="k_b" variable_2="k_b"/>
+   </connection>
+</model>

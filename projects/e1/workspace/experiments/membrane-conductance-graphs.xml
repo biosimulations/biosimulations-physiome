@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+        xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:dcterms="http://purl.org/dc/terms/"
+        xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+        xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#"
+        xmlns:cg="http://www.cellml.org/metadata/graphs/1.0#"
+        xmlns:csim="http://cellml.sourceforge.net/CellMLSimulator/#">
+  <rdf:Description rdf:ID="andre">
+    <vCard:N rdf:parseType="Resource">
+      <vCard:Family>Nickerson</vCard:Family>
+      <vCard:Given>David</vCard:Given>
+    </vCard:N>
+    <vCard:EMAIL rdf:parseType="Resource">
+      <rdf:value>david.nickerson@nus.edu.sg</rdf:value>
+      <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    </vCard:EMAIL>
+    <vCard:ORG rdf:parseType="Resource">
+      <vCard:Orgname>National University of Singapore</vCard:Orgname>
+      <vCard:Orgunit>Division of Bioengineering</vCard:Orgunit>
+    </vCard:ORG>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:creator rdf:resource="#andre"/>
+    <dcterms:created rdf:parseType="Resource">
+      <dcterms:W3CDTF>2008-08-14</dcterms:W3CDTF>
+    </dcterms:created>
+    <dc:publisher>
+      Division of Bioengineering, National University of Singapore
+    </dc:publisher>
+  </rdf:Description>
+  <rdf:Description>
+    <cg:graph>
+      <rdf:Description rdf:ID="gNa_potential">
+        <cg:title>Action Potentials</cg:title>
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the action potentials simulated using the Hodgkin &amp; Huxley (1952) squid axon model with a periodic electrical stimulus current applied. Several different values for the maximal conductance of the sodium channel are used.
+          </rdf:value>
+        </dcterms:description>
+        <csim:citation rdf:parseType="Resource">
+          <csim:authors>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre2"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre3"/>
+              </rdf:li>
+            </rdf:Seq>
+          </csim:authors>
+          <dc:title>
+            Investigation of membrane conductance and ion concentrations using Hodgkin &amp; Huxley's squid axon model
+          </dc:title>
+          <dcterms:issued>2021</dcterms:issued>
+          <dcterms:bibliographicCitation>
+            Fan J Eve Cool. 2021 Jun;1(1):12-67
+          </dcterms:bibliographicCitation>
+        </csim:citation>
+        <cmeta:species>loligo</cmeta:species>
+        <cmeta:bio_entity>giant nerve fibre</cmeta:bio_entity>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Potential (mV)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>control</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-control.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-control.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-control.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>50%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-050.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-050.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-050.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>150%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-150.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-150.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-150.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>200%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#800080</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-200.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-200.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-200.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="gNa_INa">
+        <cg:title>Sodium current</cg:title>
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the sodium current simulated using the Hodgkin &amp; Huxley (1952) squid axon model with a periodic electrical stimulus current applied. Several different values for the maximal conductance of the sodium channel are used.
+          </rdf:value>
+        </dcterms:description>
+        <csim:citation rdf:parseType="Resource">
+          <csim:authors>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre2"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre3"/>
+              </rdf:li>
+            </rdf:Seq>
+          </csim:authors>
+          <dc:title>
+            Investigation of membrane conductance and ion concentrations using Hodgkin &amp; Huxley's squid axon model
+          </dc:title>
+          <dcterms:issued>2021</dcterms:issued>
+          <dcterms:bibliographicCitation>
+            Fan J Eve Cool. 2021 Jun;1(1):12-67
+          </dcterms:bibliographicCitation>
+        </csim:citation>
+        <cmeta:species>loligo</cmeta:species>
+        <cmeta:bio_entity>giant nerve fibre</cmeta:bio_entity>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Current (uA/cm^2)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>control</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-control.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-control.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-control.xml#simulation"/>
+              <cg:variable rdf:resource="../components/INa.xml#INa"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>50%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-050.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-050.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-050.xml#simulation"/>
+              <cg:variable rdf:resource="../components/INa.xml#INa"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>150%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-150.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-150.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-150.xml#simulation"/>
+              <cg:variable rdf:resource="../components/INa.xml#INa"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>200%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#800080</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-200.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-200.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-200.xml#simulation"/>
+              <cg:variable rdf:resource="../components/INa.xml#INa"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="gK_potential">
+        <cg:title>Action Potentials</cg:title>
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the action potentials simulated using the Hodgkin &amp; Huxley (1952) squid axon model with a periodic electrical stimulus current applied. Several different values for the maximal conductance of the potassium channel are used.
+          </rdf:value>
+        </dcterms:description>
+        <csim:citation rdf:parseType="Resource">
+          <csim:authors>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre2"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre3"/>
+              </rdf:li>
+            </rdf:Seq>
+          </csim:authors>
+          <dc:title>
+            Investigation of membrane conductance and ion concentrations using Hodgkin &amp; Huxley's squid axon model
+          </dc:title>
+          <dcterms:issued>2021</dcterms:issued>
+          <dcterms:bibliographicCitation>
+            Fan J Eve Cool. 2021 Jun;1(1):12-67
+          </dcterms:bibliographicCitation>
+        </csim:citation>
+        <cmeta:species>loligo</cmeta:species>
+        <cmeta:bio_entity>giant nerve fibre</cmeta:bio_entity>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Potential (mV)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>control</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-control.xml#simulation"/>
+              <cg:variable rdf:resource="gK-control.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-control.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>50%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-050.xml#simulation"/>
+              <cg:variable rdf:resource="gK-050.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-050.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>150%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-150.xml#simulation"/>
+              <cg:variable rdf:resource="gK-150.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-150.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>200%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#800080</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-200.xml#simulation"/>
+              <cg:variable rdf:resource="gK-200.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-200.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="gK_IK">
+        <cg:title>Potassium current</cg:title>
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the potassium current simulated using the Hodgkin &amp; Huxley (1952) squid axon model with a periodic electrical stimulus current applied. Several different values for the maximal conductance of the potassium channel are used.
+          </rdf:value>
+        </dcterms:description>
+        <csim:citation rdf:parseType="Resource">
+          <csim:authors>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre2"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre3"/>
+              </rdf:li>
+            </rdf:Seq>
+          </csim:authors>
+          <dc:title>
+            Investigation of membrane conductance and ion concentrations using Hodgkin &amp; Huxley's squid axon model
+          </dc:title>
+          <dcterms:issued>2021</dcterms:issued>
+          <dcterms:bibliographicCitation>
+            Fan J Eve Cool. 2021 Jun;1(1):12-67
+          </dcterms:bibliographicCitation>
+        </csim:citation>
+        <cmeta:species>loligo</cmeta:species>
+        <cmeta:bio_entity>giant nerve fibre</cmeta:bio_entity>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Current (uA/cm^2)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>control</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-control.xml#simulation"/>
+              <cg:variable rdf:resource="gK-control.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-control.xml#simulation"/>
+              <cg:variable rdf:resource="../components/IK.xml#IK"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>50%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-050.xml#simulation"/>
+              <cg:variable rdf:resource="gK-050.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-050.xml#simulation"/>
+              <cg:variable rdf:resource="../components/IK.xml#IK"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>150%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-150.xml#simulation"/>
+              <cg:variable rdf:resource="gK-150.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-150.xml#simulation"/>
+              <cg:variable rdf:resource="../components/IK.xml#IK"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>200%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#800080</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-200.xml#simulation"/>
+              <cg:variable rdf:resource="gK-200.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-200.xml#simulation"/>
+              <cg:variable rdf:resource="../components/IK.xml#IK"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="gleak_potential">
+        <cg:title>Action Potentials</cg:title>
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the action potentials simulated using the Hodgkin &amp; Huxley (1952) squid axon model with a periodic electrical stimulus current applied. Several different values for the maximal conductance of the leak current are used.
+          </rdf:value>
+        </dcterms:description>
+        <csim:citation rdf:parseType="Resource">
+          <csim:authors>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre2"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre3"/>
+              </rdf:li>
+            </rdf:Seq>
+          </csim:authors>
+          <dc:title>
+            Investigation of membrane conductance and ion concentrations using Hodgkin &amp; Huxley's squid axon model
+          </dc:title>
+          <dcterms:issued>2021</dcterms:issued>
+          <dcterms:bibliographicCitation>
+            Fan J Eve Cool. 2021 Jun;1(1):12-67
+          </dcterms:bibliographicCitation>
+        </csim:citation>
+        <cmeta:species>loligo</cmeta:species>
+        <cmeta:bio_entity>giant nerve fibre</cmeta:bio_entity>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Potential (mV)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>control</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-control.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>50%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-050.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-050.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-050.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>150%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-150.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-150.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-150.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>200%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#800080</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-200.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-200.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-200.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="gleak_Ileak">
+        <cg:title>Leak current</cg:title>
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the leak current simulated using the Hodgkin &amp; Huxley (1952) squid axon model with a periodic electrical stimulus current applied. Several different values for the maximal conductance of the leak current are used.
+          </rdf:value>
+        </dcterms:description>
+        <csim:citation rdf:parseType="Resource">
+          <csim:authors>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre2"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre3"/>
+              </rdf:li>
+            </rdf:Seq>
+          </csim:authors>
+          <dc:title>
+            Investigation of membrane conductance and ion concentrations using Hodgkin &amp; Huxley's squid axon model
+          </dc:title>
+          <dcterms:issued>2021</dcterms:issued>
+          <dcterms:bibliographicCitation>
+            Fan J Eve Cool. 2021 Jun;1(1):12-67
+          </dcterms:bibliographicCitation>
+        </csim:citation>
+        <cmeta:species>loligo</cmeta:species>
+        <cmeta:bio_entity>giant nerve fibre</cmeta:bio_entity>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Current (uA/cm^2)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>control</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-control.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="../components/Ileak.xml#Ileak"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>50%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-050.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-050.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-050.xml#simulation"/>
+              <cg:variable rdf:resource="../components/Ileak.xml#Ileak"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>150%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-150.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-150.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-150.xml#simulation"/>
+              <cg:variable rdf:resource="../components/Ileak.xml#Ileak"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>200%</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#800080</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-200.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-200.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-200.xml#simulation"/>
+              <cg:variable rdf:resource="../components/Ileak.xml#Ileak"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="combined_potential_050">
+        <cg:title>Action Potentials - 50%</cg:title>
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the action potentials simulated for the case when maximal conductance of the three ionic currents are reduced to 50% of their control value.
+          </rdf:value>
+        </dcterms:description>
+        <csim:citation rdf:parseType="Resource">
+          <csim:authors>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre2"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre3"/>
+              </rdf:li>
+            </rdf:Seq>
+          </csim:authors>
+          <dc:title>
+            Investigation of membrane conductance and ion concentrations using Hodgkin &amp; Huxley's squid axon model
+          </dc:title>
+          <dcterms:issued>2021</dcterms:issued>
+          <dcterms:bibliographicCitation>
+            Fan J Eve Cool. 2021 Jun;1(1):12-67
+          </dcterms:bibliographicCitation>
+        </csim:citation>
+        <cmeta:species>loligo</cmeta:species>
+        <cmeta:bio_entity>giant nerve fibre</cmeta:bio_entity>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Potential (mV)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>control</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-control.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>INa</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-050.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-050.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-050.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>IK</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-050.xml#simulation"/>
+              <cg:variable rdf:resource="gK-050.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-050.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>Ileak</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#800080</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-050.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-050.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-050.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="combined_potential_150">
+        <cg:title>Action Potentials - 150%</cg:title>
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the action potentials simulated for the case when maximal conductance of the three ionic currents are increased to 150% of their control value.
+          </rdf:value>
+        </dcterms:description>
+        <csim:citation rdf:parseType="Resource">
+          <csim:authors>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre2"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre3"/>
+              </rdf:li>
+            </rdf:Seq>
+          </csim:authors>
+          <dc:title>
+            Investigation of membrane conductance and ion concentrations using Hodgkin &amp; Huxley's squid axon model
+          </dc:title>
+          <dcterms:issued>2021</dcterms:issued>
+          <dcterms:bibliographicCitation>
+            Fan J Eve Cool. 2021 Jun;1(1):12-67
+          </dcterms:bibliographicCitation>
+        </csim:citation>
+        <cmeta:species>loligo</cmeta:species>
+        <cmeta:bio_entity>giant nerve fibre</cmeta:bio_entity>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Potential (mV)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>control</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-control.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>INa</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-150.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-150.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-150.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>IK</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-150.xml#simulation"/>
+              <cg:variable rdf:resource="gK-150.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-150.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>Ileak</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#800080</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-150.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-150.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-150.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="combined_potential_200">
+        <cg:title>Action Potentials - 200%</cg:title>
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the action potentials simulated for the case when maximal conductance of the three ionic currents are increased to 200% of their control value.
+          </rdf:value>
+        </dcterms:description>
+        <csim:citation rdf:parseType="Resource">
+          <csim:authors>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre2"/>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <dc:creator rdf:resource="#andre3"/>
+              </rdf:li>
+            </rdf:Seq>
+          </csim:authors>
+          <dc:title>
+            Investigation of membrane conductance and ion concentrations using Hodgkin &amp; Huxley's squid axon model
+          </dc:title>
+          <dcterms:issued>2021</dcterms:issued>
+          <dcterms:bibliographicCitation>
+            Fan J Eve Cool. 2021 Jun;1(1):12-67
+          </dcterms:bibliographicCitation>
+        </csim:citation>
+        <cmeta:species>loligo</cmeta:species>
+        <cmeta:bio_entity>giant nerve fibre</cmeta:bio_entity>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Potential (mV)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>control</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-control.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-control.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>INa</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-200.xml#simulation"/>
+              <cg:variable rdf:resource="gNa-200.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gNa-200.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>IK</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-200.xml#simulation"/>
+              <cg:variable rdf:resource="gK-200.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gK-200.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>Ileak</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#800080</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-200.xml#simulation"/>
+              <cg:variable rdf:resource="gleak-200.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="gleak-200.xml#simulation"/>
+              <cg:variable rdf:resource="../components/stimulated.xml#minus_V"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+  </rdf:Description>
+</rdf:RDF>

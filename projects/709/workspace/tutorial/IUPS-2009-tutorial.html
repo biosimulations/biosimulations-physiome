@@ -1,0 +1,177 @@
+<html>
+  <head>
+    <title>Loading reference description ...</title>
+    <style type="text/css">
+      @import "../dojo-presentation/js/dojo/dojo/resources/dojo.css";
+      @import "../dojo-presentation/js/dojo/dijit/themes/tundra/tundra.css";
+      @import "../dojo-presentation/andre.css";
+    </style>
+    <script type="text/javascript">
+      djConfig = {
+        parseOnLoad: true,
+        isDebug: false
+      };
+    </script>
+    <script type="text/javascript" src="../dojo-presentation/js/dojo/dojo/dojo.js"></script>
+    <style> 
+      /* NOTE: for a full screen layout, must set body size equal to 
+         the viewport. */
+      html, body { height: 100%; width: 100%; margin: 0; padding: 0; }
+    </style>
+    <script type="text/javascript">
+      dojo.require("dojo.parser");
+      dojo.require("dijit.layout.ContentPane");
+      dojo.require("dijit.layout.BorderContainer");
+      // for the help dialog
+      dojo.require("dijit.Dialog");
+      /* my code */
+      // relative to dojoroot/dojo
+      dojo.registerModulePath("andre","../../andre");
+      dojo.require("andre.DataStore");
+      dojo.require("andre.ReferenceDescription");
+    </script>
+    <script type="text/javascript">
+      /* declare our data store, initialised on page load */
+      var store = null;
+      /* FIXME: source directory for reference description - should by dynamic */
+      var srcBaseURL = "http://models.cellml.org/workspace/a1/@@rawfile/bf6922e2dde69757d766efe1026129efad0a1f13/tutorial/csim-reference-description/";
+      /* and the primary document we're creating */
+      var referenceDescription = null;
+      function rootItemFetched(item,request) {
+        console.debug("rootItemFetched() called");
+        if (referenceDescription != null) {
+          alert("Reference description already created, not creating again");
+        } else {
+          // create the reference description object
+          referenceDescription = new andre.ReferenceDescription(store,item, dojo.byId("header-pane"), dojo.byId("task-pane"), dojo.byId("content-pane"), dojo.byId("footer-pane"), srcBaseURL);
+          console.log("reference description created");
+          // set up the page
+          referenceDescription.initialiseDocument();
+          console.log("document initialised");
+        }
+      }
+      function gotError(error,request) {
+        dojo.byId('loaderInner').innerHTML += " ERROR: The request to the data store failed getting the root item: " + error;
+      }
+      function pageInitComplete(items,request) {
+        console.debug("pageInitComplete() called");
+        if (referenceDescription == null) {
+          dojo.byId('loaderInner').innerHTML += " ERROR: missing reference description?";
+        } else {
+          /* redo the page layout -- need to do this to ensure the blocks all get the right size and are visible */
+          dijit.byId("page-layout").layout();
+          // and the cool little page loader FIXME: should replace with a proper progress bar as the page loads...
+          dojo.byId('loaderInner').innerHTML += " done.";
+          setTimeout(function hideLoader(){
+            var loader = dojo.byId('loader');
+            dojo.fadeOut({ node: loader, duration: 500,
+              onEnd: function(){ 
+                loader.style.display = "none"; 
+              }
+            }).play();
+          }, 250);
+        }
+      }
+      function pageInit() {
+        console.debug("pageInit() called");
+        /* load up our date store */
+        store = new andre.DataStore({
+          /*url: "HH-generated.json",*/
+          url: srcBaseURL + "reference-description.json",
+          mimetype: "text/json"
+        });
+        // get the root object from the store
+        store.fetch({
+          query: {type: "root"},
+          onItem: rootItemFetched,
+          onError: gotError,
+          onComplete: pageInitComplete
+        });
+      }
+      // called from within content items to pop up other content items
+      // FIXME: should really be hidden away within the reference description object??
+      function displayContentItem(id,parentId) {
+        referenceDescription.displayContentItem(id,parentId);
+      }
+      dojo.addOnLoad(pageInit);
+    </script>
+  </head>
+  <body class="tundra">
+    <!-- from the dojo theme tester, used to hide the content until it is
+         all rendered nicely -->
+    <div id="loader"><div id="loaderInner">Loading reference description ... </div></div>
+    <div dojoType="dijit.layout.BorderContainer"
+         design="headline"
+         style="height: 100%"
+         persist="true"
+         id="page-layout">
+      <div dojoType="dijit.layout.ContentPane"
+           region="top"
+           id="header-pane">
+        <span>Header Pane</span>
+      </div>
+      <div dojoType="dijit.layout.ContentPane" 
+           region="left"
+           splitter="true"
+           style="width: 200px;"
+           id="task-pane">
+        <span>Task Pane</span>
+      </div>
+      <div dojoType="dijit.layout.ContentPane"
+           region="center"
+           id="content-pane"
+           style="border-top: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3;">
+        <span>Content Pane</span>
+      </div>
+      <div dojoType="dijit.layout.ContentPane"
+           region="bottom"
+           id="footer-pane">
+        <span>Footer pane</span>
+      </div>
+    </div>
+    <!-- the help dialog -->
+    <div id="help-dialog"
+         dojoType="dijit.Dialog"
+         title="Andre's Reference Description Framework">
+      <div>Version: pre-release version 0.1</div>
+      <div>Author: <a href="mailto:nickerso@users.sourceforge.net">David Nickerson</a>, Division of Bioengineering, National University of Singapore.</div>
+      <h2>Navigation</h2>
+      <p>
+        The main window consists of four primary panels. The title pane is the primary title of this reference description as well as the author and date of creation. Clicking the title pane will display the primary top-level documentation of the reference description. The left panel has a tree view of the tasks and graphs contained in this reference description, while the footer has some information on how the reference description was created. The centre panel is the primary display for the contents of the reference description. In this panel each object in the reference description will be displayed in response to user events - either choosing items from the tree on the left or following links from one item to another.
+      </p>
+      <p>
+        Each content item displayed in the centre panel can be closed by clicking the close button (<span class="andreContentItemLink closeIcon" style="padding-left: 12px;"></span>) in the top right corner of the content item's frame. If available, the corresponding XML source for the item can be viewed by clicking the view source icon (<span class="andreContentItemLink viewSourceIcon" style="padding-left: 16px;"></span>) also in the top right corner. Within displayed content items, some of the content is presented in summary form with the full description available upon user request. Look for things that have a '+' next to them and try clicking them to display the full description. Clicking the title again will hide the full description once more.
+      </p>
+      <h2>Object types</h2>
+      <p>
+        This reference description consits of various types of objects (content items). The types of objects are:
+        <ul>
+          <li>
+            <span class="andreContentItemLink treeRootExpanded"></span> &mdash; the top-level task for this reference description;
+          </li>
+          <li>
+            <span class="andreContentItemLink taskIcon"></span> &mdash; <b>task</b>, which may contain links to child tasks or graphs;
+          </li>
+          <li>
+            <span class="andreContentItemLink graphIcon"></span> &mdash; <b>graph</b>, the description of a graph defined using <a href="http://www.cellml.org/specifications/metadata/graphs/" target="_blank">CellML graphing metadata</a>;
+          </li>
+          <li>
+            <span class="andreContentItemLink simulationIcon"></span> &mdash; <b>simulation</b>, the description of a simulation (the instantiation of a mathematical model into a numerical experiment) defined using <a href="http://www.cellml.org/specifications/metadata/simulations/" target="_blank">CellML simulation metadata</a>;
+          </li>
+          <li>
+            <span class="andreContentItemLink modelIcon"></span> &mdash; <b>model</b>, the top level container of a mathematical model defined using <a href="http://www.cellml.org/" target="_blank">CellML</a>. A model acts as a container for annotations of groups of math containers;
+          </li>
+          <li>
+            <span class="andreContentItemLink componentIcon"></span> &mdash; <b>math container</b>, a container for mathematical equations and variable declarations (equivalent to a CellML component);
+          </li>
+          <li>
+            <span class="andreContentItemLink variableIcon"></span> &mdash; <b>variable</b>, the basic building block for the mathematical model;
+          </li>
+          <li>
+            <span class="andreContentItemLink unknownIcon"></span> &mdash; congratulations, you have found something that this code doesn't know about!
+          </li>
+        </ul>
+      </p>
+    </div>
+  </body>
+</html>

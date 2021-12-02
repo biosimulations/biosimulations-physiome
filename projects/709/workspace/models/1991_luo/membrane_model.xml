@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="membrane_model" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+  <component name="membrane">
+    <variable cmeta:id="Vm" initial_value="V_initial" name="V" private_interface="out" public_interface="out" units="mV"/>
+    <variable name="V_initial" public_interface="in" units="mV"/>
+    <variable name="R" private_interface="out" public_interface="in" units="gas_constant_units"/>
+    <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
+    <variable name="F" private_interface="out" public_interface="in" units="faradays_constant_units"/>
+    <variable name="C" private_interface="out" public_interface="in" units="uF_per_mm2"/>
+    <variable name="I_stim" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="i_Na" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <variable name="i_si" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <variable name="i_K" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <variable name="i_K1" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <variable name="i_Kp" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <variable name="i_b" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="membrane_voltage_diff_eq">
+      <apply id="membrane_voltage_diff_eq"><eq/>
+        <apply><diff/>
+          <bvar><ci> time </ci></bvar>
+          <ci> V </ci>
+        </apply>
+        <apply><divide/>
+          <apply><minus/>
+            <ci> I_stim </ci>
+            <apply><plus/>
+              <ci> i_Na </ci>
+              <ci> i_si </ci>
+              <ci> i_K </ci>
+              <ci> i_K1 </ci>
+              <ci> i_Kp </ci>
+              <ci> i_b </ci>
+            </apply>
+          </apply>
+          <ci> C </ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="luo_rudy_I_model_1991_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+    <units name="gas_constant_units" units_ref="gas_constant_units"/>
+    <units name="faradays_constant_units" units_ref="faradays_constant_units"/>
+  </import>
+</model>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model
+    name="calcium"
+    cmeta:id="calcium"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <rdf:Description rdf:about="#calcium">
+        <dc:creator rdf:parseType="Resource">
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Michael</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+            </vCard:EMAIL>
+        </dc:creator>
+
+        <dc:title>Cooling's calcium module for the Dual calcium protocol</dc:title>
+    </rdf:Description>
+</rdf:RDF> 
+<!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+   <units name="s">
+      <unit units="second"/>
+   </units>
+   
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM">
+         <unit units="mole" prefix="nano"/>
+         <unit units="liter" exponent="-1"/>
+      </units>
+      <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_s">
+         <unit units="s" exponent="-1"/>
+      </units>
+      <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM_per_s">
+         <unit units="nM"/>
+         <unit units="s" exponent="-1"/>
+      </units>
+      
+         <units xmlns="http://www.cellml.org/cellml/1.0#" name="ms">
+            <unit units="s" exponent="-3"/>
+         </units>
+         <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM_per_ms">
+            <unit units="nM"/>
+            <unit units="ms" exponent="-1"/>
+   </units>
+      
+<!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+ <component name="calcium">
+             <variable name="t"   units="s" public_interface="in"/>
+             <variable name="Ca" units="nM" public_interface="out"/>
+             
+             
+              <variable name="ms_in_pulse" units="ms"/>
+              <variable name="period" units="s" initial_value="1.02"/>
+              <variable name="baseline" units="nM"/>
+              <variable name="stimGradient" units="nM_per_ms"/>
+              <variable name="CaBeat" units="nM"/>
+              <variable name="CaSigTrans" units="nM" initial_value="0"/>
+                          
+             <math xmlns="http://www.w3.org/1998/Math/MathML">
+             <apply>
+                      <eq/>
+                      <ci>ms_in_pulse</ci>
+                      <apply>
+                         <times/>
+                         <cn cellml:units="dimensionless">1000</cn>
+                         <apply>
+                            <minus/>
+                            <ci>t</ci>
+                            <apply>
+                               <times/>
+                               <apply>
+                                  <floor/>
+                                  <apply>
+                                     <divide/>
+                                     <ci>t</ci>
+                                     <ci>period</ci>
+                                  </apply>
+                               </apply>
+                               <ci>period</ci>
+                            </apply>
+                         </apply>
+                      </apply>
+                   </apply>
+                   <apply>
+                      <eq/>
+                      <ci>baseline</ci>
+                      <piecewise>
+                         <piece>
+                            <cn cellml:units="nM">93</cn>
+                            <apply>
+                               <geq/>
+                               <ci>period</ci>
+                               <cn cellml:units="s">0.12</cn>
+                            </apply>
+                         </piece>
+                         <otherwise>
+                            <apply>
+                               <plus/>
+                               <cn cellml:units="nM">1121</cn>
+                               <apply>
+                                  <times/>
+                                  <apply>
+                                     <minus/>
+                                     <apply>
+                                        <times/>
+                                        <ci>period</ci>
+                                        <cn cellml:units="dimensionless">1000</cn>
+                                     </apply>
+                                     <cn cellml:units="ms">16</cn>
+                                  </apply>
+                                  <apply>
+                                     <minus/>
+                                     <cn cellml:units="nM_per_ms">9.8846</cn>
+                                  </apply>
+                               </apply>
+                            </apply>
+                         </otherwise>
+                      </piecewise>
+                   </apply>
+                   <apply>
+                      <eq/>
+                      <ci>stimGradient</ci>
+                      <apply>
+                         <divide/>
+                         <apply>
+                            <minus/>
+                            <cn cellml:units="nM">1121</cn>
+                            <ci>baseline</ci>
+                         </apply>
+                         <cn cellml:units="ms">16</cn>
+                      </apply>
+                   </apply>
+                   <apply>
+                      <eq/>
+                      <ci>CaBeat</ci>
+                      <piecewise>
+                         <piece>
+                            <apply>
+                               <plus/>
+                               <apply>
+                                  <times/>
+                                  <ci>ms_in_pulse</ci>
+                                  <ci>stimGradient</ci>
+                               </apply>
+                               <ci>baseline</ci>
+                            </apply>
+                            <apply>
+                               <leq/>
+                               <ci>ms_in_pulse</ci>
+                               <cn cellml:units="ms">16</cn>
+                            </apply>
+                         </piece>
+                         <piece>
+                            <apply>
+                               <plus/>
+                               <apply>
+                                  <times/>
+                                  <apply>
+                                     <minus/>
+                                     <ci>ms_in_pulse</ci>
+                                     <cn cellml:units="ms">16</cn>
+                                  </apply>
+                                  <apply>
+                                     <minus/>
+                                     <cn cellml:units="nM_per_ms">9.8846</cn>
+                                  </apply>
+                               </apply>
+                               <cn cellml:units="nM">1121</cn>
+                            </apply>
+                            <apply>
+                               <and/>
+                               <apply>
+                                  <gt/>
+                                  <ci>ms_in_pulse</ci>
+                                  <cn cellml:units="ms">16</cn>
+                               </apply>
+                               <apply>
+                                  <leq/>
+                                  <ci>ms_in_pulse</ci>
+                                  <cn cellml:units="ms">120</cn>
+                               </apply>
+                            </apply>
+                         </piece>
+                         <otherwise>
+                            <ci>baseline</ci>
+                         </otherwise>
+                      </piecewise>
+                   </apply>
+                   <apply>
+                      <eq/>
+                      <ci>Ca</ci>
+                      <apply>
+                         <plus/>
+                         <ci>CaBeat</ci>
+                         <ci>CaSigTrans</ci>
+                      </apply>
+         </apply>
+             </math>
+   </component>
+
+</model>

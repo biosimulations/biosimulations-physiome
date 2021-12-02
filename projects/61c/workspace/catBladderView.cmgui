@@ -1,0 +1,53 @@
+gfx define tessellation default minimum_divisions "1" refinement_factors "16" circle_divisions 12;
+gfx define tessellation default_points minimum_divisions "1" refinement_factors "1" circle_divisions 12;
+gfx define tessellation temp3 minimum_divisions "1" refinement_factors "1" circle_divisions 12;
+
+
+gfx create material black normal_mode ambient 0 0 0 diffuse 0 0 0 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 0.2;
+gfx create material "bladder lumen" normal_mode ambient 0.73 0.92 0.24 diffuse 0.73 0.92 0.24 emission 0 0 0 specular 0.3 0.3 0.3 alpha 0.52 shininess 1;
+gfx create material blue normal_mode ambient 0 0 1 diffuse 0 0 1 emission 0 0 0 specular 0.1 0.1 0.1 alpha 1 shininess 0.2;
+gfx create material bone normal_mode ambient 0.7 0.7 0.6 diffuse 0.9 0.9 0.7 emission 0 0 0 specular 0.1 0.1 0.1 alpha 1 shininess 0.2;
+gfx create material brown normal_mode ambient 0.5 0.25 0 diffuse 0.5 0.25 0 emission 0 0 0 specular 0.1 0.1 0.1 alpha 1 shininess 0.2;
+gfx create material cyan normal_mode ambient 0 1 1 diffuse 0 1 1 emission 0 0 0 specular 0.1 0.1 0.1 alpha 1 shininess 0.2;
+gfx create material default normal_mode ambient 1 1 1 diffuse 1 1 1 emission 0 0 0 specular 0 0 0 alpha 1 shininess 0;
+gfx create material default_selected normal_mode ambient 1 0.2 0 diffuse 1 0.2 0 emission 0 0 0 specular 0 0 0 alpha 1 shininess 0;
+gfx create material gold normal_mode ambient 1 0.4 0 diffuse 1 0.7 0 emission 0 0 0 specular 0.5 0.5 0.5 alpha 1 shininess 0.3;
+gfx create material gray50 normal_mode ambient 0.5 0.5 0.5 diffuse 0.5 0.5 0.5 emission 0.5 0.5 0.5 specular 0.5 0.5 0.5 alpha 1 shininess 0.2;
+gfx create material green normal_mode ambient 0 1 0 diffuse 0 1 0 emission 0 0 0 specular 0.1 0.1 0.1 alpha 0.56 shininess 0.2;
+gfx create material grey25 normal_mode ambient 0.25 0.25 0.25 diffuse 0.25 0.25 0.25 emission 0 0 0 specular 0.1 0.1 0.1 alpha 1 shininess 0.2;
+gfx create material grey50 normal_mode ambient 0.5 0.5 0.5 diffuse 0.5 0.5 0.5 emission 0 0 0 specular 0.1 0.1 0.1 alpha 1 shininess 0.2;
+gfx create material grey75 normal_mode ambient 0.75 0.75 0.75 diffuse 0.75 0.75 0.75 emission 0 0 0 specular 0.1 0.1 0.1 alpha 1 shininess 0.2;
+gfx create material "lumen of urethra" per_pixel_mode ambient 0.9569 0.8392 0.192157 diffuse 0.9569 0.8392 0.192157 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 1;
+gfx create material magenta normal_mode ambient 1 0 1 diffuse 1 0 1 emission 0 0 0 specular 0.1 0.1 0.1 alpha 1 shininess 0.2;
+gfx create material muscle normal_mode ambient 0.4 0.14 0.11 diffuse 0.5 0.12 0.1 emission 0 0 0 specular 0.3 0.5 0.5 alpha 0.48 shininess 0.2;
+gfx create material orange normal_mode ambient 1 0.5 0 diffuse 1 0.5 0 emission 0 0 0 specular 0.1 0.1 0.1 alpha 0.47 shininess 0.2;
+gfx create material red normal_mode ambient 1 0 0 diffuse 1 0 0 emission 0 0 0 specular 0.1 0.1 0.1 alpha 0.35 shininess 0.2;
+gfx create material "serosa of urinary bladder" per_pixel_mode ambient 0.44 0.77 0.64 diffuse 0.44 0.77 0.64 emission 0 0 0 specular 0.3 0.3 0.3 alpha 0.72 shininess 1;
+gfx create material silver normal_mode ambient 0.4 0.4 0.4 diffuse 0.7 0.7 0.7 emission 0 0 0 specular 0.5 0.5 0.5 alpha 1 shininess 0.3;
+gfx create material tissue normal_mode ambient 0.9 0.7 0.5 diffuse 0.9 0.7 0.5 emission 0 0 0 specular 0.2 0.2 0.3 alpha 1 shininess 0.2;
+gfx create material transparent_gray50 normal_mode ambient 0.5 0.5 0.5 diffuse 0.5 0.5 0.5 emission 0.5 0.5 0.5 specular 0.5 0.5 0.5 alpha 0 shininess 0.2;
+gfx create material white normal_mode ambient 1 1 1 diffuse 1 1 1 emission 0 0 0 specular 0 0 0 alpha 1 shininess 0;
+gfx create material yellow normal_mode ambient 1 1 0 diffuse 1 1 0 emission 0 0 0 specular 0.1 0.1 0.1 alpha 0.42 shininess 0.2;
+
+
+gfx read elem "catBladderMesh.exf"
+
+
+gfx modify g_element "/" general clear;
+gfx modify g_element "/" lines domain_mesh1d coordinate coordinates face all tessellation default LOCAL line line_base_size 0 select_on material default selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "bladder lumen" coordinate coordinates face all tessellation default LOCAL select_on material blue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "serosa of urinary bladder" coordinate coordinates face all tessellation default LOCAL select_on material "bladder lumen" selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "lumen of urethra" coordinate coordinates face all tessellation default LOCAL select_on material "lumen of urethra" selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "serosa of urethra" coordinate coordinates face all tessellation default LOCAL select_on material red selected_material default_selected render_shaded;
+
+
+gfx create window 1 double_buffer;
+gfx modify window 1 image scene "/" filter default infinite_viewer_lighting two_sided_lighting;
+gfx modify window 1 image add_light default;
+gfx modify window 1 image add_light default_ambient;
+gfx modify window 1 layout simple ortho_axes z -y eye_spacing 0.25 width 843 height 704;
+gfx modify window 1 set current_pane 1;
+gfx modify window 1 background colour 0 0 0 texture none;
+gfx modify window 1 view parallel eye_point 282.151 7.78358 47.2793 interest_point -6.32272 12.4914 59.0154 up_vector -0.0103144 -0.989605 0.143445 view_angle 40 near_clipping_plane 97.1055 far_clipping_plane 618.079 relative_viewport ndc_placement -1 1 2 2 viewport_coordinates 0 0 1 1;
+gfx modify window 1 set transform_tool current_pane 1 std_view_angle 40 perturb_lines no_antialias depth_of_field 0.0 fast_transparency blend_normal;
+

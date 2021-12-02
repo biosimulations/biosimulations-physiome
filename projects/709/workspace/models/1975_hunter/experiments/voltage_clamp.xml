@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+    name="cubic_voltage_clamp"
+    cmeta:id="cubic_voltage_clamp"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+      xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:dcterms="http://purl.org/dc/terms/"
+      xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+      xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+    <rdf:Description rdf:about="">
+      <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Nickerson</vCard:Family>
+          <vCard:Given>David</vCard:Given>
+        </vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>d.nickerson@auckland.ac.nz</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>The University of Auckland</vCard:Orgname>
+          <vCard:Orgunit>Bioengineering Institute</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2005-01-06</dcterms:W3CDTF>
+      </dcterms:created>
+      <dc:publisher>
+        Bioengineering Institute, The University of Auckland
+      </dc:publisher>
+    </rdf:Description>
+    <rdf:Description rdf:about="#cubic_voltage_clamp">
+      <dc:title>
+        Voltage clamp experiment using the cubic polynomial model,
+        Hunter et al. (1975)
+      </dc:title>
+      <cmeta:comment rdf:parseType="Resource">
+        <rdf:value>
+          This is the CellML description of a voltage clamp experiment
+          examining the response of the cubic polynomial model (Hunter 
+          et al. 1975)
+        </rdf:value>
+        <dc:creator rdf:parseType="Resource">
+          <vCard:FN>David Nickerson</vCard:FN>
+        </dc:creator>
+      </cmeta:comment>
+      <bqs:reference>
+        <bqs:Pubmed_id>792954</bqs:Pubmed_id>
+      </bqs:reference>
+      <cs:simulation>
+        <rdf:Description rdf:ID="simulation">
+          <cs:multistepMethod>adams</cs:multistepMethod>
+          <cs:iterationMethod>functional</cs:iterationMethod>
+          <cs:boundIntervals rdf:parseType="Collection">
+            <rdf:Description>
+              <cs:boundVariable>
+                <rdf:Description rdf:about="#time"/>
+              </cs:boundVariable>
+              <cs:maximumStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                0.1
+              </cs:maximumStepSize>
+              <cs:tabulationStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                0.5
+              </cs:tabulationStepSize>
+              <cs:startingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                0
+              </cs:startingValue>
+              <cs:endingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                105
+              </cs:endingValue>
+            </rdf:Description>
+          </cs:boundIntervals>
+        </rdf:Description>
+      </cs:simulation>
+    </rdf:Description>
+  </rdf:RDF>
+  
+  <import xlink:href="../../common/units.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="mV_per_ms" units_ref="mV_per_ms"/>
+    <units name="uF_per_mmsq" units_ref="uF_per_mmsq"/>
+    <units name="mS_per_mmsq" units_ref="mS_per_mmsq"/>
+  </import>
+  <import xlink:href="../1975_cubic_polynomial.xml">
+    <component name="current" component_ref="current"/>
+  </import>
+  
+  <component name="voltage_clamp" cmeta:id="voltage_clamp">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#voltage_clamp">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            We define here the voltage clamp experiment, in this case
+            a simple linear variation of membrane potential, expressed
+            as a differential equation.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <variable name="time" cmeta:id="time" units="ms"/>
+    <variable name="Cm" initial_value="0.01" public_interface="out" units="uF_per_mmsq"/>
+    <variable name="Vm_rest" initial_value="-85.0" public_interface="out" units="mV"/>
+    <variable name="Vm_plateau" initial_value="15.0" public_interface="out" units="mV"/>
+    <variable name="Vm_threshold" initial_value="-75.0" public_interface="out" units="mV"/>
+    <variable name="Vm" cmeta:id="Vm" initial_value="Vm_rest" public_interface="out" units="mV"/>
+    <variable name="membrane_conductance" initial_value="0.004" public_interface="out" units="mS_per_mmsq"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply><eq/>
+        <apply><diff/>
+          <bvar><ci>time</ci></bvar>
+          <ci>Vm</ci>
+        </apply>
+        <cn cellml:units="mV_per_ms">1.0</cn>
+      </apply>
+    </math>
+  </component>
+  <connection>
+    <map_components component_1="current" component_2="voltage_clamp"/>
+    <map_variables variable_1="Cm" variable_2="Cm"/>
+    <map_variables variable_1="Vm_rest" variable_2="Vm_rest"/>
+    <map_variables variable_1="Vm_plateau" variable_2="Vm_plateau"/>
+    <map_variables variable_1="Vm_threshold" variable_2="Vm_threshold"/>
+    <map_variables variable_1="Vm" variable_2="Vm"/>
+    <map_variables variable_1="membrane_conductance" variable_2="membrane_conductance"/>
+  </connection>
+</model>

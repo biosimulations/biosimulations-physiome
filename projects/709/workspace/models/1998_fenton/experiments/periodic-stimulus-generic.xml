@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model cmeta:id="fenton_karma_model_1998_experiment_model" name="fenton_karma_model_1998_experiment_model" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../fenton_karma_model_1998_interface_model.xml">
+        <component component_ref="fenton_karma_model_1998_interface_component" name="fenton_karma_model_1998_interface_component"/>
+    </import>
+    <component cmeta:id="interface" name="interface">
+        <variable name="g_fi_max" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+        <variable name="tau_0" private_interface="out" public_interface="in" units="ms"/>
+        <variable name="tau_r" private_interface="out" public_interface="in" units="ms"/>
+        <variable name="tau_si" private_interface="out" public_interface="in" units="ms"/>
+        <variable name="tau_v1_minus" private_interface="out" public_interface="in" units="ms"/>
+        <variable name="tau_v2_minus" private_interface="out" public_interface="in" units="ms"/>
+        <variable name="tau_v_plus" private_interface="out" public_interface="in" units="ms"/>
+        <variable name="tau_w_minus" private_interface="out" public_interface="in" units="ms"/>
+        <variable name="tau_w_plus" private_interface="out" public_interface="in" units="ms"/>
+        <variable name="u_v" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="Vm" private_interface="in" public_interface="out" units="mV"/>
+        <variable name="time" private_interface="in" public_interface="out" units="ms"/>
+    </component>
+    <connection>
+        <map_components component_1="time" component_2="interface"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="fenton_karma_model_1998_interface_component" component_2="interface"/>
+        <map_variables variable_1="u_v" variable_2="u_v"/>
+        <map_variables variable_1="g_fi_max" variable_2="g_fi_max"/>
+        <map_variables variable_1="tau_v1_minus" variable_2="tau_v1_minus"/>
+        <map_variables variable_1="tau_v2_minus" variable_2="tau_v2_minus"/>
+        <map_variables variable_1="tau_v_plus" variable_2="tau_v_plus"/>
+        <map_variables variable_1="tau_0" variable_2="tau_0"/>
+        <map_variables variable_1="tau_r" variable_2="tau_r"/>
+        <map_variables variable_1="tau_si" variable_2="tau_si"/>
+        <map_variables variable_1="tau_w_minus" variable_2="tau_w_minus"/>
+        <map_variables variable_1="tau_w_plus" variable_2="tau_w_plus"/>
+        <map_variables variable_1="Vm" variable_2="Vm"/>
+    </connection>
+    <import xlink:href="../fenton_karma_model_1998_variable_values_model.xml">
+        <component component_ref="parameters" name="generic_parameters"/>
+        <component component_ref="initial_values" name="initial_values"/>
+    </import>
+    <connection>
+        <map_components component_1="fenton_karma_model_1998_interface_component" component_2="generic_parameters"/>
+        <map_variables variable_1="Cm" variable_2="Cm"/>
+        <map_variables variable_1="V_o" variable_2="V_o"/>
+        <map_variables variable_1="V_fi" variable_2="V_fi"/>
+        <map_variables variable_1="u_c" variable_2="u_c"/>
+        <map_variables variable_1="u_csi" variable_2="u_csi"/>
+        <map_variables variable_1="k" variable_2="k"/>
+    </connection>
+    <connection>
+        <map_components component_1="fenton_karma_model_1998_interface_component" component_2="initial_values"/>
+        <map_variables variable_1="Vm_initial" variable_2="Vm_initial"/>
+        <map_variables variable_1="v_initial" variable_2="v_initial"/>
+        <map_variables variable_1="w_initial" variable_2="w_initial"/>
+    </connection>
+    <import xlink:href="../../protocols/periodic-IStim.xml">
+        <component component_ref="stimulus_protocol" name="stimulus_protocol"/>
+    </import>
+    <component cmeta:id="stimulus_parameters" name="stimulus_parameters">
+        <variable initial_value="500.0" name="stimPeriod" private_interface="out" public_interface="out" units="ms"/>
+        <variable initial_value="1.0" name="stimDuration" private_interface="out" public_interface="out" units="ms"/>
+        <variable initial_value="80" name="stimCurrent" private_interface="out" public_interface="out" units="uA_per_mmcu"/>
+        <variable initial_value="200" name="Am" private_interface="out" public_interface="out" units="per_mm"/>
+    </component>
+    <connection>
+        <map_components component_1="stimulus_protocol" component_2="stimulus_parameters"/>
+        <map_variables variable_1="stimPeriod" variable_2="stimPeriod"/>
+        <map_variables variable_1="stimDuration" variable_2="stimDuration"/>
+        <map_variables variable_1="stimCurrent" variable_2="stimCurrent"/>
+        <map_variables variable_1="Am" variable_2="Am"/>
+    </connection>
+    <connection>
+        <map_components component_1="stimulus_protocol" component_2="time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="fenton_karma_model_1998_interface_component" component_2="stimulus_protocol"/>
+        <map_variables variable_1="I_stim" variable_2="IStim"/>
+    </connection>
+    <component cmeta:id="time_component" name="time">
+        <variable cmeta:id="time" initial_value="0.0" name="time" public_interface="out" units="ms"/>
+    </component>
+    <connection>
+        <map_components component_1="fenton_karma_model_1998_interface_component" component_2="time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <import xlink:href="../fenton_karma_model_1998_units_model.xml">
+        <units name="ms" units_ref="ms"/>
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="per_mV" units_ref="per_mV"/>
+        <units name="per_mV_ms" units_ref="per_mV_ms"/>
+        <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+        <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+        <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+        <units name="concentration_units" units_ref="concentration_units"/>
+    </import>
+    <import xlink:href="../../common/units.xml">
+        <units name="per_mm" units_ref="per_mm"/>
+        <units name="uA_per_mmcu" units_ref="uA_per_mmcu"/>
+    </import>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="interface">
+            <component_ref component="fenton_karma_model_1998_interface_component"/>
+            <component_ref component="time"/>
+            <component_ref component="generic_parameters"/>
+            <component_ref component="stimulus_protocol"/>
+            <component_ref component="stimulus_parameters"/>
+            <component_ref component="generic_parameters"/>
+            <component_ref component="initial_values"/>
+        </component_ref>
+    </group>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Nickerson</vCard:Family>
+                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">David</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">d.nickerson@auckland.ac.nz</rdf:value>
+                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                </vCard:EMAIL>
+                <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The University of Auckland</vCard:Orgname>
+                    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Bioengineering Institute</vCard:Orgunit>
+                </vCard:ORG>
+            </dc:creator>
+            <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2009-06-17</dcterms:W3CDTF>
+            </dcterms:created>
+            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">
+        Bioengineering Institute, The University of Auckland
+      </dc:publisher>
+        </rdf:Description>
+    </rdf:RDF>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#time_component">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+            The actual definition of the time variable.&#xd;
+          </rdf:value>
+            </cmeta:comment>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

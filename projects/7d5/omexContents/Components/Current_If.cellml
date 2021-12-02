@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Current_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+    </import>
+    <component name="Current_If">
+        <variable name="v" public_interface="in" units="mV"/>
+        <variable name="E_K" public_interface="in" units="mV"/>
+        <variable name="E_Na" public_interface="in" units="mV"/>
+        <!--        var Ko: mM {pub: in};-->
+        <variable name="x_f_inf_act" public_interface="in" units="dimensionless"/>
+        <variable initial_value="0" name="X_f_act" public_interface="out" units="dimensionless"/>
+        <variable name="dX_f_act" public_interface="out" units="dimensionless"/>
+        <variable name="i_f" public_interface="out" units="pA_per_pF"/>
+        <variable name="i_fNa" public_interface="out" units="pA_per_pF"/>
+        <variable name="i_fK" public_interface="out" units="pA_per_pF"/>
+        <variable name="g_f" public_interface="in" units="nS_per_pF"/>
+        <variable initial_value="0.491" name="NatoK_ratio" public_interface="out" units="dimensionless"/>
+        <variable name="Na_frac" public_interface="out" units="dimensionless"/>
+        <variable name="tau_f_act" public_interface="in" units="ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>dX_f_act</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>x_f_inf_act</ci>
+                        <ci>X_f_act</ci>
+                    </apply>
+                    <ci>tau_f_act</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>Na_frac</ci>
+                <apply>
+                    <divide/>
+                    <ci>NatoK_ratio</ci>
+                    <apply>
+                        <plus/>
+                        <ci>NatoK_ratio</ci>
+                        <cn cellml:units="dimensionless">1</cn>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>i_fNa</ci>
+                <apply>
+                    <times/>
+                    <ci>Na_frac</ci>
+                    <ci>g_f</ci>
+                    <ci>X_f_act</ci>
+                    <apply>
+                        <minus/>
+                        <ci>v</ci>
+                        <ci>E_Na</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>i_fK</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <minus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <ci>Na_frac</ci>
+                    </apply>
+                    <ci>g_f</ci>
+                    <ci>X_f_act</ci>
+                    <apply>
+                        <minus/>
+                        <ci>v</ci>
+                        <ci>E_K</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>i_f</ci>
+                <apply>
+                    <plus/>
+                    <ci>i_fNa</ci>
+                    <ci>i_fK</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" name="figure_02"
+	xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+		xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+		xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#"
+		xmlns:cg="http://www.cellml.org/metadata/graphs/1.0#" xmlns:csim="http://cellml.sourceforge.net/CellMLSimulator/#">
+		<rdf:Description rdf:ID="andre">
+			<vCard:N rdf:parseType="Resource">
+				<vCard:Family>Nickerson</vCard:Family>
+				<vCard:Given>David</vCard:Given>
+			</vCard:N>
+			<vCard:EMAIL rdf:parseType="Resource">
+				<rdf:value>d.nickerson@auckland.ac.nz</rdf:value>
+				<rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+			</vCard:EMAIL>
+			<vCard:ORG rdf:parseType="Resource">
+				<vCard:Orgname>The University of Auckland</vCard:Orgname>
+				<vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+			</vCard:ORG>
+		</rdf:Description>
+		<rdf:Description rdf:ID="jonna">
+			<vCard:N rdf:parseType="Resource">
+				<vCard:Family>Terkildsen</vCard:Family>
+				<vCard:Given>Jonna</vCard:Given>
+			</vCard:N>
+			<vCard:EMAIL rdf:parseType="Resource">
+				<rdf:value>j.terkildsen@auckland.ac.nz</rdf:value>
+				<rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+			</vCard:EMAIL>
+			<vCard:ORG rdf:parseType="Resource">
+				<vCard:Orgname>The University of Auckland</vCard:Orgname>
+				<vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+			</vCard:ORG>
+		</rdf:Description>
+		<rdf:Description rdf:about="">
+		    <dc:creator rdf:resource="#andre" />
+			<dcterms:created rdf:parseType="Resource">
+				<dcterms:W3CDTF>2010-04-22</dcterms:W3CDTF>
+			</dcterms:created>
+			<dc:publisher>
+				Auckland Bioengineering Institute, The University of Auckland.
+			</dc:publisher>
+		</rdf:Description>
+		<rdf:Description rdf:about="#figure_02">
+			<cs:simulation>
+				<rdf:Description rdf:ID="simulation">
+					<cs:multistepMethod>bdf</cs:multistepMethod>
+					<cs:iterationMethod>newton</cs:iterationMethod>
+					<cs:linearSolver>dense</cs:linearSolver>
+					<cs:boundIntervals rdf:parseType="Collection">
+						<rdf:Description>
+							<cs:boundVariable>
+								<rdf:Description rdf:about="#time" />
+							</cs:boundVariable>
+							<cs:maximumStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0.1
+							</cs:maximumStepSize>
+							<cs:tabulationStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								1
+							</cs:tabulationStepSize>
+							<cs:startingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0
+							</cs:startingValue>
+							<cs:endingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								500
+							</cs:endingValue>
+						</rdf:Description>
+					</cs:boundIntervals>
+				</rdf:Description>
+			</cs:simulation>
+		</rdf:Description>
+		<rdf:Description>
+			<cg:graph>
+				<rdf:Description rdf:ID="SGLT1-figure-02-b">
+					<cg:title>Figure 2(b)</cg:title>
+					<dcterms:description rdf:parseType="Resource">
+						<rdf:value>
+							Reproduction of figure 2(b) from Eskandari et al (2005).
+						</rdf:value>
+					</dcterms:description>
+					<csim:citation rdf:parseType="Resource">
+						<csim:authors>
+							<rdf:Seq>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#andre" />
+								</rdf:li>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#jonna" />
+								</rdf:li>
+							</rdf:Seq>
+						</csim:authors>
+						<dc:title>
+							An example validation study using annotated CellML models
+						</dc:title>
+						<dcterms:issued>2010-04-21</dcterms:issued>
+						<dcterms:bibliographicCitation>Demonstration for Experimental Biology</dcterms:bibliographicCitation>
+					</csim:citation>
+					<cg:x-label>Gluc_i (M)</cg:x-label>
+					<cg:y-label>I_out (uA)</cg:y-label>
+					<cg:background-colour>#ffffff</cg:background-colour>
+					<cg:traces rdf:parseType="Collection">
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#ff0000</cg:colour>
+							<cg:label>I_out</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#glucose_i" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#I_NaGl_SS" />
+							</cg:y-variable>
+						</rdf:Description>
+					</cg:traces>
+				</rdf:Description>
+			</cg:graph>
+		</rdf:Description>
+	</rdf:RDF>
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="base.xml">
+		<component component_ref="variables" name="model" />
+	</import>
+	<import xmlns:xlink="http://www.w3.org/1999/xlink"
+		xlink:href="../decomposed-model/eskandari_2005_units_model.xml">
+		<units name="M" units_ref="M" />
+		<units name="volt" units_ref="volt" />
+		<units name="volt_per_second" units_ref="volt_per_second" />
+		<units name="second" units_ref="second" />
+		<units name="uA" units_ref="uA" />
+		<units name="M_per_second" units_ref="M_per_second"/>
+	</import>
+	<component name="glucose_i" cmeta:id="glucose_i_component">
+		<variable cmeta:id="glucose_i" name="glucose_i" units="M" public_interface="out" initial_value="0" />
+		<variable name="time" units="second" public_interface="in" />
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply><eq/>
+				<apply><diff/>
+					<bvar><ci>time</ci></bvar>
+					<ci>glucose_i</ci>
+				</apply>
+				<cn cellml:units="M_per_second">1.0e-3</cn>
+			</apply>
+		</math>
+	</component>
+	<component name="variables" cmeta:id="variables">
+		<variable cmeta:id="N_C" name="N_C" units="dimensionless"
+			public_interface="out" initial_value="3.4e6" />
+		<variable cmeta:id="Na_i" name="Na_i" units="M"
+			public_interface="out" initial_value="500e-3" />
+		<variable cmeta:id="Na_o" name="Na_o" units="M"
+			public_interface="out" initial_value="10e-3" />
+		<variable cmeta:id="glucose_o" name="glucose_o" units="M"
+			public_interface="out" initial_value="0.0" />
+		<variable cmeta:id="V_initial" name="V_initial" units="volt"
+			public_interface="out" initial_value="0" />
+		<variable cmeta:id="V_dot" name="V_dot" units="volt_per_second"
+			public_interface="out" initial_value="0" />
+		<variable cmeta:id="time" name="time" units="second"
+			public_interface="out" />
+		<variable cmeta:id="V" name="V" units="volt"
+			public_interface="in" />
+		<variable cmeta:id="I_NaGl_SS" name="I_NaGl_SS"
+			public_interface="in" units="uA" />
+	</component>
+	<connection>
+		<map_components component_1="glucose_i" component_2="model" />
+		<map_variables variable_1="glucose_i" variable_2="glucose_i" />
+	</connection>
+	<connection>
+		<map_components component_1="glucose_i" component_2="variables" />
+		<map_variables variable_1="time" variable_2="time" />
+	</connection>
+	<connection>
+		<map_components component_1="variables" component_2="model" />
+		<map_variables variable_1="N_C" variable_2="N_C" />
+		<map_variables variable_1="Na_i" variable_2="Na_i" />
+		<map_variables variable_1="Na_o" variable_2="Na_o" />
+		<map_variables variable_1="glucose_o" variable_2="glucose_o" />
+		<map_variables variable_1="V_initial" variable_2="V_initial" />
+		<map_variables variable_1="V_dot" variable_2="V_dot" />
+		<map_variables variable_1="V" variable_2="V" />
+		<map_variables variable_1="time" variable_2="time" />
+		<map_variables variable_1="I_NaGl_SS" variable_2="I_NaGl_SS" />
+	</connection>
+</model>

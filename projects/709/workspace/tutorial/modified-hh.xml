@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+      name="modified_hh"
+      cmeta:id="modified_hh_model"
+      xmlns="http://www.cellml.org/cellml/1.1#"
+      xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rdf:RDF
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+          xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+          xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+          xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:dcterms="http://purl.org/dc/terms/"
+          xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <rdf:Description rdf:about="">
+      <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Nickerson</vCard:Family>
+          <vCard:Given>David</vCard:Given>
+        </vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>d.nickerson@auckland.ac.nz</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>The University of Auckland</vCard:Orgname>
+          <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2009-07-07</dcterms:W3CDTF>
+      </dcterms:created>
+      <dc:publisher>
+        Auckland Bioengineering Institute, The University of Auckland.
+      </dc:publisher>
+    </rdf:Description>
+    <rdf:Description rdf:about="#modified_HH_model">
+      <dc:title>
+        Modified version of HH model with an applied period stimulus current.
+      </dc:title>
+      <cmeta:comment rdf:parseType="Resource">
+        <rdf:value>
+          This is a modified version of the HH model from http://www.bioeng.nus.edu.sg/compbiolab/p3/cellml/components/stimulated.xml. The modification is to replace the potassium current model with a description based on the Noble 1962 model.
+        </rdf:value>
+        <dc:creator rdf:parseType="Resource">
+          <vCard:FN>David Nickerson</vCard:FN>
+        </dc:creator>
+      </cmeta:comment>
+    </rdf:Description>
+  </rdf:RDF>
+  <import xlink:href="http://www.bioeng.nus.edu.sg/compbiolab/p3/cellml/components/units.xml">
+    <units name="mV" units_ref="mV"/>
+    <units name="ms" units_ref="ms"/>
+    <units name="K" units_ref="K"/>
+    <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
+    <units name="mS_per_cmsq" units_ref="mS_per_cmsq"/>
+    <units name="uF_per_cmsq" units_ref="uF_per_cmsq"/>
+  </import>
+  <import xlink:href="http://www.bioeng.nus.edu.sg/compbiolab/p3/cellml/components/INa.xml">
+    <component name="INa" component_ref="INa"/>
+  </import>
+  <import xlink:href="IK.xml">
+    <component name="IK" component_ref="IK"/>
+  </import>
+  <import xlink:href="http://www.bioeng.nus.edu.sg/compbiolab/p3/cellml/components/Ileak.xml">
+    <component name="Ileak" component_ref="Ileak"/>
+  </import>
+  <component name="action_potential" cmeta:id="action_potential">
+    <rdf:RDF
+            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <rdf:Description rdf:about="#action_potential">
+        <dc:title>
+          Hodgkin &amp; Huxley with applied electrical stimulus.
+        </dc:title>
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The Hodgkin &amp; Huxley (1952) model assembled such that given an electrical stimulus current it will simulate action potential transients.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <variable cmeta:id="V_initial" name="V_initial" public_interface="in"
+              private_interface="out" units="mV"/>
+    <variable cmeta:id="n_initial" name="n_initial" public_interface="in"
+              private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="m_initial" name="m_initial" public_interface="in"
+              private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="h_initial" name="h_initial" public_interface="in"
+              private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="Istim" name="Istim" public_interface="in"
+              private_interface="out" units="uA_per_cmsq"/>
+    <variable cmeta:id="INa" name="INa" public_interface="out"
+              private_interface="in" units="uA_per_cmsq"/>
+    <variable cmeta:id="IK" name="IK" public_interface="out"
+              private_interface="in" units="uA_per_cmsq"/>
+    <variable cmeta:id="Ileak" name="Ileak" public_interface="out"
+              private_interface="in" units="uA_per_cmsq"/>
+    <variable cmeta:id="V" name="V" public_interface="out"
+              private_interface="out" units="mV" initial_value="V_initial"/>
+    <variable cmeta:id="minus_V" name="minus_V" public_interface="out"
+              private_interface="out" units="mV"/>
+    <variable cmeta:id="VNa" name="VNa" public_interface="in"
+              private_interface="out" units="mV"/>
+    <variable cmeta:id="VK" name="VK" public_interface="in"
+              private_interface="out" units="mV"/>
+    <variable cmeta:id="Vleak" name="Vleak" public_interface="in"
+              private_interface="out" units="mV"/>
+    <variable cmeta:id="gNa_max" name="gNa_max" public_interface="in"
+              private_interface="out" units="mS_per_cmsq"/>
+    <variable cmeta:id="gK_max" name="gK_max" public_interface="in"
+              private_interface="out" units="mS_per_cmsq"/>
+    <variable cmeta:id="gleak_max" name="gleak_max" public_interface="in"
+              private_interface="out" units="mS_per_cmsq"/>
+    <variable cmeta:id="Cm" name="Cm" public_interface="in"
+              private_interface="out" units="uF_per_cmsq"/>
+    <variable cmeta:id="Tref_rates" name="Tref_rates" public_interface="in"
+              private_interface="out" units="K"/>
+    <variable cmeta:id="T" name="T" public_interface="in"
+              private_interface="out" units="K"/>
+    <variable cmeta:id="Q10_rates" name="Q10_rates" public_interface="in"
+              private_interface="out" units="dimensionless" />
+    <variable cmeta:id="time" name="time" public_interface="in"
+              private_interface="out" units="ms" />
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="V_calculation"><eq/>
+        <apply><diff/>
+          <bvar><ci>time</ci></bvar>
+          <ci>V</ci>
+        </apply>
+        <apply><divide/>
+          <apply><minus/>
+            <ci>Istim</ci>
+            <apply><plus />
+              <ci>INa</ci>
+              <ci>IK</ci>
+              <ci>Ileak</ci>
+            </apply>
+          </apply>
+          <ci>Cm</ci>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="minus_V_calculation"><eq/>
+        <ci>minus_V</ci>
+        <apply><minus/>
+          <ci>V</ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="action_potential">
+      <component_ref component="INa"/>
+      <component_ref component="IK"/>
+      <component_ref component="Ileak"/>
+    </component_ref>
+  </group>
+  <connection>
+    <map_components component_1="action_potential" component_2="INa"/>
+    <map_variables variable_1="INa" variable_2="INa"/>
+    <map_variables variable_1="m_initial" variable_2="m_initial"/>
+    <map_variables variable_1="h_initial" variable_2="h_initial"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="Tref_rates" variable_2="Tref"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Q10_rates" variable_2="Q10"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="VNa" variable_2="VNa"/>
+    <map_variables variable_1="gNa_max" variable_2="gNa_max"/>
+  </connection>
+  <connection>
+    <map_components component_1="action_potential" component_2="IK"/>
+    <map_variables variable_1="IK" variable_2="IK"/>
+    <map_variables variable_1="n_initial" variable_2="n_initial"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="Tref_rates" variable_2="Tref"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Q10_rates" variable_2="Q10"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="VK" variable_2="VK"/>
+    <map_variables variable_1="gK_max" variable_2="gK_max"/>
+  </connection>
+  <connection>
+    <map_components component_1="action_potential" component_2="Ileak"/>
+    <map_variables variable_1="Ileak" variable_2="Ileak"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="Vleak" variable_2="Vleak"/>
+    <map_variables variable_1="gleak_max" variable_2="gleak_max"/>
+  </connection>
+</model>

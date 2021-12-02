@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>Bugbuster Systems Model</title>
+</head>
+<body>
+<h2>Model Overview<br /></h2>
+<p>This is a Systems Model for the gold medal-winning machine 'Bugbuster' produced by the team from Newcastle University for the iGEM 2008 competition. Details about the project can be found here:&nbsp;<a class="external-link" href="http://2008.igem.org/Team:Newcastle_University">http://2008.igem.org/Team:Newcastle_University</a>.</p>
+<p><img class="tmp-doc-informalfigure" src="Bugbuster_Schema.png" alt="" width="600" /></p>
+<p>A constitutive promoter leads to the production of proteins spaK and spaR. Subtilin activates spaK which in turn activates spaR. Activated spaR is a transcriptional regulator for GFP. The system senses and reports subtilin concentrations via GFP.</p>
+<h2>Model Output<br /></h2>
+<p>The Figure below shows the GFP time-course for the model, for various concentrations of initial Subtilin.</p>
+<p>&nbsp;</p>
+<p><img class="tmp-doc-informalfigure" src="bugbustergraph.png" alt="" width="600" /></p>
+<h2>Model Files<br /></h2>
+<p>The entire model archive can be downloaded, or a ZIP file encapsulating all the files can been obtained from <a class="external-link" href="Bugbuster_AllFiles.zip">here</a>.</p>
+<h2>Model Architecture</h2>
+<p>The numbers on the schematic above relate to imported components. A map of the imported component architecture is as follows:</p>
+<p>&nbsp;</p>
+<p>BugbusterModel.BugbusterModel_SVBM[</p>
+<p>&nbsp;BugbusterModel.ChassisBacillus(Chassis_Bacillus(Template_Chassis_WellStirredBag))</p>
+<p>&nbsp;BugbusterModel.Time(Time)</p>
+<p>&nbsp;BugbusterModel.SpeciesInitialConcentrations</p>
+<p>1. BugbusterModel.Bugbuster_Promoter1(Bugbuster_Promoter1(Template_Promoter_Constitutive))</p>
+<p>2. BugbusterModel.RNA1(Template_Species)</p>
+<p>3. BugbusterModel.RNA1_interface</p>
+<p>4. BugbusterModel.Bioenvironment_Degradation_RNA1(Bioenvironment_Degradation_BugbusterRNA1(Template_RxR1P1))</p>
+<p>5. BugbusterModel.Bugbuster_RBS_spaR_1(Bugbuster_RBS_spaR(Template_RBS))</p>
+<p>6. BugbusterModel.Bugbuster_ProteinCDS_spaR_1(Bugbuster_ProteinCDS_spaR(Template_ProteinCDS))</p>
+<p>7. BugbusterModel.Bugbuster_RBS_spaK(Bugbuster_RBS_spaK(Template_RBS))</p>
+<p>8. BugbusterModel.Bugbuster_ProteinCDS_spaK(Bugbuster_ProteinCDS_spaK(Template_ProteinCDS))</p>
+<p>9. BugbusterModel.spaK(Template_Species)</p>
+<p>10.BugbusterModel.spaK_interface</p>
+<p>11.BugbusterModel.Bioenvironment_Degradation_spaK(Bioenvironment_Degradation_spaK(Template_RxR1P1))</p>
+<p>12.BugbusterModel.Subtilin</p>
+<p>13.BugbusterModel.spaKActivation(Bioenvironment_RxR2P1_spaKActivation(Template_RxR2P1)</p>
+<p>14.BugbusterModel.spaKactive(Template_Species)</p>
+<p>15.BugbusterModel.spaKactive_interface</p>
+<p>16.BugbusterModel.Bioenvironment_Dephosphorylation_spaKactive(Bioenvironment_Dephosphorylation_spaKactive(Template_RxR1P1))</p>
+<p>17.BugbusterModel.Bioenvironment_Degradation_spaKactive(Bioenvironment_Degradation_spaKactive(Template_RxR1P1))</p>
+<p>18.BugbusterModel.spaR(Template_Species)</p>
+<p>19.BugbusterModel.spaR_interface</p>
+<p>20.BugbusterModel.Bioenvironment_Degradation_spaR(Bioenvironment_Degradation_spaR(Template_RxR1P1))</p>
+<p>21.BugbusterModel.spaRActivation(Bioenvironment_RxR2P1_spaRActivation(Template_RxR2P1)</p>
+<p>22.BugbusterModel.spaRactive(Template_Species)</p>
+<p>23.BugbusterModel.spaRactive_interface</p>
+<p>24.BugbusterModel.Bioenvironment_Dephosphorylation_spaRactive(Bioenvironment_Dephosphorylation_spaRactive(Template_RxR1P1))</p>
+<p>25.BugbusterModel.Bioenvironment_Degradation_spaRactive(Bioenvironment_Degradation_spaRactive(Template_RxR1P1))</p>
+<p>26.BugbusterModel.Bugbuster_Promoter2(Bugbuster_Promoter2(Template_Promoter_Inducible))</p>
+<p>27.BugbusterModel.RNA2(Template_Species)</p>
+<p>28.BugbusterModel.RNA2_interface</p>
+<p>29.BugbusterModel.Bioenvironment_Degradation_RNA2(Bioenvironment_Degradation_BugbusterRNA2(Template_RxR1P1))</p>
+<p>30.BugbusterModel.Bugbuster_RBS_GFP(Bugbuster_RBS_GFP(Template_GFP))</p>
+<p>31.BugbusterModel.Bugbuster_ProteinCDS_GFP(Bugbuster_ProteinCDS_GFP(Template_ProteinCDS))</p>
+<p>32.BugbusterModel.GFP(Template_Species)</p>
+<p>33.BugbusterModel.GFP_interface</p>
+<p>34.BugbusterModel.Bioenvironment_Degradation_GFP(Bioenvironment_Degradation_GFP(Template_RxR1P1))</p>
+<p>]</p>
+<p>&nbsp;<br />where the following code is used:</p>
+<p>&nbsp;M[A] Model M contains A</p>
+<p>A(B)&nbsp; A imports a component that is referred to as B</p>
+<p>F.S Component or model is named S, held in file named F</p>
+<p>D Component is named D, held in file name D (i.e. shorthand for D.D)</p>
+<h2>Physical Implementation<br /></h2>
+<p>Several of the Parts used in this model have their DNA stored in the <a class="external-link" href="http://partsregistry.org/Main_Page">Repository of Standard Biological Parts</a>. They are as follows:</p>
+<p>The promoter for spaR and spaK&nbsp; (number 1. above): Part <a class="external-link" href="http://partsregistry.org/Part:BBa_K104002">BBa_K104002</a>.</p>
+<p>The RBS for spaR&nbsp; (number 5. above): Part <a class="external-link" href="http://partsregistry.org/Part:BBa_K104003">BBa_K104003</a>.</p>
+<p>The CDS for the spaR protein (number 6. above): Part <a class="external-link" href="http://partsregistry.org/Part:BBa_K104004">BBa_K104004</a>.</p>
+<p>The RBS for spaK (number 7. above): Part <a class="external-link" href="http://partsregistry.org/Part:BBa_K104005">BBa_K104005</a>.</p>
+<p>The CDS for the spaK protein (number 8. above): Part <a class="external-link" href="http://partsregistry.org/Part:BBa_K104006">BBa_K104006</a>.</p>
+<p>The promoter for GFP (number 26. above): Part <a class="external-link" href="http://partsregistry.org/Part:BBa_K104008">BBa_K104008</a>.</p>
+<p>The RBS for GFP (number 30. above): Part <a class="external-link" href="http://partsregistry.org/Part:BBa_K104009">BBa_K104009</a>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

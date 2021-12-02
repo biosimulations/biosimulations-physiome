@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model name="Bugbuster_RBS_GFP" cmeta:id="Bugbuster_RBS_GFP" 
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.0/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+    >
+            
+    <rdf:RDF>
+            <rdf:Description rdf:about="#Bugbuster_RBS_GFP">
+            <dc:creator>
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Mike</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            </vCard:EMAIL>
+            <vCard:ORG rdf:parseType="Resource">
+                <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+            </vCard:ORG>
+            </dc:creator>
+            </rdf:Description>
+   </rdf:RDF>
+
+  <import xlink:href="SVP_Templates200906/Template_RBS.cellml">
+    <units name="nM" units_ref="nM" />
+    <units name="femtoliter" units_ref="femtoliter" />
+    <units name="RiPsInAttoMoles" units_ref="RiPsInAttoMoles" />
+    <units name="RiPs" units_ref="RiPs" />
+    <component name="Template_RBS" component_ref="Template_RBS" />
+  </import>
+
+   <component name="Bugbuster_RBS_GFP">
+    <variable name="localVolume" units="femtoliter" public_interface="in" private_interface="out"/>
+    <variable name="RNA" units="nM" public_interface="in" private_interface="out"/>
+    <variable name="RNARiPs" units="RiPsInAttoMoles" private_interface="in" public_interface="out" />
+    <variable name="k" units="RiPs" initial_value="0.145" private_interface="out"/>
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation" />
+    <component_ref component="Bugbuster_RBS_GFP">
+      <component_ref component="Template_RBS" />
+    </component_ref>
+   </group> 
+  
+   <connection>
+      <map_components component_1="Template_RBS" component_2="Bugbuster_RBS_GFP"/>
+      <map_variables variable_1="localVolume" variable_2="localVolume"/>
+      <map_variables variable_1="k" variable_2="k"/>
+      <map_variables variable_1="RNA" variable_2="RNA"/>
+      <map_variables variable_1="RNARiPs" variable_2="RNARiPs"/>
+   </connection>
+
+</model>

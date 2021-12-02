@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="activation_function" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Compute initial values of m, n and h based on initial value of V and temperature T (T does not affect the computation)-->
+    <import xlink:href="../cellLib/Components/units.cellml">
+        <units name="mV" units_ref="mV"/>
+        <units name="ms" units_ref="ms"/>
+    </import>
+    <import xlink:href="../cellLib/Components/gate_steady.cellml">
+        <component component_ref="gate_steady" name="m_gate_steady"/>
+        <component component_ref="time_const" name="m_time_const"/>
+    </import>
+    <import xlink:href="../cellLib/Components/gate_steady.cellml">
+        <component component_ref="gate_steady" name="n_gate_steady"/>
+        <component component_ref="time_const" name="n_time_const"/>
+    </import>
+    <import xlink:href="../cellLib/Components/gate_steady.cellml">
+        <component component_ref="gate_steady" name="h_gate_steady"/>
+        <component component_ref="time_const" name="h_time_const"/>
+    </import>
+    <import xlink:href="INa-gating-rates.cellml">
+        <component component_ref="alpha_m" name="alpha_m"/>
+        <component component_ref="beta_m" name="beta_m"/>
+        <component component_ref="alpha_h" name="alpha_h"/>
+        <component component_ref="beta_h" name="beta_h"/>
+    </import>
+    <import xlink:href="IK-gating-rates.cellml">
+        <component component_ref="alpha_n" name="alpha_n"/>
+        <component component_ref="beta_n" name="beta_n"/>
+    </import>
+    <component name="activation_function">
+        <variable name="V_b" private_interface="out" public_interface="in" units="mV"/>
+        <variable name="minus_V" public_interface="out" units="mV"/>
+        <variable name="m_inf" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="n_inf" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="h_inf" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="m3_inf" public_interface="out" units="dimensionless"/>
+        <variable name="m3h_inf" public_interface="out" units="dimensionless"/>
+        <variable name="n4_inf" public_interface="out" units="dimensionless"/>
+        <variable name="tau_m" private_interface="in" public_interface="out" units="ms"/>
+        <variable name="tau_h" private_interface="in" public_interface="out" units="ms"/>
+        <variable name="tau_n" private_interface="in" public_interface="out" units="ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>m3_inf</ci>
+                <apply>
+                    <power/>
+                    <ci>m_inf</ci>
+                    <cn cellml:units="dimensionless">3</cn>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>n4_inf</ci>
+                <apply>
+                    <power/>
+                    <ci>n_inf</ci>
+                    <cn cellml:units="dimensionless">4</cn>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>minus_V</ci>
+                <apply>
+                    <minus/>
+                    <ci>V_b</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>m3h_inf</ci>
+                <apply>
+                    <times/>
+                    <ci>m3_inf</ci>
+                    <ci>h_inf</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="activation_function">
+            <component_ref component="alpha_m"/>
+            <component_ref component="beta_m"/>
+            <component_ref component="alpha_n"/>
+            <component_ref component="beta_n"/>
+            <component_ref component="alpha_h"/>
+            <component_ref component="beta_h"/>
+            <component_ref component="m_gate_steady"/>
+            <component_ref component="n_gate_steady"/>
+            <component_ref component="h_gate_steady"/>
+            <component_ref component="m_time_const"/>
+            <component_ref component="h_time_const"/>
+            <component_ref component="n_time_const"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="activation_function" component_2="alpha_m"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="activation_function" component_2="beta_m"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="activation_function" component_2="alpha_n"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="activation_function" component_2="beta_n"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="activation_function" component_2="alpha_h"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="activation_function" component_2="beta_h"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="m_gate_steady" component_2="alpha_m"/>
+        <map_variables variable_1="alpha_X" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="n_gate_steady" component_2="alpha_n"/>
+        <map_variables variable_1="alpha_X" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="h_gate_steady" component_2="alpha_h"/>
+        <map_variables variable_1="alpha_X" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="m_gate_steady" component_2="beta_m"/>
+        <map_variables variable_1="beta_X" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="n_gate_steady" component_2="beta_n"/>
+        <map_variables variable_1="beta_X" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="h_gate_steady" component_2="beta_h"/>
+        <map_variables variable_1="beta_X" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="m_time_const" component_2="alpha_m"/>
+        <map_variables variable_1="alpha_X" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="n_time_const" component_2="alpha_n"/>
+        <map_variables variable_1="alpha_X" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="h_time_const" component_2="alpha_h"/>
+        <map_variables variable_1="alpha_X" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="m_time_const" component_2="beta_m"/>
+        <map_variables variable_1="beta_X" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="n_time_const" component_2="beta_n"/>
+        <map_variables variable_1="beta_X" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="h_time_const" component_2="beta_h"/>
+        <map_variables variable_1="beta_X" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="m_gate_steady" component_2="activation_function"/>
+        <map_variables variable_1="X_s" variable_2="m_inf"/>
+    </connection>
+    <connection>
+        <map_components component_1="n_gate_steady" component_2="activation_function"/>
+        <map_variables variable_1="X_s" variable_2="n_inf"/>
+    </connection>
+    <connection>
+        <map_components component_1="h_gate_steady" component_2="activation_function"/>
+        <map_variables variable_1="X_s" variable_2="h_inf"/>
+    </connection>
+    <connection>
+        <map_components component_1="m_time_const" component_2="activation_function"/>
+        <map_variables variable_1="tau_X" variable_2="tau_m"/>
+    </connection>
+    <connection>
+        <map_components component_1="n_time_const" component_2="activation_function"/>
+        <map_variables variable_1="tau_X" variable_2="tau_n"/>
+    </connection>
+    <connection>
+        <map_components component_1="h_time_const" component_2="activation_function"/>
+        <map_variables variable_1="tau_X" variable_2="tau_h"/>
+    </connection>
+</model>

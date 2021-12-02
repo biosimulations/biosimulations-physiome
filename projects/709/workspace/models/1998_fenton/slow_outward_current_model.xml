@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="slow_outward_current_model">
+  <component name="slow_outward_current">
+    <variable name="J_so" private_interface="out" public_interface="out" units="per_ms"/>
+    <variable name="tau_0" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="tau_r" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="p" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="u" private_interface="out" public_interface="in" units="dimensionless"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="J_so_calculation_eq">
+      <apply id="J_so_calculation"><eq/>
+        <ci> J_so </ci>
+        <apply><plus/>
+          <apply><divide/>
+            <apply><times/>
+              <ci> u </ci>
+              <apply><minus/>
+                <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+                <ci> p </ci>
+              </apply>
+            </apply>
+            <ci> tau_0 </ci>
+          </apply>
+          <apply><divide/>
+            <ci> p </ci>
+            <ci> tau_r </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fenton_karma_model_1998_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+  </import>
+</model>

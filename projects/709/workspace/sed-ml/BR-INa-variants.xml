@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sedML xmlns="http://www.biomodels.net/sed-ml">
+	<listOfSimulations>
+		<uniformTimeCourse id="simulation"
+			algorithm="KISAO:0000019"
+			initialTime="0"
+			outputStartTime="0"
+			outputEndTime="1500"
+			numberOfPoints="1500" />
+		<!-- 
+		FIXME: need to reference IVOI - can't go here though...
+		-->
+	</listOfSimulations>
+	<listOfModels>
+		<model id="BR"
+			type="CellML"
+			source="../models/1977_beeler/experiments/periodic_stimulus.xml" />
+		<model id="BREJ"
+			type="CellML"
+			source="../models/1977_beeler/experiments/1980_ebihara_johnson.xml" />
+		<model id="BRDR"
+			type="CellML"
+			source="../models/1977_beeler/experiments/1987_drouhard_roberge.xml" />
+	</listOfModels>
+	<listOfTasks>
+		<task id="BR-task" modelReference="BR" simulationReference="simulation" />
+		<task id="BREJ-task" modelReference="BREJ" simulationReference="simulation" />
+		<task id="BRDR-task" modelReference="BRDR" simulationReference="simulation" />
+	</listOfTasks>
+	<listOfDataGenerators>
+		<dataGenerator id="BR-time" name="BR time">
+			<listOfVariables>
+				<variable id="BR-time" taskReference="BR-task" target="/cellml:model/cellml:component[@name='time']/cellml:variable[@name='time']" />
+			</listOfVariables>
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<ci> BR-time </ci>
+			</math>
+		</dataGenerator>
+		<dataGenerator id="BR-Vm" name="BR Vm">
+			<listOfVariables>
+				<variable id="BR-Vm" taskReference="BR-task"
+					target="/cellml:model/cellml:component[@name='exposed_variables']/cellml:variable[@name='Vm']" />
+			</listOfVariables>
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<ci> BR-Vm </ci>
+			</math>
+		</dataGenerator>
+		<dataGenerator id="BREJ-time" name="BREJ time">
+			<listOfVariables>
+				<variable id="BREJ-time" taskReference="BREJ-task" target="/cellml:model/cellml:component[@name='time']/cellml:variable[@name='time']" />
+			</listOfVariables>
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<ci> BREJ-time </ci>
+			</math>
+		</dataGenerator>
+		<dataGenerator id="BREJ-Vm" name="BREJ Vm">
+			<listOfVariables>
+				<variable id="BREJ-Vm" taskReference="BREJ-task"
+					target="/cellml:model/cellml:component[@name='fast_sodium_current']/cellml:variable[@name='V']" />
+			</listOfVariables>
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<ci> BREJ-Vm </ci>
+			</math>
+		</dataGenerator>
+		<dataGenerator id="BRDR-time" name="BRDR time">
+			<listOfVariables>
+				<variable id="BRDR-time" taskReference="BRDR-task" target="/cellml:model/cellml:component[@name='time']/cellml:variable[@name='time']" />
+			</listOfVariables>
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<ci> BRDR-time </ci>
+			</math>
+		</dataGenerator>
+		<dataGenerator id="BRDR-Vm" name="BRDR Vm">
+			<listOfVariables>
+				<variable id="BRDR-Vm" taskReference="BRDR-task"
+					target="/cellml:model/cellml:component[@name='fast_sodium_current']/cellml:variable[@name='V']" />
+			</listOfVariables>
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<ci> BRDR-Vm </ci>
+			</math>
+		</dataGenerator>
+	</listOfDataGenerators>
+	<listOfOutputs>
+		<plot2D id="plot1" name="Action Potentials" logX="false" logY="false">
+			<listOfCurves>
+				<curve xDataReference="BR-time" yDataReference="BR-Vm" />
+				<curve xDataReference="BREJ-time" yDataReference="BREJ-Vm" />
+				<curve xDataReference="BRDR-time" yDataReference="BRDR-Vm" />
+			</listOfCurves>
+		</plot2D>
+	</listOfOutputs>
+</sedML>

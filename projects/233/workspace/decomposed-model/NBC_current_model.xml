@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="NBC_current_model">
+  <component name="NBC_current">
+    <variable name="k_12" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_21" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_56" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_65" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_34" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_43" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_25" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_52" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_61" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_16" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="C_1" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C_2" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C_3" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C_4" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C_5" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C_6" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C1" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C2" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C3" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C4" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C5" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="C6" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="delta" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="alpha_p" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="alpha_pp" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="n" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="z_c" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="z_Na" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="F" private_interface="out" public_interface="in" units="C_per_mol"/>
+    <variable name="I_NaGl_pSS" private_interface="out" public_interface="out" units="uA"/>
+    <variable name="I_NaGl_SS" private_interface="out" public_interface="out" units="uA"/>
+    <variable name="J_Na" private_interface="out" public_interface="out" units="umol_per_second"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+           <eq/>
+           <ci>I_NaGl_pSS</ci>
+           <apply>
+              <times/>
+              <apply>
+                 <minus/>
+                 <ci>F</ci>
+              </apply>
+              <apply>
+                 <plus/>
+                 <apply>
+                    <times/>
+                    <ci>n</ci>
+                    <ci>z_Na</ci>
+                    <ci>alpha_p</ci>
+                    <apply>
+                       <minus/>
+                       <apply>
+                          <times/>
+                          <ci>k_12</ci>
+                          <ci>C_1</ci>
+                       </apply>
+                       <apply>
+                          <times/>
+                          <ci>k_21</ci>
+                          <ci>C_2</ci>
+                       </apply>
+                    </apply>
+                 </apply>
+                 <apply>
+                    <times/>
+                    <ci>z_c</ci>
+                    <ci>delta</ci>
+                    <apply>
+                       <minus/>
+                       <apply>
+                          <times/>
+                          <ci>k_16</ci>
+                          <ci>C_1</ci>
+                       </apply>
+                       <apply>
+                          <times/>
+                          <ci>k_61</ci>
+                          <ci>C_6</ci>
+                       </apply>
+                    </apply>
+                 </apply>
+                 <apply>
+                    <times/>
+                    <ci>n</ci>
+                    <ci>z_Na</ci>
+                    <ci>alpha_pp</ci>
+                    <apply>
+                       <minus/>
+                       <apply>
+                          <times/>
+                          <ci>k_56</ci>
+                          <ci>C_5</ci>
+                       </apply>
+                       <apply>
+                          <times/>
+                          <ci>k_65</ci>
+                          <ci>C_6</ci>
+                       </apply>
+                    </apply>
+                 </apply>
+              </apply>
+           </apply>
+        </apply>
+        <apply>
+           <eq/>
+           <ci>I_NaGl_SS</ci>
+           <apply>
+              <times/>
+              <apply>
+                 <minus/>
+                 <ci>F</ci>
+              </apply>
+              <apply>
+                 <plus/>
+                 <apply>
+                    <times/>
+                    <ci>z_c</ci>
+                    <apply>
+                       <minus/>
+                       <apply>
+                          <times/>
+                          <ci>k_16</ci>
+                          <ci>C1</ci>
+                       </apply>
+                       <apply>
+                          <times/>
+                          <ci>k_61</ci>
+                          <ci>C6</ci>
+                       </apply>
+                    </apply>
+                 </apply>
+                 <apply>
+                    <times/>
+                    <apply>
+                       <plus/>
+                       <ci>z_c</ci>
+                       <apply>
+                          <times/>
+                          <ci>z_Na</ci>
+                          <ci>n</ci>
+                       </apply>
+                    </apply>
+                    <apply>
+                       <minus/>
+                       <apply>
+                          <times/>
+                          <ci>k_25</ci>
+                          <ci>C2</ci>
+                       </apply>
+                       <apply>
+                          <times/>
+                          <ci>k_52</ci>
+                          <ci>C5</ci>
+                       </apply>
+                    </apply>
+                 </apply>
+                 <apply>
+                    <times/>
+                    <apply>
+                       <plus/>
+                       <ci>z_c</ci>
+                       <apply>
+                          <times/>
+                          <ci>z_Na</ci>
+                          <ci>n</ci>
+                       </apply>
+                    </apply>
+                    <apply>
+                       <minus/>
+                       <apply>
+                          <times/>
+                          <ci>k_34</ci>
+                          <ci>C3</ci>
+                       </apply>
+                       <apply>
+                          <times/>
+                          <ci>k_43</ci>
+                          <ci>C4</ci>
+                       </apply>
+                    </apply>
+                 </apply>
+              </apply>
+           </apply>
+        </apply>
+        <apply>
+           <eq/>
+           <ci>J_Na</ci>
+           <apply>
+              <plus/>
+              <apply>
+                 <minus/>
+                 <apply>
+                    <times/>
+                    <ci>k_25</ci>
+                    <ci>C2</ci>
+                 </apply>
+                 <apply>
+                    <times/>
+                    <ci>k_52</ci>
+                    <ci>C5</ci>
+                 </apply>
+              </apply>
+              <apply>
+                 <minus/>
+                 <apply>
+                    <times/>
+                    <ci>k_34</ci>
+                    <ci>C3</ci>
+                 </apply>
+                 <apply>
+                    <times/>
+                    <ci>k_43</ci>
+                    <ci>C4</ci>
+                 </apply>
+              </apply>
+           </apply>
+        </apply>
+     </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mackenzie_1996_units_model.xml">
+    <units name="per_second" units_ref="per_second"/>
+    <units name="per_second5" units_ref="per_second5"/>
+    <units name="per_mol" units_ref="per_mol"/>
+    <units name="umol" units_ref="umol"/>
+    <units name="M" units_ref="M"/>
+    <units name="um2" units_ref="um2"/>
+    <units name="mol_per_um2" units_ref="mol_per_um2"/>
+    <units name="mM" units_ref="mM"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="J_per_K_per_mol" units_ref="J_per_K_per_mol"/>
+    <units name="pA_per_cm2" units_ref="pA_per_cm2"/>
+    <units name="uA" units_ref="uA"/>
+    <units name="uA_per_um2" units_ref="uA_per_um2"/>
+    <units name="uA_per_A" units_ref="uA_per_A"/>
+    <units name="umol_per_mol" units_ref="umol_per_mol"/>
+    <units name="umol_per_second" units_ref="umol_per_second"/>
+    <units name="C_per_mol" units_ref="C_per_mol"/>
+    <units name="per_M2_per_second" units_ref="per_M2_per_second"/>
+    <units name="M2" units_ref="M2"/>
+    <units name="M3" units_ref="M3"/>
+    <units name="M2_per_second" units_ref="M2_per_second"/>
+    <units name="per_M2_per_second5" units_ref="per_M2_per_second5"/>
+    <units name="M_per_second" units_ref="M_per_second"/>
+    <units name="per_M_per_second" units_ref="per_M_per_second"/>
+    <units name="volt_per_second" units_ref="volt_per_second"/>
+  </import>
+</model>

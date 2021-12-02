@@ -1,0 +1,1352 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="FCU_composite" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="units_and_constants/units_BG.cellml">
+        <units name="mM" units_ref="mM"/>
+        <units name="fmol" units_ref="fmol"/>
+        <units name="per_fmol" units_ref="per_fmol"/>
+        <units name="J_per_mol" units_ref="J_per_mol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+        <units name="J_per_C" units_ref="J_per_C"/>
+        <units name="microm3" units_ref="microm3"/>
+        <units name="fF" units_ref="fF"/>
+        <units name="fC" units_ref="fC"/>
+        <units name="fA" units_ref="fA"/>
+        <units name="per_second" units_ref="per_second"/>
+        <units name="millivolt" units_ref="millivolt"/>
+        <units name="per_sec" units_ref="per_sec"/>
+        <units name="J_per_K_per_mol" units_ref="J_per_K_per_mol"/>
+        <units name="fmol_per_L" units_ref="fmol_per_L"/>
+        <units name="fmol_per_L_per_sec" units_ref="fmol_per_L_per_sec"/>
+        <units name="per_sec_per_fmol_per_L" units_ref="per_sec_per_fmol_per_L"/>
+        <units name="uM" units_ref="uM"/>
+        <units name="mM_per_sec" units_ref="mM_per_sec"/>
+        <units name="uM_per_sec" units_ref="uM_per_sec"/>
+        <units name="pL" units_ref="pL"/>
+        <units name="m_to_u" units_ref="m_to_u"/>
+    </import>
+    <import xlink:href="units_and_constants/constants_BG.cellml">
+        <component component_ref="constants" name="constants"/>
+    </import>
+    <import xlink:href="cAMP/BG_cAMP.cellml">
+        <component component_ref="cAMP" name="cAMP"/>
+    </import>
+    <import xlink:href="LRGbinding_B1AR/BG_LRGbinding_B1AR.cellml">
+        <component component_ref="LRGbinding_B1AR" name="LRGbinding_B1AR"/>
+    </import>
+    <import xlink:href="LRGbinding_M2/BG_LRGbinding_M2.cellml">
+        <component component_ref="LRGbinding_M2" name="LRGbinding_M2"/>
+    </import>
+    <import xlink:href="GsProtein/BG_GsProtein.cellml">
+        <component component_ref="GsProtein" name="GsProtein"/>
+    </import>
+    <import xlink:href="GiProtein/BG_GiProtein.cellml">
+        <component component_ref="GiProtein" name="GiProtein"/>
+    </import>
+    <component name="BG_parameters">
+        <variable initial_value="1.8998e+06" name="kappa_1a" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.00039666" name="kappa_1b" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="585859" name="kappa_2a" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.158089" name="kappa_2b" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="2.31489e+08" name="kappa_3a" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="2.69173e-17" name="kappa_3b" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="31490.2" name="kappa_4a" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.121117" name="kappa_4b" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="815.554" name="kappa_5" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="8751.63" name="kappa_6" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="345800" name="kappa_7" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="2878.6" name="kappa_GiAC" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="2687.66" name="kappa_sig1_B1" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="63.5391" name="kappa_sig2_B1" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="14.2293" name="kappa_sig3_B1" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="1.13636e+07" name="kappa_sig4_B1" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="4069.25" name="kappa_sig1_M2" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="51.1466" name="kappa_sig2_M2" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="135.504" name="kappa_sig3_M2" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="1.78875e+06" name="kappa_sig4_M2" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.150576" name="kappa_Doff1_Gs" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.00442248" name="kappa_Ton1_Gs" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="163.698" name="kappa_Act1_Gs" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.110539" name="kappa_Doff2_Gs" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.000540176" name="kappa_Ton2_Gs" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="3.32675" name="kappa_Act2_Gs" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.86602" name="kappa_hyd_Gs" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="3.20932e+06" name="kappa_reassoc_Gs" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.226169" name="kappa_Doff1_Gi" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.00556858" name="kappa_Ton1_Gi" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="26.9986" name="kappa_Act1_Gi" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.209142" name="kappa_Doff2_Gi" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.00153751" name="kappa_Ton2_Gi" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="0.0445153" name="kappa_Act2_Gi" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="7.99723" name="kappa_hyd_Gi" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="1.84852e+06" name="kappa_reassoc_Gi" public_interface="out" units="fmol_per_sec"/>
+        <variable initial_value="4.34247e-05" name="K_ATP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0150226" name="K_cAMP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="9.52621" name="K_AC" public_interface="out" units="per_fmol"/>
+        <variable initial_value="14.6573" name="K_AC_ATP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="3.32164" name="K_a_Gs_GTP_AC" public_interface="out" units="per_fmol"/>
+        <variable initial_value="1.563" name="K_a_Gs_GTP_AC_ATP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0840652" name="K_FSK_AC" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.107997" name="K_FSK_AC_ATP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="1.78633" name="K_PDE" public_interface="out" units="per_fmol"/>
+        <variable initial_value="1.20007" name="K_PDE_cAMP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0150226" name="K_five_AMP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0193351" name="K_IBMX" public_interface="out" units="per_fmol"/>
+        <variable initial_value="35.6442" name="K_PDEinh" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0253404" name="K_a_Gs_GTP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="5.83022e-06" name="K_FSK" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.00308164" name="K_a_Gi_GTP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="10.0986" name="K_ACinh" public_interface="out" units="per_fmol"/>
+        <variable initial_value="8.40298e-05" name="K_PPi" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0361965" name="K_L_B1" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.00257076" name="K_R_B1" public_interface="out" units="per_fmol"/>
+        <variable initial_value="148.667" name="K_Gs" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.310121" name="K_LR_B1" public_interface="out" units="per_fmol"/>
+        <variable initial_value="293.639" name="K_R_B1Gs" public_interface="out" units="per_fmol"/>
+        <variable initial_value="163.157" name="K_LR_B1Gs" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.079362" name="K_L_M2" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.00692368" name="K_R_M2" public_interface="out" units="per_fmol"/>
+        <variable initial_value="35.9123" name="K_Gi" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.153698" name="K_LR_M2" public_interface="out" units="per_fmol"/>
+        <variable initial_value="178.993" name="K_R_M2Gi" public_interface="out" units="per_fmol"/>
+        <variable initial_value="105.77" name="K_LR_M2Gi" public_interface="out" units="per_fmol"/>
+        <variable initial_value="1.51453e-06" name="K_beta_gamma_Gs" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.198513" name="K_a_Gs_GDP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="5.20902e-06" name="K_Pi" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0798558" name="K_R_B1_aby" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.00432163" name="K_R_B1_aby_T" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.266681" name="K_LR_B1_aby" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0867409" name="K_LR_B1_aby_T" public_interface="out" units="per_fmol"/>
+        <variable initial_value="3639.47" name="K_GTP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="4.62054e-05" name="K_GDP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="3.06222e-05" name="K_beta_gamma_Gi" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0191425" name="K_a_Gi_GDP" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0580669" name="K_R_M2_aby" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0037486" name="K_R_M2_aby_T" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.114918" name="K_LR_M2_aby" public_interface="out" units="per_fmol"/>
+        <variable initial_value="0.0248464" name="K_LR_M2_aby_T" public_interface="out" units="per_fmol"/>
+    </component>
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+        <variable initial_value="34.4" name="vol_myo" public_interface="out" units="pL"/>
+        <variable initial_value="500" name="freq" units="dimensionless"/>
+        <!-- stimulus
+ ramp UP and ramp DOWN-->
+        <variable initial_value="3.5e-4" name="stimSt" units="second"/>
+        <variable initial_value="3e-4" name="stimSt2" units="second"/>
+        <variable initial_value="0.25e-4" name="stimDur" units="second"/>
+        <variable initial_value="1.8e-4" name="tRamp" units="second"/>
+        <variable initial_value="1e1" name="stimMag" units="fmol"/>
+        <variable initial_value="1e-5" name="stimHolding" units="fmol"/>
+        <variable name="m" units="fmol_per_sec"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>m</ci>
+                <apply>
+                    <divide/>
+                    <ci>stimMag</ci>
+                    <ci>tRamp</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_L_B1_init</ci>
+                <piecewise>
+                    <piece>
+                        <apply>
+                            <plus/>
+                            <ci>stimHolding</ci>
+                            <apply>
+                                <times/>
+                                <ci>m</ci>
+                                <apply>
+                                    <plus/>
+                                    <apply>
+                                        <minus/>
+                                        <ci>time</ci>
+                                        <ci>stimSt</ci>
+                                    </apply>
+                                    <ci>tRamp</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <ci>stimSt</ci>
+                            </apply>
+                            <apply>
+                                <gt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <minus/>
+                                    <ci>stimSt</ci>
+                                    <ci>tRamp</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <piece>
+                        <apply>
+                            <plus/>
+                            <ci>stimMag</ci>
+                            <ci>stimHolding</ci>
+                        </apply>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <geq/>
+                                <ci>time</ci>
+                                <ci>stimSt</ci>
+                            </apply>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>stimSt</ci>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <piece>
+                        <apply>
+                            <plus/>
+                            <ci>stimHolding</ci>
+                            <apply>
+                                <times/>
+                                <apply>
+                                    <minus/>
+                                    <ci>m</ci>
+                                </apply>
+                                <apply>
+                                    <minus/>
+                                    <apply>
+                                        <minus/>
+                                        <apply>
+                                            <minus/>
+                                            <ci>time</ci>
+                                            <ci>stimSt</ci>
+                                        </apply>
+                                        <ci>tRamp</ci>
+                                    </apply>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>stimSt</ci>
+                                    <ci>tRamp</ci>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                            <apply>
+                                <geq/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>stimSt</ci>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <ci>stimHolding</ci>
+                    </otherwise>
+                </piecewise>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_L_M2_init</ci>
+                <piecewise>
+                    <piece>
+                        <apply>
+                            <plus/>
+                            <ci>stimHolding</ci>
+                            <apply>
+                                <times/>
+                                <ci>m</ci>
+                                <apply>
+                                    <plus/>
+                                    <apply>
+                                        <minus/>
+                                        <ci>time</ci>
+                                        <ci>stimSt2</ci>
+                                    </apply>
+                                    <ci>tRamp</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <ci>stimSt2</ci>
+                            </apply>
+                            <apply>
+                                <gt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <minus/>
+                                    <ci>stimSt2</ci>
+                                    <ci>tRamp</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <piece>
+                        <apply>
+                            <plus/>
+                            <ci>stimMag</ci>
+                            <ci>stimHolding</ci>
+                        </apply>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <geq/>
+                                <ci>time</ci>
+                                <ci>stimSt2</ci>
+                            </apply>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>stimSt2</ci>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <piece>
+                        <apply>
+                            <plus/>
+                            <ci>stimHolding</ci>
+                            <apply>
+                                <times/>
+                                <apply>
+                                    <minus/>
+                                    <ci>m</ci>
+                                </apply>
+                                <apply>
+                                    <minus/>
+                                    <apply>
+                                        <minus/>
+                                        <apply>
+                                            <minus/>
+                                            <ci>time</ci>
+                                            <ci>stimSt2</ci>
+                                        </apply>
+                                        <ci>tRamp</ci>
+                                    </apply>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>stimSt2</ci>
+                                    <ci>tRamp</ci>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                            <apply>
+                                <geq/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>stimSt2</ci>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <ci>stimHolding</ci>
+                    </otherwise>
+                </piecewise>
+            </apply>
+        </math>
+        <variable initial_value="190" name="q_ATP_init" units="fmol"/>
+        <variable initial_value="1.889E-03" name="q_AC_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_cAMP_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_AC_ATP_init" units="fmol"/>
+        <variable initial_value="3.800E-05" name="q_FSK_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_FSK_AC_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_FSK_AC_ATP_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_a_Gs_GTP_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_a_Gs_GTP_AC_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_a_Gs_GTP_AC_ATP_init" units="fmol"/>
+        <variable initial_value="1.482E-03" name="q_PDE_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_PDEinh_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_PDE_cAMP_init" units="fmol"/>
+        <variable initial_value="3.80E-02" name="q_IBMX_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_five_AMP_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_a_Gi_GTP_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_ACinh_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_PPi_init" units="fmol"/>
+        <variable initial_value="0.0004579000" name="q_R_B1_init" units="fmol"/>
+        <variable initial_value="0.1455400000" name="q_Gs_init" units="fmol"/>
+        <variable name="q_L_B1_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_B1_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_R_B1Gs_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_B1Gs_init" units="fmol"/>
+        <variable name="q_L_M2_init" units="fmol"/>
+        <variable initial_value="0.00072" name="q_R_M2_init" units="fmol"/>
+        <variable initial_value="0.00836" name="q_Gi_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_M2_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_R_M2Gi_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_M2Gi_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_beta_gamma_Gs_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_a_Gs_GDP_init" units="fmol"/>
+        <variable initial_value="570" name="q_Pi_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_R_B1_aby_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_R_B1_aby_T_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_B1_aby_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_B1_aby_T_init" units="fmol"/>
+        <variable initial_value="2.2" name="q_GTP_init" units="fmol"/>
+        <variable initial_value="1.1" name="q_GDP_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_beta_gamma_Gi_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_a_Gi_GDP_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_R_M2_aby_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_R_M2_aby_T_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_M2_aby_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_M2_aby_T_init" units="fmol"/>
+        <!-- mass conservation checks-->
+        <variable name="L_B1_T" units="fmol"/>
+        <variable name="L_M2_T" units="fmol"/>
+        <variable name="R_B1_T" units="fmol"/>
+        <variable name="R_M2_T" units="fmol"/>
+        <variable name="Gs_T" units="fmol"/>
+        <variable name="Gi_T" units="fmol"/>
+        <variable name="adenosine_T" units="fmol"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>L_B1_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_L_B1</ci>
+                    <ci>q_LR_B1Gs</ci>
+                    <ci>q_LR_B1</ci>
+                    <ci>q_LR_B1_aby</ci>
+                    <ci>q_LR_B1_aby_T</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>L_M2_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_L_M2</ci>
+                    <ci>q_LR_M2Gi</ci>
+                    <ci>q_LR_M2</ci>
+                    <ci>q_LR_M2_aby</ci>
+                    <ci>q_LR_M2_aby_T</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>R_B1_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_B1</ci>
+                    <ci>q_R_B1Gs</ci>
+                    <ci>q_LR_B1</ci>
+                    <ci>q_LR_B1Gs</ci>
+                    <ci>q_R_B1_aby</ci>
+                    <ci>q_R_B1_aby_T</ci>
+                    <ci>q_LR_B1_aby</ci>
+                    <ci>q_LR_B1_aby_T</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>R_M2_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_M2</ci>
+                    <ci>q_R_M2Gi</ci>
+                    <ci>q_LR_M2</ci>
+                    <ci>q_LR_M2Gi</ci>
+                    <ci>q_R_M2_aby</ci>
+                    <ci>q_R_M2_aby_T</ci>
+                    <ci>q_LR_M2_aby</ci>
+                    <ci>q_LR_M2_aby_T</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>Gs_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_Gs</ci>
+                    <ci>q_R_B1Gs</ci>
+                    <ci>q_LR_B1Gs</ci>
+                    <ci>q_a_Gs_GTP</ci>
+                    <ci>q_a_Gs_GDP</ci>
+                    <ci>q_R_B1_aby</ci>
+                    <ci>q_R_B1_aby_T</ci>
+                    <ci>q_LR_B1_aby</ci>
+                    <ci>q_LR_B1_aby_T</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>Gi_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_Gi</ci>
+                    <ci>q_R_M2Gi</ci>
+                    <ci>q_LR_M2Gi</ci>
+                    <ci>q_a_Gi_GTP</ci>
+                    <ci>q_a_Gi_GDP</ci>
+                    <ci>q_R_M2_aby</ci>
+                    <ci>q_R_M2_aby_T</ci>
+                    <ci>q_LR_M2_aby</ci>
+                    <ci>q_LR_M2_aby_T</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>adenosine_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_cAMP</ci>
+                    <ci>q_PDE_cAMP</ci>
+                    <ci>q_five_AMP</ci>
+                    <ci>q_ATP</ci>
+                    <ci>q_AC_ATP</ci>
+                    <ci>q_a_Gs_GTP_AC_ATP</ci>
+                    <ci>q_FSK_AC_ATP</ci>
+                </apply>
+            </apply>
+        </math>
+        <!-- Global value-->
+        <variable name="q_ATP" public_interface="out" units="fmol"/>
+        <variable name="q_cAMP" public_interface="out" units="fmol"/>
+        <variable name="q_AC" public_interface="out" units="fmol"/>
+        <variable name="q_AC_ATP" public_interface="out" units="fmol"/>
+        <variable name="q_a_Gs_GTP_AC" public_interface="out" units="fmol"/>
+        <variable name="q_a_Gs_GTP_AC_ATP" public_interface="out" units="fmol"/>
+        <variable name="q_FSK_AC" public_interface="out" units="fmol"/>
+        <variable name="q_FSK_AC_ATP" public_interface="out" units="fmol"/>
+        <variable name="q_PDE" public_interface="out" units="fmol"/>
+        <variable name="q_PDE_cAMP" public_interface="out" units="fmol"/>
+        <variable name="q_five_AMP" public_interface="out" units="fmol"/>
+        <variable name="q_IBMX" public_interface="out" units="fmol"/>
+        <variable name="q_PDEinh" public_interface="out" units="fmol"/>
+        <variable name="q_a_Gs_GTP" public_interface="out" units="fmol"/>
+        <variable name="q_FSK" public_interface="out" units="fmol"/>
+        <variable name="q_a_Gi_GTP" public_interface="out" units="fmol"/>
+        <variable name="q_ACinh" public_interface="out" units="fmol"/>
+        <variable name="q_PPi" public_interface="out" units="fmol"/>
+        <variable name="q_L_B1" public_interface="out" units="fmol"/>
+        <variable name="q_R_B1" public_interface="out" units="fmol"/>
+        <variable name="q_Gs" public_interface="out" units="fmol"/>
+        <variable name="q_LR_B1" public_interface="out" units="fmol"/>
+        <variable name="q_R_B1Gs" public_interface="out" units="fmol"/>
+        <variable name="q_LR_B1Gs" public_interface="out" units="fmol"/>
+        <variable name="q_L_M2" public_interface="out" units="fmol"/>
+        <variable name="q_R_M2" public_interface="out" units="fmol"/>
+        <variable name="q_Gi" public_interface="out" units="fmol"/>
+        <variable name="q_LR_M2" public_interface="out" units="fmol"/>
+        <variable name="q_R_M2Gi" public_interface="out" units="fmol"/>
+        <variable name="q_LR_M2Gi" public_interface="out" units="fmol"/>
+        <variable name="q_beta_gamma_Gs" public_interface="out" units="fmol"/>
+        <variable name="q_a_Gs_GDP" public_interface="out" units="fmol"/>
+        <variable name="q_Pi" public_interface="out" units="fmol"/>
+        <variable name="q_R_B1_aby" public_interface="out" units="fmol"/>
+        <variable name="q_R_B1_aby_T" public_interface="out" units="fmol"/>
+        <variable name="q_LR_B1_aby" public_interface="out" units="fmol"/>
+        <variable name="q_LR_B1_aby_T" public_interface="out" units="fmol"/>
+        <variable name="q_GTP" public_interface="out" units="fmol"/>
+        <variable name="q_GDP" public_interface="out" units="fmol"/>
+        <variable name="q_beta_gamma_Gi" public_interface="out" units="fmol"/>
+        <variable name="q_a_Gi_GDP" public_interface="out" units="fmol"/>
+        <variable name="q_R_M2_aby" public_interface="out" units="fmol"/>
+        <variable name="q_R_M2_aby_T" public_interface="out" units="fmol"/>
+        <variable name="q_LR_M2_aby" public_interface="out" units="fmol"/>
+        <variable name="q_LR_M2_aby_T" public_interface="out" units="fmol"/>
+        <!-- cAMP imports-->
+        <variable name="q_ATP_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_cAMP_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_AC_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_AC_ATP_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_a_Gs_GTP_AC_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_a_Gs_GTP_AC_ATP_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_FSK_AC_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_FSK_AC_ATP_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_PDE_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_PDE_cAMP_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_five_AMP_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_IBMX_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_PDEinh_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_a_Gs_GTP_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_FSK_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_a_Gi_GTP_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_ACinh_mcAMP" public_interface="in" units="fmol"/>
+        <variable name="q_PPi_mcAMP" public_interface="in" units="fmol"/>
+        <!-- LRGbinding_B1AR imports-->
+        <variable name="q_L_B1_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_R_B1_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_Gs_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_R_B1Gs_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1Gs_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <!-- LRGbinding_M2 imports-->
+        <variable name="q_L_M2_mLRGbinding_M2" public_interface="in" units="fmol"/>
+        <variable name="q_R_M2_mLRGbinding_M2" public_interface="in" units="fmol"/>
+        <variable name="q_Gi_mLRGbinding_M2" public_interface="in" units="fmol"/>
+        <variable name="q_LR_M2_mLRGbinding_M2" public_interface="in" units="fmol"/>
+        <variable name="q_R_M2Gi_mLRGbinding_M2" public_interface="in" units="fmol"/>
+        <variable name="q_LR_M2Gi_mLRGbinding_M2" public_interface="in" units="fmol"/>
+        <!-- GsProtein imports-->
+        <variable name="q_R_B1_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_Gs_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_R_B1Gs_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1Gs_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_a_Gs_GTP_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_beta_gamma_Gs_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_a_Gs_GDP_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_Pi_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_R_B1_aby_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_R_B1_aby_T_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1_aby_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1_aby_T_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_GTP_mGsProtein" public_interface="in" units="fmol"/>
+        <variable name="q_GDP_mGsProtein" public_interface="in" units="fmol"/>
+        <!-- GiProtein imports-->
+        <variable name="q_R_M2_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_Gi_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_R_M2Gi_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_LR_M2_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_LR_M2Gi_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_a_Gi_GTP_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_beta_gamma_Gi_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_a_Gi_GDP_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_Pi_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_R_M2_aby_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_R_M2_aby_T_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_LR_M2_aby_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_LR_M2_aby_T_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_GTP_mGiProtein" public_interface="in" units="fmol"/>
+        <variable name="q_GDP_mGiProtein" public_interface="in" units="fmol"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>q_ATP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_ATP_init</ci>
+                    <ci>q_ATP_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_cAMP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_cAMP_init</ci>
+                    <ci>q_cAMP_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_AC</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_AC_init</ci>
+                    <ci>q_AC_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_AC_ATP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_AC_ATP_init</ci>
+                    <ci>q_AC_ATP_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_a_Gs_GTP_AC</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_a_Gs_GTP_AC_init</ci>
+                    <ci>q_a_Gs_GTP_AC_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_a_Gs_GTP_AC_ATP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_a_Gs_GTP_AC_ATP_init</ci>
+                    <ci>q_a_Gs_GTP_AC_ATP_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_FSK_AC</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_FSK_AC_init</ci>
+                    <ci>q_FSK_AC_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_FSK_AC_ATP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_FSK_AC_ATP_init</ci>
+                    <ci>q_FSK_AC_ATP_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_PDE</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_PDE_init</ci>
+                    <ci>q_PDE_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_PDE_cAMP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_PDE_cAMP_init</ci>
+                    <ci>q_PDE_cAMP_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_five_AMP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_five_AMP_init</ci>
+                    <ci>q_five_AMP_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_IBMX</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_IBMX_init</ci>
+                    <ci>q_IBMX_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_PDEinh</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_PDEinh_init</ci>
+                    <ci>q_PDEinh_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_a_Gs_GTP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_a_Gs_GTP_init</ci>
+                    <ci>q_a_Gs_GTP_mcAMP</ci>
+                    <ci>q_a_Gs_GTP_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_FSK</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_FSK_init</ci>
+                    <ci>q_FSK_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_a_Gi_GTP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_a_Gi_GTP_init</ci>
+                    <ci>q_a_Gi_GTP_mcAMP</ci>
+                    <ci>q_a_Gi_GTP_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_ACinh</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_ACinh_init</ci>
+                    <ci>q_ACinh_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_PPi</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_PPi_init</ci>
+                    <ci>q_PPi_mcAMP</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_L_B1</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_L_B1_init</ci>
+                    <ci>q_L_B1_mLRGbinding_B1AR</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_B1</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_B1_init</ci>
+                    <ci>q_R_B1_mLRGbinding_B1AR</ci>
+                    <ci>q_R_B1_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_Gs</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_Gs_init</ci>
+                    <ci>q_Gs_mLRGbinding_B1AR</ci>
+                    <ci>q_Gs_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_B1</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_B1_init</ci>
+                    <ci>q_LR_B1_mLRGbinding_B1AR</ci>
+                    <ci>q_LR_B1_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_B1Gs</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_B1Gs_init</ci>
+                    <ci>q_R_B1Gs_mLRGbinding_B1AR</ci>
+                    <ci>q_R_B1Gs_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_B1Gs</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_B1Gs_init</ci>
+                    <ci>q_LR_B1Gs_mLRGbinding_B1AR</ci>
+                    <ci>q_LR_B1Gs_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_L_M2</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_L_M2_init</ci>
+                    <ci>q_L_M2_mLRGbinding_M2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_M2</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_M2_init</ci>
+                    <ci>q_R_M2_mLRGbinding_M2</ci>
+                    <ci>q_R_M2_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_Gi</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_Gi_init</ci>
+                    <ci>q_Gi_mLRGbinding_M2</ci>
+                    <ci>q_Gi_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_M2</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_M2_init</ci>
+                    <ci>q_LR_M2_mLRGbinding_M2</ci>
+                    <ci>q_LR_M2_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_M2Gi</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_M2Gi_init</ci>
+                    <ci>q_R_M2Gi_mLRGbinding_M2</ci>
+                    <ci>q_R_M2Gi_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_M2Gi</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_M2Gi_init</ci>
+                    <ci>q_LR_M2Gi_mLRGbinding_M2</ci>
+                    <ci>q_LR_M2Gi_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_beta_gamma_Gs</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_beta_gamma_Gs_init</ci>
+                    <ci>q_beta_gamma_Gs_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_a_Gs_GDP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_a_Gs_GDP_init</ci>
+                    <ci>q_a_Gs_GDP_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_Pi</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_Pi_init</ci>
+                    <ci>q_Pi_mGsProtein</ci>
+                    <ci>q_Pi_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_B1_aby</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_B1_aby_init</ci>
+                    <ci>q_R_B1_aby_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_B1_aby_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_B1_aby_T_init</ci>
+                    <ci>q_R_B1_aby_T_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_B1_aby</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_B1_aby_init</ci>
+                    <ci>q_LR_B1_aby_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_B1_aby_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_B1_aby_T_init</ci>
+                    <ci>q_LR_B1_aby_T_mGsProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_GTP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_GTP_init</ci>
+                    <ci>q_GTP_mGsProtein</ci>
+                    <ci>q_GTP_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_GDP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_GDP_init</ci>
+                    <ci>q_GDP_mGsProtein</ci>
+                    <ci>q_GDP_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_beta_gamma_Gi</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_beta_gamma_Gi_init</ci>
+                    <ci>q_beta_gamma_Gi_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_a_Gi_GDP</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_a_Gi_GDP_init</ci>
+                    <ci>q_a_Gi_GDP_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_M2_aby</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_M2_aby_init</ci>
+                    <ci>q_R_M2_aby_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_M2_aby_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_M2_aby_T_init</ci>
+                    <ci>q_R_M2_aby_T_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_M2_aby</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_M2_aby_init</ci>
+                    <ci>q_LR_M2_aby_mGiProtein</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_M2_aby_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_M2_aby_T_init</ci>
+                    <ci>q_LR_M2_aby_T_mGiProtein</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="cAMP"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="q_ATP_mcAMP" variable_2="q_ATP"/>
+        <map_variables variable_1="q_ATP" variable_2="q_ATP_global"/>
+        <map_variables variable_1="q_cAMP_mcAMP" variable_2="q_cAMP"/>
+        <map_variables variable_1="q_cAMP" variable_2="q_cAMP_global"/>
+        <map_variables variable_1="q_AC_mcAMP" variable_2="q_AC"/>
+        <map_variables variable_1="q_AC" variable_2="q_AC_global"/>
+        <map_variables variable_1="q_AC_ATP_mcAMP" variable_2="q_AC_ATP"/>
+        <map_variables variable_1="q_AC_ATP" variable_2="q_AC_ATP_global"/>
+        <map_variables variable_1="q_a_Gs_GTP_AC_mcAMP" variable_2="q_a_Gs_GTP_AC"/>
+        <map_variables variable_1="q_a_Gs_GTP_AC" variable_2="q_a_Gs_GTP_AC_global"/>
+        <map_variables variable_1="q_a_Gs_GTP_AC_ATP_mcAMP" variable_2="q_a_Gs_GTP_AC_ATP"/>
+        <map_variables variable_1="q_a_Gs_GTP_AC_ATP" variable_2="q_a_Gs_GTP_AC_ATP_global"/>
+        <map_variables variable_1="q_FSK_AC_mcAMP" variable_2="q_FSK_AC"/>
+        <map_variables variable_1="q_FSK_AC" variable_2="q_FSK_AC_global"/>
+        <map_variables variable_1="q_FSK_AC_ATP_mcAMP" variable_2="q_FSK_AC_ATP"/>
+        <map_variables variable_1="q_FSK_AC_ATP" variable_2="q_FSK_AC_ATP_global"/>
+        <map_variables variable_1="q_PDE_mcAMP" variable_2="q_PDE"/>
+        <map_variables variable_1="q_PDE" variable_2="q_PDE_global"/>
+        <map_variables variable_1="q_PDE_cAMP_mcAMP" variable_2="q_PDE_cAMP"/>
+        <map_variables variable_1="q_PDE_cAMP" variable_2="q_PDE_cAMP_global"/>
+        <map_variables variable_1="q_five_AMP_mcAMP" variable_2="q_five_AMP"/>
+        <map_variables variable_1="q_five_AMP" variable_2="q_five_AMP_global"/>
+        <map_variables variable_1="q_IBMX_mcAMP" variable_2="q_IBMX"/>
+        <map_variables variable_1="q_IBMX" variable_2="q_IBMX_global"/>
+        <map_variables variable_1="q_PDEinh_mcAMP" variable_2="q_PDEinh"/>
+        <map_variables variable_1="q_PDEinh" variable_2="q_PDEinh_global"/>
+        <map_variables variable_1="q_a_Gs_GTP_mcAMP" variable_2="q_a_Gs_GTP"/>
+        <map_variables variable_1="q_a_Gs_GTP" variable_2="q_a_Gs_GTP_global"/>
+        <map_variables variable_1="q_FSK_mcAMP" variable_2="q_FSK"/>
+        <map_variables variable_1="q_FSK" variable_2="q_FSK_global"/>
+        <map_variables variable_1="q_a_Gi_GTP_mcAMP" variable_2="q_a_Gi_GTP"/>
+        <map_variables variable_1="q_a_Gi_GTP" variable_2="q_a_Gi_GTP_global"/>
+        <map_variables variable_1="q_ACinh_mcAMP" variable_2="q_ACinh"/>
+        <map_variables variable_1="q_ACinh" variable_2="q_ACinh_global"/>
+        <map_variables variable_1="q_PPi_mcAMP" variable_2="q_PPi"/>
+        <map_variables variable_1="q_PPi" variable_2="q_PPi_global"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="LRGbinding_B1AR"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="q_L_B1_mLRGbinding_B1AR" variable_2="q_L_B1"/>
+        <map_variables variable_1="q_L_B1" variable_2="q_L_B1_global"/>
+        <map_variables variable_1="q_R_B1_mLRGbinding_B1AR" variable_2="q_R_B1"/>
+        <map_variables variable_1="q_R_B1" variable_2="q_R_B1_global"/>
+        <map_variables variable_1="q_Gs_mLRGbinding_B1AR" variable_2="q_Gs"/>
+        <map_variables variable_1="q_Gs" variable_2="q_Gs_global"/>
+        <map_variables variable_1="q_LR_B1_mLRGbinding_B1AR" variable_2="q_LR_B1"/>
+        <map_variables variable_1="q_LR_B1" variable_2="q_LR_B1_global"/>
+        <map_variables variable_1="q_R_B1Gs_mLRGbinding_B1AR" variable_2="q_R_B1Gs"/>
+        <map_variables variable_1="q_R_B1Gs" variable_2="q_R_B1Gs_global"/>
+        <map_variables variable_1="q_LR_B1Gs_mLRGbinding_B1AR" variable_2="q_LR_B1Gs"/>
+        <map_variables variable_1="q_LR_B1Gs" variable_2="q_LR_B1Gs_global"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="LRGbinding_M2"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="q_L_M2_mLRGbinding_M2" variable_2="q_L_M2"/>
+        <map_variables variable_1="q_L_M2" variable_2="q_L_M2_global"/>
+        <map_variables variable_1="q_R_M2_mLRGbinding_M2" variable_2="q_R_M2"/>
+        <map_variables variable_1="q_R_M2" variable_2="q_R_M2_global"/>
+        <map_variables variable_1="q_Gi_mLRGbinding_M2" variable_2="q_Gi"/>
+        <map_variables variable_1="q_Gi" variable_2="q_Gi_global"/>
+        <map_variables variable_1="q_LR_M2_mLRGbinding_M2" variable_2="q_LR_M2"/>
+        <map_variables variable_1="q_LR_M2" variable_2="q_LR_M2_global"/>
+        <map_variables variable_1="q_R_M2Gi_mLRGbinding_M2" variable_2="q_R_M2Gi"/>
+        <map_variables variable_1="q_R_M2Gi" variable_2="q_R_M2Gi_global"/>
+        <map_variables variable_1="q_LR_M2Gi_mLRGbinding_M2" variable_2="q_LR_M2Gi"/>
+        <map_variables variable_1="q_LR_M2Gi" variable_2="q_LR_M2Gi_global"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="GsProtein"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="q_R_B1_mGsProtein" variable_2="q_R_B1"/>
+        <map_variables variable_1="q_R_B1" variable_2="q_R_B1_global"/>
+        <map_variables variable_1="q_Gs_mGsProtein" variable_2="q_Gs"/>
+        <map_variables variable_1="q_Gs" variable_2="q_Gs_global"/>
+        <map_variables variable_1="q_R_B1Gs_mGsProtein" variable_2="q_R_B1Gs"/>
+        <map_variables variable_1="q_R_B1Gs" variable_2="q_R_B1Gs_global"/>
+        <map_variables variable_1="q_LR_B1_mGsProtein" variable_2="q_LR_B1"/>
+        <map_variables variable_1="q_LR_B1" variable_2="q_LR_B1_global"/>
+        <map_variables variable_1="q_LR_B1Gs_mGsProtein" variable_2="q_LR_B1Gs"/>
+        <map_variables variable_1="q_LR_B1Gs" variable_2="q_LR_B1Gs_global"/>
+        <map_variables variable_1="q_a_Gs_GTP_mGsProtein" variable_2="q_a_Gs_GTP"/>
+        <map_variables variable_1="q_a_Gs_GTP" variable_2="q_a_Gs_GTP_global"/>
+        <map_variables variable_1="q_beta_gamma_Gs_mGsProtein" variable_2="q_beta_gamma_Gs"/>
+        <map_variables variable_1="q_beta_gamma_Gs" variable_2="q_beta_gamma_Gs_global"/>
+        <map_variables variable_1="q_a_Gs_GDP_mGsProtein" variable_2="q_a_Gs_GDP"/>
+        <map_variables variable_1="q_a_Gs_GDP" variable_2="q_a_Gs_GDP_global"/>
+        <map_variables variable_1="q_Pi_mGsProtein" variable_2="q_Pi"/>
+        <map_variables variable_1="q_Pi" variable_2="q_Pi_global"/>
+        <map_variables variable_1="q_R_B1_aby_mGsProtein" variable_2="q_R_B1_aby"/>
+        <map_variables variable_1="q_R_B1_aby" variable_2="q_R_B1_aby_global"/>
+        <map_variables variable_1="q_R_B1_aby_T_mGsProtein" variable_2="q_R_B1_aby_T"/>
+        <map_variables variable_1="q_R_B1_aby_T" variable_2="q_R_B1_aby_T_global"/>
+        <map_variables variable_1="q_LR_B1_aby_mGsProtein" variable_2="q_LR_B1_aby"/>
+        <map_variables variable_1="q_LR_B1_aby" variable_2="q_LR_B1_aby_global"/>
+        <map_variables variable_1="q_LR_B1_aby_T_mGsProtein" variable_2="q_LR_B1_aby_T"/>
+        <map_variables variable_1="q_LR_B1_aby_T" variable_2="q_LR_B1_aby_T_global"/>
+        <map_variables variable_1="q_GTP_mGsProtein" variable_2="q_GTP"/>
+        <map_variables variable_1="q_GTP" variable_2="q_GTP_global"/>
+        <map_variables variable_1="q_GDP_mGsProtein" variable_2="q_GDP"/>
+        <map_variables variable_1="q_GDP" variable_2="q_GDP_global"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="GiProtein"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="q_R_M2_mGiProtein" variable_2="q_R_M2"/>
+        <map_variables variable_1="q_R_M2" variable_2="q_R_M2_global"/>
+        <map_variables variable_1="q_Gi_mGiProtein" variable_2="q_Gi"/>
+        <map_variables variable_1="q_Gi" variable_2="q_Gi_global"/>
+        <map_variables variable_1="q_R_M2Gi_mGiProtein" variable_2="q_R_M2Gi"/>
+        <map_variables variable_1="q_R_M2Gi" variable_2="q_R_M2Gi_global"/>
+        <map_variables variable_1="q_LR_M2_mGiProtein" variable_2="q_LR_M2"/>
+        <map_variables variable_1="q_LR_M2" variable_2="q_LR_M2_global"/>
+        <map_variables variable_1="q_LR_M2Gi_mGiProtein" variable_2="q_LR_M2Gi"/>
+        <map_variables variable_1="q_LR_M2Gi" variable_2="q_LR_M2Gi_global"/>
+        <map_variables variable_1="q_a_Gi_GTP_mGiProtein" variable_2="q_a_Gi_GTP"/>
+        <map_variables variable_1="q_a_Gi_GTP" variable_2="q_a_Gi_GTP_global"/>
+        <map_variables variable_1="q_beta_gamma_Gi_mGiProtein" variable_2="q_beta_gamma_Gi"/>
+        <map_variables variable_1="q_beta_gamma_Gi" variable_2="q_beta_gamma_Gi_global"/>
+        <map_variables variable_1="q_a_Gi_GDP_mGiProtein" variable_2="q_a_Gi_GDP"/>
+        <map_variables variable_1="q_a_Gi_GDP" variable_2="q_a_Gi_GDP_global"/>
+        <map_variables variable_1="q_Pi_mGiProtein" variable_2="q_Pi"/>
+        <map_variables variable_1="q_Pi" variable_2="q_Pi_global"/>
+        <map_variables variable_1="q_R_M2_aby_mGiProtein" variable_2="q_R_M2_aby"/>
+        <map_variables variable_1="q_R_M2_aby" variable_2="q_R_M2_aby_global"/>
+        <map_variables variable_1="q_R_M2_aby_T_mGiProtein" variable_2="q_R_M2_aby_T"/>
+        <map_variables variable_1="q_R_M2_aby_T" variable_2="q_R_M2_aby_T_global"/>
+        <map_variables variable_1="q_LR_M2_aby_mGiProtein" variable_2="q_LR_M2_aby"/>
+        <map_variables variable_1="q_LR_M2_aby" variable_2="q_LR_M2_aby_global"/>
+        <map_variables variable_1="q_LR_M2_aby_T_mGiProtein" variable_2="q_LR_M2_aby_T"/>
+        <map_variables variable_1="q_LR_M2_aby_T" variable_2="q_LR_M2_aby_T_global"/>
+        <map_variables variable_1="q_GTP_mGiProtein" variable_2="q_GTP"/>
+        <map_variables variable_1="q_GTP" variable_2="q_GTP_global"/>
+        <map_variables variable_1="q_GDP_mGiProtein" variable_2="q_GDP"/>
+        <map_variables variable_1="q_GDP" variable_2="q_GDP_global"/>
+    </connection>
+    <connection>
+        <map_components component_1="BG_parameters" component_2="cAMP"/>
+        <map_variables variable_1="kappa_1a" variable_2="kappa_1a"/>
+        <map_variables variable_1="kappa_1b" variable_2="kappa_1b"/>
+        <map_variables variable_1="kappa_2a" variable_2="kappa_2a"/>
+        <map_variables variable_1="kappa_2b" variable_2="kappa_2b"/>
+        <map_variables variable_1="kappa_3a" variable_2="kappa_3a"/>
+        <map_variables variable_1="kappa_3b" variable_2="kappa_3b"/>
+        <map_variables variable_1="kappa_4a" variable_2="kappa_4a"/>
+        <map_variables variable_1="kappa_4b" variable_2="kappa_4b"/>
+        <map_variables variable_1="kappa_5" variable_2="kappa_5"/>
+        <map_variables variable_1="kappa_6" variable_2="kappa_6"/>
+        <map_variables variable_1="kappa_7" variable_2="kappa_7"/>
+        <map_variables variable_1="kappa_GiAC" variable_2="kappa_GiAC"/>
+        <map_variables variable_1="K_ATP" variable_2="K_ATP"/>
+        <map_variables variable_1="K_cAMP" variable_2="K_cAMP"/>
+        <map_variables variable_1="K_AC" variable_2="K_AC"/>
+        <map_variables variable_1="K_AC_ATP" variable_2="K_AC_ATP"/>
+        <map_variables variable_1="K_a_Gs_GTP_AC" variable_2="K_a_Gs_GTP_AC"/>
+        <map_variables variable_1="K_a_Gs_GTP_AC_ATP" variable_2="K_a_Gs_GTP_AC_ATP"/>
+        <map_variables variable_1="K_FSK_AC" variable_2="K_FSK_AC"/>
+        <map_variables variable_1="K_FSK_AC_ATP" variable_2="K_FSK_AC_ATP"/>
+        <map_variables variable_1="K_PDE" variable_2="K_PDE"/>
+        <map_variables variable_1="K_PDE_cAMP" variable_2="K_PDE_cAMP"/>
+        <map_variables variable_1="K_five_AMP" variable_2="K_five_AMP"/>
+        <map_variables variable_1="K_IBMX" variable_2="K_IBMX"/>
+        <map_variables variable_1="K_PDEinh" variable_2="K_PDEinh"/>
+        <map_variables variable_1="K_a_Gs_GTP" variable_2="K_a_Gs_GTP"/>
+        <map_variables variable_1="K_FSK" variable_2="K_FSK"/>
+        <map_variables variable_1="K_a_Gi_GTP" variable_2="K_a_Gi_GTP"/>
+        <map_variables variable_1="K_ACinh" variable_2="K_ACinh"/>
+        <map_variables variable_1="K_PPi" variable_2="K_PPi"/>
+    </connection>
+    <connection>
+        <map_components component_1="BG_parameters" component_2="LRGbinding_B1AR"/>
+        <map_variables variable_1="kappa_sig1_B1" variable_2="kappa_sig1_B1"/>
+        <map_variables variable_1="kappa_sig2_B1" variable_2="kappa_sig2_B1"/>
+        <map_variables variable_1="kappa_sig3_B1" variable_2="kappa_sig3_B1"/>
+        <map_variables variable_1="kappa_sig4_B1" variable_2="kappa_sig4_B1"/>
+        <map_variables variable_1="K_L_B1" variable_2="K_L_B1"/>
+        <map_variables variable_1="K_R_B1" variable_2="K_R_B1"/>
+        <map_variables variable_1="K_Gs" variable_2="K_Gs"/>
+        <map_variables variable_1="K_LR_B1" variable_2="K_LR_B1"/>
+        <map_variables variable_1="K_R_B1Gs" variable_2="K_R_B1Gs"/>
+        <map_variables variable_1="K_LR_B1Gs" variable_2="K_LR_B1Gs"/>
+    </connection>
+    <connection>
+        <map_components component_1="BG_parameters" component_2="LRGbinding_M2"/>
+        <map_variables variable_1="kappa_sig1_M2" variable_2="kappa_sig1_M2"/>
+        <map_variables variable_1="kappa_sig2_M2" variable_2="kappa_sig2_M2"/>
+        <map_variables variable_1="kappa_sig3_M2" variable_2="kappa_sig3_M2"/>
+        <map_variables variable_1="kappa_sig4_M2" variable_2="kappa_sig4_M2"/>
+        <map_variables variable_1="K_L_M2" variable_2="K_L_M2"/>
+        <map_variables variable_1="K_R_M2" variable_2="K_R_M2"/>
+        <map_variables variable_1="K_Gi" variable_2="K_Gi"/>
+        <map_variables variable_1="K_LR_M2" variable_2="K_LR_M2"/>
+        <map_variables variable_1="K_R_M2Gi" variable_2="K_R_M2Gi"/>
+        <map_variables variable_1="K_LR_M2Gi" variable_2="K_LR_M2Gi"/>
+    </connection>
+    <connection>
+        <map_components component_1="BG_parameters" component_2="GsProtein"/>
+        <map_variables variable_1="kappa_Doff1_Gs" variable_2="kappa_Doff1_Gs"/>
+        <map_variables variable_1="kappa_Ton1_Gs" variable_2="kappa_Ton1_Gs"/>
+        <map_variables variable_1="kappa_Act1_Gs" variable_2="kappa_Act1_Gs"/>
+        <map_variables variable_1="kappa_Doff2_Gs" variable_2="kappa_Doff2_Gs"/>
+        <map_variables variable_1="kappa_Ton2_Gs" variable_2="kappa_Ton2_Gs"/>
+        <map_variables variable_1="kappa_Act2_Gs" variable_2="kappa_Act2_Gs"/>
+        <map_variables variable_1="kappa_hyd_Gs" variable_2="kappa_hyd_Gs"/>
+        <map_variables variable_1="kappa_reassoc_Gs" variable_2="kappa_reassoc_Gs"/>
+        <map_variables variable_1="K_R_B1" variable_2="K_R_B1"/>
+        <map_variables variable_1="K_Gs" variable_2="K_Gs"/>
+        <map_variables variable_1="K_R_B1Gs" variable_2="K_R_B1Gs"/>
+        <map_variables variable_1="K_LR_B1" variable_2="K_LR_B1"/>
+        <map_variables variable_1="K_LR_B1Gs" variable_2="K_LR_B1Gs"/>
+        <map_variables variable_1="K_a_Gs_GTP" variable_2="K_a_Gs_GTP"/>
+        <map_variables variable_1="K_beta_gamma_Gs" variable_2="K_beta_gamma_Gs"/>
+        <map_variables variable_1="K_a_Gs_GDP" variable_2="K_a_Gs_GDP"/>
+        <map_variables variable_1="K_Pi" variable_2="K_Pi"/>
+        <map_variables variable_1="K_R_B1_aby" variable_2="K_R_B1_aby"/>
+        <map_variables variable_1="K_R_B1_aby_T" variable_2="K_R_B1_aby_T"/>
+        <map_variables variable_1="K_LR_B1_aby" variable_2="K_LR_B1_aby"/>
+        <map_variables variable_1="K_LR_B1_aby_T" variable_2="K_LR_B1_aby_T"/>
+        <map_variables variable_1="K_GTP" variable_2="K_GTP"/>
+        <map_variables variable_1="K_GDP" variable_2="K_GDP"/>
+    </connection>
+    <connection>
+        <map_components component_1="BG_parameters" component_2="GiProtein"/>
+        <map_variables variable_1="kappa_Doff1_Gi" variable_2="kappa_Doff1_Gi"/>
+        <map_variables variable_1="kappa_Ton1_Gi" variable_2="kappa_Ton1_Gi"/>
+        <map_variables variable_1="kappa_Act1_Gi" variable_2="kappa_Act1_Gi"/>
+        <map_variables variable_1="kappa_Doff2_Gi" variable_2="kappa_Doff2_Gi"/>
+        <map_variables variable_1="kappa_Ton2_Gi" variable_2="kappa_Ton2_Gi"/>
+        <map_variables variable_1="kappa_Act2_Gi" variable_2="kappa_Act2_Gi"/>
+        <map_variables variable_1="kappa_hyd_Gi" variable_2="kappa_hyd_Gi"/>
+        <map_variables variable_1="kappa_reassoc_Gi" variable_2="kappa_reassoc_Gi"/>
+        <map_variables variable_1="K_R_M2" variable_2="K_R_M2"/>
+        <map_variables variable_1="K_Gi" variable_2="K_Gi"/>
+        <map_variables variable_1="K_R_M2Gi" variable_2="K_R_M2Gi"/>
+        <map_variables variable_1="K_LR_M2" variable_2="K_LR_M2"/>
+        <map_variables variable_1="K_LR_M2Gi" variable_2="K_LR_M2Gi"/>
+        <map_variables variable_1="K_a_Gi_GTP" variable_2="K_a_Gi_GTP"/>
+        <map_variables variable_1="K_beta_gamma_Gi" variable_2="K_beta_gamma_Gi"/>
+        <map_variables variable_1="K_a_Gi_GDP" variable_2="K_a_Gi_GDP"/>
+        <map_variables variable_1="K_Pi" variable_2="K_Pi"/>
+        <map_variables variable_1="K_R_M2_aby" variable_2="K_R_M2_aby"/>
+        <map_variables variable_1="K_R_M2_aby_T" variable_2="K_R_M2_aby_T"/>
+        <map_variables variable_1="K_LR_M2_aby" variable_2="K_LR_M2_aby"/>
+        <map_variables variable_1="K_LR_M2_aby_T" variable_2="K_LR_M2_aby_T"/>
+        <map_variables variable_1="K_GTP" variable_2="K_GTP"/>
+        <map_variables variable_1="K_GDP" variable_2="K_GDP"/>
+    </connection>
+    <connection>
+        <map_components component_1="constants" component_2="cAMP"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+    <connection>
+        <map_components component_1="constants" component_2="LRGbinding_B1AR"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+    <connection>
+        <map_components component_1="constants" component_2="LRGbinding_M2"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+    <connection>
+        <map_components component_1="constants" component_2="GsProtein"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+    <connection>
+        <map_components component_1="constants" component_2="GiProtein"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+</model>

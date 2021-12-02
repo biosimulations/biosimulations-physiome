@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sedML  level="1" version="1" xmlns="http://sed-ml.org/" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+  <listOfSimulations>
+    <repeatedAnalysis id="simulation1" numberOfSamples="1"
+     initialTime="0" outputStartTime="10" outputEndTime="10" numberOfPoints="1000" >
+      <algorithm kisaoID="https://computation.llnl.gov/casc/sundials/documentation/ida_guide/"/>
+    </repeatedAnalysis>
+  </listOfSimulations>
+  <listOfModels>
+    <model id="model1" name="Uncertain Parameters" language="urn:sedml:language:cellml" source="./beeler_reuter_1977.cellml"/>
+  </listOfModels>
+  <listOfTasks>
+    <task id="task1" name="Main task" modelReference="model1" simulationReference="simulation1"/>
+  </listOfTasks>
+  <listOfDataGenerators>
+    <dataGenerator id="V" name="Membrane Potential">
+      <listOfVariables>
+        <variable id="Vvar" taskReference="task1" target="/cellml:model/cellml:component[@name='membrane']/variable[@name='V']" />
+      </listOfVariables>
+      <math:math><math:ci>Vvar</math:ci></math:math>
+    </dataGenerator>
+    <dataGenerator id="x1_open" name="Initial x1_open">
+      <listOfVariables>
+        <variable id="x1_open_var" taskReference="task1" target="/cellml:model/cellml:component[@name='time_dependent_outward_current']/cellml:variable[@name='x1_open']" />
+      </listOfVariables>
+      <math:math><math:ci>x1_open_var</math:ci></math:math>
+    </dataGenerator>
+  </listOfDataGenerators>
+</sedML>

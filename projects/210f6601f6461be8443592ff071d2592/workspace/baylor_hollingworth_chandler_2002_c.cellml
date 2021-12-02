@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+<!--  FILE :baylor_2002c.xml
+
+CREATED :  23rd May 2007
+
+LAST MODIFIED : 23rd May 2007
+
+AUTHOR :  Catherine Lloyd
+          Bioengineering Institute
+          The University of Auckland
+          
+MODEL STATUS :  This model conforms to the CellML 1.1 Specification.
+
+DESCRIPTION :  This file contains a CellML description of Baylor, Hollingworth and Chandler's 2002 model of the Ca2+-ATP binding reaction in skeletal myocytes.
+
+CHANGES:  
+
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/baylor_hollingworth_chandler_2002/baylor_hollingworth_chandler_2002_c.cellml" cmeta:id="baylor_2002c" name="baylor_2002c">
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Comparison of simulated and measured calcium sparks in intact skeletal muscle fibers of the frog</title>
+  <author>
+    <firstname>Catherine</firstname>
+          <surname>Lloyd</surname>
+
+    <affiliation>
+      <shortaffil>Auckland Bioengineering Institute, The University of Auckland</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+     <section id="sec_status">
+    <title>Model Status</title>
+    <para>This CellML model runs in OpenCell and COR and the units are consistent. There are no simple figures of concentration against time in the publication to compare the CellML model simulation output against.
+</para>
+  </section>
+  <sect1 id="sec_structure">
+<title>Model Structure</title>
+
+<para>
+ABSTRACT: Calcium sparks in frog intact skeletal muscle fibers were modeled as stereotypical events that arise from a constant efflux of Ca(2+) from a point source for a fixed period of time (e.g., 2.5 pA of Ca(2+) current for 4.6 ms; 18 degrees C). The model calculates the local changes in the concentrations of free Ca(2+) and of Ca(2+) bound to the major intrinsic myoplasmic Ca(2+) buffers (troponin, ATP, parvalbumin, and the SR Ca(2+) pump) and to the Ca(2+) indicator (fluo-3). A distinctive feature of the model is the inclusion of a binding reaction between fluo-3 and myoplasmic proteins, a process that strongly affects fluo-3's Ca(2+)-reaction kinetics, its apparent diffusion constant, and hence the morphology of sparks. DeltaF/F (the change in fluo-3's fluorescence divided by its resting fluorescence) was estimated from the calculated changes in fluo-3 convolved with the microscope point-spread function. To facilitate comparisons with measured sparks, noise and other sources of variability were included in a random repetitive fashion to generate a large number of simulated sparks that could be analyzed in the same way as the measured sparks. In the initial simulations, the binding of Ca(2+) to the two regulatory sites on troponin was assumed to follow identical and independent binding reactions. These simulations failed to accurately predict the falling phase of the measured sparks. A second set of simulations, which incorporated the idea of positive cooperativity in the binding of Ca(2+) to troponin, produced reasonable agreement with the measurements. Under the assumption that the single channel Ca(2+) current of a ryanodine receptor (RYR) is 0.5-2 pA, the results suggest that 1-5 active RYRs generate an average Ca(2+) spark in a frog intact muscle fiber. 
+</para>
+
+<para>
+The original paper reference is cited below:
+</para>
+
+<para>
+Comparison of simulated and measured calcium sparks in intact skeletal muscle fibers of the frog, S.M. Baylor, S. Hollingworth and W.K. Chandler, 2002, <emphasis>Journal of General Physiology</emphasis>, 120, 349-368. <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/12198091">PubMed ID: 12198091</ulink> 
+</para>
+
+<informalfigure float="0" id="fig_reaction_diagram">
+<mediaobject>
+  <imageobject>
+    <imagedata fileref="baylor_2002.png"/>
+  </imageobject>
+</mediaobject>
+<caption>Schematic diagrams of the Ca<superscript>2+</superscript> binding reactions for various buffers and indicators: <emphasis role="bold">A</emphasis>  The reaction of Ca<superscript>2+</superscript> with ATP in the presence of free Mg<superscript>2+</superscript>, <emphasis role="bold">B</emphasis>  Reaction of Ca<superscript>2+</superscript> with protein (Pr) and fluo-3 (Fluo), <emphasis role="bold">C</emphasis>  Competitive reaction of Ca<superscript>2+</superscript> and Mg<superscript>2+</superscript> with parvalbumin (Parv), <emphasis role="bold">D</emphasis>  Binding reaction of Ca<superscript>2+</superscript> binding and transport by the sarcoplasmic reticulum Ca<superscript>2+</superscript> pump (E), <emphasis role="bold">E</emphasis>  One-step reaction of Ca<superscript>2+</superscript> with Troponin (Trop), and <emphasis role="bold">F</emphasis>  Two-step reaction of Ca<superscript>2+</superscript> with Troponin (Trop).</caption>
+
+</informalfigure>
+
+</sect1>
+</article>
+</documentation>
+  
+ 
+
+   
+   <units name="micromolar">
+      <unit prefix="micro" units="mole"/>
+      <unit exponent="-1" units="litre"/>
+   </units>
+   
+   <units name="first_order_rate_constant">
+      <unit exponent="-1" units="second"/>
+   </units>
+  
+   <units name="second_order_rate_constant">
+      <unit exponent="-1" units="micromolar"/>
+      <unit exponent="-1" units="second"/>
+   </units>
+  
+
+   <component name="environment">
+      <variable name="time" public_interface="out" units="second"/>
+   </component>
+   
+   
+   <component cmeta:id="Ca" name="Ca">
+      <variable cmeta:id="id_00001" initial_value="0.05" name="Ca" public_interface="out" units="micromolar"/>
+      
+      <variable name="k1" public_interface="in" units="second_order_rate_constant"/>
+      <variable name="k1_" public_interface="in" units="first_order_rate_constant"/>
+      <variable name="Parv" public_interface="in" units="micromolar"/>
+      <variable name="CaParv" public_interface="in" units="micromolar"/>
+      <variable name="time" public_interface="in" units="second"/>
+      
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+        <eq/>
+          <apply>
+          <diff/> 
+            <bvar>
+            <ci>time</ci>
+          </bvar> 
+            <ci> Ca </ci> 
+          </apply>
+          <apply>
+          <minus/>
+            <apply>
+            <times/>
+              <ci> k1_ </ci>
+              <ci> CaParv </ci>
+            </apply>
+            <apply>
+            <times/>
+              <ci> k1 </ci>
+              <ci> Ca </ci>
+              <ci> Parv </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+   </component>
+   
+   <component cmeta:id="Parv" name="Parv">
+      <variable initial_value="1500.0" name="Parv" public_interface="out" units="micromolar"/>
+     
+      <variable name="k1" public_interface="in" units="second_order_rate_constant"/>
+      <variable name="k1_" public_interface="in" units="first_order_rate_constant"/>
+      <variable name="k2" public_interface="in" units="second_order_rate_constant"/>
+      <variable name="k2_" public_interface="in" units="first_order_rate_constant"/>
+      <variable name="Ca" public_interface="in" units="micromolar"/>
+      <variable name="CaParv" public_interface="in" units="micromolar"/>
+      <variable name="Mg" public_interface="in" units="micromolar"/>
+      <variable name="MgParv" public_interface="in" units="micromolar"/>
+      <variable name="time" public_interface="in" units="second"/>
+      
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+        <eq/>
+          <apply>
+          <diff/> 
+            <bvar>
+            <ci>time</ci>
+          </bvar> 
+            <ci> Parv </ci> 
+          </apply>
+          <apply>
+          <minus/>
+            <apply>
+            <plus/>
+              <apply>
+              <times/>
+                <ci> k1_ </ci>
+                <ci> CaParv </ci>
+              </apply>
+              <apply>
+              <times/>
+                <ci> k2_ </ci>
+                <ci> MgParv </ci>
+              </apply>
+            </apply>
+            <apply>
+            <plus/>
+              <apply>
+              <times/>
+                <ci> k1 </ci>
+                <ci> Ca </ci>
+                <ci> Parv </ci>
+              </apply>
+              <apply>
+              <times/>
+                <ci> k2 </ci>
+                <ci> Mg </ci>
+                <ci> Parv </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+   </component>
+  
+   <component cmeta:id="CaParv" name="CaParv">
+      <variable initial_value="0.01" name="CaParv" public_interface="out" units="micromolar"/>
+      
+      <variable name="k1" public_interface="in" units="second_order_rate_constant"/>
+      <variable name="k1_" public_interface="in" units="first_order_rate_constant"/>
+      <variable name="Parv" public_interface="in" units="micromolar"/>
+      <variable name="Ca" public_interface="in" units="micromolar"/>
+      <variable name="time" public_interface="in" units="second"/>
+      
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+        <eq/>
+          <apply>
+          <diff/> 
+            <bvar>
+            <ci>time</ci>
+          </bvar> 
+            <ci> CaParv </ci> 
+          </apply>
+          <apply>
+          <minus/>
+            <apply>
+            <times/>
+              <ci> k1 </ci>
+              <ci> Ca </ci>
+              <ci> Parv </ci>
+            </apply>
+            <apply>
+            <times/>
+              <ci> k1_ </ci>
+              <ci> CaParv </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+   </component>
+   
+   <component cmeta:id="Mg" name="Mg">
+      <variable cmeta:id="id_00002" initial_value="1000.0" name="Mg" public_interface="out" units="micromolar"/>
+     
+      <variable name="k2" public_interface="in" units="second_order_rate_constant"/>
+      <variable name="k2_" public_interface="in" units="first_order_rate_constant"/>
+      <variable name="Parv" public_interface="in" units="micromolar"/>
+      <variable name="MgParv" public_interface="in" units="micromolar"/>
+      <variable name="time" public_interface="in" units="second"/>
+      
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+        <eq/>
+          <apply>
+          <diff/> 
+            <bvar>
+            <ci>time</ci>
+          </bvar> 
+            <ci> Mg </ci> 
+          </apply>
+          <apply>
+          <minus/>
+            <apply>
+            <times/>
+              <ci> k2_ </ci>
+              <ci> MgParv </ci>
+            </apply>
+            <apply>
+            <times/>
+              <ci> k2 </ci>
+              <ci> Mg </ci>
+              <ci> Parv </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+   </component>
+  
+   <component cmeta:id="MgParv" name="MgParv">
+      <variable initial_value="0.01" name="MgParv" public_interface="out" units="micromolar"/>
+      
+      <variable name="k2" public_interface="in" units="second_order_rate_constant"/>
+      <variable name="k2_" public_interface="in" units="first_order_rate_constant"/>
+      <variable name="Parv" public_interface="in" units="micromolar"/>
+      <variable name="Mg" public_interface="in" units="micromolar"/>
+      <variable name="time" public_interface="in" units="second"/>
+      
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+        <eq/>
+          <apply>
+          <diff/> 
+            <bvar>
+            <ci>time</ci>
+          </bvar> 
+            <ci> MgParv </ci> 
+          </apply>
+          <apply>
+          <minus/>
+            <apply>
+            <times/>
+              <ci> k2 </ci>
+              <ci> Mg </ci>
+              <ci> Parv </ci>
+            </apply>
+            <apply>
+            <times/>
+              <ci> k2_ </ci>
+              <ci> MgParv </ci>
+            </apply>
+          </apply>
+        </apply>
+      </math>
+   </component>
+   
+   <component cmeta:id="reaction_constants" name="reaction_constants">
+     <variable initial_value="4.79E13" name="k1" public_interface="out" units="second_order_rate_constant"/>
+     <variable initial_value="0.574" name="k1_" public_interface="out" units="first_order_rate_constant"/>
+     <variable initial_value="39700E6" name="k2" public_interface="out" units="second_order_rate_constant"/>
+     <variable initial_value="3.45" name="k2_" public_interface="out" units="first_order_rate_constant"/>
+   </component>
+  
+  
+   <connection>
+      <map_components component_1="Ca" component_2="environment"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+  
+   <connection>
+      <map_components component_1="Parv" component_2="environment"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+  
+   <connection>
+      <map_components component_1="CaParv" component_2="environment"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+  
+   <connection>
+      <map_components component_1="Mg" component_2="environment"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+  
+   <connection>
+      <map_components component_1="MgParv" component_2="environment"/>
+      <map_variables variable_1="time" variable_2="time"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="Ca" component_2="Parv"/>
+      <map_variables variable_1="Ca" variable_2="Ca"/>
+      <map_variables variable_1="Parv" variable_2="Parv"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="Ca" component_2="CaParv"/>
+      <map_variables variable_1="Ca" variable_2="Ca"/>
+      <map_variables variable_1="CaParv" variable_2="CaParv"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="CaParv" component_2="Parv"/>
+      <map_variables variable_1="CaParv" variable_2="CaParv"/>
+      <map_variables variable_1="Parv" variable_2="Parv"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="Mg" component_2="Parv"/>
+      <map_variables variable_1="Mg" variable_2="Mg"/>
+      <map_variables variable_1="Parv" variable_2="Parv"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="Mg" component_2="MgParv"/>
+      <map_variables variable_1="Mg" variable_2="Mg"/>
+      <map_variables variable_1="MgParv" variable_2="MgParv"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="MgParv" component_2="Parv"/>
+      <map_variables variable_1="MgParv" variable_2="MgParv"/>
+      <map_variables variable_1="Parv" variable_2="Parv"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="Ca" component_2="reaction_constants"/>
+      <map_variables variable_1="k1" variable_2="k1"/>
+      <map_variables variable_1="k1_" variable_2="k1_"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="Parv" component_2="reaction_constants"/>
+      <map_variables variable_1="k1" variable_2="k1"/>
+      <map_variables variable_1="k1_" variable_2="k1_"/>
+      <map_variables variable_1="k2" variable_2="k2"/>
+      <map_variables variable_1="k2_" variable_2="k2_"/>
+   </connection>
+   
+   <connection>
+      <map_components component_1="CaParv" component_2="reaction_constants"/>
+      <map_variables variable_1="k1" variable_2="k1"/>
+      <map_variables variable_1="k1_" variable_2="k1_"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="Mg" component_2="reaction_constants"/>
+      <map_variables variable_1="k2" variable_2="k2"/>
+      <map_variables variable_1="k2_" variable_2="k2_"/>
+   </connection>
+
+   <connection>
+      <map_components component_1="MgParv" component_2="reaction_constants"/>
+      <map_variables variable_1="k2" variable_2="k2"/>
+      <map_variables variable_1="k2_" variable_2="k2_"/>
+   </connection>
+
+
+
+
+<rdf:RDF><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#Mg"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39128"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39128"/></isVersionOf></rdf:Description></rdf:RDF></model>

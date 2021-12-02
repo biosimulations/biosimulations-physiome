@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sedML xmlns="http://sed-ml.org/" xmlns:math="http://www.w3.org/1998/Math/MathML"
+	level="1" version="1">
+	<listOfSimulations>
+		<uniformTimeCourse id="simulation1" initialTime="0"
+			outputStartTime="0" outputEndTime="6.283185307179586232"
+			numberOfPoints="15">
+			<algorithm kisaoID="KISAO:0000019" />
+		</uniformTimeCourse>
+	</listOfSimulations>
+	<listOfModels>
+		<model id="model1" name="sine_approximations" language="urn:sedml:language:cellml"
+			source="http://models.cellml.org/w/andre/sine/rawfile/796d266c5f2a03e7645b3a4bc11f824cf064da5c/sin_approximations.xml" />
+	</listOfModels>
+
+	<listOfTasks>
+        <repeatedTask id="task2" master="true"
+            modelReference="model1" simulationReference="simulation1"
+            resetModel="true">
+            <ranges>
+                <uniformRange id="current" start="-2" end="2" numberOfPoints="5" />
+            </ranges>
+            <changes>
+                <setValue target="/cellml:model/cellml:component[@name='deriv_approx_sin']/cellml:variable[@name='sin']/@initial_value">
+                    <listOfVariables>
+                        <variable id="loopValue" name="current loop value"
+                            target="#current"/>
+                    </listOfVariables>
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <ci>loopValue</ci>
+                    </math>
+                </setValue>
+            </changes>
+        </repeatedTask>
+	</listOfTasks>
+	<listOfDataGenerators>
+		<dataGenerator id="dgX" name="X">
+			<listOfVariables>
+				<variable id="x" taskReference="task2"
+					target="/cellml:model/cellml:component[@name='main']/cellml:variable[@name='x']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>x</math:ci>
+			</math:math>
+		</dataGenerator>
+
+		<dataGenerator id="dgSin2" name="Derivative approximation">
+			<listOfVariables>
+				<variable id="sin2" taskReference="task2"
+					target="/cellml:model/cellml:component[@name='main']/cellml:variable[@name='sin2']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>sin2</math:ci>
+			</math:math>
+		</dataGenerator>
+	</listOfDataGenerators>
+
+	<listOfOutputs>
+		<plot2D id="plot1" name="Scan Results">
+			<listOfCurves>
+				<curve id="c1" logX="false" logY="false" xDataReference="dgX"
+					yDataReference="dgSin2" />
+			</listOfCurves>
+		</plot2D>
+	</listOfOutputs>
+</sedML>

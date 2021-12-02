@@ -1,0 +1,2266 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+    name="cortassa_ECME_model_2006_computed_constants"
+    cmeta:id="computed_constants-model"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+  <import xlink:href="units.xml">
+    <units name="pH_units" units_ref="pH_units"/>
+    <units name="cm_per_ms" units_ref="cm_per_ms"/>
+    <units name="mM" units_ref="mM"/>
+    <units name="K" units_ref="K"/>
+    <units name="per_ms_per_mM" units_ref="per_ms_per_mM"/>
+    <units name="um" units_ref="um"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="mM_per_ms4" units_ref="mM_per_ms4"/>
+    <units name="uA_per_cm2" units_ref="uA_per_cm2"/>
+    <units name="s_per_ms" units_ref="s_per_ms"/>
+    <units name="mM_per_ms" units_ref="mM_per_ms"/>
+    <units name="mM2" units_ref="mM2"/>
+    <units name="per_ms3" units_ref="per_ms3"/>
+    <units name="N_per_mm2" units_ref="N_per_mm2"/>
+    <units name="cm2_per_uA" units_ref="cm2_per_uA"/>
+    <units name="per_um" units_ref="per_um"/>
+    <units name="J_per_mol_per_K" units_ref="J_per_mol_per_K"/>
+    <units name="C_cm_per_s_per_mol" units_ref="C_cm_per_s_per_mol"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="cm2_per_uF" units_ref="cm2_per_uF"/>
+    <units name="C_per_mol" units_ref="C_per_mol"/>
+    <units name="per_mM" units_ref="per_mM"/>
+    <units name="uA_per_mA" units_ref="uA_per_mA"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="uL" units_ref="uL"/>
+    <units name="mM3_cm2_per_uA" units_ref="mM3_cm2_per_uA"/>
+    <units name="ms" units_ref="ms"/>
+    <units name="mM3" units_ref="mM3"/>
+    <units name="mV_per_mM" units_ref="mV_per_mM"/>
+    <units name="mmol_per_mol" units_ref="mmol_per_mol"/>
+    <units name="mmol_per_C_per_cm" units_ref="mmol_per_C_per_cm"/>
+    <units name="per_mM_per_ms" units_ref="per_mM_per_ms"/>
+    <units name="mM_per_mV" units_ref="mM_per_mV"/>
+    <units name="C_per_mmol" units_ref="C_per_mmol"/>
+    <units name="cm2" units_ref="cm2"/>
+    <units name="per_pH_units" units_ref="per_pH_units"/>
+    <units name="mS_per_cm2" units_ref="mS_per_cm2"/>
+    <units name="cm_per_s" units_ref="cm_per_s"/>
+    <units name="uL_per_cm3" units_ref="uL_per_cm3"/>
+    <units name="uF_per_cm2" units_ref="uF_per_cm2"/>
+  </import>
+  <component name="computed_constants">
+    <variable name="Vtotal" cmeta:id="Vtotal" public_interface="out" private_interface="out" units="uL"/>
+    <variable name="Vmito" cmeta:id="Vmito" public_interface="out" private_interface="out" units="uL"/>
+    <variable name="f_01" cmeta:id="f_01" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="f_12" cmeta:id="f_12" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="f_23" cmeta:id="f_23" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="g0_01" cmeta:id="g0_01" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="g0_12" cmeta:id="g0_12" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="g0_23" cmeta:id="g0_23" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="paths" cmeta:id="paths" public_interface="out" private_interface="out" units="per_ms3"/>
+    <variable name="P1max" cmeta:id="P1max" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="P2max" cmeta:id="P2max" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="P3max" cmeta:id="P3max" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="Fmax" cmeta:id="Fmax" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="fnormmax" cmeta:id="fnormmax" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="SLnorm" cmeta:id="SLnorm" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="Ktrop_Ca" cmeta:id="Ktrop_Ca" public_interface="out" private_interface="out" units="mM"/>
+    <variable name="Ktrop_half" cmeta:id="Ktrop_half" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="Ntrop" cmeta:id="Ntrop" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="fnormmax2" cmeta:id="fnormmax2" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="La" cmeta:id="La" public_interface="out" private_interface="out" units="um"/>
+    <variable name="Lm_prime" cmeta:id="Lm_prime" public_interface="out" private_interface="out" units="um"/>
+    <variable name="Lz" cmeta:id="Lz" public_interface="out" private_interface="out" units="um"/>
+    <variable name="Lb" cmeta:id="Lb" public_interface="out" private_interface="out" units="um"/>
+    <variable name="Lm" cmeta:id="Lm" public_interface="out" private_interface="out" units="um"/>
+    <variable name="mod_factor" cmeta:id="mod_factor" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="g_01_mod" cmeta:id="g_01_mod" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="g_12_mod" cmeta:id="g_12_mod" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="g_23_mod" cmeta:id="g_23_mod" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="g_01_off" cmeta:id="g_01_off" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="g_01_off_mod" cmeta:id="g_01_off_mod" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="RT_over_F" cmeta:id="RT_over_F" public_interface="out" private_interface="out" units="mV"/>
+    <variable name="G_Ks" cmeta:id="G_Ks" public_interface="out" private_interface="out" units="mS_per_cm2"/>
+    <variable name="G_K1" cmeta:id="G_K1" public_interface="out" private_interface="out" units="mS_per_cm2"/>
+    <variable name="inv_5p98" cmeta:id="inv_5p98" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="FaradayE3" cmeta:id="FaradayE3" public_interface="out" private_interface="out" units="C_per_mol"/>
+    <variable name="Cao_341" cmeta:id="Cao_341" public_interface="out" private_interface="out" units="mM"/>
+    <variable name="ICamax_LHospital" cmeta:id="ICamax_LHospital" public_interface="out" private_interface="out" units="uA_per_cm2"/>
+    <variable name="Pca_4En3" cmeta:id="Pca_4En3" public_interface="out" private_interface="out" units="cm_per_ms"/>
+    <variable name="F_over_RT" cmeta:id="F_over_RT" public_interface="out" private_interface="out" units="per_mV"/>
+    <variable name="inv_ICahalf" cmeta:id="inv_ICahalf" public_interface="out" private_interface="out" units="cm2_per_uA"/>
+    <variable name="PKFe3" cmeta:id="PKFe3" public_interface="out" private_interface="out" units="C_cm_per_s_per_mol"/>
+    <variable name="sigma" cmeta:id="sigma" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="inv_KmNai" cmeta:id="inv_KmNai" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="INaKmax_Ko_Ko_KmKo" cmeta:id="INaKmax_Ko_Ko_KmKo" public_interface="out" private_interface="out" units="uA_per_cm2"/>
+    <variable name="inv_Ki1AD_NaK" cmeta:id="inv_Ki1AD_NaK" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="eta_1" cmeta:id="eta_1" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="Nao_p3" cmeta:id="Nao_p3" public_interface="out" private_interface="out" units="mM2"/>
+    <variable name="KmCa_Cao" cmeta:id="KmCa_Cao" public_interface="out" private_interface="out" units="mM3_cm2_per_uA"/>
+    <variable name="KmCa_Cao_ksat" cmeta:id="KmCa_Cao_ksat" public_interface="out" private_interface="out" units="mM3_cm2_per_uA"/>
+    <variable name="inv_KiADP_CaP" cmeta:id="inv_KiADP_CaP" public_interface="out" private_interface="out" units="mM"/>
+    <variable name="KmnsCa_p3" cmeta:id="KmnsCa_p3" public_interface="out" private_interface="out" units="mM3"/>
+    <variable name="V_AM_scaler_max_1_f_01_12_23" cmeta:id="V_AM_scaler_max_1_f_01_12_23" public_interface="out" private_interface="out" units="mM_per_ms4"/>
+    <variable name="KmATP_AM_Ki_AM" cmeta:id="KmATP_AM_Ki_AM" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="DmuH_Constant" cmeta:id="DmuH_Constant" public_interface="out" private_interface="out" units="mV"/>
+    <variable name="VCS_C1" cmeta:id="VCS_C1" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="one_inv_KACOeq" cmeta:id="one_inv_KACOeq" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="VIDH_Constant" cmeta:id="VIDH_Constant" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="kIDH_EtID" cmeta:id="kIDH_EtID" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="inv_KADP" cmeta:id="inv_KADP" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="inv_KaCa" cmeta:id="inv_KaCa" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="inv_KidhNADH" cmeta:id="inv_KidhNADH" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="KmKGNAD_KmIDNAD" cmeta:id="KmKGNAD_KmIDNAD" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="Mg_Kmg_1" cmeta:id="Mg_Kmg_1" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="Mg_Kmg_1_Kca" cmeta:id="Mg_Kmg_1_Kca" public_interface="out" private_interface="out" units="mM"/>
+    <variable name="kKGDH_EtKG" cmeta:id="kKGDH_EtKG" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="CoA_KSLeq" cmeta:id="CoA_KSLeq" public_interface="out" private_interface="out" units="mM"/>
+    <variable name="kSDH_EtSDH" cmeta:id="kSDH_EtSDH" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="KmSucc_KiFUM" cmeta:id="KmSucc_KiFUM" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="inv_KiOxaa" cmeta:id="inv_KiOxaa" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="kfFH_KFHeq" cmeta:id="kfFH_KFHeq" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="kMDH_Fh_EtMD" cmeta:id="kMDH_Fh_EtMD" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="Kmal_Kioaa" cmeta:id="Kmal_Kioaa" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="VAAT_Constant" cmeta:id="VAAT_Constant" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="kcnsASP_KAATeq_kfAAT" cmeta:id="kcnsASP_KAATeq_kfAAT" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="KfAAT_GLU" cmeta:id="KfAAT_GLU" public_interface="out" private_interface="out" units="per_ms_per_mM"/>
+    <variable name="KfAAT_KAATeq" cmeta:id="KfAAT_KAATeq" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="kres_sq_KmIDNAD" cmeta:id="kres_sq_KmIDNAD" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="exp_6_FRT_Dpsio" cmeta:id="exp_6_FRT_Dpsio" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="FRT_6_g" cmeta:id="FRT_6_g" public_interface="out" private_interface="out" units="per_mV"/>
+    <variable name="ra_rc1_exp_6_FRT_Dpsio" cmeta:id="ra_rc1_exp_6_FRT_Dpsio" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="r1_exp_6_FRT_Dpsio" cmeta:id="r1_exp_6_FRT_Dpsio" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="rhoREN_ra_rc1_exp_6_FRT_Dpsio" cmeta:id="rhoREN_ra_rc1_exp_6_FRT_Dpsio" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="rhoREN_rc2" cmeta:id="rhoREN_rc2" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="rhoREN_ra" cmeta:id="rhoREN_ra" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="rhoRen_6_ra" cmeta:id="rhoRen_6_ra" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="rhoRen_6_ra_rb" cmeta:id="rhoRen_6_ra_rb" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="AREF" cmeta:id="AREF" public_interface="out" private_interface="out" units="mV"/>
+    <variable name="exp_AREF_FRT" cmeta:id="exp_AREF_FRT" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="ra_rc2_exp_AREF_FRT" cmeta:id="ra_rc2_exp_AREF_FRT" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="VFO_C1" cmeta:id="VFO_C1" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="ra_exp_AREF_FRT" cmeta:id="ra_exp_AREF_FRT" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="ra_rb" cmeta:id="ra_rb" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="VFO_VHFe_C1" cmeta:id="VFO_VHFe_C1" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="r2_r3_exp_AREF_FRT" cmeta:id="r2_r3_exp_AREF_FRT" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="exp_3_FRT_Dpsio" cmeta:id="exp_3_FRT_Dpsio" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="FRT_3" cmeta:id="FRT_3" public_interface="out" private_interface="out" units="per_mV"/>
+    <variable name="kf1_Pi" cmeta:id="kf1_Pi" public_interface="out" private_interface="out" units="mM"/>
+    <variable name="VATPase_C1" cmeta:id="VATPase_C1" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="pa_pb_3" cmeta:id="pa_pb_3" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="pa_300" cmeta:id="pa_300" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="p1_exp_3_FRT_Dpsio" cmeta:id="p1_exp_3_FRT_Dpsio" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="hm_F_over_RT" cmeta:id="hm_F_over_RT" public_interface="out" private_interface="out" units="per_mV"/>
+    <variable name="VmDT_75" cmeta:id="VmDT_75" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="VmDT_20" cmeta:id="VmDT_20" public_interface="out" private_interface="out" units="mM_per_ms"/>
+    <variable name="inv_Kfb" cmeta:id="inv_Kfb" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="inv_Krb" cmeta:id="inv_Krb" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="inv_tautr" cmeta:id="inv_tautr" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="inv_tauxfer" cmeta:id="inv_tauxfer" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="KmATP_SR_Ki_SR" cmeta:id="KmATP_SR_Ki_SR" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="inv_Ki_prime_SR" cmeta:id="inv_Ki_prime_SR" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="alpha_SL_fnormmax2" cmeta:id="alpha_SL_fnormmax2" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="alpha_SL_fnormmax" cmeta:id="alpha_SL_fnormmax" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="inv_LTRPNtot_Ktrop_half" cmeta:id="inv_LTRPNtot_Ktrop_half" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="kTrop_pn_f_01" cmeta:id="kTrop_pn_f_01" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="kTrop_pn_f_12_g_01_mod" cmeta:id="kTrop_pn_f_12_g_01_mod" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="f_23_g_12_mod" cmeta:id="f_23_g_12_mod" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="CMDNtot_KmCMDN" cmeta:id="CMDNtot_KmCMDN" public_interface="out" private_interface="out" units="mM2"/>
+    <variable name="CSQNtot_KmCSQN" cmeta:id="CSQNtot_KmCSQN" public_interface="out" private_interface="out" units="mM2"/>
+    <variable name="inv_ktrans" cmeta:id="inv_ktrans" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="inv_kact" cmeta:id="inv_kact" public_interface="out" private_interface="out" units="per_mM"/>
+    <variable name="Vmuni_ktrans" cmeta:id="Vmuni_ktrans" public_interface="out" private_interface="out" units="per_ms"/>
+    <variable name="FRT2" cmeta:id="FRT2" public_interface="out" private_interface="out" units="per_mV"/>
+    <variable name="b_05" cmeta:id="b_05" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="Acap_Vmyo_F" cmeta:id="Acap_Vmyo_F" public_interface="out" private_interface="out" units="mmol_per_C_per_cm"/>
+    <variable name="Acap_VSS_F" cmeta:id="Acap_VSS_F" public_interface="out" private_interface="out" units="mmol_per_C_per_cm"/>
+    <variable name="VJSR_VSS" cmeta:id="VJSR_VSS" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="Vmyo_VSS" cmeta:id="Vmyo_VSS" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="Vmyo_VNSR" cmeta:id="Vmyo_VNSR" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="VJSR_VNSR" cmeta:id="VJSR_VNSR" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="inv_C_m" cmeta:id="inv_C_m" public_interface="out" private_interface="out" units="cm2_per_uF"/>
+    <variable name="inv_bL" cmeta:id="inv_bL" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="inv_Cmito" cmeta:id="inv_Cmito" public_interface="out" private_interface="out" units="mV_per_mM"/>
+    <variable name="two_b" cmeta:id="two_b" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="inv_keq" cmeta:id="inv_keq" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="zeta_alpha_SL_fnormmax" cmeta:id="zeta_alpha_SL_fnormmax" public_interface="out" private_interface="out" units="N_per_mm2"/>
+    <variable name="alpha_SL" cmeta:id="alpha_SL" public_interface="out"  private_interface="out" units="dimensionless"/>
+    <variable name="Vmyo" cmeta:id="Vmyo" public_interface="in" units="uL"/>
+    <variable name="VJSR" cmeta:id="VJSR" public_interface="in" units="uL"/>
+    <variable name="VNSR" cmeta:id="VNSR" public_interface="in" units="uL"/>
+    <variable name="VSS" cmeta:id="VSS" public_interface="in" units="uL"/>
+    <variable name="f_xb" cmeta:id="f_xb" public_interface="in" units="per_ms"/>
+    <variable name="gmin_xb" cmeta:id="gmin_xb" public_interface="in" units="per_ms"/>
+    <variable name="SL" cmeta:id="SL" public_interface="in" units="um"/>
+    <variable name="kltrpn_minus" cmeta:id="kltrpn_minus" public_interface="in" units="per_ms"/>
+    <variable name="kltrpn_plus" cmeta:id="kltrpn_plus" public_interface="in" units="per_mM_per_ms"/>
+    <variable name="Faraday" cmeta:id="Faraday" public_interface="in" units="C_per_mmol"/>
+    <variable name="R" cmeta:id="R" public_interface="in" units="J_per_mol_per_K"/>
+    <variable name="T" cmeta:id="T" public_interface="in" units="K"/>
+    <variable name="Acap" cmeta:id="Acap" public_interface="in" units="cm2"/>
+    <variable name="C_m" cmeta:id="C_m" public_interface="in" units="uF_per_cm2"/>
+    <variable name="Cao" cmeta:id="Cao" public_interface="in" units="mM"/>
+    <variable name="Ko" cmeta:id="Ko" public_interface="in" units="mM"/>
+    <variable name="Nao" cmeta:id="Nao" public_interface="in" units="mM"/>
+    <variable name="PCa" cmeta:id="PCa" public_interface="in" units="cm_per_s"/>
+    <variable name="ICahalf" cmeta:id="ICahalf" public_interface="in" units="uA_per_cm2"/>
+    <variable name="PK" cmeta:id="PK" public_interface="in" units="cm_per_s"/>
+    <variable name="KmNai" cmeta:id="KmNai" public_interface="in" units="mM"/>
+    <variable name="INaKmax" cmeta:id="INaKmax" public_interface="in" units="uA_per_cm2"/>
+    <variable name="KmKo" cmeta:id="KmKo" public_interface="in" units="mM"/>
+    <variable name="Ki1AD_NaK" cmeta:id="Ki1AD_NaK" public_interface="in" units="mM"/>
+    <variable name="eta" cmeta:id="eta" public_interface="in" units="dimensionless"/>
+    <variable name="KmCa" cmeta:id="KmCa" public_interface="in" units="mM"/>
+    <variable name="KmNa" cmeta:id="KmNa" public_interface="in" units="mM"/>
+    <variable name="kNaCa" cmeta:id="kNaCa" public_interface="in" units="uA_per_cm2"/>
+    <variable name="ksat" cmeta:id="ksat" public_interface="in" units="dimensionless"/>
+    <variable name="KiADP_CaP" cmeta:id="KiADP_CaP" public_interface="in" units="mM"/>
+    <variable name="KmnsCa" cmeta:id="KmnsCa" public_interface="in" units="mM"/>
+    <variable name="V_AM_scaler" cmeta:id="V_AM_scaler" public_interface="in" units="dimensionless"/>
+    <variable name="V_AM_max" cmeta:id="V_AM_max" public_interface="in" units="mM_per_ms"/>
+    <variable name="KmATP_AM" cmeta:id="KmATP_AM" public_interface="in" units="mM"/>
+    <variable name="Ki_AM" cmeta:id="Ki_AM" public_interface="in" units="mM"/>
+    <variable name="DpH" cmeta:id="DpH" public_interface="in" units="pH_units"/>
+    <variable name="KCS" cmeta:id="KCS" public_interface="in" units="per_ms"/>
+    <variable name="EtCS" cmeta:id="EtCS" public_interface="in" units="mM"/>
+    <variable name="AcCoA" cmeta:id="AcCoA" public_interface="in" units="mM"/>
+    <variable name="KmAcCoA" cmeta:id="KmAcCoA" public_interface="in" units="mM"/>
+    <variable name="KACOeq" cmeta:id="KACOeq" public_interface="in" units="dimensionless"/>
+    <variable name="H" cmeta:id="H" public_interface="in" units="mM"/>
+    <variable name="kh_1" cmeta:id="kh_1" public_interface="in" units="mM"/>
+    <variable name="kh_2" cmeta:id="kh_2" public_interface="in" units="mM"/>
+    <variable name="kIDH" cmeta:id="kIDH" public_interface="in" units="per_ms"/>
+    <variable name="EtID" cmeta:id="EtID" public_interface="in" units="mM"/>
+    <variable name="KADP" cmeta:id="KADP" public_interface="in" units="mM"/>
+    <variable name="KaCa" cmeta:id="KaCa" public_interface="in" units="mM"/>
+    <variable name="KidhNADH" cmeta:id="KidhNADH" public_interface="in" units="mM"/>
+    <variable name="KmKGNAD" cmeta:id="KmKGNAD" public_interface="in" units="mM"/>
+    <variable name="KmIDNAD" cmeta:id="KmIDNAD" public_interface="in" units="mM"/>
+    <variable name="Mg" cmeta:id="Mg" public_interface="in" units="mM"/>
+    <variable name="Kmg" cmeta:id="Kmg" public_interface="in" units="mM"/>
+    <variable name="Kca" cmeta:id="Kca" public_interface="in" units="mM"/>
+    <variable name="kKGDH" cmeta:id="kKGDH" public_interface="in" units="per_ms"/>
+    <variable name="EtKG" cmeta:id="EtKG" public_interface="in" units="mM"/>
+    <variable name="CoA" cmeta:id="CoA" public_interface="in" units="mM"/>
+    <variable name="KSLeq" cmeta:id="KSLeq" public_interface="in" units="dimensionless"/>
+    <variable name="kSDH" cmeta:id="kSDH" public_interface="in" units="per_ms"/>
+    <variable name="EtSDH" cmeta:id="EtSDH" public_interface="in" units="mM"/>
+    <variable name="KmSucc" cmeta:id="KmSucc" public_interface="in" units="mM"/>
+    <variable name="KiFUM" cmeta:id="KiFUM" public_interface="in" units="mM"/>
+    <variable name="KiOxaa" cmeta:id="KiOxaa" public_interface="in" units="mM"/>
+    <variable name="kfFH" cmeta:id="kfFH" public_interface="in" units="per_ms"/>
+    <variable name="KFHeq" cmeta:id="KFHeq" public_interface="in" units="dimensionless"/>
+    <variable name="Kh3" cmeta:id="Kh3" public_interface="in" units="mM"/>
+    <variable name="Kh4" cmeta:id="Kh4" public_interface="in" units="mM"/>
+    <variable name="Kh1" cmeta:id="Kh1" public_interface="in" units="mM"/>
+    <variable name="Kh2" cmeta:id="Kh2" public_interface="in" units="mM"/>
+    <variable name="Koff" cmeta:id="Koff" public_interface="in" units="dimensionless"/>
+    <variable name="kMDH" cmeta:id="kMDH" public_interface="in" units="per_ms"/>
+    <variable name="EtMD" cmeta:id="EtMD" public_interface="in" units="mM"/>
+    <variable name="Kmal" cmeta:id="Kmal" public_interface="in" units="mM"/>
+    <variable name="Kioaa" cmeta:id="Kioaa" public_interface="in" units="mM"/>
+    <variable name="kfAAT" cmeta:id="kfAAT" public_interface="in" units="per_ms"/>
+    <variable name="GLU" cmeta:id="GLU" public_interface="in" units="mM"/>
+    <variable name="kcnsASP" cmeta:id="kcnsASP" public_interface="in" units="per_ms"/>
+    <variable name="KAATeq" cmeta:id="KAATeq" public_interface="in" units="dimensionless"/>
+    <variable name="kres" cmeta:id="kres" public_interface="in" units="dimensionless"/>
+    <variable name="Dpsio" cmeta:id="Dpsio" public_interface="in" units="mV"/>
+    <variable name="g" cmeta:id="g" public_interface="in" units="dimensionless"/>
+    <variable name="ra" cmeta:id="ra" public_interface="in" units="per_ms"/>
+    <variable name="rc1" cmeta:id="rc1" public_interface="in" units="per_ms"/>
+    <variable name="r1" cmeta:id="r1" public_interface="in" units="dimensionless"/>
+    <variable name="rhoREN" cmeta:id="rhoREN" public_interface="in" units="mM"/>
+    <variable name="rc2" cmeta:id="rc2" public_interface="in" units="per_ms"/>
+    <variable name="rb" cmeta:id="rb" public_interface="in" units="per_ms"/>
+    <variable name="kresf" cmeta:id="kresf" public_interface="in" units="dimensionless"/>
+    <variable name="FADH2" cmeta:id="FADH2" public_interface="in" units="mM"/>
+    <variable name="FAD" cmeta:id="FAD" public_interface="in" units="mM"/>
+    <variable name="r2" cmeta:id="r2" public_interface="in" units="dimensionless"/>
+    <variable name="r3" cmeta:id="r3" public_interface="in" units="dimensionless"/>
+    <variable name="kf1" cmeta:id="kf1" public_interface="in" units="dimensionless"/>
+    <variable name="Pi" cmeta:id="Pi" public_interface="in" units="mM"/>
+    <variable name="pa" cmeta:id="pa" public_interface="in" units="per_ms"/>
+    <variable name="pc1" cmeta:id="pc1" public_interface="in" units="per_ms"/>
+    <variable name="pb" cmeta:id="pb" public_interface="in" units="per_ms"/>
+    <variable name="p1" cmeta:id="p1" public_interface="in" units="dimensionless"/>
+    <variable name="hm" cmeta:id="hm" public_interface="in" units="dimensionless"/>
+    <variable name="VmDT" cmeta:id="VmDT" public_interface="in" units="mM_per_ms"/>
+    <variable name="Kfb" cmeta:id="Kfb" public_interface="in" units="mM"/>
+    <variable name="Krb" cmeta:id="Krb" public_interface="in" units="mM"/>
+    <variable name="tautr" cmeta:id="tautr" public_interface="in" units="ms"/>
+    <variable name="tauxfer" cmeta:id="tauxfer" public_interface="in" units="ms"/>
+    <variable name="KmATP_SR" cmeta:id="KmATP_SR" public_interface="in" units="mM"/>
+    <variable name="Ki_SR" cmeta:id="Ki_SR" public_interface="in" units="mM"/>
+    <variable name="Ki_prime_SR" cmeta:id="Ki_prime_SR" public_interface="in" units="mM"/>
+    <variable name="LTRPNtot" cmeta:id="LTRPNtot" public_interface="in" units="mM"/>
+    <variable name="kTrop_pn" cmeta:id="kTrop_pn" public_interface="in" units="per_ms"/>
+    <variable name="CMDNtot" cmeta:id="CMDNtot" public_interface="in" units="mM"/>
+    <variable name="KmCMDN" cmeta:id="KmCMDN" public_interface="in" units="mM"/>
+    <variable name="CSQNtot" cmeta:id="CSQNtot" public_interface="in" units="mM"/>
+    <variable name="KmCSQN" cmeta:id="KmCSQN" public_interface="in" units="mM"/>
+    <variable name="ktrans" cmeta:id="ktrans" public_interface="in" units="mM"/>
+    <variable name="kact" cmeta:id="kact" public_interface="in" units="mM"/>
+    <variable name="Vmuni" cmeta:id="Vmuni" public_interface="in" units="mM_per_ms"/>
+    <variable name="b" cmeta:id="b" public_interface="in" units="dimensionless"/>
+    <variable name="bL" cmeta:id="bL" public_interface="in" units="dimensionless"/>
+    <variable name="Cmito" cmeta:id="Cmito" public_interface="in" units="mM_per_mV"/>
+    <variable name="keq" cmeta:id="keq" public_interface="in" units="dimensionless"/>
+    <variable name="zeta" cmeta:id="zeta" public_interface="in" units="N_per_mm2"/>
+    <math id='math_0' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Vtotal</ci>
+        <apply>
+          <divide/>
+          <apply>
+            <plus/>
+            <ci>Vmyo</ci>
+            <ci>VJSR</ci>
+            <ci>VNSR</ci>
+            <ci>VSS</ci>
+          </apply>
+          <cn cellml:units="dimensionless">0.64</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_1' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Vmito</ci>
+        <apply>
+          <times/>
+          <ci>Vtotal</ci>
+          <cn cellml:units="dimensionless">0.36</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_2' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>f_01</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">3.0</cn>
+          <ci>f_xb</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_3' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>f_12</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">10.0</cn>
+          <ci>f_xb</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_4' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>f_23</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">7.0</cn>
+          <ci>f_xb</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_5' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>g0_01</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>gmin_xb</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_6' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>g0_12</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">2.0</cn>
+          <ci>gmin_xb</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_7' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>g0_23</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">3.0</cn>
+          <ci>gmin_xb</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_8' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>paths</ci>
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <ci>g0_01</ci>
+            <ci>g0_12</ci>
+            <ci>g0_23</ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci>f_01</ci>
+            <ci>g0_12</ci>
+            <ci>g0_23</ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci>f_01</ci>
+            <ci>f_12</ci>
+            <ci>g0_23</ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci>f_01</ci>
+            <ci>f_12</ci>
+            <ci>f_23</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_9' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>P1max</ci>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci>f_01</ci>
+            <apply>
+              <times/>
+              <cn cellml:units="dimensionless">2.0</cn>
+              <ci>gmin_xb</ci>
+            </apply>
+            <apply>
+              <times/>
+              <cn cellml:units="dimensionless">3.0</cn>
+              <ci>gmin_xb</ci>
+            </apply>
+          </apply>
+          <ci>paths</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_10' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>P2max</ci>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci>f_01</ci>
+            <ci>f_12</ci>
+            <apply>
+              <times/>
+              <cn cellml:units="dimensionless">3.0</cn>
+              <ci>gmin_xb</ci>
+            </apply>
+          </apply>
+          <ci>paths</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_11' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>P3max</ci>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci>f_01</ci>
+            <ci>f_12</ci>
+            <ci>f_23</ci>
+          </apply>
+          <ci>paths</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_12' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Fmax</ci>
+        <apply>
+          <plus/>
+          <ci>P1max</ci>
+          <apply>
+            <times/>
+            <cn cellml:units="dimensionless">2.0</cn>
+            <ci>P2max</ci>
+          </apply>
+          <apply>
+            <times/>
+            <cn cellml:units="dimensionless">3.0</cn>
+            <ci>P3max</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_13' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>fnormmax</ci>
+        <apply>
+          <divide/>
+          <ci>Fmax</ci>
+          <cn cellml:units="dimensionless">3.0</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_14' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>SLnorm</ci>
+        <apply>
+          <divide/>
+          <apply>
+            <minus/>
+            <ci>SL</ci>
+            <cn cellml:units="um">1.7</cn>
+          </apply>
+          <cn cellml:units="um">0.6</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_15' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Ktrop_Ca</ci>
+        <apply>
+          <divide/>
+          <ci>kltrpn_minus</ci>
+          <ci>kltrpn_plus</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_16' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Ktrop_half</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <apply>
+            <plus/>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply>
+              <divide/>
+              <ci>Ktrop_Ca</ci>
+              <apply>
+                <plus/>
+                <apply>
+                  <divide/>
+                  <cn cellml:units="um">1.7</cn>
+                  <cn cellml:units="dimensionless">1000.0</cn>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <divide/>
+                        <cn cellml:units="um">0.9</cn>
+                        <cn cellml:units="dimensionless">1000.0</cn>
+                      </apply>
+                      <apply>
+                        <divide/>
+                        <cn cellml:units="um">1.7</cn>
+                        <cn cellml:units="dimensionless">1000.0</cn>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <minus/>
+                      <cn cellml:units="um">2.3</cn>
+                      <cn cellml:units="um">1.7</cn>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci>SL</ci>
+                    <cn cellml:units="um">1.7</cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_17' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Ntrop</ci>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <cn cellml:units="per_um">3.5</cn>
+            <ci>SL</ci>
+          </apply>
+          <cn cellml:units="dimensionless">2.0</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_18' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>fnormmax2</ci>
+        <apply>
+          <plus/>
+          <ci>P1max</ci>
+          <ci>P2max</ci>
+          <ci>P3max</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_19' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>La</ci>
+        <cn cellml:units="um">1.0</cn>
+      </apply>
+    </math>
+    <math id='math_20' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Lm_prime</ci>
+        <cn cellml:units="um">1.5</cn>
+      </apply>
+    </math>
+    <math id='math_21' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Lz</ci>
+        <cn cellml:units="um">0.1</cn>
+      </apply>
+    </math>
+    <math id='math_22' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Lb</ci>
+        <cn cellml:units="um">0.1</cn>
+      </apply>
+    </math>
+    <math id='math_23' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Lm</ci>
+        <apply>
+          <minus/>
+          <ci>Lm_prime</ci>
+          <ci>Lb</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_24' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply><eq/>
+        <ci>mod_factor</ci>
+        <apply><plus/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <apply><divide/>
+            <apply><minus/>
+              <cn cellml:units="um">2.3</cn>
+              <ci>SL</ci>
+            </apply>
+            <apply><power/>
+              <apply><divide/>
+                <apply><minus/>
+                  <cn cellml:units="um">2.3</cn>
+                  <cn cellml:units="um">1.7</cn>
+                </apply>
+                <cn cellml:units="um">1.0</cn>
+              </apply>
+              <cn cellml:units="dimensionless">1.6</cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_25' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply><eq/>
+        <ci>alpha_SL</ci>
+        <piecewise>
+          <piece>
+            <apply><min/>
+              <cn cellml:units="dimensionless">1.0</cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <minus/>
+                    <ci>SL</ci>
+                    <apply>
+                      <times/>
+                      <cn cellml:units="dimensionless">2.0</cn>
+                      <ci>La</ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci>Lm_prime</ci>
+                    <ci>Lz</ci>
+                  </apply>
+                </apply>
+                <ci>Lm</ci>
+              </apply>
+            </apply>
+            <apply><lt/>
+              <ci>SL</ci>
+              <cn cellml:units="um">2.2</cn>
+            </apply>
+          </piece>
+          <otherwise>
+            <apply>
+              <minus/>
+              <cn cellml:units="dimensionless">1.0</cn>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci>SL</ci>
+                  <cn cellml:units="um">2.2</cn>
+                </apply>
+                <ci>Lm</ci>
+              </apply>
+            </apply>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    <math id='math_26' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>g_01_mod</ci>
+        <apply>
+          <times/>
+          <ci>g0_01</ci>
+          <ci>mod_factor</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_27' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>g_12_mod</ci>
+        <apply>
+          <times/>
+          <ci>g0_12</ci>
+          <ci>mod_factor</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_28' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>g_23_mod</ci>
+        <apply>
+          <times/>
+          <ci>g0_23</ci>
+          <ci>mod_factor</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_29' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>g_01_off</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">30.0</cn>
+          <cn cellml:units="ms">1000.0</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_30' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>g_01_off_mod</ci>
+        <apply>
+          <times/>
+          <ci>g_01_off</ci>
+          <ci>mod_factor</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_31' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply><eq/>
+        <ci>RT_over_F</ci>
+        <apply><divide/>
+          <apply><times/>
+            <ci>R</ci>
+            <ci>T</ci>
+          </apply>
+          <ci>Faraday</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_32' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>G_Ks</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="mS_per_cm2">0.282</cn>
+          <apply>
+            <root/>
+            <apply>
+              <divide/>
+              <ci>Ko</ci>
+              <cn cellml:units="mM">5.4</cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_33' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>G_K1</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="mS_per_cm2">0.75</cn>
+          <apply>
+            <root/>
+            <apply>
+              <divide/>
+              <ci>Ko</ci>
+              <cn cellml:units="mM">5.4</cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_34' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_5p98</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <cn cellml:units="dimensionless">5.98</cn>
+        </apply>
+      </apply>
+    </math>
+    <!-- FIXME: this must be making something consistent, so the units should probably
+         change also? -->
+    <math id='math_35' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>FaradayE3</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="mmol_per_mol">1000.0</cn>
+          <ci>Faraday</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_36' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Cao_341</ci>
+        <apply>
+          <times/>
+          <ci>Cao</ci>
+          <cn cellml:units="dimensionless">341.0</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_37' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>ICamax_LHospital</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">2.0</cn>
+          <ci>PCa</ci>
+          <cn cellml:units="uA_per_mA">1000.0</cn>
+          <ci>Faraday</ci>
+          <apply>
+            <minus/>
+            <cn cellml:units="mM">1.0</cn>
+            <apply>
+              <times/>
+              <cn cellml:units="dimensionless">341.0</cn>
+              <ci>Cao</ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_38' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Pca_4En3</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">4.0</cn>
+          <cn cellml:units="s_per_ms">1.0e-3</cn>
+          <ci>PCa</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_39' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>F_over_RT</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>RT_over_F</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_40' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_ICahalf</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>ICahalf</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_41' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>PKFe3</ci>
+        <apply>
+          <times/>
+          <ci>FaradayE3</ci>
+          <ci>PK</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_42' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>sigma</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">0.0365</cn>
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <apply>
+                <exp/>
+                <apply>
+                  <divide/>
+                  <ci>Nao</ci>
+                  <cn cellml:units="mM">67.3</cn>
+                </apply>
+              </apply>
+              <cn cellml:units="mM">1.0</cn>
+            </apply>
+            <cn cellml:units="mM">7.0</cn>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_43' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_KmNai</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>KmNai</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_44' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>INaKmax_Ko_Ko_KmKo</ci>
+        <apply>
+          <times/>
+          <ci>INaKmax</ci>
+          <apply>
+            <divide/>
+            <ci>Ko</ci>
+            <apply>
+              <plus/>
+              <ci>Ko</ci>
+              <ci>KmKo</ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_45' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_Ki1AD_NaK</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>Ki1AD_NaK</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_46' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>eta_1</ci>
+        <apply>
+          <minus/>
+          <ci>eta</ci>
+          <cn cellml:units="dimensionless">1.0</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_47' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Nao_p3</ci>
+        <apply>
+          <divide/>
+          <apply>
+            <power/>
+            <ci>Nao</ci>
+            <cn cellml:units="dimensionless">3.0</cn>
+          </apply>
+          <ci>Cao</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_48' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>KmCa_Cao</ci>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <ci>KmCa</ci>
+            <ci>Cao</ci>
+          </apply>
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <power/>
+                <ci>KmNa</ci>
+                <cn cellml:units="dimensionless">3.0</cn>
+              </apply>
+              <apply>
+                <power/>
+                <ci>Nao</ci>
+                <cn cellml:units="dimensionless">3.0</cn>
+              </apply>
+            </apply>
+            <!--FIXME: a / x / y -> a/(x*y) -->
+            <apply><times/>
+              <ci>kNaCa</ci>
+              <ci>Cao</ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_49' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>KmCa_Cao_ksat</ci>
+        <apply>
+          <times/>
+          <ci>KmCa_Cao</ci>
+          <ci>ksat</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_50' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_KiADP_CaP</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>KiADP_CaP</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_51' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>KmnsCa_p3</ci>
+        <apply>
+          <power/>
+          <ci>KmnsCa</ci>
+          <cn cellml:units="dimensionless">3.0</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_52' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>V_AM_scaler_max_1_f_01_12_23</ci>
+        <apply>
+          <times/>
+          <ci>V_AM_scaler</ci>
+          <apply>
+            <divide/>
+            <ci>V_AM_max</ci>
+            <apply>
+              <plus/>
+              <ci>f_01</ci>
+              <ci>f_12</ci>
+              <ci>f_23</ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_53' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>KmATP_AM_Ki_AM</ci>
+        <apply>
+          <divide/>
+          <ci>KmATP_AM</ci>
+          <ci>Ki_AM</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_54' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>DmuH_Constant</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="per_pH_units">-2.303</cn>
+          <ci>RT_over_F</ci>
+          <ci>DpH</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_55' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VCS_C1</ci>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci>KCS</ci>
+            <ci>EtCS</ci>
+            <ci>AcCoA</ci>
+          </apply>
+          <apply>
+            <plus/>
+            <ci>KmAcCoA</ci>
+            <ci>AcCoA</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_56' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>one_inv_KACOeq</ci>
+        <apply>
+          <plus/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <apply>
+            <divide/>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <ci>KACOeq</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_57' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VIDH_Constant</ci>
+        <apply>
+          <plus/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <apply>
+            <divide/>
+            <ci>H</ci>
+            <ci>kh_1</ci>
+          </apply>
+          <apply>
+            <divide/>
+            <ci>kh_2</ci>
+            <ci>H</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_58' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kIDH_EtID</ci>
+        <apply>
+          <times/>
+          <ci>kIDH</ci>
+          <ci>EtID</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_59' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_KADP</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>KADP</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_60' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_KaCa</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>KaCa</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_61' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_KidhNADH</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>KidhNADH</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_62' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>KmKGNAD_KmIDNAD</ci>
+        <apply>
+          <divide/>
+          <ci>KmKGNAD</ci>
+          <ci>KmIDNAD</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_63' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Mg_Kmg_1</ci>
+        <apply>
+          <plus/>
+          <apply>
+            <divide/>
+            <ci>Mg</ci>
+            <ci>Kmg</ci>
+          </apply>
+          <cn cellml:units="dimensionless">1.0</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_64' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Mg_Kmg_1_Kca</ci>
+        <apply>
+          <divide/>
+          <ci>Mg_Kmg_1</ci>
+          <ci>Kca</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_65' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kKGDH_EtKG</ci>
+        <apply>
+          <times/>
+          <ci>kKGDH</ci>
+          <ci>EtKG</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_66' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>CoA_KSLeq</ci>
+        <apply>
+          <divide/>
+          <ci>CoA</ci>
+          <ci>KSLeq</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_67' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kSDH_EtSDH</ci>
+        <apply>
+          <times/>
+          <ci>kSDH</ci>
+          <ci>EtSDH</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_68' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>KmSucc_KiFUM</ci>
+        <apply>
+          <divide/>
+          <ci>KmSucc</ci>
+          <ci>KiFUM</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_69' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_KiOxaa</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>KiOxaa</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_70' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kfFH_KFHeq</ci>
+        <apply>
+          <divide/>
+          <ci>kfFH</ci>
+          <ci>KFHeq</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_71' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kMDH_Fh_EtMD</ci>
+        <apply>
+          <times/>
+          <apply>
+            <power/>
+            <apply>
+              <divide/>
+              <cn cellml:units="dimensionless">1.0</cn>
+              <apply>
+                <plus/>
+                <cn cellml:units="dimensionless">1.0</cn>
+                <apply>
+                  <divide/>
+                  <ci>Kh3</ci>
+                  <ci>H</ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci>Kh3</ci>
+                  <apply>
+                    <divide/>
+                    <ci>Kh4</ci>
+                    <apply>
+                      <power/>
+                      <ci>H</ci>
+                      <cn cellml:units="dimensionless">2.0</cn>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <cn cellml:units="dimensionless">2.0</cn>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <divide/>
+              <cn cellml:units="dimensionless">1.0</cn>
+              <apply>
+                <plus/>
+                <cn cellml:units="dimensionless">1.0</cn>
+                <apply>
+                  <divide/>
+                  <ci>H</ci>
+                  <ci>Kh1</ci>
+                </apply>
+                <apply>
+                  <divide/>
+                  <apply>
+                    <power/>
+                    <ci>H</ci>
+                    <cn cellml:units="dimensionless">2.0</cn>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci>Kh1</ci>
+                    <ci>Kh2</ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <ci>Koff</ci>
+          </apply>
+          <ci>kMDH</ci>
+          <ci>EtMD</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_72' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Kmal_Kioaa</ci>
+        <apply>
+          <divide/>
+          <ci>Kmal</ci>
+          <ci>Kioaa</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_73' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VAAT_Constant</ci>
+        <apply>
+          <times/>
+          <ci>kfAAT</ci>
+          <ci>GLU</ci>
+          <ci>kcnsASP</ci>
+          <apply>
+            <divide/>
+            <ci>KAATeq</ci>
+            <ci>kfAAT</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_74' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kcnsASP_KAATeq_kfAAT</ci>
+        <apply>
+          <times/>
+          <ci>kcnsASP</ci>
+          <apply>
+            <divide/>
+            <ci>KAATeq</ci>
+            <ci>kfAAT</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_75' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>KfAAT_GLU</ci>
+        <apply>
+          <times/>
+          <ci>kfAAT</ci>
+          <ci>GLU</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_76' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>KfAAT_KAATeq</ci>
+        <apply>
+          <divide/>
+          <ci>kfAAT</ci>
+          <ci>KAATeq</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_77' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kres_sq_KmIDNAD</ci>
+        <apply>
+          <times/>
+          <ci>kres</ci>
+          <apply>
+            <divide/>
+            <ci>kres</ci>
+            <ci>KmIDNAD</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_78' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>exp_6_FRT_Dpsio</ci>
+        <apply>
+          <exp/>
+          <apply>
+            <times/>
+            <cn cellml:units="dimensionless">6.0</cn>
+            <ci>Dpsio</ci>
+            <ci>F_over_RT</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_79' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>FRT_6_g</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">6.0</cn>
+          <ci>g</ci>
+          <ci>F_over_RT</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_80' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>ra_rc1_exp_6_FRT_Dpsio</ci>
+        <apply>
+          <plus/>
+          <ci>ra</ci>
+          <apply>
+            <times/>
+            <ci>rc1</ci>
+            <ci>exp_6_FRT_Dpsio</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_81' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>r1_exp_6_FRT_Dpsio</ci>
+        <apply>
+          <times/>
+          <ci>r1</ci>
+          <ci>exp_6_FRT_Dpsio</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_82' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>rhoREN_ra_rc1_exp_6_FRT_Dpsio</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">0.5</cn>
+          <ci>rhoREN</ci>
+          <ci>ra_rc1_exp_6_FRT_Dpsio</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_83' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>rhoREN_rc2</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">0.5</cn>
+          <ci>rhoREN</ci>
+          <ci>rc2</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_84' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>rhoREN_ra</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">0.5</cn>
+          <ci>rhoREN</ci>
+          <ci>ra</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_85' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>rhoRen_6_ra</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">6.0</cn>
+          <ci>rhoREN</ci>
+          <ci>ra</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_86' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>rhoRen_6_ra_rb</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">6.0</cn>
+          <ci>rhoREN</ci>
+          <apply>
+            <plus/>
+            <ci>ra</ci>
+            <ci>rb</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_87' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>AREF</ci>
+        <apply>
+          <times/>
+          <ci>RT_over_F</ci>
+          <apply>
+            <log/>
+            <apply>
+              <times/>
+              <ci>kresf</ci>
+              <apply>
+                <root/>
+                <apply>
+                  <divide/>
+                  <ci>FADH2</ci>
+                  <ci>FAD</ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_88' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>exp_AREF_FRT</ci>
+        <apply>
+          <exp/>
+          <apply>
+            <times/>
+            <ci>AREF</ci>
+            <ci>F_over_RT</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_89' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>ra_rc2_exp_AREF_FRT</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">0.5</cn>
+          <apply>
+            <plus/>
+            <ci>ra</ci>
+            <apply>
+              <times/>
+              <ci>rc2</ci>
+              <ci>exp_AREF_FRT</ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_90' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VFO_C1</ci>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <ci>ra</ci>
+            <apply>
+              <times/>
+              <ci>rc1</ci>
+              <ci>exp_6_FRT_Dpsio</ci>
+            </apply>
+          </apply>
+          <ci>exp_AREF_FRT</ci>
+          <cn cellml:units="dimensionless">0.5</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_91' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>ra_exp_AREF_FRT</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">4.0</cn>
+          <ci>ra</ci>
+          <ci>exp_AREF_FRT</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_92' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>ra_rb</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">4.0</cn>
+          <apply>
+            <plus/>
+            <ci>ra</ci>
+            <ci>rb</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_93' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VFO_VHFe_C1</ci>
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn cellml:units="per_ms">1.0</cn>
+            <apply>
+              <times/>
+              <ci>r1</ci>
+              <ci>exp_AREF_FRT</ci>
+            </apply>
+          </apply>
+          <ci>exp_6_FRT_Dpsio</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_94' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>r2_r3_exp_AREF_FRT</ci>
+        <apply>
+          <plus/>
+          <ci>r2</ci>
+          <apply>
+            <times/>
+            <ci>r3</ci>
+            <ci>exp_AREF_FRT</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_95' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>exp_3_FRT_Dpsio</ci>
+        <apply>
+          <exp/>
+          <apply>
+            <times/>
+            <cn cellml:units="dimensionless">3.0</cn>
+            <ci>Dpsio</ci>
+            <ci>F_over_RT</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_96' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>FRT_3</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">3.0</cn>
+          <ci>F_over_RT</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_97' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kf1_Pi</ci>
+        <apply>
+          <divide/>
+          <ci>kf1</ci>
+          <ci>Pi</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_98' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VATPase_C1</ci>
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <cn cellml:units="dimensionless">100.0</cn>
+            <ci>pa</ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci>pc1</ci>
+            <ci>exp_3_FRT_Dpsio</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_99' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>pa_pb_3</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">3.0</cn>
+          <apply>
+            <plus/>
+            <ci>pa</ci>
+            <ci>pb</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_100' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>pa_300</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">300.0</cn>
+          <ci>pa</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_101' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>p1_exp_3_FRT_Dpsio</ci>
+        <apply>
+          <times/>
+          <ci>p1</ci>
+          <ci>exp_3_FRT_Dpsio</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_102' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>hm_F_over_RT</ci>
+        <apply>
+          <times/>
+          <ci>hm</ci>
+          <ci>F_over_RT</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_103' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VmDT_75</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">0.75</cn>
+          <ci>VmDT</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_104' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VmDT_20</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">20.0</cn>
+          <ci>VmDT</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_105' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_Kfb</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>Kfb</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_106' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_Krb</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>Krb</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_107' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_tautr</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>tautr</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_108' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_tauxfer</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>tauxfer</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_109' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>KmATP_SR_Ki_SR</ci>
+        <apply>
+          <divide/>
+          <ci>KmATP_SR</ci>
+          <ci>Ki_SR</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_110' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_Ki_prime_SR</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>Ki_prime_SR</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_111' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>alpha_SL_fnormmax2</ci>
+        <apply>
+          <divide/>
+          <ci>alpha_SL</ci>
+          <ci>fnormmax2</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_112' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>alpha_SL_fnormmax</ci>
+        <apply>
+          <divide/>
+          <ci>alpha_SL</ci>
+          <!-- FIXME: a / x / y -> a / (x*y) -->
+          <apply><times/>
+            <ci>fnormmax</ci>
+            <cn cellml:units="dimensionless">3.0</cn>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_113' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_LTRPNtot_Ktrop_half</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <apply>
+            <times/>
+            <ci>LTRPNtot</ci>
+            <ci>Ktrop_half</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_114' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kTrop_pn_f_01</ci>
+        <apply>
+          <minus/>
+          <apply>
+            <minus/>
+            <ci>kTrop_pn</ci>
+          </apply>
+          <ci>f_01</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_115' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>kTrop_pn_f_12_g_01_mod</ci>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <ci>kTrop_pn</ci>
+            <ci>f_12</ci>
+            <ci>g_01_mod</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_116' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>f_23_g_12_mod</ci>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <ci>f_23</ci>
+            <ci>g_12_mod</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_117' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>CMDNtot_KmCMDN</ci>
+        <apply>
+          <times/>
+          <ci>CMDNtot</ci>
+          <ci>KmCMDN</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_118' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>CSQNtot_KmCSQN</ci>
+        <apply>
+          <times/>
+          <ci>CSQNtot</ci>
+          <ci>KmCSQN</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_119' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_ktrans</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>ktrans</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_120' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_kact</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>kact</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_121' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Vmuni_ktrans</ci>
+        <apply>
+          <divide/>
+          <ci>Vmuni</ci>
+          <ci>ktrans</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_122' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>FRT2</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">2.0</cn>
+          <ci>F_over_RT</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_123' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>b_05</ci>
+        <apply>
+          <times/>
+          <ci>b</ci>
+          <cn cellml:units="dimensionless">0.5</cn>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_124' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Acap_Vmyo_F</ci>
+        <apply>
+          <divide/>
+          <ci>Acap</ci>
+          <apply>
+            <times/>
+            <ci>Vmyo</ci>
+            <ci>Faraday</ci>
+            <cn cellml:units="uL_per_cm3">1000.0</cn>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_125' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Acap_VSS_F</ci>
+        <apply>
+          <divide/>
+          <ci>Acap</ci>
+          <apply>
+            <times/>
+            <cn cellml:units="dimensionless">2.0</cn>
+            <ci>VSS</ci>
+            <ci>Faraday</ci>
+            <cn cellml:units="uL_per_cm3">1000.0</cn>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_126' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VJSR_VSS</ci>
+        <apply>
+          <divide/>
+          <ci>VJSR</ci>
+          <ci>VSS</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_127' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Vmyo_VSS</ci>
+        <apply>
+          <divide/>
+          <ci>Vmyo</ci>
+          <ci>VSS</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_128' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>Vmyo_VNSR</ci>
+        <apply>
+          <divide/>
+          <ci>Vmyo</ci>
+          <ci>VNSR</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_129' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>VJSR_VNSR</ci>
+        <apply>
+          <divide/>
+          <ci>VJSR</ci>
+          <ci>VNSR</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_130' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_C_m</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>C_m</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_131' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_bL</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>bL</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_132' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_Cmito</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>Cmito</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_133' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>two_b</ci>
+        <apply>
+          <times/>
+          <cn cellml:units="dimensionless">2.0</cn>
+          <ci>b</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_134' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>inv_keq</ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>keq</ci>
+        </apply>
+      </apply>
+    </math>
+    <math id='math_135' xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply>
+        <eq/>
+        <ci>zeta_alpha_SL_fnormmax</ci>
+        <apply>
+          <times/>
+          <ci>zeta</ci>
+          <ci>alpha_SL_fnormmax</ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+</model>

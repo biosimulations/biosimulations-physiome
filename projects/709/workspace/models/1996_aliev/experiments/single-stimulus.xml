@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model cmeta:id="single_stimulus" name="single_stimulus" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../../common/units.xml">
+        <units name="ms" units_ref="ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="per_mm" units_ref="per_mm"/>
+        <units name="uA_per_mmcu" units_ref="uA_per_mmcu"/>
+    </import>
+    <import xlink:href="../model.xml">
+        <component component_ref="interface" name="math_model"/>
+        <units name="uApmmsq" units_ref="uApmmsq"/>
+    </import>
+    <component cmeta:id="time_component" name="time">
+        <variable cmeta:id="time" initial_value="0.0" name="time" public_interface="out" units="ms"/>
+    </component>
+    <connection>
+        <map_components component_1="math_model" component_2="time"/>
+        <map_variables variable_1="t" variable_2="time"/>
+    </connection>
+    <import xlink:href="../../protocols/single-pulse-IStim.xml">
+        <component component_ref="stimulus_protocol" name="stimulus_protocol"/>
+    </import>
+    <component cmeta:id="stimulus_parameters" name="stimulus_parameters">
+        <variable initial_value="100" name="stimTime" public_interface="out" units="ms"/>
+        <variable initial_value="0.5" name="stimDuration" public_interface="out" units="ms"/>
+        <variable initial_value="400" name="stimCurrent" public_interface="out" units="uA_per_mmcu"/>
+        <variable initial_value="200" name="Am" public_interface="out" units="per_mm"/>
+    </component>
+    <connection>
+        <map_components component_1="math_model" component_2="stimulus_protocol"/>
+        <map_variables variable_1="Istim" variable_2="IStim"/>
+    </connection>
+    <connection>
+        <map_components component_1="time" component_2="stimulus_protocol"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="stimulus_parameters" component_2="stimulus_protocol"/>
+        <map_variables variable_1="stimTime" variable_2="stimTime"/>
+        <map_variables variable_1="stimDuration" variable_2="stimDuration"/>
+        <map_variables variable_1="stimCurrent" variable_2="stimCurrent"/>
+        <map_variables variable_1="Am" variable_2="Am"/>
+    </connection>
+    <component cmeta:id="output_variables" name="output_variables">
+        <variable cmeta:id="Vm" name="Vm" public_interface="in" units="mV"/>
+        <variable name="v" public_interface="in" units="dimensionless"/>
+        <variable name="Iion" public_interface="in" units="uApmmsq"/>
+    </component>
+    <connection>
+        <map_components component_1="math_model" component_2="output_variables"/>
+        <map_variables variable_1="Vm" variable_2="Vm"/>
+        <map_variables variable_1="v" variable_2="v"/>
+        <map_variables variable_1="Iion" variable_2="Iion"/>
+    </connection>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Nickerson</vCard:Family>
+                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">David</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">d.nickerson@auckland.ac.nz</rdf:value>
+                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                </vCard:EMAIL>
+                <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The University of Auckland</vCard:Orgname>
+                    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Bioengineering Institute</vCard:Orgunit>
+                </vCard:ORG>
+            </dc:creator>
+            <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2009-06-17</dcterms:W3CDTF>
+            </dcterms:created>
+            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">
+        Bioengineering Institute, The University of Auckland
+      </dc:publisher>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#single_stimulus">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">
+        Action potential simulation with single stimulus.
+      </dc:title>
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          This is the CellML description of a action potential simulation
+          with a single stimulus current applied to the default FHN model.
+        </rdf:value>
+                <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">David Nickerson</vCard:FN>
+                </dc:creator>
+            </cmeta:comment>
+            <cs:simulation xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:ID="simulation">
+                    <cs:multistepMethod xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">bdf</cs:multistepMethod>
+                    <cs:iterationMethod xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">functional</cs:iterationMethod>
+                    <cs:boundIntervals xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:parseType="Collection" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                            <cs:boundVariable xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+                                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#time"/>
+                            </cs:boundVariable>
+                            <cs:maximumStepSize xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                0.1
+              </cs:maximumStepSize>
+                            <cs:tabulationStepSize xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                1.0
+              </cs:tabulationStepSize>
+                            <cs:startingValue xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                0
+              </cs:startingValue>
+                            <cs:endingValue xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                800
+              </cs:endingValue>
+                        </rdf:Description>
+                    </cs:boundIntervals>
+                </rdf:Description>
+            </cs:simulation>
+        </rdf:Description>
+    </rdf:RDF>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#time_component">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+            The actual definition of the time variable.&#xd;
+          </rdf:value>
+            </cmeta:comment>
+        </rdf:Description>
+    </rdf:RDF>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#stimulus_parameters">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+            Here we define the parameters for the standard stimulus protocol we import for this experiment.&#xd;
+          </rdf:value>
+            </cmeta:comment>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

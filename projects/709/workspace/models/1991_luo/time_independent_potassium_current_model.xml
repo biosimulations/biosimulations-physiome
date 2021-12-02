@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="time_independent_potassium_current_model">
+  <component name="time_independent_potassium_current">
+    <variable name="i_K1" private_interface="out" public_interface="out" units="uA_per_mm2"/>
+    <variable name="E_K1" private_interface="out" public_interface="out" units="mV"/>
+    <variable name="g_K1" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="g_K1_max" private_interface="out" public_interface="out" units="mS_per_mm2"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="V" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="Ko" private_interface="out" public_interface="in" units="concentration_units"/>
+    <variable name="Ki" private_interface="out" public_interface="in" units="concentration_units"/>
+    <variable name="R" private_interface="out" public_interface="in" units="gas_constant_units"/>
+    <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
+    <variable name="F" private_interface="out" public_interface="in" units="faradays_constant_units"/>
+    <variable name="K1_infinity" private_interface="out" public_interface="in" units="dimensionless"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="g_K1_max_calculation_eq">
+      <apply id="g_K1_max_calculation"><eq/>
+        <ci> g_K1_max </ci>
+        <apply><times/>
+          <ci> g_K1 </ci>
+          <apply><root/>
+            <apply><divide/>
+              <ci> Ko </ci>
+              <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="concentration_units"> 5.4 </cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="E_K1_max_calculation_eq">
+      <apply id="E_K1_calculation"><eq/>
+        <ci> E_K1 </ci>
+        <apply><times/>
+          <apply><divide/>
+            <apply><times/>
+              <ci> R </ci>
+              <ci> T </ci>
+            </apply>
+            <ci> F </ci>
+          </apply>
+          <apply><ln/>
+            <apply><divide/>
+              <ci> Ko </ci>
+              <ci> Ki </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="i_K1_max_calculation_eq">
+      <apply id="i_K1_calculation"><eq/>
+        <ci> i_K1 </ci>
+        <apply><times/>
+          <ci> g_K1_max </ci>
+          <ci> K1_infinity </ci>
+          <apply><minus/>     
+            <ci> V </ci>
+            <ci> E_K1 </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="luo_rudy_I_model_1991_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+    <units name="gas_constant_units" units_ref="gas_constant_units"/>
+    <units name="faradays_constant_units" units_ref="faradays_constant_units"/>
+  </import>
+</model>

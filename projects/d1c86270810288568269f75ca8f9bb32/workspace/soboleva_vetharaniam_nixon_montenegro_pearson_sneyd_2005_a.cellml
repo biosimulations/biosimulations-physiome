@@ -1,0 +1,882 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--  FILE :  soboleva_model_2005.xml
+
+CREATED :  1st October 2007
+
+LAST MODIFIED : 1st October 2007
+
+AUTHOR :  Catherine Lloyd
+          Bioengineering Institute
+          The University of Auckland
+          
+MODEL STATUS :  This model conforms to the CellML 1.1 Specification.
+
+DESCRIPTION :  This file contains a CellML description of Soboleva et al.'s 2005 mathematical model of prolactin-receptor interaction and the corollary for prolactin receptor gene expression in skin.
+
+CHANGES:  
+  
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="soboleva_model_2005" name="soboleva_model_2005_version01">
+
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Mathematical modelling of prolactin-receptor interaction and the corollary for prolactin receptor gene expression in skin</title>
+  <author>
+    <firstname>Catherine</firstname>
+          <surname>Lloyd</surname>
+    <affiliation>
+      <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+        This CellML version of the model has been checked in COR and PCEnv and the model runs to replicate the results in the original published paper.  The units have been checked and are consistent.  This particular variant of the model simulates a continuous infusion of prolactin over a nine day period.  
+          </para>
+  </section>
+  <sect1 id="sec_structure">
+  <title>Model Structure</title>
+
+<para>
+When prolactin was first discovered it was identified exclusively as being a lactogenic hormone.  However, since its initial discovery a wide range of biological functions have been assigned to prolactin, including water and electrolyte regulation, growth and development, metamorphosis, cell proliferation and differentiation, behaviour and immunoregulation.  While the principal site of prolactin synthesis and secretion is the anterior pituitary gland, it is also produced locally by other tissues, including the skin.
+</para>
+
+<para>
+Prolactin binds to a transmembrane cell surface receptor which exists as multiple isoforms, generated from a single gene by alternative splicing.  These receptors are expressed throughout the body in many different tissues, consistent with prolactin's diverse range of physiological roles.  Prolactin binds sequentially two two receptors, via two binding sites of differing affinities, to produce a dimer complex.  This then initiates an intracellular signal transduction pathway, usually via a kinase cascade.  While ligand-mediated receptor down-regulation has been observed (negative feedback), in certain tissues prolactin is also able to up-regulate expression of its own receptor (positive feedback).  Signalling mechanisms within the cell can regulate receptor expression at the transcriptional level, and feedback can also occur on a larger spatial scale via different endocrine mechanisms.  In combination, these mechanisms of prolactin receptor regulation may be an important determinant of the nature of the responses of a target tissue to prolactin.
+</para>
+
+<para>
+In the paper described here, Soboleva <emphasis>et al.</emphasis> present a mathematical model of the prolactin-prolactin receptor signalling pathway (see figure below).  Model simulations demonstrate that while prolactin receptor expression is insensitive to subcutaneous injections of prolactin, it does however respond to a prolonged infusion of prolactin.  Under these latter conditions there is an initial acute period of receptor down-regulation followed by a prolonged period of up-regulation. 
+</para>
+
+<informalfigure float="0" id="fig_reaction_diagram">
+<mediaobject>
+  <imageobject>
+    <objectinfo>
+      <title>model diagram</title>
+    </objectinfo>
+    <imagedata fileref="soboleva_2005.png"/>
+  </imageobject>
+</mediaobject>
+<caption>Schematic diagram of the reactions described by the prolactin-prolactin receptor signalling pathway model.  U represents the unbound prolactin receptor on the surface of the cell, B1 is the bound receptor, B2 is the dimerised receptor, P represents prolactin in the plasma, and R is the mRNA for the prolactin receptor.</caption>
+</informalfigure>
+
+<para>
+The complete original paper reference is cited below:
+</para>
+
+<para>
+Mathematical modelling of prolactin-receptor interaction and the corollary for prolactin receptor gene expression in skin, T.K. Soboleva, I. Vetharaniam, A.J. Nixon, R. Montenegro, A.J. Pearson and J. Sneyd, 2005, <emphasis>Journal of Theoretical Biology</emphasis>, 234, 289-298. <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/15757685">PubMed ID: 15757685</ulink>
+</para>
+
+</sect1>
+</article>
+</documentation> 
+
+
+
+
+  <units name="day">
+    <unit units="second" multiplier="86400.0"/>
+  </units>  
+
+  <units name="nanomole">
+    <unit units="mole" prefix="nano"/>
+  </units>
+
+  <units name="nanomolar">
+    <unit units="mole" prefix="nano"/>
+    <unit units="litre" exponent="-1"/>
+  </units>
+
+  <units name="first_order_rate_constant">
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="flux">
+    <unit units="nanomolar"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="per_nanomolar_day">
+    <unit units="nanomolar" exponent="-1"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="nanomolar_day2">
+    <unit units="nanomolar"/>
+    <unit units="day" exponent="-2"/>
+  </units>
+  
+  
+  <component name="environment">
+    <variable units="day" public_interface="out" name="time"/>
+  </component>
+  
+  <component cmeta:id="R" name="R">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="R">
+        <dc:title>R</dc:title>
+        <dcterms:alternative>PRLR mRNA</dcterms:alternative>
+       </rdf:Description>
+    </rdf:RDF>  
+    <variable units="nanomolar" public_interface="out" name="R" initial_value="1.0"/>
+    
+    <variable units="first_order_rate_constant" name="delta_R" initial_value="1.905"/>
+    
+    <variable units="flux" public_interface="in" name="f1"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="1"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> R </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <ci> f1 </ci>
+          <apply>
+            <times/>
+            <ci> delta_R </ci>
+            <ci> R </ci> 
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component cmeta:id="U" name="U">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="U">
+        <dc:title>U</dc:title>
+        <dcterms:alternative>concentration of unbound prolactin receptors on the surface of a cell</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="nanomolar" public_interface="out" name="U" initial_value="1.0"/>
+
+    <variable units="first_order_rate_constant" name="delta_U" initial_value="7.5"/>
+    
+    <variable units="per_nanomolar_day" public_interface="in" name="alpha0"/>
+    <variable units="per_nanomolar_day" public_interface="in" name="alpha1"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="d01"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="d12"/>
+    <variable units="nanomolar" public_interface="in" name="B1"/>
+    <variable units="nanomolar" public_interface="in" name="B2"/>
+    <variable units="nanomolar" public_interface="in" name="P"/>
+    <variable units="flux" public_interface="in" name="f2"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="2"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> U </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <ci> f2 </ci>
+            <apply>
+              <times/>
+              <ci> d01 </ci>
+              <ci> B1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> d12 </ci>
+              <ci> B2 </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> delta_U </ci>
+              <ci> U </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> alpha0 </ci>
+              <ci> P </ci>
+              <ci> U </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> alpha1 </ci>
+              <ci> B1 </ci>
+              <ci> U </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component cmeta:id="B1" name="B1">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="B1">
+        <dc:title>B1</dc:title>
+        <dcterms:alternative>concentration of prolactin bound to one receptor at binding site 1</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="nanomolar" public_interface="out" name="B1" initial_value="1.0"/>
+    
+    <variable units="first_order_rate_constant" name="delta_b1" initial_value="7.5"/>
+    
+    <variable units="per_nanomolar_day" public_interface="in" name="alpha0"/>
+    <variable units="per_nanomolar_day" public_interface="in" name="alpha1"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="d01"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="d12"/>
+    <variable units="nanomolar" public_interface="in" name="U"/>
+    <variable units="nanomolar" public_interface="in" name="B2"/>
+    <variable units="nanomolar" public_interface="in" name="P"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="3"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> B1 </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> alpha0 </ci>
+              <ci> P </ci>
+              <ci> U </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> d12 </ci>
+              <ci> B2 </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> d01 </ci>
+              <ci> B1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> delta_b1 </ci>
+              <ci> B1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> alpha1 </ci>
+              <ci> B1 </ci>
+              <ci> U </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="B2" name="B2">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="B2">
+        <dc:title>B2</dc:title>
+        <dcterms:alternative>concentration of prolactin bound to two receptors (dimer)</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="nanomolar" public_interface="out" name="B2" initial_value="1.0"/>
+    
+    <variable units="first_order_rate_constant" name="delta_b2" initial_value="50.0"/>
+    
+    <variable units="per_nanomolar_day" public_interface="in" name="alpha1"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="d12"/>
+    <variable units="nanomolar" public_interface="in" name="U"/>
+    <variable units="nanomolar" public_interface="in" name="B1"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="4"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> B2 </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> alpha1 </ci>
+            <ci> B1 </ci>
+            <ci> U </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> d12 </ci>
+              <ci> B2 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> delta_b2 </ci>
+              <ci> B2 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component cmeta:id="P" name="P">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="P">
+        <dc:title>P</dc:title>
+        <dcterms:alternative>concentration of plasma prolactin</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="nanomolar" public_interface="out" name="P"/>
+    
+    <variable units="nanomolar" name="PE" initial_value="20.55"/>
+    <variable units="dimensionless" name="q"/>
+    <variable units="first_order_rate_constant" name="G" initial_value="35.6"/>
+    <variable units="day" name="ti" initial_value="1.0"/>
+    <variable units="day" name="T" initial_value="9.0"/>
+    
+    <variable units="nanomolar" public_interface="in" name="P0"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="5"> 
+      <apply>
+        <eq/> 
+        <ci> P </ci> 
+        <apply>
+          <plus/>
+          <ci> P0 </ci>
+          <apply>
+            <times/>
+            <ci> PE </ci>
+            <ci> q </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply>
+        <eq/> 
+        <ci> q </ci> 
+        <piecewise>
+          <piece>
+            <cn cellml:units="dimensionless"> 0.0 </cn>
+            <apply>
+              <lt/>
+              <ci> time </ci>
+              <ci> ti </ci>
+            </apply>
+          </piece>
+          <piece>
+            <apply>
+              <minus/>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply>
+                <exp/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> G </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> time </ci>
+                    <ci> ti </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <and/>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <apply>
+                  <plus/>
+                  <ci> T </ci>
+                  <ci> ti </ci>
+                </apply>
+              </apply>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <ci> ti </ci>
+              </apply>
+            </apply>
+          </piece>
+          <otherwise>
+            <apply>
+              <times/>
+              <apply>
+                <exp/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <times/>
+                    <ci> G </ci> 
+                    <ci> T </ci>
+                  </apply>
+                  <cn cellml:units="dimensionless"> 1.0 </cn>
+                </apply>
+              </apply>
+              <apply>
+                <exp/>
+                <apply>
+                  <times/>
+                  <ci> G </ci>
+                  <apply>
+                    <minus/> 
+                    <ci> time </ci>
+                    <ci> ti </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply> 
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+  </component>
+
+  <component name="f1">  
+    <variable units="flux" public_interface="out" name="f1"/>
+    
+    <variable units="flux" name="a" initial_value="3.58E5"/>
+    <variable units="flux" name="a0" initial_value="2.33E4"/>
+    <variable units="nanomolar" name="b" initial_value="100.0"/>
+    <variable units="nanomolar" name="b0" initial_value="263.0"/>
+     
+    <variable units="flux" public_interface="in" name="x"/>
+    <variable units="nanomolar" public_interface="in" name="B2"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="6"> 
+      <apply>
+        <eq/> 
+        <ci> f1 </ci> 
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <ci> a0 </ci>
+            <apply>
+              <minus/>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply>
+                <divide/>
+                <ci> B2 </ci>
+                <apply>
+                  <plus/>
+                  <ci> b </ci>
+                  <ci> B2 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> x </ci>
+              <apply>
+                <minus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <apply>
+                  <exp/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/> 
+                      <ci> x </ci>
+                    </apply>
+                    <ci> a </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <ci> B2 </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> b0 </ci>
+              <ci> B2 </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component name="x">  
+    <variable units="flux" public_interface="out" name="x" initial_value="1.0"/>
+    
+    <variable units="nanomolar" name="P1" initial_value="20.0"/>
+    <variable units="nanomolar_day2" name="s" initial_value="3.71E5"/>
+    <variable units="first_order_rate_constant" name="delta_x" initial_value="0.207"/>
+     
+    <variable units="day" public_interface="in" name="time"/>
+    <variable units="nanomolar" public_interface="in" name="P"/>
+    <variable units="nanomolar" public_interface="in" name="P0"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="6"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> x </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> s </ci>
+              <apply>
+                <minus/>
+                <ci> P </ci>
+                <ci> P0 </ci>
+              </apply>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> P </ci>
+              <ci> P1 </ci>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> delta_x </ci>
+            <ci> x </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component name="f2">  
+    <variable units="flux" public_interface="out" name="f2"/>
+    
+    <variable units="flux" name="kappa" initial_value="2.4E5"/>
+    <variable units="nanomolar" name="kappa0" initial_value="6.55E3"/>
+     
+    <variable units="nanomolar" public_interface="in" name="R"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="6"> 
+      <apply>
+        <eq/> 
+        <ci> f2 </ci> 
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> kappa </ci>
+            <ci> R </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <ci> kappa0 </ci>
+            <ci> R </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component name="model_parameters"> 
+    <variable units="per_nanomolar_day" public_interface="out" name="alpha0" initial_value="4.15"/>
+    <variable units="per_nanomolar_day" public_interface="out" name="alpha1" initial_value="3.02"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="d01" initial_value="13.0"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="d12" initial_value="4.72E3"/>
+    <variable units="nanomolar" public_interface="out" name="P0" initial_value="0.25"/>
+  </component>
+  
+  <connection>
+    <map_components component_2="environment" component_1="R"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="U"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="environment" component_1="B1"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="B2"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="environment" component_1="x"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="P"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="f1" component_1="R"/>
+    <map_variables variable_2="f1" variable_1="f1"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="B1" component_1="U"/>
+    <map_variables variable_2="B1" variable_1="B1"/>
+    <map_variables variable_2="U" variable_1="U"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="B2" component_1="U"/>
+    <map_variables variable_2="B2" variable_1="B2"/>
+    <map_variables variable_2="U" variable_1="U"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="P" component_1="U"/>
+    <map_variables variable_2="P" variable_1="P"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="f2" component_1="U"/>
+    <map_variables variable_2="f2" variable_1="f2"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="U"/>
+    <map_variables variable_2="alpha0" variable_1="alpha0"/>
+    <map_variables variable_2="alpha1" variable_1="alpha1"/>
+    <map_variables variable_2="d01" variable_1="d01"/>
+    <map_variables variable_2="d12" variable_1="d12"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="B1" component_1="B2"/>
+    <map_variables variable_2="B1" variable_1="B1"/>
+    <map_variables variable_2="B2" variable_1="B2"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="P" component_1="B1"/>
+    <map_variables variable_2="P" variable_1="P"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="B1"/>
+    <map_variables variable_2="alpha0" variable_1="alpha0"/>
+    <map_variables variable_2="alpha1" variable_1="alpha1"/>
+    <map_variables variable_2="d01" variable_1="d01"/>
+    <map_variables variable_2="d12" variable_1="d12"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="B2"/>
+    <map_variables variable_2="alpha1" variable_1="alpha1"/>
+    <map_variables variable_2="d12" variable_1="d12"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="B2" component_1="f1"/>
+    <map_variables variable_2="B2" variable_1="B2"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="x" component_1="f1"/>
+    <map_variables variable_2="x" variable_1="x"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="P" component_1="x"/>
+    <map_variables variable_2="P" variable_1="P"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="x"/>
+    <map_variables variable_2="P0" variable_1="P0"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="R" component_1="f2"/>
+    <map_variables variable_2="R" variable_1="R"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="P"/>
+    <map_variables variable_2="P0" variable_1="P0"/>
+  </connection>
+
+<rdf:RDF>
+  <rdf:Bag rdf:about="rdf:#cd6746f9-4b5e-4685-91bb-0117956ebeda">
+    <rdf:li>prolactin</rdf:li>
+    <rdf:li>prolactin receptor</rdf:li>
+    <rdf:li>skin</rdf:li>
+    <rdf:li>gene expression</rdf:li>
+  </rdf:Bag>
+  <rdf:Seq rdf:about="rdf:#18daadd1-becb-4b02-a390-1b0ba4a3b265">
+    <rdf:li rdf:resource="rdf:#32bb3374-6d71-4b9f-bd15-d667e8fa01f6"/>
+    <rdf:li rdf:resource="rdf:#b6e84c59-be20-4ebb-b04e-afe02de8cdd6"/>
+    <rdf:li rdf:resource="rdf:#4e0d83c2-7d52-4cbd-9b1a-9f6e79f4ed99"/>
+    <rdf:li rdf:resource="rdf:#37888837-89d7-46a7-91e1-47d4fd34fc97"/>
+    <rdf:li rdf:resource="rdf:#bb61db8d-0756-45a4-8162-0c9635f14feb"/>
+    <rdf:li rdf:resource="rdf:#d90bff70-6e84-4e40-8a0a-8d5aabae6f8c"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#1cedfe2d-cbd0-421a-92e7-8a770aae541a">
+    <vCard:FN/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>The University of Auckland, Bioengineering Institute</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#7399037f-8b22-4968-b4d5-e029f1e6fa84"/>
+    <dcterms:created rdf:resource="rdf:#3bb19e6a-d0d6-4e4d-acb9-7c67be1d932d"/>
+    <dc:creator rdf:resource="rdf:#44f28fbe-6f4f-47d9-80b3-3f6fc41e637d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#32bb3374-6d71-4b9f-bd15-d667e8fa01f6">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#8673e51c-a36a-41e8-b430-1a86d59fab91"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#soboleva_model_2005">
+    <dc:title>
+        Soboleva et al.'s 2005 mathematical model of prolactin-receptor interaction and the corollary for prolactin receptor gene expression in skin.
+      </dc:title>
+    <cmeta:comment rdf:resource="rdf:#cfb019ab-90a4-4f45-9359-73fc6cd48aaf"/>
+    <bqs:reference rdf:resource="rdf:#5e823b50-5020-46ee-8473-378f7708cd16"/>
+    <bqs:reference rdf:resource="rdf:#678dc5e8-47e9-4400-a1b8-00d1da05f9e7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#70e17f12-45da-4ded-870e-02fad0dfc3d4">
+    <vCard:Given>J</vCard:Given>
+    <vCard:Family>Sneyd</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8673e51c-a36a-41e8-b430-1a86d59fab91">
+    <vCard:Given>T</vCard:Given>
+    <vCard:Family>Soboleva</vCard:Family>
+    <vCard:Other>K</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4e0d83c2-7d52-4cbd-9b1a-9f6e79f4ed99">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#7fe83f49-3f8f-4167-8a73-45f3c4d39399"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4dadc944-28b9-4454-b7c6-4cf32c557cc8">
+    <vCard:Given>A</vCard:Given>
+    <vCard:Family>Pearson</vCard:Family>
+    <vCard:Other>J</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#95a33c29-108e-482d-9618-a221a849792e">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value rdf:resource="rdf:#cd6746f9-4b5e-4685-91bb-0117956ebeda"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7fe83f49-3f8f-4167-8a73-45f3c4d39399">
+    <vCard:Given>A</vCard:Given>
+    <vCard:Family>Nixon</vCard:Family>
+    <vCard:Other>J</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#27634920-6cd0-444f-abce-06e73d6aa4fa">
+    <vCard:Given>R</vCard:Given>
+    <vCard:Family>Montenegro</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5e823b50-5020-46ee-8473-378f7708cd16">
+    <bqs:Pubmed_id>15757685</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#2f3ad519-f348-4b8f-9ce6-f22c79ba4e10"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c5e2e65d-4bb4-4180-a82c-0f1260195796">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#678dc5e8-47e9-4400-a1b8-00d1da05f9e7">
+    <dc:subject rdf:resource="rdf:#95a33c29-108e-482d-9618-a221a849792e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5cc04c56-301c-48f6-a5db-446ccf6ca620">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>The Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#37888837-89d7-46a7-91e1-47d4fd34fc97">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#27634920-6cd0-444f-abce-06e73d6aa4fa"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#cfb019ab-90a4-4f45-9359-73fc6cd48aaf">
+    <dc:creator rdf:resource="rdf:#7603b05d-52d9-4a95-a255-d5c97b609747"/>
+    <rdf:value>This is a CellML description of Soboleva et al.'s 2005 mathematical model of prolactin-receptor interaction and the corollary for prolactin receptor gene expression in skin.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bb61db8d-0756-45a4-8162-0c9635f14feb">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#4dadc944-28b9-4454-b7c6-4cf32c557cc8"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#1667ae95-5955-4d69-9f47-4ec9c05becb0">
+    <dc:title>Journal of Theoretical Biology</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7399037f-8b22-4968-b4d5-e029f1e6fa84">
+    <dc:creator rdf:resource="rdf:#1cedfe2d-cbd0-421a-92e7-8a770aae541a"/>
+    <rdf:value/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2f3ad519-f348-4b8f-9ce6-f22c79ba4e10">
+    <dc:creator rdf:resource="rdf:#18daadd1-becb-4b02-a390-1b0ba4a3b265"/>
+    <dc:title>Mathematical modelling of prolactin-receptor interaction and the corollary for prolactin receptor gene expression in skin</dc:title>
+    <bqs:volume>234</bqs:volume>
+    <bqs:first_page>289</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#1667ae95-5955-4d69-9f47-4ec9c05becb0"/>
+    <dcterms:issued rdf:resource="rdf:#6ef8d93c-b5cf-4a7e-b2b8-9ae78c42f16a"/>
+    <bqs:last_page>298</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#44f28fbe-6f4f-47d9-80b3-3f6fc41e637d">
+    <vCard:ORG rdf:resource="rdf:#5cc04c56-301c-48f6-a5db-446ccf6ca620"/>
+    <vCard:EMAIL rdf:resource="rdf:#a9617660-99d3-441c-bbb1-0cbedc782f87"/>
+    <vCard:N rdf:resource="rdf:#c5e2e65d-4bb4-4180-a82c-0f1260195796"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a9617660-99d3-441c-bbb1-0cbedc782f87">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7603b05d-52d9-4a95-a255-d5c97b609747">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d90bff70-6e84-4e40-8a0a-8d5aabae6f8c">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#70e17f12-45da-4ded-870e-02fad0dfc3d4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6ef8d93c-b5cf-4a7e-b2b8-9ae78c42f16a">
+    <dcterms:W3CDTF>2005-05-21</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b6e84c59-be20-4ebb-b04e-afe02de8cdd6">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#d2b8921d-d7f3-41e4-8a0a-14d5c4f19148"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d2b8921d-d7f3-41e4-8a0a-14d5c4f19148">
+    <vCard:Given>I</vCard:Given>
+    <vCard:Family>Vetharaniam</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#3bb19e6a-d0d6-4e4d-acb9-7c67be1d932d">
+    <dcterms:W3CDTF>2007-10-02T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+</rdf:RDF>
+</model>

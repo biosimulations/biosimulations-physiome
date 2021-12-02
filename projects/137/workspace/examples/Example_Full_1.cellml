@@ -1,0 +1,512 @@
+<?xml version="1.0"?>
+<!--
+This CellML file was generated on 4/18/2013 at 5:25:56 at PM using:
+
+COR (0.9.31.1409)
+Copyright 2002-2013 Dr Alan Garny
+http://cor.physiol.ox.ac.uk/ - cor@physiol.ox.ac.uk
+
+CellML 1.0 was used to generate this model
+http://www.cellml.org/
+--><model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.1#" cmeta:id="tdONQydRvt0" cmeta:id="Example_MassAction_2" name="Example_Full_1">
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MichaelisMentenRev" name="R1_MichaelisMentenRev"/>
+		<units name="mM" units_ref="mM"/>
+		<units name="per_second" units_ref="per_second"/>
+		<units name="mM_per_second" units_ref="mM_per_second"/>
+		<units name="per_mM_per_second" units_ref="per_mM_per_second"/>
+		<units name="per_mM" units_ref="per_mM"/>
+	</import>
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="BiIrrev" name="R2_BiIrrev"/>
+	</import>   
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="CompetitiveInhibitionIrrev" name="R3_CompetitiveInhibitionIrrev"/>
+	</import> 
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MassActionUniUniRev" name="R4_MassActionUniUniRev"/>
+	</import>
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="CompetitiveInhibitionIrrev" name="R5_CompetitiveInhibitionIrrev"/>
+	</import> 
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MichaelisMentenIrrev" name="R6_MichaelisMentenIrrev"/>
+	</import> 
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MassActionBiIrrev" name="R7_MassActionBiIrrev"/>
+	</import> 
+	
+	<component name="Network">
+      <variable name="t" units="second"/>
+      <variable name="v1" public_interface="in" units="mM_per_second"/>
+      <variable name="v2" public_interface="in" units="mM_per_second"/>
+      <variable name="v3" public_interface="in" units="mM_per_second"/>
+      <variable name="v4" public_interface="in" units="mM_per_second"/>
+      <variable name="v5" public_interface="in" units="mM_per_second"/>
+      <variable name="v6" public_interface="in" units="mM_per_second"/>
+      <variable name="v7" public_interface="in" units="mM_per_second"/>
+      <variable initial_value="3" name="glc_ext" public_interface="out" units="mM"/>
+      <variable initial_value="0.5" name="glc" public_interface="out" units="mM"/>
+      <variable initial_value="0.5" name="glc6p" public_interface="out" units="mM"/>
+      <variable initial_value="2.5" name="atp" public_interface="out" units="mM"/>
+      <variable initial_value="0.8" name="adp" public_interface="out" units="mM"/>
+      <variable initial_value="5" name="p" public_interface="out" units="mM"/>
+      <variable initial_value="0.8" name="glc1p" public_interface="out" units="mM"/>
+      <variable initial_value="5" name="glyc" public_interface="out" units="mM"/>
+      <variable name="T" units="second"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply><eq/><ci>T</ci><cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="second">50</cn></apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>t</ci>
+               </bvar>
+               <ci>glc_ext</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <sin/>
+                  <apply>
+                     <times/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <times/>
+                           <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless">2</cn>
+                           <pi/>
+                        </apply>
+                        <ci>T</ci>
+                     </apply>
+                     <ci>t</ci>
+                  </apply>
+               </apply>
+               <ci>v1</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>t</ci>
+               </bvar>
+               <ci>glc</ci>
+            </apply>
+            <apply>
+               <plus/>
+               <apply>
+                  <minus/>
+                  <ci>v1</ci>
+                  <ci>v2</ci>
+               </apply>
+               <ci>v3</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>t</ci>
+               </bvar>
+               <ci>glc6p</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <minus/>
+                  <ci>v2</ci>
+                  <ci>v3</ci>
+               </apply>
+               <ci>v4</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>t</ci>
+               </bvar>
+               <ci>glc1p</ci>
+            </apply>
+            <apply>
+               <plus/>
+               <apply>
+                  <minus/>
+                  <ci>v4</ci>
+                  <ci>v5</ci>
+               </apply>
+               <ci>v6</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>t</ci>
+               </bvar>
+               <ci>glyc</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <ci>v5</ci>
+               <ci>v6</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>t</ci>
+               </bvar>
+               <ci>atp</ci>
+            </apply>
+            <apply>
+               <plus/>
+               <apply>
+                  <minus/>
+                  <ci>v2</ci>
+               </apply>
+               <ci>v7</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>t</ci>
+               </bvar>
+               <ci>adp</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <ci>v2</ci>
+               <ci>v7</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>t</ci>
+               </bvar>
+               <ci>p</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <ci>v3</ci>
+               <ci>v7</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="Reaction_1">
+      <variable name="v1" private_interface="in" public_interface="out" units="mM_per_second"/>
+      <variable name="glc_ext" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="glc" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="V_f" public_interface="out" units="mM_per_second"/>
+      <variable name="V_b" public_interface="out" units="mM_per_second"/>
+      <variable name="Km_S" public_interface="out" units="mM"/>
+      <variable name="Km_P" public_interface="out" units="mM"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>V_f</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM_per_second">10</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>V_b</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM_per_second">8</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Km_S</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM">0.9</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Km_P</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM">0.9</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="Reaction_2">
+      <variable name="v2" private_interface="in" public_interface="out" units="mM_per_second"/>
+      <variable name="atp" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="glc" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="V" private_interface="out" units="mM_per_second"/>
+      <variable name="Km_atp" private_interface="out" units="mM"/>
+      <variable name="Km_glc" private_interface="out" units="mM"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>V</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM_per_second">10</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Km_atp</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM">1</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Km_glc</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM">0.2</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="Reaction_3">
+      <variable name="v3" private_interface="in" public_interface="out" units="mM_per_second"/>
+      <variable name="glc6p" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="adp" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="V" private_interface="out" units="mM_per_second"/>
+      <variable name="Km_glc6p" private_interface="out" units="mM"/>
+      <variable name="Ki_adp" private_interface="out" units="mM"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>V</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM_per_second">10</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Km_glc6p</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM">1</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Ki_adp</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM">1</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="Reaction_4">
+      <variable name="v4" private_interface="in" public_interface="out" units="mM_per_second"/>
+      <variable name="glc6p" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="glc1p" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="k_f" private_interface="out" units="per_second"/>
+      <variable name="k_b" private_interface="out" units="per_second"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k_f</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_second">5</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>k_b</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_second">5</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="Reaction_5">
+      <variable name="v5" private_interface="in" public_interface="out" units="mM_per_second"/>
+      <variable name="glc1p" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="glyc" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="V" private_interface="out" units="mM_per_second"/>
+      <variable name="Km_glc1p" private_interface="out" units="mM"/>
+      <variable name="Ki_glyc" private_interface="out" units="mM"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>V</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM_per_second">10</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Km_glc1p</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM">1</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Ki_glyc</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM">5</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="Reaction_6">
+      <variable name="v6" private_interface="in" public_interface="out" units="mM_per_second"/>
+      <variable name="glyc" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="V" private_interface="out" units="mM_per_second"/>
+      <variable name="Km_glyc" private_interface="out" units="mM"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>V</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM_per_second">10</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>Km_glyc</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mM">5</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="Reaction_7">
+      <variable name="v7" private_interface="in" public_interface="out" units="mM_per_second"/>
+      <variable name="adp" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="p" private_interface="out" public_interface="in" units="mM"/>
+      
+      <variable name="k_f" private_interface="out" units="per_mM_per_second"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         
+         <apply>
+            <eq/>
+            <ci>k_f</ci>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_mM_per_second">5</cn>
+         </apply>
+      </math>
+   </component>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="Reaction_1">
+         <component_ref component="R1_MichaelisMentenRev"/>
+      </component_ref>
+   </group>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="Reaction_2">
+         <component_ref component="R2_BiIrrev"/>
+      </component_ref>
+   </group>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="Reaction_3">
+         <component_ref component="R3_CompetitiveInhibitionIrrev"/>
+      </component_ref>
+   </group>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="Reaction_4">
+         <component_ref component="R4_MassActionUniUniRev"/>
+      </component_ref>
+   </group>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="Reaction_5">
+         <component_ref component="R5_CompetitiveInhibitionIrrev"/>
+      </component_ref>
+   </group>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="Reaction_6">
+         <component_ref component="R6_MichaelisMentenIrrev"/>
+      </component_ref>
+   </group>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="Reaction_7">
+         <component_ref component="R7_MassActionBiIrrev"/>
+      </component_ref>
+   </group>
+   <connection>
+      <map_components component_1="Network" component_2="Reaction_1"/>
+      <map_variables variable_1="v1" variable_2="v1"/>
+      <map_variables variable_1="glc_ext" variable_2="glc_ext"/>
+      <map_variables variable_1="glc" variable_2="glc"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="Reaction_2"/>
+      <map_variables variable_1="v2" variable_2="v2"/>
+      <map_variables variable_1="atp" variable_2="atp"/>
+      <map_variables variable_1="glc" variable_2="glc"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="Reaction_3"/>
+      <map_variables variable_1="v3" variable_2="v3"/>
+      <map_variables variable_1="glc6p" variable_2="glc6p"/>
+      <map_variables variable_1="adp" variable_2="adp"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="Reaction_4"/>
+      <map_variables variable_1="v4" variable_2="v4"/>
+      <map_variables variable_1="glc6p" variable_2="glc6p"/>
+      <map_variables variable_1="glc1p" variable_2="glc1p"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="Reaction_5"/>
+      <map_variables variable_1="v5" variable_2="v5"/>
+      <map_variables variable_1="glc1p" variable_2="glc1p"/>
+      <map_variables variable_1="glyc" variable_2="glyc"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="Reaction_6"/>
+      <map_variables variable_1="v6" variable_2="v6"/>
+      <map_variables variable_1="glyc" variable_2="glyc"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="Reaction_7"/>
+      <map_variables variable_1="v7" variable_2="v7"/>
+      <map_variables variable_1="adp" variable_2="adp"/>
+      <map_variables variable_1="p" variable_2="p"/>
+   </connection>
+   <connection>
+      <map_components component_1="Reaction_1" component_2="R1_MichaelisMentenRev"/>
+      <map_variables variable_1="v1" variable_2="J"/>
+      <map_variables variable_1="glc_ext" variable_2="S"/>
+      <map_variables variable_1="glc" variable_2="P"/>
+      <map_variables variable_1="V_f" variable_2="V_f"/>
+      <map_variables variable_1="V_b" variable_2="V_b"/>
+      <map_variables variable_1="Km_P" variable_2="Km_P"/>
+      <map_variables variable_1="Km_S" variable_2="Km_S"/>
+   </connection>
+   <connection>
+      <map_components component_1="Reaction_2" component_2="R2_BiIrrev"/>
+      <map_variables variable_1="v2" variable_2="J"/>
+      <map_variables variable_1="atp" variable_2="S1"/>
+      <map_variables variable_1="glc" variable_2="S2"/>
+      <map_variables variable_1="V" variable_2="V"/>
+      <map_variables variable_1="Km_atp" variable_2="Km_S1"/>
+      <map_variables variable_1="Km_glc" variable_2="Km_S2"/>
+   </connection>
+   <connection>
+      <map_components component_1="Reaction_3" component_2="R3_CompetitiveInhibitionIrrev"/>
+      <map_variables variable_1="v3" variable_2="J"/>
+      <map_variables variable_1="glc6p" variable_2="S"/>
+      <map_variables variable_1="adp" variable_2="I"/>
+      <map_variables variable_1="V" variable_2="V"/>
+      <map_variables variable_1="Km_glc6p" variable_2="Km_S"/>
+      <map_variables variable_1="Ki_adp" variable_2="Ki"/>
+   </connection>
+   <connection>
+      <map_components component_1="Reaction_4" component_2="R4_MassActionUniUniRev"/>
+      <map_variables variable_1="v4" variable_2="J"/>
+      <map_variables variable_1="glc6p" variable_2="S"/>
+      <map_variables variable_1="glc1p" variable_2="P"/>
+      <map_variables variable_1="k_f" variable_2="k_f"/>
+      <map_variables variable_1="k_b" variable_2="k_b"/>
+   </connection>
+   <connection>
+      <map_components component_1="Reaction_5" component_2="R5_CompetitiveInhibitionIrrev"/>
+      <map_variables variable_1="v5" variable_2="J"/>
+      <map_variables variable_1="glc1p" variable_2="S"/>
+      <map_variables variable_1="glyc" variable_2="I"/>
+      <map_variables variable_1="V" variable_2="V"/>
+      <map_variables variable_1="Km_glc1p" variable_2="Km_S"/>
+      <map_variables variable_1="Ki_glyc" variable_2="Ki"/>
+   </connection>
+   <connection>
+      <map_components component_1="Reaction_6" component_2="R6_MichaelisMentenIrrev"/>
+      <map_variables variable_1="v6" variable_2="J"/>
+      <map_variables variable_1="glyc" variable_2="S"/>
+      <map_variables variable_1="V" variable_2="V"/>
+      <map_variables variable_1="Km_glyc" variable_2="Km_S"/>
+   </connection>
+   <connection>
+      <map_components component_1="Reaction_7" component_2="R7_MassActionBiIrrev"/>
+      <map_variables variable_1="v7" variable_2="J"/>
+      <map_variables variable_1="adp" variable_2="S1"/>
+      <map_variables variable_1="p" variable_2="S2"/>
+      
+      <map_variables variable_1="k_f" variable_2="k_f"/>
+   </connection>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:nodeID="n1"><endingValue xmlns="http://www.cellml.org/metadata/simulation/1.0#" xml:lang="en">400</endingValue></rdf:Description><rdf:Description rdf:nodeID="n2"><boundIntervals xmlns="http://www.cellml.org/metadata/simulation/1.0#"><rdf:Description rdf:nodeID="n3"/></boundIntervals></rdf:Description><rdf:Description rdf:nodeID="n3"><rdf:rest><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></rdf:rest><rdf:first><rdf:Description rdf:nodeID="n1"/></rdf:first></rdf:Description><rdf:Description rdf:about="#tdONQydRvt0"><simulation xmlns="http://www.cellml.org/metadata/simulation/1.0#"><rdf:Description rdf:nodeID="n2"/></simulation></rdf:Description></rdf:RDF></model>

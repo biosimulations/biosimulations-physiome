@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xml:base="file:///H:/friel_1995/friel_1995.cellml" cmeta:id="friel_1995" name="friel_1995">
+  <units name="per_second">
+    <unit exponent="-1" units="second"/>
+  </units>
+  
+  <units name="nanomolar">
+    <unit prefix="nano" units="mole"/>
+    <unit exponent="-1" units="litre"/>
+  </units>
+  
+  <units name="micromolar">
+    <unit prefix="micro" units="mole"/>
+    <unit exponent="-1" units="litre"/>
+  </units>
+  
+  <units name="nanomolar_per_second">
+    <unit units="nanomolar"/>
+    <unit exponent="-1" units="second"/>
+  </units>
+  
+  <units name="picolitre">
+    <unit prefix="pico" units="litre"/>
+  </units>
+  
+  <units name="picolitre_per_second">
+    <unit units="picolitre"/>
+	<unit exponent="-1" units="second"/>
+  </units>
+  
+  <units name="picolitre_nanomolar_per_second">
+    <unit units="picolitre"/>
+	<unit units="nanomolar"/>
+    <unit exponent="-1" units="second"/>
+  </units>
+  
+  
+  <component name="environment">
+    <variable cmeta:id="environment_time" name="time" public_interface="out" units="second"/>
+  </component>
+  
+  <component cmeta:id="id_00011" name="rate_constants">
+    <variable name="kappa_L1" public_interface="out" units="per_second"/>
+    <variable initial_value="0.132" name="kappa_P1" public_interface="out" units="per_second"/>
+	<variable name="kappa_L2" public_interface="out" units="per_second"/>
+	<variable initial_value="3.78" name="kappa_P2" public_interface="out" units="per_second"/>
+    
+	<variable initial_value="0.054" name="kappa_L2_0" units="per_second"/>
+    <variable initial_value="2.4" name="kappa_L2_1" units="per_second"/>
+    <variable cmeta:id="id_00010" name="Kd_Ca" units="nanomolar"/>
+    <variable initial_value="3" name="n" units="dimensionless"/>
+    
+    <variable name="time" public_interface="in" units="second"/>
+    <variable cmeta:id="id_00009" name="Ca_i" public_interface="in" units="nanomolar"/>
+	
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="kappa_L1_calculation"><eq/><ci>kappa_L1</ci><piecewise><piece><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_second">0.000005</cn><apply><and/><apply><geq/><ci>time</ci><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="second">0</cn></apply><apply><lt/><ci>time</ci><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="second">40</cn></apply></apply></piece><otherwise><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_second">0.00002</cn></otherwise></piecewise></apply>
+	  
+	  <apply id="kappa_L2_calculation"><eq/><ci>kappa_L2</ci><apply><plus/><ci>kappa_L2_0</ci><apply><divide/><ci>kappa_L2_1</ci><apply><plus/><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">1</cn><apply><power/><apply><divide/><ci>Kd_Ca</ci><ci>Ca_i</ci></apply><ci>n</ci></apply></apply></apply></apply></apply>
+	  
+	  <apply id="Kd_Ca_calculation"><eq/><ci>Kd_Ca</ci><piecewise><piece><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar">1000</cn><apply><and/><apply><geq/><ci>time</ci><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="second">0</cn></apply><apply><lt/><ci>time</ci><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="second">80</cn></apply></apply></piece><otherwise><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar">500</cn></otherwise></piecewise></apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00001" name="cytosolic_calcium">
+    <variable cmeta:id="cytosolic_calcium_Ca_i" initial_value="75" name="Ca_i" public_interface="out" units="nanomolar"/>
+    <variable cmeta:id="id_00002" initial_value="2000000.0" name="Ca_o" public_interface="out" units="nanomolar"/>
+    <variable cmeta:id="id_00003" name="Ca_i_ss" public_interface="out" units="nanomolar"/>
+    <variable initial_value="0.24" name="gamma" public_interface="out" units="dimensionless"/>
+    
+    <variable name="kappa_L1" public_interface="in" units="per_second"/>
+	<variable name="kappa_P1" public_interface="in" units="per_second"/>
+	<variable name="kappa_L2" public_interface="in" units="per_second"/>
+	<variable name="kappa_P2" public_interface="in" units="per_second"/>
+    <variable cmeta:id="id_00004" name="Ca_s" public_interface="in" units="nanomolar"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="Ca_i_diff_eq"><eq/><apply><diff/><bvar><ci>time</ci></bvar><ci>Ca_i</ci></apply><apply><plus/><apply><times/><apply><minus/><apply><plus/><ci>kappa_L1</ci><ci>kappa_P1</ci><apply><times/><ci>gamma</ci><apply><plus/><ci>kappa_L2</ci><ci>kappa_P2</ci></apply></apply></apply></apply><ci>Ca_i</ci></apply><apply><times/><ci>gamma</ci><ci>kappa_L2</ci><ci>Ca_s</ci></apply><apply><times/><ci>kappa_L1</ci><ci>Ca_o</ci></apply></apply></apply>
+	    
+      <apply id="Ca_i_ss_calculation">
+        <eq/>
+        <ci> Ca_i_ss </ci>
+        <apply>
+          <divide/>
+          <ci> Ca_o </ci>
+          <apply>
+            <plus/>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+			<apply>
+              <divide/>
+              <ci> kappa_P1 </ci>
+              <ci> kappa_L1 </ci>
+			</apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00005" name="subspace_calcium">
+    <variable cmeta:id="subspace_calcium_Ca_s" initial_value="5300.0" name="Ca_s" public_interface="out" units="nanomolar"/>
+    <variable cmeta:id="id_00006" name="Ca_s_ss" public_interface="out" units="nanomolar"/>
+    
+	<variable cmeta:id="id_00007" name="Ca_i" public_interface="in" units="nanomolar"/>
+    <variable cmeta:id="id_00008" name="Ca_i_ss" public_interface="in" units="nanomolar"/>
+    <variable name="kappa_L2" public_interface="in" units="per_second"/>
+    <variable name="kappa_P2" public_interface="in" units="per_second"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="Ca_s_diff_eq">
+        <eq/>
+        <apply>
+          <diff/>
+          <bvar>
+            <ci> time </ci>
+          </bvar>
+          <ci> Ca_s </ci>
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <apply>
+              <plus/>
+              <ci> kappa_L2 </ci>
+              <ci> kappa_P2 </ci>
+            </apply>
+            <ci> Ca_i </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> kappa_L2 </ci>
+            <ci> Ca_s </ci>
+          </apply>
+        </apply>
+      </apply>
+      
+      <apply id="Ca_s_ss_calculation">
+        <eq/>
+        <ci> Ca_s_ss </ci>
+        <apply>
+          <times/>
+          <ci> Ca_i_ss </ci>
+          <apply>
+            <plus/>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+			<apply>
+              <divide/>
+              <ci> kappa_P2 </ci>
+              <ci> kappa_L2 </ci>
+			</apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <connection>
+    <map_components component_1="rate_constants" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="cytosolic_calcium" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="subspace_calcium" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="cytosolic_calcium" component_2="rate_constants"/>
+    <map_variables variable_1="kappa_L1" variable_2="kappa_L1"/>
+	<map_variables variable_1="kappa_L2" variable_2="kappa_L2"/>
+	<map_variables variable_1="kappa_P1" variable_2="kappa_P1"/>
+	<map_variables variable_1="kappa_P2" variable_2="kappa_P2"/>
+    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="subspace_calcium" component_2="rate_constants"/>
+    <map_variables variable_1="kappa_L2" variable_2="kappa_L2"/>
+	<map_variables variable_1="kappa_P2" variable_2="kappa_P2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="cytosolic_calcium" component_2="subspace_calcium"/>
+    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+    <map_variables variable_1="Ca_i_ss" variable_2="Ca_i_ss"/>
+    <map_variables variable_1="Ca_s" variable_2="Ca_s"/>
+  </connection>
+
+
+    
+
+
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005829"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#cytosolic_calcium_Ca_i"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005829"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005829"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#subspace_calcium_Ca_s"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description></rdf:RDF></model>

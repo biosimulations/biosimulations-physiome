@@ -1,0 +1,515 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- The BG of the gating process for Na channel in HH model: m3h-->
+<model name="gate_m3h_BG" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="units_BG.cellml">
+        <units name="J_per_mol" units_ref="J_per_mol"/>
+        <units name="fmol" units_ref="fmol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="per_fmol" units_ref="per_fmol"/>
+    </import>
+    <import xlink:href="C_BG.cellml">
+        <component component_ref="C_BG" name="C_S00"/>
+    </import>
+    <import xlink:href="C_BG.cellml">
+        <component component_ref="C_BG" name="C_S10"/>
+    </import>
+    <import xlink:href="C_BG.cellml">
+        <component component_ref="C_BG" name="C_S20"/>
+    </import>
+    <import xlink:href="C_BG.cellml">
+        <component component_ref="C_BG" name="C_S30"/>
+    </import>
+    <import xlink:href="C_BG.cellml">
+        <component component_ref="C_BG" name="C_S01"/>
+    </import>
+    <import xlink:href="C_BG.cellml">
+        <component component_ref="C_BG" name="C_S11"/>
+    </import>
+    <import xlink:href="C_BG.cellml">
+        <component component_ref="C_BG" name="C_S21"/>
+    </import>
+    <import xlink:href="C_BG.cellml">
+        <component component_ref="C_BG" name="C_S31"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_m10"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_m20"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_m30"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_m11"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_m21"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_m31"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_h0"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_h1"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_h2"/>
+    </import>
+    <import xlink:href="gate_BG.cellml">
+        <component component_ref="gate_BG" name="vRe_h3"/>
+    </import>
+    <component name="gate_m3h_BG">
+        <!--Parameters        -->
+        <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
+        <variable name="q_S00_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S10_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S20_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S30_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S01_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S11_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S21_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S31_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="K_S00" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S10" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S20" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S30" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S01" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S11" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S21" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S31" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="kappa_m10" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m20" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m30" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m11" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m21" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m31" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_h0" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_h1" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_h2" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_h3" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="z_m_f" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="z_m_r" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="z_h_f" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="z_h_r" private_interface="out" public_interface="in" units="dimensionless"/>
+        <!--Inputs-->
+        <variable name="t" private_interface="out" public_interface="in" units="second"/>
+        <variable name="mu_p" private_interface="out" public_interface="in" units="J_per_mol"/>
+        <!--Outputs-->
+        <variable name="A_g_Na" private_interface="in" public_interface="out" units="J_per_mol"/>
+        <variable name="v_mh_Na" public_interface="out" units="fmol_per_sec"/>
+        <!--Intermediate variables-->
+        <variable name="v_m10" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m20" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m30" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m11" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m21" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m31" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_h0" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_h1" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_h2" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_h3" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_S00" private_interface="out" units="fmol_per_sec"/>
+        <variable name="v_S10" private_interface="out" units="fmol_per_sec"/>
+        <variable name="v_S20" private_interface="out" units="fmol_per_sec"/>
+        <variable name="v_S30" private_interface="out" units="fmol_per_sec"/>
+        <variable name="v_S01" private_interface="out" units="fmol_per_sec"/>
+        <variable name="v_S11" private_interface="out" units="fmol_per_sec"/>
+        <variable name="v_S21" private_interface="out" units="fmol_per_sec"/>
+        <variable name="v_S31" private_interface="out" units="fmol_per_sec"/>
+        <variable name="v_m10_Na" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m20_Na" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m30_Na" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m11_Na" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m21_Na" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_m31_Na" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_h0_Na" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_h1_Na" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_h2_Na" private_interface="in" units="fmol_per_sec"/>
+        <variable name="v_h3_Na" private_interface="in" units="fmol_per_sec"/>
+        <!-- Conservation laws-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>v_S00</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>v_m10</ci>
+                    </apply>
+                    <ci>v_h0</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_S10</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>v_m10</ci>
+                        <ci>v_m20</ci>
+                    </apply>
+                    <ci>v_h1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_S20</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>v_m20</ci>
+                        <ci>v_m30</ci>
+                    </apply>
+                    <ci>v_h2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_S30</ci>
+                <apply>
+                    <minus/>
+                    <ci>v_m30</ci>
+                    <ci>v_h3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_S01</ci>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>v_m11</ci>
+                    </apply>
+                    <ci>v_h0</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_S11</ci>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>v_m11</ci>
+                        <ci>v_m21</ci>
+                    </apply>
+                    <ci>v_h1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_S21</ci>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>v_m21</ci>
+                        <ci>v_m31</ci>
+                    </apply>
+                    <ci>v_h2</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_S31</ci>
+                <apply>
+                    <plus/>
+                    <ci>v_m31</ci>
+                    <ci>v_h3</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_mh_Na</ci>
+                <apply>
+                    <plus/>
+                    <ci>v_m10_Na</ci>
+                    <ci>v_m20_Na</ci>
+                    <ci>v_m30_Na</ci>
+                    <ci>v_m11_Na</ci>
+                    <ci>v_m21_Na</ci>
+                    <ci>v_m31_Na</ci>
+                    <ci>v_h0_Na</ci>
+                    <ci>v_h1_Na</ci>
+                    <ci>v_h2_Na</ci>
+                    <ci>v_h3_Na</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="gate_m3h_BG">
+            <component_ref component="C_S00"/>
+            <component_ref component="C_S10"/>
+            <component_ref component="C_S20"/>
+            <component_ref component="C_S30"/>
+            <component_ref component="C_S01"/>
+            <component_ref component="C_S11"/>
+            <component_ref component="C_S21"/>
+            <component_ref component="C_S31"/>
+            <component_ref component="vRe_m10"/>
+            <component_ref component="vRe_m20"/>
+            <component_ref component="vRe_m30"/>
+            <component_ref component="vRe_m11"/>
+            <component_ref component="vRe_m21"/>
+            <component_ref component="vRe_m31"/>
+            <component_ref component="vRe_h0"/>
+            <component_ref component="vRe_h1"/>
+            <component_ref component="vRe_h2"/>
+            <component_ref component="vRe_h3"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="C_S00"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="q_S00_init" variable_2="q_init"/>
+        <map_variables variable_1="K_S00" variable_2="K"/>
+        <map_variables variable_1="v_S00" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="C_S10"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="q_S10_init" variable_2="q_init"/>
+        <map_variables variable_1="K_S10" variable_2="K"/>
+        <map_variables variable_1="v_S10" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="C_S20"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="q_S20_init" variable_2="q_init"/>
+        <map_variables variable_1="K_S20" variable_2="K"/>
+        <map_variables variable_1="v_S20" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="C_S30"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="q_S30_init" variable_2="q_init"/>
+        <map_variables variable_1="K_S30" variable_2="K"/>
+        <map_variables variable_1="v_S30" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="C_S01"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="q_S01_init" variable_2="q_init"/>
+        <map_variables variable_1="K_S01" variable_2="K"/>
+        <map_variables variable_1="v_S01" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="C_S11"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="q_S11_init" variable_2="q_init"/>
+        <map_variables variable_1="K_S11" variable_2="K"/>
+        <map_variables variable_1="v_S11" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="C_S21"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="q_S21_init" variable_2="q_init"/>
+        <map_variables variable_1="K_S21" variable_2="K"/>
+        <map_variables variable_1="v_S21" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="C_S31"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="q_S31_init" variable_2="q_init"/>
+        <map_variables variable_1="K_S31" variable_2="K"/>
+        <map_variables variable_1="v_S31" variable_2="v"/>
+        <map_variables variable_1="A_g_Na" variable_2="mu"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_m10"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_m_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_m_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_m10" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_m10_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_m10" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_m20"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_m_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_m_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_m20" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_m20_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_m20" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_m30"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_m_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_m_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_m30" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_m30_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_m30" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_m11"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_m_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_m_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_m11" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_m11_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_m11" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_m21"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_m_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_m_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_m21" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_m21_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_m21" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_m31"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_m_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_m_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_m31" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_m31_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_m31" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_h0"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_h_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_h_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_h0" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_h0_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_h0" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_h1"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_h_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_h_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_h1" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_h1_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_h1" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_h2"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_h_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_h_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_h2" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_h2_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_h2" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_m3h_BG" component_2="vRe_h3"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_h_f" variable_2="z_g_f"/>
+        <map_variables variable_1="z_h_r" variable_2="z_g_r"/>
+        <map_variables variable_1="kappa_h3" variable_2="kappa_g"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_h3_Na" variable_2="v_g_X"/>
+        <map_variables variable_1="v_h3" variable_2="v_g"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S00" component_2="vRe_m10"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S10" component_2="vRe_m10"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S10" component_2="vRe_m20"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S20" component_2="vRe_m20"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S20" component_2="vRe_m30"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S30" component_2="vRe_m30"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S01" component_2="vRe_m11"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S11" component_2="vRe_m11"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S11" component_2="vRe_m21"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S21" component_2="vRe_m21"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S21" component_2="vRe_m31"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S31" component_2="vRe_m31"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S00" component_2="vRe_h0"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S01" component_2="vRe_h0"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S10" component_2="vRe_h1"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S11" component_2="vRe_h1"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S20" component_2="vRe_h2"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S21" component_2="vRe_h2"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S30" component_2="vRe_h3"/>
+        <map_variables variable_1="mu" variable_2="mu_C"/>
+    </connection>
+    <connection>
+        <map_components component_1="C_S31" component_2="vRe_h3"/>
+        <map_variables variable_1="mu" variable_2="mu_O"/>
+    </connection>
+</model>

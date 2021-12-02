@@ -1,0 +1,11 @@
+In this workspace we have the mapping tool provenance data file needed to produce the generic human stomach scaffold for the `SPARC <https://commonfund.nih.gov/sparc>`_ project. The mapping tool will be accessible from the release download page on the `SPARC Portal <https://sparc.science>`_. 
+
+.. image:: humanStomach_thumbnail.jpeg
+   :width: 50%
+   :alt: Rendering of the generic human stomach scaffold.
+
+An anatomically-based 3D scaffold of the human stomach is created to map nerve ending pathways. The stomach scaffold is generated with a configurable central path defined from the fundus apex to the duodenum. A user can annotate the fundus, body, antrum, pylorus, and duodenum along the central path and use that to define the respective regions of the stomach. The cross axes of the central path provide control of the major and minor radii of the stomach in different sections. The human stomach scaffold is parameterised with literature data to represent the anatomy as accurate as possible.
+
+In this release, four wall layers (mucosa, submucosa, circular muscle, and longitudinal muscle) are added to the human stomach scaffold. The outer surface of the scaffold is annotated as the serosa.
+
+Please see the `SPARC Portal <https://sparc.science>`_ for more details about the SPARC project.

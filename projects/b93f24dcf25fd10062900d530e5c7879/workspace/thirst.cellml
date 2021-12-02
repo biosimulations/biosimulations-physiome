@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model 
+	name="thirst_drinking_and_salt_appetite_model"
+	cmeta:id="thirst_drinking_and_salt_appetite_model"
+	
+	xmlns="http://www.cellml.org/cellml/1.1#"
+	xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+	xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+		<rdf:Description rdf:about="#thirst_drinking_and_salt_appetite_model">
+			<rdf:value>
+			The salt appetite is considered in this model to be related to the adequacy
+			of body metabolism, as measured by the PO2 level in the non-muscle tissue
+			cells (POT).  Also, when the concentration of angiotensin increases (ANM),
+			this, too, increases salt intake.  For instance, in circulatory shock, when
+			the adequacy of metabolism falls, the person develops a salt appetite.  For
+			lack of information, no control function of salt concentration per se has
+			been assumed, merely that when the body salt falls, circulatory effectiveness
+			falls, angiotensin increases, and a salt appetite develops.
+
+			Three separate factors are assumed to drive the thirst mechanism, the
+			concentration of antidiuretic hormone, which in turn is driven by changes
+			in electrolyte composition (as detailed in another section) and second, the
+			effect of angiotensin on thirst, and third, the effect of the salt appetite
+			stimulation on thirst.
+			</rdf:value>
+		</rdf:Description>
+	</rdf:RDF>
+
+<!-- =============================================	Import the required units from the Units file	==================================================== -->
+	<import xlink:href="units.cellml">
+		<units name="minute" units_ref="minute"/>
+		<units name="per_minute" units_ref="per_minute"/>
+		<units name="beats_per_minute" units_ref="beats_per_minute"/>
+		<units name="beats_per_minute_per_mmHg" units_ref="beats_per_minute_per_mmHg"/>
+		<units name="minute_per_L" units_ref="minute_per_L"/>
+		<units name="mmHg" units_ref="mmHg"/>
+		<units name="per_mmHg" units_ref="per_mmHg"/>
+		<units name="mmHg_per_mL" units_ref="mmHg_per_mL"/>
+		<units name="mmHg_L" units_ref="mmHg_L"/>
+		<units name="per_mmHg2" units_ref="per_mmHg2"/>
+		<units name="mmHg3" units_ref="mmHg3"/>
+		<units name="monovalent_mEq" units_ref="monovalent_mEq"/>
+		<units name="monovalent_mEq_per_minute" units_ref="monovalent_mEq_per_minute"/>
+		<units name="monovalent_mEq_per_litre" units_ref="monovalent_mEq_per_litre"/>
+		<units name="mOsm" units_ref="mOsm"/>
+		<units name="mOsm_per_litre" units_ref="mOsm_per_litre"/>
+		<units name="mOsm_per_minute" units_ref="mOsm_per_minute"/>
+		<units name="monovalent_mEq_per_litre_per_minute" units_ref="monovalent_mEq_per_litre_per_minute"/>
+		<units name="litre2_per_monovalent_mEq_per_minute" units_ref="litre2_per_monovalent_mEq_per_minute"/>
+		<units name="L_per_minute" units_ref="L_per_minute"/>
+		<units name="per_mmHg_per_minute" units_ref="per_mmHg_per_minute"/>
+		<units name="mL" units_ref="mL"/>
+		<units name="gram_per_L" units_ref="gram_per_L"/>
+		<units name="L_mmHg_per_gram" units_ref="L_mmHg_per_gram"/>
+		<units name="L2_mmHg_per_gram2" units_ref="L2_mmHg_per_gram2"/>
+		<units name="mmHg_minute_per_L" units_ref="mmHg_minute_per_L"/>
+		<units name="mmHg_L_per_minute" units_ref="mmHg_L_per_minute"/>
+		<units name="gram_per_minute" units_ref="gram_per_minute"/>
+		<units name="mL_per_L" units_ref="mL_per_L"/>
+		<units name="mL_per_L_per_mmHg" units_ref="mL_per_L_per_mmHg"/>
+		<units name="mL_per_L_per_minute" units_ref="mL_per_L_per_minute"/>
+		<units name="mL_per_minute_per_mmHg" units_ref="mL_per_minute_per_mmHg"/>
+		<units name="L_mL_per_minute_per_mmHg" units_ref="L_mL_per_minute_per_mmHg"/>
+		<units name="L_per_mL" units_ref="L_per_mL"/>
+		<units name="L_per_mmHg" units_ref="L_per_mmHg"/>
+		<units name="mL_per_minute" units_ref="mL_per_minute"/>
+		<units name="L_per_minute_per_mmHg" units_ref="L_per_minute_per_mmHg"/>
+		<units name="L_per_minute_per_mmHg2" units_ref="L_per_minute_per_mmHg2"/>
+	</import>
+
+<!-- =====================================	Import all Parameters and State Variables from the Parameter file	============================================== -->
+	<import xlink:href="parameters.cellml">
+		<component component_ref="parameter_values" name="parameter_values"/>
+		<component component_ref="state_variables" name="state_variables"/>
+	</import>
+
+
+<!-- ========================================	THIRST DRINKING AND SALT APPETITE TOP-LEVEL COMPONENT	============================================= -->
+	<component 	name="thirst_drinking_and_salt_appetite" 
+				cmeta:id="thirst_drinking_and_salt_appetite">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#thirst_drinking_and_salt_appetite">
+				<rdf:value>
+				Encapsulation grouping component containing all the components in the Thirst, Drinking and Salt Appetite Model. 
+				The inputs and outputs of the Thirst, Drinking and Salt Appetite Model must be passed by this component.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+
+		<variable name="time"	units="minute"	private_interface="out" public_interface="in"/>
+
+<!-- Inputs from components in other models -->
+		<variable name="ADHC"	units="dimensionless" private_interface="out" public_interface="in"/>
+		<variable name="ANM"	units="dimensionless" private_interface="out" public_interface="in"/>
+		<variable name="POT"	units="mmHg" private_interface="out" public_interface="in"/>
+
+<!-- Outputs to components in other models -->
+		<variable name="TVD" 	units="L_per_minute" private_interface="in" public_interface="out"/>
+		<variable name="STH" 	units="dimensionless" private_interface="in" public_interface="out"/>
+	</component>
+
+<!-- OUTPUT CONNECTIONS -->
+<!--	<connection>
+		<map_components component_1="thirst_drinking_and_salt_appetite" component_2="rate_of_fluid_intake"/>
+		<map_variables variable_1="TVD" variable_2="TVD"/>
+	</connection> -->
+<!--	<connection>
+		<map_components component_1="thirst_drinking_and_salt_appetite" component_2="effect_of_salt_appetite_stimulation_on_thirst"/>
+		<map_variables variable_1="STH" variable_2="STH"/>
+	</connection> -->
+
+<!-- ========================================	EFFECT OF SALT APPETITE STIMULATION ON THIRST	============================================= -->
+	<component 	name="effect_of_salt_appetite_stimulation_on_thirst" 
+				cmeta:id="effect_of_salt_appetite_stimulation_on_thirst">
+
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#effect_of_salt_appetite_stimulation_on_thirst">
+				<rdf:value>
+				TS1, TS1A, TS2, TS2A, TS2B, TS2C, TS3, and TS4:
+				These are curve-fitting blocks to derive a value for salt appetite and for partial control of
+				thirst (STH) based on the input values of PO2 in the non-muscle tissue cells (POT) and the
+				angiotensin multiplier effect (ANM).  The constant ANMSLT sets the sensitivity of salt appetite
+				to angiotensin, and the constant Z10 sets the PO2 level below which POT exerts its effects.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS2_TS2A_and_TS2B">
+				<rdf:value>
+				TS1, TS1A, TS2, TS2A, TS2B, TS2C, TS3, and TS4:
+				These are curve-fitting blocks to derive a value for salt appetite and for partial control of
+				thirst (STH) based on the input values of PO2 in the non-muscle tissue cells (POT) and the
+				angiotensin multiplier effect (ANM).  The constant ANMSLT sets the sensitivity of salt appetite
+				to angiotensin, and the constant Z10 sets the PO2 level below which POT exerts its effects.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS1_TS1A_and_TS2C">
+				<rdf:value>
+				TS1, TS1A, TS2, TS2A, TS2B, TS2C, TS3, and TS4:
+				These are curve-fitting blocks to derive a value for salt appetite and for partial control of
+				thirst (STH) based on the input values of PO2 in the non-muscle tissue cells (POT) and the
+				angiotensin multiplier effect (ANM).  The constant ANMSLT sets the sensitivity of salt appetite
+				to angiotensin, and the constant Z10 sets the PO2 level below which POT exerts its effects.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS3_and_TS4">
+				<rdf:value>
+				TS1, TS1A, TS2, TS2A, TS2B, TS2C, TS3, and TS4:
+				These are curve-fitting blocks to derive a value for salt appetite and for partial control of
+				thirst (STH) based on the input values of PO2 in the non-muscle tissue cells (POT) and the
+				angiotensin multiplier effect (ANM).  The constant ANMSLT sets the sensitivity of salt appetite
+				to angiotensin, and the constant Z10 sets the PO2 level below which POT exerts its effects.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+
+<!-- Inputs from other components -->
+		<variable name="ANM"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="POT"	units="mmHg" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable	cmeta:id="effect_of_salt_appetite_stimulation_on_thirst_STH"
+					name="STH" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ANMSLT"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="Z10"	units="mmHg" private_interface="none" public_interface="in"/>
+		<variable name="Z11" 	units="per_mmHg2" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="ANMSML"	units="dimensionless" private_interface="none" public_interface="none"/>
+		<variable name="STH1"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="TS2_TS2A_and_TS2B">
+				<eq/>
+				<ci>ANMSML</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<apply>
+							<minus/>
+							<ci>ANM</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<ci>ANMSLT</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+			<apply id="TS1_TS1A_and_TS2C">
+				<eq/>
+				<ci>STH1</ci>
+				<apply>
+					<times/>
+					<apply>
+						<power/>
+						<apply>
+							<minus/>
+							<ci>Z10</ci>
+							<ci>POT</ci>
+						</apply>
+						<cn cellml:units="dimensionless">2</cn>
+					</apply>
+					<ci>Z11</ci>
+					<ci>ANMSML</ci>
+				</apply>
+			</apply>
+			<apply id="TS3_and_TS4">
+				<eq/>
+				<ci>STH</ci>
+				<piecewise>
+					<piece>
+						<cn cellml:units="dimensionless">0.8</cn>
+						<apply>
+							<lt/>
+							<ci>STH1</ci>
+							<cn cellml:units="dimensionless">0.8</cn>
+						</apply>
+					</piece>
+					<piece>
+						<cn cellml:units="dimensionless">8</cn>
+						<apply>
+							<gt/>
+							<ci>STH1</ci>
+							<cn cellml:units="dimensionless">8</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>STH1</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="effect_of_salt_appetite_stimulation_on_thirst" component_2="thirst_drinking_and_salt_appetite"/>
+		<map_variables variable_1="STH" variable_2="STH"/>
+		<map_variables variable_1="ANM" variable_2="ANM"/>
+		<map_variables variable_1="POT" variable_2="POT"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="effect_of_salt_appetite_stimulation_on_thirst" component_2="parameter_values"/>
+		<map_variables variable_1="ANMSLT" variable_2="ANMSLT"/>
+		<map_variables variable_1="Z10" variable_2="Z10"/>
+		<map_variables variable_1="Z11" variable_2="Z11"/>
+	</connection>
+
+<!-- ==============================================	EFFECT OF ANTIDIURETIC HOMONE ON THIRST	=============================================== -->
+	<component 	name="effect_of_antidiuretic_hormone_on_thirst" 
+				cmeta:id="effect_of_antidiuretic_hormone_on_thirst">
+
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#effect_of_antidiuretic_hormone_on_thirst">
+				<rdf:value>
+				TS5, TS6, and TS7:  
+				These blocks are a sensitivity controller for calculating a multiplier effect
+				of antidiuretic hormone on thirst (AHCM) from an antidiuretic hormone 
+				concentration factor in the circulating body fluids (ADHC).  The sensitivity is
+				controlled by the control factor (AHTHM).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS5_to_TS7">
+				<rdf:value>
+				TS5, TS6, and TS7:  
+				These blocks are a sensitivity controller for calculating a multiplier effect
+				of antidiuretic hormone on thirst (AHCM) from an antidiuretic hormone 
+				concentration factor in the circulating body fluids (ADHC).  The sensitivity is
+				controlled by the control factor (AHTHM).
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ADHC"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="AHCM" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="AHTHM" 	units="dimensionless" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="TS5_to_TS7">
+				<eq/>
+				<ci>AHCM</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<apply>
+							<minus/>
+							<ci>ADHC</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<ci>AHTHM</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="effect_of_antidiuretic_hormone_on_thirst" component_2="thirst_drinking_and_salt_appetite"/>
+		<map_variables variable_1="ADHC" variable_2="ADHC"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="effect_of_antidiuretic_hormone_on_thirst" component_2="parameter_values"/>
+		<map_variables variable_1="AHTHM" variable_2="AHTHM"/>
+	</connection>
+
+
+<!-- =========================================	EFFECT OF ANGIOTENSIN ON THIRST	  ============================================================== -->
+	<component 	name="effect_of_angiotensin_on_thirst" 
+				cmeta:id="effect_of_angiotensin_on_thirst">
+
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#effect_of_angiotensin_on_thirst">
+				<rdf:value>
+				TS10 and TS11:  
+				Calculation of the drive to stimulate thirst caused by angiotensin (ANMH) from
+				the generalized angiotensin multiplier (ANM).  The sensitivity of this calculation
+				is controlled by the angiotensin-thirst sensitivity control variable (ANMTM).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS10_and_TS11">
+				<rdf:value>
+				TS10 and TS11:  
+				Calculation of the drive to stimulate thirst caused by angiotensin (ANMH) from
+				the generalized angiotensin multiplier (ANM).  The sensitivity of this calculation
+				is controlled by the angiotensin-thirst sensitivity control variable (ANMTM).
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+
+<!-- Inputs from other components -->
+		<variable name="ANM"		units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="ANMTH" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ANMTM" 	units="dimensionless" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="TS10_and_TS11">
+				<eq/>
+				<ci>ANMTH</ci>
+				<apply>
+					<times/>
+					<apply>
+						<minus/>
+						<ci>ANM</ci>
+						<cn cellml:units="dimensionless">1</cn>
+					</apply>
+					<ci>ANMTM</ci>
+					<cn cellml:units="dimensionless">0.001</cn>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="effect_of_angiotensin_on_thirst" component_2="thirst_drinking_and_salt_appetite"/>
+		<map_variables variable_1="ANM" variable_2="ANM"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="effect_of_angiotensin_on_thirst" component_2="parameter_values"/>
+		<map_variables variable_1="ANMTM" variable_2="ANMTM"/>
+	</connection>
+
+
+<!-- ================================================		RATE OF FLUID INTAKE	=============================================================== -->
+	<component 	name="rate_of_fluid_intake" 
+				cmeta:id="rate_of_fluid_intake">
+
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#rate_of_fluid_intake">
+				<rdf:value>
+				TS8 and TS9:  
+				Calculation of a thirst drive (AHTH) based on antidiuretic hormone and salt 
+				appetite by multiplying three factors, the salt appetite drive (STH), the antidiuretic 
+				hormone concentration multiplier (AHCM), and a constant.  Block TS9 sets a lower limit 
+				to AHTH equal to zero.
+
+				TS12 and TS13:  
+				A temporary calculation for rate of intake of fluid by the body (TVZ) is equal to the 
+				drinking drive (AHTH) caused by the product of the salt appetite drive (STH) and the 
+				antidiuretic-thirst drive (AHTH), plus the angiotensin-thirst drive (ANMTH).  Block 
+				TS13 sets the lower limit of (TVZ) to zero.
+
+				TS14, TS15, and TS16:  
+				This is a delay circuit which causes the actual rate of fluid intake (TVD) to be delayed 
+				with respect to changes in the temporarily calculated rate of fluid intake (TVZ) by a 
+				time constant TVDLL.  Also shown in Block TS14 is a variable (DR) that can be used for 
+				forced input of water over and above the natural drinking desires; this can be used for 
+				intravenous infusion of water as well.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS8">
+				<rdf:value>
+				TS8:  
+				Calculation of a thirst drive (AHTH) based on antidiuretic hormone and salt 
+				appetite by multiplying three factors, the salt appetite drive (STH), the antidiuretic 
+				hormone concentration multiplier (AHCM), and a constant.  
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS9">
+				<rdf:value>
+				TS9:
+				Block TS9 sets a lower limit to AHTH equal to zero.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS12">
+				<rdf:value>
+				TS12:  
+				A temporary calculation for rate of intake of fluid by the body (TVZ) is equal to the 
+				drinking drive (AHTH) caused by the product of the salt appetite drive (STH) and the 
+				antidiuretic-thirst drive (AHTH), plus the angiotensin-thirst drive (ANMTH).  
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS13">
+				<rdf:value>
+				TS13:
+				Block TS13 sets the lower limit of (TVZ) to zero.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#TS14_to_TS16">
+				<rdf:value>
+				TS14, TS15, and TS16:  
+				This is a delay circuit which causes the actual rate of fluid intake (TVD) to be delayed 
+				with respect to changes in the temporarily calculated rate of fluid intake (TVZ) by a 
+				time constant TVDLL.  Also shown in Block TS14 is a variable (DR) that can be used for 
+				forced input of water over and above the natural drinking desires; this can be used for 
+				intravenous infusion of water as well.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+
+<!-- Inputs from other components -->
+		<variable name="STH" 	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="AHCM" 	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ANMTH" 	units="dimensionless" private_interface="none" public_interface="in"/>
+
+		<variable name="TVD_init" units="L_per_minute" private_interface="none" public_interface="in"/>
+		<variable name="time" 	units="minute" 		private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable 	cmeta:id="rate_of_fluid_intake_TVD"
+					name="TVD" 	initial_value="TVD_init"	units="L_per_minute" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="DR" 	units="L_per_minute" private_interface="none" public_interface="in"/>
+		<variable name="TVDDL" 	units="minute" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="AHTH" 	units="dimensionless" private_interface="none" public_interface="none"/>
+		<variable name="AHTH1" 	units="dimensionless" private_interface="none" public_interface="none"/>
+		<variable name="TVZ" 	units="L_per_minute" private_interface="none" public_interface="none"/>
+		<variable name="TVZ1" 	units="L_per_minute" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="TS8">
+				<eq/>
+				<ci>AHTH1</ci>
+				<apply>
+					<times/>
+					<ci>AHCM</ci>
+					<ci>STH</ci>
+					<cn cellml:units="dimensionless">0.001</cn>
+				</apply>
+			</apply>
+			<apply id="TS9">
+				<eq/>
+				<ci>AHTH</ci>
+				<piecewise>
+					<piece>
+						<cn cellml:units="dimensionless">0</cn>
+						<apply>
+							<lt/>
+							<ci>AHTH1</ci>
+							<cn cellml:units="dimensionless">0</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>AHTH1</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+			<apply id="TS12">
+				<eq/>
+				<ci>TVZ1</ci>
+				<apply>
+					<times/>
+					<apply>
+						<plus/>
+						<ci>ANMTH</ci>
+						<ci>AHTH</ci>
+					</apply>
+					<cn cellml:units="L_per_minute">1</cn>
+				</apply>
+			</apply>
+			<apply id="TS13">
+				<eq/>
+				<ci>TVZ</ci>
+				<piecewise>
+					<piece>
+						<cn cellml:units="L_per_minute">0</cn>
+						<apply>
+							<lt/>
+							<ci>TVZ1</ci>
+							<cn cellml:units="L_per_minute">0</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>TVZ1</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+			<apply id="TS14_to_TS16">
+				<eq/>
+				<apply>
+					<diff/>
+					<bvar>
+						<ci>time</ci>
+					</bvar>
+					<ci>TVD</ci>
+				</apply>
+				<apply>
+					<divide/>
+					<apply>
+						<minus/>
+						<apply>
+							<plus/>
+							<ci>TVZ</ci>
+							<ci>DR</ci>
+						</apply>
+						<ci>TVD</ci>
+					</apply>
+					<ci>TVDDL</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- STATE VARIABLES INITIAL CONDITION -->
+	<connection>
+		<map_components component_1="rate_of_fluid_intake" component_2="state_variables"/>
+		<map_variables variable_1="TVD_init" variable_2="TVD_init"/> 
+		</connection>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="rate_of_fluid_intake" component_2="effect_of_antidiuretic_hormone_on_thirst"/>
+		<map_variables variable_1="AHCM" variable_2="AHCM"/>
+	</connection>
+	<connection>
+		<map_components component_1="rate_of_fluid_intake" component_2="effect_of_salt_appetite_stimulation_on_thirst"/>
+		<map_variables variable_1="STH" variable_2="STH"/>
+	</connection>
+	<connection>
+		<map_components component_1="rate_of_fluid_intake" component_2="effect_of_angiotensin_on_thirst"/>
+		<map_variables variable_1="ANMTH" variable_2="ANMTH"/>
+	</connection>
+	<connection>
+		<map_components component_1="rate_of_fluid_intake" component_2="thirst_drinking_and_salt_appetite"/>
+		<map_variables variable_1="TVD" variable_2="TVD"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="rate_of_fluid_intake" component_2="parameter_values"/>
+		<map_variables variable_1="DR" variable_2="DR"/>
+		<map_variables variable_1="TVDDL" variable_2="TVDDL"/>
+	</connection>
+
+<!-- ============================================================		GROUPING		=============================================================== -->
+	<group>
+		<relationship_ref relationship="containment"/>
+		<component_ref component="thirst_drinking_and_salt_appetite">
+			<component_ref component="effect_of_salt_appetite_stimulation_on_thirst"/>
+			<component_ref component="effect_of_antidiuretic_hormone_on_thirst"/>
+			<component_ref component="effect_of_angiotensin_on_thirst"/>
+			<component_ref component="rate_of_fluid_intake"/>
+		</component_ref>
+	</group>
+      
+	<group>
+		<relationship_ref relationship="encapsulation"/>
+		<component_ref component="thirst_drinking_and_salt_appetite">
+			<component_ref component="parameter_values"/>
+			<component_ref component="state_variables"/>
+			<component_ref component="effect_of_salt_appetite_stimulation_on_thirst"/>
+			<component_ref component="effect_of_antidiuretic_hormone_on_thirst"/>
+			<component_ref component="effect_of_angiotensin_on_thirst"/>
+			<component_ref component="rate_of_fluid_intake"/>
+		</component_ref>
+	</group> 
+</model>

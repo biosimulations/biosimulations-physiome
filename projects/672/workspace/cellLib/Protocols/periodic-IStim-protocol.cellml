@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="periodic_IStim" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../Components/units.cellml">
+        <units name="ms" units_ref="ms"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
+    </import>
+    <component name="stimulus_protocol">
+        <variable name="time" public_interface="in" units="ms"/>
+        <variable name="stimPeriod" public_interface="in" units="ms"/>
+        <variable name="stimDuration" public_interface="in" units="ms"/>
+        <variable name="stimCurrent" public_interface="in" units="uA_per_cmsq"/>
+        <variable name="IStim" public_interface="out" units="uA_per_cmsq"/>
+        <variable cmeta:id="localTimer" name="t" units="ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>t</ci>
+                <apply>
+                    <minus/>
+                    <ci>time</ci>
+                    <apply>
+                        <times/>
+                        <ci>stimPeriod</ci>
+                        <apply>
+                            <floor/>
+                            <apply>
+                                <divide/>
+                                <ci>time</ci>
+                                <ci>stimPeriod</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply id="stimulus_calculation">
+                <eq/>
+                <ci>IStim</ci>
+                <piecewise>
+                    <piece>
+                        <ci>stimCurrent</ci>
+                        <apply>
+                            <lt/>
+                            <ci>t</ci>
+                            <ci>stimDuration</ci>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <cn cellml:units="uA_per_cmsq">0.0</cn>
+                    </otherwise>
+                </piecewise>
+            </apply>
+        </math>
+    </component>
+    <component name="sPulse_protocol_ms">
+        <variable name="time" public_interface="in" units="ms"/>
+        <variable cmeta:id="hold_time" name="t_ss" public_interface="in" units="ms"/>
+        <variable cmeta:id="holding_current" name="I_holding" public_interface="in" units="pA_per_pF"/>
+        <variable cmeta:id="activation_duration" name="t_act" public_interface="in" units="ms"/>
+        <variable cmeta:id="activation_current" name="I_actTest" public_interface="in" units="pA_per_pF"/>
+        <variable name="I_stim" public_interface="out" units="pA_per_pF"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="stimulus">
+                <eq/>
+                <ci>I_stim</ci>
+                <piecewise>
+                    <piece>
+                        <ci>I_holding</ci>
+                        <apply>
+                            <lt/>
+                            <ci>time</ci>
+                            <ci>t_ss</ci>
+                        </apply>
+                    </piece>
+                    <piece>
+                        <ci>I_actTest</ci>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <geq/>
+                                <ci>time</ci>
+                                <ci>t_ss</ci>
+                            </apply>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>t_act</ci>
+                                    <ci>t_ss</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <ci>I_holding</ci>
+                    </otherwise>
+                </piecewise>
+            </apply>
+        </math>
+    </component>
+    <component name="mPulse_protocol_ms">
+        <variable name="time" public_interface="in" units="ms"/>
+        <variable cmeta:id="hold_time" name="t_ss" public_interface="in" units="ms"/>
+        <variable cmeta:id="holding_current" name="I_holding" public_interface="in" units="pA_per_pF"/>
+        <variable cmeta:id="activation_duration" name="t_act" public_interface="in" units="ms"/>
+        <variable cmeta:id="activation_current" name="I_actTest" public_interface="in" units="pA_per_pF"/>
+        <variable cmeta:id="interpulse" name="t_intp" public_interface="in" units="ms"/>
+        <variable cmeta:id="period" name="stimPeriod" units="ms"/>
+        <variable cmeta:id="localTimer" name="t" units="ms"/>
+        <variable cmeta:id="pulse_number" name="np" public_interface="in" units="dimensionless"/>
+        <variable name="I_stim" public_interface="out" units="pA_per_pF"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>stimPeriod</ci>
+                <apply>
+                    <plus/>
+                    <ci>t_act</ci>
+                    <ci>t_intp</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>t</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>time</ci>
+                        <ci>t_ss</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>stimPeriod</ci>
+                        <apply>
+                            <floor/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <minus/>
+                                    <ci>time</ci>
+                                    <ci>t_ss</ci>
+                                </apply>
+                                <ci>stimPeriod</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply id="stimuli">
+                <eq/>
+                <ci>I_stim</ci>
+                <piecewise>
+                    <piece>
+                        <ci>I_holding</ci>
+                        <apply>
+                            <lt/>
+                            <ci>time</ci>
+                            <ci>t_ss</ci>
+                        </apply>
+                    </piece>
+                    <piece>
+                        <ci>I_actTest</ci>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <geq/>
+                                <ci>time</ci>
+                                <ci>t_ss</ci>
+                            </apply>
+                            <apply>
+                                <leq/>
+                                <ci>t</ci>
+                                <ci>t_act</ci>
+                            </apply>
+                            <apply>
+                                <leq/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>t_ss</ci>
+                                    <apply>
+                                        <times/>
+                                        <ci>stimPeriod</ci>
+                                        <ci>np</ci>
+                                    </apply>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <ci>I_holding</ci>
+                    </otherwise>
+                </piecewise>
+            </apply>
+        </math>
+    </component>
+</model>

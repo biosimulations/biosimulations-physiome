@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- The BG describes the current (ionic flux) through the ion channel K-->
+<model name="channelK_BG" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../cellLib/BG/units_BG.cellml">
+        <units name="J_per_mol" units_ref="J_per_mol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="per_fmol" units_ref="per_fmol"/>
+        <units name="fmol" units_ref="fmol"/>
+    </import>
+    <import xlink:href="../cellLib/BG/channelX_BG.cellml">
+        <component component_ref="channelX_BG" name="channelX_BG"/>
+    </import>
+    <import xlink:href="../cellLib/BG/C_BG.cellml">
+        <component component_ref="C_BG" name="Ki_BG"/>
+    </import>
+    <import xlink:href="../cellLib/BG/C_BG.cellml">
+        <component component_ref="C_BG" name="Ke_BG"/>
+    </import>
+    <component name="channelK_BG">
+        <!--Parameters-->
+        <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
+        <variable name="t" private_interface="out" public_interface="in" units="second"/>
+        <variable name="kappa_K" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="z_K" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="K_i_K" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="q_i_K_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="K_e_K" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="q_e_K_init" private_interface="out" public_interface="in" units="fmol"/>
+        <!--Inputs-->
+        <variable name="mu_p" private_interface="out" public_interface="in" units="J_per_mol"/>
+        <variable name="A_g_K" private_interface="out" public_interface="in" units="J_per_mol"/>
+        <!--Outputs-->
+        <variable name="v_p_K" private_interface="in" public_interface="out" units="fmol_per_sec"/>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="channelK_BG">
+            <component_ref component="channelX_BG"/>
+            <component_ref component="Ki_BG"/>
+            <component_ref component="Ke_BG"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="channelK_BG" component_2="channelX_BG"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="kappa_K" variable_2="kappa_X"/>
+        <map_variables variable_1="z_K" variable_2="z_X"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="A_g_K" variable_2="A_g_X"/>
+        <map_variables variable_1="v_p_K" variable_2="v_p_X"/>
+    </connection>
+    <connection>
+        <map_components component_1="channelK_BG" component_2="Ki_BG"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="K_i_K" variable_2="K"/>
+        <map_variables variable_1="q_i_K_init" variable_2="q_init"/>
+    </connection>
+    <connection>
+        <map_components component_1="channelK_BG" component_2="Ke_BG"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="K_e_K" variable_2="K"/>
+        <map_variables variable_1="q_e_K_init" variable_2="q_init"/>
+    </connection>
+    <connection>
+        <map_components component_1="channelX_BG" component_2="Ki_BG"/>
+        <map_variables variable_1="mu_i_X" variable_2="mu"/>
+        <map_variables variable_1="v_X" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="channelX_BG" component_2="Ke_BG"/>
+        <map_variables variable_1="mu_e_X" variable_2="mu"/>
+        <map_variables variable_1="v_X" variable_2="v"/>
+    </connection>
+</model>

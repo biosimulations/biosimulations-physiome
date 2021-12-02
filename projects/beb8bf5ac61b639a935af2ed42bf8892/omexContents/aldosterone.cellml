@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model 
+	name="aldosterone_model"
+	cmeta:id="aldosterone_model"
+	
+	xmlns="http://www.cellml.org/cellml/1.1#"
+	xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+	xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+		<rdf:Description rdf:about="#aldosterone_model">
+			<rdf:value>
+			ALDOSTERONE AND ITS FEEDBACK CONTROL FUNCTIONS FOR MODIFICATION OF THE CIRCULATION
+			Two inputs are used for controlling aldosterone secretion, the potassium concentration in the 
+			extracellular fluids (CKE) and the effect of angiotensin (ANM) on aldosterone secretion.  
+			In turn, multiplier effects for aldosterone control of potassium (AMK) and sodium (AMNA) transport 
+			through cell membranes, especially through the kidney tubule membranes are calculated.
+			</rdf:value>
+		</rdf:Description>
+	</rdf:RDF>
+
+<!-- =============================================	Import the required units from the Units file	==================================================== -->
+	<import xlink:href="units.cellml">
+		<units name="minute" units_ref="minute"/>
+		<units name="per_minute" units_ref="per_minute"/>
+		<units name="beats_per_minute" units_ref="beats_per_minute"/>
+		<units name="beats_per_minute_per_mmHg" units_ref="beats_per_minute_per_mmHg"/>
+		<units name="minute_per_L" units_ref="minute_per_L"/>
+		<units name="mmHg" units_ref="mmHg"/>
+		<units name="per_mmHg" units_ref="per_mmHg"/>
+		<units name="mmHg_per_mL" units_ref="mmHg_per_mL"/>
+		<units name="mmHg_L" units_ref="mmHg_L"/>
+		<units name="per_mmHg2" units_ref="per_mmHg2"/>
+		<units name="mmHg3" units_ref="mmHg3"/>
+		<units name="monovalent_mEq" units_ref="monovalent_mEq"/>
+		<units name="monovalent_mEq_per_minute" units_ref="monovalent_mEq_per_minute"/>
+		<units name="monovalent_mEq_per_litre" units_ref="monovalent_mEq_per_litre"/>
+		<units name="mOsm" units_ref="mOsm"/>
+		<units name="mOsm_per_litre" units_ref="mOsm_per_litre"/>
+		<units name="mOsm_per_minute" units_ref="mOsm_per_minute"/>
+		<units name="monovalent_mEq_per_litre_per_minute" units_ref="monovalent_mEq_per_litre_per_minute"/>
+		<units name="litre2_per_monovalent_mEq_per_minute" units_ref="litre2_per_monovalent_mEq_per_minute"/>
+		<units name="L_per_minute" units_ref="L_per_minute"/>
+		<units name="per_mmHg_per_minute" units_ref="per_mmHg_per_minute"/>
+		<units name="mL" units_ref="mL"/>
+		<units name="gram_per_L" units_ref="gram_per_L"/>
+		<units name="L_mmHg_per_gram" units_ref="L_mmHg_per_gram"/>
+		<units name="L2_mmHg_per_gram2" units_ref="L2_mmHg_per_gram2"/>
+		<units name="mmHg_minute_per_L" units_ref="mmHg_minute_per_L"/>
+		<units name="mmHg_L_per_minute" units_ref="mmHg_L_per_minute"/>
+		<units name="gram_per_minute" units_ref="gram_per_minute"/>
+		<units name="mL_per_L" units_ref="mL_per_L"/>
+		<units name="mL_per_L_per_mmHg" units_ref="mL_per_L_per_mmHg"/>
+		<units name="mL_per_L_per_minute" units_ref="mL_per_L_per_minute"/>
+		<units name="mL_per_minute_per_mmHg" units_ref="mL_per_minute_per_mmHg"/>
+		<units name="L_mL_per_minute_per_mmHg" units_ref="L_mL_per_minute_per_mmHg"/>
+		<units name="L_per_mL" units_ref="L_per_mL"/>
+		<units name="L_per_mmHg" units_ref="L_per_mmHg"/>
+		<units name="mL_per_minute" units_ref="mL_per_minute"/>
+		<units name="L_per_minute_per_mmHg" units_ref="L_per_minute_per_mmHg"/>
+		<units name="L_per_minute_per_mmHg2" units_ref="L_per_minute_per_mmHg2"/>
+	</import>
+
+<!-- =====================================	Import all Parameters and State Variables from the Parameter file	============================================== -->
+	<import xlink:href="parameters.cellml">
+		<component component_ref="parameter_values" name="parameter_values"/>
+		<component component_ref="state_variables" name="state_variables"/>
+	</import>
+
+
+<!-- ========================================	ALDOSTERONE TOP-LEVEL COMPONENT	============================================= -->
+	<component 	name="aldosterone" 
+				cmeta:id="aldosterone">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#aldosterone">
+				<rdf:value>
+				Encapsulation grouping component containing all the components in the Aldosterone Model. The inputs and 
+				outputs of the Aldosterone Model must be passed by this component.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+
+		<variable 	cmeta:id="aldosterone_time"
+					name="time"	units="minute"	private_interface="out" public_interface="in"/>
+
+<!-- Inputs from components in other models -->
+		<variable name="ANM"	units="dimensionless" private_interface="out" public_interface="in"/>
+		<variable name="CKE"	units="monovalent_mEq_per_litre" private_interface="out" public_interface="in"/>
+
+<!-- Outputs to components in other models -->
+		<variable 	cmeta:id="aldosterone_AMK"
+					name="AMK" 	units="dimensionless" private_interface="in" public_interface="out"/>
+		<variable 	cmeta:id="aldosterone_AMNA"
+					name="AMNA"	units="dimensionless" private_interface="in" public_interface="out"/>
+	</component>
+
+<!-- OUTPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="aldosterone" component_2="aldosterone_effect_on_cell_membrane_K_transport"/>
+		<map_variables variable_1="AMK" variable_2="AMK"/>
+	</connection>
+	<connection>
+		<map_components component_1="aldosterone" component_2="aldosterone_effect_on_cell_membrane_Na_transport"/>
+		<map_variables variable_1="AMNA" variable_2="AMNA"/>
+	</connection>
+
+<!-- ========================================	ANGIOTENSIN CONTOL OF ALDOSTERONE SECRETION	============================================= -->
+	<component 	name="angiotensin_control_of_aldosterone_secretion" 
+				cmeta:id="angiotensin_control_of_aldosterone_secretion">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#angiotensin_control_of_aldosterone_secretion">
+				<rdf:value>
+				AL1, AL2, and AL3:  
+				Calculation of the partial effect of angiotensin on aldosterone secretion (ANMAL) 
+				based on the general angiotensin multiplier (ANM).  The sensitivity of this effect
+				is controlled by the sensitivity control variable (ANMALD) in Block AL2.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL1_to_AL3">
+				<rdf:value>
+				AL1, AL2, and AL3:  
+				Calculation of the partial effect of angiotensin on aldosterone secretion (ANMAL) 
+				based on the general angiotensin multiplier (ANM).  The sensitivity of this effect
+				is controlled by the sensitivity control variable (ANMALD) in Block AL2.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ANM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="ANMAL" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ANMALD"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AL1_to_AL3">
+				<eq/>
+				<ci>ANMAL</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<apply>
+							<minus/>
+							<ci>ANM</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<ci>ANMALD</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="angiotensin_control_of_aldosterone_secretion" component_2="aldosterone"/>
+		<map_variables variable_1="ANM" variable_2="ANM"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="angiotensin_control_of_aldosterone_secretion" component_2="parameter_values"/>
+		<map_variables variable_1="ANMALD" variable_2="ANMALD"/>
+	</connection>
+
+<!-- ========================================	OSMOTIC CONTROL OF ALDOSTERONE SECRETION	============================================= -->
+	<component 	name="osmotic_control_of_aldosterone_secretion" 
+				cmeta:id="osmotic_control_of_aldosterone_secretion">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#osmotic_control_of_aldosterone_secretion">
+				<rdf:value>
+				AL4:  
+				Calculation of the driving force of potassium extracellular fluid concentration (CKE) 
+				on aldosterone secretion by subtracting the constant 3.3 from CKE.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL4">
+				<rdf:value>
+				AL4:  
+				Calculation of the driving force of potassium extracellular fluid concentration (CKE) 
+				on aldosterone secretion by subtracting the constant 3.3 from CKE.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="CKE"	units="monovalent_mEq_per_litre" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="OSMAL" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AL4">
+				<eq/>
+				<ci>OSMAL</ci>
+				<apply>
+					<divide/>
+					<apply>
+						<minus/>
+						<ci>CKE</ci>
+						<cn cellml:units="monovalent_mEq_per_litre">3.3</cn>
+					</apply>
+					<cn cellml:units="monovalent_mEq_per_litre">1.0</cn>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="osmotic_control_of_aldosterone_secretion" component_2="aldosterone"/>
+		<map_variables variable_1="CKE" variable_2="CKE"/>
+	</connection>
+
+<!-- ========================================	ALDOSTERONE SECRETION	============================================= -->
+	<component 	name="aldosterone_secretion" 
+				cmeta:id="aldosterone_secretion">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#aldosterone_secretion">
+				<rdf:value>
+				AL5:  
+				Calculation of the basic rate of secretion of aldosterone (AMRBSC) by multiplying 
+				the potassium drive for secretion from Block AL4 times the angiotensin drive for 
+				aldosterone secretion (ANMAL).
+
+				AL6, AL7, AL8, and AL9:  
+				These blocks calculate the aldosterone secretion rate (AMR).  Blocks AL6, AL7, 
+				and AL8 represent a sensitivity controller for the control of aldosterone secretion rate.
+				The sensitivity control variable is AMKMUL in Block AL7.  Block AL9 sets a lower limit 
+				to the aldosterone secretion equal to zero.
+
+				AL9A:  
+				Provision is made here for infusion of aldosterone to perform infusion experiments (ALDINF).
+
+				AL9B:  
+				Provision is made here to set the rate of aldosterone entering the circulatory system (AMR1)
+				to a constant value (ALDKNS) irrespective of all other changes at earlier stages in this 
+				calculation.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL5">
+				<rdf:value>
+				AL5:  
+				Calculation of the basic rate of secretion of aldosterone (AMRBSC) by multiplying 
+				the potassium drive for secretion from Block AL4 times the angiotensin drive for 
+				aldosterone secretion (ANMAL).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL6_to_AL8">
+				<rdf:value>
+				AL6, AL7, AL8:  
+				These blocks calculate the aldosterone secretion rate (AMR).  Blocks AL6, AL7, 
+				and AL8 represent a sensitivity controller for the control of aldosterone secretion rate.
+				The sensitivity control variable is AMKMUL in Block AL7.  
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL9">
+				<rdf:value>
+				AL9:
+				Block AL9 sets a lower limit to the aldosterone secretion equal to zero.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL9A_and_AL9B">
+				<rdf:value>
+				AL9A:  
+				Provision is made here for infusion of aldosterone to perform infusion experiments (ALDINF).
+
+				AL9B:  
+				Provision is made here to set the rate of aldosterone entering the circulatory system (AMR1)
+				to a constant value (ALDKNS) irrespective of all other changes at earlier stages in this 
+				calculation.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="ANMAL"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="OSMAL"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="AMR1" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="AMKMUL"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ALDINF"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ALDKNS"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="AMRBSC"	units="dimensionless" private_interface="none" public_interface="none"/>
+		<variable name="AMRT"	units="dimensionless" private_interface="none" public_interface="none"/>
+		<variable name="AMR"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AL5">
+				<eq/>
+				<ci>AMRBSC</ci>
+				<apply>
+					<times/>
+					<ci>ANMAL</ci>
+					<cn cellml:units="dimensionless">0.909</cn>
+					<ci>OSMAL</ci>
+				</apply>
+			</apply>
+			<apply id="AL6_to_AL8">
+				<eq/>
+				<ci>AMRT</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<apply>
+							<minus/>
+							<ci>AMRBSC</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<ci>AMKMUL</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+			<apply id="AL9">
+				<eq/>
+				<ci>AMR</ci>
+				<piecewise>
+					<piece>
+						<cn cellml:units="dimensionless">0</cn>
+						<apply>
+							<lt/>
+							<ci>AMRT</ci>
+							<cn cellml:units="dimensionless">0</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>AMRT</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+			<apply id="AL9A_and_AL9B">
+				<eq/>
+				<ci>AMR1</ci>
+				<piecewise>
+					<piece>
+						<ci>ALDKNS</ci>
+						<apply>
+							<gt/>
+							<ci>ALDKNS</ci>
+							<cn cellml:units="dimensionless">0</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<apply>
+							<plus/>
+							<ci>AMR</ci>
+							<ci>ALDINF</ci>
+						</apply>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="aldosterone_secretion" component_2="angiotensin_control_of_aldosterone_secretion"/>
+		<map_variables variable_1="ANMAL" variable_2="ANMAL"/>
+	</connection>
+	<connection>
+		<map_components component_1="aldosterone_secretion" component_2="osmotic_control_of_aldosterone_secretion"/>
+		<map_variables variable_1="OSMAL" variable_2="OSMAL"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="aldosterone_secretion" component_2="parameter_values"/>
+		<map_variables variable_1="AMKMUL" variable_2="AMKMUL"/>
+		<map_variables variable_1="ALDINF" variable_2="ALDINF"/>
+		<map_variables variable_1="ALDKNS" variable_2="ALDKNS"/>
+	</connection>
+
+<!-- ========================================	ALDOSTERONE CONCENTRATION		============================================= -->
+	<component 	name="aldosterone_concentration" 
+				cmeta:id="aldosterone_concentration">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#aldosterone_concentration">
+				<rdf:value>
+				AL10, AL11, and AL12:  
+				Calculation of aldosterone concentration (AMC), allowing for a time delay in the
+				build-up of the aldosterone.  The time constant for the time delay is AMT in Block AL12.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL10_to_AL12">
+				<rdf:value>
+				AL10, AL11, and AL12:  
+				Calculation of aldosterone concentration (AMC), allowing for a time delay in the
+				build-up of the aldosterone.  The time constant for the time delay is AMT in Block AL12.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="AMR1"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="AMC_init"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="time"	units="minute" private_interface="none" public_interface="in"/>
+		
+<!-- Outputs to other components -->
+		<variable name="AMC" 	initial_value="AMC_init"	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="AMT"	units="minute" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AL10_to_AL12">
+				<eq/>
+				<apply>
+					<diff/>
+					<bvar>
+						<ci>time</ci>
+					</bvar>
+					<ci>AMC</ci>
+				</apply>
+				<apply>
+					<divide/>
+					<apply>
+						<minus/>
+						<ci>AMR1</ci>
+						<ci>AMC</ci>
+					</apply>
+					<ci>AMT</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- STATE VARIABLES INITIAL VALUE -->
+	<connection>
+		<map_components component_1="aldosterone_concentration" component_2="state_variables"/>
+		<map_variables variable_1="AMC_init" variable_2="AMC_init"/>
+	</connection>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="aldosterone_concentration" component_2="aldosterone_secretion"/>
+		<map_variables variable_1="AMR1" variable_2="AMR1"/>
+	</connection>
+	<connection>
+		<map_components component_1="aldosterone_concentration" component_2="aldosterone"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="aldosterone_concentration" component_2="parameter_values"/>
+		<map_variables variable_1="AMT" variable_2="AMT"/>
+	</connection>
+
+<!-- ========================================	GENERAL ALDOSTERONE MULTIPLIER	============================================= -->
+	<component 	name="general_aldosterone_multiplier" 
+				cmeta:id="general_aldosterone_multiplier">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#general_aldosterone_multiplier">
+				<rdf:value>
+				AL13:  
+				This block calculates, based on the input of aldosterone concentration (AMC), 
+				an output factor (AM1) for the physiological multiplying effect of aldosterone 
+				on different physiological mechanisms.  This is a temporary aldosterone multiplier
+				effect.  It is calculated as shown in the block, with AM1LL equal to the lower 
+				limit of AM1 and AM1UL equal to the upper limit.
+
+				AL14, AL15, and AL16:  
+				These are a sensitivity controller; the control variable for sensitivity is ALDMM in
+				Block AL15, and the output AM is a general aldosterone multiplier.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL13">
+				<rdf:value>
+				AL13:  
+				This block calculates, based on the input of aldosterone concentration (AMC), 
+				an output factor (AM1) for the physiological multiplying effect of aldosterone 
+				on different physiological mechanisms.  This is a temporary aldosterone multiplier
+				effect.  It is calculated as shown in the block, with AM1LL equal to the lower 
+				limit of AM1 and AM1UL equal to the upper limit.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL14_to_AL16">
+				<rdf:value>
+				AL14, AL15, and AL16:  
+				These are a sensitivity controller; the control variable for sensitivity is ALDMM in
+				Block AL15, and the output AM is a general aldosterone multiplier.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="AMC"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="AM" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="AM1UL"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="AM1LL"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="AMCSNS"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="ALDMM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="AM1"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AL13">
+				<eq/>
+				<ci>AM1</ci>
+				<apply>
+					<minus/>
+					<ci>AM1UL</ci>
+					<apply>
+						<divide/>
+						<apply>
+							<minus/>
+							<ci>AM1UL</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<apply>
+							<plus/>
+							<apply>
+								<times/>
+								<apply>
+									<divide/>
+									<apply>
+										<minus/>
+										<ci>AM1LL</ci>
+										<cn cellml:units="dimensionless">1</cn>
+									</apply>
+									<apply>
+										<minus/>
+										<ci>AM1LL</ci>
+										<ci>AM1UL</ci>
+									</apply>
+								</apply>
+								<apply>
+									<minus/>
+									<ci>AMC</ci>
+									<cn cellml:units="dimensionless">1</cn>
+								</apply>
+								<ci>AMCSNS</ci>
+							</apply>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+					</apply>
+				</apply>
+			</apply>
+			<apply id="AL14_to_AL16">
+				<eq/>
+				<ci>AM</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<apply>
+							<minus/>
+							<ci>AM1</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<ci>ALDMM</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="general_aldosterone_multiplier" component_2="aldosterone_concentration"/>
+		<map_variables variable_1="AMC" variable_2="AMC"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="general_aldosterone_multiplier" component_2="parameter_values"/>
+		<map_variables variable_1="AM1UL" variable_2="AM1UL"/>
+		<map_variables variable_1="AM1LL" variable_2="AM1LL"/>
+		<map_variables variable_1="AMCSNS" variable_2="AMCSNS"/>
+		<map_variables variable_1="ALDMM" variable_2="ALDMM"/>
+	</connection>
+
+<!-- ========================================	ALDOSTERONE EFFECT ON CELL MEMBRANE POTASSIUM TRANSPORT	============================================= -->
+	<component 	name="aldosterone_effect_on_cell_membrane_K_transport" 
+				cmeta:id="aldosterone_effect_on_cell_membrane_K_transport">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#aldosterone_effect_on_cell_membrane_K_transport">
+				<rdf:value>
+				AL17, AL18, AL19, and AL20:  
+				This is an additional sensitivity control circuit for controlling the aldosterone 
+				multiplier effect on potassium transport through cell membranes (AMK), especially 
+				in the kidney tubules.  The input to this system is the general aldosterone multiplier (AM),
+				and the sensitivity controller is the variable AMKM in Block AL18.  The lower limit to 
+				AMK is set by Block AL20.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL17_to_AL19">
+				<rdf:value>
+				AL17, AL18 and AL19:  
+				This is an additional sensitivity control circuit for controlling the aldosterone 
+				multiplier effect on potassium transport through cell membranes (AMK), especially 
+				in the kidney tubules.  The input to this system is the general aldosterone multiplier (AM),
+				and the sensitivity controller is the variable AMKM in Block AL18.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL20">
+				<rdf:value>
+				AL20:  
+				The lower limit to AMK is set by Block AL20.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="AM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable	cmeta:id="aldosterone_effect_on_cell_membrane_K_transport_AMK"
+					name="AMK" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="AMKM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="AMKT"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AL17_to_AL19">
+				<eq/>
+				<ci>AMKT</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<apply>
+							<minus/>
+							<ci>AM</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<ci>AMKM</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+			<apply id="AL20">
+				<eq/>
+				<ci>AMK</ci>
+				<piecewise>
+					<piece>
+						<cn cellml:units="dimensionless">0.2</cn>
+						<apply>
+							<lt/>
+							<ci>AMKT</ci>
+							<cn cellml:units="dimensionless">0.2</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>AMKT</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="aldosterone_effect_on_cell_membrane_K_transport" component_2="general_aldosterone_multiplier"/>
+		<map_variables variable_1="AM" variable_2="AM"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="aldosterone_effect_on_cell_membrane_K_transport" component_2="parameter_values"/>
+		<map_variables variable_1="AMKM" variable_2="AMKM"/>
+	</connection>
+
+<!-- ========================================	ALDOSTERONE EFFECT ON CELL MEMBRANE SODIUM TRANSPORT	============================================= -->
+	<component 	name="aldosterone_effect_on_cell_membrane_Na_transport" 
+				cmeta:id="aldosterone_effect_on_cell_membrane_Na_transport">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#aldosterone_effect_on_cell_membrane_Na_transport">
+				<rdf:value>
+				AL21, AL22, AL23, AL24, and AL25:  
+				This circuit calculates an aldosterone multiplier factor for control of sodium 
+				transport through cell membranes (AMNA), with the input to the circuit equal to 
+				the generalized aldosterone multiplier (AM) and a sensitivity controller (AMNAM) 
+				in Block AL22.  The upper and lower limits for the controlling effect on sodium 
+				transport are set by variables AMNAUL and AMNALL in Blocks AL24 and AL25 respectively.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL21_to_AL23">
+				<rdf:value>
+				AL21, AL22 and AL23:  
+				This circuit calculates an aldosterone multiplier factor for control of sodium 
+				transport through cell membranes (AMNA), with the input to the circuit equal to 
+				the generalized aldosterone multiplier (AM) and a sensitivity controller (AMNAM) 
+				in Block AL22.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#AL24_and_AL25">
+				<rdf:value>
+				AL24, and AL25:  
+				The upper and lower limits for the controlling effect on sodium 
+				transport are set by variables AMNAUL and AMNALL in Blocks AL24 and AL25 respectively.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="AM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable 	cmeta:id="aldosterone_effect_on_cell_membrane_Na_transport_AMNA"
+					name="AMNA" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="AMNAM"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="AMNAUL"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="AMNALL"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="AMNAT"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="AL21_to_AL23">
+				<eq/>
+				<ci>AMNAT</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<apply>
+							<minus/>
+							<ci>AM</ci>
+							<cn cellml:units="dimensionless">1</cn>
+						</apply>
+						<ci>AMNAM</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+			<apply id="AL24_and_AL25">
+				<eq/>
+				<ci>AMNA</ci>
+				<piecewise>
+					<piece>
+						<ci>AMNALL</ci>
+						<apply>
+							<lt/>
+							<ci>AMNAT</ci>
+							<ci>AMNALL</ci>
+						</apply>
+					</piece>
+					<piece>
+						<ci>AMNAUL</ci>
+						<apply>
+							<gt/>
+							<ci>AMNAT</ci>
+							<ci>AMNAUL</ci>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>AMNAT</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="aldosterone_effect_on_cell_membrane_Na_transport" component_2="general_aldosterone_multiplier"/>
+		<map_variables variable_1="AM" variable_2="AM"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="aldosterone_effect_on_cell_membrane_Na_transport" component_2="parameter_values"/>
+		<map_variables variable_1="AMNAM" variable_2="AMNAM"/>
+		<map_variables variable_1="AMNAUL" variable_2="AMNAUL"/>
+		<map_variables variable_1="AMNALL" variable_2="AMNALL"/>
+	</connection>
+
+	
+<!-- ============================================================		GROUPING		=============================================================== -->
+   <group>
+      <relationship_ref relationship="containment"/>
+      <component_ref component="aldosterone">
+			<component_ref component="angiotensin_control_of_aldosterone_secretion"/>
+			<component_ref component="osmotic_control_of_aldosterone_secretion"/>
+			<component_ref component="aldosterone_secretion"/>
+			<component_ref component="aldosterone_concentration"/>
+			<component_ref component="general_aldosterone_multiplier"/>
+			<component_ref component="aldosterone_effect_on_cell_membrane_K_transport"/>
+			<component_ref component="aldosterone_effect_on_cell_membrane_Na_transport"/>
+      </component_ref>
+   </group>
+
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="aldosterone">
+			<component_ref component="parameter_values"/>
+			<component_ref component="state_variables"/>
+			<component_ref component="angiotensin_control_of_aldosterone_secretion"/>
+			<component_ref component="osmotic_control_of_aldosterone_secretion"/>
+			<component_ref component="aldosterone_secretion"/>
+			<component_ref component="aldosterone_concentration"/>
+			<component_ref component="general_aldosterone_multiplier"/>
+			<component_ref component="aldosterone_effect_on_cell_membrane_K_transport"/>
+			<component_ref component="aldosterone_effect_on_cell_membrane_Na_transport"/>
+      </component_ref>
+   </group>
+
+
+</model>   

@@ -1,0 +1,4531 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+
+<!-- FILE : DFN_purkinje_fibre_model_1985.xml
+
+CREATED : September 2001
+
+LAST MODIFIED : 5th April 2003
+
+AUTHOR : Catherine Lloyd
+         Department of Engineering Science
+         The University of Auckland
+         
+MODEL STATUS : This model conforms to the CellML 1.0 Specification released on
+10th August 2001, and the CellML Metadata 1.0 Specification released on 16th January 2002.
+
+DESCRIPTION : This file contains a CellML description of cardiac action
+potentials in purkinje fibres, based on the Di Francesco-Noble model, 1985.
+
+CHANGES: 
+  19/10/2001 - CML - Removed document type definition as this is declared as
+                     optional according to the W3C recommendation.  
+  24/10/2001 - CML - Made changes to some of the metadata, bringing them up to
+                     date with the most recent working draft (26th September) of
+                     the Metadata specification. 
+  07/12/2001 - CML - Changed equations after using mathml validator.
+  03/01/2002 - CML - Created two extra components for extracellular sodium and
+                     extracellular calcium concentrations.  Then changed the Nao
+                     and Cao variable public interfaces and the connections
+                     between components appropriately.
+  21/01/2002 - AAC - Updated metadata to conform with the 16/1/02 CellML 
+                     Metadata 1.0 Specification.
+  25/02/2002 - CML - Corrected several equations.
+  06/05/2002 - CML - Added some initial values.  
+  19/07/2002 - CML - Added more metadata.                
+  05/04/2003 - AAC - Changed the model name so the model loads in the database 
+                     easier.
+-->
+
+<model
+    name="difrancesco_noble_model_1985"
+    cmeta:id="DFN_purkinje_fibre_model_1985"
+    xmlns="http://www.cellml.org/cellml/1.0#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.0#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+  <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+      xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:dcterms="http://purl.org/dc/terms/"
+      xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+      xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+    <!--
+      The following RDF block contains metadata that applies to this document
+      as a whole, as indicated by the empty about attribute on the 
+      <rdf:Description> element.
+    -->
+    <rdf:Description rdf:about="">
+      <!--
+        The Model Builder Metadata.  The Dublin Core "creator" element is used  
+        to indicate the person who translated the model into CellML.
+      -->
+      <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Lloyd</vCard:Family>
+          <vCard:Given>Catherine</vCard:Given>
+          <vCard:Other>May</vCard:Other>
+        </vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>The University of Auckland</vCard:Orgname>
+          <vCard:Orgunit>The Bioengineering Research Group</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+      
+      <!--
+        The Creation Date metadata. This is the date on which the model
+        was translated into CellML.
+      -->
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2001-09-28</dcterms:W3CDTF>
+      </dcterms:created>
+      
+      <!--
+        The Modification History metadata. This lists the changes that have been
+        made to the document, who made the changes, and when they were made.
+      --> 
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Getting the model solving and correcting a bunch of errors and fixing
+          up the units and moving everything to "per-unit-area" type equations.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Nickerson</vCard:Family>
+            <vCard:Given>David</vCard:Given>
+            <vCard:Other>P</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource"> 
+          <dcterms:W3CDTF>2003-10-28</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Changed the model name so the model loads in the database easier.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Cuellar</vCard:Family>
+            <vCard:Given>Autumn</vCard:Given>
+            <vCard:Other>A</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource"> 
+          <dcterms:W3CDTF>2003-04-05</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Added more metadata.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Lloyd</vCard:Family>
+            <vCard:Given>Catherine</vCard:Given>
+            <vCard:Other>May</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource"> 
+          <dcterms:W3CDTF>2002-07-19</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Added some initial values from Penny Noble's documentation.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Lloyd</vCard:Family>
+            <vCard:Given>Catherine</vCard:Given>
+            <vCard:Other>May</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource">
+          <dcterms:W3CDTF>2002-05-06</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Corrected several equations.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Lloyd</vCard:Family>
+            <vCard:Given>Catherine</vCard:Given>
+            <vCard:Other>May</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource">
+          <dcterms:W3CDTF>2002-02-25</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Updated metadata to conform to the 16/1/02 CellML Metadata 1.0 
+          Specification.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Cuellar</vCard:Family>
+            <vCard:Given>Autumn</vCard:Given>
+            <vCard:Other>A.</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource">
+          <dcterms:W3CDTF>2002-01-21</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Created two extra components for extracellular sodium and
+          extracellular calcium concentrations.  Then changed the Nao and Cao 
+          variable public interfaces and the connections between components 
+          appropriately.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Lloyd</vCard:Family>
+            <vCard:Given>Catherine</vCard:Given>
+            <vCard:Other>May</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource">
+          <dcterms:W3CDTF>2002-01-03</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Changed equations after using mathml validator.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Lloyd</vCard:Family>
+            <vCard:Given>Catherine</vCard:Given>
+            <vCard:Other>May</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource">
+          <dcterms:W3CDTF>2001-12-07</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Made changes to some of the metadata, bringing them up to date with 
+          the most recent working draft (26th September) of the Metadata 
+          Specification.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Lloyd</vCard:Family>
+            <vCard:Given>Catherine</vCard:Given>
+            <vCard:Other>May</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource">
+          <dcterms:W3CDTF>2001-10-24</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Removed document type definition as this is declared as optional 
+          according to the W3C recommendation.
+        </rdf:value>
+        <cmeta:modifier rdf:parseType="Resource">
+          <vCard:N rdf:parseType="Resource">
+            <vCard:Family>Lloyd</vCard:Family>
+            <vCard:Given>Catherine</vCard:Given>
+            <vCard:Other>May</vCard:Other>
+          </vCard:N>
+        </cmeta:modifier>
+        <dcterms:modified rdf:parseType="Resource">
+          <dcterms:W3CDTF>2001-10-19</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+     
+          
+      <!-- The Publisher metadata. -->
+      <dc:publisher>
+        The University of Auckland, Bioengineering Research Group
+      </dc:publisher>
+    </rdf:Description>
+    
+    <!--
+      The following metadata refers to the model itself, as indicated by the
+      reference to the ID "DFN_purkinje_fibre_model_1985", which is             
+      declared on the <model> element.
+    -->
+    <rdf:Description rdf:about="#DFN_purkinje_fibre_model_1985">
+      <!-- A human readable name for the model. -->
+      <dc:title>
+        The Di Francesco-Noble Model of Cardiac Action Potentials in Purkinje 
+        fibres, 1985
+      </dc:title>
+      
+      <!-- A comment regarding the model. -->
+      <cmeta:comment rdf:parseType="Resource">
+        <rdf:value>
+          This is the CellML description of Di Francesco and Noble's            
+          mathematical model of cardiac action potentials of Purkinje fibres.   
+          It is a significant development on the MNT model (1975), and it       
+          remains the most complete of all Purkinje fibre ionic current models  
+          to date.  It is a complete replacement for the MNT model.  In         
+          particular it considers changes in the interpretation of the i_K2     
+          system, includes more accurate experimental data concerning the fast  
+          sodium current and it starts to account for fluctuations in ionic     
+          concentrations.  In addition, a start is made on accounting for       
+          intracellular calcium movement between the sarcoplasmic reticulum and 
+          the myoplasm. Corrections for the model can be found in an appendix at
+          the end of Earm &amp; Noble, Proc. Roy. Soc. B, Vol 240(1297), 1990.
+        </rdf:value>
+        <!-- The creator of the comment. -->
+        <dc:creator rdf:parseType="Resource">
+          <vCard:FN>Catherine Lloyd</vCard:FN>
+        </dc:creator>
+      </cmeta:comment>
+      
+      <cmeta:bio_entity>Purkinje Fibre</cmeta:bio_entity>
+      
+      <!-- 
+        The CellML Metadata Specification recommends that bibliographic metadata
+        is used to provide information about the original model reference.  The 
+        "identifier" attribute on the "BibliographicReference" class provides an
+        elegant way to identify a cited reference using a database identifier            such as Pubmed.  All associated data such as author, journal title,     
+        date, etc can be looked up on the database.
+      -->
+      <bqs:reference rdf:parseType="Resource">
+        <bqs:Pubmed_id>2578676</bqs:Pubmed_id>
+        <bqs:JournalArticle rdf:parseType="Resource">
+          <dc:creator>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>DiFrancesco</vCard:Family>
+                    <vCard:Given>D</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Noble</vCard:Family>
+                    <vCard:Given>D</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+            </rdf:Seq>
+          </dc:creator>
+          <dc:title>
+            A model of cardiac electrical activity incorporating ionic pumps and             concentration changes
+          </dc:title>
+          <dcterms:issued rdf:parseType="Resource">
+            <dcterms:W3CDTF>1985-01-10</dcterms:W3CDTF>
+          </dcterms:issued>
+          <bqs:Journal rdf:parseType="Resource">
+            <dc:title>
+              Philosophical Transactions of the Royal Society of London Series B
+            </dc:title>
+          </bqs:Journal>
+          <bqs:volume>307</bqs:volume>
+          <bqs:first_page>353</bqs:first_page>
+          <bqs:last_page>398</bqs:last_page>
+        </bqs:JournalArticle>
+      </bqs:reference>
+      <cs:simulation>
+        <rdf:Description rdf:ID="simulation">
+          <cs:multistepMethod>bdf</cs:multistepMethod>
+          <cs:iterationMethod>functional</cs:iterationMethod>
+          <cs:boundIntervals rdf:parseType="Collection">
+            <rdf:Description>
+              <cs:boundVariable>
+                <rdf:Description rdf:about="#time"/>
+              </cs:boundVariable>
+              <cs:maximumStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                0.01
+              </cs:maximumStepSize>
+              <cs:tabulationStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                1.0
+              </cs:tabulationStepSize>
+              <cs:startingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                0
+              </cs:startingValue>
+              <cs:endingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                5000
+              </cs:endingValue>
+            </rdf:Description>
+          </cs:boundIntervals>
+        </rdf:Description>
+      </cs:simulation>
+    </rdf:Description>
+  </rdf:RDF>
+  
+  <!--
+    Below, are defined some additional units for association with variables and
+    constants within the model. The identifiers are fairly self-explanatory.
+  -->
+  <units name="mm">
+    <unit prefix="micro" units="mole" />
+    <unit units="litre" exponent="-1" />
+  </units>
+  
+  <units name="per_mm">
+    <unit prefix="micro" units="mole" />
+    <unit units="litre" exponent="-1" />
+  </units>
+  
+  <units name="ms">
+    <unit prefix="milli" units="second" />
+  </units>
+  
+  <units name="per_ms">
+    <unit units="ms" exponent="-1" />
+  </units>
+
+  <units name="mV">
+    <unit prefix="milli" units="volt" />
+  </units>
+
+  <units name="per_mV">
+    <unit units="mV" exponent="-1" />
+  </units>
+  
+  <units name="per_mV_ms">
+    <unit units="mV" exponent="-1" />
+    <unit units="ms" exponent="-1" />
+  </units>
+  
+  <units name="mS_per_mm2">
+    <unit prefix="milli" units="siemens" />
+    <unit units="mm" exponent="-2" />
+  </units>
+  
+  <units name="uF_per_mm2">
+    <unit prefix="micro" units="farad" />
+    <unit units="mm" exponent="-2" />
+  </units>
+
+  <units name="uA_per_mm2">
+    <unit prefix="micro" units="ampere" />
+    <unit units="mm" exponent="-2" />
+  </units>
+  
+  <units name="uA_per_mm2_per_mM">
+    <unit prefix="micro" units="ampere" />
+    <unit units="mm" exponent="-2" />
+    <unit units="mM" exponent="-1" />
+  </units>
+  
+  <units name="mM">
+    <unit prefix="nano" units="mole" />
+    <unit units="mm" exponent="-3" />
+  </units>
+  
+  <units name="mM_per_ms">
+    <unit units="mM" />
+    <unit units="ms" exponent="-1" />
+  </units>
+  
+  <units name="per_ms_per_mM">
+    <unit units="ms" exponent="-1" />
+    <unit units="mM" exponent="-1" />
+  </units>
+  
+  <units name="mM2">
+    <unit units="mM" exponent="2" />
+  </units>
+  
+  <units name="gas_constant_units">
+    <unit prefix="pico" units="joule" />
+    <unit prefix="nano" units="mole" exponent="-1" />
+    <unit units="kelvin" exponent="-1" />
+  </units>
+  
+  <units name="faradays_constant_units">
+    <unit prefix="nano" units="coulomb" />
+    <unit prefix="nano" units="mole" exponent="-1" />
+  </units>
+  
+  <!--
+    The "environment" component is used to declare variables that are used by
+    all or most of the other components, in this case just "time".
+  -->
+  <component name="environment" cmeta:id="environment">
+    <variable name="time" cmeta:id="time" public_interface="out" units="ms" />
+  </component>
+
+  <!--
+    The "membrane" component is really the `root' node of our model.
+    It defines the action potential variable "V" among other things.
+  -->
+  <component name="membrane" cmeta:id="membrane">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#membrane">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The membrane component is the main component for this model,
+            containing the differential equation for the transmembrane potential
+            (the action potential).
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- These variables are defined here and used in other components. -->
+    <variable
+        cmeta:id="Vm" name="V" public_interface="out"
+        initial_value="-87.0" units="mV" />
+    <variable
+        name="R" public_interface="out"
+        initial_value="8314.41" units="gas_constant_units" />
+    <variable
+        name="T" public_interface="out"
+        initial_value="310.0" units="kelvin" />
+    <variable
+        name="F" public_interface="out"
+        initial_value="96485.3" units="faradays_constant_units" />
+
+    <!-- This variable is defined here and only used internally. -->
+    <variable name="C" initial_value="0.08466" units="uF_per_mm2" />
+    
+    <!-- These variables are imported from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="i_f" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_K" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_K1" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_to" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_Na_b" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_Ca_b" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_NaK" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_NaCa" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_Na" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_si" public_interface="in" units="uA_per_mm2" />
+    <variable name="I_stim" initial_value="0.0" units="uA_per_mm2" />
+    
+    <!--
+      The membrane voltage (V) is calculated as an ordinary
+      differential equation in terms of the currents.
+    -->
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#membrane_voltage_diff_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The action potential equation consists of the sum of the
+            trans-sarcolemmal currents plus an applied stimulus, which may be
+            used to pace the cell model.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="membrane_voltage_diff_eq">
+      <apply id="membrane_voltage_diff_eq"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> V </ci>
+        </apply>
+        <apply><divide />
+          <apply><minus />
+            <ci>I_stim</ci>
+            <apply><plus />
+              <ci> i_f </ci>
+              <ci> i_K </ci>
+              <ci> i_K1 </ci>
+              <ci> i_to </ci>
+              <ci> i_Na_b </ci>
+              <ci> i_Ca_b </ci>
+              <ci> i_NaK </ci>
+              <ci> i_NaCa </ci>
+              <ci> i_Na </ci>
+              <ci> i_si </ci>
+            </apply>
+          </apply>
+          <ci> C </ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+    
+  
+  <!-- The hyperpolarising-activated current (i_f) is a Na-K current. -->
+  <component name="hyperpolarising_activated_current"
+    cmeta:id="hyperpolarising_activated_current">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#hyperpolarising_activated_current">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The "funny" current - activated by hyperpolarisation rather than
+            depolarisation, and consisting of sodium and potassium components.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- These variables are defined here and used in other components. -->
+    <variable name="i_f" public_interface="out" units="uA_per_mm2" />
+    <variable name="i_fK" public_interface="out" units="uA_per_mm2" />
+    <variable name="i_fNa" public_interface="out" units="uA_per_mm2" />
+    <variable name="E_Na" public_interface="out" units="mV" />
+    <variable name="E_K" public_interface="out" units="mV" />
+
+    <!-- These variables are defined here and only used internally. -->
+    <variable name="g_f_Na" initial_value="3.39e-3" units="mS_per_mm2" />
+    <variable name="g_f_K" initial_value="3.39e-3" units="mS_per_mm2" />
+    <variable name="I_fK" units="uA_per_mm2" />
+    <variable name="I_fNa" units="uA_per_mm2" />
+    <variable name="Km_f" initial_value="45.0" units="mM" />
+    
+    <!-- These variables are imported from other components. -->
+    <variable
+        name="time" public_interface="in"
+        private_interface="out" units="ms" />
+    <variable
+        name="V" public_interface="in"
+        private_interface="out" units="mV" />
+    <variable name="R" public_interface="in" units="gas_constant_units" />
+    <variable name="T" public_interface="in" units="kelvin" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    <variable name="Kc" public_interface="in" units="mM" />
+    <variable name="Ki" public_interface="in" units="mM" />
+    <variable name="Nai" public_interface="in" units="mM" />
+    <variable name="Nao" public_interface="in" units="mM" />
+        
+    <!-- These variables are imported from encapsulated components. -->
+    <variable name="y" private_interface="in" units="dimensionless" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_f_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The total current is simply the sum of the two component currents.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_f_calculation_eq">
+      <apply id="i_f_calculation"><eq />
+        <ci> i_f </ci>
+        <apply><plus />
+          <ci> i_fK </ci>
+          <ci> i_fNa </ci>
+        </apply>
+      </apply>
+    </math>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="i_fK_calculation"><eq />
+        <ci> i_fK </ci>
+        <apply><times />
+          <ci> y </ci>
+          <ci> I_fK </ci>
+        </apply>
+      </apply>
+      
+      <apply id="i_fNa_calculation"><eq />
+        <ci> i_fNa </ci>
+        <apply><times />
+          <ci> y </ci>
+          <ci> I_fNa </ci>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#I_fK_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The maximal potassium current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="I_fK_calculation_eq">
+      <apply id="I_fK_calculation"><eq />
+        <ci> I_fK </ci>
+        <apply><times />
+          <apply><divide />
+            <ci> Kc </ci>
+            <apply><plus />
+              <ci> Kc </ci>
+              <ci> Km_f </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> g_f_K </ci>
+            <apply><minus />
+              <ci> V </ci>
+              <ci> E_K </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#I_fNa_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The maximal sodium current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="I_fNa_calculation_eq">
+      <apply id="I_fNa_calculation"><eq />
+        <ci> I_fNa </ci>
+        <apply><times />
+          <apply><divide />
+            <ci> Kc </ci>
+            <apply><plus />
+              <ci> Kc </ci>
+              <ci> Km_f </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> g_f_Na </ci>
+            <apply><minus />
+              <ci> V </ci>
+              <ci> E_Na </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#E_f_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The reversal potentials for the two ions.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="E_f_calculation_eq">
+      <apply id="E_Na_calculation"><eq />
+        <ci> E_Na </ci>
+        <apply><times />
+          <apply><divide />
+            <apply><times />
+              <ci> R </ci>
+              <ci> T </ci>
+            </apply>
+            <ci> F </ci>
+          </apply>
+          <apply><ln />
+            <apply><divide />
+              <ci> Nao </ci>
+              <ci> Nai </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="E_K_calculation"><eq />
+        <ci> E_K </ci>
+        <apply><times />
+          <apply><divide />
+            <apply><times />
+              <ci> R </ci>
+              <ci> T </ci>
+            </apply>
+            <ci> F </ci>
+          </apply>
+          <apply><ln />
+            <apply><divide />
+              <ci> Kc </ci>
+              <ci> Ki </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The y gate is encapsulated within the hyperpolarising-activated current.
+  -->
+  <component name="hyperpolarising_activated_current_y_gate"
+    cmeta:id="hyperpolarising_activated_current_y_gate">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#hyperpolarising_activated_current_y_gate">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The activation variable for the "funny" current - the y gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable
+        name="y" public_interface="out"
+        initial_value="0.2" units="dimensionless" />
+
+    <!-- These variables are defined here and only used internally. -->
+    <variable name="alpha_y" units="per_ms" />
+    <variable name="beta_y" units="per_ms" />
+    
+    <!-- These variables are imported from parent and sibling components. -->
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="time" public_interface="in" units="ms" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#alpha_y_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The opening rate for the y gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="alpha_y_calculation_eq">
+      <apply id="alpha_y_calculation"><eq />
+        <ci> alpha_y </ci>
+        <apply><times />
+          <cn cellml:units="per_ms"> 0.05e-3 </cn>
+          <apply><exp />
+            <apply><times />
+              <cn cellml:units="per_mV"> -0.067 </cn>
+              <apply><plus />
+                <ci> V </ci>
+                <cn cellml:units="mV"> 42.0 </cn>
+              </apply>
+            </apply>
+          </apply>
+        </apply>    
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#beta_y_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The closing rate for the y gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="beta_y_calculation_eq">
+      <apply id="beta_y_calculation"><eq />
+        <ci> beta_y </ci>
+        <apply><divide />
+          <apply><times/>
+            <cn cellml:units="per_ms">1.0e-3</cn>
+            <apply><plus />
+              <ci> V </ci>
+              <cn cellml:units="mV"> 42.0 </cn>
+            </apply>
+          </apply>
+          <apply><minus />
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <apply><exp />
+              <apply><times />
+                <cn cellml:units="per_mV"> -0.2 </cn>
+                <apply><plus />
+                  <ci> V </ci>
+                  <cn cellml:units="mV"> 42.0 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#y_kinetics">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The Hodgkin-Huxley type kinetics for the y gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="y_kinetics">
+      <apply id="dy_dt"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> y </ci>
+        </apply>
+        <apply><minus />
+          <apply><times />
+            <ci> alpha_y </ci>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> y </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> beta_y </ci>
+            <ci> y </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The time-dependent (delayed) potassium current is equivalent to the plateau 
+    potassium current (1) in the MNT model.  It is controlled by a single gate, 
+    x.
+  -->
+  <component name="time_dependent_potassium_current"
+    cmeta:id="time_dependent_potassium_current">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#time_dependent_potassium_current">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The time-dependent potassium current, a current dependent on both
+            potassium ion concentration and membrane potential.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable name="i_K" public_interface="out" units="uA_per_mm2" />
+    
+    <!--  These variables are defined here and only used internally. -->
+    <!--<variable name="K" units="dimensionless" />-->
+    <variable name="I_K" units="uA_per_mm2" />
+    <variable name="i_K_max" initial_value="0.2032" units="uA_per_mm2" />
+    
+    <!-- These variables are imported from other components. -->
+    <variable
+        name="time" public_interface="in"
+        private_interface="out" units="ms" />
+    <variable
+        name="V" public_interface="in"
+        private_interface="out" units="mV" />
+    <variable name="Ki" public_interface="in" units="mM" />
+    <variable name="Kc" public_interface="in" units="mM" />
+        
+    <variable name="R" public_interface="in" units="gas_constant_units" />
+    <variable name="T" public_interface="in" units="kelvin" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+
+    <!-- This variable is imported from an encapsulated component. -->
+    <variable name="x" private_interface="in" units="dimensionless" />
+        
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_K_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the time-dependent potassium current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_K_calculation_eq">
+      <apply id="i_K_calculation"><eq />
+        <ci> i_K </ci>
+        <apply><times />
+          <ci> x </ci>
+          <ci> I_K </ci>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="I_K_calculation"><eq />
+        <ci> I_K </ci>
+        <apply><times />
+          <ci> i_K_max </ci>
+          <apply><divide />
+            <apply><minus />
+              <ci> Ki </ci>
+              <apply><times />
+                <ci> Kc </ci>
+                <apply><exp />
+                  <apply><minus/>
+                    <apply><divide />
+                      <apply><times/>
+                        <ci> V </ci>
+                        <ci> F </ci>
+                      </apply>
+                      <apply><times/>
+                        <ci> R </ci>
+                        <ci> T </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <cn cellml:units="mM"> 140.0 </cn>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!-- The x gate encapsulated within the time-dependent potassium current. -->
+  <component name="time_dependent_potassium_current_x_gate"
+    cmeta:id="time_dependent_potassium_current_x_gate">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#time_dependent_potassium_current_x_gate">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The voltage-dependent activation variable for the time-dependent
+            potassium current, the x gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable
+        name="x" public_interface="out"
+        initial_value="0.01" units="dimensionless" />
+    
+    <!--  These variables are defined here and only used internally. -->
+    <variable name="alpha_x" units="per_ms" />
+    <variable name="beta_x" units="per_ms" />
+    
+    <!-- These variables are imported from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="V" public_interface="in" units="mV" />
+        
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#alpha_x_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The opening rate of the x gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="alpha_x_calculation_eq">
+      <apply id="alpha_x_calculation"><eq />
+        <ci> alpha_x </ci>
+        <apply><times />
+          <cn cellml:units="per_ms"> 0.5e-3 </cn>
+          <apply><divide />
+            <apply><exp />
+              <apply><divide />
+                <apply><plus />
+                  <ci> V </ci>
+                  <cn cellml:units="mV"> 50.0 </cn>
+                </apply>
+                <cn cellml:units="mV"> 12.1 </cn>                        
+              </apply>
+            </apply>
+            <apply><plus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply><exp />
+                <apply><divide />
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 50.0 </cn>
+                  </apply>
+                  <cn cellml:units="mV"> 17.5 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#beta_x_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The closing rate of the x gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="beta_x_calculation_eq">
+      <apply id="beta_x_calculation"><eq />
+        <ci> beta_x </ci>
+        <apply><times />
+          <cn cellml:units="per_ms"> 1.3e-3 </cn>
+          <apply><divide />
+            <apply><exp />
+              <apply><minus />
+                <apply><divide />
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 20.0 </cn>
+                  </apply>
+                  <cn cellml:units="mV"> 16.67 </cn>                     
+                </apply>
+              </apply>
+            </apply>
+            <apply><plus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply><exp />
+                <apply><minus />
+                  <apply><divide />
+                    <apply><plus />
+                      <ci> V </ci>
+                      <cn cellml:units="mV"> 20.0 </cn>
+                    </apply>
+                    <cn cellml:units="mV"> 25.0 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#dx_dt_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The kinetics of the x gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="dx_dt_eq">
+      <apply id="dx_dt"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> x </ci>
+        </apply>
+        <apply><minus />
+          <apply><times />
+            <ci> alpha_x </ci>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> x </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> beta_x </ci>
+            <ci> x </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!-- The time-independent (background) potassium current (i_K1). -->
+  <component name="time_independent_potassium_current"
+    cmeta:id="time_independent_potassium_current">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#time_independent_potassium_current">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The time-independent background potassium current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable name="i_K1" public_interface="out" units="uA_per_mm2" />
+    
+    <!--  These variables are defined here and only used internally. -->
+    <variable name="g_K1" initial_value="1.0385" units="mS_per_mm2" />
+    <variable name="Km_K1" initial_value="210.0" units="mM" />
+     
+    <!-- These variables are imported from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="E_K" public_interface="in" units="mV" />
+    <variable name="Kc" public_interface="in" units="mM" />
+    <variable name="R" public_interface="in" units="gas_constant_units" />
+    <variable name="T" public_interface="in" units="kelvin" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" /> 
+        
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_K1_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the time-independent postassium current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_K1_calculation_eq">
+      <apply id="i_K1_calculation"><eq />
+        <ci> i_K1 </ci>
+        <apply><times />
+          <ci> g_K1 </ci>
+          <apply><divide />
+            <ci> Kc </ci>
+            <apply><plus />
+              <ci> Kc </ci>
+              <ci> Km_K1 </ci>
+            </apply>
+          </apply>
+          <apply><divide />
+            <apply><minus />
+              <ci> V </ci>
+              <ci> E_K </ci>
+            </apply>
+            <apply><plus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                    <apply><minus />
+                      <apply><plus />
+                        <ci> V </ci>
+                        <cn cellml:units="mV"> 10.0 </cn>
+                      </apply>
+                      <ci> E_K </ci>
+                    </apply>
+                    <ci> F </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The transient outward current (i_to) replaces the i_qr chloride-based       
+    current of the MNT model.  This current is a calcium-activated, outward     
+    rectifier.  It has an inactivation gate, r.
+  -->
+  <component name="transient_outward_current"
+    cmeta:id="transient_outward_current">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#transient_outward_current">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The transient outward current (i_to) replaces the i_qr
+            chloride-based current of the MNT model. This current is a
+            calcium-activated, outward rectifier. It has an inactivation gate,
+            r.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable name="i_to" public_interface="out" units="uA_per_mm2" />
+    
+    <!--  These variables are defined here and only used internally. -->
+    <variable name="Km_to" initial_value="10.0" units="mM" />
+    <variable name="Km_Ca" initial_value="0.5e-3" units="mM" />
+    <variable name="g_to" initial_value="0.316e-3" units="mS_per_mm2" />
+     
+    <!-- These variables are imported from other components. -->
+    <variable
+        name="time" public_interface="in"
+        private_interface="out" units="ms" />
+    <variable
+        name="V" public_interface="in"
+        private_interface="out" units="mV" />
+    <variable name="R" public_interface="in" units="gas_constant_units" />
+    <variable name="T" public_interface="in" units="kelvin" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    <variable name="Kc" public_interface="in" units="mM" />
+    <variable name="Ki" public_interface="in" units="mM" />
+    <variable name="Cai" public_interface="in" units="mM" />
+    
+    <!-- this variable is imported from an encapsulated component. -->
+    <variable name="r" private_interface="in" units="dimensionless" />
+        
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_to_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the transient outward current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_to_calculation_eq">
+      <apply id="i_to_calculation"><eq />
+        <ci> i_to </ci>
+        <apply><times />
+          <ci> r </ci>
+          <ci> g_to </ci>
+          <apply><plus />
+            <cn cellml:units="mM"> 0.2 </cn>
+            <apply><divide />
+              <ci> Kc </ci>
+              <apply><plus />
+                <ci> Km_to </ci>
+                <ci> Kc </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply><divide />
+            <ci> Cai </ci>
+            <apply><plus />
+              <ci> Km_Ca </ci>
+              <ci> Cai </ci>
+            </apply>
+          </apply>
+          <apply><divide />
+            <apply><plus />
+              <ci> V </ci>
+              <cn cellml:units="mV"> 10.0 </cn>
+            </apply>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply><exp />
+                <apply><times />
+                  <cn cellml:units="per_mV"> -0.2 </cn>
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 10.0 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply><minus />
+            <apply><times />
+              <ci> Ki </ci>
+              <apply><exp />
+                <apply><times />
+                  <cn cellml:units="per_mV"> 0.02 </cn>
+                  <ci> V </ci>
+                </apply>
+              </apply>
+            </apply>
+            <apply><times />
+              <ci> Kc </ci>
+              <apply><exp />
+                <apply><times />
+                  <cn cellml:units="per_mV"> -0.02 </cn>
+                  <ci> V </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--  The inactivation process is described by the following r component. -->
+  <component name="transient_outward_current_r_gate"
+    cmeta:id="transient_outward_current_r_gate">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#transient_outward_current_r_gate">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The activation variable for the transient outward current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- this variable is defined here and used in other components -->
+    <variable
+        name="r" public_interface="out"
+        initial_value="1.0" units="dimensionless" />
+
+    <!-- these variables are defined here and only used internally -->
+    <variable name="alpha_r" units="per_ms" />
+    <variable name="beta_r" units="per_ms" />
+
+    <!-- these variables are imported from parent and sibling components -->
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="time" public_interface="in" units="ms" />
+
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#alpha_r_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The opening rate of the r gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="alpha_r_calculation_eq">
+      <apply id="alpha_r_calculation"><eq />
+        <ci> alpha_r </ci>
+        <apply><times />
+          <cn cellml:units="per_ms"> 0.033e-3 </cn>
+          <apply><exp />
+            <apply><divide />
+              <apply><minus />
+                <ci> V </ci>
+              </apply>
+              <cn cellml:units="mV"> 17.0 </cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#beta_r_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The closing rate of the r gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="beta_r_calculation_eq">
+      <apply id="beta_r_calculation"><eq />
+        <ci> beta_r </ci>
+        <apply><divide />
+          <cn cellml:units="per_ms"> 33.0e-3 </cn>
+          <apply><plus />
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <apply><exp />
+              <apply><minus />
+                <apply><divide />
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 10.0 </cn>
+                  </apply>
+                  <cn cellml:units="mV"> 8.0 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#dr_dt_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The kinetics for the r gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="dr_dt_eq">
+      <apply id="dr_dt"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> r </ci>
+        </apply>
+        <apply><minus />
+          <apply><times />
+            <ci> alpha_r </ci>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> r </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> beta_r </ci>
+            <ci> r </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component> 
+             
+  <!--
+    The sodium background current is a simple, time-independent current which   
+    is similar to the i_Na_b of the MNT model.  i_Ch_b is a background current  
+    due to choline, or some other sodium substitute.
+  -->
+  <component name="sodium_background_current"
+    cmeta:id="sodium_background_current">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#sodium_background_current">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            A linear resting sodium flux.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!--  This variable is defined here and used in other components. -->
+    <variable name="i_Na_b" public_interface="out" units="uA_per_mm2" />
+    
+    <!-- This variable is defined here and only used internally. -->
+    <variable name="g_Nab" initial_value="0.203e-3" units="mS_per_mm2" />
+     
+    <!-- These variables are imported from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="E_Na" public_interface="in" units="mV" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_Na_b_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the background sodium current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_Na_b_calculation_eq">
+      <apply id="i_Na_b_calculation"><eq />
+        <ci> i_Na_b </ci>
+        <apply><times />
+          <ci> g_Nab </ci>
+          <apply><minus />
+            <ci> V </ci>
+            <ci> E_Na </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+    
+  <!--
+    The calcium background current is in the same form as the sodium background 
+    current.
+  -->
+  <component name="calcium_background_current"
+    cmeta:id="calcium_background_current">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#calcium_background_current">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            A resting background leakage calcium flux.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!--  These variables are defined here and used in other components. -->
+    <variable name="i_Ca_b" public_interface="out" units="uA_per_mm2" />
+    <variable name="E_Ca" public_interface="out" units="mV" />
+    
+    <!-- This variable is defined here and only used internally. -->
+    <variable name="g_Cab" initial_value="0.0226e-3" units="mS_per_mm2" />
+     
+    <!-- These variables are imported from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="R" public_interface="in" units="gas_constant_units" />
+    <variable name="T" public_interface="in" units="kelvin" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    <variable name="Cai" public_interface="in" units="mM" />
+    <variable name="Cao" public_interface="in" units="mM" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_Ca_b_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the calcium leakage current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_Ca_b_calculation_eq">
+      <apply id="i_Ca_b_calculation"><eq />
+        <ci> i_Ca_b </ci>
+        <apply><times />
+          <ci> g_Cab </ci>
+          <apply><minus />
+            <ci> V </ci>
+            <ci> E_Ca </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#E_Ca_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The calcium reversal potential.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="E_Ca_calculation_eq">
+      <apply id="E_Ca_calculation"><eq />
+        <ci> E_Ca </ci>
+        <apply><times />
+          <apply><divide />
+            <apply><times />
+              <ci> R </ci>
+              <ci> T </ci>
+            </apply>
+            <apply><times />
+              <ci> F </ci>
+              <cn cellml:units="dimensionless">2.0</cn>
+            </apply>
+          </apply>
+          <apply><ln />
+            <apply><divide />
+              <ci> Cao </ci>
+              <ci> Cai </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The Na-K exchange pump couples the free energy released by the hydrolysis of
+    ATP to transfer sodium and potassium ions across the cell membrane against  
+    their electrochemical gradients.  3 Na ions are pumped out for every 2 K    
+    ions pumped into the cell.
+  --> 
+  <component name="sodium_potassium_pump" cmeta:id="sodium_potassium_pump">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#sodium_potassium_pump">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The Na-K exchange pump couples the free energy released by the
+            hydrolysis of ATP to transfer sodium and potassium ions across the
+            cell membrane against their electrochemical gradients. 3 Na ions are
+            pumped out for every 2 K ions pumped into the cell.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!--  This variable is defined here and used in other components. -->
+    <variable name="i_NaK" public_interface="out" units="uA_per_mm2" />
+    
+    <!-- This variable is defined here and only used internally. -->
+    <variable name="I_NaK" initial_value="0.141" units="uA_per_mm2" />
+    <variable name="K_mK" initial_value="1.0" units="mM" />
+    <variable name="K_mNa" initial_value="40.0" units="mM" />
+     
+    <!-- These variables are imported from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="Nai" public_interface="in" units="mM" />
+    <variable name="Kc" public_interface="in" units="mM" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_NaK_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the Na/K-pump current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_NaK_calculation_eq">
+      <apply id="i_NaK_calculation"><eq />
+        <ci> i_NaK </ci>
+        <apply><times />
+          <ci> I_NaK </ci>
+          <apply><divide />
+            <ci> Kc </ci>
+            <apply><plus />
+              <ci> K_mK </ci>
+              <ci> Kc </ci>
+            </apply>
+          </apply>
+          <apply><divide />
+            <ci> Nai </ci>
+            <apply><plus />
+              <ci> K_mNa </ci>
+              <ci> Nai </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+          
+                        
+  <!--
+    The equation for the Na-Ca exchange current assumes that i_NaCa depends     
+    soley on the sodium and calcium ion electrochemical gradients and the       
+    transmembrane potential.  The stoichiometry of the exchange is 3Na : 1Ca,   
+    producing a net outward current.
+  -->
+  <component name="Na_Ca_exchanger" cmeta:id="Na_Ca_exchanger">
+     <rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+       <rdf:Description rdf:about="#Na_Ca_exchanger">
+         <cmeta:comment rdf:parseType="Resource">
+           <rdf:value>
+             The DFN paper gives two alternative equations for the 
+             i_NaCa current. The simplest makes the current a sine function of 
+             the total energy gradient. The more realistic model uses an 
+             equation which is likely to reproduce better dependence of i_NaCa 
+             on intracellular calcium ions. We utilise the more complex version
+             here.
+           </rdf:value>
+         </cmeta:comment>
+       </rdf:Description>
+     </rdf:RDF>
+
+    <!--  This variable is defined here and used in other components. -->
+    <variable name="i_NaCa" public_interface="out" units="uA_per_mm2" />
+    <variable
+        name="n_NaCa" public_interface="out"
+        initial_value="3.0" units="dimensionless" />
+    
+    <!-- These variables are defined here and only used internally. -->
+    <variable name="k_NaCa" initial_value="0.0226e-3" units="uA_per_mm2" />
+    <!--<variable name="E_NaCa" units="mV" />-->
+    <variable name="d_NaCa" initial_value="0.001" units="dimensionless" />
+    <variable name="gamma" initial_value="0.5" units="dimensionless" />
+    <!--<variable name="n" units="dimensionless" />-->
+    
+    <!-- These variables are imported in from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="R" public_interface="in" units="gas_constant_units" />
+    <variable name="T" public_interface="in" units="kelvin" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    <variable name="Cao" public_interface="in" units="mM" />
+    <variable name="Cai" public_interface="in" units="mM" />
+    <variable name="E_Na" public_interface="in" units="mV" />
+    <variable name="Nai" public_interface="in" units="mM" />
+    <variable name="Nao" public_interface="in" units="mM" />
+    <variable name="E_Ca" public_interface="in" units="mV" />
+    
+    <!--  The current is given as: -->
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#Na_Ca_exchanger_calculation2_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the exchanger current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="Na_Ca_exchanger_calculation2_eq">
+      <!-- 
+      
+      <apply id="Na_Ca_exchanger_calculation1"><eq />
+        <ci> i_NaCa </ci>
+        <apply><times />
+          <ci> K_NaCa </ci>
+          <apply><sinh />
+            <apply><divide />
+              <apply><times />
+                <apply><minus />
+                  <ci> V </ci>
+                  <ci> E_NaCa </ci>
+                </apply>
+                <ci> F </ci>
+              </apply>
+              <apply><times />
+                <ci> R </ci>
+                <ci> T </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply> 
+      
+      <apply id="E_NaCa_calculation"><eq />
+        <ci> E_NaCa </ci>
+        <apply><divide />
+          <apply><minus />
+            <apply><times />
+              <ci> n_NaCa </ci>
+              <ci> E_Na </ci>
+            </apply>
+            <apply><times />
+              <cn cellml:units="dimensionless"> 2.0 </cn>
+              <ci> E_Ca </ci>
+            </apply>
+          </apply>
+          <apply><minus />
+            <ci> n_NaCa </ci>
+            <cn cellml:units="dimensionless"> 2.0 </cn>
+          </apply>
+        </apply>
+      </apply>
+
+      -->
+      
+      <apply id="Na_Ca_exchanger_calculation2"><eq />
+        <ci> i_NaCa </ci>
+        <apply><times />
+          <ci> k_NaCa </ci>
+          <apply><divide />
+            <apply><minus />
+              <apply><times />
+                <apply><exp />
+                  <apply><divide />
+                    <apply><times />
+                      <ci> gamma </ci>
+                      <apply><minus />
+                        <ci> n_NaCa </ci>
+                        <cn cellml:units="dimensionless"> 2.0 </cn>
+                      </apply>
+                      <ci> V </ci>
+                      <ci> F </ci>
+                    </apply>
+                    <apply><times />
+                      <ci> R </ci> 
+                      <ci> T </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply><power />
+                  <ci> Nai </ci>
+                  <ci> n_NaCa </ci>
+                </apply>
+                <ci> Cao </ci>
+              </apply>
+              <apply><times />
+                <apply><exp />
+                  <apply><divide />
+                    <apply><times />
+                      <cn cellml:units="dimensionless"> -1.0 </cn>
+                      <apply><minus />
+                        <cn cellml:units="dimensionless"> 1.0 </cn>
+                        <ci> gamma </ci>
+                      </apply>
+                      <apply><minus />
+                        <ci> n_NaCa </ci>
+                        <cn cellml:units="dimensionless"> 2.0 </cn>
+                      </apply>
+                      <ci> V </ci>
+                      <ci> F </ci>
+                    </apply>
+                    <apply><times />
+                      <ci> R </ci> 
+                      <ci> T </ci>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply><power />
+                  <ci> Nao </ci>
+                  <ci> n_NaCa </ci>
+                </apply>
+                <ci> Cai </ci>
+              </apply>
+            </apply>
+            <apply><plus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply><times />
+                <ci> d_NaCa </ci>
+                <apply><plus />
+                  <apply><times />
+                    <ci> Cai </ci>
+                    <apply><power />
+                      <ci> Nao </ci>
+                      <ci> n_NaCa </ci>
+                    </apply>
+                  </apply>
+                  <apply><times />
+                    <ci> Cao </ci>
+                    <apply><power />
+                      <ci> Nai </ci>
+                      <ci> n_NaCa </ci>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+        
+    </math>
+  </component>
+  
+  <!--
+    The DFN model retains a two-variable mode; of the sodium kinetics, with new 
+    equations for the gates m and h.  It is acknowledged however that the model 
+    does not represent the slower components of Na inactivation and recovery.   
+    It is also assumed that the sodium channel shows a 12% permeability to k    
+    ions.
+  -->
+  <component name="fast_sodium_current" cmeta:id="fast_sodium_current">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#fast_sodium_current">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The DFN model retains a two-variable model of the sodium kinetics,
+            with new equations for the gates m and h. It is acknowledged however
+            that the model does not represent the slower components of Na
+            inactivation and recovery. It is also assumed that the sodium
+            channel shows a 12% permeability to K ions.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable name="i_Na" public_interface="out" units="uA_per_mm2" />
+
+    <!-- These variables are defined here and only used internally. -->
+    <variable name="g_Na" initial_value="0.846" units="mS_per_mm2" />
+    <variable name="E_mh" units="mV" />
+    
+    <!-- These variables are imported from other components. -->
+    <variable
+        name="time" public_interface="in"
+        private_interface="out" units="ms" />
+    <variable
+        name="V" public_interface="in"
+        private_interface="out" units="mV" />
+    <variable name="R" public_interface="in" units="gas_constant_units" />
+    <variable name="T" public_interface="in" units="kelvin" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    <variable name="Nao" public_interface="in" units="mM" />
+    <variable name="Nai" public_interface="in" units="mM" />   
+    <variable name="Kc" public_interface="in" units="mM" /> 
+    <variable name="Ki" public_interface="in" units="mM" />
+    
+    <!-- These variables are imported from encapsulated components. -->
+    <variable name="m" private_interface="in" units="dimensionless" />
+    <variable name="h" private_interface="in" units="dimensionless" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_Na_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the fast sodium current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_Na_calculation_eq">
+      <apply id="i_Na_calculation"><eq />
+        <ci> i_Na </ci>
+        <apply><times />
+          <ci> g_Na </ci>
+          <apply><power />
+            <ci> m </ci>
+            <cn cellml:units="dimensionless"> 3.0 </cn>
+          </apply>
+          <ci> h </ci>
+          <apply><minus />
+            <ci> V </ci>
+            <ci> E_mh </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#E_mh_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The reversal potential of the fast sodium channel, assuming a 12%
+            permeability of potassium ions.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="E_mh_calculation_eq">
+      <apply id="E_mh_calculation"><eq />
+        <ci> E_mh </ci>
+        <apply><times />
+          <apply><divide />
+            <apply><times />
+              <ci> R </ci>
+              <ci> T </ci>
+            </apply>
+            <ci> F </ci>
+          </apply>
+          <apply><ln />
+            <apply><divide />
+              <apply><plus />
+                <ci> Nao </ci>
+                <apply><times />
+                  <cn cellml:units="dimensionless"> 0.12 </cn>
+                  <ci> Kc </ci>
+                </apply>
+              </apply>
+              <apply><plus />
+                <ci> Nai </ci>
+                <apply><times />
+                  <cn cellml:units="dimensionless"> 0.12 </cn>
+                  <ci> Ki </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+    
+  <!--
+    The "fast_sodium_current_m_gate" is the activation m gate encapsulated      
+    inside the "fast sodium current" component. 
+  -->
+  <component name="fast_sodium_current_m_gate"
+    cmeta:id="fast_sodium_current_m_gate">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#fast_sodium_current_m_gate">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The voltage-dependent activation gate for the fast sodium channel -
+            the m gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    
+    <!-- This variable is defined here and used in other components. -->
+    <variable
+        name="m" public_interface="out"
+        initial_value="0.01" units="dimensionless" />
+        
+    <!-- These variables are defined here and only used internally. -->
+    <variable name="alpha_m" units="per_ms" />
+    <variable name="beta_m" units="per_ms" />
+
+    <!-- 
+      These variables are imported from the "environment" and the "membrane" via
+      the "fast_sodium_current" component.
+    -->
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="time" public_interface="in" units="ms" />
+   
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#alpha_m_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The opening rate of the m gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="alpha_m_calculation_eq">
+      <apply id="alpha_m_calculation"><eq />
+        <ci> alpha_m </ci>
+        <apply><divide />
+          <apply><times />
+            <cn cellml:units="per_mV_ms"> 200.0e-3 </cn>
+            <apply><plus />
+              <ci> V </ci>
+              <cn cellml:units="mV"> 41.0 </cn>
+            </apply>
+          </apply>
+          <apply><minus />
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <apply><exp />
+              <apply><times />
+                <cn cellml:units="dimensionless"> -0.1 </cn>
+                <apply><plus />
+                  <ci> V </ci>
+                  <cn cellml:units="mV"> 41.0 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#beta_m_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The closing rate of the m gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="beta_m_calculation_eq">
+      <apply id="beta_m_calculation"><eq />
+        <ci> beta_m </ci>
+        <apply><times />
+          <cn cellml:units="per_ms"> 8000.0e-3 </cn>
+          <apply><exp />
+            <apply><times />
+              <cn cellml:units="dimensionless"> -0.056 </cn>
+              <apply><plus />
+                <ci> V </ci>
+                <cn cellml:units="mV"> 66.0 </cn>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#dm_dt_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The kinetics of the m gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="dm_dt_eq">
+      <apply id="dm_dt"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> m </ci>
+        </apply>
+        <apply><minus />
+          <apply><times />
+            <ci> alpha_m </ci>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> m </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> beta_m </ci>
+            <ci> m </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The "fast_sodium_current_h_gate" component is the inactivation h gate       
+    encapsulated in the "fast sodium current" component.
+  -->
+  <component name="fast_sodium_current_h_gate"
+    cmeta:id="fast_sodium_current_h_gate">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#fast_sodium_current_h_gate">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The voltage-dependent inactivation gate for the fast sodium current
+            - the h gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable
+        name="h" public_interface="out"
+        initial_value="0.98" units="dimensionless" />
+        
+    <!-- These variables are defined here and only used internally. -->
+    <variable name="alpha_h" units="per_ms" />
+    <variable name="beta_h" units="per_ms" />
+
+    <!-- 
+      These variables are imported from the "environment" and the "membrane" via
+      the "fast_sodium_current" component.  
+    -->
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="time" public_interface="in" units="ms" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#alpha_h_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The opening rate of the h gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="alpha_h_calculation_eq">
+      <apply id="alpha_h_calculation"><eq />
+        <ci> alpha_h </ci>
+        <apply><times />
+          <cn cellml:units="per_ms"> 20.0e-3 </cn>
+          <apply><exp />
+            <apply><times />
+              <cn cellml:units="dimensionless"> -0.125 </cn>
+              <apply><plus />
+                <ci> V </ci>
+                <cn cellml:units="mV"> 75.0 </cn>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#beta_h_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The closing rate of the h gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="beta_h_calculation_eq">
+      <apply id="beta_h_calculation"><eq />
+        <ci> beta_h </ci>
+        <apply><divide />
+          <cn cellml:units="per_ms"> 2000.0e-3 </cn>
+          <apply><plus/>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply><times />
+              <cn cellml:units="dimensionless"> 320.0 </cn>
+              <apply><exp />
+                <apply><times />
+                  <cn cellml:units="dimensionless"> -0.1 </cn>
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 75.0 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#dh_dt_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The kinetics of the h gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="dh_dt_eq">
+      <apply id="dh_dt"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> h </ci>
+        </apply>
+        <apply><minus />
+          <apply><times />
+            <ci> alpha_h </ci>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> h </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> beta_h </ci>
+            <ci> h </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    Like the MNT model, the kinetics of the secondary inward current are still  
+    described in terms of two gate variables d and f, but the time constants for
+    activation and inactivation processes are much shorter.  The fast component,
+    i_si of this current has been divided into the individual ion movements of
+    Ca, K and Na. 
+  -->
+  <component name="secondary_inward_current"
+    cmeta:id="secondary_inward_current">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#secondary_inward_current">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Like the MNT model, the kinetics of the secondary inward current are
+            still described in terms of two gate variables d and f, but the time
+            constants for activation and inactivation processes are much
+            shorter. The fast component, i_si of this current has been divided
+            into the individual ion movements of Ca, K and Na. This current
+            would later be called the L-type calcium current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- These variables are defined here and used in other components. -->
+    <variable name="i_si" public_interface="out" units="uA_per_mm2" />
+    <variable name="i_siCa" public_interface="out" units="uA_per_mm2" />
+    <variable name="i_siK" public_interface="out" units="uA_per_mm2" />
+    <variable name="i_siNa" public_interface="out" units="uA_per_mm2" />
+    
+    <!-- This variable is defined here and only used internally. -->
+    <variable name="P_Ca" initial_value="16.93e-3" units="uA_per_mm2_per_mM" />
+    <variable name="P_CaK" initial_value="0.01" units="dimensionless" />
+    <variable name="P_CaNa" initial_value="0.01" units="dimensionless" />
+ 
+    <!-- These variables are imported from other components. -->
+    <variable
+        name="time" public_interface="in"
+        private_interface="out" units="ms" />
+    <variable
+        name="V" public_interface="in"
+        private_interface="out" units="mV" />
+    <variable name="R" public_interface="in" units="gas_constant_units" />
+    <variable name="T" public_interface="in" units="kelvin" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    <variable name="Nao" public_interface="in" units="mM" />
+    <variable name="Nai" public_interface="in" units="mM" />   
+    <variable name="Kc" public_interface="in" units="mM" /> 
+    <variable name="Ki" public_interface="in" units="mM" />
+    <variable name="Cao" public_interface="in" units="mM" />
+    <variable name="Cai" public_interface="in" private_interface="out" units="mM" />
+    
+    <!-- These variables are imported from encapsulated components. -->
+    <variable name="d" private_interface="in" units="dimensionless" />
+    <variable name="f" private_interface="in" units="dimensionless" />
+    <variable name="f2" private_interface="in" units="dimensionless" />
+             
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_si_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The total i_si current is simply the sum of the component calcium,
+            potassium, and sodium currents.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_si_calculation_eq">
+      <apply id="i_si_calculation"><eq />
+        <ci> i_si </ci>
+        <apply><plus />
+          <ci> i_siCa </ci>
+          <ci> i_siK </ci>
+          <ci> i_siNa </ci>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_siCa_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the calcium component of the second inward current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_siCa_calculation_eq">
+      <apply id="i_siCa_calculation"><eq />
+        <ci> i_siCa </ci>
+        <apply><times />
+          <ci> d </ci>
+          <ci> f </ci>
+          <ci> f2 </ci>
+          <apply><divide />
+            <apply><times />
+              <cn cellml:units="dimensionless"> 4.0 </cn>
+              <ci> P_Ca </ci>
+              <apply><minus />
+                <ci> V </ci>
+                <cn cellml:units="mV"> 50.0 </cn>
+              </apply>
+              <apply><divide />
+                <ci> F </ci>
+                <apply><times />
+                  <ci> R </ci>
+                  <ci> T </ci>
+                </apply>
+              </apply>
+            </apply>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                    <cn cellml:units="dimensionless"> -1.0 </cn>
+                    <apply><minus />
+                      <ci> V </ci>
+                      <cn cellml:units="mV"> 50.0 </cn>
+                    </apply>
+                    <ci> F </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply><minus />
+            <apply><times />
+              <ci> Cai </ci>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                    <cn cellml:units="dimensionless"> 50.0 </cn>
+                    <ci> F </ci>
+                    <cn cellml:units="dimensionless"> 2.0 </cn>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply><times />
+              <ci> Cao </ci>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                  <cn cellml:units="dimensionless"> -2.0 </cn>
+                    <apply><minus />
+                      <ci> V </ci>
+                      <cn cellml:units="mV"> 50.0 </cn>
+                    </apply>
+                    <ci> F </ci>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_siK_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the potassium component of the second inward current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_siK_calculation_eq">
+      <apply id="i_siK_calculation"><eq />
+        <ci> i_siK </ci>
+        <apply><times />
+          <ci> d </ci>
+          <ci> f </ci>
+          <ci> f2 </ci>
+          <apply><divide />
+            <apply><times />
+              <ci>P_CaK</ci>
+              <ci> P_Ca </ci>
+              <apply><minus />
+                <ci> V </ci>
+                <cn cellml:units="mV"> 50.0 </cn>
+              </apply>
+              <apply><divide />
+                <ci> F </ci>
+                <apply><times />
+                  <ci> R </ci>
+                  <ci> T </ci>
+                </apply>
+              </apply>
+            </apply>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                    <cn cellml:units="dimensionless"> -1.0 </cn>
+                    <apply><minus />
+                      <ci> V </ci>
+                      <cn cellml:units="mV"> 50.0 </cn>
+                    </apply>
+                    <ci> F </ci>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply><minus />
+            <apply><times />
+              <ci> Ki </ci>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                    <cn cellml:units="dimensionless"> 50.0 </cn>
+                    <ci> F </ci>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply><times />
+              <ci> Kc </ci>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                  <cn cellml:units="dimensionless"> -1.0 </cn>
+                    <apply><minus />
+                      <ci> V </ci>
+                      <cn cellml:units="mV"> 50.0 </cn>
+                    </apply>
+                    <ci> F </ci>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_siNa_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Calculation of the sodium component of the second inward current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_siNa_calculation_eq">
+      <apply id="i_siNa_calculation"><eq />
+        <ci> i_siNa </ci>
+        <apply><times />
+          <ci> d </ci>
+          <ci> f </ci>
+          <ci> f2 </ci>
+          <apply><divide />
+            <apply><times />
+              <ci>P_CaNa</ci>
+              <ci> P_Ca </ci>
+              <apply><minus />
+                <ci> V </ci>
+                <cn cellml:units="mV"> 50.0 </cn>
+              </apply>
+              <apply><divide />
+                <ci> F </ci>
+                <apply><times />
+                  <ci> R </ci>
+                  <ci> T </ci>
+                </apply>
+              </apply>
+            </apply>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                    <cn cellml:units="dimensionless"> -1.0 </cn>
+                    <apply><minus />
+                      <ci> V </ci>
+                      <cn cellml:units="mV"> 50.0 </cn>
+                    </apply>
+                    <ci> F </ci>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply><minus />
+            <apply><times />
+              <ci> Nai </ci>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                    <cn cellml:units="dimensionless"> 50.0 </cn>
+                    <ci> F </ci>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply><times />
+              <ci> Nao </ci>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                  <cn cellml:units="dimensionless"> -1.0 </cn>
+                    <apply><minus />
+                      <ci> V </ci>
+                      <cn cellml:units="mV"> 50.0 </cn>
+                    </apply>
+                    <ci> F </ci>
+                  </apply>
+                  <apply><times />
+                    <ci> R </ci>
+                    <ci> T </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The "secondary_inward_current_d_gate" component is the d gate encapsulated  
+    in the "secondary inward current" component.
+  -->
+  <component name="secondary_inward_current_d_gate"
+    cmeta:id="secondary_inward_current_d_gate">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#secondary_inward_current_d_gate">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The voltage-dependent activation gate for the second inward current
+            - the d gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable
+        name="d" public_interface="out"
+        initial_value="0.005" units="dimensionless" /> 
+
+    <!-- These variables are defined here and only used internally. -->
+    <variable name="alpha_d" units="per_ms" />
+    <variable name="beta_d" units="per_ms" />
+    
+    <!-- 
+      These variables are imported from the "environment" and the "membrane" via
+      the "secondary_inward_current" component.  
+    -->
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="time" public_interface="in" units="ms" />
+
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#alpha_d_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The opening rate of the d gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="alpha_d_calculation_eq">
+      <apply id="alpha_d_calculation"><eq />
+        <ci> alpha_d </ci>
+        <apply><times />
+          <cn cellml:units="per_mV_ms"> 30.0e-3 </cn>
+          <apply><divide />
+            <apply><plus />
+              <ci> V </ci>
+              <cn cellml:units="mV"> 19.0 </cn>
+            </apply>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply><exp />
+                <apply><divide />
+                  <apply><times />
+                    <cn cellml:units="dimensionless"> -1.0 </cn>
+                    <apply><plus />
+                      <ci> V </ci>
+                      <cn cellml:units="mV"> 19.0 </cn>
+                    </apply>
+                  </apply>
+                  <cn cellml:units="mV"> 4.0 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#beta_d_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The closing rate of the d gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="beta_d_calculation_eq">
+      <apply id="beta_d_calculation"><eq />
+        <ci> beta_d </ci>
+        <apply><times />
+          <cn cellml:units="per_mV_ms"> 12.0e-3 </cn>
+          <apply><divide />
+            <apply><plus />
+              <ci> V </ci>
+              <cn cellml:units="mV"> 19.0 </cn>
+            </apply>
+            <apply><minus />
+              <apply><exp />
+                <apply><divide />
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 19.0 </cn>
+                  </apply>
+                  <cn cellml:units="mV"> 10.0 </cn>
+                </apply>
+              </apply>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#dd_dt_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The kinetics of the d gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="dd_dt_eq">
+      <apply id="dd_dt"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> d </ci>
+        </apply>
+        <apply><minus />
+          <apply><times />
+            <ci> alpha_d </ci>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> d </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> beta_d </ci>
+            <ci> d </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The "secondary_inward_current_f_gate" component is the f gate encapsulated  
+    in the "secondary inward current" component.
+  -->
+  <component name="secondary_inward_current_f_gate"
+    cmeta:id="secondary_inward_current_f_gate">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#secondary_inward_current_f_gate">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The voltage-dependent inactivation gate for the second inward
+            current - the f gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable
+        name="f" public_interface="out"
+        initial_value="1.0" units="dimensionless" /> 
+
+    <!-- These variables are defined here and only used internally. -->
+    <variable name="alpha_f" units="per_ms" />
+    <variable name="beta_f" units="per_ms" />
+    
+    <!-- These variables are imported from parent and sibling components. -->
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="Cai" public_interface="in" units="mM" />
+     
+     
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#alpha_f_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The opening rate of the f gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="alpha_f_calculation_eq">
+      <apply id="alpha_f_calculation"><eq />
+        <ci> alpha_f </ci>
+        <apply><times />
+          <cn cellml:units="per_mV_ms"> 6.25e-3 </cn>
+          <apply><divide />
+            <apply><plus />
+              <ci> V </ci>
+              <cn cellml:units="mV"> 34.0 </cn>
+            </apply>
+            <apply><minus />
+              <apply><exp />
+                <apply><divide />
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 34.0 </cn>
+                  </apply>
+                  <cn cellml:units="mV"> 4.0 </cn>
+                </apply>
+              </apply>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#beta_f_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The closing rate of the f gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="beta_f_calculation_eq">
+      <apply id="beta_f_calculation"><eq />
+        <ci> beta_f </ci>
+        <apply><divide />
+          <cn cellml:units="per_ms"> 50.0e-3 </cn>
+          <apply><plus />
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <apply><exp />
+              <apply><divide />
+                <apply><times />
+                  <cn cellml:units="dimensionless"> -1.0 </cn>
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 34.0 </cn>
+                  </apply>
+                </apply>
+                <cn cellml:units="mV"> 4.0 </cn>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#df_dt_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The kinetics of the f gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="df_dt_eq">
+      <apply id="df_dt"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> f </ci>
+        </apply>
+        <apply><minus />
+          <apply><times />
+            <ci> alpha_f </ci>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> f </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> beta_f </ci>
+            <ci> f </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The DFN model also includes a description of Ca-dependent inactivation. 
+    When calcium ions bind to a regulatory site on the channel protein, they
+    induce a conformational change such that the channel no longer conducts,
+    and the secondary current slows or ceases.
+  -->
+      
+  <component name="secondary_inward_current_f2_gate"
+    cmeta:id="secondary_inward_current_f2_gate">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#secondary_inward_current_f2_gate">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The DFN model also includes a description of Ca-dependent
+            inactivation. When calcium ions bind to a regulatory site on the
+            channel protein, they induce a conformational change such that the
+            channel no longer conducts, and the secondary current slows or
+            ceases.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components. -->
+    <variable
+        name="f2" public_interface="out"
+        initial_value="1.0" units="dimensionless" /> 
+
+    <!-- These variables are defined here and only used internally. -->
+    <variable name="alpha_f2" initial_value="5.0e-3" units="per_ms" />
+    <variable name="beta_f2" units="per_ms" />
+    <variable name="K_mf2" initial_value="1.0e-3" units="mM" />
+    
+    <!-- These variables are imported from parent and sibling components. -->
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="Cai" public_interface="in" units="mM" />
+     
+     
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#df2_dt_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The kinetics of the f2 gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="df2_dt_eq">
+      <apply id="df2_dt"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> f2 </ci>
+        </apply>
+        <apply><minus />
+          <apply><times />
+            <ci> alpha_f2 </ci>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> f2 </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> beta_f2 </ci>
+            <ci> f2 </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="beta_f2_calculation"><eq />
+        <ci> beta_f2 </ci>
+        <apply><divide />
+          <apply><times />
+            <ci> Cai </ci>
+            <ci> alpha_f2 </ci>
+          </apply>
+          <ci> K_mf2 </ci>
+        </apply>
+      </apply>
+    </math>
+  </component> 
+   
+  <!--
+    Additionally, the DFN model attempted to quantify the changes in several ion
+    concentrations, as well as the [Ca]i of earlier models.
+  -->
+  <component name="extracellular_sodium_concentration"
+    cmeta:id="extracellular_sodium_concentration">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#extracellular_sodium_concentration">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            A representation of extracellular sodium ion concentration, held
+            constant in this model.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components -->
+    <variable
+        name="Nao" public_interface="out"
+        initial_value="140.0" units="mM" />
+  </component>
+  
+  <component name="intracellular_sodium_concentration"
+    cmeta:id="intracellular_sodium_concentration">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#intracellular_sodium_concentration">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            This component contains the description of intracellular sodium
+            concentration change.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components -->
+    <variable
+        name="Nai" public_interface="out"
+        initial_value="8.0" units="mM" />
+    
+    <!-- These variables are imported from other components. -->
+    <variable name="V_i" public_interface="in" units="dimensionless" />        
+    <variable name="Am" public_interface="in" units="per_mm" /> 
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    <variable name="i_Na" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_Na_b" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_siNa" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_NaK" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_fNa" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_NaCa" public_interface="in" units="uA_per_mm2" />
+    <variable name="n_NaCa" public_interface="in" units="dimensionless" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#sodium_diff_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The rate of change of intracellular sodium concentration is the sum
+            of the ions entering the intracellular volume via the sodium
+            transmembrane currents.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="sodium_diff_eq">
+      <apply id="sodium_diff_eq"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> Nai </ci>
+        </apply>
+        <apply><divide />
+          <apply><minus />
+            <apply><times/>
+              <ci>Am</ci>
+              <apply><plus />
+                <ci> i_Na </ci>
+                <ci> i_Na_b </ci>
+                <ci> i_fNa </ci>
+                <ci> i_siNa </ci>
+                <apply><times />
+                  <ci> i_NaK </ci>
+                  <cn cellml:units="dimensionless"> 3.0 </cn>
+                </apply>
+                <apply><times />
+                  <ci> i_NaCa </ci>
+                  <apply><divide />
+                    <ci> n_NaCa </ci>
+                    <apply><minus />
+                      <ci> n_NaCa </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> V_i </ci>
+            <ci> F </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="extracellular_calcium_concentration"
+    cmeta:id="extracellular_calcium_concentration">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#extracellular_calcium_concentration">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            A representation of extracellular calcium ion concentration, held
+            constant in this model.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    
+    <!-- This variable is defined here and used in other components -->
+    <variable
+        name="Cao" public_interface="out"
+        initial_value="2.0" units="mM" />
+  </component>
+      
+  <!--
+    Changes in [Ca]i were first modelled in the BR model and has only been      
+    slightly developed in the DFN model.  Calcium is sequestered in the         
+    sarcoplasmic reticulum ([Ca]up).  A fraction is transferred to a release    
+    store in the junctional SR ([Ca]rel) before being released into the         
+    intracellular space.  The Ca concentrations in each of these various        
+    stores is modelled together with the transfer between the calcium sites     
+    and the ca transfer across the cell membrane via the other ionic            
+    currents.
+  -->
+  <component name="intracellular_calcium_concentration"
+    cmeta:id="intracellular_calcium_concentration">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#intracellular_calcium_concentration">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Changes in [Ca]i were first modelled in the BR model and has only
+            been slightly developed in the DFN model. Calcium is sequestered in
+            the sarcoplasmic reticulum ([Ca]up). A fraction is transferred to a
+            release store in the junctional SR ([Ca]rel) before being released
+            into the intracellular space. The Ca concentrations in each of these
+            various stores is modelled together with the transfer between the
+            calcium sites and the Ca transfer across the cell membrane via the
+            other ionic currents.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components -->
+    <variable
+        name="Cai" public_interface="out"
+        initial_value="0.00005" units="mM" />
+    
+    <!-- These variables are defined here and only used internally. -->         
+    <variable name="Am" public_interface="in" units="per_mm" />      
+    <variable name="V_up" public_interface="in" units="dimensionless" />
+    <variable name="V_rel" public_interface="in" units="dimensionless" />
+    <variable name="V_i" public_interface="in" units="dimensionless" />
+    <variable name="i_up" units="mM_per_ms" />
+    <variable name="i_tr" units="mM_per_ms" />
+    <variable name="i_rel" units="mM_per_ms" />
+    <variable name="alpha_up" units="per_ms_per_mM" />
+    <variable name="alpha_tr" units="per_ms" />
+    <variable name="alpha_rel" units="per_ms" />
+    <variable name="Ca_up" initial_value="2.0" units="mM" />
+    <variable name="Ca_rel" initial_value="1.0" units="mM" />
+    <variable name="Ca_up_max" initial_value="5.0" units="mM" />
+    <variable name="K_mCa" initial_value="1.0e-6" units="mM2" />
+    <variable name="p" initial_value="1.0" units="dimensionless" />
+    <variable name="alpha_p" units="per_ms" />
+    <variable name="beta_p" units="per_ms" />
+    <variable name="tau_up" initial_value="25.0" units="ms" />
+    <variable name="tau_rep" initial_value="2.0e+3" units="ms" />
+    <variable name="tau_rel" initial_value="50.0" units="ms" />
+
+    <!-- These variables are imported from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="V" public_interface="in" units="mV" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    <variable name="i_Ca_b" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_siCa" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_NaCa" public_interface="in" units="uA_per_mm2" /> 
+    <variable name="n_NaCa" public_interface="in" units="dimensionless" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_up_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The calcium current into the uptake store.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_up_calculation_eq">
+      <apply id="i_up_calculation"><eq />
+        <ci> i_up </ci>
+        <apply><times />
+          <ci> alpha_up </ci>
+          <ci> Cai </ci>
+          <apply><minus />
+            <ci> Ca_up_max </ci>
+            <ci> Ca_up </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="alpha_up_calculation_eq">
+      <apply id="alpha_up_calculation"><eq />
+        <ci> alpha_up </ci>
+        <apply><divide />
+          <cn cellml:units="dimensionless"> 1.0 </cn>
+          <apply><times />
+            <ci> tau_up </ci>
+            <ci> Ca_up_max </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_tr_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The calcium current between the uptake and release stores, which
+            uses a voltage-dependent activation variable - the p gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_tr_calculation_eq">
+      <apply id="i_tr_calculation"><eq />
+        <ci> i_tr </ci>
+        <apply><times />
+          <ci> alpha_tr </ci>
+          <ci> p </ci>
+          <apply><minus />
+            <ci> Ca_up </ci>
+            <ci> Ca_rel </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="alpha_tr_calculation"><eq />
+        <ci> alpha_tr </ci>
+        <apply><divide />
+          <cn cellml:units="dimensionless"> 1.0 </cn>
+          <ci> tau_rep </ci>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#alpha_p_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The opening rate of the p gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="alpha_p_calculation_eq">
+      <apply id="alpha_p_calculation"><eq />
+        <ci> alpha_p </ci>
+        <apply><times />
+          <cn cellml:units="per_mV_ms"> 0.625e-3 </cn>
+          <apply><divide />
+            <apply><plus />
+              <ci> V </ci>
+              <cn cellml:units="mV"> 34.0 </cn>
+            </apply>
+            <apply><minus />
+              <apply><exp />
+                <apply><divide />
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 34.0 </cn>
+                  </apply>
+                  <cn cellml:units="mV"> 4.0 </cn>
+                </apply>
+              </apply>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#beta_p_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The closing rate of the p gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="beta_p_calculation_eq">
+      <apply id="beta_p_calculation"><eq />
+        <ci> beta_p </ci>
+        <apply><divide />
+          <cn cellml:units="per_ms"> 5.0e-3 </cn>
+          <apply><plus />
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <apply><exp />
+              <apply><divide />
+                <apply><times />
+                  <cn cellml:units="dimensionless"> -1.0 </cn>
+                  <apply><plus />
+                    <ci> V </ci>
+                    <cn cellml:units="mV"> 34.0 </cn>
+                  </apply>
+                </apply>
+                <cn cellml:units="mV"> 4.0 </cn>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#dp_dt_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The kinetics of the p gate.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="dp_dt_eq">
+      <apply id="dp_dt"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> p </ci>
+        </apply>
+        <apply><minus />
+          <apply><times />
+            <ci> alpha_p </ci>
+            <apply><minus />
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> p </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> beta_p </ci>
+            <ci> p </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_rel_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The calcium release current from the SR into the cytosol.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_rel_calculation_eq">
+      <apply id="i_rel_calculation"><eq />
+        <ci> i_rel </ci>
+        <apply><times />
+          <ci> alpha_rel </ci>
+          <ci> Ca_rel </ci>
+          <apply><divide />
+            <apply><power />
+              <ci> Cai </ci>
+              <cn cellml:units="dimensionless">2.0</cn>
+            </apply>
+            <apply><plus />
+              <apply><power />
+                <ci> Cai </ci>
+                <cn cellml:units="dimensionless">2.0</cn>
+              </apply>
+              <ci> K_mCa </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="alpha_rel_calculation"><eq />
+        <ci> alpha_rel </ci>
+        <apply><divide />
+          <cn cellml:units="dimensionless"> 1.0 </cn>
+          <ci> tau_rel </ci>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#Ca_up_diff_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The rate of change of calcium concentration in the uptake store.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="Ca_up_diff_eq">
+      <apply id="Ca_up_diff_eq"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> Ca_up </ci>
+        </apply>
+        <apply><minus/>
+          <apply><times/>
+            <ci>i_up</ci>
+            <apply><divide/>
+              <ci>V_i</ci>
+              <ci>V_up</ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci>i_tr</ci>
+            <apply><divide/>
+              <ci>V_rel</ci>
+              <ci>V_up</ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#Ca_rel_diff_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The rate of change of calcium concentration in the release store.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="Ca_rel_diff_eq">
+      <apply id="Ca_rel_diff_eq"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> Ca_rel </ci>
+        </apply>
+        <apply><minus/>
+          <ci>i_tr</ci>
+          <ci>i_rel</ci>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#Cai_diff_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The rate of change of intracellular calcium concentration.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="Cai_diff_eq">
+      <apply id="Cai_diff_eq"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> Cai </ci>
+        </apply>
+        <apply><minus />
+          <apply><times/>
+            <ci>i_rel</ci>
+            <apply><divide/>
+              <ci>V_rel</ci>
+              <ci>V_i</ci>
+            </apply>
+          </apply>
+          <apply><plus/>
+            <ci>i_up</ci>
+            <apply><divide />
+              <apply><times/>
+                <ci>Am</ci>
+                <apply><minus />
+                  <apply><plus />
+                    <ci> i_siCa </ci>
+                    <ci> i_Ca_b </ci>
+                  </apply>
+                  <apply><divide />
+                    <apply><times />
+                      <cn cellml:units="dimensionless"> 2.0 </cn>
+                      <ci> i_NaCa </ci>
+                    </apply>
+                    <apply><minus />
+                      <ci> n_NaCa </ci>
+                      <cn cellml:units="dimensionless"> 2.0 </cn>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply><times />
+                <cn cellml:units="dimensionless"> 2.0 </cn>
+                <ci> V_i </ci>
+                <ci> F </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The DFN model assumes that the potassium ion concentration is homogeneous   
+    throughout the three-compartment model.
+  -->
+  <component name="extracellular_potassium_concentration"
+    cmeta:id="extracellular_potassium_concentration">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#extracellular_potassium_concentration">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            A representation of extracellular potassium ion concentration based
+            on a homogeneous three-compartment model.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components -->
+    <variable
+        name="Kc" public_interface="out"
+        initial_value="4.0" units="mM" />
+    
+    <!-- These variables are defined here and only used internally. -->         
+    <variable name="Am" public_interface="in" units="per_mm" />
+    <variable name="V_i" public_interface="in" units="dimensionless" />
+    <variable name="Kb" initial_value="4.0" units="mM" />
+    <variable name="i_mK" public_interface="out" units="uA_per_mm2" />
+    <variable name="P" initial_value="0.7" units="dimensionless" />
+    
+    <!-- These variables are imported from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    <variable name="i_K1" public_interface="in" units="uA_per_mm2" />       
+    <variable name="i_K" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_fK" public_interface="in" units="uA_per_mm2" />       
+    <variable name="i_siK" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_NaK" public_interface="in" units="uA_per_mm2" />
+    <variable name="i_to" public_interface="in" units="uA_per_mm2" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#Kc_diff_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The rate of change in the cleft potassium concentration is the
+            combination of potassium ions crossing the cellular membrane and
+            ions diffusing into the volume from the bulk extracellular stores.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="Kc_diff_eq">
+      <apply id="Kc_diff_eq"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> Kc </ci>
+        </apply>
+        <apply><plus />
+          <apply><minus />
+            <apply><times />
+              <ci> P </ci>
+              <apply><minus />
+                <ci> Kc </ci>
+                <ci> Kb </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply><divide />
+            <apply><times/>
+              <ci>Am</ci>
+              <ci> i_mK </ci>
+            </apply>
+            <apply><times />
+              <ci> V_i </ci>
+              <ci> F </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#i_mK_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The total transmembrane potassium current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="i_mK_calculation_eq">
+      <apply id="i_mK_calculation"><eq />
+        <ci> i_mK </ci>
+        <apply><minus />
+          <apply><plus />
+            <ci> i_K1 </ci>
+            <ci> i_K </ci>
+            <ci> i_fK </ci>
+            <ci> i_siK </ci>
+            <ci> i_to </ci>
+          </apply>
+          <apply><times />
+            <cn cellml:units="dimensionless"> 2.0 </cn>
+            <ci> i_NaK </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The intracellular potassium concentration is related to the total potassium 
+    ion membrane flux.
+  -->
+  <component name="intracellular_potassium_concentration"
+    cmeta:id="intracellular_potassium_concentration">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#intracellular_potassium_concentration">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The change in intracellular potassium ion concentration.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- This variable is defined here and used in other components -->
+    <variable
+        name="Ki" public_interface="out"
+        initial_value="140.0" units="mM" />
+    
+    <!-- These variables are defined here and only used internally. -->         
+    <variable name="Am" public_interface="in" units="per_mm" />
+    <variable name="V_i" public_interface="in" units="dimensionless" />
+    <variable name="i_mK" public_interface="in" units="uA_per_mm2" />
+    
+    <!-- These variables are imported from other components. -->
+    <variable name="time" public_interface="in" units="ms" />
+    <variable name="F" public_interface="in" units="faradays_constant_units" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#Ki_diff_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The rate of change of intracellular potassium concentration is the
+            sum of the ions crossing the membrane.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="Ki_diff_eq">
+      <apply id="Ki_diff_eq"><eq />
+        <apply><diff />
+          <bvar><ci> time </ci></bvar>
+          <ci> Ki </ci>
+        </apply>
+        <apply><divide />
+          <apply><minus />
+            <apply><times/>
+              <ci>Am</ci>
+              <ci> i_mK </ci>
+            </apply>
+          </apply>
+          <apply><times />
+            <ci> V_i </ci>
+            <ci> F </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="volumes" cmeta:id="volumes">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#volumes">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            A component used to group the geometry parameters and calculations.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <variable name="radius" initial_value="50e-3" units="mm"/>
+    <variable name="length" initial_value="2" units="mm"/>
+    <variable name="V_ecs" initial_value="0.1" units="dimensionless"/>
+    
+    <variable name="Am" initial_value="40.0" public_interface="out" units="per_mm"/>
+    <variable name="V_i" public_interface="out" units="dimensionless" />
+    <variable name="V_e" public_interface="out" units="dimensionless" />
+    <variable name="V_up" public_interface="out" units="dimensionless" />
+    <variable name="V_rel" public_interface="out" units="dimensionless" />
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#V_i_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The intracellular volume fraction.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="V_i_calculation_eq">
+      <apply id="V_i_calculation"><eq />
+        <ci>V_i</ci>
+        <apply><minus/>
+          <cn cellml:units="dimensionless">1.0</cn>
+          <ci>V_ecs</ci>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#V_e_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The extracellular volume fraction.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="V_e_calculation_eq">
+     <apply id="V_e_calculation"><eq />
+        <ci>V_e</ci>
+        <ci>V_ecs</ci>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#V_up_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The calcium uptake store volume fraction.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="V_up_calculation_eq">
+      <apply id="V_up_calculation"><eq />
+        <ci>V_up</ci>
+        <apply><times/>
+          <cn cellml:units="dimensionless">0.05</cn>
+          <ci>V_i</ci>
+        </apply>
+      </apply>
+    </math>
+      
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#V_rel_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The calcium release store volume fraction.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+      cmeta:id="V_rel_calculation_eq">
+      <apply id="V_rel_calculation"><eq />
+        <ci>V_rel</ci>
+        <apply><times/>
+          <cn cellml:units="dimensionless">0.02</cn>
+          <ci>V_i</ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!--
+    The following <group> element specifies a single containment hierarchy
+    that encompasses all of the components in the model, with the exception of
+    the "environment" component.
+  -->
+  <group>
+    <relationship_ref relationship="containment" />
+    <component_ref component="membrane">
+      <component_ref component="hyperpolarising_activated_current">
+        <component_ref component="hyperpolarising_activated_current_y_gate" />
+      </component_ref>
+      <component_ref component="time_dependent_potassium_current">
+        <component_ref component="time_dependent_potassium_current_x_gate" />
+      </component_ref>
+      <component_ref component="time_independent_potassium_current" />
+      <component_ref component="transient_outward_current">
+        <component_ref component="transient_outward_current_r_gate" />
+      </component_ref>
+      <component_ref component="sodium_background_current" />
+      <component_ref component="calcium_background_current" />
+      <component_ref component="sodium_potassium_pump" />
+      <component_ref component="Na_Ca_exchanger" />
+      <component_ref component="fast_sodium_current">
+        <component_ref component="fast_sodium_current_m_gate" />
+        <component_ref component="fast_sodium_current_h_gate" />
+      </component_ref>
+      <component_ref component="secondary_inward_current">
+        <component_ref component="secondary_inward_current_d_gate" />
+        <component_ref component="secondary_inward_current_f_gate" />
+        <component_ref component="secondary_inward_current_f2_gate" />
+      </component_ref>
+      <component_ref component="intracellular_sodium_concentration" />
+      <component_ref component="extracellular_sodium_concentration" />
+      <component_ref component="intracellular_calcium_concentration" />
+      <component_ref component="extracellular_calcium_concentration" />
+      <component_ref component="extracellular_potassium_concentration" />
+      <component_ref component="intracellular_potassium_concentration" />
+    </component_ref>
+  </group>
+  
+  <!--
+    The following <group> element specifies how the components representing
+    activation and inactivation gates are encapsulated inside their parent      
+    currents.  
+  -->
+  <group>
+    <relationship_ref relationship="encapsulation" />
+    <component_ref component="hyperpolarising_activated_current">
+      <component_ref component="hyperpolarising_activated_current_y_gate" />
+    </component_ref>
+    <component_ref component="time_dependent_potassium_current">
+      <component_ref component="time_dependent_potassium_current_x_gate" />
+    </component_ref>
+    <component_ref component="transient_outward_current">
+      <component_ref component="transient_outward_current_r_gate" />
+    </component_ref>
+    <component_ref component="fast_sodium_current">
+      <component_ref component="fast_sodium_current_m_gate" />
+      <component_ref component="fast_sodium_current_h_gate" />
+    </component_ref>
+    <component_ref component="secondary_inward_current">
+      <component_ref component="secondary_inward_current_d_gate" />
+      <component_ref component="secondary_inward_current_f_gate" />
+      <component_ref component="secondary_inward_current_f2_gate" />
+    </component_ref>
+  </group>
+  
+  <!--
+    "time" is passed from the "environment" component into the
+    "membrane" and current components.
+  -->
+  <connection>
+    <map_components
+        component_1="membrane" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+    
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="time_dependent_potassium_current" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="time_independent_potassium_current" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="transient_outward_current" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+    
+  <connection>
+    <map_components
+        component_1="sodium_background_current" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="calcium_background_current" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+
+  <connection>
+    <map_components
+        component_1="sodium_potassium_pump" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+   
+  <connection>
+    <map_components
+        component_1="Na_Ca_exchanger" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="fast_sodium_current" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="intracellular_sodium_concentration" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="intracellular_calcium_concentration" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="extracellular_potassium_concentration" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+
+  <connection>
+    <map_components
+        component_1="transient_outward_current" component_2="extracellular_potassium_concentration" />
+    <map_variables variable_1="i_to" variable_2="i_to" />
+  </connection>
+
+  <connection>
+    <map_components
+        component_1="intracellular_potassium_concentration" component_2="environment" />
+    <map_variables variable_1="time" variable_2="time" />
+  </connection>
+  
+  <!--
+    Several variables are passed between the "membrane" and its sub-components.
+  -->
+  
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="R" variable_2="R" />
+    <map_variables variable_1="T" variable_2="T" />
+    <map_variables variable_1="F" variable_2="F" />
+    <map_variables variable_1="i_f" variable_2="i_f" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="time_dependent_potassium_current" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="i_K" variable_2="i_K" />
+    <map_variables variable_1="R" variable_2="R" />
+    <map_variables variable_1="T" variable_2="T" />
+    <map_variables variable_1="F" variable_2="F" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="time_independent_potassium_current" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="R" variable_2="R" />
+    <map_variables variable_1="T" variable_2="T" />
+    <map_variables variable_1="F" variable_2="F" />
+    <map_variables variable_1="i_K1" variable_2="i_K1" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="transient_outward_current" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="R" variable_2="R" />
+    <map_variables variable_1="T" variable_2="T" />
+    <map_variables variable_1="F" variable_2="F" />
+    <map_variables variable_1="i_to" variable_2="i_to" />
+  </connection>
+    
+  <connection>
+    <map_components
+        component_1="sodium_background_current" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="i_Na_b" variable_2="i_Na_b" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="calcium_background_current" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="R" variable_2="R" />
+    <map_variables variable_1="T" variable_2="T" />
+    <map_variables variable_1="F" variable_2="F" />
+    <map_variables variable_1="i_Ca_b" variable_2="i_Ca_b" />
+  </connection>
+
+  <connection>
+    <map_components
+        component_1="sodium_potassium_pump" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="i_NaK" variable_2="i_NaK" />
+  </connection>
+   
+  <connection>
+    <map_components
+        component_1="Na_Ca_exchanger" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="i_NaCa" variable_2="i_NaCa" />
+    <map_variables variable_1="R" variable_2="R" />
+    <map_variables variable_1="F" variable_2="F" />
+    <map_variables variable_1="T" variable_2="T" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="fast_sodium_current" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="i_Na" variable_2="i_Na" />
+    <map_variables variable_1="R" variable_2="R" />
+    <map_variables variable_1="F" variable_2="F" />
+    <map_variables variable_1="T" variable_2="T" /> 
+  </connection>
+
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="i_si" variable_2="i_si" />
+    <map_variables variable_1="R" variable_2="R" />
+    <map_variables variable_1="F" variable_2="F" />
+    <map_variables variable_1="T" variable_2="T" />  
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="intracellular_sodium_concentration" component_2="membrane" />
+    <map_variables variable_1="F" variable_2="F" />  
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="intracellular_calcium_concentration" component_2="membrane" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="F" variable_2="F" />  
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="extracellular_potassium_concentration" component_2="membrane" />
+    <map_variables variable_1="F" variable_2="F" />  
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="intracellular_potassium_concentration" component_2="membrane" />
+    <map_variables variable_1="F" variable_2="F" />  
+  </connection>
+  
+  <!-- A few variables are passed between the other components. -->
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="extracellular_potassium_concentration" />
+    <map_variables variable_1="Kc" variable_2="Kc" />
+    <map_variables variable_1="i_fK" variable_2="i_fK" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="intracellular_potassium_concentration" />
+    <map_variables variable_1="Ki" variable_2="Ki" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="time_independent_potassium_current" />
+    <map_variables variable_1="E_K" variable_2="E_K" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="sodium_background_current" />
+    <map_variables variable_1="E_Na" variable_2="E_Na" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="Na_Ca_exchanger" />
+    <map_variables variable_1="E_Na" variable_2="E_Na" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="intracellular_sodium_concentration" />
+    <map_variables variable_1="i_fNa" variable_2="i_fNa" />
+    <map_variables variable_1="Nai" variable_2="Nai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="extracellular_sodium_concentration" />
+    <map_variables variable_1="Nao" variable_2="Nao" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="calcium_background_current" component_2="Na_Ca_exchanger" />
+    <map_variables variable_1="E_Ca" variable_2="E_Ca" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="calcium_background_current" component_2="extracellular_calcium_concentration" />
+    <map_variables variable_1="Cao" variable_2="Cao" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="time_dependent_potassium_current" component_2="extracellular_potassium_concentration" />
+    <map_variables variable_1="Kc" variable_2="Kc" />
+    <map_variables variable_1="i_K" variable_2="i_K" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="time_dependent_potassium_current" component_2="intracellular_potassium_concentration" />
+    <map_variables variable_1="Ki" variable_2="Ki" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="time_independent_potassium_current" component_2="extracellular_potassium_concentration" />
+    <map_variables variable_1="Kc" variable_2="Kc" />
+    <map_variables variable_1="i_K1" variable_2="i_K1" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="transient_outward_current" component_2="extracellular_potassium_concentration" />
+    <map_variables variable_1="Kc" variable_2="Kc" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="transient_outward_current" component_2="intracellular_potassium_concentration" />
+    <map_variables variable_1="Ki" variable_2="Ki" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="transient_outward_current" component_2="intracellular_calcium_concentration" />
+    <map_variables variable_1="Cai" variable_2="Cai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="sodium_background_current" component_2="intracellular_sodium_concentration" />
+    <map_variables variable_1="i_Na_b" variable_2="i_Na_b" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="calcium_background_current" component_2="intracellular_calcium_concentration" />
+    <map_variables variable_1="i_Ca_b" variable_2="i_Ca_b" />
+    <map_variables variable_1="Cai" variable_2="Cai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="sodium_potassium_pump" component_2="extracellular_potassium_concentration" />
+    <map_variables variable_1="i_NaK" variable_2="i_NaK" />
+    <map_variables variable_1="Kc" variable_2="Kc" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="sodium_potassium_pump" component_2="intracellular_sodium_concentration" />
+    <map_variables variable_1="i_NaK" variable_2="i_NaK" />
+    <map_variables variable_1="Nai" variable_2="Nai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="Na_Ca_exchanger" component_2="extracellular_sodium_concentration" />
+    <map_variables variable_1="Nao" variable_2="Nao" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="Na_Ca_exchanger" component_2="extracellular_calcium_concentration" />
+    <map_variables variable_1="Cao" variable_2="Cao" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="Na_Ca_exchanger" component_2="intracellular_sodium_concentration" />
+    <map_variables variable_1="n_NaCa" variable_2="n_NaCa" />
+    <map_variables variable_1="i_NaCa" variable_2="i_NaCa" />
+    <map_variables variable_1="Nai" variable_2="Nai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="Na_Ca_exchanger" component_2="intracellular_calcium_concentration" />
+    <map_variables variable_1="n_NaCa" variable_2="n_NaCa" />
+    <map_variables variable_1="i_NaCa" variable_2="i_NaCa" />
+    <map_variables variable_1="Cai" variable_2="Cai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="fast_sodium_current" component_2="intracellular_sodium_concentration" />
+    <map_variables variable_1="i_Na" variable_2="i_Na" />
+    <map_variables variable_1="Nai" variable_2="Nai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="fast_sodium_current" component_2="extracellular_sodium_concentration" />
+    <map_variables variable_1="Nao" variable_2="Nao" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="fast_sodium_current" component_2="intracellular_potassium_concentration" />
+    <map_variables variable_1="Ki" variable_2="Ki" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="fast_sodium_current" component_2="extracellular_potassium_concentration" />
+    <map_variables variable_1="Kc" variable_2="Kc" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="intracellular_calcium_concentration" />
+    <map_variables variable_1="i_siCa" variable_2="i_siCa" />
+    <map_variables variable_1="Cai" variable_2="Cai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="extracellular_calcium_concentration" />
+    <map_variables variable_1="Cao" variable_2="Cao" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="extracellular_sodium_concentration" />
+    <map_variables variable_1="Nao" variable_2="Nao" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="extracellular_potassium_concentration" />
+    <map_variables variable_1="i_siK" variable_2="i_siK" />
+    <map_variables variable_1="Kc" variable_2="Kc" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="intracellular_sodium_concentration" />
+    <map_variables variable_1="i_siNa" variable_2="i_siNa" />
+    <map_variables variable_1="Nai" variable_2="Nai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="intracellular_potassium_concentration" />
+    <map_variables variable_1="Ki" variable_2="Ki" />
+  </connection>
+  
+  <!--
+    Several variables are passed between parent components and their            
+    encapsulated gates.
+  -->
+  <connection>
+    <map_components
+        component_1="hyperpolarising_activated_current" component_2="hyperpolarising_activated_current_y_gate" />
+    <map_variables variable_1="y" variable_2="y" />
+    <map_variables variable_1="time" variable_2="time" />
+    <map_variables variable_1="V" variable_2="V" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="time_dependent_potassium_current" component_2="time_dependent_potassium_current_x_gate" />
+    <map_variables variable_1="x" variable_2="x" />
+    <map_variables variable_1="time" variable_2="time" />
+    <map_variables variable_1="V" variable_2="V" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="fast_sodium_current" component_2="fast_sodium_current_m_gate" />
+    <map_variables variable_1="m" variable_2="m" />
+    <map_variables variable_1="time" variable_2="time" />
+    <map_variables variable_1="V" variable_2="V" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="fast_sodium_current" component_2="fast_sodium_current_h_gate" />
+    <map_variables variable_1="h" variable_2="h" />
+    <map_variables variable_1="time" variable_2="time" />
+    <map_variables variable_1="V" variable_2="V" />
+  </connection>
+
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="secondary_inward_current_d_gate" />
+    <map_variables variable_1="d" variable_2="d" />
+    <map_variables variable_1="time" variable_2="time" />
+    <map_variables variable_1="V" variable_2="V" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="secondary_inward_current_f_gate" />
+    <map_variables variable_1="f" variable_2="f" />
+    <map_variables variable_1="time" variable_2="time" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="Cai" variable_2="Cai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="secondary_inward_current" component_2="secondary_inward_current_f2_gate" />
+    <map_variables variable_1="f2" variable_2="f2" />
+    <map_variables variable_1="time" variable_2="time" />
+    <map_variables variable_1="V" variable_2="V" />
+    <map_variables variable_1="Cai" variable_2="Cai" />
+  </connection>
+  
+  <connection>
+    <map_components
+        component_1="transient_outward_current" component_2="transient_outward_current_r_gate" />
+    <map_variables variable_1="r" variable_2="r" />
+    <map_variables variable_1="time" variable_2="time" />
+    <map_variables variable_1="V" variable_2="V" />
+  </connection>
+       
+  <connection>
+    <map_components
+        component_1="volumes" component_2="intracellular_sodium_concentration" />
+    <map_variables variable_1="V_i" variable_2="V_i" />
+    <map_variables variable_1="Am" variable_2="Am" />
+  </connection>
+       
+  <connection>
+    <map_components
+        component_1="volumes" component_2="intracellular_calcium_concentration" />
+    <map_variables variable_1="V_i" variable_2="V_i" />
+    <map_variables variable_1="V_up" variable_2="V_up" />
+    <map_variables variable_1="V_rel" variable_2="V_rel" />
+    <map_variables variable_1="Am" variable_2="Am" />
+  </connection>
+       
+  <connection>
+    <map_components
+        component_1="volumes" component_2="extracellular_potassium_concentration" />
+    <map_variables variable_1="V_i" variable_2="V_i" />
+    <map_variables variable_1="Am" variable_2="Am" />
+  </connection>
+       
+  <connection>
+    <map_components
+        component_1="volumes" component_2="intracellular_potassium_concentration" />
+    <map_variables variable_1="V_i" variable_2="V_i" />
+    <map_variables variable_1="Am" variable_2="Am" />
+  </connection>
+       
+  <connection>
+    <map_components
+        component_1="extracellular_potassium_concentration" component_2="intracellular_potassium_concentration" />
+    <map_variables variable_1="i_mK" variable_2="i_mK" />
+  </connection>
+       
+</model>

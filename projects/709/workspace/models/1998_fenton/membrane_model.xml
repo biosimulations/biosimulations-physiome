@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="membrane_model" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" >
+  <component name="membrane">
+    <variable name="u" private_interface="out" public_interface="out" units="dimensionless"/>
+    <variable name="Cm" private_interface="out" public_interface="in" units="uF_per_mm2"/>
+    <variable initial_value="Vm_initial" name="Vm" cmeta:id="Vm" private_interface="out" public_interface="out" units="mV"/>
+    <variable name="Vm_initial" public_interface="in" units="mV"/>
+    <variable name="V_o" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="V_fi" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="I_stim" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <variable name="I_fi" private_interface="out" public_interface="out" units="uA_per_mm2"/>
+    <variable name="I_si" private_interface="out" public_interface="out" units="uA_per_mm2"/>
+    <variable name="I_so" private_interface="out" public_interface="out" units="uA_per_mm2"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="J_fi" private_interface="out" public_interface="in" units="per_ms"/>
+    <variable name="J_so" private_interface="out" public_interface="in" units="per_ms"/>
+    <variable name="J_si" private_interface="out" public_interface="in" units="per_ms"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="I_fi_calculation_eq">
+      <apply id="I_fi_calculation"><eq/>
+        <ci>I_fi</ci>
+        <apply><times/>
+          <ci>J_fi</ci>
+          <ci>Cm</ci>
+          <apply><minus/>
+            <ci>V_fi</ci>
+            <ci>V_o</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="I_si_calculation_eq">
+      <apply id="I_si_calculation_eq"><eq/>
+        <ci>I_si</ci>
+        <apply><times/>
+          <ci>J_si</ci>
+          <ci>Cm</ci>
+          <apply><minus/>
+            <ci>V_fi</ci>
+            <ci>V_o</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="I_so_calculation_eq">
+      <apply id="I_so_calculation"><eq/>
+        <ci>I_so</ci>
+        <apply><times/>
+          <ci>J_so</ci>
+          <ci>Cm</ci>
+          <apply><minus/>
+            <ci>V_fi</ci>
+            <ci>V_o</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="u_calculation_eq">
+      <apply id="u_calculation"><eq/>
+        <ci>u</ci>
+        <apply><divide/>
+          <apply><minus/>
+            <ci>Vm</ci>
+            <ci>V_o</ci>
+          </apply>
+          <apply><minus/>
+            <ci>V_fi</ci>
+            <ci>V_o</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="Vm_calculation_eq">
+      <apply id="Vm_calculation"><eq/>
+        <apply><diff/>
+          <bvar><ci> time </ci></bvar>
+          <ci> Vm </ci>
+        </apply>
+        <apply><divide/>
+          <apply><minus/>
+            <ci> I_stim </ci>
+            <apply><plus/>
+              <ci> I_fi </ci>
+              <ci> I_si </ci>
+              <ci> I_so </ci>
+            </apply>
+          </apply>
+          <ci> Cm </ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fenton_karma_model_1998_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+  </import>
+</model>

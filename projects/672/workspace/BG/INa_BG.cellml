@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- The BG of Na channel model that combines channel current and gating modules. -->
+<model name="INa_BG" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../cellLib/BG/units_BG.cellml">
+        <units name="per_fmol" units_ref="per_fmol"/>
+        <units name="fmol" units_ref="fmol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="fA" units_ref="fA"/>
+    </import>
+    <import xlink:href="../cellLib/BG/IX_BG.cellml">
+        <component component_ref="IX_BG" name="IX_BG"/>
+    </import>
+    <import xlink:href="channelNa_BG.cellml">
+        <component component_ref="channelNa_BG" name="channelNa_BG"/>
+    </import>
+    <import xlink:href="../cellLib/BG/gate_m3h_BG.cellml">
+        <component component_ref="gate_m3h_BG" name="gate_m3h_BG"/>
+    </import>
+    <component name="INa_BG">
+        <!--Parameters-->
+        <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
+        <variable name="t" private_interface="out" public_interface="in" units="second"/>
+        <variable name="kappa_Na" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="z_Na" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="K_i_Na" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="q_i_Na_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="K_e_Na" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="q_e_Na_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S00_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S10_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S20_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S30_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S01_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S11_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S21_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="q_S31_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="K_S00" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S10" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S20" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S30" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S01" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S11" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S21" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="K_S31" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="kappa_m10" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m20" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m30" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m11" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m21" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_m31" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_h0" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_h1" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_h2" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_h3" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="z_m_f" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="z_m_r" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="z_h_f" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="z_h_r" private_interface="out" public_interface="in" units="dimensionless"/>
+        <!--Inputs-->
+        <variable name="V_m" private_interface="out" public_interface="in" units="volt"/>
+        <!--Outputs-->
+        <variable name="I_Na" private_interface="in" public_interface="out" units="fA"/>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="INa_BG">
+            <component_ref component="IX_BG"/>
+            <component_ref component="channelNa_BG"/>
+            <component_ref component="gate_m3h_BG"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="INa_BG" component_2="channelNa_BG"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="kappa_Na" variable_2="kappa_Na"/>
+        <map_variables variable_1="z_Na" variable_2="z_Na"/>
+        <map_variables variable_1="K_i_Na" variable_2="K_i_Na"/>
+        <map_variables variable_1="q_i_Na_init" variable_2="q_i_Na_init"/>
+        <map_variables variable_1="K_e_Na" variable_2="K_e_Na"/>
+        <map_variables variable_1="q_e_Na_init" variable_2="q_e_Na_init"/>
+    </connection>
+    <connection>
+        <map_components component_1="INa_BG" component_2="gate_m3h_BG"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="q_S00_init" variable_2="q_S00_init"/>
+        <map_variables variable_1="q_S10_init" variable_2="q_S10_init"/>
+        <map_variables variable_1="q_S20_init" variable_2="q_S20_init"/>
+        <map_variables variable_1="q_S30_init" variable_2="q_S30_init"/>
+        <map_variables variable_1="q_S01_init" variable_2="q_S01_init"/>
+        <map_variables variable_1="q_S11_init" variable_2="q_S11_init"/>
+        <map_variables variable_1="q_S21_init" variable_2="q_S21_init"/>
+        <map_variables variable_1="q_S31_init" variable_2="q_S31_init"/>
+        <map_variables variable_1="K_S00" variable_2="K_S00"/>
+        <map_variables variable_1="K_S10" variable_2="K_S10"/>
+        <map_variables variable_1="K_S20" variable_2="K_S20"/>
+        <map_variables variable_1="K_S30" variable_2="K_S30"/>
+        <map_variables variable_1="K_S01" variable_2="K_S01"/>
+        <map_variables variable_1="K_S11" variable_2="K_S11"/>
+        <map_variables variable_1="K_S21" variable_2="K_S21"/>
+        <map_variables variable_1="K_S31" variable_2="K_S31"/>
+        <map_variables variable_1="kappa_m10" variable_2="kappa_m10"/>
+        <map_variables variable_1="kappa_m20" variable_2="kappa_m20"/>
+        <map_variables variable_1="kappa_m30" variable_2="kappa_m30"/>
+        <map_variables variable_1="kappa_m11" variable_2="kappa_m11"/>
+        <map_variables variable_1="kappa_m21" variable_2="kappa_m21"/>
+        <map_variables variable_1="kappa_m31" variable_2="kappa_m31"/>
+        <map_variables variable_1="kappa_h0" variable_2="kappa_h0"/>
+        <map_variables variable_1="kappa_h1" variable_2="kappa_h1"/>
+        <map_variables variable_1="kappa_h2" variable_2="kappa_h2"/>
+        <map_variables variable_1="kappa_h3" variable_2="kappa_h3"/>
+        <map_variables variable_1="z_m_f" variable_2="z_m_f"/>
+        <map_variables variable_1="z_m_r" variable_2="z_m_r"/>
+        <map_variables variable_1="z_h_f" variable_2="z_h_f"/>
+        <map_variables variable_1="z_h_r" variable_2="z_h_r"/>
+    </connection>
+    <connection>
+        <map_components component_1="INa_BG" component_2="IX_BG"/>
+        <map_variables variable_1="V_m" variable_2="V_m"/>
+        <map_variables variable_1="I_Na" variable_2="I_X"/>
+    </connection>
+    <connection>
+        <map_components component_1="IX_BG" component_2="gate_m3h_BG"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_g_X" variable_2="v_mh_Na"/>
+    </connection>
+    <connection>
+        <map_components component_1="IX_BG" component_2="channelNa_BG"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_p_X" variable_2="v_p_Na"/>
+    </connection>
+    <connection>
+        <map_components component_1="channelNa_BG" component_2="gate_m3h_BG"/>
+        <map_variables variable_1="A_g_Na" variable_2="A_g_Na"/>
+    </connection>
+</model>

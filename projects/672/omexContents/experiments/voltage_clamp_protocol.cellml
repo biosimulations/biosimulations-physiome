@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="voltage_clamp_protocol" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- clamp the voltage for the experiments-->
+    <import xlink:href="../components/units.cellml">
+        <units name="ms" units_ref="ms"/>
+        <units name="mV" units_ref="mV"/>
+    </import>
+    <component name="voltage_clamp_protocol">
+        <variable name="V" public_interface="out" units="mV"/>
+        <variable name="time" public_interface="in" units="ms"/>
+        <variable name="t_start" public_interface="in" units="ms"/>
+        <variable name="t_end" public_interface="in" units="ms"/>
+        <variable name="V_clamp" public_interface="in" units="mV"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="voltage_clamp_calculation">
+                <eq/>
+                <ci>V</ci>
+                <piecewise>
+                    <piece>
+                        <ci>V_clamp</ci>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <gt/>
+                                <ci>time</ci>
+                                <ci>t_start</ci>
+                            </apply>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <ci>t_end</ci>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <cn cellml:units="mV">0.0</cn>
+                    </otherwise>
+                </piecewise>
+            </apply>
+        </math>
+    </component>
+</model>

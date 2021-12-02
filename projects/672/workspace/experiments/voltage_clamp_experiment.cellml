@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="voltage_clamp_experiment" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- run voltage clamp experiments-->
+    <import xlink:href="../cellLib/Components/units.cellml">
+        <units name="ms" units_ref="ms"/>
+        <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="mS_per_cmsq" units_ref="mS_per_cmsq"/>
+    </import>
+    <import xlink:href="../cellLib/Components/time.cellml">
+        <component component_ref="time_ms" name="time"/>
+    </import>
+    <import xlink:href="../components/clamped_current.cellml">
+        <component component_ref="membrane_current" name="membrane_current"/>
+    </import>
+    <import xlink:href="../cellLib/Protocols/Patch_clamp_protocol.cellml">
+        <component component_ref="sPulse_protocol_ms" name="sPulse_protocol_ms"/>
+    </import>
+    <import xlink:href="../components/default-variable-values.cellml">
+        <component component_ref="parameters" name="default_parameters_cell"/>
+    </import>
+    <import xlink:href="../components/gate_initials.cellml">
+        <component component_ref="gate_initials" name="gate_initials"/>
+    </import>
+    <!-- Connect the time source variable to the model and stimulus protocol -->
+    <connection>
+        <map_components component_1="membrane_current" component_2="time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="time" component_2="sPulse_protocol_ms"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <!-- Define the stimulus protocol parameter values -->
+    <component name="sPulse_protocol_ms_params">
+        <variable initial_value="0" name="t_ss" public_interface="out" units="ms"/>
+        <variable initial_value="0" name="V_actHolding" public_interface="out" units="mV"/>
+        <variable initial_value="20" name="t_act" public_interface="out" units="ms"/>
+        <variable initial_value="-20" name="V_actTest" public_interface="out" units="mV"/>
+    </component>
+    <!-- and connect the parameters to the protocol definition -->
+    <connection>
+        <map_components component_1="sPulse_protocol_ms_params" component_2="sPulse_protocol_ms"/>
+        <map_variables variable_1="t_ss" variable_2="t_ss"/>
+        <map_variables variable_1="V_actHolding" variable_2="V_actHolding"/>
+        <map_variables variable_1="t_act" variable_2="t_act"/>
+        <map_variables variable_1="V_actTest" variable_2="V_actTest"/>
+    </connection>
+    <!-- and connect the actual stimulus current to the model -->
+    <connection>
+        <map_components component_1="membrane_current" component_2="sPulse_protocol_ms"/>
+        <map_variables variable_1="V" variable_2="V"/>
+    </connection>
+    <!-- Here we could define any parameters that we want to differ from the default -->
+    <component name="parameters">
+        <variable initial_value="4" name="T" private_interface="out" public_interface="out" units="kelvin"/>
+    </component>
+    <component name="boundary_conditions">
+        <variable initial_value="0" name="V_b" private_interface="out" public_interface="out" units="mV"/>
+    </component>
+    <!-- We connect the default values through to the model -->
+    <connection>
+        <map_components component_1="membrane_current" component_2="default_parameters_cell"/>
+        <map_variables variable_1="Cm" variable_2="Cm"/>
+        <map_variables variable_1="VNa" variable_2="VNa"/>
+        <map_variables variable_1="VK" variable_2="VK"/>
+        <map_variables variable_1="Vleak" variable_2="Vleak"/>
+        <map_variables variable_1="gNa_max" variable_2="gNa_max"/>
+        <map_variables variable_1="gK_max" variable_2="gK_max"/>
+        <map_variables variable_1="gleak_max" variable_2="gleak_max"/>
+        <map_variables variable_1="T0Na" variable_2="T0Na"/>
+        <map_variables variable_1="Q10Na" variable_2="Q10Na"/>
+        <map_variables variable_1="T0K" variable_2="T0K"/>
+        <map_variables variable_1="Q10K" variable_2="Q10K"/>
+    </connection>
+    <connection>
+        <map_components component_1="membrane_current" component_2="parameters"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+    <!-- similarly for the initial conditions -->
+    <connection>
+        <map_components component_1="membrane_current" component_2="gate_initials"/>
+        <map_variables variable_1="m_initial" variable_2="m_initial"/>
+        <map_variables variable_1="h_initial" variable_2="h_initial"/>
+        <map_variables variable_1="n_initial" variable_2="n_initial"/>
+    </connection>
+    <connection>
+        <map_components component_1="boundary_conditions" component_2="gate_initials"/>
+        <map_variables variable_1="V_b" variable_2="V_b"/>
+    </connection>
+    <!-- SED-ML (and CSim simulation description above) is only able to address variables at the top level of the model hierarchy, so we need to define the variables we want SED-ML to be able to address here. -->
+    <component name="outputs">
+        <variable name="time" public_interface="in" units="ms"/>
+        <variable name="INa" public_interface="in" units="uA_per_cmsq"/>
+        <variable name="IK" public_interface="in" units="uA_per_cmsq"/>
+        <variable name="Ileak" public_interface="in" units="uA_per_cmsq"/>
+        <variable name="Ii" public_interface="in" units="uA_per_cmsq"/>
+        <variable name="g" public_interface="in" units="mS_per_cmsq"/>
+        <variable name="gK" public_interface="in" units="mS_per_cmsq"/>
+        <variable name="gNa" public_interface="in" units="mS_per_cmsq"/>
+        <variable name="V" public_interface="in" units="mV"/>
+        <variable name="minus_V" public_interface="in" units="mV"/>
+        <variable name="h" public_interface="in" units="dimensionless"/>
+        <variable name="m" public_interface="in" units="dimensionless"/>
+        <variable name="n" public_interface="in" units="dimensionless"/>
+    </component>
+    <!-- and connect the output variable definitions to their actual source in the model -->
+    <connection>
+        <map_components component_1="outputs" component_2="membrane_current"/>
+        <map_variables variable_1="INa" variable_2="INa"/>
+        <map_variables variable_1="IK" variable_2="IK"/>
+        <map_variables variable_1="Ileak" variable_2="Ileak"/>
+        <map_variables variable_1="Ii" variable_2="Ii"/>
+        <map_variables variable_1="minus_V" variable_2="minus_V"/>
+        <map_variables variable_1="h" variable_2="h"/>
+        <map_variables variable_1="m" variable_2="m"/>
+        <map_variables variable_1="n" variable_2="n"/>
+        <map_variables variable_1="g" variable_2="g"/>
+        <map_variables variable_1="gK" variable_2="gK"/>
+        <map_variables variable_1="gNa" variable_2="gNa"/>
+    </connection>
+    <!-- and connect the time output to the source time variable -->
+    <connection>
+        <map_components component_1="outputs" component_2="time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="outputs" component_2="sPulse_protocol_ms"/>
+        <map_variables variable_1="V" variable_2="V"/>
+    </connection>
+</model>

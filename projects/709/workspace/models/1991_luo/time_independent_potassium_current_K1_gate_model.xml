@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="time_independent_potassium_current_K1_gate_model">
+  <component name="time_independent_potassium_current_K1_gate">
+    <variable name="K1_infinity" private_interface="out" public_interface="out" units="dimensionless"/>
+    <variable name="alpha_K1" private_interface="out" public_interface="out" units="per_ms"/>
+    <variable name="beta_K1" private_interface="out" public_interface="out" units="per_ms"/>
+    <variable name="V" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="E_K1" private_interface="out" public_interface="in" units="mV"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="alpha_K1_calculation_eq">
+      <apply id="alpha_K1_calculation"><eq/>
+        <ci> alpha_K1 </ci>
+        <apply><divide/>
+          <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_ms"> 1.02 </cn>
+          <apply><plus/>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+            <apply><exp/>
+              <apply><times/>
+                <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_mV"> 0.2385 </cn>
+                <apply><minus/>
+                  <apply><minus/>
+                    <ci> V </ci>
+                    <ci> E_K1 </ci>
+                  </apply>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 59.215 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="beta_K1_calculation_eq">
+      <apply id="beta_K1_calculation"><eq/>
+        <ci> beta_K1 </ci>
+        <apply><divide/>
+          <apply><plus/>
+            <apply><times/>
+              <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_ms"> 0.49124 </cn>
+              <apply><exp/>
+                <apply><times/>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 0.08032 </cn>
+                  <apply><minus/>
+                    <apply><plus/>
+                      <ci> V </ci>
+                      <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 5.476 </cn>
+                    </apply>
+                    <ci> E_K1 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply><exp/>
+              <apply><times/>
+                <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_ms"> 0.06175 </cn>
+                <apply><minus/>
+                  <ci> V </ci>
+                  <apply><plus/>
+                    <ci> E_K1 </ci>
+                    <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 594.31 </cn>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply><plus/>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+            <apply><exp/>
+              <apply><times/>
+                <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_mV"> -0.5143 </cn>
+                <apply><plus/>
+                  <apply><minus/>
+                    <ci> V </ci>
+                    <ci> E_K1 </ci>
+                  </apply>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 4.753 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="K1_infinity_calculation_eq">
+      <apply id="K1_infinity_calculation"><eq/>
+        <ci> K1_infinity </ci>
+        <apply><divide/>
+          <ci> alpha_K1 </ci>
+          <apply><plus/>
+            <ci> alpha_K1 </ci>
+            <ci> beta_K1 </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="luo_rudy_I_model_1991_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+    <units name="gas_constant_units" units_ref="gas_constant_units"/>
+    <units name="faradays_constant_units" units_ref="faradays_constant_units"/>
+  </import>
+</model>

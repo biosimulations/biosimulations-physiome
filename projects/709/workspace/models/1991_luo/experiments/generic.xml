@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="luo_rudy_I_model_1991_experiment_model" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../luo_rudy_I_model_1991_variable_values_model.xml">
+        <component component_ref="parameters" name="parameters"/>
+        <component component_ref="initial_values" name="initial_values"/>
+    </import>
+    <import xlink:href="../luo_rudy_I_model_1991_interface_model.xml">
+        <component component_ref="luo_rudy_I_model_1991_interface_component" name="luo_rudy_I_model_1991_interface_component"/>
+    </import>
+    <connection>
+        <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="parameters"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="F" variable_2="F"/>
+        <map_variables variable_1="C" variable_2="C"/>
+        <map_variables variable_1="g_Na" variable_2="g_Na"/>
+        <map_variables variable_1="E_Na" variable_2="E_Na"/>
+        <map_variables variable_1="g_si" variable_2="g_si"/>
+        <map_variables variable_1="g_K" variable_2="g_K"/>
+        <map_variables variable_1="PR_NaK" variable_2="PR_NaK"/>
+        <map_variables variable_1="g_K1" variable_2="g_K1"/>
+        <map_variables variable_1="g_Kp" variable_2="g_Kp"/>
+        <map_variables variable_1="E_b" variable_2="E_b"/>
+        <map_variables variable_1="g_b" variable_2="g_b"/>
+        <map_variables variable_1="Nao" variable_2="Nao"/>
+        <map_variables variable_1="Nai" variable_2="Nai"/>
+        <map_variables variable_1="Cao" variable_2="Cao"/>
+        <map_variables variable_1="Ki" variable_2="Ki"/>
+    </connection>
+    <connection>
+        <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="initial_values"/>
+        <map_variables variable_1="V_initial" variable_2="V_initial"/>
+        <map_variables variable_1="m_initial" variable_2="m_initial"/>
+        <map_variables variable_1="h_initial" variable_2="h_initial"/>
+        <map_variables variable_1="j_initial" variable_2="j_initial"/>
+        <map_variables variable_1="d_initial" variable_2="d_initial"/>
+        <map_variables variable_1="f_initial" variable_2="f_initial"/>
+        <map_variables variable_1="X_initial" variable_2="X_initial"/>
+        <map_variables variable_1="Cai_initial" variable_2="Cai_initial"/>
+    </connection>
+    <component cmeta:id="time_component" name="time">
+        <variable cmeta:id="time" initial_value="0.0" name="time" public_interface="out" units="ms"/>
+    </component>
+    <connection>
+        <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <import xlink:href="../../protocols/single-pulse-IStim.xml">
+        <component component_ref="stimulus_protocol" name="stimulus_protocol"/>
+    </import>
+    <component cmeta:id="stimulus_parameters" name="stimulus_parameters">
+        <variable initial_value="100" name="stimTime" public_interface="out" units="ms"/>
+        <variable initial_value="1.0" name="stimDuration" public_interface="out" units="ms"/>
+        <variable initial_value="100" name="stimCurrent" public_interface="out" units="uA_per_mmcu"/>
+        <variable initial_value="200" name="Am" public_interface="out" units="per_mm"/>
+    </component>
+    <connection>
+        <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="stimulus_protocol"/>
+        <map_variables variable_1="I_stim" variable_2="IStim"/>
+    </connection>
+    <connection>
+        <map_components component_1="time" component_2="stimulus_protocol"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="stimulus_parameters" component_2="stimulus_protocol"/>
+        <map_variables variable_1="stimTime" variable_2="stimTime"/>
+        <map_variables variable_1="stimDuration" variable_2="stimDuration"/>
+        <map_variables variable_1="stimCurrent" variable_2="stimCurrent"/>
+        <map_variables variable_1="Am" variable_2="Am"/>
+    </connection>
+    <component name="interface">
+        <variable name="Ko" private_interface="out" public_interface="in" units="concentration_units"/>
+        <variable name="V" private_interface="in" public_interface="out" units="mV"/>
+        <variable name="time" private_interface="in" public_interface="out" units="ms"/>
+    </component>
+    <connection>
+        <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="interface"/>
+        <map_variables variable_1="Ko" variable_2="Ko"/>
+        <map_variables variable_1="V" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="time" component_2="interface"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="interface">
+            <component_ref component="luo_rudy_I_model_1991_interface_component"/>
+            <component_ref component="time"/>
+            <component_ref component="parameters"/>
+            <component_ref component="initial_values"/>
+            <component_ref component="stimulus_protocol"/>
+            <component_ref component="stimulus_parameters"/>
+        </component_ref>
+    </group>
+    <import xlink:href="../luo_rudy_I_model_1991_units_model.xml">
+        <units name="ms" units_ref="ms"/>
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="per_mV" units_ref="per_mV"/>
+        <units name="per_mV_ms" units_ref="per_mV_ms"/>
+        <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+        <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+        <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+        <units name="concentration_units" units_ref="concentration_units"/>
+        <units name="gas_constant_units" units_ref="gas_constant_units"/>
+        <units name="faradays_constant_units" units_ref="faradays_constant_units"/>
+    </import>
+    <import xlink:href="../../common/units.xml">
+        <units name="per_mm" units_ref="per_mm"/>
+        <units name="uA_per_mmcu" units_ref="uA_per_mmcu"/>
+    </import>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#time_component">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+            The actual definition of the time variable.&#xd;
+          </rdf:value>
+            </cmeta:comment>
+        </rdf:Description>
+    </rdf:RDF>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#stimulus_parameters">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+            Here we define the parameters for the standard stimulus protocol we import for this experiment.&#xd;
+          </rdf:value>
+            </cmeta:comment>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

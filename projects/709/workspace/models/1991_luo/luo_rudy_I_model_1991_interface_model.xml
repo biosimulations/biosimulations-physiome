@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="luo_rudy_I_model_1991_interface_model" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+  <component name="luo_rudy_I_model_1991_interface_component">
+    <variable name="time" public_interface="in" private_interface="out" units="ms"/>
+    <variable name="V" private_interface="in" public_interface="out" units="mV"/>
+    <variable name="V_initial" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="R" private_interface="out" public_interface="in" units="gas_constant_units"/>
+    <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
+    <variable name="F" private_interface="out" public_interface="in" units="faradays_constant_units"/>
+    <variable name="C" private_interface="out" public_interface="in" units="uF_per_mm2"/>
+    <variable name="I_stim" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <variable name="i_Na" private_interface="in" public_interface="out" units="uA_per_mm2"/>
+    <variable name="g_Na" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="E_Na" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="m" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="m_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="alpha_m" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="beta_m" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="h" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="h_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="alpha_h" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="beta_h" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="j" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="j_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="alpha_j" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="beta_j" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="i_si" private_interface="in" public_interface="out" units="uA_per_mm2"/>
+    <variable name="E_si" private_interface="in" public_interface="out" units="mV"/>
+    <variable name="g_si" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="d" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="d_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="alpha_d" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="beta_d" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="f" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="f_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="alpha_f" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="beta_f" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="i_K" private_interface="in" public_interface="out" units="uA_per_mm2"/>
+    <variable name="g_K" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="g_K_max" private_interface="in" public_interface="out" units="mS_per_mm2"/>
+    <variable name="E_K" private_interface="in" public_interface="out" units="mV"/>
+    <variable name="PR_NaK" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="X" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="X_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="alpha_X" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="beta_X" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="Xi" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="i_K1" private_interface="in" public_interface="out" units="uA_per_mm2"/>
+    <variable name="E_K1" private_interface="in" public_interface="out" units="mV"/>
+    <variable name="g_K1" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="g_K1_max" private_interface="in" public_interface="out" units="mS_per_mm2"/>
+    <variable name="K1_infinity" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="alpha_K1" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="beta_K1" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="i_Kp" private_interface="in" public_interface="out" units="uA_per_mm2"/>
+    <variable name="E_Kp" private_interface="in" public_interface="out" units="mV"/>
+    <variable name="g_Kp" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="Kp" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="i_b" private_interface="in" public_interface="out" units="uA_per_mm2"/>
+    <variable name="E_b" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="g_b" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="Nao" private_interface="out" public_interface="in" units="concentration_units"/>
+    <variable name="Nai" private_interface="out" public_interface="in" units="concentration_units"/>
+    <variable name="Cao" private_interface="out" public_interface="in" units="concentration_units"/>
+    <variable name="Ki" private_interface="out" public_interface="in" units="concentration_units"/>
+    <variable name="Ko" private_interface="out" public_interface="in" units="concentration_units"/>
+    <variable name="Cai" private_interface="in" public_interface="out" units="concentration_units"/>
+    <variable name="Cai_initial" private_interface="out" public_interface="in" units="concentration_units"/>
+  </component>
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="luo_rudy_I_model_1991_interface_component">
+      <component_ref component="membrane"/>
+      <component_ref component="fast_sodium_current"/>
+      <component_ref component="fast_sodium_current_m_gate"/>
+      <component_ref component="fast_sodium_current_h_gate"/>
+      <component_ref component="fast_sodium_current_j_gate"/>
+      <component_ref component="slow_inward_current"/>
+      <component_ref component="slow_inward_current_d_gate"/>
+      <component_ref component="slow_inward_current_f_gate"/>
+      <component_ref component="time_dependent_potassium_current"/>
+      <component_ref component="time_dependent_potassium_current_X_gate"/>
+      <component_ref component="time_dependent_potassium_current_Xi_gate"/>
+      <component_ref component="time_independent_potassium_current"/>
+      <component_ref component="time_independent_potassium_current_K1_gate"/>
+      <component_ref component="plateau_potassium_current"/>
+      <component_ref component="background_current"/>
+      <component_ref component="ionic_concentrations"/>
+      <component_ref component="intracellular_calcium_concentration"/>
+    </component_ref>
+  </group>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="membrane_model.xml">
+    <component component_ref="membrane" name="membrane"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fast_sodium_current_model.xml">
+    <component component_ref="fast_sodium_current" name="fast_sodium_current"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fast_sodium_current_m_gate_model.xml">
+    <component component_ref="fast_sodium_current_m_gate" name="fast_sodium_current_m_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fast_sodium_current_h_gate_model.xml">
+    <component component_ref="fast_sodium_current_h_gate" name="fast_sodium_current_h_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fast_sodium_current_j_gate_model.xml">
+    <component component_ref="fast_sodium_current_j_gate" name="fast_sodium_current_j_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="slow_inward_current_model.xml">
+    <component component_ref="slow_inward_current" name="slow_inward_current"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="slow_inward_current_d_gate_model.xml">
+    <component component_ref="slow_inward_current_d_gate" name="slow_inward_current_d_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="slow_inward_current_f_gate_model.xml">
+    <component component_ref="slow_inward_current_f_gate" name="slow_inward_current_f_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="time_dependent_potassium_current_model.xml">
+    <component component_ref="time_dependent_potassium_current" name="time_dependent_potassium_current"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="time_dependent_potassium_current_X_gate_model.xml">
+    <component component_ref="time_dependent_potassium_current_X_gate" name="time_dependent_potassium_current_X_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="time_dependent_potassium_current_Xi_gate_model.xml">
+    <component component_ref="time_dependent_potassium_current_Xi_gate" name="time_dependent_potassium_current_Xi_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="time_independent_potassium_current_model.xml">
+    <component component_ref="time_independent_potassium_current" name="time_independent_potassium_current"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="time_independent_potassium_current_K1_gate_model.xml">
+    <component component_ref="time_independent_potassium_current_K1_gate" name="time_independent_potassium_current_K1_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="plateau_potassium_current_model.xml">
+    <component component_ref="plateau_potassium_current" name="plateau_potassium_current"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="background_current_model.xml">
+    <component component_ref="background_current" name="background_current"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ionic_concentrations_model.xml">
+    <component component_ref="ionic_concentrations" name="ionic_concentrations"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="intracellular_calcium_concentration_model.xml">
+    <component component_ref="intracellular_calcium_concentration" name="intracellular_calcium_concentration"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="luo_rudy_I_model_1991_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+    <units name="gas_constant_units" units_ref="gas_constant_units"/>
+    <units name="faradays_constant_units" units_ref="faradays_constant_units"/>
+  </import>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="membrane"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="V_initial" variable_2="V_initial"/>
+    <map_variables variable_1="R" variable_2="R"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="F" variable_2="F"/>
+    <map_variables variable_1="C" variable_2="C"/>
+    <map_variables variable_1="I_stim" variable_2="I_stim"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="fast_sodium_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_Na" variable_2="i_Na"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="fast_sodium_current_m_gate"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="fast_sodium_current_h_gate"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="fast_sodium_current_j_gate"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="slow_inward_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_si" variable_2="i_si"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="slow_inward_current_d_gate"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="slow_inward_current_f_gate"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="time_dependent_potassium_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_K" variable_2="i_K"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="time_dependent_potassium_current_X_gate"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="time_dependent_potassium_current_Xi_gate"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="time_independent_potassium_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_K1" variable_2="i_K1"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="time_independent_potassium_current_K1_gate"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="plateau_potassium_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_Kp" variable_2="i_Kp"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="background_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_b" variable_2="i_b"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="time_dependent_potassium_current"/>
+    <map_variables variable_1="R" variable_2="R"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="F" variable_2="F"/>
+    <map_variables variable_1="i_K" variable_2="i_K"/>
+    <map_variables variable_1="g_K" variable_2="g_K"/>
+    <map_variables variable_1="g_K_max" variable_2="g_K_max"/>
+    <map_variables variable_1="E_K" variable_2="E_K"/>
+    <map_variables variable_1="PR_NaK" variable_2="PR_NaK"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="Nao" variable_2="Nao"/>
+    <map_variables variable_1="Nai" variable_2="Nai"/>
+    <map_variables variable_1="Ki" variable_2="Ki"/>
+    <map_variables variable_1="Ko" variable_2="Ko"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="time_independent_potassium_current"/>
+    <map_variables variable_1="R" variable_2="R"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="F" variable_2="F"/>
+    <map_variables variable_1="i_K1" variable_2="i_K1"/>
+    <map_variables variable_1="E_K1" variable_2="E_K1"/>
+    <map_variables variable_1="g_K1" variable_2="g_K1"/>
+    <map_variables variable_1="g_K1_max" variable_2="g_K1_max"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="Ki" variable_2="Ki"/>
+    <map_variables variable_1="Ko" variable_2="Ko"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="fast_sodium_current"/>
+    <map_variables variable_1="i_Na" variable_2="i_Na"/>
+    <map_variables variable_1="g_Na" variable_2="g_Na"/>
+    <map_variables variable_1="E_Na" variable_2="E_Na"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="fast_sodium_current_m_gate"/>
+    <map_variables variable_1="m" variable_2="m"/>
+    <map_variables variable_1="m_initial" variable_2="m_initial"/>
+    <map_variables variable_1="alpha_m" variable_2="alpha_m"/>
+    <map_variables variable_1="beta_m" variable_2="beta_m"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="fast_sodium_current_m_gate" component_2="fast_sodium_current"/>
+    <map_variables variable_1="m" variable_2="m"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="fast_sodium_current_h_gate"/>
+    <map_variables variable_1="h" variable_2="h"/>
+    <map_variables variable_1="h_initial" variable_2="h_initial"/>
+    <map_variables variable_1="alpha_h" variable_2="alpha_h"/>
+    <map_variables variable_1="beta_h" variable_2="beta_h"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="fast_sodium_current_h_gate" component_2="fast_sodium_current"/>
+    <map_variables variable_1="h" variable_2="h"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="fast_sodium_current_j_gate"/>
+    <map_variables variable_1="j" variable_2="j"/>
+    <map_variables variable_1="j_initial" variable_2="j_initial"/>
+    <map_variables variable_1="alpha_j" variable_2="alpha_j"/>
+    <map_variables variable_1="beta_j" variable_2="beta_j"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="fast_sodium_current_j_gate" component_2="fast_sodium_current"/>
+    <map_variables variable_1="j" variable_2="j"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="slow_inward_current"/>
+    <map_variables variable_1="i_si" variable_2="i_si"/>
+    <map_variables variable_1="E_si" variable_2="E_si"/>
+    <map_variables variable_1="g_si" variable_2="g_si"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="slow_inward_current" component_2="intracellular_calcium_concentration"/>
+    <map_variables variable_1="i_si" variable_2="i_si"/>
+    <map_variables variable_1="Cai" variable_2="Cai"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="slow_inward_current_d_gate"/>
+    <map_variables variable_1="d" variable_2="d"/>
+    <map_variables variable_1="d_initial" variable_2="d_initial"/>
+    <map_variables variable_1="alpha_d" variable_2="alpha_d"/>
+    <map_variables variable_1="beta_d" variable_2="beta_d"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="slow_inward_current_d_gate" component_2="slow_inward_current"/>
+    <map_variables variable_1="d" variable_2="d"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="slow_inward_current_f_gate"/>
+    <map_variables variable_1="f" variable_2="f"/>
+    <map_variables variable_1="f_initial" variable_2="f_initial"/>
+    <map_variables variable_1="alpha_f" variable_2="alpha_f"/>
+    <map_variables variable_1="beta_f" variable_2="beta_f"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="slow_inward_current_f_gate" component_2="slow_inward_current"/>
+    <map_variables variable_1="f" variable_2="f"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="time_dependent_potassium_current_X_gate"/>
+    <map_variables variable_1="X" variable_2="X"/>
+    <map_variables variable_1="X_initial" variable_2="X_initial"/>
+    <map_variables variable_1="alpha_X" variable_2="alpha_X"/>
+    <map_variables variable_1="beta_X" variable_2="beta_X"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="time_dependent_potassium_current_X_gate" component_2="time_dependent_potassium_current"/>
+    <map_variables variable_1="X" variable_2="X"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="time_dependent_potassium_current_Xi_gate"/>
+    <map_variables variable_1="Xi" variable_2="Xi"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="time_dependent_potassium_current_Xi_gate" component_2="time_dependent_potassium_current"/>
+    <map_variables variable_1="Xi" variable_2="Xi"/>
+  </connection>
+  <connection>
+    <map_components component_1="time_independent_potassium_current" component_2="time_independent_potassium_current_K1_gate"/>
+    <map_variables variable_1="E_K1" variable_2="E_K1"/>
+    <map_variables variable_1="K1_infinity" variable_2="K1_infinity"/>
+  </connection>
+  <connection>
+    <map_components component_1="time_independent_potassium_current" component_2="plateau_potassium_current"/>
+    <map_variables variable_1="E_K1" variable_2="E_K1"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="time_independent_potassium_current_K1_gate"/>
+    <map_variables variable_1="K1_infinity" variable_2="K1_infinity"/>
+    <map_variables variable_1="alpha_K1" variable_2="alpha_K1"/>
+    <map_variables variable_1="beta_K1" variable_2="beta_K1"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="plateau_potassium_current"/>
+    <map_variables variable_1="i_Kp" variable_2="i_Kp"/>
+    <map_variables variable_1="E_Kp" variable_2="E_Kp"/>
+    <map_variables variable_1="g_Kp" variable_2="g_Kp"/>
+    <map_variables variable_1="Kp" variable_2="Kp"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="background_current"/>
+    <map_variables variable_1="i_b" variable_2="i_b"/>
+    <map_variables variable_1="E_b" variable_2="E_b"/>
+    <map_variables variable_1="g_b" variable_2="g_b"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="ionic_concentrations"/>
+    <map_variables variable_1="Nao" variable_2="Nao"/>
+    <map_variables variable_1="Nai" variable_2="Nai"/>
+    <map_variables variable_1="Cao" variable_2="Cao"/>
+    <map_variables variable_1="Ki" variable_2="Ki"/>
+    <map_variables variable_1="Ko" variable_2="Ko"/>
+  </connection>
+  <connection>
+    <map_components component_1="luo_rudy_I_model_1991_interface_component" component_2="intracellular_calcium_concentration"/>
+    <map_variables variable_1="Cai" variable_2="Cai"/>
+    <map_variables variable_1="Cai_initial" variable_2="Cai_initial"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+</model>

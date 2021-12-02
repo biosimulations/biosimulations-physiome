@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="slow_inward_current_w_gate_model">
+  <component name="slow_inward_current_w_gate">
+    <variable initial_value="w_initial" name="w" private_interface="out" public_interface="out" units="dimensionless"/>
+    <variable name="w_initial" public_interface="in" units="dimensionless"/>
+    <variable name="tau_w_minus" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="tau_w_plus" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="p" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="u" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="dw_dt_eq">
+      <apply id="dw_dt"><eq/>
+        <apply><diff/>
+          <bvar><ci> time </ci></bvar>
+          <ci> w </ci>
+        </apply>
+        <apply><minus/>
+          <apply><times/>
+            <apply><minus/>
+              <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+              <ci> p </ci>
+            </apply>
+            <apply><divide/>
+              <apply><minus/>
+                <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+                <ci> w </ci>
+              </apply>
+              <ci> tau_w_minus </ci>
+            </apply>
+          </apply>
+          <apply><divide/>
+            <apply><times/>
+              <ci> p </ci>
+              <ci> w </ci>
+            </apply>
+            <ci> tau_w_plus </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fenton_karma_model_1998_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+  </import>
+</model>

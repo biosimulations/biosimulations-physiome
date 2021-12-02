@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model cmeta:id="periodic_stimulus_M" name="periodic_stimulus_M" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../../common/units.xml">
+        <units name="ms" units_ref="ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="mM_per_ms" units_ref="mM_per_ms"/>
+        <units name="per_mm" units_ref="per_mm"/>
+        <units name="uF_per_cmsq" units_ref="uF_per_cmsq"/>
+        <units name="umcu" units_ref="umcu"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+        <units name="K" units_ref="K"/>
+        <units name="cmcu_per_uF_per_s" units_ref="cmcu_per_uF_per_s"/>
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mM_per_s" units_ref="mM_per_s"/>
+    </import>
+    <import xlink:href="../2004_tenTusscher_noble_noble_panfilov-M.xml">
+        <component component_ref="interface" name="math_model"/>
+    </import>
+    <component cmeta:id="timeComponent" name="time">
+        <variable cmeta:id="time" initial_value="0.0" name="time" public_interface="out" units="ms"/>
+    </component>
+    <connection>
+        <map_components component_1="math_model" component_2="time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <component name="output_variables">
+        <variable name="V" public_interface="in" units="mV"/>
+    </component>
+    <connection>
+        <map_components component_1="math_model" component_2="output_variables"/>
+        <map_variables variable_1="V" variable_2="V"/>
+    </connection>
+    <component cmeta:id="stimulus_protocol" name="stimulus_protocol">
+        <variable name="IStim" public_interface="out" units="pA_per_pF"/>
+        <variable name="time" public_interface="in" units="ms"/>
+        <variable initial_value="1000" name="stimPeriod" units="ms"/>
+        <variable initial_value="1" name="stimDuration" units="ms"/>
+        <variable initial_value="52" name="stimCurrent" units="pA_per_pF"/>
+        <variable name="Am" public_interface="in" units="per_mm"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="stimulus_calculation">
+                <eq/>
+                <ci>IStim</ci>
+                <piecewise>
+                    <piece>
+                        <ci>stimCurrent</ci>
+                        <apply>
+                            <lt/>
+                            <apply>
+                                <rem/>
+                                <ci>time</ci>
+                                <ci>stimPeriod</ci>
+                            </apply>
+                            <ci>stimDuration</ci>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <cn cellml:units="pA_per_pF">0.0</cn>
+                    </otherwise>
+                </piecewise>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="math_model" component_2="stimulus_protocol"/>
+        <map_variables variable_1="Istim" variable_2="IStim"/>
+    </connection>
+    <connection>
+        <map_components component_1="time" component_2="stimulus_protocol"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <component cmeta:id="parameters" name="parameters">
+        <variable initial_value="200" name="Am" public_interface="out" units="per_mm"/>
+        <variable initial_value="1.0" name="Cm" public_interface="out" units="uF_per_cmsq"/>
+        <variable initial_value="0.185" name="Capacitance" public_interface="out" units="uF_per_cmsq"/>
+        <variable initial_value="310" name="temperature" public_interface="out" units="K"/>
+        <variable initial_value="0.016404" name="vC" public_interface="out" units="umcu"/>
+        <variable initial_value="0.001094" name="vSR" public_interface="out" units="umcu"/>
+        <variable initial_value="14.838" name="g_Na" public_interface="out" units="nS_per_pF"/>
+        <variable initial_value="5.405" name="g_K1" public_interface="out" units="nS_per_pF"/>
+        <variable initial_value="0.294" name="g_to" public_interface="out" units="nS_per_pF"/>
+        <variable initial_value="0.096" name="g_Kr" public_interface="out" units="nS_per_pF"/>
+        <variable initial_value="0.062" name="g_Ks" public_interface="out" units="nS_per_pF"/>
+        <variable initial_value="0.0146" name="g_pK" public_interface="out" units="nS_per_pF"/>
+        <variable initial_value="0.29e-3" name="g_bNa" public_interface="out" units="nS_per_pF"/>
+        <variable initial_value="0.592e-3" name="g_bCa" public_interface="out" units="nS_per_pF"/>
+        <variable initial_value="0.03" name="p_KNa" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1.362" name="P_NaK" public_interface="out" units="pA_per_pF"/>
+        <variable initial_value="40.0" name="K_mNa" public_interface="out" units="mM"/>
+        <variable initial_value="1.0" name="K_mK" public_interface="out" units="mM"/>
+        <variable initial_value="1.75e-4" name="g_CaL" public_interface="out" units="cmcu_per_uF_per_s"/>
+        <variable initial_value="0.15" name="Bufc" public_interface="out" units="mM"/>
+        <variable initial_value="0.001" name="Kbufc" public_interface="out" units="mM"/>
+        <variable initial_value="10.0" name="Bufsr" public_interface="out" units="mM"/>
+        <variable initial_value="0.3" name="Kbufsr" public_interface="out" units="mM"/>
+        <variable initial_value="140" name="Nao" public_interface="out" units="mM"/>
+        <variable initial_value="5.4" name="Ko" public_interface="out" units="mM"/>
+        <variable initial_value="2.0" name="Cao" public_interface="out" units="mM"/>
+        <variable initial_value="0.08e-3" name="V_leak" public_interface="out" units="per_ms"/>
+        <variable initial_value="0.25e-3" name="K_up" public_interface="out" units="mM"/>
+        <variable initial_value="0.425e-3" name="Vmax_up" public_interface="out" units="mM_per_ms"/>
+        <variable initial_value="0.016464" name="a_rel" public_interface="out" units="mM_per_s"/>
+        <variable initial_value="0.25" name="b_rel" public_interface="out" units="mM"/>
+        <variable initial_value="0.008232" name="c_rel" public_interface="out" units="mM_per_s"/>
+        <variable initial_value="2" name="tau_g" public_interface="out" units="ms"/>
+        <variable initial_value="0.825" name="g_pCa" public_interface="out" units="pA_per_pF"/>
+        <variable initial_value="0.5e-3" name="K_pCa" public_interface="out" units="mM"/>
+        <variable initial_value="1.0e3" name="k_NaCa" public_interface="out" units="pA_per_pF"/>
+        <variable initial_value="87.5" name="K_mNai" public_interface="out" units="mM"/>
+        <variable initial_value="1.38" name="K_mCa" public_interface="out" units="mM"/>
+        <variable initial_value="0.1" name="k_sat" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.35" name="gamma" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2.5" name="alpha" public_interface="out" units="dimensionless"/>
+    </component>
+    <connection>
+        <map_components component_1="math_model" component_2="parameters"/>
+        <map_variables variable_1="Am" variable_2="Am"/>
+        <map_variables variable_1="Cm" variable_2="Cm"/>
+        <map_variables variable_1="Capacitance" variable_2="Capacitance"/>
+        <map_variables variable_1="temperature" variable_2="temperature"/>
+        <map_variables variable_1="vC" variable_2="vC"/>
+        <map_variables variable_1="vSR" variable_2="vSR"/>
+        <map_variables variable_1="g_Na" variable_2="g_Na"/>
+        <map_variables variable_1="g_K1" variable_2="g_K1"/>
+        <map_variables variable_1="g_to" variable_2="g_to"/>
+        <map_variables variable_1="g_Kr" variable_2="g_Kr"/>
+        <map_variables variable_1="g_Ks" variable_2="g_Ks"/>
+        <map_variables variable_1="g_pK" variable_2="g_pK"/>
+        <map_variables variable_1="g_bNa" variable_2="g_bNa"/>
+        <map_variables variable_1="g_bCa" variable_2="g_bCa"/>
+        <map_variables variable_1="p_KNa" variable_2="p_KNa"/>
+        <map_variables variable_1="P_NaK" variable_2="P_NaK"/>
+        <map_variables variable_1="K_mNa" variable_2="K_mNa"/>
+        <map_variables variable_1="K_mK" variable_2="K_mK"/>
+        <map_variables variable_1="g_CaL" variable_2="g_CaL"/>
+        <map_variables variable_1="Bufc" variable_2="Bufc"/>
+        <map_variables variable_1="Kbufc" variable_2="Kbufc"/>
+        <map_variables variable_1="Bufsr" variable_2="Bufsr"/>
+        <map_variables variable_1="Kbufsr" variable_2="Kbufsr"/>
+        <map_variables variable_1="Nao" variable_2="Nao"/>
+        <map_variables variable_1="Ko" variable_2="Ko"/>
+        <map_variables variable_1="Cao" variable_2="Cao"/>
+        <map_variables variable_1="V_leak" variable_2="V_leak"/>
+        <map_variables variable_1="K_up" variable_2="K_up"/>
+        <map_variables variable_1="Vmax_up" variable_2="Vmax_up"/>
+        <map_variables variable_1="a_rel" variable_2="a_rel"/>
+        <map_variables variable_1="b_rel" variable_2="b_rel"/>
+        <map_variables variable_1="c_rel" variable_2="c_rel"/>
+        <map_variables variable_1="tau_g" variable_2="tau_g"/>
+        <map_variables variable_1="g_pCa" variable_2="g_pCa"/>
+        <map_variables variable_1="K_pCa" variable_2="K_pCa"/>
+        <map_variables variable_1="k_NaCa" variable_2="k_NaCa"/>
+        <map_variables variable_1="K_mNai" variable_2="K_mNai"/>
+        <map_variables variable_1="K_mCa" variable_2="K_mCa"/>
+        <map_variables variable_1="k_sat" variable_2="k_sat"/>
+        <map_variables variable_1="gamma" variable_2="gamma"/>
+        <map_variables variable_1="alpha" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="stimulus_protocol" component_2="parameters"/>
+        <map_variables variable_1="Am" variable_2="Am"/>
+    </connection>
+    <component cmeta:id="initial_conditions" name="initial_conditions">
+        <variable initial_value="-86.2" name="V_initial" public_interface="out" units="mV"/>
+        <variable initial_value="0" name="m_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.75" name="h_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.75" name="j_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1.0" name="s_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.0" name="r_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.0" name="Xr1_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1.0" name="Xr2_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.0" name="Xs_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.0" name="d_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1.0" name="f_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1.0" name="fCa_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1.0" name="g_initial" public_interface="out" units="dimensionless"/>
+        <variable initial_value="11.6" name="Nai_initial" public_interface="out" units="mM"/>
+        <variable initial_value="138.3" name="Ki_initial" public_interface="out" units="mM"/>
+        <variable initial_value="0.0064" name="Cai_total_initial" public_interface="out" units="mM"/>
+        <variable initial_value="4.2" name="CaSR_total_initial" public_interface="out" units="mM"/>
+    </component>
+    <connection>
+        <map_components component_1="math_model" component_2="initial_conditions"/>
+        <map_variables variable_1="V_initial" variable_2="V_initial"/>
+        <map_variables variable_1="m_initial" variable_2="m_initial"/>
+        <map_variables variable_1="h_initial" variable_2="h_initial"/>
+        <map_variables variable_1="j_initial" variable_2="j_initial"/>
+        <map_variables variable_1="s_initial" variable_2="s_initial"/>
+        <map_variables variable_1="r_initial" variable_2="r_initial"/>
+        <map_variables variable_1="Xr1_initial" variable_2="Xr1_initial"/>
+        <map_variables variable_1="Xr2_initial" variable_2="Xr2_initial"/>
+        <map_variables variable_1="Xs_initial" variable_2="Xs_initial"/>
+        <map_variables variable_1="d_initial" variable_2="d_initial"/>
+        <map_variables variable_1="f_initial" variable_2="f_initial"/>
+        <map_variables variable_1="fCa_initial" variable_2="fCa_initial"/>
+        <map_variables variable_1="g_initial" variable_2="g_initial"/>
+        <map_variables variable_1="Nai_initial" variable_2="Nai_initial"/>
+        <map_variables variable_1="Ki_initial" variable_2="Ki_initial"/>
+        <map_variables variable_1="Cai_total_initial" variable_2="Cai_total_initial"/>
+        <map_variables variable_1="CaSR_total_initial" variable_2="CaSR_total_initial"/>
+    </connection>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Nickerson</vCard:Family>
+                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">David</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">d.nickerson@auckland.ac.nz</rdf:value>
+                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                </vCard:EMAIL>
+                <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The University of Auckland</vCard:Orgname>
+                    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Bioengineering Institute</vCard:Orgunit>
+                </vCard:ORG>
+            </dc:creator>
+            <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2004-12-31</dcterms:W3CDTF>
+            </dcterms:created>
+            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">&#xd;
+        Bioengineering Institute, The University of Auckland&#xd;
+      </dc:publisher>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#periodic_stimulus_M">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">&#xd;
+        Action potential simulation with periodic stimulus.&#xd;
+      </dc:title>
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+          This is the CellML description of a action potential simulation&#xd;
+          with a periodic stimulus current applied. Uses the M-cell&#xd;
+          variant of the ten Tusscher et al. (2004) human ventricular myocyte&#xd;
+          model.&#xd;
+        </rdf:value>
+                <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">David Nickerson</vCard:FN>
+                </dc:creator>
+            </cmeta:comment>
+            <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <bqs:Pubmed_id xmlns:bqs="http://www.cellml.org/bqs/1.0#">14656705</bqs:Pubmed_id>
+            </bqs:reference>
+            <cs:simulation xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:ID="simulation">
+                    <cs:multistepMethod xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">bdf</cs:multistepMethod>
+                    <cs:iterationMethod xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">newton</cs:iterationMethod>
+                    <cs:linearSolver xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">dense</cs:linearSolver>
+                    <cs:boundIntervals xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:parseType="Collection" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                            <cs:boundVariable xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+                                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#time"/>
+                            </cs:boundVariable>
+                            <cs:maximumStepSize xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                0.01
+              </cs:maximumStepSize>
+                            <cs:tabulationStepSize xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                2.0
+              </cs:tabulationStepSize>
+                            <cs:startingValue xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                0
+              </cs:startingValue>
+                            <cs:endingValue xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                1500
+              </cs:endingValue>
+                        </rdf:Description>
+                    </cs:boundIntervals>
+                </rdf:Description>
+            </cs:simulation>
+        </rdf:Description>
+    </rdf:RDF>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#timeComponent">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+            The actual definition of the time variable.&#xd;
+          </rdf:value>
+            </cmeta:comment>
+        </rdf:Description>
+    </rdf:RDF>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#stimulus_protocol">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+            Here we define the stimulus protocol for the simulation.&#xd;
+            In this case we are using a periodic stimulus.&#xd;
+          </rdf:value>
+            </cmeta:comment>
+        </rdf:Description>
+    </rdf:RDF>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#parameters">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+            The model parameters.&#xd;
+          </rdf:value>
+            </cmeta:comment>
+        </rdf:Description>
+    </rdf:RDF>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#initial_conditions">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+            The initial conditions.&#xd;
+          </rdf:value>
+            </cmeta:comment>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

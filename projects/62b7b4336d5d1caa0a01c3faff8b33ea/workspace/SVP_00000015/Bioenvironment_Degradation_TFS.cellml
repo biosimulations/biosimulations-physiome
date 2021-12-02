@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model name="Bioenvironment_Degradation_TFS" cmeta:id="Bioenvironment_Degradation_TFS" 
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.0/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+    >
+            
+    <rdf:RDF>
+            <rdf:Description rdf:about="#Bioenvironment_Degradation_TFS">
+            <dc:creator>
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Mike</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            </vCard:EMAIL>
+            <vCard:ORG rdf:parseType="Resource">
+                <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+            </vCard:ORG>
+            </dc:creator>
+            </rdf:Description>
+   </rdf:RDF>
+
+  <import xlink:href="SVP_Templates200906/Template_RxR1P1.cellml">
+    <units name="per_s" units_ref="per_s" />
+    <units name="nM" units_ref="nM" />
+    <units name="nM_per_s" units_ref="nM_per_s" />
+    <component name="Template_RxR1P1" component_ref="Template_RxR1P1" />
+  </import>
+
+   <component name="Bioenvironment_Degradation_TFS">
+    <variable name="concentration" units="nM" private_interface="out" public_interface="in" />
+    <variable name="kDecay" units="per_s" initial_value="3.851e-4" private_interface="out"/>
+    <variable name="J" units="nM_per_s" private_interface="in" public_interface="out" />
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation" />
+    <component_ref component="Bioenvironment_Degradation_TFS">
+      <component_ref component="Template_RxR1P1" />
+    </component_ref>
+   </group> 
+  
+   <connection>
+      <map_components component_1="Template_RxR1P1" component_2="Bioenvironment_Degradation_TFS"/>
+      <map_variables variable_1="k" variable_2="kDecay"/>
+      <map_variables variable_1="concentration" variable_2="concentration"/>
+      <map_variables variable_1="J" variable_2="J"/>
+   </connection>
+
+</model>

@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Reconstruction of the action potential of ventricular myocardial fibres,  with modifications to demonstrate uncertainty.</title>
+</head>
+<body>
+<h3>Model Status</h3>
+    <p>
+This model has been modified to demonstrate uncertainty, by modifying the variable x1_open in the component time_dependendent_outward_current to be normally distributed with mean 0.008 and variance 10<sup>-6</sup>. This choice of distribution is arbitrary, but demonstrates how posterior parameter distributions computed for a variable might be represented in practice.
+</p>
+
+
+<h3>Model Structure</h3>
+
+<p>
+In contrast to the earlier Purkinje fibre ionic current models of <a href="http://models.cellml.org/exposure/812eeafbc8ebe97bef435340c80cfcce">D. Noble (1962)</a> and <a href="http://models.cellml.org/exposure/60e23c3228a3e455699846704006a8fe">R.E. McAllister, D. Noble and R.W. Tsien (1975)</a>, the G.W. Beeler and H. Reuter 1977 model was developed to describe the mammalian ventricular action potential.  Not all the ionic currents of the Purkinje fibre model are present in ventricular tissue; therefore, this model is simpler than the MNT model.  The total ionic flux is divided into only four discrete, individual ionic currents (see the figure below).  The main additional feature of the Beeler-Reuter ionic current model is a representation of the intracellular calcium ion concentration.
+</p>
+
+<p>
+The complete original paper reference is cited below:
+</p>
+
+<p>
+Reconstruction of the action potential of ventricular myocardial fibres, Beeler, G.W. and Reuter, H. 1977, <em>Journal of Physiology</em>, 268, 177-210.  <a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=874889&dopt=Abstract">PubMed ID: 874889</a>
+</p>
+
+<table class="tmp-doc-informalfigure">
+ <tr class="tmp-doc-informalfigure">
+   <td class="tmp-doc-informalfigure">
+     <img class="tmp-doc-informalfigure" alt="" src="beeler_reuter_1977.png" />
+   </td>
+ </tr>
+ <tr class="tmp-doc-informalfigure">
+   <td class="tmp-doc-informalfigure-caption">
+     A schematic diagram describing the current flows across the cell membrane that are captured in the BR model.
+   </td>
+ </tr>
+</table>
+
+
+<table class="tmp-doc-informalfigure">
+ <tr class="tmp-doc-informalfigure">
+   <td class="tmp-doc-informalfigure">
+     <img class="tmp-doc-informalfigure" alt="" src="cellml_rendering.gif" />
+   </td>
+ </tr>
+ <tr class="tmp-doc-informalfigure">
+   <td class="tmp-doc-informalfigure-caption">
+     The network defined in the CellML description of the Beeler-Reuter model. A key describing the significance of the shapes of the components and the colours of the connections between them is in the <a href="http://www.cellml.org/tutorial/notation/?searchterm=notation%20guide">notation guide</a>. For simplicity, not all the variables are shown.
+   </td>
+ </tr>
+</table>
+
+
+
+<p>
+The membrane physically contains the currents as indicated by the blue arrows in the figure above. The currents act independently and are not connected to each other. Several of the channels encapsulate <em>and</em> contain further components which represent activation and inactivation gates. The addition of an encapsulation relationship informs modellers and processing software that the gates are important parts of the current model. It also prevents any other components that aren't also encapsulated by the parent component from connecting to its gates, effectively hiding them from the rest of the model.
+</p>
+
+<p>
+The breakdown of the model into components and the definition of encapsulation and containment relationships between them is somewhat arbitrary. When considering how a model should be broken into components, modellers are encouraged to consider which parts of a model might be re-used and how the physiological elements of the system being modelled are naturally bounded. Containment relationships should be used to provide simple rendering information for processing software (ideally, this will correspond to the layout of the physical system), and encapsulation should be used to group sets of components into sub-models.
+</p>
+
+
+</html>

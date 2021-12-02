@@ -1,0 +1,1322 @@
+<?xml version='1.0'?>
+<!--
+This CellML file was generated on 17/07/2008 at 1:40:20 at p.m. using:
+
+COR (0.9.31.979)
+Copyright 2002-2008 Dr Alan Garny
+http://COR.physiol.ox.ac.uk/ - COR@physiol.ox.ac.uk
+
+CellML 1.0 was used to generate this model
+http://www.CellML.org/
+-->
+<model cmeta:id="dougherty_wright_yew_2005" name="dougherty_wright_yew_2005" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <documentation xmlns="http://cellml.org/tmp-documentation">
+        <article>
+            <articleinfo>
+                <title>Computational model of the cAMP-mediated sensory response and calcium-dependent adaptation in vertebrate olfactory receptor neurons</title>
+                <author>
+                    <firstname>Geoffrey</firstname>
+                    <surname>Nunns</surname>
+                    <affiliation>
+                        <shortaffil>Auckland Bioengineering Institute, The University of Auckland</shortaffil>
+                    </affiliation>
+                </author>
+            </articleinfo>
+            <section id="sec_status">
+                <title>Model Status</title>
+                <para>
+            This model runs in both OpenCell and COR and the units are consistent. The model recreates results from a sinlge pulse experiment suitable for adaptation and oscillatory behavior. Modification of the stimulus and addition of IX, an intermediate Ca2+ generated substance can be made to fulfill different simulations.   
+          </para>
+            </section>
+            <sect1 id="sec_structure">
+                <title>Model Structure</title>
+                <para>
+Abstract: We develop a mechanistic mathematical model of the G-protein coupled signaling pathway responsible for generating current responses in frog olfactory receptor neurons. The model incorporates descriptions of ligand-receptor interaction, intracellular transduction events involving the second messenger cAMP, effector ion-channel activity, and calcium-mediated feedback steps. We parameterized the model with respect to suction pipette current recordings from single cells stimulated with multiple odor concentrations. The proposed model accurately predicts the receptor-current response of the neuron to brief and prolonged odorant exposure and is able to produce the adaptation observed under repeated or sustained stimulation. 
+</para>
+                <para>
+                    <informalfigure float="0" id="fig_reaction_diagram">
+                        <mediaobject>
+                            <imageobject>
+                                <objectinfo>
+                                    <title>model diagram</title>
+                                </objectinfo>
+                                <imagedata fileref="dougherty_2005.png"/>
+                            </imageobject>
+                        </mediaobject>
+                        <caption>Schematic diagram of the Dougherty et al model.</caption>
+                    </informalfigure>
+                </para>
+                <para>
+The complete original paper reference is cited below:
+</para>
+                <para>
+					Computational model of the cAMP-mediated sensory response and calcium-dependent adaptation in vertebrate olfactory receptor neurons, Daniel P. Dougherty, Geraldine A. Wright, Alice C. Yew, 2005, 
+						<emphasis>Proceeding of the National Academy of Sciences</emphasis>
+					, 102, 10415- 10420. <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=16027364  &amp;dopt=Abstract">PubMed ID: 16027364  </ulink>
+                </para>
+            </sect1>
+        </article>
+    </documentation>
+    <units name="uM">
+        <unit prefix="micro" units="mole"/>
+        <unit exponent="-1" units="liter"/>
+    </units>
+    <units name="micromole">
+        <unit prefix="micro" units="mole"/>
+    </units>
+    <units name="uM_per_second">
+        <unit units="uM"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="per_uM_per_second">
+        <unit exponent="-1" units="uM"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="per_second">
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="millivolt">
+        <unit prefix="milli" units="volt"/>
+    </units>
+    <units name="nanofarad">
+        <unit prefix="nano" units="farad"/>
+    </units>
+    <units name="nanosiemens">
+        <unit prefix="nano" units="siemens"/>
+    </units>
+    <units name="nanocoulomb">
+        <unit prefix="nano" units="coulomb"/>
+    </units>
+    <units name="picocoulomb">
+        <unit prefix="pico" units="coulomb"/>
+    </units>
+    <units name="uM_per_picocoulomb">
+        <unit units="uM"/>
+        <unit exponent="-1" prefix="pico" units="coulomb"/>
+    </units>
+    <units name="picocoulomb_per_uM">
+        <unit exponent="-1" units="uM_per_picocoulomb"/>
+    </units>
+    <units name="coulombs_per_mole">
+        <unit units="coulomb"/>
+        <unit exponent="-1" units="mole"/>
+    </units>
+    <units name="picocoulomb_per_second">
+        <unit prefix="pico" units="coulomb"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="nanoampere">
+        <unit prefix="nano" units="ampere"/>
+    </units>
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+    </component>
+    <component name="parameters">
+        <variable initial_value="0.004" name="cap" public_interface="out" units="nanofarad"/>
+        <variable initial_value="0.88" name="cc1lin" public_interface="out" units="per_second"/>
+        <variable initial_value="26" name="cc_2" public_interface="out" units="per_second"/>
+        <variable initial_value="13" name="ck1lin" public_interface="out" units="per_second"/>
+        <variable initial_value="0.9" name="ck_2" public_interface="out" units="per_second"/>
+        <variable initial_value="1" name="clmax" public_interface="out" units="nanosiemens"/>
+        <variable initial_value="1" name="cnmax" public_interface="out" units="nanosiemens"/>
+        <variable initial_value="1" name="cx1lin" public_interface="out" units="per_second"/>
+        <variable initial_value="13" name="cx2" public_interface="out" units="per_second"/>
+        <variable initial_value="2" name="ef" public_interface="out" units="per_second"/>
+        <variable initial_value="6" name="gl" public_interface="out" units="nanosiemens"/>
+        <variable initial_value="2" name="hmc_1" public_interface="out" units="uM"/>
+        <variable initial_value="3" name="hmc_2" public_interface="out" units="uM"/>
+        <variable initial_value="1.9" name="inf" public_interface="out" units="uM_per_picocoulomb"/>
+        <variable initial_value="5" name="inhmax" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.06" name="k_1" public_interface="out" units="per_uM_per_second"/>
+        <variable initial_value="20" name="k_2" public_interface="out" units="per_second"/>
+        <variable initial_value="0.7" name="kI" public_interface="out" units="uM"/>
+        <variable initial_value="2" name="kinh" public_interface="out" units="uM"/>
+        <variable initial_value="1" name="kinhcng" public_interface="out" units="uM"/>
+        <variable initial_value="2" name="n_1" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2" name="n_2" public_interface="out" units="dimensionless"/>
+        <variable initial_value="2" name="nI" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1.5" name="ninh" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1.3" name="ninhcng" public_interface="out" units="dimensionless"/>
+        <variable initial_value="20" name="pd" public_interface="out" units="per_second"/>
+        <variable initial_value="10" name="r_1" public_interface="out" units="per_second"/>
+        <variable initial_value="5" name="r_2" public_interface="out" units="per_second"/>
+        <variable initial_value="71" name="smax" public_interface="out" units="uM_per_second"/>
+        <variable initial_value="-50" name="V_Cl" public_interface="out" units="millivolt"/>
+        <variable initial_value="0" name="V_cng" public_interface="out" units="millivolt"/>
+        <variable initial_value="-70" name="V_l" public_interface="out" units="millivolt"/>
+        <variable name="F_vol" public_interface="out" units="picocoulomb_per_uM"/>
+        <variable initial_value="9.649e4" name="F" units="coulombs_per_mole"/>
+        <variable initial_value="1e-13" name="C_vol" units="liter"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>F_vol</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="picocoulomb" type="e-notation">1<sep/>12</cn>
+                        <cn cellml:units="coulomb">1</cn>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="mole">1</cn>
+                        <cn cellml:units="micromole">1000</cn>
+                    </apply>
+                    <ci>F</ci>
+                    <ci>C_vol</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="O_stim">
+        <variable name="O_stim" public_interface="out" units="uM"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable initial_value="20" name="od" units="uM"/>
+        <variable initial_value="0.5" name="t_0" units="second"/>
+        <variable initial_value="1.5" name="t_1" units="second"/>
+        <variable name="H_0" units="dimensionless"/>
+        <variable name="H_1" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>H_0</ci>
+                <piecewise>
+                    <piece>
+                        <cn cellml:units="dimensionless">0</cn>
+                        <apply>
+                            <lt/>
+                            <ci>time</ci>
+                            <ci>t_0</ci>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <cn cellml:units="dimensionless">1</cn>
+                    </otherwise>
+                </piecewise>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>H_1</ci>
+                <piecewise>
+                    <piece>
+                        <cn cellml:units="dimensionless">0</cn>
+                        <apply>
+                            <lt/>
+                            <ci>time</ci>
+                            <ci>t_1</ci>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <cn cellml:units="dimensionless">1</cn>
+                    </otherwise>
+                </piecewise>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>O_stim</ci>
+                <apply>
+                    <times/>
+                    <ci>od</ci>
+                    <apply>
+                        <minus/>
+                        <ci>H_0</ci>
+                        <ci>H_1</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000001" name="bLR">
+        <variable cmeta:id="id_000000002" initial_value="0" name="bLR" public_interface="out" units="dimensionless"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="k_1" public_interface="in" units="per_uM_per_second"/>
+        <variable name="O_stim" public_interface="in" units="uM"/>
+        <variable initial_value="1" name="R_tot" units="dimensionless"/>
+        <variable name="r_1" public_interface="in" units="per_second"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>bLR</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_1</ci>
+                        <ci>O_stim</ci>
+                        <apply>
+                            <minus/>
+                            <ci>R_tot</ci>
+                            <ci>bLR</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>r_1</ci>
+                        <ci>bLR</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000003" name="aG">
+        <variable cmeta:id="id_000000004" initial_value="0" name="aG" private_interface="out" public_interface="out" units="dimensionless"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable initial_value="1" name="G_tot" units="dimensionless"/>
+        <variable name="k_G" private_interface="in" units="per_second"/>
+        <variable name="r_G" private_interface="in" units="per_second"/>
+        <variable name="bLR" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="r_2" private_interface="out" public_interface="in" units="per_second"/>
+        <variable name="k_2" private_interface="out" public_interface="in" units="per_second"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>aG</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>k_G</ci>
+                        <apply>
+                            <minus/>
+                            <ci>G_tot</ci>
+                            <ci>aG</ci>
+                        </apply>
+                    </apply>
+                    <ci>r_G</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="k_G">
+        <variable name="k_G" public_interface="out" units="per_second"/>
+        <variable name="k_2" public_interface="in" units="per_second"/>
+        <variable name="bLR" public_interface="in" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>k_G</ci>
+                <apply>
+                    <times/>
+                    <ci>k_2</ci>
+                    <ci>bLR</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="r_G">
+        <variable name="r_G" public_interface="out" units="per_second"/>
+        <variable name="r_2" public_interface="in" units="per_second"/>
+        <variable name="aG" public_interface="in" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>r_G</ci>
+                <apply>
+                    <times/>
+                    <ci>r_2</ci>
+                    <ci>aG</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000025" name="cAMP">
+        <variable cmeta:id="id_000000026" initial_value="1.35648992164649e-88" name="cAMP" private_interface="out" public_interface="out" units="uM"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="synth" private_interface="in" units="uM_per_second"/>
+        <variable name="degrad" private_interface="in" units="uM_per_second"/>
+        <variable name="aG" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="smax" private_interface="out" public_interface="in" units="uM_per_second"/>
+        <variable cmeta:id="id_000000027" name="aCaMK" private_interface="out" public_interface="in" units="uM"/>
+        <variable name="kinh" private_interface="out" public_interface="in" units="uM"/>
+        <variable name="ninh" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="pd" private_interface="out" public_interface="in" units="per_second"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>cAMP</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>synth</ci>
+                    <ci>degrad</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="synth">
+        <variable name="synth" public_interface="out" units="uM_per_second"/>
+        <variable name="aG" public_interface="in" units="dimensionless"/>
+        <variable name="smax" public_interface="in" units="uM_per_second"/>
+        <variable name="aCaMK" public_interface="in" units="uM"/>
+        <variable name="kinh" public_interface="in" units="uM"/>
+        <variable name="ninh" public_interface="in" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>synth</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>aG</ci>
+                        <ci>smax</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                            <power/>
+                            <apply>
+                                <divide/>
+                                <ci>aCaMK</ci>
+                                <ci>kinh</ci>
+                            </apply>
+                            <ci>ninh</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="degrad">
+        <variable name="degrad" public_interface="out" units="uM_per_second"/>
+        <variable name="cAMP" public_interface="in" units="uM"/>
+        <variable name="pd" public_interface="in" units="per_second"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>degrad</ci>
+                <apply>
+                    <times/>
+                    <ci>pd</ci>
+                    <ci>cAMP</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000005" name="Ca">
+        <variable cmeta:id="id_000000006" initial_value="5.09073088043779e-12" name="Ca" private_interface="out" public_interface="out" units="uM"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="inf" public_interface="in" units="uM_per_picocoulomb"/>
+        <variable cmeta:id="id_000000007" name="I_CNG" public_interface="in" units="nanoampere"/>
+        <variable name="J_NCX" public_interface="in" units="uM_per_second"/>
+        <variable name="cc_1" private_interface="in" public_interface="out" units="uM_per_second"/>
+        <variable name="cc1lin" private_interface="out" public_interface="in" units="per_second"/>
+        <variable name="cc_2" public_interface="in" units="per_second"/>
+        <variable name="CaCaM" public_interface="in" units="uM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>Ca</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <divide/>
+                                <cn cellml:units="picocoulomb">1000</cn>
+                                <cn cellml:units="nanocoulomb">1</cn>
+                            </apply>
+                            <ci>inf</ci>
+                            <ci>I_CNG</ci>
+                        </apply>
+                        <ci>J_NCX</ci>
+                    </apply>
+                    <apply>
+                        <minus/>
+                        <ci>cc_1</ci>
+                        <apply>
+                            <times/>
+                            <ci>cc_2</ci>
+                            <ci>CaCaM</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="cc_1">
+        <variable name="cc_1" public_interface="out" units="uM_per_second"/>
+        <variable name="cc1lin" public_interface="in" units="per_second"/>
+        <variable name="Ca" public_interface="in" units="uM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>cc_1</ci>
+                <apply>
+                    <times/>
+                    <ci>cc1lin</ci>
+                    <ci>Ca</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000023" name="CaCaM">
+        <variable cmeta:id="id_000000024" initial_value="1.86113118246926e-13" name="CaCaM" public_interface="out" units="uM"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="cc_1" public_interface="in" units="uM_per_second"/>
+        <variable name="cc_2" public_interface="in" units="per_second"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>CaCaM</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>cc_1</ci>
+                    <apply>
+                        <times/>
+                        <ci>cc_2</ci>
+                        <ci>CaCaM</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000028" name="aCaMK">
+        <variable cmeta:id="id_000000029" initial_value="6.60756525051462e-8" name="aCaMK" public_interface="out" units="uM"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="ck_1" private_interface="in" units="uM_per_second"/>
+        <variable name="ck_2" public_interface="in" units="per_second"/>
+        <variable cmeta:id="id_000000030" name="CaCaM" private_interface="out" public_interface="in" units="uM"/>
+        <variable name="ck1lin" private_interface="out" public_interface="in" units="per_second"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>aCaMK</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>ck_1</ci>
+                    <apply>
+                        <times/>
+                        <ci>ck_2</ci>
+                        <ci>aCaMK</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="ck_1">
+        <variable name="ck_1" public_interface="out" units="uM_per_second"/>
+        <variable name="ck1lin" public_interface="in" units="per_second"/>
+        <variable name="CaCaM" public_interface="in" units="uM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>ck_1</ci>
+                <apply>
+                    <times/>
+                    <ci>ck1lin</ci>
+                    <ci>CaCaM</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000022" name="V">
+        <variable initial_value="-70" name="V" public_interface="out" units="millivolt"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="cap" public_interface="in" units="nanofarad"/>
+        <variable cmeta:id="id_000000021" name="I_CNG" public_interface="in" units="nanoampere"/>
+        <variable cmeta:id="id_000000019" name="I_ClCa" public_interface="in" units="nanoampere"/>
+        <variable cmeta:id="id_000000020" name="I_NCX" public_interface="in" units="nanoampere"/>
+        <variable name="I_other" public_interface="in" units="nanoampere"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>V</ci>
+                </apply>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="millivolt">1000</cn>
+                        <cn cellml:units="volt">1</cn>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <ci>cap</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <ci>I_CNG</ci>
+                        <ci>I_ClCa</ci>
+                        <ci>I_NCX</ci>
+                        <ci>I_other</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000008" name="I_CNG">
+        <variable cmeta:id="id_000000009" name="I_CNG" public_interface="out" units="nanoampere"/>
+        <variable name="V" public_interface="in" units="millivolt"/>
+        <variable cmeta:id="id_000000010" name="V_cng" public_interface="in" units="millivolt"/>
+        <variable name="cnmax" public_interface="in" units="nanosiemens"/>
+        <variable name="hmc_1" public_interface="in" units="uM"/>
+        <variable name="n_1" public_interface="in" units="dimensionless"/>
+        <variable name="inhcng" private_interface="in" units="dimensionless"/>
+        <variable name="cAMP" public_interface="in" units="uM"/>
+        <variable name="inhmax" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="ninhcng" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="kinhcng" private_interface="out" public_interface="in" units="uM"/>
+        <variable name="CaCaM" private_interface="out" public_interface="in" units="uM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>I_CNG</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>cnmax</ci>
+                            <apply>
+                                <power/>
+                                <ci>cAMP</ci>
+                                <ci>n_1</ci>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <power/>
+                                <ci>cAMP</ci>
+                                <ci>n_1</ci>
+                            </apply>
+                            <apply>
+                                <power/>
+                                <apply>
+                                    <times/>
+                                    <ci>inhcng</ci>
+                                    <ci>hmc_1</ci>
+                                </apply>
+                                <ci>n_1</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="volt">1</cn>
+                        <cn cellml:units="millivolt">1000</cn>
+                    </apply>
+                    <apply>
+                        <minus/>
+                        <ci>V_cng</ci>
+                        <ci>V</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="inhcng">
+        <variable name="inhcng" public_interface="out" units="dimensionless"/>
+        <variable name="inhmax" public_interface="in" units="dimensionless"/>
+        <variable name="ninhcng" public_interface="in" units="dimensionless"/>
+        <variable name="kinhcng" public_interface="in" units="uM"/>
+        <variable name="CaCaM" public_interface="in" units="uM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>inhcng</ci>
+                <apply>
+                    <plus/>
+                    <cn cellml:units="dimensionless">1</cn>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <minus/>
+                                <ci>inhmax</ci>
+                                <cn cellml:units="dimensionless">1</cn>
+                            </apply>
+                            <apply>
+                                <power/>
+                                <ci>CaCaM</ci>
+                                <ci>ninhcng</ci>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <power/>
+                                <ci>CaCaM</ci>
+                                <ci>ninhcng</ci>
+                            </apply>
+                            <apply>
+                                <power/>
+                                <ci>kinhcng</ci>
+                                <ci>ninhcng</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000011" name="I_ClCa">
+        <variable cmeta:id="id_000000012" name="I_ClCa" public_interface="out" units="nanoampere"/>
+        <variable name="Ca" public_interface="in" units="uM"/>
+        <variable name="n_2" public_interface="in" units="dimensionless"/>
+        <variable name="hmc_2" public_interface="in" units="uM"/>
+        <variable cmeta:id="id_000000018" name="V_Cl" public_interface="in" units="millivolt"/>
+        <variable name="clmax" public_interface="in" units="nanosiemens"/>
+        <variable name="V" public_interface="in" units="millivolt"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>I_ClCa</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>clmax</ci>
+                            <apply>
+                                <power/>
+                                <ci>Ca</ci>
+                                <ci>n_2</ci>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <apply>
+                                <power/>
+                                <ci>Ca</ci>
+                                <ci>n_2</ci>
+                            </apply>
+                            <apply>
+                                <power/>
+                                <ci>hmc_2</ci>
+                                <ci>n_2</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="volt">1</cn>
+                        <cn cellml:units="millivolt">1000</cn>
+                    </apply>
+                    <apply>
+                        <minus/>
+                        <ci>V_Cl</ci>
+                        <ci>V</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000013" name="I_NCX">
+        <variable cmeta:id="id_000000014" name="I_NCX" public_interface="out" units="nanoampere"/>
+        <variable cmeta:id="id_000000015" name="J_NCX" private_interface="in" public_interface="out" units="uM_per_second"/>
+        <variable name="Ca" private_interface="out" public_interface="in" units="uM"/>
+        <variable name="F_vol" public_interface="in" units="picocoulomb_per_uM"/>
+        <variable name="ef" private_interface="out" public_interface="in" units="per_second"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>I_NCX</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="nanocoulomb">1</cn>
+                        <cn cellml:units="picocoulomb">1000</cn>
+                    </apply>
+                    <ci>F_vol</ci>
+                    <ci>J_NCX</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="id_000000016" name="J_NCX">
+        <variable cmeta:id="id_000000017" name="J_NCX" public_interface="out" units="uM_per_second"/>
+        <variable name="Ca" public_interface="in" units="uM"/>
+        <variable name="ef" public_interface="in" units="per_second"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>J_NCX</ci>
+                <apply>
+                    <times/>
+                    <ci>ef</ci>
+                    <ci>Ca</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="I_other">
+        <variable name="I_other" public_interface="out" units="nanoampere"/>
+        <variable name="gl" public_interface="in" units="nanosiemens"/>
+        <variable name="V_l" public_interface="in" units="millivolt"/>
+        <variable name="V" public_interface="in" units="millivolt"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>I_other</ci>
+                <apply>
+                    <times/>
+                    <ci>gl</ci>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="volt">1</cn>
+                        <cn cellml:units="millivolt">1000</cn>
+                    </apply>
+                    <apply>
+                        <minus/>
+                        <ci>V_l</ci>
+                        <ci>V</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="aG">
+            <component_ref component="k_G"/>
+            <component_ref component="r_G"/>
+        </component_ref>
+        <component_ref component="cAMP">
+            <component_ref component="synth"/>
+            <component_ref component="degrad"/>
+        </component_ref>
+        <component_ref component="Ca">
+            <component_ref component="cc_1"/>
+        </component_ref>
+        <component_ref component="aCaMK">
+            <component_ref component="ck_1"/>
+        </component_ref>
+        <component_ref component="I_CNG">
+            <component_ref component="inhcng"/>
+        </component_ref>
+        <component_ref component="I_NCX">
+            <component_ref component="J_NCX"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="environment" component_2="bLR"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="aG"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="cAMP"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="Ca"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="CaCaM"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="aCaMK"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="V"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="environment" component_2="O_stim"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="aG" component_2="bLR"/>
+        <map_variables variable_1="bLR" variable_2="bLR"/>
+    </connection>
+    <connection>
+        <map_components component_1="cAMP" component_2="degrad"/>
+        <map_variables variable_1="pd" variable_2="pd"/>
+        <map_variables variable_1="cAMP" variable_2="cAMP"/>
+        <map_variables variable_1="degrad" variable_2="degrad"/>
+    </connection>
+    <connection>
+        <map_components component_1="aCaMK" component_2="CaCaM"/>
+        <map_variables variable_1="CaCaM" variable_2="CaCaM"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_NCX" component_2="Ca"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
+        <map_variables variable_1="J_NCX" variable_2="J_NCX"/>
+    </connection>
+    <connection>
+        <map_components component_1="bLR" component_2="parameters"/>
+        <map_variables variable_1="k_1" variable_2="k_1"/>
+        <map_variables variable_1="r_1" variable_2="r_1"/>
+    </connection>
+    <connection>
+        <map_components component_1="aG" component_2="parameters"/>
+        <map_variables variable_1="r_2" variable_2="r_2"/>
+        <map_variables variable_1="k_2" variable_2="k_2"/>
+    </connection>
+    <connection>
+        <map_components component_1="aG" component_2="k_G"/>
+        <map_variables variable_1="k_G" variable_2="k_G"/>
+        <map_variables variable_1="k_2" variable_2="k_2"/>
+        <map_variables variable_1="bLR" variable_2="bLR"/>
+    </connection>
+    <connection>
+        <map_components component_1="aG" component_2="r_G"/>
+        <map_variables variable_1="r_G" variable_2="r_G"/>
+        <map_variables variable_1="r_2" variable_2="r_2"/>
+        <map_variables variable_1="aG" variable_2="aG"/>
+    </connection>
+    <connection>
+        <map_components component_1="cAMP" component_2="parameters"/>
+        <map_variables variable_1="smax" variable_2="smax"/>
+        <map_variables variable_1="kinh" variable_2="kinh"/>
+        <map_variables variable_1="ninh" variable_2="ninh"/>
+        <map_variables variable_1="pd" variable_2="pd"/>
+    </connection>
+    <connection>
+        <map_components component_1="cAMP" component_2="synth"/>
+        <map_variables variable_1="aG" variable_2="aG"/>
+        <map_variables variable_1="smax" variable_2="smax"/>
+        <map_variables variable_1="aCaMK" variable_2="aCaMK"/>
+        <map_variables variable_1="kinh" variable_2="kinh"/>
+        <map_variables variable_1="ninh" variable_2="ninh"/>
+        <map_variables variable_1="synth" variable_2="synth"/>
+    </connection>
+    <connection>
+        <map_components component_1="Ca" component_2="parameters"/>
+        <map_variables variable_1="inf" variable_2="inf"/>
+        <map_variables variable_1="cc_2" variable_2="cc_2"/>
+        <map_variables variable_1="cc1lin" variable_2="cc1lin"/>
+    </connection>
+    <connection>
+        <map_components component_1="Ca" component_2="cc_1"/>
+        <map_variables variable_1="cc1lin" variable_2="cc1lin"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
+        <map_variables variable_1="cc_1" variable_2="cc_1"/>
+    </connection>
+    <connection>
+        <map_components component_1="Ca" component_2="CaCaM"/>
+        <map_variables variable_1="cc_1" variable_2="cc_1"/>
+        <map_variables variable_1="CaCaM" variable_2="CaCaM"/>
+    </connection>
+    <connection>
+        <map_components component_1="CaCaM" component_2="parameters"/>
+        <map_variables variable_1="cc_2" variable_2="cc_2"/>
+    </connection>
+    <connection>
+        <map_components component_1="aCaMK" component_2="parameters"/>
+        <map_variables variable_1="ck_2" variable_2="ck_2"/>
+        <map_variables variable_1="ck1lin" variable_2="ck1lin"/>
+    </connection>
+    <connection>
+        <map_components component_1="aCaMK" component_2="ck_1"/>
+        <map_variables variable_1="ck_1" variable_2="ck_1"/>
+        <map_variables variable_1="ck1lin" variable_2="ck1lin"/>
+        <map_variables variable_1="CaCaM" variable_2="CaCaM"/>
+    </connection>
+    <connection>
+        <map_components component_1="V" component_2="parameters"/>
+        <map_variables variable_1="cap" variable_2="cap"/>
+    </connection>
+    <connection>
+        <map_components component_1="Ca" component_2="I_CNG"/>
+        <map_variables variable_1="I_CNG" variable_2="I_CNG"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_other" component_2="parameters"/>
+        <map_variables variable_1="V_l" variable_2="V_l"/>
+        <map_variables variable_1="gl" variable_2="gl"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_other" component_2="V"/>
+        <map_variables variable_1="V" variable_2="V"/>
+        <map_variables variable_1="I_other" variable_2="I_other"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_CNG" component_2="V"/>
+        <map_variables variable_1="V" variable_2="V"/>
+        <map_variables variable_1="I_CNG" variable_2="I_CNG"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_ClCa" component_2="V"/>
+        <map_variables variable_1="V" variable_2="V"/>
+        <map_variables variable_1="I_ClCa" variable_2="I_ClCa"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_NCX" component_2="V"/>
+        <map_variables variable_1="I_NCX" variable_2="I_NCX"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_CNG" component_2="parameters"/>
+        <map_variables variable_1="n_1" variable_2="n_1"/>
+        <map_variables variable_1="V_cng" variable_2="V_cng"/>
+        <map_variables variable_1="cnmax" variable_2="cnmax"/>
+        <map_variables variable_1="hmc_1" variable_2="hmc_1"/>
+        <map_variables variable_1="inhmax" variable_2="inhmax"/>
+        <map_variables variable_1="kinhcng" variable_2="kinhcng"/>
+        <map_variables variable_1="ninhcng" variable_2="ninhcng"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_CNG" component_2="CaCaM"/>
+        <map_variables variable_1="CaCaM" variable_2="CaCaM"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_CNG" component_2="cAMP"/>
+        <map_variables variable_1="cAMP" variable_2="cAMP"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_CNG" component_2="inhcng"/>
+        <map_variables variable_1="inhcng" variable_2="inhcng"/>
+        <map_variables variable_1="inhmax" variable_2="inhmax"/>
+        <map_variables variable_1="ninhcng" variable_2="ninhcng"/>
+        <map_variables variable_1="CaCaM" variable_2="CaCaM"/>
+        <map_variables variable_1="kinhcng" variable_2="kinhcng"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_ClCa" component_2="parameters"/>
+        <map_variables variable_1="n_2" variable_2="n_2"/>
+        <map_variables variable_1="hmc_2" variable_2="hmc_2"/>
+        <map_variables variable_1="V_Cl" variable_2="V_Cl"/>
+        <map_variables variable_1="clmax" variable_2="clmax"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_ClCa" component_2="Ca"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_NCX" component_2="parameters"/>
+        <map_variables variable_1="ef" variable_2="ef"/>
+        <map_variables variable_1="F_vol" variable_2="F_vol"/>
+    </connection>
+    <connection>
+        <map_components component_1="I_NCX" component_2="J_NCX"/>
+        <map_variables variable_1="ef" variable_2="ef"/>
+        <map_variables variable_1="Ca" variable_2="Ca"/>
+        <map_variables variable_1="J_NCX" variable_2="J_NCX"/>
+    </connection>
+    <connection>
+        <map_components component_1="cAMP" component_2="aG"/>
+        <map_variables variable_1="aG" variable_2="aG"/>
+    </connection>
+    <connection>
+        <map_components component_1="cAMP" component_2="aCaMK"/>
+        <map_variables variable_1="aCaMK" variable_2="aCaMK"/>
+    </connection>
+    <connection>
+        <map_components component_1="O_stim" component_2="bLR"/>
+        <map_variables variable_1="O_stim" variable_2="O_stim"/>
+    </connection>
+    <rdf:RDF>
+        <rdf:Description rdf:about="rdf:#c26b1fb4-9541-4f77-ad24-8fc396a17256">
+            <rdf:type>
+                <rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+            </rdf:type>
+            <rdf:_1>
+                <rdf:Description rdf:about="rdf:#01ee6602-c6c1-4b56-b803-14ec9aacd568"/>
+            </rdf:_1>
+            <rdf:_2>
+                <rdf:Description rdf:about="rdf:#dc35300e-662b-442e-8f7e-cfa541162867"/>
+            </rdf:_2>
+            <rdf:_3>
+                <rdf:Description rdf:about="rdf:#df24a4e8-63b7-474d-b9a6-70c70c3fe215"/>
+            </rdf:_3>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#01ee6602-c6c1-4b56-b803-14ec9aacd568">
+            <rdf:type>
+                <rdf:Description rdf:about="http://www.cellml.org/bqs/1.0#Person"/>
+            </rdf:type>
+            <vCard:N>
+                <rdf:Description rdf:about="rdf:#3a5bd4a6-dc9b-483f-a24f-9144a576d6bd"/>
+            </vCard:N>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#dc35300e-662b-442e-8f7e-cfa541162867">
+            <rdf:type>
+                <rdf:Description rdf:about="http://www.cellml.org/bqs/1.0#Person"/>
+            </rdf:type>
+            <vCard:N>
+                <rdf:Description rdf:about="rdf:#1a2f9712-6bd0-440b-998e-5b1dac27955f"/>
+            </vCard:N>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#df24a4e8-63b7-474d-b9a6-70c70c3fe215">
+            <rdf:type>
+                <rdf:Description rdf:about="http://www.cellml.org/bqs/1.0#Person"/>
+            </rdf:type>
+            <vCard:N>
+                <rdf:Description rdf:about="rdf:#cd16a728-b0f4-4a27-b6bd-c4d6e52ede72"/>
+            </vCard:N>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#3a5bd4a6-dc9b-483f-a24f-9144a576d6bd">
+            <vCard:Given xml:lang="en">Daniel</vCard:Given>
+            <vCard:Family xml:lang="en">Dougherty</vCard:Family>
+            <vCard:Other xml:lang="en">P</vCard:Other>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#1a2f9712-6bd0-440b-998e-5b1dac27955f">
+            <vCard:Given xml:lang="en">Geraldine</vCard:Given>
+            <vCard:Family xml:lang="en">Wright</vCard:Family>
+            <vCard:Other xml:lang="en">A</vCard:Other>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#cd16a728-b0f4-4a27-b6bd-c4d6e52ede72">
+            <vCard:Given xml:lang="en">Alice</vCard:Given>
+            <vCard:Family xml:lang="en">Yew</vCard:Family>
+            <vCard:Other xml:lang="en">C</vCard:Other>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#21c2c822-4150-45c6-968c-d7bf274505c4">
+            <dc:title xml:lang="en">Proceedings of the National Academy of Sciences</dc:title>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#671dcd2a-7ef8-4166-815f-6798bb0d2891">
+            <dc:title xml:lang="en">Computational model of the cAMP-mediated sensory response and calcium-dependent adaptation in vertebrate olfactory receptor neurons</dc:title>
+            <dc:creator>
+                <rdf:Description rdf:about="rdf:#c26b1fb4-9541-4f77-ad24-8fc396a17256"/>
+            </dc:creator>
+            <bqs:volume xml:lang="en">102</bqs:volume>
+            <bqs:first_page xml:lang="en">10415</bqs:first_page>
+            <bqs:Journal>
+                <rdf:Description rdf:about="rdf:#21c2c822-4150-45c6-968c-d7bf274505c4"/>
+            </bqs:Journal>
+            <dcterms:issued>
+                <rdf:Description rdf:about="rdf:#13d4ae94-8e32-4d1c-8c3f-da78a8a86469"/>
+            </dcterms:issued>
+            <bqs:last_page xml:lang="en">10420</bqs:last_page>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#13d4ae94-8e32-4d1c-8c3f-da78a8a86469">
+            <dcterms:W3CDTF xml:lang="en">2005-05-25 00:00</dcterms:W3CDTF>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#514ea0ef-e1c3-44cd-b481-d9f8ab0979cf">
+            <dc:creator>
+                <rdf:Description rdf:about="rdf:#164401d0-fef7-43af-bf8c-a47fb7a73421"/>
+            </dc:creator>
+            <rdf:value xml:lang="en">This model runs in both PCEnv and COR. The model recreates results from a sinlge pulse experiment suitable for adaptation and oscillatory behavior. Modification of the stimulus and addition of IX, an intermediate Ca2+ generated substance can be made to fulfill different simulations.</rdf:value>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#164401d0-fef7-43af-bf8c-a47fb7a73421">
+            <vCard:FN xml:lang="en">Geoff Nunns</vCard:FN>
+        </rdf:Description>
+        <rdf:Description rdf:about="rdf:#e76eba0b-15da-4ec3-88c8-10669f4724b3">
+            <bqs:Pubmed_id xml:lang="en">16027364</bqs:Pubmed_id>
+            <bqs:JournalArticle>
+                <rdf:Description rdf:about="rdf:#671dcd2a-7ef8-4166-815f-6798bb0d2891"/>
+            </bqs:JournalArticle>
+        </rdf:Description>
+        <rdf:Description rdf:about="#dougherty_wright_yew_2005">
+            <cmeta:comment>
+                <rdf:Description rdf:about="rdf:#514ea0ef-e1c3-44cd-b481-d9f8ab0979cf"/>
+            </cmeta:comment>
+            <bqs:reference>
+                <rdf:Description rdf:about="rdf:#e76eba0b-15da-4ec3-88c8-10669f4724b3"/>
+            </bqs:reference>
+            <bqs:reference>
+                <rdf:Description rdf:nodeID="n1"/>
+            </bqs:reference>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000001">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0022834"/>
+            </isVersionOf>
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0015276"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000002">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0022834"/>
+            </isVersionOf>
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0015276"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000003">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0001965"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000004">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0001965"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000005">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000006">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000007">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0043855"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000008">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0043855"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000009">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0043855"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000010">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0043855"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000013">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000014">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000015">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000016">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000017">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/>
+            </isVersionOf>
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0006852"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000012">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005229"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000011">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005229"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000018">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005229"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000019">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005229"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000020">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000021">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0043855"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000022">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0043855"/>
+            </isVersionOf>
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/>
+            </isVersionOf>
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005229"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000023">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005954"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000024">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005954"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000025">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:15346"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000026">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:15346"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000027">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0004683"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000028">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0004683"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000029">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0004683"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000030">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005954"/>
+            </isVersionOf>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

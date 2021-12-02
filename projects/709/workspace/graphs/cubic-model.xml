@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rdf:RDF      
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+        xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:dcterms="http://purl.org/dc/terms/"
+        xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+        xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#"
+        xmlns:cg="http://www.cellml.org/metadata/graphs/1.0#"
+        xmlns:csim="http://cellml.sourceforge.net/CellMLSimulator/#">
+  <rdf:Description rdf:ID="andre">
+    <vCard:N rdf:parseType="Resource">
+      <vCard:Family>Nickerson</vCard:Family>
+      <vCard:Given>David</vCard:Given>
+    </vCard:N>
+    <vCard:EMAIL rdf:parseType="Resource">
+      <rdf:value>d.nickerson@auckland.ac.nz</rdf:value>
+      <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    </vCard:EMAIL>
+    <vCard:ORG rdf:parseType="Resource">
+      <vCard:Orgname>The University of Auckland</vCard:Orgname>
+      <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+    </vCard:ORG>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:creator rdf:resource="#andre"/>
+    <dcterms:created rdf:parseType="Resource">
+      <dcterms:W3CDTF>2009-06-16</dcterms:W3CDTF>
+    </dcterms:created>
+    <dc:publisher>
+      Auckland Bioengineering Institute, The Unviersity of Auckland.
+    </dc:publisher>
+  </rdf:Description>
+  <rdf:Description>
+    <cg:graph>
+      <rdf:Description rdf:ID="cubic-AP">
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the cubic nature of the 1975 Hunter et al model.
+          </rdf:value>
+        </dcterms:description>
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Potential (mV)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="../models/1975_hunter/experiments/stimulus.xml#simulation"/>
+              <cg:variable rdf:resource="../models/1975_hunter/experiments/stimulus.xml#time"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="../models/1975_hunter/experiments/stimulus.xml#simulation"/>
+              <cg:variable rdf:resource="../models/1975_hunter/1975_cubic_polynomial.xml#Vm"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="cubic-IV">
+        <dcterms:description rdf:parseType="Resource">
+          <rdf:value>
+            This graph illustrates the cubic nature of the 1975 Hunter et al model.
+          </rdf:value>
+        </dcterms:description>
+        <cg:x-label>Potential (mV)</cg:x-label>
+        <cg:y-label>Current (uA/mm^2)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="../models/1975_hunter/experiments/voltage_clamp.xml#simulation"/>
+              <cg:variable rdf:resource="../models/1975_hunter/experiments/voltage_clamp.xml#Vm"/>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="../models/1975_hunter/experiments/voltage_clamp.xml#simulation"/>
+              <cg:variable rdf:resource="../models/1975_hunter/1975_cubic_polynomial.xml#I"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+  </rdf:Description>
+</rdf:RDF>

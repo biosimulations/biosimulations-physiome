@@ -1,0 +1,33 @@
+gfx read elements body11.exf
+# 3D element groups
+gfx create egroup body
+gfx modify egroup body add elements all
+gfx create egroup core
+gfx modify egroup core add elements 3..4,6..9,12..15,17..18,23..24,26..29,32..35,37..38,43..44,46..49,52..55,57..58,63..64,66..69,72..75,77..78,83..84,86..89,92..95,97..98,103..104,106..109,112..115,117..118,123..124,126..129,132..135,137..138,143..144,146..149,152..155,157..158,163..164,166..169,172..175,177..178,183..184,186..189,192..195,197..198,203..204,206..209,212..215,217..218
+gfx create egroup abdomen
+gfx modify egroup abdomen add elements 1..100 group core
+gfx create egroup thorax
+gfx modify egroup thorax add elements 101..160 group core
+gfx create egroup neck
+gfx modify egroup neck add elements 161..180 group core
+gfx create egroup head
+gfx modify egroup head add elements 181..220 group core
+# 2D face groups
+gfx define field is_diaphragm and fields abdomen thorax
+gfx create egroup diaphragm
+gfx modify egroup diaphragm add faces conditional_field is_diaphragm
+gfx define field is_non_core not field core
+gfx create egroup non_core
+gfx modify egroup non_core add elements conditional_field is_non_core
+gfx define field is_core_boundary and fields core non_core
+gfx create egroup "core boundary"
+gfx modify egroup "core boundary" add faces conditional_field is_core_boundary
+gfx define field is_exterior is_exterior
+gfx define field is_on_face_xi3_1 is_on_face face xi3_1
+gfx define field is_skin and fields is_exterior is_on_face_xi3_1
+gfx create egroup skin
+gfx modify egroup skin add faces conditional_field is_skin
+# 1D line groups
+gfx create egroup "spinal cord"
+gfx modify egroup "spinal cord" add lines 59,150,219,288,357,426,495,564,633
+gfx write elements nodes body_groups11.exf

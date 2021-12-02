@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="slow_inward_current_d_gate_model">
+  <component name="slow_inward_current_d_gate">
+    <variable initial_value="d_initial" name="d" private_interface="out" public_interface="out" units="dimensionless"/>
+    <variable name="d_initial" public_interface="in" units="dimensionless"/>
+    <variable name="alpha_d" private_interface="out" public_interface="out" units="per_ms"/>
+    <variable name="beta_d" private_interface="out" public_interface="out" units="per_ms"/>
+    <variable name="V" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="alpha_d_calculation_eq">
+      <apply id="alpha_d_calculation"><eq/>
+        <ci> alpha_d </ci>
+        <apply><divide/>
+          <apply><times/>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_ms"> 0.095 </cn>
+            <apply><exp/>
+              <apply><times/>
+                <apply><minus/>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 0.01 </cn>
+                </apply>
+                <apply><minus/>
+                  <ci> V </ci>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 5.0 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply><plus/>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+            <apply><exp/>
+              <apply><times/>
+                <apply><minus/>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 0.072 </cn>
+                </apply>
+                <apply><minus/>
+                  <ci> V </ci>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 5.0 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="beta_d_calculation_eq">
+      <apply id="beta_d_calculation"><eq/>
+        <ci> beta_d </ci>
+        <apply><divide/>
+          <apply><times/>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="per_ms"> 0.07 </cn>
+            <apply><exp/>
+              <apply><times/>
+                <apply><minus/>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 0.017 </cn>
+                </apply>
+                <apply><plus/>
+                  <ci> V </ci>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 44.0 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply><plus/>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+            <apply><exp/>
+              <apply><times/>
+                <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 0.05 </cn>
+                <apply><plus/>
+                  <ci> V </ci>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 44.0 </cn>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="dd_dt_eq">
+      <apply id="dd_dt"><eq/>
+        <apply><diff/>
+          <bvar><ci> time </ci></bvar>
+          <ci> d </ci>
+        </apply>
+        <apply><minus/>
+          <apply><times/>
+            <ci> alpha_d </ci>
+            <apply><minus/>
+              <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="dimensionless"> 1.0 </cn>
+              <ci> d </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> beta_d </ci>
+            <ci> d </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="luo_rudy_I_model_1991_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+    <units name="gas_constant_units" units_ref="gas_constant_units"/>
+    <units name="faradays_constant_units" units_ref="faradays_constant_units"/>
+  </import>
+</model>

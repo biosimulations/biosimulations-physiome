@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rdf:RDF
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+        xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:dcterms="http://purl.org/dc/terms/"
+        xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+        xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#"
+        xmlns:cg="http://www.cellml.org/metadata/graphs/1.0#">
+  <rdf:Description rdf:ID="andre">
+    <vCard:N rdf:parseType="Resource">
+      <vCard:Family>Nickerson</vCard:Family>
+      <vCard:Given>David</vCard:Given>
+    </vCard:N>
+    <vCard:EMAIL rdf:parseType="Resource">
+      <rdf:value>david.nickerson@nus.edu.sg</rdf:value>
+      <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    </vCard:EMAIL>
+    <vCard:ORG rdf:parseType="Resource">
+      <vCard:Orgname>National University of Singapore</vCard:Orgname>
+      <vCard:Orgunit>Division of Bioengineering</vCard:Orgunit>
+    </vCard:ORG>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:creator rdf:resource="#andre"/>
+    <dcterms:created rdf:parseType="Resource">
+      <dcterms:W3CDTF>2008-03-13</dcterms:W3CDTF>
+    </dcterms:created>
+    <dc:publisher>
+      Division of Bioengineering, National University of Singapore
+    </dc:publisher>
+  </rdf:Description>
+  <rdf:Description>
+    <cg:graph>
+      <rdf:Description rdf:ID="voltage-clamp-currents">
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Current (uA.cm^-2)</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>I</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="voltage-clamp.xml#time"/>
+              <cg:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">20</cg:maximum>
+              <cg:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-2</cg:minimum>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="../components/voltage-clamp.xml#I"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>INa</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="voltage-clamp.xml#time"/>
+              <cg:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">20</cg:maximum>
+              <cg:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-2</cg:minimum>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="../components/INa.xml#INa"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>IK</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="voltage-clamp.xml#time"/>
+              <cg:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">20</cg:maximum>
+              <cg:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-2</cg:minimum>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="../components/IK.xml#IK"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>Ileak</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#808000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="voltage-clamp.xml#time"/>
+              <cg:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">20</cg:maximum>
+              <cg:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-2</cg:minimum>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="../components/Ileak.xml#Ileak"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+    <cg:graph>
+      <rdf:Description rdf:ID="voltage-clamp-gates">
+        <cg:x-label>Time (ms)</cg:x-label>
+        <cg:y-label>Gate value ()</cg:y-label>
+        <cg:background-colour>#ffffff</cg:background-colour>
+        <cg:traces rdf:parseType="Collection">
+          <rdf:Description>
+            <cg:label>n</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#ff0000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="voltage-clamp.xml#time"/>
+              <cg:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">20</cg:maximum>
+              <cg:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-2</cg:minimum>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="../components/IK.xml#n"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>m</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#0000ff</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="voltage-clamp.xml#time"/>
+              <cg:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">20</cg:maximum>
+              <cg:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-2</cg:minimum>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="../components/INa.xml#m"/>
+            </cg:y-variable>
+          </rdf:Description>
+          <rdf:Description>
+            <cg:label>h</cg:label>
+            <cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line"/>
+            <cg:colour>#008000</cg:colour>
+            <cg:x-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="voltage-clamp.xml#time"/>
+              <cg:maximum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">20</cg:maximum>
+              <cg:minimum rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-2</cg:minimum>
+            </cg:x-variable>
+            <cg:y-variable rdf:parseType="Resource">
+              <cs:simulation rdf:resource="voltage-clamp-005.xml#simulation"/>
+              <cg:variable rdf:resource="../components/INa.xml#h"/>
+            </cg:y-variable>
+          </rdf:Description>
+        </cg:traces>
+      </rdf:Description>
+    </cg:graph>
+  </rdf:Description>
+</rdf:RDF>

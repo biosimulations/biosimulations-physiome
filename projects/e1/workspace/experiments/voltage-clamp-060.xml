@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink" name="voltage_clamp" cmeta:id="voltage_clamp">
+  
+
+  <import xlink:href="../components/units.xml">
+    <units name="mV" units_ref="mV"/>
+  </import>
+  <import xlink:href="voltage-clamp.xml">
+    <component name="model" component_ref="interface"/>
+  </import>
+
+  <component cmeta:id="clamp_potential_component" name="clamp_potential">
+    
+    <variable cmeta:id="clamp_potential" name="clamp_potential" public_interface="out" private_interface="out" units="mV" initial_value="-60.0"/>
+  </component>
+  <connection>
+    <map_components component_1="clamp_potential" component_2="model"/>
+    <map_variables variable_1="clamp_potential" variable_2="Vnew"/>
+  </connection>
+</model>

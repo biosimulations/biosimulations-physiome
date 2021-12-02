@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+      name="IK"
+      cmeta:id="IK_model"
+      xmlns="http://www.cellml.org/cellml/1.1#"
+      xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rdf:RDF
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+          xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+          xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+          xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:dcterms="http://purl.org/dc/terms/"
+          xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <rdf:Description rdf:about="">
+      <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Nickerson</vCard:Family>
+          <vCard:Given>David</vCard:Given>
+        </vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>d.nickerson@auckland.ac.nz</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>The University of Auckland</vCard:Orgname>
+          <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2009-07-07</dcterms:W3CDTF>
+      </dcterms:created>
+      <dc:publisher>
+        Auckland Bioengineering Institute, The University of Auckland.
+      </dc:publisher>
+    </rdf:Description>
+    <rdf:Description rdf:about="#IK_model">
+      <dc:title>
+        Modified Hodgkin-Huxley potassium current.
+      </dc:title>
+      <cmeta:comment rdf:parseType="Resource">
+        <rdf:value>
+          A modified version of the Hodgkin and Huxley potassium channel to replicate the Noble 1962 potassium current.
+        </rdf:value>
+        <dc:creator rdf:parseType="Resource">
+          <vCard:FN>David Nickerson</vCard:FN>
+        </dc:creator>
+      </cmeta:comment>
+    </rdf:Description>
+  </rdf:RDF>
+  <import xlink:href="http://www.bioeng.nus.edu.sg/compbiolab/p3/cellml/components/units.xml">
+    <units name="K" units_ref="K"/>
+    <units name="ms" units_ref="ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="per_ms_mV" units_ref="per_ms_mV"/>
+    <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
+    <units name="mS_per_cmsq" units_ref="mS_per_cmsq"/>
+  </import>
+  <import xlink:href="http://www.bioeng.nus.edu.sg/compbiolab/p3/cellml/components/gating-variable.xml">
+    <component name="n_gate" component_ref="hh_gating_variable_dynamic"/>
+  </import>
+  <import xlink:href="http://www.bioeng.nus.edu.sg/compbiolab/p3/cellml/components/IK-gating-rates.xml">
+    <component cmeta:id="alpha_n_component" name="HH_alpha_n" component_ref="alpha_n"/>
+    <component cmeta:id="beta_n_component" name="HH_beta_n" component_ref="beta_n"/>
+  </import>
+  <component name="IK" cmeta:id="IK_component">
+    <rdf:RDF
+            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <rdf:Description rdf:about="#IK_component">
+        <dc:title>
+          Modified Hodgkin &amp; Huxley potassium current.
+        </dc:title>
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            A description of the membrane potassium current of the Hodgkin &amp; Huxley (1952) model with some modifications following Noble 1962. The HH n-gate rate constants are slowed by a factor of 100; a base empirical conductance is introduced as an instanteous function of membrane potential;
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <variable cmeta:id="IK" name="IK" public_interface="out"
+              private_interface="out" units="uA_per_cmsq"/>
+    <variable cmeta:id="n_initial" name="n_initial" public_interface="in"
+              private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="n" name="n" public_interface="out" private_interface="in"
+              units="dimensionless"/>
+    <variable cmeta:id="time" name="time" public_interface="in" 
+              private_interface="out" units="ms"/>
+    <variable cmeta:id="Tref" name="Tref" public_interface="in"
+              private_interface="out" units="K"/>
+    <variable cmeta:id="T" name="T" public_interface="in"
+              private_interface="out" units="K"/>
+    <variable cmeta:id="Q10" name="Q10" public_interface="in"
+              private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="V" name="V" public_interface="in"
+              private_interface="out" units="mV"/>
+    <variable cmeta:id="VK" name="VK" public_interface="in"
+              private_interface="out" units="mV"/>
+    <variable cmeta:id="gK1" name="gK1" public_interface="out"
+              private_interface="out" units="mS_per_cmsq"/>
+    <variable cmeta:id="gK2" name="gK2" public_interface="out"
+              private_interface="out" units="mS_per_cmsq"/>
+    <variable cmeta:id="gK_max" name="gK_max" public_interface="in"
+              private_interface="out" units="mS_per_cmsq"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="IK_calculation"><eq/>
+        <ci>IK</ci>
+        <apply><times/>
+          <apply><plus/>
+            <ci>gK1</ci>
+            <ci>gK2</ci>
+            <cn cellml:units="mS_per_cmsq">0.1</cn>
+          </apply>
+          <apply><minus/>
+            <ci>V</ci>
+            <ci>VK</ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="gK1_calculation"><eq/>
+        <ci>gK1</ci>
+        <apply><plus/>
+          <apply><times/>
+            <cn cellml:units="mS_per_cmsq">1.2</cn>
+            <apply><exp/>
+              <apply><divide/>
+                <apply><minus/>
+                  <ci>V</ci>
+                  <cn cellml:units="mV">35</cn>
+                </apply>
+                <cn cellml:units="mV">50</cn>
+              </apply>
+            </apply>
+          </apply>
+          <apply><times/>
+            <cn cellml:units="mS_per_cmsq">0.015</cn>
+            <apply><exp/>
+              <apply><divide/>
+                <apply><minus/>
+                  <cn cellml:units="mV">35</cn>
+                  <ci>V</ci>
+                </apply>
+                <cn cellml:units="mV">60</cn>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="gK2_calculation"><eq/>
+        <ci>gK2</ci>
+        <apply><times/>
+          <ci>gK_max</ci>
+          <apply><power/>
+            <ci>n</ci>
+            <cn cellml:units="dimensionless">4.0</cn>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <component name="gating_rates">
+    <variable name="alpha" units="per_ms" public_interface="out"/>
+    <variable name="beta" units="per_ms" public_interface="out"/>
+    <variable name="HH_alpha" units="per_ms" public_interface="in"/>
+    <variable name="HH_beta" units="per_ms" public_interface="in"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="beta_calculation"><eq/>
+        <ci>beta</ci>
+        <apply><times/>
+          <cn cellml:units="dimensionless">0.01</cn>
+          <ci>HH_beta</ci>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="alpha_calculation"><eq/>
+        <ci>alpha</ci>
+        <apply><times/>
+          <cn cellml:units="dimensionless">0.01</cn>
+          <ci>HH_alpha</ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="IK">
+      <component_ref component="gating_rates"/>
+      <component_ref component="HH_alpha_n"/>
+      <component_ref component="HH_beta_n"/>
+      <component_ref component="n_gate"/>
+    </component_ref>
+  </group>
+  <connection>
+    <map_components component_1="IK" component_2="n_gate"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="n_initial" variable_2="gate_initial"/>
+    <map_variables variable_1="n" variable_2="gate"/>
+  </connection>
+  <connection>
+    <map_components component_1="IK" component_2="HH_alpha_n"/>
+    <map_variables variable_1="Q10" variable_2="Q10"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Tref" variable_2="Tref"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="IK" component_2="HH_beta_n"/>
+    <map_variables variable_1="Q10" variable_2="Q10"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Tref" variable_2="Tref"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  <connection>
+    <map_components component_1="n_gate" component_2="gating_rates"/>
+    <map_variables variable_1="alpha" variable_2="alpha"/>
+    <map_variables variable_1="beta" variable_2="beta"/>
+  </connection>
+  <connection>
+    <map_components component_1="HH_alpha_n" component_2="gating_rates"/>
+    <map_variables variable_1="alpha" variable_2="HH_alpha"/>
+  </connection>
+  <connection>
+    <map_components component_1="HH_beta_n" component_2="gating_rates"/>
+    <map_variables variable_1="beta" variable_2="HH_beta"/>
+  </connection>
+</model>

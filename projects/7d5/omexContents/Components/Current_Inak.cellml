@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Current_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+    </import>
+    <component name="Current_Inak">
+        <variable name="v" public_interface="in" units="mV"/>
+        <variable name="R" public_interface="in" units="J_per_mol_per_kelvin"/>
+        <variable name="T" public_interface="in" units="kelvin"/>
+        <variable name="F" public_interface="in" units="C_per_mol"/>
+        <variable name="Na_i" public_interface="in" units="mM"/>
+        <variable name="Ko" public_interface="in" units="mM"/>
+        <variable initial_value="40" name="Km_Na" public_interface="out" units="mM"/>
+        <variable initial_value="1" name="Km_K" public_interface="out" units="mM"/>
+        <variable initial_value="2.476" name="PNaK" public_interface="out" units="pA_per_pF"/>
+        <variable name="i_nak" public_interface="out" units="pA_per_pF"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>i_nak</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>PNaK</ci>
+                        <ci>Ko</ci>
+                        <ci>Na_i</ci>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <apply>
+                            <plus/>
+                            <ci>Ko</ci>
+                            <ci>Km_K</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>Na_i</ci>
+                            <ci>Km_Na</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <cn cellml:units="dimensionless">1.0</cn>
+                            <apply>
+                                <times/>
+                                <cn cellml:units="dimensionless">0.1245</cn>
+                                <apply>
+                                    <exp/>
+                                    <apply>
+                                        <divide/>
+                                        <apply>
+                                            <times/>
+                                            <apply>
+                                                <minus/>
+                                                <cn cellml:units="dimensionless">0.1</cn>
+                                            </apply>
+                                            <ci>v</ci>
+                                            <ci>F</ci>
+                                        </apply>
+                                        <apply>
+                                            <times/>
+                                            <ci>R</ci>
+                                            <ci>T</ci>
+                                        </apply>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <apply>
+                                <times/>
+                                <cn cellml:units="dimensionless">0.0353</cn>
+                                <apply>
+                                    <exp/>
+                                    <apply>
+                                        <divide/>
+                                        <apply>
+                                            <times/>
+                                            <apply>
+                                                <minus/>
+                                                <ci>v</ci>
+                                            </apply>
+                                            <ci>F</ci>
+                                        </apply>
+                                        <apply>
+                                            <times/>
+                                            <ci>R</ci>
+                                            <ci>T</ci>
+                                        </apply>
+                                    </apply>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

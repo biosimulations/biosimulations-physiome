@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink" name="voltage_clamp" cmeta:id="voltage_clamp">
+  
+
+  <import xlink:href="../components/units.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="K" units_ref="K"/>
+    <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
+  </import>
+  <import xlink:href="../components/voltage-clamp.xml">
+    <component name="model" component_ref="voltage_clamp"/>
+  </import>
+  <import xlink:href="../components/default-variable-values.xml">
+    <component name="default_parameters" component_ref="parameters"/>
+    <component name="default_initial_conditions" component_ref="initial_conditions"/>
+  </import>
+  
+  <component cmeta:id="interface" name="interface">
+    <variable name="Vnew" public_interface="in" private_interface="out" units="mV"/>
+    <variable name="V" public_interface="out" private_interface="in" units="mV"/>
+    <variable name="INa" public_interface="out" private_interface="in" units="uA_per_cmsq"/>
+    <variable name="IK" public_interface="out" private_interface="in" units="uA_per_cmsq"/>
+    <variable name="Ileak" public_interface="out" private_interface="in" units="uA_per_cmsq"/>
+    <variable name="T" public_interface="in" private_interface="out" units="K"/>
+    <variable name="time" public_interface="out" private_interface="in" units="ms"/>
+  </component>
+  <connection>
+    <map_components component_1="interface" component_2="model"/>
+    <map_variables variable_1="Vnew" variable_2="Vnew"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="INa" variable_2="INa"/>
+    <map_variables variable_1="IK" variable_2="IK"/>
+    <map_variables variable_1="Ileak" variable_2="Ileak"/>
+    <map_variables variable_1="T" variable_2="T"/>
+  </connection>
+  
+  <component name="time" cmeta:id="time_component">
+    <variable cmeta:id="time" name="time" initial_value="-10.0" public_interface="out" units="ms"/>
+  </component>
+  <connection>
+    <map_components component_1="model" component_2="time"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="interface" component_2="time"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="model" component_2="default_parameters"/>
+    <map_variables variable_1="VNa" variable_2="VNa"/>
+    <map_variables variable_1="VK" variable_2="VK"/>
+    <map_variables variable_1="Vleak" variable_2="Vleak"/>
+    <map_variables variable_1="gNa_max" variable_2="gNa_max"/>
+    <map_variables variable_1="gK_max" variable_2="gK_max"/>
+    <map_variables variable_1="gleak_max" variable_2="gleak_max"/>
+    <map_variables variable_1="Tref_rates" variable_2="Tref_rates"/>
+    <map_variables variable_1="Q10_rates" variable_2="Q10_rates"/>
+  </connection>
+  
+  <component name="initial_conditions" cmeta:id="initial_conditions">
+    
+  </component>
+  <connection>
+    <map_components component_1="model" component_2="default_initial_conditions"/>
+    <map_variables variable_1="V_initial" variable_2="V_initial"/>
+    <map_variables variable_1="m_initial" variable_2="m_initial"/>
+    <map_variables variable_1="h_initial" variable_2="h_initial"/>
+    <map_variables variable_1="n_initial" variable_2="n_initial"/>
+  </connection>
+
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="interface">
+      <component_ref component="model"/>
+      <component_ref component="time"/>
+      <component_ref component="initial_conditions"/>
+      <component_ref component="default_parameters"/>
+      <component_ref component="default_initial_conditions"/>
+    </component_ref>
+  </group>
+</model>

@@ -1,0 +1,2663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  FILE :  saucerman_model_cytosol_2008.xml -->
+
+<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="saucerman_model_cytosol_2008" name="saucerman_model_cytosol_2008">
+
+
+  <units name="micromolar">
+    <unit units="mole" prefix="micro"/>
+    <unit units="litre" exponent="-1"/>
+  </units>
+  
+  <units name="flux">
+    <unit units="micromolar" />
+    <unit units="second" exponent="-1"/>
+  </units>
+
+  <units name="first_order_rate_constant">
+    <unit units="second" exponent="-1"/>
+  </units>
+
+  <units name="second_order_rate_constant">
+    <unit units="micromolar" exponent="-1"/>
+    <unit units="second" exponent="-1"/>
+  </units>
+  
+  <units name="third_order_rate_constant">
+    <unit units="micromolar" exponent="-2"/>
+    <unit units="second" exponent="-1"/>
+  </units>
+  
+  <units name="micromolar2">
+    <unit units="micromolar" exponent="2"/>
+  </units>
+
+  
+  <cmeta:comment rdf:parseType="Resource">
+        <rdf:value>
+          In order to facilitate the import of this cytosol model by the main Saucerman 2008 model I will encapsulate the current model in a top component called &quot;cytosol&quot;.
+        </rdf:value>
+        <dc:creator rdf:parseType="Resource">
+          <vCard:FN>Catherine Lloyd</vCard:FN>
+        </dc:creator>
+      </cmeta:comment>
+
+  <component name="cytosol" cmeta:id="cytosol">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+      <rdf:Description rdf:about="cytosol">
+        <dc:title>cytosol</dc:title>
+        <dcterms:alternative>top component which encapsulates the entire cytosol model</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>
+    <variable name="CaM" public_interface="out" private_interface="in" units="micromolar" />
+	<variable name="Ca2CaM" public_interface="out" private_interface="in" units="micromolar" />
+    <variable name="Ca4CaM" public_interface="out" private_interface="in" units="micromolar" />
+    
+    <variable name="time" public_interface="in" private_interface="out" units="second" /> 
+  </component>
+  
+  <connection>
+    <map_components component_1="cytosol" component_2="CaM" />
+    <map_variables variable_1="CaM" variable_2="CaM" />
+	<map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="cytosol" component_2="Ca2CaM" />
+    <map_variables variable_1="Ca2CaM" variable_2="Ca2CaM" />
+	<map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="cytosol" component_2="Ca4CaM" />
+    <map_variables variable_1="Ca4CaM" variable_2="Ca4CaM" />
+	<map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="cytosol" component_1="CaMB"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="cytosol" component_1="Ca2CaMB"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="cytosol" component_1="Ca4CaMB"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="cytosol" component_1="Ca4CaN"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="cytosol" component_1="CaMCaN"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="cytosol" component_1="Ca2CaMCaN"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="cytosol" component_1="Ca4CaMCaN"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="cytosol" component_1="Pb2"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="cytosol" component_1="Pb"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="cytosol" component_1="Pt"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="cytosol" component_1="Pt2"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="cytosol" component_1="Pa"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+
+  <!-- CaM reaction fluxes -->
+  
+  <component name="Reaction_02" cmeta:id="Reaction_02">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_02">
+        <dc:title>Reaction_02</dc:title>
+        <dcterms:alternative>Ca binding to CaM</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_02" />
+	<variable units="third_order_rate_constant" public_interface="out" name="k02"/>
+	<variable units="first_order_rate_constant" public_interface="out" initial_value="10.0" name="k20"/>
+	
+	<variable units="micromolar2" name="Kd02"/>
+    
+    <variable units="micromolar" public_interface="in" name="K"/>
+	<variable units="micromolar" public_interface="in" name="Mg"/>
+	<variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="micromolar" public_interface="in" name="CaM"/>
+	<variable units="micromolar" public_interface="in" name="Ca2CaM"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="1"> 
+      <apply><eq/> 
+        <ci> Reaction_02 </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> k02 </ci>
+			<apply><power/>
+	          <ci> Ca </ci>
+	          <cn cellml:units="dimensionless"> 2 </cn>
+            </apply>
+	        <ci> CaM </ci>
+          </apply>
+		  <apply><times/>
+            <ci> k20 </ci>
+			<ci> Ca2CaM </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="1a"> 
+      <apply><eq/> 
+        <ci> k02 </ci>
+        <apply><divide/>
+	      <ci> k20 </ci>
+		  <ci> Kd02 </ci>
+	    </apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="1b"> 
+      <apply><eq/> 
+        <ci> Kd02 </ci>
+        <piecewise>
+          <piece>
+            <apply><times/>
+			  <cn cellml:units="micromolar2"> 0.0025 </cn>
+			  <apply><minus/>
+			    <apply><plus/>
+				  <cn cellml:units="dimensionless"> 1.0 </cn>
+				  <apply><divide/>
+	                <ci> K </ci>
+		            <cn cellml:units="micromolar"> 0.94 </cn>
+	              </apply>
+                </apply>
+				<apply><divide/>
+	              <ci> Mg </ci>
+		          <cn cellml:units="micromolar"> 0.012 </cn>
+	            </apply>
+              </apply>
+			  <apply><plus/>
+		        <cn cellml:units="dimensionless"> 1.0 </cn>
+				<apply><divide/>
+	              <ci> K </ci>
+		          <cn cellml:units="micromolar"> 8.1 </cn>
+	            </apply>
+                <apply><divide/>
+	              <ci> Mg </ci>
+		          <cn cellml:units="micromolar"> 0.022 </cn>
+				</apply>
+	          </apply>
+            </apply>
+		    <apply><leq/>
+              <ci> Mg </ci>
+              <cn cellml:units="micromolar"> 1.0 </cn>
+            </apply>
+          </piece>
+	      <otherwise>
+		    <apply><times/>
+			  <cn cellml:units="micromolar2"> 0.0025 </cn>
+			  <apply><minus/>
+			    <apply><plus/>
+				  <cn cellml:units="dimensionless"> 1.0 </cn>
+				  <apply><divide/>
+	                <ci> K </ci>
+		            <cn cellml:units="micromolar"> 0.94 </cn>
+	              </apply>
+				  <apply><divide/>
+				    <apply><minus/>
+	                  <ci> Mg </ci>
+					  <cn cellml:units="micromolar"> 1.0 </cn>
+					</apply>
+		            <cn cellml:units="micromolar"> 0.06 </cn>
+	              </apply>
+                </apply>
+				<apply><divide/>
+	              <cn cellml:units="dimensionless"> 1.0 </cn>
+		          <cn cellml:units="dimensionless"> 0.012 </cn>
+	            </apply>
+              </apply>
+			  <apply><plus/>
+		        <cn cellml:units="dimensionless"> 1.0 </cn>
+				<apply><divide/>
+	              <ci> K </ci>
+		          <cn cellml:units="micromolar"> 8.1 </cn>
+	            </apply>
+				<apply><divide/>
+	              <cn cellml:units="dimensionless"> 1.0 </cn>
+		          <cn cellml:units="dimensionless"> 0.022 </cn>
+	            </apply>
+				<apply><divide/>
+				  <apply><minus/>
+	                <ci> Mg </ci>
+			        <cn cellml:units="micromolar"> 1.0 </cn>
+				  </apply>
+		          <cn cellml:units="micromolar"> 0.068 </cn>
+				</apply>
+	          </apply>
+            </apply>
+		  </otherwise>
+	    </piecewise>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_24" cmeta:id="Reaction_24">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_24">
+        <dc:title>Reaction_24</dc:title>
+        <dcterms:alternative>Ca binding to Ca2CaM</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_24" />
+	<variable units="third_order_rate_constant" public_interface="out" name="k24"/>
+	<variable units="first_order_rate_constant" public_interface="out" initial_value="500.0" name="k42"/>
+	
+	<variable units="micromolar2" name="Kd24"/>
+    
+    <variable units="micromolar" public_interface="in" name="K"/>
+	<variable units="micromolar" public_interface="in" name="Mg"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="micromolar" public_interface="in" name="Ca2CaM"/>
+	<variable units="micromolar" public_interface="in" name="Ca4CaM"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="2"> 
+      <apply><eq/> 
+        <ci> Reaction_24 </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> k24 </ci>
+			<apply><power/>
+	          <ci> Ca </ci>
+	          <cn cellml:units="dimensionless"> 2 </cn>
+            </apply>
+	        <ci> Ca2CaM </ci>
+          </apply>
+		  <apply><times/>
+            <ci> k42 </ci>
+			<ci> Ca4CaM </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="2a"> 
+      <apply><eq/> 
+        <ci> k24 </ci>
+        <apply><divide/>
+	      <ci> k42 </ci>
+		  <ci> Kd24 </ci>
+	    </apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="2b"> 
+      <apply><eq/> 
+        <ci> Kd24 </ci>
+        <piecewise>
+          <piece>
+            <apply><times/>
+			  <cn cellml:units="micromolar2"> 0.128 </cn>
+			  <apply><plus/>
+				<cn cellml:units="dimensionless"> 1.0 </cn>
+				<apply><divide/>
+	              <ci> K </ci>
+		          <cn cellml:units="micromolar"> 0.64 </cn>
+	            </apply>
+				<apply><divide/>
+	              <ci> Mg </ci>
+		          <cn cellml:units="micromolar"> 0.014 </cn>
+	            </apply>
+              </apply>
+			  <apply><minus/>
+			    <apply><plus/>
+		          <cn cellml:units="dimensionless"> 1.0 </cn>
+				  <apply><divide/>
+	                <ci> K </ci>
+		            <cn cellml:units="micromolar"> 13.0 </cn>
+	              </apply>
+				</apply>
+                <apply><divide/>
+	              <ci> Mg </ci>
+		          <cn cellml:units="micromolar"> 0.153 </cn>
+				</apply>
+	          </apply>
+            </apply>
+		    <apply><leq/>
+              <ci> Mg </ci>
+              <cn cellml:units="micromolar"> 1.0 </cn>
+            </apply>
+          </piece>
+	      <otherwise>
+		    <apply><times/>
+			  <cn cellml:units="micromolar2"> 0.128 </cn>
+			  <apply><plus/>
+		        <cn cellml:units="dimensionless"> 1.0 </cn>
+				<apply><divide/>
+	              <ci> K </ci>
+		          <cn cellml:units="micromolar"> 0.64 </cn>
+	            </apply>
+				<apply><divide/>
+				  <apply><minus/>
+	                <ci> Mg </ci>
+					<cn cellml:units="micromolar"> 1.0 </cn>
+			      </apply>
+		          <cn cellml:units="micromolar"> 0.005 </cn>
+	            </apply>
+              </apply>
+		      <apply><divide/>
+	            <cn cellml:units="dimensionless"> 1.0 </cn>
+		        <cn cellml:units="dimensionless"> 0.012 </cn>
+	          </apply>
+			  <apply><minus/>
+			    <apply><plus/>
+		          <cn cellml:units="dimensionless"> 1.0 </cn>
+				  <apply><divide/>
+	                <ci> K </ci>
+		            <cn cellml:units="micromolar"> 13.0 </cn>
+	              </apply>
+				  <apply><divide/>
+				    <apply><minus/>
+	                  <ci> Mg </ci>
+			          <cn cellml:units="micromolar"> 1.0 </cn>
+				    </apply>
+		            <cn cellml:units="micromolar"> 0.15 </cn>
+	              </apply>
+				</apply>
+			    <apply><divide/>
+	              <cn cellml:units="dimensionless"> 1.0 </cn>
+		          <cn cellml:units="dimensionless"> 0.153 </cn>
+	            </apply>
+		      </apply>
+            </apply>
+		  </otherwise>
+	    </piecewise>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_02B" cmeta:id="Reaction_02B">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_02B">
+        <dc:title>Reaction_02B</dc:title>
+        <dcterms:alternative>Ca binding to CaMB</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_02B" />
+	
+	<variable units="third_order_rate_constant" name="k02B"/>
+    <variable units="first_order_rate_constant" initial_value="0.1" name="k20B"/>
+
+	<variable units="third_order_rate_constant" public_interface="in" name="k02"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="micromolar" public_interface="in" name="CaMB"/>
+	<variable units="micromolar" public_interface="in" name="Ca2CaMB"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="3"> 
+      <apply><eq/> 
+        <ci> Reaction_02B </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> k02B </ci>
+			<apply><power/>
+	          <ci> Ca </ci>
+	          <cn cellml:units="dimensionless"> 2 </cn>
+            </apply>
+	        <ci> CaMB </ci>
+          </apply>
+		  <apply><times/>
+            <ci> k20B </ci>
+			<ci> Ca2CaMB </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="3a"> 
+      <apply><eq/> 
+        <ci> k02B </ci>
+        <ci> k02 </ci>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_24B" cmeta:id="Reaction_24B">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_24B">
+        <dc:title>Reaction_24B</dc:title>
+        <dcterms:alternative>Ca binding to Ca2CaMB</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_24B" />
+	
+	<variable units="third_order_rate_constant" name="k24B"/>
+    <variable units="first_order_rate_constant" name="k42B"/>
+
+	<variable units="third_order_rate_constant" public_interface="in" name="k24"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="k42"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="micromolar" public_interface="in" name="Ca2CaMB"/>
+	<variable units="micromolar" public_interface="in" name="Ca4CaMB"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="4"> 
+      <apply><eq/> 
+        <ci> Reaction_24B </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> k24B </ci>
+			<apply><power/>
+	          <ci> Ca </ci>
+	          <cn cellml:units="dimensionless"> 2 </cn>
+            </apply>
+	        <ci> Ca2CaMB </ci>
+          </apply>
+		  <apply><times/>
+            <ci> k42B </ci>
+			<ci> Ca4CaMB </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="4a"> 
+      <apply><eq/> 
+        <ci> k42B </ci>
+        <ci> k42 </ci>
+	  </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="4b"> 
+      <apply><eq/> 
+        <ci> k24B </ci>
+        <ci> k24 </ci>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_0B" cmeta:id="Reaction_0B">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_0B">
+        <dc:title>Reaction_0B</dc:title>
+        <dcterms:alternative>buffer binding to CaM</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_0B" />
+	
+	<variable units="second_order_rate_constant" initial_value="0.007" name="k0B_on"/>
+    <variable units="first_order_rate_constant" initial_value="0.0014" name="k0B_off"/>
+
+    <variable units="micromolar" public_interface="in" name="B"/>
+    <variable units="micromolar" public_interface="in" name="CaM"/>
+	<variable units="micromolar" public_interface="in" name="CaMB"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="5"> 
+      <apply><eq/> 
+        <ci> Reaction_0B </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> k0B_on	</ci>
+			<ci> CaM </ci>
+	        <ci> B </ci>
+          </apply>
+		  <apply><times/>
+            <ci> k0B_off </ci>
+			<ci> CaMB </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_2B" cmeta:id="Reaction_2B">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_2B">
+        <dc:title>Reaction_2B</dc:title>
+        <dcterms:alternative>buffer binding to Ca2CaM</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_2B" />
+	
+	<variable units="second_order_rate_constant" initial_value="0.007" name="k2B_on"/>
+    <variable units="first_order_rate_constant" initial_value="0.000014" name="k2B_off"/>
+
+    <variable units="micromolar" public_interface="in" name="B"/>
+    <variable units="micromolar" public_interface="in" name="Ca2CaM"/>
+	<variable units="micromolar" public_interface="in" name="Ca2CaMB"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="6"> 
+      <apply><eq/> 
+        <ci> Reaction_2B </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> k2B_on	</ci>
+			<ci> Ca2CaM </ci>
+	        <ci> B </ci>
+          </apply>
+		  <apply><times/>
+            <ci> k2B_off </ci>
+			<ci> Ca2CaMB </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_4B" cmeta:id="Reaction_4B">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_4B">
+        <dc:title>Reaction_4B</dc:title>
+        <dcterms:alternative>buffer binding to Ca4CaM</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_4B" />
+	
+	<variable units="second_order_rate_constant" initial_value="0.007" name="k4B_on"/>
+    <variable units="first_order_rate_constant" initial_value="0.000014" name="k4B_off"/>
+
+    <variable units="micromolar" public_interface="in" name="B"/>
+    <variable units="micromolar" public_interface="in" name="Ca4CaM"/>
+	<variable units="micromolar" public_interface="in" name="Ca4CaMB"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="7"> 
+      <apply><eq/> 
+        <ci> Reaction_4B </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> k4B_on	</ci>
+			<ci> Ca4CaM </ci>
+	        <ci> B </ci>
+          </apply>
+		  <apply><times/>
+            <ci> k4B_off </ci>
+			<ci> Ca4CaMB </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <!-- Ca binding to CaM and CaM buffering -->
+  
+  <component name="B" cmeta:id="B">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="B">
+        <dc:title>B</dc:title>
+        <dcterms:alternative>buffer</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" public_interface="out" name="B" />
+	
+	<variable units="micromolar" initial_value="24.5" name="Btot"/>
+    
+    <variable units="micromolar" public_interface="in" name="CaMB"/>
+    <variable units="micromolar" public_interface="in" name="Ca2CaMB"/>
+	<variable units="micromolar" public_interface="in" name="Ca4CaMB"/>
+   	
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="8"> 
+      <apply><eq/> 
+        <ci> B </ci>
+        <apply><minus/>
+	      <ci> Btot </ci>
+		  <apply><plus/>
+            <ci> CaMB	</ci>
+			<ci> Ca2CaMB </ci>
+	        <ci> Ca4CaMB </ci>
+          </apply>
+		</apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="CaM" cmeta:id="CaM">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="CaM">
+        <dc:title>CaM</dc:title>
+        <dcterms:alternative>calmodulin</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="CaM" />
+	
+	<variable units="flux" public_interface="in" name="Reaction_02"/>
+    <variable units="flux" public_interface="in" name="Reaction_0B"/>
+	<variable units="flux" public_interface="in" name="Reaction_0CaN"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="9"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> CaM </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <apply><plus/>
+              <ci> Reaction_02 </ci>
+              <ci> Reaction_0B </ci>
+			  <ci> Reaction_0CaN </ci>
+			</apply>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Ca2CaM" cmeta:id="Ca2aM">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Ca2CaM">
+        <dc:title>Ca2CaM</dc:title>
+        <dcterms:alternative>Ca2-calmodulin complex</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="Ca2CaM" />
+	
+	<variable units="micromolar" public_interface="in" name="CaMKIItot" />
+	<variable units="flux" public_interface="in" name="Reaction_02"/>
+    <variable units="flux" public_interface="in" name="Reaction_24"/>
+	<variable units="flux" public_interface="in" name="Reaction_2B"/>
+	<variable units="flux" public_interface="in" name="Reaction_2CaN"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKt2a"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKib2"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="10"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Ca2CaM </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <apply><plus/>
+			  <apply><times/>
+			    <ci> CaMKIItot </ci>
+			    <apply><minus/> 
+			      <ci> Reaction_CKt2a </ci>
+			      <ci> Reaction_CKib2 </ci>
+	            </apply>
+			  </apply>
+			  <ci> Reaction_02 </ci>
+			</apply>
+			<apply><plus/>
+              <ci> Reaction_24 </ci>
+              <ci> Reaction_2B </ci>
+			  <ci> Reaction_2CaN </ci>
+			</apply>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Ca4CaM" cmeta:id="Ca4CaM">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Ca4CaM">
+        <dc:title>Ca4CaM</dc:title>
+        <dcterms:alternative>Ca4-calmodulin complex</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="Ca4CaM" />
+	
+	<variable units="micromolar" public_interface="in" name="CaMKIItot" />
+	<variable units="flux" public_interface="in" name="Reaction_24"/>
+    <variable units="flux" public_interface="in" name="Reaction_4CaN"/>
+	<variable units="flux" public_interface="in" name="Reaction_4B"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKta"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKib"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="11"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Ca4CaM </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <apply><plus/>
+			  <apply><times/>
+			    <ci> CaMKIItot </ci>
+			    <apply><minus/> 
+			      <ci> Reaction_CKta </ci>
+			      <ci> Reaction_CKib </ci>
+	            </apply>
+			  </apply>
+			  <ci> Reaction_24 </ci>
+			</apply>
+			<apply><plus/>
+              <ci> Reaction_4CaN </ci>
+              <ci> Reaction_4B </ci>
+			</apply>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="CaMB" cmeta:id="CaMB">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="CaMB">
+        <dc:title>CaMB</dc:title>
+        <dcterms:alternative>buffer-calmodulin complex</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="CaMB" />
+	
+	<variable units="flux" public_interface="in" name="Reaction_02B"/>
+    <variable units="flux" public_interface="in" name="Reaction_0B"/>
+	<variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="12"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> CaMB </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <ci> Reaction_0B </ci>
+            <ci> Reaction_02B </ci>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Ca2CaMB" cmeta:id="Ca2CaMB">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Ca2CaMB">
+        <dc:title>Ca2CaMB</dc:title>
+        <dcterms:alternative>buffer-2calcium-calmodulin complex</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="Ca2CaMB" />
+	
+	<variable units="flux" public_interface="in" name="Reaction_02B"/>
+    <variable units="flux" public_interface="in" name="Reaction_2B"/>
+	<variable units="flux" public_interface="in" name="Reaction_24B"/>
+	<variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="13"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Ca2CaMB </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <apply><plus/>
+			  <ci> Reaction_02B </ci>
+			  <ci> Reaction_2B </ci>
+	        </apply>
+			<ci> Reaction_24B </ci>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Ca4CaMB" cmeta:id="Ca4CaMB">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Ca4CaMB">
+        <dc:title>Ca4CaMB</dc:title>
+        <dcterms:alternative>buffer-4calcium-calmodulin complex</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="Ca4CaMB" />
+	
+	<variable units="flux" public_interface="in" name="Reaction_4B"/>
+	<variable units="flux" public_interface="in" name="Reaction_24B"/>
+	<variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="14"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Ca4CaMB </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><plus/>
+			<ci> Reaction_24B </ci>
+			<ci> Reaction_4B </ci>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <!-- CaMKII activation -->
+  
+  <component name="CaMKIIi" cmeta:id="CaMKIIi">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="CaMKIIi">
+        <dc:title>CaMKIIi</dc:title>
+        <dcterms:alternative>The total concentration of CaMKII subunits in state I</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" name="CaMKIIi" />
+	
+	<variable units="dimensionless" public_interface="in" name="Pi" />
+	<variable units="micromolar" public_interface="in" name="CaMKIItot" />
+	 
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="21a"> 
+      <apply><eq/> 
+        <ci> CaMKIIi </ci>
+        <apply><times/>
+	      <ci> Pi </ci>
+		  <ci> CaMKIItot </ci>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="CaMKIIb2" cmeta:id="CaMKIIb2">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="CaMKIIb2">
+        <dc:title>CaMKIIb2</dc:title>
+        <dcterms:alternative>The total concentration of CaMKII subunits in state B2</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" name="CaMKIIb2" />
+	
+	<variable units="dimensionless" public_interface="in" name="Pb2" />
+	<variable units="micromolar" public_interface="in" name="CaMKIItot" />
+	 
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="21b"> 
+      <apply><eq/> 
+        <ci> CaMKIIb2 </ci>
+        <apply><times/>
+	      <ci> Pb2 </ci>
+		  <ci> CaMKIItot </ci>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="CaMKIIb" cmeta:id="CaMKIIb">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="CaMKIIb">
+        <dc:title>CaMKIIb</dc:title>
+        <dcterms:alternative>The total concentration of CaMKII subunits in state B</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" name="CaMKIIb" />
+	
+	<variable units="dimensionless" public_interface="in" name="Pb" />
+	<variable units="micromolar" public_interface="in" name="CaMKIItot" />
+	 
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="21c"> 
+      <apply><eq/> 
+        <ci> CaMKIIb </ci>
+        <apply><times/>
+	      <ci> Pb </ci>
+		  <ci> CaMKIItot </ci>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="CaMKIIt" cmeta:id="CaMKIIt">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="CaMKIIt">
+        <dc:title>CaMKIIt</dc:title>
+        <dcterms:alternative>The total concentration of CaMKII subunits in state T</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" name="CaMKIIt" />
+	
+	<variable units="dimensionless" public_interface="in" name="Pt" />
+	<variable units="micromolar" public_interface="in" name="CaMKIItot" />
+	 
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="21d"> 
+      <apply><eq/> 
+        <ci> CaMKIIt </ci>
+        <apply><times/>
+	      <ci> Pt </ci>
+		  <ci> CaMKIItot </ci>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="CaMKIIt2" cmeta:id="CaMKIIt2">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="CaMKIIt2">
+        <dc:title>CaMKIIt2</dc:title>
+        <dcterms:alternative>The total concentration of CaMKII subunits in state T2</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" name="CaMKIIt2" />
+	
+	<variable units="dimensionless" public_interface="in" name="Pt2" />
+	<variable units="micromolar" public_interface="in" name="CaMKIItot" />
+	 
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="21e"> 
+      <apply><eq/> 
+        <ci> CaMKIIt2 </ci>
+        <apply><times/>
+	      <ci> Pt2 </ci>
+		  <ci> CaMKIItot </ci>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="CaMKIIa" cmeta:id="CaMKIIa">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="CaMKIIa">
+        <dc:title>CaMKIIa</dc:title>
+        <dcterms:alternative>The total concentration of CaMKII subunits in state A</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" name="CaMKIIa" />
+	
+	<variable units="dimensionless" public_interface="in" name="Pa" />
+	<variable units="micromolar" public_interface="in" name="CaMKIItot" />
+	 
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="21f"> 
+      <apply><eq/> 
+        <ci> CaMKIIa </ci>
+        <apply><times/>
+	      <ci> Pa </ci>
+		  <ci> CaMKIItot </ci>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Pi" cmeta:id="Pi">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Pi">
+        <dc:title>Pi</dc:title>
+        <dcterms:alternative>The probability of a given CaMKII subunit being in state I</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="dimensionless" public_interface="out" name="Pi" />
+	
+	<variable units="dimensionless" public_interface="in" name="Pb" />
+	<variable units="dimensionless" public_interface="in" name="Pb2" />
+	<variable units="dimensionless" public_interface="in" name="Pt" />
+	<variable units="dimensionless" public_interface="in" name="Pt2" />
+	<variable units="dimensionless" public_interface="in" name="Pa" />
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="21"> 
+      <apply><eq/> 
+        <ci> Pi </ci>
+        <apply><minus/>
+	      <cn cellml:units="dimensionless"> 1.0 </cn>
+		  <apply><plus/>
+            <ci> Pb </ci>
+			<ci> Pb2 </ci>
+	        <ci> Pt </ci>
+			<ci> Pt2 </ci>
+			<ci> Pa </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="T">  
+    <variable units="dimensionless" public_interface="out" name="T" />
+	
+	<variable units="dimensionless" public_interface="in" name="Pb" />
+	<variable units="dimensionless" public_interface="in" name="Pt" />
+	<variable units="dimensionless" public_interface="in" name="Pt2" />
+	<variable units="dimensionless" public_interface="in" name="Pa" />
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="22"> 
+      <apply><eq/> 
+        <ci> T </ci>
+        <apply><plus/>
+	      <ci> Pb </ci>
+	      <ci> Pt </ci>
+		  <ci> Pt2 </ci>
+		  <ci> Pa </ci>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_CKbt">  
+    <variable units="first_order_rate_constant" public_interface="out" name="Reaction_CKbt" />
+	
+	<variable units="first_order_rate_constant" name="kbt"/>
+	
+	<variable units="first_order_rate_constant" public_interface="in" name="kPP1"/>
+	<variable units="micromolar" public_interface="in" name="KmPP1"/>
+    <variable units="micromolar" public_interface="in" name="PP1tot"/>
+    <variable units="micromolar" public_interface="in" name="CaMKIItot"/>
+	<variable units="dimensionless" public_interface="in" name="T" />
+	<variable units="dimensionless" public_interface="in" name="Pt" />
+	<variable units="dimensionless" public_interface="in" name="Pb" />
+	
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="23"> 
+      <apply><eq/> 
+        <ci> kbt </ci>
+        <apply><plus/>
+	      <apply><times/>
+            <cn cellml:units="first_order_rate_constant"> 0.055 </cn>
+			<ci> T	</ci>
+	      </apply>
+		  <apply><times/>
+            <cn cellml:units="first_order_rate_constant"> 0.0074 </cn>
+			<apply><power/>
+			  <ci> T </ci>
+			  <cn cellml:units="dimensionless"> 2.0 </cn>
+	        </apply>
+		  </apply>
+		  <apply><times/>
+            <cn cellml:units="first_order_rate_constant"> 0.015 </cn>
+			<apply><power/>
+			  <ci> T </ci>
+			  <cn cellml:units="dimensionless"> 3.0 </cn>
+	        </apply>
+		  </apply>
+		</apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="24"> 
+      <apply><eq/> 
+        <ci> Reaction_CKbt </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kbt </ci>
+			<ci> Pb </ci>
+	      </apply>
+		  <apply><divide/>
+		    <apply><times/>
+              <ci> kPP1 </ci>
+              <ci> PP1tot </ci>
+			  <ci> Pt </ci>
+	        </apply>
+			<apply><plus/>
+              <ci> KmPP1 </ci>
+              <apply><times/>
+			    <ci> CaMKIItot </ci>
+			    <ci> Pt </ci>
+	          </apply>
+			</apply>
+		  </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_CKib2" cmeta:id="Reaction_CKib2">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_CKib2">
+        <dc:title>Reaction_CKib2</dc:title>
+        <dcterms:alternative>Ca2CaM dissociation from Pb2 and association with Pi</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="first_order_rate_constant" public_interface="out" name="Reaction_CKib2" />
+	
+	<variable units="second_order_rate_constant" initial_value="65.67" name="kib2"/>
+	<variable units="first_order_rate_constant" initial_value="328.36" name="kb2i"/>
+	
+    <variable units="micromolar" public_interface="in" name="Ca2CaM"/>
+    <variable units="dimensionless" public_interface="in" name="Pi" />
+	<variable units="dimensionless" public_interface="in" name="Pb2" />
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="25"> 
+      <apply><eq/> 
+        <ci> Reaction_CKib2 </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kib2 </ci>
+			<ci> Ca2CaM </ci>
+			<ci> Pi </ci>
+	      </apply>
+		  <apply><times/>
+            <ci> kb2i </ci>
+            <ci> Pb2 </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_CKb2b" cmeta:id="Reaction_CKb2b">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_CKb2b">
+        <dc:title>Reaction_CKb2b</dc:title>
+        <dcterms:alternative>Ca dissociation from Pb and association with Pb2</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="first_order_rate_constant" public_interface="out" name="Reaction_CKb2b" />
+	
+	<variable units="third_order_rate_constant" name="kb24"/>
+	<variable units="first_order_rate_constant" name="kb42"/>
+	
+	<variable units="third_order_rate_constant" public_interface="in" name="k24"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="k42"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="dimensionless" public_interface="in" name="Pb" />
+	<variable units="dimensionless" public_interface="in" name="Pb2" />
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="26"> 
+      <apply><eq/> 
+        <ci> Reaction_CKb2b </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kb24 </ci>
+			<apply><power/>
+			  <ci> Ca </ci>
+			  <cn cellml:units="dimensionless"> 2.0 </cn>
+	        </apply>
+			<ci> Pb2 </ci>
+	      </apply>
+		  <apply><times/>
+            <ci> kb42 </ci>
+            <ci> Pb2 </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="26a"> 
+      <apply><eq/> 
+        <ci> kb24 </ci>
+        <ci> k24 </ci>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="26b"> 
+      <apply><eq/> 
+        <ci> kb42 </ci>
+        <apply><times/>
+	      <ci> k42 </ci>
+		  <apply><divide/>
+            <cn type="e-notation" cellml:units="dimensionless">33.5<sep/>-3</cn>
+			<cn cellml:units="dimensionless"> 5.0 </cn>
+	      </apply>
+		</apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_CKib" cmeta:id="Reaction_CKib">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_CKib">
+        <dc:title>Reaction_CKib</dc:title>
+        <dcterms:alternative>Ca4CaM dissociation from Pb and association with Pi</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="first_order_rate_constant" public_interface="out" name="Reaction_CKib" />
+	
+	<variable units="second_order_rate_constant" initial_value="6.567" name="kib"/>
+	<variable units="first_order_rate_constant" initial_value="2.2" name="kbi"/>
+	
+    <variable units="micromolar" public_interface="in" name="Ca4CaM"/>
+    <variable units="dimensionless" public_interface="in" name="Pi" />
+	<variable units="dimensionless" public_interface="in" name="Pb" />
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="27"> 
+      <apply><eq/> 
+        <ci> Reaction_CKib </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kib </ci>
+			<ci> Ca4CaM </ci>
+			<ci> Pi </ci>
+	      </apply>
+		  <apply><times/>
+            <ci> kbi </ci>
+            <ci> Pb </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_CKtt2" cmeta:id="Reaction_CKtt2">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_CKtt2">
+        <dc:title>Reaction_CKtt2</dc:title>
+        <dcterms:alternative>Ca dissociation from Pt and association with Pt2</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="first_order_rate_constant" public_interface="out" name="Reaction_CKtt2" />
+	
+	<variable units="third_order_rate_constant" name="kt24"/>
+	<variable units="first_order_rate_constant" name="kt42"/>
+	
+	<variable units="third_order_rate_constant" public_interface="in" name="k24"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="k42"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="dimensionless" public_interface="in" name="Pt" />
+	<variable units="dimensionless" public_interface="in" name="Pt2" />
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="28"> 
+      <apply><eq/> 
+        <ci> Reaction_CKtt2 </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kt42 </ci>
+            <ci> Pt </ci>
+	      </apply>
+		  <apply><times/>
+            <ci> kt24 </ci>
+			<apply><power/>
+			  <ci> Ca </ci>
+			  <cn cellml:units="dimensionless"> 2.0 </cn>
+	        </apply>
+			<ci> Pt2 </ci>
+	      </apply>
+		</apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="28a"> 
+      <apply><eq/> 
+        <ci> kt24 </ci>
+        <ci> k24 </ci>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="28b"> 
+      <apply><eq/> 
+        <ci> kt42 </ci>
+        <apply><times/>
+	      <ci> k42 </ci>
+		  <apply><divide/>
+            <cn type="e-notation" cellml:units="dimensionless">33.5<sep/>-6</cn>
+			<cn cellml:units="dimensionless"> 5.0 </cn>
+	      </apply>
+		</apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_CKta" cmeta:id="Reaction_CKta">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_CKta">
+        <dc:title>Reaction_CKta</dc:title>
+        <dcterms:alternative>Ca4CaM dissociation from Pt and association with Pa</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="first_order_rate_constant" public_interface="out" name="Reaction_CKta" />
+	
+	<variable units="second_order_rate_constant" initial_value="6.567" name="kat"/>
+	<variable units="first_order_rate_constant" initial_value="0.0022" name="kta"/>
+	
+    <variable units="micromolar" public_interface="in" name="Ca4CaM"/>
+    <variable units="dimensionless" public_interface="in" name="Pt" />
+	<variable units="dimensionless" public_interface="in" name="Pa" />
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="29"> 
+      <apply><eq/> 
+        <ci> Reaction_CKta </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kta </ci>
+            <ci> Pt </ci>
+	      </apply>
+		  <apply><times/>
+            <ci> kat </ci>
+			<ci> Ca4CaM </ci>
+			<ci> Pa </ci>
+	      </apply>
+		</apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_CKt2a" cmeta:id="Reaction_CKt2a">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_CKt2a">
+        <dc:title>Reaction_CKt2a</dc:title>
+        <dcterms:alternative>Ca2CaM dissociation from Pt and association with Pa</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="first_order_rate_constant" public_interface="out" name="Reaction_CKt2a" />
+	
+	<variable units="second_order_rate_constant" initial_value="6.567" name="kat2"/>
+	<variable units="first_order_rate_constant" initial_value="32.835" name="kt2a"/>
+	
+    <variable units="micromolar" public_interface="in" name="Ca2CaM"/>
+    <variable units="dimensionless" public_interface="in" name="Pt2" />
+	<variable units="dimensionless" public_interface="in" name="Pa" />
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="30"> 
+      <apply><eq/> 
+        <ci> Reaction_CKt2a </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kt2a </ci>
+            <ci> Pt2 </ci>
+	      </apply>
+		  <apply><times/>
+            <ci> kat2 </ci>
+			<ci> Ca2CaM </ci>
+			<ci> Pa </ci>
+	      </apply>
+		</apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_CKt2b2">  
+    <variable units="first_order_rate_constant" public_interface="out" name="Reaction_CKt2b2" />
+	
+	<variable units="first_order_rate_constant" public_interface="in" name="kPP1"/>
+	<variable units="micromolar" public_interface="in" name="KmPP1"/>
+    <variable units="micromolar" public_interface="in" name="PP1tot"/>
+    <variable units="micromolar" public_interface="in" name="CaMKIItot"/>
+	<variable units="dimensionless" public_interface="in" name="Pt2" />
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="31"> 
+      <apply><eq/> 
+        <ci> Reaction_CKt2b2 </ci>
+        <apply><divide/>
+          <apply><times/>
+            <ci> kPP1 </ci>
+            <ci> PP1tot </ci>
+		    <ci> Pt2 </ci>
+	      </apply>
+	      <apply><plus/>
+            <ci> KmPP1 </ci>
+            <apply><times/>
+	          <ci> CaMKIItot </ci>
+			  <ci> Pt2 </ci>
+	        </apply>
+		  </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_CKai">  
+    <variable units="first_order_rate_constant" public_interface="out" name="Reaction_CKai" />
+	
+	<variable units="first_order_rate_constant" public_interface="in" name="kPP1"/>
+	<variable units="micromolar" public_interface="in" name="KmPP1"/>
+    <variable units="micromolar" public_interface="in" name="PP1tot"/>
+    <variable units="micromolar" public_interface="in" name="CaMKIItot"/>
+	<variable units="dimensionless" public_interface="in" name="Pa" />
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="32"> 
+      <apply><eq/> 
+        <ci> Reaction_CKai </ci>
+        <apply><divide/>
+          <apply><times/>
+            <ci> kPP1 </ci>
+            <ci> PP1tot </ci>
+		    <ci> Pa </ci>
+	      </apply>
+	      <apply><plus/>
+            <ci> KmPP1 </ci>
+            <apply><times/>
+	          <ci> CaMKIItot </ci>
+			  <ci> Pa </ci>
+	        </apply>
+		  </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Pb2" cmeta:id="Pb2">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Pb2">
+        <dc:title>Pb2</dc:title>
+        <dcterms:alternative>The probability of a given CaMKII subunit being in state B2</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="dimensionless" initial_value="0.1" public_interface="out" name="Pb2" />
+	
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKib2"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKb2b"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKt2b2"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="33"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Pb2 </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <ci> Reaction_CKt2b2 </ci>
+			<apply><plus/>
+              <ci> Reaction_CKib2 </ci>
+              <ci> Reaction_CKb2b </ci>
+			</apply>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Pb" cmeta:id="Pb">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Pb">
+        <dc:title>Pb</dc:title>
+        <dcterms:alternative>The probability of a given CaMKII subunit being in state B</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="dimensionless" initial_value="0.1" public_interface="out" name="Pb" />
+	
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKib"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKb2b"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKbt"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="34"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Pb </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <apply><plus/>
+              <ci> Reaction_CKib </ci>
+              <ci> Reaction_CKb2b </ci>
+			</apply>
+			<ci> Reaction_CKbt </ci>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Pt" cmeta:id="Pt">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Pt">
+        <dc:title>Pt</dc:title>
+        <dcterms:alternative>The probability of a given CaMKII subunit being in state T</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="dimensionless" initial_value="0.1" public_interface="out" name="Pt" />
+	
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKta"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKtt2"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKbt"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="35"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Pt </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <apply><plus/>
+              <ci> Reaction_CKbt </ci>
+              <ci> Reaction_CKta </ci>
+			  <ci> Reaction_CKtt2 </ci>
+			</apply>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Pt2" cmeta:id="Pt2">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Pt2">
+        <dc:title>Pt2</dc:title>
+        <dcterms:alternative>The probability of a given CaMKII subunit being in state T2</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="dimensionless" initial_value="0.1" public_interface="out" name="Pt2" />
+	
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKt2a"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKtt2"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKt2b2"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="36"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Pt2 </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <apply><plus/>
+              <ci> Reaction_CKtt2 </ci>
+              <ci> Reaction_CKt2a </ci>
+			  <ci> Reaction_CKt2b2 </ci>
+			</apply>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Pa" cmeta:id="Pa">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Pa">
+        <dc:title>Pa</dc:title>
+        <dcterms:alternative>The probability of a given CaMKII subunit being in state A</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="dimensionless" initial_value="0.1" public_interface="out" name="Pa" />
+	
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKta"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKt2a"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="Reaction_CKai"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="37"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Pa </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <apply><plus/>
+              <ci> Reaction_CKta </ci>
+              <ci> Reaction_CKt2a </ci>
+			</apply>
+			<ci> Reaction_CKai </ci>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <!-- Calcineurin activation -->
+  
+  <component name="Ca2CaN" cmeta:id="Ca2CaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Ca2CaN">
+        <dc:title>Ca2CaN</dc:title>
+        <dcterms:alternative>Concentration of calcium bound to calcineurin</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" public_interface="out" name="Ca2CaN" />
+	
+	<variable units="micromolar" initial_value="3E-3" name="CaNtot"/>
+    
+	<variable units="micromolar" public_interface="in" name="Ca4CaN"/>
+	<variable units="micromolar" public_interface="in" name="CaMCaN"/>
+	<variable units="micromolar" public_interface="in" name="Ca2CaMCaN"/>
+    <variable units="micromolar" public_interface="in" name="Ca4CaMCaN"/>
+	
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="38"> 
+      <apply><eq/> 
+        <ci> Ca2CaN </ci>
+        <apply><minus/>
+	      <ci> CaNtot </ci>
+		  <apply><plus/>
+            <ci> Ca4CaN </ci>
+			<ci> CaMCaN </ci>
+	        <ci> Ca2CaMCaN </ci>
+            <ci> Ca4CaMCaN </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_Ca4CaN" cmeta:id="Reaction_Ca4CaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_Ca4CaN">
+        <dc:title>Reaction_Ca4CaN</dc:title>
+        <dcterms:alternative>Ca binding to Ca2CaN</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_Ca4CaN" />
+	
+	<variable units="third_order_rate_constant" initial_value="2.0" name="kCaNCa_on"/>
+    <variable units="first_order_rate_constant" initial_value="1.0" name="kCaNCa_off"/>
+
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="micromolar" public_interface="in" name="Ca2CaN"/>
+	<variable units="micromolar" public_interface="in" name="Ca4CaN"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="39"> 
+      <apply><eq/> 
+        <ci> Reaction_Ca4CaN </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kCaNCa_on </ci>
+			<apply><power/>
+	          <ci> Ca </ci>
+	          <cn cellml:units="dimensionless"> 2 </cn>
+            </apply>
+	        <ci> Ca2CaN </ci>
+          </apply>
+		  <apply><times/>
+            <ci> kCaNCa_off </ci>
+			<ci> Ca4CaN </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_02CaN" cmeta:id="Reaction_02CaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_02CaN">
+        <dc:title>Reaction_02CaN</dc:title>
+        <dcterms:alternative>Ca binding to CaMCaN</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_02CaN" />
+	
+	<variable units="third_order_rate_constant" name="k02CaN"/>
+    <variable units="first_order_rate_constant" name="k20CaN"/>
+
+	<variable units="third_order_rate_constant" public_interface="in" name="k02"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="k20"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="micromolar" public_interface="in" name="CaMCaN"/>
+	<variable units="micromolar" public_interface="in" name="Ca2CaMCaN"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="40"> 
+      <apply><eq/> 
+        <ci> Reaction_02CaN </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> k02CaN </ci>
+			<apply><power/>
+	          <ci> Ca </ci>
+	          <cn cellml:units="dimensionless"> 2 </cn>
+            </apply>
+	        <ci> CaMCaN </ci>
+          </apply>
+		  <apply><times/>
+            <ci> k20CaN </ci>
+			<ci> Ca2CaMCaN </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="40a"> 
+      <apply><eq/> 
+        <ci> k02CaN </ci>
+        <ci> k02 </ci>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="40b"> 
+      <apply><eq/> 
+        <ci> k20CaN </ci>
+        <apply><divide/>
+	      <ci> k20 </ci>
+		  <cn cellml:units="dimensionless"> 160.0 </cn>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_24CaN" cmeta:id="Reaction_24CaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_24CaN">
+        <dc:title>Reaction_24CaN</dc:title>
+        <dcterms:alternative>Ca binding to Ca2CaMCaN</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_24CaN" />
+	
+	<variable units="third_order_rate_constant" name="k24CaN"/>
+    <variable units="first_order_rate_constant" name="k42CaN"/>
+
+	<variable units="third_order_rate_constant" public_interface="in" name="k24"/>
+	<variable units="first_order_rate_constant" public_interface="in" name="k42"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="micromolar" public_interface="in" name="Ca2CaMCaN"/>
+	<variable units="micromolar" public_interface="in" name="Ca4CaMCaN"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="41"> 
+      <apply><eq/> 
+        <ci> Reaction_24CaN </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> k24CaN </ci>
+			<apply><power/>
+	          <ci> Ca </ci>
+	          <cn cellml:units="dimensionless"> 2 </cn>
+            </apply>
+	        <ci> Ca2CaMCaN </ci>
+          </apply>
+		  <apply><times/>
+            <ci> k42CaN </ci>
+			<ci> Ca4CaMCaN </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="41a"> 
+      <apply><eq/> 
+        <ci> k24CaN </ci>
+        <ci> k24 </ci>
+      </apply>
+    </math>
+	
+	<math xmlns="http://www.w3.org/1998/Math/MathML" id="41b"> 
+      <apply><eq/> 
+        <ci> k42CaN </ci>
+        <apply><divide/>
+	      <ci> k42 </ci>
+		  <cn cellml:units="dimensionless"> 2508.0 </cn>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_0CaN" cmeta:id="Reaction_0CaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_0CaN">
+        <dc:title>Reaction_0CaN</dc:title>
+        <dcterms:alternative>CaM binding to Ca4CaN</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_0CaN" />
+	
+	<variable units="second_order_rate_constant" initial_value="46.0" name="kCaN0_on"/>
+    <variable units="first_order_rate_constant" initial_value="537.966" name="kCaN0_off"/>
+
+    <variable units="micromolar" public_interface="in" name="CaM"/>
+    <variable units="micromolar" public_interface="in" name="Ca4CaN"/>
+	<variable units="micromolar" public_interface="in" name="CaMCaN"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="42"> 
+      <apply><eq/> 
+        <ci> Reaction_0CaN </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kCaN0_on </ci>
+			<ci> CaM </ci>
+	        <ci> Ca4CaN </ci>
+          </apply>
+		  <apply><times/>
+            <ci> kCaN0_off </ci>
+			<ci> CaMCaN </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_2CaN" cmeta:id="Reaction_2CaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_2CaN">
+        <dc:title>Reaction_2CaN</dc:title>
+        <dcterms:alternative>Ca2CaM binding to Ca4CaN</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_2CaN" />
+	
+	<variable units="second_order_rate_constant" initial_value="46.0" name="kCaN2_on"/>
+    <variable units="first_order_rate_constant" initial_value="3.2604" name="kCaN2_off"/>
+
+    <variable units="micromolar" public_interface="in" name="Ca2CaM"/>
+    <variable units="micromolar" public_interface="in" name="Ca4CaN"/>
+	<variable units="micromolar" public_interface="in" name="Ca2CaMCaN"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="43"> 
+      <apply><eq/> 
+        <ci> Reaction_2CaN </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kCaN2_on </ci>
+			<ci> Ca2CaM </ci>
+	        <ci> Ca4CaN </ci>
+          </apply>
+		  <apply><times/>
+            <ci> kCaN2_off </ci>
+			<ci> Ca2CaMCaN </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Reaction_4CaN" cmeta:id="Reaction_4CaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Reaction_2CaN">
+        <dc:title>Reaction_4CaN</dc:title>
+        <dcterms:alternative>Ca4CaM binding to Ca4CaN</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="flux" public_interface="out" name="Reaction_4CaN" />
+	
+	<variable units="second_order_rate_constant" initial_value="46.0" name="kCaN4_on"/>
+    <variable units="first_order_rate_constant" initial_value="1.3E-3" name="kCaN4_off"/>
+
+    <variable units="micromolar" public_interface="in" name="Ca4CaM"/>
+    <variable units="micromolar" public_interface="in" name="Ca4CaN"/>
+	<variable units="micromolar" public_interface="in" name="Ca4CaMCaN"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="44"> 
+      <apply><eq/> 
+        <ci> Reaction_4CaN </ci>
+        <apply><minus/>
+	      <apply><times/>
+            <ci> kCaN4_on </ci>
+			<ci> Ca4CaM </ci>
+	        <ci> Ca4CaN </ci>
+          </apply>
+		  <apply><times/>
+            <ci> kCaN4_off </ci>
+			<ci> Ca4CaMCaN </ci>
+	      </apply>
+	    </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component name="Ca4CaN" cmeta:id="Ca4CaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Ca4CaN">
+        <dc:title>Ca4CaN</dc:title>
+        <dcterms:alternative>Concentration of calcium-calcineurin complex</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="Ca4CaN" />
+	
+	<variable units="flux" public_interface="in" name="Reaction_Ca4CaN"/>
+    <variable units="flux" public_interface="in" name="Reaction_0CaN"/>
+	<variable units="flux" public_interface="in" name="Reaction_2CaN"/>
+	<variable units="flux" public_interface="in" name="Reaction_4CaN"/>
+	<variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="45"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Ca4CaN </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <ci> Reaction_Ca4CaN </ci>
+		    <apply><plus/>
+              <ci> Reaction_0CaN </ci>
+              <ci> Reaction_2CaN </ci>
+			  <ci> Reaction_4CaN </ci>
+			</apply>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="CaMCaN" cmeta:id="CaMCaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="CaMCaN">
+        <dc:title>CaMCaN</dc:title>
+        <dcterms:alternative>Concentration of calmodulin-calcineurin complex</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="CaMCaN" />
+	
+	<variable units="flux" public_interface="in" name="Reaction_0CaN"/>
+	<variable units="flux" public_interface="in" name="Reaction_02CaN"/>
+	<variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="46"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> CaMCaN </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <ci> Reaction_0CaN </ci>
+		    <ci> Reaction_02CaN </ci>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Ca2CaMCaN" cmeta:id="Ca2CaMCaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Ca2CaMCaN">
+        <dc:title>Ca2CaMCaN</dc:title>
+        <dcterms:alternative>Concentration of calcium2-calmodulin-calcineurin complex</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="Ca2CaMCaN" />
+	
+	<variable units="flux" public_interface="in" name="Reaction_24CaN"/>
+    <variable units="flux" public_interface="in" name="Reaction_02CaN"/>
+	<variable units="flux" public_interface="in" name="Reaction_2CaN"/>
+	<variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="47"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Ca2CaMCaN </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><minus/>
+		    <apply><plus/>
+              <ci> Reaction_2CaN </ci>
+              <ci> Reaction_02CaN </ci>
+			</apply>
+			<ci> Reaction_24CaN </ci>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="Ca4CaMCaN" cmeta:id="Ca4CaMCaN">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/0P/PP-rdf-syntax-ns#">
+      <rdf:Description rdf:about="Ca4CaMCaN">
+        <dc:title>Ca4CaMCaN</dc:title>
+        <dcterms:alternative>Concentration of calcium4-calmodulin-calcineurin complex</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="micromolar" initial_value="0.1" public_interface="out" name="Ca4CaMCaN" />
+	
+	<variable units="flux" public_interface="in" name="Reaction_24CaN"/>
+    <variable units="flux" public_interface="in" name="Reaction_4CaN"/>
+	<variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="48"> 
+      <apply><eq/> 
+        <apply><diff/> 
+          <bvar><ci>time</ci></bvar> 
+          <ci> Ca4CaMCaN </ci> 
+        </apply>
+		<apply><times/> 
+		  <cn type="e-notation" cellml:units="dimensionless">1<sep/>-3</cn>
+		  <apply><plus/>
+            <ci> Reaction_4CaN </ci>
+            <ci> Reaction_24CaN </ci>
+	      </apply>
+	    </apply>
+	  </apply>
+    </math>
+  </component>
+  
+  <component name="model_parameters">
+    <variable units="micromolar" initial_value="0.2" public_interface="out" name="CaMKIItot" />
+    <variable units="micromolar" initial_value="0.57" public_interface="out" name="PP1tot" />
+    <variable units="first_order_rate_constant" initial_value="1.72" public_interface="out" name="kPP1" />
+	<variable units="micromolar" initial_value="11.5" public_interface="out" name="KmPP1" />
+	<variable units="micromolar" initial_value="1" public_interface="out" name="Mg" />
+    <variable units="micromolar" initial_value="135" public_interface="out" name="K" />
+	<variable units="micromolar" initial_value="1" public_interface="out" name="Ca" />
+  </component>
+  
+  <!-- encapsulation grouping to facilitate model import -->
+  
+  <group>
+    <relationship_ref relationship="encapsulation" />
+    <component_ref component="cytosol">
+      <component_ref component="Reaction_02" />
+      <component_ref component="Reaction_24" />
+      <component_ref component="Reaction_02B" />
+      <component_ref component="Reaction_24B" />
+      <component_ref component="Reaction_2B" />
+      <component_ref component="Reaction_0B" />
+      <component_ref component="Reaction_4B" />
+      <component_ref component="B" />
+      <component_ref component="CaM" />
+      <component_ref component="Ca2CaM" />
+      <component_ref component="Ca4CaM" />
+      <component_ref component="CaMB" />
+      <component_ref component="Ca2CaMB" />
+      <component_ref component="Ca4CaMB" />
+      <component_ref component="CaMKIIi" />
+      <component_ref component="CaMKIIb2" />
+	  <component_ref component="CaMKIIb" />
+      <component_ref component="CaMKIIt" />
+	  <component_ref component="CaMKIIt2" />
+      <component_ref component="CaMKIIa" />
+	  <component_ref component="Pi" />
+      <component_ref component="T" />
+      <component_ref component="Reaction_CKbt" />
+	  <component_ref component="Reaction_CKib2" />
+      <component_ref component="Reaction_CKb2b" />
+      <component_ref component="Reaction_CKib" />
+      <component_ref component="Reaction_CKtt2" />
+      <component_ref component="Reaction_CKta" />
+      <component_ref component="Reaction_CKt2a" />
+      <component_ref component="Reaction_CKt2b2" />
+      <component_ref component="Reaction_CKai" />
+	  <component_ref component="Pb2" />
+      <component_ref component="Pb" />
+      <component_ref component="Pt" />
+      <component_ref component="Pt2" />
+      <component_ref component="Pa" />
+      <component_ref component="Ca2CaN" />
+      <component_ref component="Reaction_Ca4CaN" />
+	  <component_ref component="Reaction_02CaN" />
+      <component_ref component="Reaction_24CaN" />
+      <component_ref component="Reaction_2CaN" />
+      <component_ref component="Reaction_4CaN" />
+      <component_ref component="Reaction_0CaN" />
+      <component_ref component="Ca4CaN" />
+      <component_ref component="CaMCaN" />
+	  <component_ref component="Ca2CaMCaN" />
+      <component_ref component="Ca4CaMCaN" />
+      <component_ref component="model_parameters" />
+    </component_ref>
+  </group>
+ 
+  <!-- connections -->
+
+  <connection>
+    <map_components component_2="Reaction_02" component_1="model_parameters"/>
+    <map_variables variable_2="K" variable_1="K"/>
+    <map_variables variable_2="Mg" variable_1="Mg"/>
+	<map_variables variable_2="Ca" variable_1="Ca"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_02" component_1="CaM"/>
+    <map_variables variable_2="CaM" variable_1="CaM"/>
+	<map_variables variable_2="Reaction_02" variable_1="Reaction_02"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_02" component_1="Ca2CaM"/>
+    <map_variables variable_2="Ca2CaM" variable_1="Ca2CaM"/>
+	<map_variables variable_2="Reaction_02" variable_1="Reaction_02"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_24" component_1="model_parameters"/>
+    <map_variables variable_2="K" variable_1="K"/>
+    <map_variables variable_2="Mg" variable_1="Mg"/>
+	<map_variables variable_2="Ca" variable_1="Ca"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_24" component_1="Ca4CaM"/>
+    <map_variables variable_2="Ca4CaM" variable_1="Ca4CaM"/>
+	<map_variables variable_2="Reaction_24" variable_1="Reaction_24"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_24" component_1="Ca2CaM"/>
+    <map_variables variable_2="Ca2CaM" variable_1="Ca2CaM"/>
+	<map_variables variable_2="Reaction_24" variable_1="Reaction_24"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="Reaction_02B" component_1="Reaction_02"/>
+    <map_variables variable_2="k02" variable_1="k02"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_02B" component_1="model_parameters"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_02B" component_1="CaMB"/>
+    <map_variables variable_2="CaMB" variable_1="CaMB"/>
+	<map_variables variable_2="Reaction_02B" variable_1="Reaction_02B"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_02B" component_1="Ca2CaMB"/>
+    <map_variables variable_2="Ca2CaMB" variable_1="Ca2CaMB"/>
+	<map_variables variable_2="Reaction_02B" variable_1="Reaction_02B"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_24B" component_1="Reaction_24"/>
+    <map_variables variable_2="k24" variable_1="k24"/>
+	<map_variables variable_2="k42" variable_1="k42"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_24B" component_1="model_parameters"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_24B" component_1="Ca2CaMB"/>
+    <map_variables variable_2="Ca2CaMB" variable_1="Ca2CaMB"/>
+	<map_variables variable_2="Reaction_24B" variable_1="Reaction_24B"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_24B" component_1="Ca4CaMB"/>
+    <map_variables variable_2="Ca4CaMB" variable_1="Ca4CaMB"/>
+	<map_variables variable_2="Reaction_24B" variable_1="Reaction_24B"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_0B" component_1="B"/>
+    <map_variables variable_2="B" variable_1="B"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_0B" component_1="CaM"/>
+    <map_variables variable_2="CaM" variable_1="CaM"/>
+	<map_variables variable_2="Reaction_0B" variable_1="Reaction_0B"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_0B" component_1="CaMB"/>
+    <map_variables variable_2="CaMB" variable_1="CaMB"/>
+	<map_variables variable_2="Reaction_0B" variable_1="Reaction_0B"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_2B" component_1="B"/>
+    <map_variables variable_2="B" variable_1="B"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_2B" component_1="Ca2CaM"/>
+    <map_variables variable_2="Ca2CaM" variable_1="Ca2CaM"/>
+	<map_variables variable_2="Reaction_2B" variable_1="Reaction_2B"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_2B" component_1="Ca2CaMB"/>
+    <map_variables variable_2="Ca2CaMB" variable_1="Ca2CaMB"/>
+	<map_variables variable_2="Reaction_2B" variable_1="Reaction_2B"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_4B" component_1="B"/>
+    <map_variables variable_2="B" variable_1="B"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_4B" component_1="Ca4CaM"/>
+    <map_variables variable_2="Ca4CaM" variable_1="Ca4CaM"/>
+	<map_variables variable_2="Reaction_4B" variable_1="Reaction_4B"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_4B" component_1="Ca4CaMB"/>
+    <map_variables variable_2="Ca4CaMB" variable_1="Ca4CaMB"/>
+	<map_variables variable_2="Reaction_4B" variable_1="Reaction_4B"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="B" component_1="CaMB"/>
+    <map_variables variable_2="CaMB" variable_1="CaMB"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="B" component_1="Ca2CaMB"/>
+    <map_variables variable_2="Ca2CaMB" variable_1="Ca2CaMB"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="B" component_1="Ca4CaMB"/>
+    <map_variables variable_2="Ca4CaMB" variable_1="Ca4CaMB"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="CaM" component_1="Reaction_0CaN"/>
+    <map_variables variable_2="CaM" variable_1="CaM"/>
+	<map_variables variable_2="Reaction_0CaN" variable_1="Reaction_0CaN"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Ca2CaM" component_1="model_parameters"/>
+    <map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Ca2CaM" component_1="Reaction_2CaN"/>
+    <map_variables variable_2="Ca2CaM" variable_1="Ca2CaM"/>
+	<map_variables variable_2="Reaction_2CaN" variable_1="Reaction_2CaN"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Ca2CaM" component_1="Reaction_CKt2a"/>
+    <map_variables variable_2="Ca2CaM" variable_1="Ca2CaM"/>
+	<map_variables variable_2="Reaction_CKt2a" variable_1="Reaction_CKt2a"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Ca2CaM" component_1="Reaction_CKib2"/>
+    <map_variables variable_2="Ca2CaM" variable_1="Ca2CaM"/>
+	<map_variables variable_2="Reaction_CKib2" variable_1="Reaction_CKib2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Ca4CaM" component_1="model_parameters"/>
+    <map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Ca4CaM" component_1="Reaction_CKta"/>
+    <map_variables variable_2="Ca4CaM" variable_1="Ca4CaM"/>
+	<map_variables variable_2="Reaction_CKta" variable_1="Reaction_CKta"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Ca4CaM" component_1="Reaction_CKib"/>
+    <map_variables variable_2="Ca4CaM" variable_1="Ca4CaM"/>
+	<map_variables variable_2="Reaction_CKib" variable_1="Reaction_CKib"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIi" component_1="Pi"/>
+    <map_variables variable_2="Pi" variable_1="Pi"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIi" component_1="model_parameters"/>
+    <map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIb2" component_1="Pb2"/>
+    <map_variables variable_2="Pb2" variable_1="Pb2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIb2" component_1="model_parameters"/>
+    <map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIb" component_1="Pb"/>
+    <map_variables variable_2="Pb" variable_1="Pb"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIb" component_1="model_parameters"/>
+    <map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIt2" component_1="Pt2"/>
+    <map_variables variable_2="Pt2" variable_1="Pt2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIt2" component_1="model_parameters"/>
+    <map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIt" component_1="Pt"/>
+    <map_variables variable_2="Pt" variable_1="Pt"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIt" component_1="model_parameters"/>
+    <map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIa" component_1="Pa"/>
+    <map_variables variable_2="Pa" variable_1="Pa"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="CaMKIIa" component_1="model_parameters"/>
+    <map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Pi" component_1="Pb"/>
+    <map_variables variable_2="Pb" variable_1="Pb"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Pi" component_1="Pb2"/>
+    <map_variables variable_2="Pb2" variable_1="Pb2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Pi" component_1="Pt"/>
+    <map_variables variable_2="Pt" variable_1="Pt"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Pi" component_1="Pt2"/>
+    <map_variables variable_2="Pt2" variable_1="Pt2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Pi" component_1="Pa"/>
+    <map_variables variable_2="Pa" variable_1="Pa"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="T" component_1="Pb"/>
+    <map_variables variable_2="Pb" variable_1="Pb"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="T" component_1="Pt"/>
+    <map_variables variable_2="Pt" variable_1="Pt"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="T" component_1="Pt2"/>
+    <map_variables variable_2="Pt2" variable_1="Pt2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="T" component_1="Pa"/>
+    <map_variables variable_2="Pa" variable_1="Pa"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKbt" component_1="model_parameters"/>
+    <map_variables variable_2="kPP1" variable_1="kPP1"/>
+    <map_variables variable_2="KmPP1" variable_1="KmPP1"/>
+	<map_variables variable_2="PP1tot" variable_1="PP1tot"/>
+	<map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_CKbt" component_1="Pt"/>
+    <map_variables variable_2="Pt" variable_1="Pt"/>
+	<map_variables variable_2="Reaction_CKbt" variable_1="Reaction_CKbt"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKbt" component_1="Pb"/>
+    <map_variables variable_2="Pb" variable_1="Pb"/>
+	<map_variables variable_2="Reaction_CKbt" variable_1="Reaction_CKbt"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_CKbt" component_1="T"/>
+    <map_variables variable_2="T" variable_1="T"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKib2" component_1="Pi"/>
+    <map_variables variable_2="Pi" variable_1="Pi"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKib2" component_1="Pb2"/>
+    <map_variables variable_2="Pb2" variable_1="Pb2"/>
+	<map_variables variable_2="Reaction_CKib2" variable_1="Reaction_CKib2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKb2b" component_1="model_parameters"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_CKb2b" component_1="Pb"/>
+    <map_variables variable_2="Pb" variable_1="Pb"/>
+	<map_variables variable_2="Reaction_CKb2b" variable_1="Reaction_CKb2b"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKb2b" component_1="Pb2"/>
+    <map_variables variable_2="Pb2" variable_1="Pb2"/>
+	<map_variables variable_2="Reaction_CKb2b" variable_1="Reaction_CKb2b"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="Reaction_CKb2b" component_1="Reaction_24"/>
+    <map_variables variable_2="k24" variable_1="k24"/>
+	<map_variables variable_2="k42" variable_1="k42"/>
+  </connection>  
+  
+  <connection>
+    <map_components component_2="Reaction_CKib" component_1="Pb"/>
+    <map_variables variable_2="Pb" variable_1="Pb"/>
+	<map_variables variable_2="Reaction_CKib" variable_1="Reaction_CKib"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_CKib" component_1="Pi"/>
+    <map_variables variable_2="Pi" variable_1="Pi"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKtt2" component_1="model_parameters"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_CKtt2" component_1="Pt"/>
+    <map_variables variable_2="Pt" variable_1="Pt"/>
+	<map_variables variable_2="Reaction_CKtt2" variable_1="Reaction_CKtt2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKtt2" component_1="Pt2"/>
+    <map_variables variable_2="Pt2" variable_1="Pt2"/>
+	<map_variables variable_2="Reaction_CKtt2" variable_1="Reaction_CKtt2"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="Reaction_CKtt2" component_1="Reaction_24"/>
+    <map_variables variable_2="k24" variable_1="k24"/>
+	<map_variables variable_2="k42" variable_1="k42"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="Reaction_CKta" component_1="Pt"/>
+    <map_variables variable_2="Pt" variable_1="Pt"/>
+	<map_variables variable_2="Reaction_CKta" variable_1="Reaction_CKta"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKta" component_1="Pa"/>
+    <map_variables variable_2="Pa" variable_1="Pa"/>
+	<map_variables variable_2="Reaction_CKta" variable_1="Reaction_CKta"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_CKt2a" component_1="Pt2"/>
+    <map_variables variable_2="Pt2" variable_1="Pt2"/>
+	<map_variables variable_2="Reaction_CKt2a" variable_1="Reaction_CKt2a"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKt2a" component_1="Pa"/>
+    <map_variables variable_2="Pa" variable_1="Pa"/>
+	<map_variables variable_2="Reaction_CKt2a" variable_1="Reaction_CKt2a"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_2="Reaction_CKt2b2" component_1="model_parameters"/>
+    <map_variables variable_2="kPP1" variable_1="kPP1"/>
+    <map_variables variable_2="KmPP1" variable_1="KmPP1"/>
+	<map_variables variable_2="PP1tot" variable_1="PP1tot"/>
+	<map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_CKt2b2" component_1="Pt2"/>
+    <map_variables variable_2="Pt2" variable_1="Pt2"/>
+	<map_variables variable_2="Reaction_CKt2b2" variable_1="Reaction_CKt2b2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKt2b2" component_1="Pb2"/>
+    <map_variables variable_2="Reaction_CKt2b2" variable_1="Reaction_CKt2b2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_CKai" component_1="model_parameters"/>
+    <map_variables variable_2="kPP1" variable_1="kPP1"/>
+    <map_variables variable_2="KmPP1" variable_1="KmPP1"/>
+	<map_variables variable_2="PP1tot" variable_1="PP1tot"/>
+	<map_variables variable_2="CaMKIItot" variable_1="CaMKIItot"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_CKai" component_1="Pa"/>
+    <map_variables variable_2="Pa" variable_1="Pa"/>
+	<map_variables variable_2="Reaction_CKai" variable_1="Reaction_CKai"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Ca2CaN" component_1="Ca4CaN"/>
+    <map_variables variable_2="Ca4CaN" variable_1="Ca4CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Ca2CaN" component_1="CaMCaN"/>
+    <map_variables variable_2="CaMCaN" variable_1="CaMCaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Ca2CaN" component_1="Ca2CaMCaN"/>
+    <map_variables variable_2="Ca2CaMCaN" variable_1="Ca2CaMCaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Ca2CaN" component_1="Ca4CaMCaN"/>
+    <map_variables variable_2="Ca4CaMCaN" variable_1="Ca4CaMCaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_Ca4CaN" component_1="model_parameters"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_Ca4CaN" component_1="Ca4CaN"/>
+    <map_variables variable_2="Ca4CaN" variable_1="Ca4CaN"/>
+	<map_variables variable_2="Reaction_Ca4CaN" variable_1="Reaction_Ca4CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_Ca4CaN" component_1="Ca2CaN"/>
+    <map_variables variable_2="Ca2CaN" variable_1="Ca2CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_02CaN" component_1="model_parameters"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_02CaN" component_1="CaMCaN"/>
+    <map_variables variable_2="CaMCaN" variable_1="CaMCaN"/>
+	<map_variables variable_2="Reaction_02CaN" variable_1="Reaction_02CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_02CaN" component_1="Ca2CaMCaN"/>
+    <map_variables variable_2="Ca2CaMCaN" variable_1="Ca2CaMCaN"/>
+	<map_variables variable_2="Reaction_02CaN" variable_1="Reaction_02CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_02CaN" component_1="Reaction_02"/>
+    <map_variables variable_2="k02" variable_1="k02"/>
+	<map_variables variable_2="k20" variable_1="k20"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_24CaN" component_1="model_parameters"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="Reaction_24CaN" component_1="Ca4CaMCaN"/>
+    <map_variables variable_2="Ca4CaMCaN" variable_1="Ca4CaMCaN"/>
+	<map_variables variable_2="Reaction_24CaN" variable_1="Reaction_24CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_24CaN" component_1="Ca2CaMCaN"/>
+    <map_variables variable_2="Ca2CaMCaN" variable_1="Ca2CaMCaN"/>
+	<map_variables variable_2="Reaction_24CaN" variable_1="Reaction_24CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_24CaN" component_1="Reaction_24"/>
+    <map_variables variable_2="k24" variable_1="k24"/>
+	<map_variables variable_2="k42" variable_1="k42"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_2CaN" component_1="Ca4CaN"/>
+    <map_variables variable_2="Ca4CaN" variable_1="Ca4CaN"/>
+	<map_variables variable_2="Reaction_2CaN" variable_1="Reaction_2CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_2CaN" component_1="Ca2CaMCaN"/>
+    <map_variables variable_2="Ca2CaMCaN" variable_1="Ca2CaMCaN"/>
+	<map_variables variable_2="Reaction_2CaN" variable_1="Reaction_2CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_4CaN" component_1="Ca4CaM"/>
+    <map_variables variable_2="Ca4CaM" variable_1="Ca4CaM"/>
+	<map_variables variable_2="Reaction_4CaN" variable_1="Reaction_4CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_4CaN" component_1="Ca4CaN"/>
+    <map_variables variable_2="Ca4CaN" variable_1="Ca4CaN"/>
+	<map_variables variable_2="Reaction_4CaN" variable_1="Reaction_4CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_4CaN" component_1="Ca4CaMCaN"/>
+    <map_variables variable_2="Ca4CaMCaN" variable_1="Ca4CaMCaN"/>
+	<map_variables variable_2="Reaction_4CaN" variable_1="Reaction_4CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_0CaN" component_1="Ca4CaN"/>
+    <map_variables variable_2="Ca4CaN" variable_1="Ca4CaN"/>
+	<map_variables variable_2="Reaction_0CaN" variable_1="Reaction_0CaN"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="Reaction_0CaN" component_1="CaMCaN"/>
+    <map_variables variable_2="CaMCaN" variable_1="CaMCaN"/>
+	<map_variables variable_2="Reaction_0CaN" variable_1="Reaction_0CaN"/>
+  </connection>
+  
+</model>
+

@@ -1,0 +1,1460 @@
+<?xml version="1.0"?>
+<!--  FILE :  sachse_model_2003_raw.xml
+
+CREATED :  19th February 2004
+
+LAST MODIFIED : 19th February 2004
+
+AUTHOR :  Catherine Lloyd
+          The Bioengineering Institute
+          The University of Auckland
+          
+MODEL STATUS :  This model conforms to the CellML 1.0 Specification released on
+                10th August 2001, and the 16/01/2002 CellML Metadata 1.0
+                Specification.
+
+DESCRIPTION :  This file contains a CellML description of Sachse et al's mathematical model of cardiac electromechanics in human myocardium.
+
+CHANGES:  
+  
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/sachse_glanzel_seemann_2003/sachse_glanzel_seemann_2003.cellml" cmeta:id="sachse_2003" name="sachse_2003">
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Modelling the Protein Interactions Involved in Cardiac Tension Development</title>
+  <author>
+    <firstname>Catherine</firstname>
+          <surname>Lloyd</surname>
+    <affiliation>
+      <shortaffil>Auckland Bioengineering Institute, The University of Auckland</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+           This model contains partial differentials and as such can not currently be solved by existing CellML tools.
+          </para>
+  </section>
+  <sect1 id="sec_structure">
+<title>Model Structure</title>
+
+<para>
+ABSTRACT: Modeling of protein interactions responsible for cardiac tension development can enhance the understanding of physiological and pathophysiological phenomena of the heart. Principal components of muscular tension development are the proteins actin, myosin, troponin and tropomyosin. The tension is produced by cross-bridge cycling of actin and myosin using adenosine triphosphate as energy source. The cross-bridge cycling is initiated by binding of intracellular calcium to troponin, resulting in configuration changes of tropomyosin.
+
+In this work a hybrid model of protein interactions in cardiac tension development is derived on basis of recent measurements and descriptions on protein level. Dependencies on intracellular calcium concentration, sarcomere stretch and stretch velocity as well as cooperativity mechanisms are incorporated. The model quantifies the tension development by states associated to configurations of the involved proteins. The model enables in conjunction with electrophysiological models of cardiac myocytes the reconstruction of electro-mechanical phenomena. Numerical simulations with the hybrid model were performed, which illustrated the reconstruction of steady state and length switches experiments. The steady state experiments describe the force-cytosolic [Ca2+] relationship in intact rat cardiac trabeculae. The length switch experiments provide data on the redevelopment of force after sudden stretch in rabbit right ventricular papillary muscles. Results of the numerical simulations show quantitative agreement with experimental studies.
+
+The hybrid model of cardiac tension development offers interfaces to further models of cardiac electro-mechanics. The hybrid model can be coupled with models of cellular electrophysiology and passive mechanics of myocardium allowing the inclusion of mechano-electrical feedback mechanisms. The hybrid model can be applied to elucidate cooperativity mechanisms, pathophysiological changes and metabolism of tension development.
+</para>
+
+<para>
+The original paper reference is cited below:
+</para>
+
+<para>
+Modeling of Protein Interactions Involved in Cardiac Tension Development, F. B. Sachse, K. G. Glanzel, and G. Seemann, 2003, <emphasis>International Journal of Bifurcation and Chaos</emphasis>, 13, 3561-3578. (no PubMed ID)  
+</para>
+
+<informalfigure float="0" id="fig_reaction_diagram">
+<mediaobject>
+  <imageobject>
+    <objectinfo>
+      <title>reaction diagram</title>
+    </objectinfo>
+    <imagedata fileref="sachse_2003.png"/>
+  </imageobject>
+</mediaobject>
+<caption>State diagram of the model.  Two state variables quantify the calcium binding to troponin C (T).  Two further state variables describe the configuration of tropomyosin (TM).  Ten state variables represent the interaction of actin and myosin as well as the hydrolysis of adenosine triphosphate (ATP).  M and A represent myosin and actin respectively.  Transition between states is depicted by an arrow.</caption>
+</informalfigure>
+
+<para>
+The authors suggest that this hybrid model of cardiac tension development provides an interface to other models of cardiac electromechanics.  The model can be coupled with models of cellular electrophysiology and passive mechanics of myocardium allowing the incorporation of mechano-electrical feedback mechanisms.  Results of simulations with the model can be used to elucidate cooperativity mechanisms, pathophysiological changes, and the metabolism of tension development.
+</para>
+
+
+</sect1>
+</article>
+</documentation>
+  
+  
+
+  <units name="micromolar">
+    <unit prefix="micro" units="mole"/>
+    <unit exponent="-1" units="litre"/>
+  </units>
+
+  <units name="flux">
+     <unit units="micromolar"/>
+     <unit exponent="-1" units="second"/>
+  </units>
+
+  <units name="first_order_rate_constant">
+    <unit exponent="-1" units="second"/>
+  </units>
+
+  <units name="second_order_rate_constant">
+    <unit exponent="-1" units="micromolar"/>
+    <unit exponent="-1" units="second"/>
+  </units>
+
+  <units name="m_per_s">
+    <unit units="metre"/>
+    <unit exponent="-1" units="second"/>
+  </units>
+   
+  
+  <component name="environment">
+    <variable name="time" public_interface="out" units="second"/>
+  </component>
+   
+  <component cmeta:id="ATP" name="ATP">
+     
+    <variable cmeta:id="id_00001" initial_value="4.0" name="ATP" public_interface="out" units="micromolar"/>
+  </component>
+  
+  <component cmeta:id="T" name="T">
+     
+    <variable cmeta:id="id_00002" initial_value="1.0" name="T" public_interface="out" units="micromolar"/>
+  </component>
+  
+  <component cmeta:id="TCa" name="TCa">
+     
+    <variable cmeta:id="id_00003" initial_value="0.0" name="TCa" public_interface="out" units="micromolar"/>
+    
+    <variable initial_value="40.0" name="kon" units="second_order_rate_constant"/>
+    <variable initial_value="40.0" name="koff" units="first_order_rate_constant"/>
+    <variable name="Cai" units="micromolar"/>
+    <variable cmeta:id="id_00004" initial_value="1.0" name="TCa_lamda" units="dimensionless"/>
+    
+    <variable name="lamda" public_interface="in" units="dimensionless"/>
+    <variable name="T" public_interface="in" units="micromolar"/>
+    <variable name="S_A_M" public_interface="in" units="micromolar"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>TCa</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> kon </ci>
+            <apply>
+              <plus/>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <ci> S_A_M </ci>
+              <apply>
+                <power/>
+                <ci> lamda </ci>
+                <ci> TCa_lamda </ci>
+              </apply>
+            </apply>
+            <ci> Cai </ci>
+            <ci> T </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> koff </ci>
+            <ci> TCa </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="TMoff" name="TMoff">
+     
+    <variable cmeta:id="id_00005" initial_value="1.0" name="TMoff" public_interface="out" units="micromolar"/>
+  </component>
+  
+  <component cmeta:id="TMon" name="TMon">
+     
+    <variable cmeta:id="id_00006" initial_value="0.0" name="TMon" public_interface="out" units="micromolar"/>
+    
+    <variable initial_value="12.0" name="kmon" units="first_order_rate_constant"/>
+    <variable initial_value="35.0" name="kmoff" units="first_order_rate_constant"/>
+    <variable cmeta:id="id_00007" initial_value="2.0" name="TMoncoop" units="dimensionless"/>
+    <variable cmeta:id="id_00008" initial_value="2.0" name="TMonpow" units="dimensionless"/>
+    
+    <variable name="lamda" public_interface="in" units="dimensionless"/>
+    <variable name="TMoff" public_interface="in" units="micromolar"/>
+    <variable name="TCa" public_interface="in" units="micromolar"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>TMon</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> kmon </ci>
+            <ci> TCa </ci>
+            <apply>
+              <power/> 
+              <apply>
+                <plus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <apply>
+                  <times/>
+                  <apply>
+                    <plus/>
+                    <ci> TMoncoop </ci>
+                    <ci> lamda </ci>
+                  </apply>
+                  <ci> TMon </ci>
+                </apply>
+              </apply>
+              <ci> TMonpow </ci>
+            </apply>
+            <ci> TMoff </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> kmoff </ci>
+            <ci> TMon </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="M_ATP" name="M_ATP">
+     
+    <variable cmeta:id="id_00009" initial_value="0.0385" name="M_ATP" public_interface="out" units="micromolar"/>
+    
+    <variable name="t2" public_interface="in" units="flux"/>
+    <variable name="t3" public_interface="in" units="flux"/>
+    <variable name="t14" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>M_ATP</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <ci> t2 </ci>
+            <ci> t14 </ci>
+          </apply>
+          <ci> t3 </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="M_ADP_Pi" name="M_ADP_Pi">
+     
+    <variable cmeta:id="id_00010" initial_value="0.3846" name="M_ADP_Pi" public_interface="out" units="micromolar"/>
+    
+    <variable name="t3" public_interface="in" units="flux"/>
+    <variable name="t4" public_interface="in" units="flux"/>
+    <variable name="t13" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>M_ADP_Pi</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <ci> t3 </ci>
+            <ci> t13 </ci>
+          </apply>
+          <ci> t4 </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="A_M__ADP_Pi" name="A_M__ADP_Pi">
+     
+    <variable cmeta:id="id_00011" initial_value="0.5769" name="A_M__ADP_Pi" public_interface="out" units="micromolar"/>
+    
+    <variable name="t5" public_interface="in" units="flux"/>
+    <variable name="t4" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>A_M__ADP_Pi</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <ci> t4 </ci>
+          <ci> t5 </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="A_M_ADP_Pi" name="A_M_ADP_Pi">
+     
+    <variable cmeta:id="id_00012" initial_value="0.0" name="A_M_ADP_Pi" public_interface="out" units="micromolar"/>
+    
+    <variable name="t5" public_interface="in" units="flux"/>
+    <variable name="t6" public_interface="in" units="flux"/>
+    <variable name="t13" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>A_M_ADP_Pi</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <ci> t5 </ci>
+          <apply>
+            <plus/>
+            <ci> t6 </ci>
+            <ci> t13 </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="A_M__ADP" name="A_M__ADP">
+     
+    <variable cmeta:id="id_00014" initial_value="0.0" name="A_M__ADP" public_interface="out" units="micromolar"/>
+    
+    <variable name="t7" public_interface="in" units="flux"/>
+    <variable name="t6" public_interface="in" units="flux"/>
+    <variable name="t11" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>A_M__ADP</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <ci> t6 </ci>
+          <apply>
+            <plus/>
+            <ci> t7 </ci>
+            <ci> t11 </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="A_M_ADP" name="A_M_ADP">
+     
+    <variable cmeta:id="id_00013" initial_value="0.0" name="A_M_ADP" public_interface="out" units="micromolar"/>
+    
+    <variable name="t7" public_interface="in" units="flux"/>
+    <variable name="t8" public_interface="in" units="flux"/>
+    <variable name="t10" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>A_M_ADP</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <ci> t7 </ci>
+          <apply>
+            <plus/>
+            <ci> t8 </ci>
+            <ci> t10 </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="A_M" name="A_M">
+     
+    <variable cmeta:id="id_00015" initial_value="0.0" name="A_M" public_interface="out" units="micromolar"/>
+    
+    <variable name="t9" public_interface="in" units="flux"/>
+    <variable name="t8" public_interface="in" units="flux"/>
+    <variable name="t1" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>A_M</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <ci> t8 </ci>
+          <apply>
+            <plus/>
+            <ci> t9 </ci>
+            <ci> t1 </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="A__M_ATP" name="A__M_ATP">
+     
+    <variable cmeta:id="id_00016" initial_value="0.0" name="A__M_ATP" public_interface="out" units="micromolar"/>
+    
+    <variable name="t1" public_interface="in" units="flux"/>
+    <variable name="t2" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>A__M_ATP</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <ci> t1 </ci>
+          <ci> t2 </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+ 
+  <component cmeta:id="M" name="M">
+     
+    <variable cmeta:id="id_00017" initial_value="0.0" name="M" public_interface="out" units="micromolar"/>
+    
+    <variable name="t9" public_interface="in" units="flux"/>
+    <variable name="t12" public_interface="in" units="flux"/>
+    <variable name="t14" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>M</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <ci> t9 </ci>
+            <ci> t12 </ci>
+          </apply>
+          <ci> t14 </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="M_ADP" name="M_ADP">
+     
+    <variable initial_value="0.0" name="M_ADP" public_interface="out" units="micromolar"/>
+    
+    <variable name="t10" public_interface="in" units="flux"/>
+    <variable name="t12" public_interface="in" units="flux"/>
+    <variable name="t11" public_interface="in" units="flux"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <partialdiff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>M_ADP</ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <ci> t10 </ci>
+            <ci> t11 </ci>
+          </apply>
+          <ci> t12 </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component cmeta:id="S_A_M" name="S_A_M">
+     
+    <variable name="S_A_M" public_interface="out" units="micromolar"/>
+    
+    <variable name="A_M" public_interface="in" units="micromolar"/>
+    <variable name="A_M_ADP_Pi" public_interface="in" units="micromolar"/>
+    <variable name="A_M__ADP" public_interface="in" units="micromolar"/>
+    <variable name="A_M_ADP" public_interface="in" units="micromolar"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>S_A_M</ci> 
+        <apply>
+          <plus/>
+          <ci> A_M_ADP_Pi </ci>
+          <ci> A_M__ADP </ci>
+          <ci> A_M_ADP </ci>
+          <ci> A_M </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t1"> 
+    <variable name="t1" public_interface="out" units="flux"/>
+    
+    <variable initial_value="1000.0" name="k1" units="first_order_rate_constant"/>
+    <variable initial_value="10.0" name="k_1" units="first_order_rate_constant"/>
+    
+    <variable name="A_M" public_interface="in" units="micromolar"/>
+    <variable name="A__M_ATP" public_interface="in" units="micromolar"/>
+    <variable name="ATP" public_interface="in" units="micromolar"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t1</ci> 
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> k1 </ci>
+            <ci> ATP </ci>
+            <ci> A_M </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> k_1 </ci>
+            <ci> A__M_ATP </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t2"> 
+    <variable name="t2" public_interface="out" units="flux"/>
+    
+    <variable initial_value="1000.0" name="k2" units="first_order_rate_constant"/>
+    
+    <variable name="A__M_ATP" public_interface="in" units="micromolar"/>
+    <variable name="v_factor" public_interface="in" units="dimensionless"/>
+    <variable name="v_detach" public_interface="in" units="dimensionless"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t2</ci> 
+        <apply>
+          <times/>
+          <ci> k2 </ci>
+          <apply>
+            <plus/>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <apply>
+              <times/>
+              <ci> v_factor </ci>
+              <ci> v_detach </ci>
+            </apply>
+          </apply>
+          <ci> A__M_ATP </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t3"> 
+    <variable name="t3" public_interface="out" units="flux"/>
+    
+    <variable initial_value="150.0" name="k3" units="first_order_rate_constant"/>
+    <variable initial_value="15.0" name="k_3" units="first_order_rate_constant"/>
+    
+    <variable name="M_ATP" public_interface="in" units="micromolar"/>
+    <variable name="M_ADP_Pi" public_interface="in" units="micromolar"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t3</ci> 
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> k3 </ci>
+            <ci> M_ATP </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> k_3 </ci>
+            <ci> M_ADP_Pi </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t4"> 
+    <variable name="t4" public_interface="out" units="flux"/>
+    
+    <variable initial_value="1500.0" name="k4" units="first_order_rate_constant"/>
+    <variable initial_value="1000.0" name="k_4" units="first_order_rate_constant"/>
+    
+    <variable name="M_ADP_Pi" public_interface="in" units="micromolar"/>
+    <variable name="A_M__ADP_Pi" public_interface="in" units="micromolar"/>
+    <variable name="v_factor" public_interface="in" units="dimensionless"/>
+    <variable name="v_detach" public_interface="in" units="dimensionless"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t4</ci> 
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> k4 </ci>
+            <ci> M_ADP_Pi </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> k_4 </ci>
+            <apply>
+              <plus/>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply>
+                <times/>
+                <ci> v_factor </ci>
+                <ci> v_detach </ci>
+              </apply>
+            </apply>
+            <ci> A_M__ADP_Pi </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t5"> 
+    <variable name="t5" public_interface="out" units="flux"/>
+    
+    <variable initial_value="25.0" name="k5" units="first_order_rate_constant"/>
+    <variable initial_value="8.0" name="k_5" units="first_order_rate_constant"/>
+    <variable initial_value="1.0" name="k5_lamda" units="dimensionless"/>
+    <variable initial_value="1.5" name="k5_xb" units="dimensionless"/>
+    
+    <variable name="TMon" public_interface="in" units="micromolar"/>
+    <variable name="A_M__ADP_Pi" public_interface="in" units="micromolar"/>
+    <variable name="A_M_ADP_Pi" public_interface="in" units="micromolar"/>
+    <variable name="lamda" public_interface="in" units="dimensionless"/>
+    <variable name="S_A_M" public_interface="in" units="micromolar"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t5</ci> 
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> k5 </ci>
+            <ci> TMon </ci>
+            <apply>
+              <plus/>
+              <apply>
+                <times/>
+                <ci> k5_lamda </ci>
+                <ci> lamda </ci>
+              </apply>
+              <cn cellml:units="dimensionless"> 0.4 </cn>
+            </apply>
+            <apply>
+              <power/>
+              <apply>
+                <plus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <apply>
+                  <times/>
+                  <ci> k5_xb </ci>
+                  <ci> S_A_M </ci>
+                </apply>
+              </apply>
+              <cn cellml:units="dimensionless"> 2.0 </cn>
+            </apply>
+            <ci> A_M__ADP_Pi </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> k_5 </ci>
+            <ci> A_M_ADP_Pi </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t6"> 
+    <variable name="t6" public_interface="out" units="flux"/>
+    
+    <variable initial_value="50.0" name="k6" units="first_order_rate_constant"/>
+    <variable initial_value="20.0" name="k_6" units="first_order_rate_constant"/>
+    
+    <variable name="A_M__ADP" public_interface="in" units="micromolar"/>
+    <variable name="A_M_ADP_Pi" public_interface="in" units="micromolar"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+       <ci>t6</ci> 
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> k6 </ci>
+            <ci> A_M_ADP_Pi </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> k_6 </ci>
+            <ci> A_M__ADP </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t7"> 
+    <variable name="t7" public_interface="out" units="flux"/>
+    
+    <variable initial_value="30.0" name="k7" units="first_order_rate_constant"/>
+    <variable initial_value="2.25" name="k7_base" units="dimensionless"/>
+    <variable initial_value="1.25" name="k7_lamda" units="dimensionless"/>
+    <variable initial_value="1.0" name="k7_force" units="dimensionless"/>
+    
+    <variable name="F" public_interface="in" units="dimensionless"/>
+    <variable name="A_M__ADP" public_interface="in" units="micromolar"/>
+    <variable name="lamda" public_interface="in" units="dimensionless"/>
+    <variable name="v" public_interface="in" units="m_per_s"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t7</ci> 
+        <apply>
+          <times/>
+          <ci> k7 </ci>
+          <ci> A_M__ADP </ci>
+          <apply>
+            <divide/>
+            <apply>
+              <plus/>
+              <apply>
+                <minus/>
+                <ci> k7_base </ci>
+                <apply>
+                  <times/>
+                  <ci> k7_lamda </ci>
+                  <ci> lamda </ci>
+                </apply>
+              </apply>
+              <ci> v </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply>
+                <times/>
+                <ci> k7_force </ci>
+                <ci> F </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t8"> 
+    <variable name="t8" public_interface="out" units="flux"/>
+    
+    <variable initial_value="200.0" name="k8" units="first_order_rate_constant"/>
+    <variable initial_value="5.0" name="k_8" units="first_order_rate_constant"/>
+    
+    <variable name="A_M_ADP" public_interface="in" units="micromolar"/>
+    <variable name="A_M" public_interface="in" units="micromolar"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t8</ci> 
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> k8 </ci>
+            <ci> A_M_ADP </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> k_8 </ci>
+            <ci> A_M </ci>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t9"> 
+    <variable name="t9" public_interface="out" units="flux"/>
+    
+    <variable initial_value="1000.0" name="k9" units="first_order_rate_constant"/>
+    
+    <variable name="A_M" public_interface="in" units="micromolar"/>
+    <variable name="v_factor" public_interface="in" units="dimensionless"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t9</ci> 
+        <apply>
+          <times/>
+          <ci> k9 </ci>
+          <ci> v_factor </ci>
+          <ci> A_M </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t10"> 
+    <variable name="t10" public_interface="out" units="flux"/>
+    
+    <variable initial_value="1000.0" name="k10" units="first_order_rate_constant"/>
+    
+    <variable name="A_M_ADP" public_interface="in" units="micromolar"/>
+    <variable name="v_factor" public_interface="in" units="dimensionless"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t10</ci> 
+        <apply>
+          <times/>
+          <ci> k10 </ci>
+          <ci> v_factor </ci>
+          <ci> A_M_ADP </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t11"> 
+    <variable name="t11" public_interface="out" units="flux"/>
+    
+    <variable initial_value="1000.0" name="k11" units="first_order_rate_constant"/>
+    
+    <variable name="A_M__ADP" public_interface="in" units="micromolar"/>
+    <variable name="v_factor" public_interface="in" units="dimensionless"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t11</ci> 
+        <apply>
+          <times/>
+          <ci> k11 </ci>
+          <ci> v_factor </ci>
+          <ci> A_M__ADP </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t12"> 
+    <variable name="t12" public_interface="out" units="flux"/>
+    
+    <variable initial_value="50.0" name="k12" units="first_order_rate_constant"/>
+    
+    <variable name="M_ADP" public_interface="in" units="micromolar"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t12</ci> 
+        <apply>
+          <times/>
+          <ci> k12 </ci>
+          <ci> M_ADP </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t13"> 
+    <variable name="t13" public_interface="out" units="flux"/>
+    
+    <variable initial_value="1000.0" name="k13" units="first_order_rate_constant"/>
+    
+    <variable name="A_M_ADP_Pi" public_interface="in" units="micromolar"/>
+    <variable name="v_factor" public_interface="in" units="dimensionless"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t13</ci> 
+        <apply>
+          <times/>
+          <ci> k13 </ci>
+          <ci> v_factor </ci>
+          <ci> A_M_ADP_Pi </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="t14"> 
+    <variable name="t14" public_interface="out" units="flux"/>
+    
+    <variable initial_value="1000.0" name="k14" units="first_order_rate_constant"/>
+    
+    <variable name="ATP" public_interface="in" units="micromolar"/>
+    <variable name="M" public_interface="in" units="micromolar"/>
+   
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>t14</ci> 
+        <apply>
+          <times/>
+          <ci> k14 </ci>
+          <ci> ATP </ci>
+          <ci> M </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="v_factor"> 
+    <variable name="v_factor" public_interface="out" units="dimensionless"/>
+    
+    <variable initial_value="10.0" name="Nv" units="dimensionless"/>
+    <variable initial_value="3.0" name="v50" units="m_per_s"/>
+    
+    <variable name="v" public_interface="in" units="m_per_s"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>v_factor</ci> 
+        <apply>
+          <divide/>
+          <apply>
+            <power/>
+            <ci> v </ci>
+            <ci> Nv </ci>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <power/>
+              <ci> v </ci>
+              <ci> Nv </ci>
+            </apply>
+            <apply>
+              <power/>
+              <ci> v50 </ci>
+              <ci> Nv </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="F"> 
+    <variable name="F" public_interface="out" units="dimensionless"/>
+    
+    <variable initial_value="0.498" name="Fmax" units="dimensionless"/>
+    <variable name="alpha" units="dimensionless"/>
+    <variable name="T_AM" units="micromolar"/>
+    
+    <variable name="A_M" public_interface="in" units="micromolar"/>
+    <variable name="A_M_ADP" public_interface="in" units="micromolar"/>
+    <variable name="A_M__ADP" public_interface="in" units="micromolar"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci>T_AM</ci> 
+        <apply>
+          <plus/>
+          <ci> A_M </ci>
+          <ci> A_M_ADP </ci>
+          <ci> A_M__ADP </ci>
+        </apply>
+      </apply>  
+      
+      <apply>
+        <eq/> 
+        <ci>F</ci> 
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> alpha </ci>
+            <ci> T_AM </ci>
+          </apply>
+          <ci> Fmax </ci>
+        </apply>
+      </apply>    
+    </math>
+  </component>
+  
+  <component name="parameters">
+    <variable initial_value="10.0" name="v_detach" public_interface="out" units="dimensionless"/>
+    <variable name="v" public_interface="out" units="m_per_s"/>
+    <variable name="lamda" public_interface="out" units="dimensionless"/>
+  </component>
+  
+  
+  <connection>
+    <map_components component_1="M_ATP" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="M_ADP_Pi" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="A_M__ADP_Pi" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="A_M_ADP_Pi" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="A_M__ADP" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="A_M_ADP" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="A_M" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="A__M_ATP" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="M" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="M_ADP" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="TCa" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="TMon" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t1" component_2="A_M"/>
+    <map_variables variable_1="t1" variable_2="t1"/>
+    <map_variables variable_1="A_M" variable_2="A_M"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t1" component_2="A__M_ATP"/>
+    <map_variables variable_1="t1" variable_2="t1"/>
+    <map_variables variable_1="A__M_ATP" variable_2="A__M_ATP"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t1" component_2="ATP"/>
+    <map_variables variable_1="ATP" variable_2="ATP"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t2" component_2="A__M_ATP"/>
+    <map_variables variable_1="A__M_ATP" variable_2="A__M_ATP"/>
+    <map_variables variable_1="t2" variable_2="t2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t2" component_2="M_ATP"/>
+    <map_variables variable_1="t2" variable_2="t2"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t2" component_2="v_factor"/>
+    <map_variables variable_1="v_factor" variable_2="v_factor"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t2" component_2="parameters"/>
+    <map_variables variable_1="v_detach" variable_2="v_detach"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t3" component_2="M_ATP"/>
+    <map_variables variable_1="M_ATP" variable_2="M_ATP"/>
+    <map_variables variable_1="t3" variable_2="t3"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t3" component_2="M_ADP_Pi"/>
+    <map_variables variable_1="M_ADP_Pi" variable_2="M_ADP_Pi"/>
+    <map_variables variable_1="t3" variable_2="t3"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t4" component_2="M_ADP_Pi"/>
+    <map_variables variable_1="M_ADP_Pi" variable_2="M_ADP_Pi"/>
+    <map_variables variable_1="t4" variable_2="t4"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t4" component_2="A_M__ADP_Pi"/>
+    <map_variables variable_1="A_M__ADP_Pi" variable_2="A_M__ADP_Pi"/>
+    <map_variables variable_1="t4" variable_2="t4"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t4" component_2="v_factor"/>
+    <map_variables variable_1="v_factor" variable_2="v_factor"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t4" component_2="parameters"/>
+    <map_variables variable_1="v_detach" variable_2="v_detach"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t5" component_2="parameters"/>
+    <map_variables variable_1="lamda" variable_2="lamda"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t5" component_2="TMon"/>
+    <map_variables variable_1="TMon" variable_2="TMon"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t5" component_2="S_A_M"/>
+    <map_variables variable_1="S_A_M" variable_2="S_A_M"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t5" component_2="A_M__ADP_Pi"/>
+    <map_variables variable_1="A_M__ADP_Pi" variable_2="A_M__ADP_Pi"/>
+    <map_variables variable_1="t5" variable_2="t5"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t5" component_2="A_M_ADP_Pi"/>
+    <map_variables variable_1="A_M_ADP_Pi" variable_2="A_M_ADP_Pi"/>
+    <map_variables variable_1="t5" variable_2="t5"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t6" component_2="A_M_ADP_Pi"/>
+    <map_variables variable_1="A_M_ADP_Pi" variable_2="A_M_ADP_Pi"/>
+    <map_variables variable_1="t6" variable_2="t6"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t6" component_2="A_M__ADP"/>
+    <map_variables variable_1="A_M__ADP" variable_2="A_M__ADP"/>
+    <map_variables variable_1="t6" variable_2="t6"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t7" component_2="A_M__ADP"/>
+    <map_variables variable_1="A_M__ADP" variable_2="A_M__ADP"/>
+    <map_variables variable_1="t7" variable_2="t7"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t7" component_2="A_M_ADP"/>
+    <map_variables variable_1="t7" variable_2="t7"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t7" component_2="parameters"/>
+    <map_variables variable_1="v" variable_2="v"/>
+    <map_variables variable_1="lamda" variable_2="lamda"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t7" component_2="F"/>
+    <map_variables variable_1="F" variable_2="F"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t8" component_2="A_M_ADP"/>
+    <map_variables variable_1="A_M_ADP" variable_2="A_M_ADP"/>
+    <map_variables variable_1="t8" variable_2="t8"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t8" component_2="A_M"/>
+    <map_variables variable_1="A_M" variable_2="A_M"/>
+    <map_variables variable_1="t8" variable_2="t8"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t9" component_2="A_M"/>
+    <map_variables variable_1="A_M" variable_2="A_M"/>
+    <map_variables variable_1="t9" variable_2="t9"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t9" component_2="M"/>
+    <map_variables variable_1="t9" variable_2="t9"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t9" component_2="v_factor"/>
+    <map_variables variable_1="v_factor" variable_2="v_factor"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t10" component_2="M_ADP"/>
+    <map_variables variable_1="t10" variable_2="t10"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t10" component_2="A_M_ADP"/>
+    <map_variables variable_1="A_M_ADP" variable_2="A_M_ADP"/>
+    <map_variables variable_1="t10" variable_2="t10"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t10" component_2="v_factor"/>
+    <map_variables variable_1="v_factor" variable_2="v_factor"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t11" component_2="A_M__ADP"/>
+    <map_variables variable_1="A_M__ADP" variable_2="A_M__ADP"/>
+    <map_variables variable_1="t11" variable_2="t11"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t11" component_2="M_ADP"/>
+    <map_variables variable_1="t11" variable_2="t11"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t11" component_2="v_factor"/>
+    <map_variables variable_1="v_factor" variable_2="v_factor"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t12" component_2="M_ADP"/>
+    <map_variables variable_1="M_ADP" variable_2="M_ADP"/>
+    <map_variables variable_1="t12" variable_2="t12"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t12" component_2="M"/>
+    <map_variables variable_1="t12" variable_2="t12"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t13" component_2="A_M_ADP_Pi"/>
+    <map_variables variable_1="A_M_ADP_Pi" variable_2="A_M_ADP_Pi"/>
+    <map_variables variable_1="t13" variable_2="t13"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t13" component_2="M_ADP_Pi"/>
+    <map_variables variable_1="t13" variable_2="t13"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t13" component_2="v_factor"/>
+    <map_variables variable_1="v_factor" variable_2="v_factor"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t14" component_2="M"/>
+    <map_variables variable_1="M" variable_2="M"/>
+    <map_variables variable_1="t14" variable_2="t14"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t14" component_2="M_ATP"/>
+    <map_variables variable_1="t14" variable_2="t14"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="t14" component_2="ATP"/>
+    <map_variables variable_1="ATP" variable_2="ATP"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="TCa" component_2="S_A_M"/>
+    <map_variables variable_1="S_A_M" variable_2="S_A_M"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="TCa" component_2="T"/>
+    <map_variables variable_1="T" variable_2="T"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="TMon" component_2="TCa"/>
+    <map_variables variable_1="TCa" variable_2="TCa"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="v_factor" component_2="parameters"/>
+    <map_variables variable_1="v" variable_2="v"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="F" component_2="A_M"/>
+    <map_variables variable_1="A_M" variable_2="A_M"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="F" component_2="A_M_ADP"/>
+    <map_variables variable_1="A_M_ADP" variable_2="A_M_ADP"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="F" component_2="A_M__ADP"/>
+    <map_variables variable_1="A_M__ADP" variable_2="A_M__ADP"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="S_A_M" component_2="A_M_ADP_Pi"/>
+    <map_variables variable_1="A_M_ADP_Pi" variable_2="A_M_ADP_Pi"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="S_A_M" component_2="A_M__ADP"/>
+    <map_variables variable_1="A_M__ADP" variable_2="A_M__ADP"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="S_A_M" component_2="A_M_ADP"/>
+    <map_variables variable_1="A_M_ADP" variable_2="A_M_ADP"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="S_A_M" component_2="A_M"/>
+    <map_variables variable_1="A_M" variable_2="A_M"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="TCa" component_2="parameters"/>
+    <map_variables variable_1="lamda" variable_2="lamda"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="TMon" component_2="parameters"/>
+    <map_variables variable_1="lamda" variable_2="lamda"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="TMon" component_2="TMoff"/>
+    <map_variables variable_1="TMoff" variable_2="TMoff"/>
+  </connection>
+  
+
+
+<rdf:RDF><rdf:Description rdf:about="#S_A_M"><dc:title xml:lang="en">S_A_M</dc:title><dcterms:alternative xml:lang="en">strongly actin-myosin complex</dcterms:alternative></rdf:Description><rdf:Description rdf:about="rdf:#9b5bd5ba-edd0-48b7-bf55-3c8ce18764de"><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/></rdf:type><rdf:_1 xml:lang="en">tension</rdf:_1><rdf:_2 xml:lang="en">excitation-contraction coupling</rdf:_2><rdf:_3 xml:lang="en">signal transduction</rdf:_3><rdf:_4 xml:lang="en">mechanoelectric coupling</rdf:_4><rdf:_5 xml:lang="en">cardiac myocyte</rdf:_5><rdf:_6 xml:lang="en">electrophysiology</rdf:_6><rdf:_7 xml:lang="en">myofilament mechanics</rdf:_7><rdf:_8 xml:lang="en">cardiac</rdf:_8><rdf:_9 xml:lang="en">calcium dynamics</rdf:_9><rdf:_10 xml:lang="en">Cardiac Myocyte</rdf:_10></rdf:Description><rdf:Description rdf:about="rdf:#4efc7e4d-0e1a-4cd2-9b03-0686c76a4b5e"><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/></rdf:type><rdf:_1><rdf:Description rdf:about="rdf:#43c0e7ea-491a-4965-9412-41600e705fc4"/></rdf:_1><rdf:_2><rdf:Description rdf:about="rdf:#d802ef2d-d26c-4f61-ac41-4aa4ebc3c532"/></rdf:_2><rdf:_3><rdf:Description rdf:about="rdf:#eb3b3d85-d2c2-437f-97f0-4c5d735350cf"/></rdf:_3></rdf:Description><rdf:Description rdf:about="rdf:#43c0e7ea-491a-4965-9412-41600e705fc4"><rdf:type><rdf:Description rdf:about="http://www.cellml.org/bqs/1.0#Person"/></rdf:type><vCard:N><rdf:Description rdf:about="rdf:#e5f3e9f9-648c-4a47-9c41-69430ec8f6ac"/></vCard:N></rdf:Description><rdf:Description rdf:about="rdf:#d802ef2d-d26c-4f61-ac41-4aa4ebc3c532"><rdf:type><rdf:Description rdf:about="http://www.cellml.org/bqs/1.0#Person"/></rdf:type><vCard:N><rdf:Description rdf:about="rdf:#37ea36d0-8013-424c-8043-9ea84f0d6dcb"/></vCard:N></rdf:Description><rdf:Description rdf:about="rdf:#eb3b3d85-d2c2-437f-97f0-4c5d735350cf"><rdf:type><rdf:Description rdf:about="http://www.cellml.org/bqs/1.0#Person"/></rdf:type><vCard:N><rdf:Description rdf:about="rdf:#1fbed3b7-3887-472b-9dfc-2d8e6534bcd6"/></vCard:N></rdf:Description><rdf:Description rdf:about="#sachse_2003"><dc:title xml:lang="en">
+        Sachse et al's mathematical model of cardiac electromechanics in human myocardium.
+      </dc:title><cmeta:bio_entity xml:lang="en">Cardiac Myocyte</cmeta:bio_entity><cmeta:comment><rdf:Description rdf:about="rdf:#96925f7c-026c-41dc-9438-97e9cb15c6e7"/></cmeta:comment><bqs:reference><rdf:Description rdf:about="rdf:#11acf6cb-0481-46e6-a95e-4430d159b08d"/></bqs:reference><bqs:reference><rdf:Description rdf:about="rdf:#500b0fb4-7c37-4539-a37f-bf0ffaf900fe"/></bqs:reference><cmeta:species xml:lang="en">Homo sapiens</cmeta:species></rdf:Description><rdf:Description rdf:about="rdf:#96925f7c-026c-41dc-9438-97e9cb15c6e7"><rdf:value xml:lang="en">
+          Below is a CellML description of Sachse et al's mathematical model of cardiac electromechanics in human myocardium.
+        </rdf:value><dc:creator><rdf:Description rdf:about="rdf:#9b14322c-fefd-4969-8cf9-58c98c862f8c"/></dc:creator></rdf:Description><rdf:Description rdf:about="rdf:#11acf6cb-0481-46e6-a95e-4430d159b08d"><bqs:JournalArticle><rdf:Description rdf:about="rdf:#2444eed4-0d9a-4217-aa54-f1685307b8c3"/></bqs:JournalArticle></rdf:Description><rdf:Description rdf:about="rdf:#500b0fb4-7c37-4539-a37f-bf0ffaf900fe"><dc:subject><rdf:Description rdf:about="rdf:#b6d2ef42-0d33-4a49-85b7-72fc2572bbbd"/></dc:subject></rdf:Description><rdf:Description rdf:about="rdf:#1fbed3b7-3887-472b-9dfc-2d8e6534bcd6"><vCard:Given xml:lang="en">G</vCard:Given><vCard:Family xml:lang="en">Seemann</vCard:Family></rdf:Description><rdf:Description rdf:about="rdf:#9b14322c-fefd-4969-8cf9-58c98c862f8c"><rdf:type><rdf:Description rdf:about="http://www.w3.org/2001/vcard-rdf/3.0#FN"/></rdf:type></rdf:Description><rdf:Description rdf:about="rdf:#e5f3e9f9-648c-4a47-9c41-69430ec8f6ac"><vCard:Given xml:lang="en">F</vCard:Given><vCard:Family xml:lang="en">Sachse</vCard:Family><vCard:Other xml:lang="en">B</vCard:Other></rdf:Description><rdf:Description rdf:about="rdf:#b6d2ef42-0d33-4a49-85b7-72fc2572bbbd"><rdf:value><rdf:Description rdf:about="rdf:#9b5bd5ba-edd0-48b7-bf55-3c8ce18764de"/></rdf:value><bqs:subject_type xml:lang="en">keyword</bqs:subject_type></rdf:Description><rdf:Description rdf:about="rdf:#6a6c389c-3aa9-4102-bd6d-4282521597ce"><dc:title xml:lang="en">International Journal of Bifurcation and Chaos</dc:title></rdf:Description><rdf:Description rdf:about="rdf:#dbfa9da1-f1dd-439f-99f5-c52806344d1d"><dcterms:W3CDTF xml:lang="en">2003</dcterms:W3CDTF></rdf:Description><rdf:Description rdf:about="rdf:#37ea36d0-8013-424c-8043-9ea84f0d6dcb"><vCard:Given xml:lang="en">K</vCard:Given><vCard:Family xml:lang="en">Glanzel</vCard:Family><vCard:Other xml:lang="en">G</vCard:Other></rdf:Description><rdf:Description rdf:about="rdf:#2444eed4-0d9a-4217-aa54-f1685307b8c3"><dc:title xml:lang="en">
+            Modeling of Protein Interactions Involved in Cardiac Tension Development
+          </dc:title><dc:creator><rdf:Description rdf:about="rdf:#4efc7e4d-0e1a-4cd2-9b03-0686c76a4b5e"/></dc:creator><bqs:volume xml:lang="en">13</bqs:volume><bqs:first_page xml:lang="en">3561</bqs:first_page><bqs:Journal><rdf:Description rdf:about="rdf:#6a6c389c-3aa9-4102-bd6d-4282521597ce"/></bqs:Journal><dcterms:issued><rdf:Description rdf:about="rdf:#dbfa9da1-f1dd-439f-99f5-c52806344d1d"/></dcterms:issued><bqs:last_page xml:lang="en">3578</bqs:last_page></rdf:Description><rdf:Description rdf:about="#ATP"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:15422"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:15422"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#T"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#TCa"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#TMoff"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67896"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67896"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#TMon"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005523"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005523"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005523"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005523"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#M_ATP"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008570"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008570"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#M_ADP_Pi"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0016459"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0016459"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#A_M__ADP_Pi"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#A_M_ADP_Pi"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#A_M__ADP"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#A_M_ADP"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#A_M"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#A__M_ATP"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042641"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#M_ADP"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0016459"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#M"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0016459"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0016459"/></isVersionOf></rdf:Description></rdf:RDF></model>

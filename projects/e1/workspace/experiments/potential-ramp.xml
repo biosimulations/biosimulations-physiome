@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink" name="ramp" cmeta:id="ramp_model">
+  
+  <import xlink:href="../components/units.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="mV_per_ms" units_ref="mV_per_ms"/>
+  </import>
+  <component name="ramp" cmeta:id="ramp_component">
+    
+    <variable cmeta:id="y" name="y" public_interface="out" private_interface="out" units="mV" initial_value="y_initial"/>
+    <variable cmeta:id="y_initial" name="y_initial" public_interface="in" units="mV"/>
+    <variable cmeta:id="time" name="time" public_interface="in" units="ms"/>
+    <variable cmeta:id="k" name="k" public_interface="in" units="mV_per_ms"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="ramp_calculation"><eq/>
+        <apply><diff/>
+          <bvar><ci>time</ci></bvar>
+          <ci>y</ci>
+        </apply>
+        <ci>k</ci>
+      </apply>
+    </math>
+  </component>
+</model>

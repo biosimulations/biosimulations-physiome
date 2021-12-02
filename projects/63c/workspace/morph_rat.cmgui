@@ -1,0 +1,32 @@
+gfx read nodes rat1_align.exf time 0
+gfx read nodes rat2_fit1.exf time 1
+gfx read nodes rat2_fit2.exf time 2
+gfx read nodes vagus_both_network_renumber.exf
+
+gfx define field abdomen_boundary and fields abdomen "core boundary"
+gfx define field thorax_boundary and fields thorax "core boundary"
+gfx define field neck_boundary and fields neck "core boundary"
+gfx define field head_boundary and fields head "core boundary"
+gfx define field reftime constant 2.0;
+gfx define field coordinates_reftime coordinate_system rectangular_cartesian time_lookup field coordinates time_field reftime;
+gfx define field host_location coordinate_system rectangular_cartesian find_mesh_location find_exact mesh mesh3d mesh_field coordinates_reftime source_field coordinates;
+gfx define field host_coordinates coordinate_system rectangular_cartesian embedded element_xi host_location field coordinates;
+
+gfx create material trans_blue normal_mode ambient 0.3 0.6 1 diffuse 0.3 0.6 1 emission 0 0 0 specular 0.1 0.1 0.1 alpha 0.3 shininess 0.2;
+gfx create material trans_pink normal_mode ambient 1 0.8 0.8 diffuse 1 0.8 0.8 emission 0 0 0 specular 0.1 0.1 0.1 alpha 0.2 shininess 0.2;
+gfx create material trans_red normal_mode ambient 1 0.3 0.3 diffuse 1 0.3 0.4 emission 0 0 0 specular 0.1 0.1 0.1 alpha 0.3 shininess 0.2;
+
+gfx modify g_element "/" general clear;
+gfx modify g_element "/" lines domain_mesh1d subgroup vagus_left_network coordinate host_coordinates face all tessellation default LOCAL line_width 2 line line_base_size 0 select_on material magenta selected_material default_selected render_shaded;
+gfx modify g_element "/" lines domain_mesh1d subgroup vagus_right_network coordinate host_coordinates face all tessellation default LOCAL line_width 2 line line_base_size 0 select_on material green selected_material default_selected render_shaded;
+gfx modify g_element "/" lines domain_mesh1d subgroup "spinal cord" coordinate coordinates face all tessellation default LOCAL line_width 3 line line_base_size 0 select_on material cyan selected_material default_selected render_shaded;
+gfx modify g_element "/" lines domain_mesh1d subgroup "core boundary" coordinate coordinates face all tessellation default LOCAL line line_base_size 0 select_on material default selected_material default_selected render_shaded;
+gfx modify g_element "/" lines domain_mesh1d subgroup skin coordinate coordinates face all tessellation default LOCAL line line_base_size 0 select_on material default selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup diaphragm coordinate coordinates face all tessellation default LOCAL select_on material red selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup thorax_boundary coordinate coordinates face xi3_0 tessellation default LOCAL select_on material trans_red selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup head_boundary coordinate coordinates face xi3_0 tessellation default LOCAL select_on material trans_blue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup skin coordinate coordinates face all tessellation default LOCAL select_on material trans_pink selected_material default_selected render_shaded;
+
+gfx create window 1
+gfx modify window 1 view perspective
+gfx mod win 1 set slow

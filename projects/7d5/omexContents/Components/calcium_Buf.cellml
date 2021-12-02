@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Current_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+    </import>
+    <component name="ca_buf">
+        <!--        var v: mV {pub: in};-->
+        <variable name="ca_i" public_interface="in" units="mM"/>
+        <variable initial_value="0.06" name="Buf_C" public_interface="out" units="mM"/>
+        <variable initial_value="0.0006" name="Kbuf_C" public_interface="out" units="mM"/>
+        <variable name="Cai_buf" public_interface="out" units="mM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>Cai_buf</ci>
+                <apply>
+                    <divide/>
+                    <cn cellml:units="dimensionless">1</cn>
+                    <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1.0</cn>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <ci>Buf_C</ci>
+                                <ci>Kbuf_C</ci>
+                            </apply>
+                            <apply>
+                                <power/>
+                                <apply>
+                                    <plus/>
+                                    <ci>ca_i</ci>
+                                    <ci>Kbuf_C</ci>
+                                </apply>
+                                <cn cellml:units="dimensionless">2</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

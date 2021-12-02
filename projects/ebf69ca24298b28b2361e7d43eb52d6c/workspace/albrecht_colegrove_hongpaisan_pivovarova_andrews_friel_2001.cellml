@@ -1,0 +1,502 @@
+<?xml version="1.0"?>
+<!--  FILE :  albrecht_model_2001.xml
+
+CREATED :  25th March 2002
+
+LAST MODIFIED : 9th April 2003
+
+AUTHOR :  Catherine Lloyd
+          Bioengineering Institute
+          The University of Auckland
+          
+MODEL STATUS :  This model conforms to the CellML 1.0 Specification released on
+10th August 2001, and the 16/1/02 CellML Metadata 1.0 Specification.
+
+DESCRIPTION :  This file contains a CellML description of Albrecht et al's
+2001 model of calcium-induced calcium release in sympathetic neurons.
+
+CHANGES:  
+  18/07/2002 - CML - Added more metadata.
+  09/04/2003 - AAC - Added publication date information.  
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/Summer Research/Ray's 2nd/albrecht_colegrove_hongpaisan_pivovarova_andrews_friel_2001.cellml" cmeta:id="albrecht_colegrove_hongpaisan_pivovarova_andrews_friel_2001_version01" name="albrecht_colegrove_hongpaisan_pivovarova_andrews_friel_2001_version01">
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Multiple Modes of Calcium-induced Calcium Release in Sympathetic Neurons</title>
+  <author>
+    <firstname>Catherine</firstname>
+          <surname>Lloyd</surname>
+    <affiliation>
+      <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+            This model is consistently represented within the CellML but contains sets of algebraic equations that prevent the model from being solved in currently available software - 03/08.
+          </para>
+  </section>
+  <sect1 id="sec_structure">
+<title>Model Structure</title>
+
+<para>
+Calcium is an important signalling ion, and changes in Ca<superscript>2+</superscript> concentration ([Ca<superscript>2+</superscript>]) regulate diverse processes in many cellular compartments.  In excitable cells, depolarisation-induced Ca<superscript>2+</superscript> entry increases [Ca<superscript>2+</superscript>]<subscript>i</subscript>, leading to secondary changes in [Ca<superscript>2+</superscript>] within organelles such as mitochondria and ER that regulate specific Ca<superscript>2+</superscript>-sensitive targets within these organelles.  Although mitochondria accumulate Ca<superscript>2+</superscript> in response to depolarisation-evoked [Ca<superscript>2+</superscript>]<subscript>i</subscript> elevations (see <ulink url="${HTML_EXMPL_COLEGROVE_MODEL}">The Colegrove <emphasis>et al</emphasis> Model Of Mitochondrial Ca<superscript>2+</superscript> Uptake And Release, 2000</ulink>), the ER has been described as either a Ca<superscript>2+</superscript> source or sink.  Different modes of net ER Ca<superscript>2+</superscript> transport are expected to have very different effects on cytoplasmic and intraluminal Ca<superscript>2+</superscript> signals and on the processes they regulate.   
+</para>
+
+<para>
+In their 2001 model, Meredith A. Albrecht, Stephen L. Colegrove, Jarin Hongpaisan, Natalia B. Pivovarova, S. Brian Andrews and David D. Friel have examined the relationship between changes in [Ca<superscript>2+</superscript>]<subscript>i</subscript> and [Ca<superscript>2+</superscript>]<subscript>ER</subscript> during weak depolarisation in sympathetic neurons.  The total Ca<superscript>2+</superscript> flux during the recovery phase following membrane depolarisation was divided into four components (see <xref linkend="fig_cell_diagram"/> below).  One representing net Ca<superscript>2+</superscript> extrusion across the plasma membrane (J<subscript>extru</subscript>), one representing Ca<superscript>2+</superscript> entry through voltage-gated Ca<superscript>2+</superscript> channels (J<subscript>ICa</subscript>), one representing ER Ca<superscript>2+</superscript> uptake via a Ca<superscript>2+</superscript> ATPase (J<subscript>SERCA</subscript>) and one representing passive ER Ca<superscript>2+</superscript> release.  This mathematical model has been translated into a CellML description which can be downloaded in various formats as described in <xref linkend="sec_download_this_model"/>.
+</para>
+
+<para>
+The complete original paper reference is cited below:
+</para>
+
+<para>
+<ulink url="http://www.jgp.org/cgi/content/abstract/118/1/83">Multiple Modes of Calcium-induced Calcium Release in Sympathetic Neurons I:  Attenuation of Endoplasmic Reticulum Ca<superscript>2+</superscript> Accumulation at Low [Ca<superscript>2+</superscript>]<subscript>i</subscript> during Weak Depolarisation</ulink>, Meredith A. Albrecht, Stephen L. Colegrove, Jarin Hongpaisan, Natalia B. Pivovarova, S. Brian Andrews and David D. Friel, 2001, <ulink url="http://www.jgp.org/">
+            <emphasis>The Journal Of General Physiology</emphasis>
+          </ulink>, 118, 83-100.  (<ulink url="http://www.jgp.org/cgi/content/full/118/1/83">Full text</ulink> and <ulink url="http://www.jgp.org/cgi/reprint/118/1/83.pdf">PDF</ulink> versions of the article are available for Journal Members on the JGP website.)  <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=11429446&amp;dopt=Abstract">PubMed ID: 11429446</ulink>  
+</para>
+
+
+<informalfigure float="0" id="fig_cell_diagram">
+<mediaobject>
+  <imageobject>
+    <objectinfo>
+      <title>cell schematic for the model</title>
+    </objectinfo>
+    <imagedata fileref="albrecht_2001.png"/>
+  </imageobject>
+</mediaobject>
+<caption>Schematic of the model indicating Ca<superscript>2+</superscript> compartmentation in the extracellular matrix, cytosol and the ER and pathways for Ca<superscript>2+</superscript> ion movement between the compartments.</caption>
+</informalfigure>
+
+</sect1>
+</article>
+</documentation>
+  
+  
+  <!--
+    Below, we define some additional units for association with variables and
+    constants within the model. The identifiers are fairly self-explanatory.
+  -->
+  
+  <units name="per_second">
+    <unit exponent="-1" units="second"/>
+  </units>
+  
+  <units name="millivolt">
+    <unit prefix="milli" units="volt"/>
+  </units>
+  
+  <units name="millimolar">
+    <unit prefix="milli" units="mole"/>
+    <unit exponent="-1" units="litre"/>
+  </units>
+  
+  <units name="micromolar">
+    <unit prefix="micro" units="mole"/>
+    <unit exponent="-1" units="litre"/>
+  </units>
+  
+  <units name="nanomolar">
+    <unit prefix="nano" units="mole"/>
+    <unit exponent="-1" units="litre"/>
+  </units>
+  
+  <units name="nanomolar_per_second">
+    <unit units="nanomolar"/>
+    <unit exponent="-1" units="second"/>
+  </units>
+  
+  <units name="micromolar_per_second">
+    <unit units="micromolar"/>
+    <unit exponent="-1" units="second"/>
+  </units>
+  
+  <units name="micro_litre">
+    <unit prefix="micro" units="litre"/>
+  </units>
+  
+  <units name="coulomb_per_millimole">
+    <unit units="coulomb"/>
+    <unit exponent="-1" prefix="milli" units="mole"/>
+  </units>
+  
+  <units name="picoA">
+    <unit prefix="pico" units="ampere"/>
+  </units>
+  
+  <!--
+    The "environment" component is used to declare variables that are used by
+    all or most of the other components, in this case just "time".
+  -->
+  <component name="environment">
+    <variable name="time" public_interface="out" units="second"/>
+  </component>
+  
+  <component cmeta:id="id_00001" name="total_cytoplasmic_Ca_flux">
+    <variable cmeta:id="id_00007" name="J_ICa" public_interface="out" units="nanomolar_per_second"/>
+    <variable name="v_i" public_interface="out" units="micro_litre"/>
+    <variable name="k_i" public_interface="out" units="dimensionless"/>
+   
+    <variable initial_value="96.5" name="F" units="coulomb_per_millimole"/>
+    <variable cmeta:id="id_00008" name="I_Ca" units="picoA"/>
+   
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="J_ICa_calculation">
+        <eq/>
+        <ci> J_ICa </ci>
+        <apply>
+          <divide/>
+          <ci> I_Ca </ci>
+          <apply>
+            <times/>
+            <cn cellml:units="dimensionless"> 2.0 </cn>
+            <ci> F </ci>
+            <ci> v_i </ci>
+            <ci> k_i </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00002" name="Ca_extrusion_across_the_plasma_membrane">
+    <variable cmeta:id="id_00017" name="J_pm" public_interface="out" units="nanomolar_per_second"/>
+   
+    <variable name="J_extru" units="nanomolar_per_second"/>
+    <variable cmeta:id="id_00018" initial_value="0.00000015" name="k_leak" units="per_second"/>
+    <variable initial_value="25.0" name="Vmax_extru" units="nanomolar_per_second"/>
+    <variable initial_value="386.0" name="EC50_extru" units="nanomolar"/>
+    <variable initial_value="2.4" name="n_extru" units="dimensionless"/>
+    <variable cmeta:id="id_00010" initial_value="2.0" name="Ca_o" units="millimolar"/>
+   
+    <variable cmeta:id="id_00019" name="J_ICa" public_interface="in" units="nanomolar_per_second"/>
+    <variable cmeta:id="id_00009" name="Ca_i" public_interface="in" units="nanomolar"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="J_pm_calculation">
+        <eq/>
+        <ci> J_pm </ci>
+        <apply>
+          <plus/>
+          <ci> J_extru </ci>
+          <ci> J_ICa </ci>
+        </apply>
+      </apply>
+      
+      <apply id="J_extru_calculation">
+        <eq/>
+        <ci> J_extru </ci>
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <ci> k_leak </ci>
+            <apply>
+              <minus/>
+              <ci> Ca_i </ci>
+              <ci> Ca_o </ci>
+            </apply>
+          </apply>    
+          <apply>
+            <divide/>
+            <ci> Vmax_extru </ci>
+            <apply>
+              <plus/>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply>
+                <power/>
+                <apply>
+                  <divide/>
+                  <ci> EC50_extru </ci>
+                  <ci> Ca_i </ci>
+                </apply>
+                <ci> n_extru </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00003" name="Ca_uptake_by_SR_Ca_ATPase">        
+    <variable cmeta:id="id_00020" name="J_SERCA" public_interface="out" units="nanomolar_per_second"/>
+    
+    <variable cmeta:id="id_00021" initial_value="70.0" name="Vmax_SERCA" units="nanomolar_per_second"/>
+    <variable cmeta:id="id_00022" initial_value="700.0" name="EC50_SERCA" units="nanomolar"/>
+    <variable cmeta:id="id_00023" initial_value="1.0" name="n_SERCA" units="dimensionless"/>
+   
+    <variable cmeta:id="id_00011" name="Ca_i" public_interface="in" units="nanomolar"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="J_SERCA_calculation">
+        <eq/>
+        <ci> J_SERCA </ci>
+        <apply>
+          <divide/>
+          <ci> Vmax_SERCA </ci>
+          <apply>
+            <plus/>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <apply>
+              <power/>
+              <apply>
+                <divide/>
+                <ci> EC50_SERCA </ci>
+                <ci> Ca_i </ci>
+              </apply>
+              <ci> n_SERCA </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00004" name="ER_Ca_release">     
+    <variable cmeta:id="id_00024" name="J_ER" public_interface="out" units="nanomolar_per_second"/>       
+   
+    <variable cmeta:id="id_00025" name="P_ER" units="per_second"/>
+    <variable initial_value="0.0000178" name="P_basal" units="per_second"/>
+    <variable cmeta:id="id_00036" initial_value="0.0009" name="Pmax_RyR" units="per_second"/>
+    <variable cmeta:id="id_00035" initial_value="1.0" name="EC50_RyR" units="micromolar"/>
+    <variable cmeta:id="id_00034" initial_value="1.0" name="n_RyR" units="dimensionless"/>
+    <variable name="J_release" units="nanomolar_per_second"/>
+    
+    <variable cmeta:id="id_00031" name="J_SERCA" public_interface="in" units="nanomolar_per_second"/>
+    <variable cmeta:id="id_00012" name="Ca_i" public_interface="in" units="nanomolar"/>
+    <variable cmeta:id="id_00013" name="Ca_ER" public_interface="in" units="nanomolar"/>         
+    <variable name="time" public_interface="in" units="second"/>        
+            
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="J_release_calculation">
+        <eq/>
+        <ci> J_release </ci>
+        <apply>
+          <times/>
+          <ci> P_ER </ci>
+          <apply>
+            <minus/>
+            <ci> Ca_i </ci>
+            <ci> Ca_ER </ci> 
+          </apply>
+        </apply>
+      </apply>
+      
+      <apply id="J_ER_calculation">
+        <eq/>
+        <ci> J_ER </ci>
+        <apply>
+          <plus/>
+          <ci> J_SERCA </ci>
+          <ci> J_release </ci>
+        </apply>
+      </apply>
+      
+      <apply id="P_ER_calculation">
+        <eq/>
+        <ci> P_ER </ci>
+        <apply>
+          <plus/>
+          <ci> P_basal </ci>
+          <apply>
+            <divide/>
+            <ci> Pmax_RyR </ci>
+            <apply>
+              <plus/>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply>
+                <power/>
+                <apply>
+                  <divide/>
+                  <ci> EC50_RyR </ci>
+                  <ci> Ca_i </ci>
+                </apply>
+                <ci> n_RyR </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00005" name="cytoplasmic_calcium">
+    <variable cmeta:id="id_00014" name="Ca_i" public_interface="out" units="nanomolar"/>
+    
+    <variable name="J_i" units="nanomolar_per_second"/>
+    
+    <variable cmeta:id="id_00026" name="J_ER" public_interface="in" units="nanomolar_per_second"/>
+    <variable cmeta:id="id_00033" name="J_pm" public_interface="in" units="nanomolar_per_second"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="Ca_i_diff_eq">
+        <eq/>
+        <apply>
+          <diff/>
+          <bvar>
+            <ci> time </ci>
+          </bvar>
+          <ci> Ca_i </ci>
+        </apply>
+        <apply>
+          <minus/>
+          <ci> J_i </ci>
+        </apply>
+      </apply>
+      
+      <apply id="J_i_calculation">
+        <eq/>
+        <ci> J_i </ci>
+        <apply>
+          <plus/>
+          <ci> J_pm </ci>
+          <ci> J_ER </ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00006" name="intraluminal_calcium">
+    <variable cmeta:id="id_00015" name="Ca_ER" public_interface="out" units="nanomolar"/>
+    
+    <variable cmeta:id="id_00027" name="v_ER" units="micro_litre"/>
+    <variable cmeta:id="id_00028" name="k_ER" units="dimensionless"/>
+    <variable cmeta:id="id_00029" initial_value="0.01" name="gamma_ER" units="dimensionless"/>
+   
+    <variable cmeta:id="id_00016" name="Ca_i" public_interface="in" units="nanomolar"/>
+    <variable name="v_i" public_interface="in" units="micro_litre"/>
+    <variable name="k_i" public_interface="in" units="dimensionless"/>
+    <variable cmeta:id="id_00030" name="J_ER" public_interface="in" units="nanomolar_per_second"/>
+    <variable cmeta:id="id_00032" name="J_SERCA" public_interface="in" units="nanomolar_per_second"/>
+    <variable name="time" public_interface="in" units="second"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="Ca_ER_diff_eq">
+        <eq/>
+        <apply>
+          <diff/>
+          <bvar>
+            <ci> time </ci>
+          </bvar>
+          <ci> Ca_ER </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <ci> J_ER </ci>
+          <ci> gamma_ER </ci>
+        </apply>
+      </apply>
+      
+      <apply id="gamma_ER_calculation">
+        <eq/>
+        <ci> gamma_ER </ci>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> v_ER </ci>
+            <ci> k_ER </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> v_i </ci>
+            <ci> k_i </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <connection>
+    <map_components component_1="total_cytoplasmic_Ca_flux" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="Ca_extrusion_across_the_plasma_membrane" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="Ca_uptake_by_SR_Ca_ATPase" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="ER_Ca_release" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="cytoplasmic_calcium" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="intraluminal_calcium" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="total_cytoplasmic_Ca_flux" component_2="Ca_extrusion_across_the_plasma_membrane"/>
+    <map_variables variable_1="J_ICa" variable_2="J_ICa"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="total_cytoplasmic_Ca_flux" component_2="intraluminal_calcium"/>
+    <map_variables variable_1="v_i" variable_2="v_i"/>
+    <map_variables variable_1="k_i" variable_2="k_i"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="Ca_extrusion_across_the_plasma_membrane" component_2="cytoplasmic_calcium"/>
+    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+    <map_variables variable_1="J_pm" variable_2="J_pm"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="Ca_uptake_by_SR_Ca_ATPase" component_2="cytoplasmic_calcium"/>
+    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_1="Ca_uptake_by_SR_Ca_ATPase" component_2="ER_Ca_release"/>
+    <map_variables variable_1="J_SERCA" variable_2="J_SERCA"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="Ca_uptake_by_SR_Ca_ATPase" component_2="intraluminal_calcium"/>
+    <map_variables variable_1="J_SERCA" variable_2="J_SERCA"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="ER_Ca_release" component_2="cytoplasmic_calcium"/>
+    <map_variables variable_1="J_ER" variable_2="J_ER"/>
+    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_1="ER_Ca_release" component_2="intraluminal_calcium"/>
+    <map_variables variable_1="J_ER" variable_2="J_ER"/>
+    <map_variables variable_1="Ca_ER" variable_2="Ca_ER"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="cytoplasmic_calcium" component_2="intraluminal_calcium"/>
+    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+  </connection> 
+
+
+
+
+
+<rdf:RDF><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:66835"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63841"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63841"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00018"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00019"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00020"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00021"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00022"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00023"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00024"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00025"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00026"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00027"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00028"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00029"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00030"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00031"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00032"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00033"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005886"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00034"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00035"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00036"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf></rdf:Description></rdf:RDF></model>

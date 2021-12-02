@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- The BG describes the current (ionic flux) through the ion channel-->
+<model name="channelX_BG" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="units_BG.cellml">
+        <units name="J_per_K_per_mol" units_ref="J_per_K_per_mol"/>
+        <units name="J_per_mol" units_ref="J_per_mol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+    </import>
+    <import xlink:href="constants_BG.cellml">
+        <component component_ref="constants_BG" name="constants_BG"/>
+    </import>
+    <component name="channelX_BG">
+        <!--Parameters-->
+        <variable name="R" private_interface="in" units="J_per_K_per_mol"/>
+        <variable name="T" public_interface="in" units="kelvin"/>
+        <variable name="kappa_X" public_interface="in" units="fmol_per_sec"/>
+        <variable name="z_X" public_interface="in" units="dimensionless"/>
+        <!--Inputs-->
+        <variable name="mu_p" public_interface="in" units="J_per_mol"/>
+        <variable name="mu_i_X" public_interface="in" units="J_per_mol"/>
+        <variable name="mu_e_X" public_interface="in" units="J_per_mol"/>
+        <variable name="A_g_X" public_interface="in" units="J_per_mol"/>
+        <!--Outputs-->
+        <variable name="v_p_X" public_interface="out" units="fmol_per_sec"/>
+        <variable name="v_X" public_interface="out" units="fmol_per_sec"/>
+        <!--Intermediate variables-->
+        <variable name="A_i_Xf" units="J_per_mol"/>
+        <variable name="A_i_Xr" units="J_per_mol"/>
+        <variable name="mu_V" units="J_per_mol"/>
+        <!-- Constitutive relation of the TF:z_X, Re_GHK:X-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>mu_V</ci>
+                <apply>
+                    <times/>
+                    <ci>z_X</ci>
+                    <ci>mu_p</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_p_X</ci>
+                <apply>
+                    <times/>
+                    <ci>z_X</ci>
+                    <ci>v_X</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_X</ci>
+                <piecewise>
+                    <piece>
+                        <apply>
+                            <times/>
+                            <ci>kappa_X</ci>
+                            <apply>
+                                <minus/>
+                                <apply>
+                                    <exp/>
+                                    <apply>
+                                        <divide/>
+                                        <ci>A_i_Xf</ci>
+                                        <apply>
+                                            <times/>
+                                            <ci>R</ci>
+                                            <ci>T</ci>
+                                        </apply>
+                                    </apply>
+                                </apply>
+                                <apply>
+                                    <exp/>
+                                    <apply>
+                                        <divide/>
+                                        <ci>A_i_Xr</ci>
+                                        <apply>
+                                            <times/>
+                                            <ci>R</ci>
+                                            <ci>T</ci>
+                                        </apply>
+                                    </apply>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <eq/>
+                            <ci>mu_V</ci>
+                            <cn cellml:units="J_per_mol">0</cn>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <divide/>
+                                    <apply>
+                                        <times/>
+                                        <ci>kappa_X</ci>
+                                        <ci>mu_V</ci>
+                                    </apply>
+                                    <apply>
+                                        <times/>
+                                        <ci>R</ci>
+                                        <ci>T</ci>
+                                    </apply>
+                                </apply>
+                                <apply>
+                                    <exp/>
+                                    <apply>
+                                        <minus/>
+                                        <apply>
+                                            <divide/>
+                                            <ci>mu_V</ci>
+                                            <apply>
+                                                <times/>
+                                                <ci>R</ci>
+                                                <ci>T</ci>
+                                            </apply>
+                                        </apply>
+                                        <cn cellml:units="dimensionless">1</cn>
+                                    </apply>
+                                </apply>
+                            </apply>
+                            <apply>
+                                <minus/>
+                                <apply>
+                                    <exp/>
+                                    <apply>
+                                        <divide/>
+                                        <ci>A_i_Xf</ci>
+                                        <apply>
+                                            <times/>
+                                            <ci>R</ci>
+                                            <ci>T</ci>
+                                        </apply>
+                                    </apply>
+                                </apply>
+                                <apply>
+                                    <exp/>
+                                    <apply>
+                                        <divide/>
+                                        <ci>A_i_Xr</ci>
+                                        <apply>
+                                            <times/>
+                                            <ci>R</ci>
+                                            <ci>T</ci>
+                                        </apply>
+                                    </apply>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </otherwise>
+                </piecewise>
+            </apply>
+            <!--Conservation laws-->
+            <apply>
+                <eq/>
+                <ci>A_i_Xf</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <plus/>
+                        <ci>A_g_X</ci>
+                        <ci>mu_V</ci>
+                    </apply>
+                    <ci>mu_i_X</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>A_i_Xr</ci>
+                <apply>
+                    <minus/>
+                    <ci>A_g_X</ci>
+                    <ci>mu_e_X</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="channelX_BG">
+            <component_ref component="constants_BG"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="channelX_BG" component_2="constants_BG"/>
+        <map_variables variable_1="R" variable_2="R"/>
+    </connection>
+</model>

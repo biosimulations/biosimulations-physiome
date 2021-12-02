@@ -1,0 +1,46 @@
+gfx define tessellation default minimum_divisions "1" refinement_factors "16" circle_divisions 12;
+gfx define tessellation default_points minimum_divisions "1" refinement_factors "1" circle_divisions 12;
+
+gfx create material pleural_blue normal_mode ambient 0 0.75 1 diffuse 0 0.65 1 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 1;
+gfx create material pleural_mauve normal_mode ambient 0.8 0.7 1 diffuse 0.8 0.7 1 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 1;
+gfx create material pleural_orange normal_mode ambient 1 0.6 0.4 diffuse 1 0.6 0.3 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 1;
+gfx create material pleural_pink normal_mode ambient 1 0.53 0.57 diffuse 1 0.53 0.57 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 1;
+
+gfx read elem "mesh.exf";
+
+# define a truth function for faces on the inside of groups
+gfx define field is_exterior is_exterior
+gfx define field midbrain_pons and fields "midbrain" "pons"
+gfx define field outside_midbrain or fields is_exterior midbrain_pons
+gfx define field inside_midbrain not field outside_midbrain
+gfx modify egroup "midbrain" remove faces conditional inside_midbrain
+
+gfx define field pons_medulla and fields "pons" "medulla oblongata"
+gfx define field outside_medulla or fields is_exterior pons_medulla
+gfx define field inside_medulla not field outside_medulla
+gfx modify egroup "medulla oblongata" remove faces conditional inside_medulla
+
+gfx define field midbrain_pons_medulla or fields "midbrain_pons" "pons_medulla"
+gfx define field outside_pons or fields is_exterior midbrain_pons_medulla
+gfx define field inside_pons not field outside_pons
+gfx modify egroup "pons" remove faces conditional inside_pons
+
+
+gfx define field marker_coordinates embedded element_xi marker_location field coordinates
+
+gfx modify g_element "/" general clear;
+gfx modify g_element "/" lines domain_mesh1d subgroup brainstem coordinate coordinates exterior face all tessellation default LOCAL line line_base_size 0 select_on material default selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup midbrain coordinate coordinates face all tessellation default LOCAL select_on material pleural_blue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup pons coordinate coordinates face all tessellation default LOCAL select_on material pleural_mauve selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "medulla oblongata" coordinate coordinates face all tessellation default LOCAL select_on material pleural_pink selected_material default_selected render_shaded;
+gfx modify g_element "/" points domain_nodes subgroup marker coordinate marker_coordinates tessellation default_points LOCAL glyph sphere size "0.5*0.5*0.5" offset 0,0,0 font default label marker_name label_offset 0,0,0 label_text "  " select_on material grey50 selected_material red render_shaded;
+
+gfx create window 1 double_buffer;
+gfx modify window 1 image scene "/" filter default infinite_viewer_lighting two_sided_lighting;
+gfx modify window 1 image add_light default;
+gfx modify window 1 image add_light default_ambient;
+gfx modify window 1 layout simple ortho_axes z -y eye_spacing 0.25 width 503 height 512;
+gfx modify window 1 set current_pane 1;
+gfx modify window 1 background colour 0 0 0 texture none;
+gfx modify window 1 view parallel eye_point 70.1602 -36.2491 3.80867 interest_point 0 1.2 0.4 up_vector -0.0487582 -0.000434413 0.998811 view_angle 40 near_clipping_plane 3.98011 far_clipping_plane 161.55 relative_viewport ndc_placement -1 1 2 2 viewport_coordinates 0 0 1 1;
+gfx modify window 1 set transform_tool current_pane 1 std_view_angle 40 normal_lines no_antialias depth_of_field 0.0 fast_transparency blend_normal;

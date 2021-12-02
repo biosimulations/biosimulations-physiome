@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="gating_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="mV_ms" units_ref="mV_ms"/>
+        <units name="ms" units_ref="ms"/>
+    </import>
+    <component name="gating_Icat">
+        <variable name="v" public_interface="in" units="mV"/>
+        <variable name="x_cat_inf_act" public_interface="out" units="dimensionless"/>
+        <variable name="x_cat_inf_inact" public_interface="out" units="dimensionless"/>
+        <variable name="tau_cat_act" public_interface="out" units="ms"/>
+        <variable name="tau_cat_inact" public_interface="out" units="ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>x_cat_inf_act</ci>
+                <apply>
+                    <divide/>
+                    <cn cellml:units="dimensionless">1</cn>
+                    <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <minus/>
+                                    <apply>
+                                        <plus/>
+                                        <ci>v</ci>
+                                        <cn cellml:units="dimensionless">26.3</cn>
+                                    </apply>
+                                </apply>
+                                <cn cellml:units="dimensionless">6</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>tau_cat_act</ci>
+                <apply>
+                    <divide/>
+                    <cn cellml:units="dimensionless">1</cn>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <times/>
+                            <cn cellml:units="dimensionless">1.068</cn>
+                            <apply>
+                                <exp/>
+                                <apply>
+                                    <divide/>
+                                    <apply>
+                                        <plus/>
+                                        <ci>v</ci>
+                                        <cn cellml:units="dimensionless">26.3</cn>
+                                    </apply>
+                                    <cn cellml:units="dimensionless">30</cn>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <cn cellml:units="dimensionless">1.068</cn>
+                            <apply>
+                                <exp/>
+                                <apply>
+                                    <divide/>
+                                    <apply>
+                                        <minus/>
+                                        <apply>
+                                            <plus/>
+                                            <ci>v</ci>
+                                            <cn cellml:units="dimensionless">26.3</cn>
+                                        </apply>
+                                    </apply>
+                                    <cn cellml:units="dimensionless">30</cn>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>x_cat_inf_inact</ci>
+                <apply>
+                    <divide/>
+                    <cn cellml:units="dimensionless">1</cn>
+                    <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <plus/>
+                                    <ci>v</ci>
+                                    <cn cellml:units="dimensionless">61.7</cn>
+                                </apply>
+                                <cn cellml:units="dimensionless">5.6</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>tau_cat_inact</ci>
+                <apply>
+                    <divide/>
+                    <cn cellml:units="dimensionless">1</cn>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <times/>
+                            <cn cellml:units="dimensionless">0.0153</cn>
+                            <apply>
+                                <exp/>
+                                <apply>
+                                    <divide/>
+                                    <apply>
+                                        <minus/>
+                                        <apply>
+                                            <plus/>
+                                            <ci>v</ci>
+                                            <cn cellml:units="dimensionless">61.7</cn>
+                                        </apply>
+                                    </apply>
+                                    <cn cellml:units="dimensionless">83.3</cn>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <cn cellml:units="dimensionless">0.015</cn>
+                            <apply>
+                                <exp/>
+                                <apply>
+                                    <divide/>
+                                    <apply>
+                                        <plus/>
+                                        <ci>v</ci>
+                                        <cn cellml:units="dimensionless">61.7</cn>
+                                    </apply>
+                                    <cn cellml:units="dimensionless">15.38</cn>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

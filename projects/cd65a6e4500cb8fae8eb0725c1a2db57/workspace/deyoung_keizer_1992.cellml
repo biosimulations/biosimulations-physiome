@@ -1,0 +1,1190 @@
+<?xml version='1.0'?>
+<model name="deyoung_keizer_1992_version01" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <documentation xmlns="http://cellml.org/tmp-documentation">
+        <article>
+            <articleinfo>
+                <title>IP3-Mediated Ca2+ Release</title>
+                <author>
+                    <firstname>Catherine</firstname>
+                    <surname>Lloyd</surname>
+                    <affiliation>
+                        <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
+                    </affiliation>
+                </author>
+            </articleinfo>
+            <section id="sec_status">
+                <title>Model Status</title>
+                <para>
+     This model is able to be integrated in OpenCell but is not currently valid CellML.
+</para>
+            </section>
+            <sect1 id="sec_structure">
+                <title>Model Structure</title>
+                <para>
+Ca<superscript>2+</superscript> is a ubiquitous intracellular secondary messenger, and evidence from several different cell types suggests that an important mode of signalling is through oscillations rather than the maintenance of a steady state level.  The oscillatory behaviour of inositol 1,4,5-triphosphate (IP3)-mediated Ca<superscript>2+</superscript> release has been modelled by Gary W. De Young and Joel Keizer.  Their 1992 paper is referenced fully below.
+</para>
+                <para>
+>A single-pool inositol 1,4,5-triphosphate-receptor-based model for agonist-stimulated oscillations in Ca<superscript>2+</superscript> concentration, Gary W. De Young and Joel Keizer, 1992,
+            <emphasis>Proc. Natl. Acad. Sci. USA</emphasis>
+         , 89, 9895-9899.<ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=1329108&amp;dopt=Abstract">PubMed ID: 1329108</ulink>
+                </para>
+                <para>
+Several mechanisms have been proposed to explain oscillations of intracellular Ca<superscript>2+</superscript> concentration in cells.  In this study, De Young and Keizer investigate the idea that a biphasic response of the IP3 receptor/channel to cytosolic Ca<superscript>2+</superscript> may alone be sufficient to induce Ca<superscript>2+</superscript> oscillations.
+</para>
+                <para>
+They constructed a simplified model of the IP3 receptor/channel by assuming that three equivalent and independent subunits are involved in Ca<superscript>2+</superscript> conduction.  Each subunit has three binding sites: one for IP3, one for Ca<superscript>2+</superscript> activation, and one for Ca<superscript>2+</superscript> inactivation.  Thus each subunit may exist in eight states with transitions governed by second-order (association) and first-order (dissociation) rate constants (see <xref linkend="fig_pathway_diagram"/> below).  All three subunits must be in the state S<subscript>110</subscript> (one IP3 and one activating Ca<superscript>2+</superscript> bound) for the channel to be open and conducting.
+</para>
+                <informalfigure float="0" id="fig_pathway_diagram">
+                    <mediaobject>
+                        <imageobject>
+                            <objectinfo>
+                                <title>A schematic diagram of the kinetics of an IP3 receptor/channel subunit</title>
+                            </objectinfo>
+                            <imagedata fileref="deyoung_1992.png"/>
+                        </imageobject>
+                    </mediaobject>
+                    <caption>A schematic diagram of the kinetics of an IP<subscript>3</subscript> receptor/channel subunit.</caption>
+                </informalfigure>
+            </sect1>
+        </article>
+    </documentation>
+    <!--
+    Below, we define some additional units for association with variables and
+    constants within the model. The identifiers are fairly self-explanatory.
+  -->
+    <units name="micromolar">
+        <unit prefix="micro" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="nanomolar">
+        <unit prefix="nano" units="mole"/>
+        <unit exponent="-1" units="litre"/>
+    </units>
+    <units name="flux">
+        <unit units="micromolar"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="first_order_rate_constant">
+        <unit exponent="-1" units="second"/>
+    </units>
+    <units name="second_order_rate_constant">
+        <unit exponent="-1" units="micromolar"/>
+        <unit exponent="-1" units="second"/>
+    </units>
+    <!--
+    The "environment" component is used to declare variables that are used by
+    all or most of the other components, in this case just "time".
+  -->
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+    </component>
+    <!--
+    The following components describe all the reactants and products involved in
+    reactions. 
+  -->
+    <component cmeta:id="Ca_i" name="Ca_i">
+        <variable cmeta:id="id_000000001" name="Ca_i" public_interface="out" units="micromolar"/>
+        <variable name="J1" units="flux"/>
+        <variable name="J2" units="flux"/>
+        <variable initial_value="6.0" name="v1" units="first_order_rate_constant"/>
+        <variable initial_value="0.11" name="v2" units="first_order_rate_constant"/>
+        <variable initial_value="0.9" name="v3" units="second_order_rate_constant"/>
+        <variable initial_value="0.1" name="k3" units="micromolar"/>
+        <variable name="c1" public_interface="in" units="dimensionless"/>
+        <variable cmeta:id="id_000000002" name="Ca_ER" public_interface="in" units="micromolar"/>
+        <variable name="P_open" public_interface="in" units="dimensionless"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <math id="1" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>Ca_i</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>J1</ci>
+                    <ci>J2</ci>
+                </apply>
+            </apply>
+            <apply id="J1_calculation">
+                <eq/>
+                <ci> J1 </ci>
+                <apply>
+                    <times/>
+                    <ci> c1 </ci>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <times/>
+                            <ci> v1 </ci>
+                            <ci> P_open </ci>
+                        </apply>
+                        <ci> v2 </ci>
+                    </apply>
+                    <apply>
+                        <minus/>
+                        <ci> Ca_ER </ci>
+                        <ci> Ca_i </ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply id="J2_calculation">
+                <eq/>
+                <ci> J2 </ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci> v3 </ci>
+                        <apply>
+                            <power/>
+                            <ci> Ca_i </ci>
+                            <cn cellml:units="dimensionless"> 2.0 </cn>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <power/>
+                            <ci> Ca_i </ci>
+                            <cn cellml:units="dimensionless"> 2.0 </cn>
+                        </apply>
+                        <apply>
+                            <power/>
+                            <ci> k3 </ci>
+                            <cn cellml:units="dimensionless"> 2.0 </cn>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="Ca_ER" name="Ca_ER">
+        <variable cmeta:id="id_000000003" name="Ca_ER" public_interface="out" units="micromolar"/>
+        <variable initial_value="2.0" name="c0" units="micromolar"/>
+        <variable name="c1" public_interface="in" units="dimensionless"/>
+        <variable name="Ca_i" public_interface="in" units="micromolar"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <math id="2" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="Ca_ER_calculation">
+                <eq/>
+                <ci> Ca_ER </ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci> c0 </ci>
+                        <ci> Ca_i </ci>
+                    </apply>
+                    <ci> c1 </ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="IP3" name="IP3">
+        <variable cmeta:id="id_000000004" name="IP3" public_interface="out" units="micromolar"/>
+        <variable initial_value="1.1" name="k4" units="micromolar"/>
+        <variable initial_value="0.5" name="alpha" units="dimensionless"/>
+        <variable initial_value="1.0" name="Ir" units="flux"/>
+        <variable initial_value="1.2" name="v4" units="first_order_rate_constant"/>
+        <variable name="Ca_i" public_interface="in" units="micromolar"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <math id="3" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>IP3</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci> v4 </ci>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <plus/>
+                                <ci> Ca_i </ci>
+                                <apply>
+                                    <times/>
+                                    <apply>
+                                        <minus/>
+                                        <cn cellml:units="dimensionless"> 1.0 </cn>
+                                        <ci> alpha </ci>
+                                    </apply>
+                                    <ci> k4 </ci>
+                                </apply>
+                            </apply>
+                            <apply>
+                                <plus/>
+                                <ci> Ca_i </ci>
+                                <ci> k4 </ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci> Ir </ci>
+                        <ci> IP3 </ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!-- Not an essential part of the model so commented out 
+
+  <component name="IP3_receptor" cmeta:id="IP3_receptor">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="IP3_receptor">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The IP3 receptor/Ca2+ channel is thought to be composed of four 
+            identical subunits (S).  Of the four conductance states, the third 
+            is the most frequently achieved.  De Young and Keizer construct a 
+            simplified model of the IP3 receptor/channel by assuming three 
+            equivalent and independent subunits are involved in conduction.  
+            Each subunit has three binding sites (Siii).  The first binds IP3, 
+            the second is the Ca2+ activation site and the third is the Ca2+ 
+            inactivation site.  The fraction of the subunits in the state Siii 
+            is denoted by xiii.
+          </rdf:value>
+        </cmeta:comment>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">IP3_receptor</dc:title>
+      </rdf:Description>
+    </rdf:RDF>
+    <variable name="S_000" units="micromolar"/>
+    <variable name="S_100" units="micromolar"/>
+    <variable name="S_010" units="micromolar"/>
+    <variable name="S_001" units="micromolar"/>
+    <variable name="S_110" units="micromolar"/>
+    <variable name="S_011" units="micromolar"/>
+    <variable name="S_101" units="micromolar"/>
+    <variable name="S_111" units="micromolar"/>
+
+    <variable name="a1" public_interface="in" units="second_order_rate_constant"/>
+    <variable name="a2" public_interface="in" units="second_order_rate_constant"/>
+    <variable name="a3" public_interface="in" units="second_order_rate_constant"/>
+    <variable name="a4" public_interface="in" units="second_order_rate_constant"/>
+    <variable name="a5" public_interface="in" units="second_order_rate_constant"/>
+    <variable name="b1" public_interface="in" units="first_order_rate_constant"/>
+    <variable name="b2" public_interface="in" units="first_order_rate_constant"/>
+    <variable name="b3" public_interface="in" units="first_order_rate_constant"/>
+    <variable name="b4" public_interface="in" units="first_order_rate_constant"/>
+    <variable name="b5" public_interface="in" units="first_order_rate_constant"/>
+    <variable name="time" public_interface="in" units="second"/>
+    <variable name="Ca_i" public_interface="in" units="micromolar"/>
+    <variable name="IP3" public_interface="in" units="micromolar"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="4" cmeta:id="4">
+      <apply><eq/>
+        <ci> S_000 </ci>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a5 </ci>
+              <ci> S_000 </ci>
+              <ci> Ca_i </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b5 </ci>
+            <ci> S_010 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a1 </ci>
+              <ci> S_000 </ci>
+              <ci> IP3 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b1 </ci>
+            <ci> S_100 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a4 </ci>
+              <ci> S_000 </ci>
+              <ci> Ca_i </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b4 </ci>
+            <ci> S_001 </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <ci> S_001 </ci>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a5 </ci>
+              <ci> S_001 </ci>
+              <ci> Ca_i </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b5 </ci>
+            <ci> S_011 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a3 </ci>
+              <ci> S_001 </ci>
+              <ci> IP3 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b3 </ci>
+            <ci> S_101 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b4 </ci>
+              <ci> S_001 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a4 </ci>
+            <ci> S_000 </ci>
+            <ci> Ca_i </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <ci> S_100 </ci>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a5 </ci>
+              <ci> S_100 </ci>
+              <ci> Ca_i </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b5 </ci>
+            <ci> S_110 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b1 </ci>
+              <ci> S_100 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a1 </ci>
+            <ci> S_000 </ci>
+            <ci> IP3 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a2 </ci>
+              <ci> S_100 </ci>
+              <ci> Ca_i </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b2 </ci>
+            <ci> S_101 </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <ci> S_101 </ci>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a5 </ci>
+              <ci> S_101 </ci>
+              <ci> Ca_i </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b5 </ci>
+            <ci> S_111 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b3 </ci>
+              <ci> S_101 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a3 </ci>
+            <ci> S_001 </ci>
+            <ci> IP3 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b2 </ci>
+              <ci> S_101 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a2 </ci>
+            <ci> S_100 </ci>
+            <ci> Ca_i </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <ci> S_010 </ci>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b5 </ci>
+              <ci> S_010 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a5 </ci>
+            <ci> S_000 </ci>
+            <ci> Ca_i </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a1 </ci>
+              <ci> S_000 </ci>
+              <ci> IP3 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b1 </ci>
+            <ci> S_100 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a4 </ci>
+              <ci> S_000 </ci>
+              <ci> Ca_i </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b4 </ci>
+            <ci> S_001 </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <ci> S_011 </ci>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b5 </ci>
+              <ci> S_011 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a5 </ci>
+            <ci> S_001 </ci>
+            <ci> Ca_i </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a3 </ci>
+              <ci> S_001 </ci>
+              <ci> IP3 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b3 </ci>
+            <ci> S_101 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b4 </ci>
+              <ci> S_001 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a4 </ci>
+            <ci> S_000 </ci>
+            <ci> Ca_i </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <ci> S_110 </ci>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b5 </ci>
+              <ci> S_110 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a5 </ci>
+            <ci> S_100 </ci>
+            <ci> Ca_i </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b1 </ci>
+              <ci> S_100 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a1 </ci>
+            <ci> S_000 </ci>
+            <ci> IP3 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> a2 </ci>
+              <ci> S_100 </ci>
+              <ci> Ca_i </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> b2 </ci>
+            <ci> S_101 </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <ci> S_111 </ci>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b5 </ci>
+              <ci> S_111 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a5 </ci>
+            <ci> S_101 </ci>
+            <ci> Ca_i </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b3 </ci>
+              <ci> S_101 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a3 </ci>
+            <ci> S_001 </ci>
+            <ci> IP3 </ci>
+          </apply>
+          <apply><minus/>
+            <apply><times/>
+              <ci> b2 </ci>
+              <ci> S_101 </ci>
+            </apply>
+          </apply>
+          <apply><times/>
+            <ci> a2 </ci>
+            <ci> S_100 </ci>
+            <ci> Ca_i </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>  -->
+    <component cmeta:id="id_000000008" name="receptor_dissociation_constants">
+        <variable initial_value="0.13" name="d1" public_interface="out" units="micromolar"/>
+        <variable initial_value="1.049" name="d2" public_interface="out" units="micromolar"/>
+        <variable initial_value="943.4" name="d3" public_interface="out" units="nanomolar"/>
+        <variable name="d4" public_interface="out" units="nanomolar"/>
+        <variable initial_value="82.34" name="d5" public_interface="out" units="nanomolar"/>
+        <variable name="a5" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="b5" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="a2" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="b2" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="a3" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="b3" public_interface="in" units="first_order_rate_constant"/>
+        <variable name="a4" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="b4" public_interface="in" units="first_order_rate_constant"/>
+        <variable cmeta:id="id_000000007" initial_value="15.0" name="IP3_cold" units="nanomolar"/>
+        <variable initial_value="" name="K_d2" units="nanomolar"/>
+        <variable initial_value="" name="K_d1" units="nanomolar"/>
+        <math id="5" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="d1_calculation">
+                <eq/>
+                <ci> d1 </ci>
+                <apply>
+                    <minus/>
+                    <ci> K_d1 </ci>
+                    <ci> IP3_cold </ci>
+                </apply>
+            </apply>
+        </math>
+        <math id="5A" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="d2_calculation">
+                <eq/>
+                <ci>d2</ci>
+                <apply>
+                    <divide/>
+                    <ci>b2</ci>
+                    <ci>a2</ci>
+                </apply>
+            </apply>
+        </math>
+        <math id="5B" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="d3_calculation">
+                <eq/>
+                <ci>d3</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <apply>
+                            <minus/>
+                            <ci>K_d2</ci>
+                            <ci>IP3_cold</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>d2</ci>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>d1</ci>
+                        <ci>d2</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+        <math id="5C" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="d4_calculation">
+                <eq/>
+                <ci>d4</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <ci>d1</ci>
+                        <ci>d2</ci>
+                    </apply>
+                    <ci>d3</ci>
+                </apply>
+            </apply>
+        </math>
+        <math id="5D" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="d5_calculation">
+                <eq/>
+                <ci>d5</ci>
+                <apply>
+                    <divide/>
+                    <ci>b5</ci>
+                    <ci>a5</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component cmeta:id="probability_of_an_open_IP3_receptor_channel" name="probability_of_an_open_IP3_receptor_channel">
+        <variable name="P_open" public_interface="out" units="dimensionless"/>
+        <variable cmeta:id="id_000000006" name="Ca_i" public_interface="in" units="micromolar"/>
+        <variable cmeta:id="id_000000005" name="IP3" public_interface="in" units="micromolar"/>
+        <variable name="d1" public_interface="in" units="micromolar"/>
+        <variable name="d2" public_interface="in" units="micromolar"/>
+        <variable name="d3" public_interface="in" units="nanomolar"/>
+        <variable name="d5" public_interface="in" units="nanomolar"/>
+        <math id="6" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="P_open_calculation">
+                <eq/>
+                <ci> P_open </ci>
+                <apply>
+                    <power/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci> Ca_i </ci>
+                            <ci> IP3 </ci>
+                            <ci> d2 </ci>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <apply>
+                                <plus/>
+                                <apply>
+                                    <times/>
+                                    <ci> Ca_i </ci>
+                                    <ci> IP3 </ci>
+                                </apply>
+                                <apply>
+                                    <times/>
+                                    <ci> IP3 </ci>
+                                    <ci> d2 </ci>
+                                </apply>
+                                <apply>
+                                    <times/>
+                                    <ci> d1 </ci>
+                                    <ci> d2 </ci>
+                                </apply>
+                                <apply>
+                                    <times/>
+                                    <ci> Ca_i </ci>
+                                    <ci> d3 </ci>
+                                </apply>
+                            </apply>
+                            <apply>
+                                <plus/>
+                                <ci> Ca_i </ci>
+                                <ci> d5 </ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <cn cellml:units="dimensionless"> 3.0 </cn>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="x_000">
+        <variable name="x_000" public_interface="out" units="micromolar"/>
+        <variable name="V1" public_interface="in" units="flux"/>
+        <variable name="V3" public_interface="in" units="flux"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <math id="7" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="x_000_diff_eq">
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>x_000</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci> V1 </ci>
+                    </apply>
+                    <ci> V3 </ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="x_001">
+        <variable name="x_001" public_interface="out" units="micromolar"/>
+        <variable name="V1" public_interface="in" units="flux"/>
+        <variable name="V4" public_interface="in" units="flux"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <math id="8" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="x_001_diff_eq">
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>x_001</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci> V1 </ci>
+                    <ci> V4 </ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="x_010">
+        <variable name="x_010" public_interface="out" units="micromolar"/>
+        <variable name="V2" public_interface="in" units="flux"/>
+        <variable name="V3" public_interface="in" units="flux"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <math id="9" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="x_010_diff_eq">
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>x_010</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci> V3 </ci>
+                    <ci> V2 </ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="x_011">
+        <variable name="x_011" public_interface="out" units="micromolar"/>
+        <variable name="x_000" public_interface="in" units="micromolar"/>
+        <variable name="x_001" public_interface="in" units="micromolar"/>
+        <variable name="x_010" public_interface="in" units="micromolar"/>
+        <math id="8a" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="x_011_eq">
+                <eq/>
+                <ci>x_011</ci>
+                <apply>
+                    <minus/>
+                    <cn cellml:units="dimensionless"> 1.0 </cn>
+                    <apply>
+                        <plus/>
+                        <ci> x_000 </ci>
+                        <ci> x_001 </ci>
+                        <ci> x_010 </ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="fluxes">
+        <variable name="V1" public_interface="out" units="flux"/>
+        <variable name="V2" public_interface="out" units="flux"/>
+        <variable name="V3" public_interface="out" units="flux"/>
+        <variable name="V4" public_interface="out" units="flux"/>
+        <variable name="x_000" public_interface="in" units="micromolar"/>
+        <variable name="x_001" public_interface="in" units="micromolar"/>
+        <variable name="x_011" public_interface="in" units="micromolar"/>
+        <variable name="x_010" public_interface="in" units="micromolar"/>
+        <variable name="Ca_i" public_interface="in" units="micromolar"/>
+        <variable name="a4" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="d4" public_interface="in" units="nanomolar"/>
+        <variable name="a5" public_interface="in" units="second_order_rate_constant"/>
+        <variable name="d5" public_interface="in" units="nanomolar"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <math id="10" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="V1_calculation">
+                <eq/>
+                <ci> V1 </ci>
+                <apply>
+                    <times/>
+                    <ci> a4 </ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <times/>
+                            <ci> Ca_i </ci>
+                            <ci> x_000 </ci>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <ci> d4 </ci>
+                            <ci> x_001 </ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply id="V2_calculation">
+                <eq/>
+                <ci> V2 </ci>
+                <apply>
+                    <times/>
+                    <ci> a4 </ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <times/>
+                            <ci> Ca_i </ci>
+                            <ci> x_010 </ci>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <ci> d4 </ci>
+                            <ci> x_011 </ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply id="V3_calculation">
+                <eq/>
+                <ci> V3 </ci>
+                <apply>
+                    <times/>
+                    <ci> a5 </ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <times/>
+                            <ci> Ca_i </ci>
+                            <ci> x_000 </ci>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <ci> d5 </ci>
+                            <ci> x_010 </ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply id="V4_calculation">
+                <eq/>
+                <ci> V4 </ci>
+                <apply>
+                    <times/>
+                    <ci> a5 </ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <times/>
+                            <ci> Ca_i </ci>
+                            <ci> x_001 </ci>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <ci> d5 </ci>
+                            <ci> x_011 </ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="constants">
+        <variable initial_value="400.0" name="a1" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="" name="b1" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.2" name="a2" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="" name="b2" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="400.0" name="a3" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="" name="b3" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.2" name="a4" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="" name="b4" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="20.0" name="a5" public_interface="out" units="second_order_rate_constant"/>
+        <variable initial_value="" name="b5" public_interface="out" units="first_order_rate_constant"/>
+        <variable initial_value="0.185" name="c1" public_interface="out" units="dimensionless"/>
+        <variable name="d1" public_interface="in" units="micromolar"/>
+        <variable name="d3" public_interface="in" units="nanomolar"/>
+        <variable name="d4" public_interface="in" units="nanomolar"/>
+        <math id="11" xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="b1_calculation">
+                <eq/>
+                <ci> b1 </ci>
+                <apply>
+                    <times/>
+                    <ci> d1 </ci>
+                    <ci> a1 </ci>
+                </apply>
+            </apply>
+            <apply id="b3_calculation">
+                <eq/>
+                <ci> b3 </ci>
+                <apply>
+                    <times/>
+                    <ci> d3 </ci>
+                    <ci> a3 </ci>
+                </apply>
+            </apply>
+            <apply id="b4_calculation">
+                <eq/>
+                <ci> b4 </ci>
+                <apply>
+                    <times/>
+                    <ci> d4 </ci>
+                    <ci> a4 </ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!--
+    "Time" is passed from the "environment" component to most other components.
+  -->
+    <connection>
+        <map_components component_1="Ca_i" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="Ca_ER" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="IP3" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_000" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_001" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_010" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="fluxes" component_2="environment"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="Ca_i" component_2="Ca_ER"/>
+        <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+        <map_variables variable_1="Ca_ER" variable_2="Ca_ER"/>
+    </connection>
+    <connection>
+        <map_components component_1="Ca_i" component_2="probability_of_an_open_IP3_receptor_channel"/>
+        <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+        <map_variables variable_1="P_open" variable_2="P_open"/>
+    </connection>
+    <connection>
+        <map_components component_1="Ca_i" component_2="constants"/>
+        <map_variables variable_1="c1" variable_2="c1"/>
+    </connection>
+    <connection>
+        <map_components component_1="Ca_ER" component_2="constants"/>
+        <map_variables variable_1="c1" variable_2="c1"/>
+    </connection>
+    <connection>
+        <map_components component_1="IP3" component_2="Ca_i"/>
+        <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+    </connection>
+    <connection>
+        <map_components component_1="probability_of_an_open_IP3_receptor_channel" component_2="IP3"/>
+        <map_variables variable_1="IP3" variable_2="IP3"/>
+    </connection>
+    <connection>
+        <map_components component_1="receptor_dissociation_constants" component_2="constants"/>
+        <map_variables variable_1="a2" variable_2="a2"/>
+        <map_variables variable_1="a3" variable_2="a3"/>
+        <map_variables variable_1="a4" variable_2="a4"/>
+        <map_variables variable_1="a5" variable_2="a5"/>
+        <map_variables variable_1="b2" variable_2="b2"/>
+        <map_variables variable_1="b3" variable_2="b3"/>
+        <map_variables variable_1="b4" variable_2="b4"/>
+        <map_variables variable_1="b5" variable_2="b5"/>
+        <map_variables variable_1="d1" variable_2="d1"/>
+        <map_variables variable_1="d3" variable_2="d3"/>
+        <map_variables variable_1="d4" variable_2="d4"/>
+    </connection>
+    <connection>
+        <map_components component_1="receptor_dissociation_constants" component_2="probability_of_an_open_IP3_receptor_channel"/>
+        <map_variables variable_1="d1" variable_2="d1"/>
+        <map_variables variable_1="d2" variable_2="d2"/>
+        <map_variables variable_1="d3" variable_2="d3"/>
+        <map_variables variable_1="d5" variable_2="d5"/>
+    </connection>
+    <connection>
+        <map_components component_1="receptor_dissociation_constants" component_2="fluxes"/>
+        <map_variables variable_1="d4" variable_2="d4"/>
+        <map_variables variable_1="d5" variable_2="d5"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_000" component_2="x_011"/>
+        <map_variables variable_1="x_000" variable_2="x_000"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_001" component_2="x_011"/>
+        <map_variables variable_1="x_001" variable_2="x_001"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_010" component_2="x_011"/>
+        <map_variables variable_1="x_010" variable_2="x_010"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_000" component_2="fluxes"/>
+        <map_variables variable_1="x_000" variable_2="x_000"/>
+        <map_variables variable_1="V1" variable_2="V1"/>
+        <map_variables variable_1="V3" variable_2="V3"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_001" component_2="fluxes"/>
+        <map_variables variable_1="x_001" variable_2="x_001"/>
+        <map_variables variable_1="V1" variable_2="V1"/>
+        <map_variables variable_1="V4" variable_2="V4"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_010" component_2="fluxes"/>
+        <map_variables variable_1="x_010" variable_2="x_010"/>
+        <map_variables variable_1="V2" variable_2="V2"/>
+        <map_variables variable_1="V3" variable_2="V3"/>
+    </connection>
+    <connection>
+        <map_components component_1="x_011" component_2="fluxes"/>
+        <map_variables variable_1="x_011" variable_2="x_011"/>
+    </connection>
+    <connection>
+        <map_components component_1="fluxes" component_2="Ca_i"/>
+        <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+    </connection>
+    <connection>
+        <map_components component_1="fluxes" component_2="constants"/>
+        <map_variables variable_1="a4" variable_2="a4"/>
+        <map_variables variable_1="a5" variable_2="a5"/>
+    </connection>
+    <rdf:RDF>
+        <rdf:Description rdf:about="#Ca_i">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000001">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000002">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/>
+            </isVersionOf>
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#Ca_ER">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/>
+            </isVersionOf>
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000003">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/>
+            </isVersionOf>
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#IP3">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000004">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#probability_of_an_open_IP3_receptor_channel">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000005">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000006">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000007">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/>
+            </isVersionOf>
+        </rdf:Description>
+        <rdf:Description rdf:about="#id_000000008">
+            <isVersionOf xmlns="http://biomodels.net/biology-qualifiers/">
+                <rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/>
+            </isVersionOf>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

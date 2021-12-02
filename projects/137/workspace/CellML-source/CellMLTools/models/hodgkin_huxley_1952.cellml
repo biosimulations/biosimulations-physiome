@@ -1,0 +1,2002 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+This CellML file was generated on 14/06/2005 at 13:34:14 using:
+
+COR (0.9.31.69)
+Copyright 2002-2005 Oxford Cardiac Electrophysiology Group
+http://COR.physiol.ox.ac.uk/ - COR@physiol.ox.ac.uk
+
+CellML 1.0 was used to generate this cellular model
+http://www.CellML.org/
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:xpp="http://www.physiome.org.nz/xml_pretty_printer" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="cellml" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" cmeta:id="hodgkin_huxley_squid_axon_1952" name="hodgkin_huxley_squid_axon_1952">
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Hodgkin Huxley Squid Axon Model 1952</title>
+  <authorgroup>
+    <author>
+      <firstname>Warren</firstname>
+
+      <surname>Hedley</surname>
+      <affiliation>
+        <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
+      </affiliation>
+    </author>
+    <author>
+      <firstname>Geoff</firstname>
+
+      <surname>Carden</surname>
+      <affiliation>
+        <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
+      </affiliation>
+    </author>
+    <author>
+      <firstname>Autumn</firstname>
+
+      <surname>Cuellar</surname>
+      <affiliation>
+        <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
+      </affiliation>
+    </author>
+    <collab>
+      <collabname>Greg Sands</collabname>
+
+      <affiliation>
+        <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
+      </affiliation>
+    </collab>
+    <collab>
+      <collabname>David Nickerson</collabname>
+      <affiliation>
+        <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
+
+      </affiliation>
+    </collab>
+  </authorgroup>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+            This version has had a stimulus protocol component added to allow the model to simulate multiple action potentials, has been unit checked and curated and is known to run in COR and PCEnv.
+          </para>
+
+  </section>
+  <sect1 id="sec_introduction">
+<title>Introduction</title>
+
+<para>
+In a series of papers published in 1952, A.L. Hodgkin and A.F. Huxley presented the results of a series of experiments in which they investigated the flow of electric current through the surface membrane of the giant nerve fibre of a squid. In the summary paper of the Hodgkin and Huxley model, the authors developed a mathematical description of the behaviour of the membrane based upon these experiments, which accounts for the conduction and excitation of the fibre. The form of this description has been used as the basis for almost all other ionic current models of excitable tissues, including Purkinje fibres and cardiac atrial and ventricular muscle.
+</para>
+
+<para>
+The summary paper is:
+</para>
+
+<para>
+A Quantitative Description of Membrane Current and its Application to Conduction and Excitation in Nerve, A. L. Hodgkin and A. F. Huxley, 1952, <emphasis>J. Physiol</emphasis>, 117, 500-544
+
+</para>
+
+</sect1>
+  <sect1 id="sec_status_of_the_model">
+<title>Status of the Model and Documentation</title>
+
+<para>
+The CellML description of the Hodgkin-Huxley model (which can be downloaded in various formats as described in <xref linkend="sec_download_this_model"/>) and documentation were revised and updated in September 2003 to conform to the 10 August 2001 version of the <ulink url="${HTML_SPEC_20010810_OVERVIEW}">CellML 1.0 Specification</ulink> and the 16 January 2002 version of the <ulink url="${HTML_METADATA_20020116_OVERVIEW}">CellML Metadata 1.0 Specification</ulink>.
+</para>
+
+<para>
+The model description itself is intended to demonstrate the best practices for the definition of electrophysiological models using CellML, as intended by the authors of the CellML Specification.
+</para>
+
+<para>
+The metadata included in the CellML description should not be regarded as a demonstration of best practice for metadata. It is neither complete nor final, as the version of the CellML Metadata Specification on which it is based has a status of <emphasis>Research Summary</emphasis>.
+</para>
+
+</sect1>
+  <sect1 id="sec_hodgkin_huxley_model_overview">
+<title>Hodgkin Huxley Model Overview</title>
+
+<para>
+The current flow across the cell membrane depends on the capacitance of the membrane and the resistance of the ion channels. The total ionic current is represented by the sum of the sodium current, potassium current and a small leakage current. The leakage current represents the collective contribution of ions such as chloride and bicarbonate. Hodgkin and Huxley developed an electrical circuit diagram to represent the ion flows in their model. A modified version of this diagram is shown in <xref linkend="fig_circuit_diagram"/>, where the currents have been reversed to be consistent with the convention proposed by Noble, commonly adopted for cardiac muscle. 
+</para>
+
+<informalfigure float="0" id="fig_circuit_diagram">
+<mediaobject>
+  <imageobject>
+    <objectinfo>
+      <title>Electrical circuit describing the current across the cell membrane</title>
+    </objectinfo>
+    <imagedata fileref="hodgkin_1952.png"/>
+  </imageobject>
+</mediaobject>
+<caption>A schematic cell diagram describing the current flows across the cell membrane that are captured in the Hodgkin Huxley model.</caption>
+</informalfigure>
+
+<para>
+The current is represented mathematically as the sum of the resistive and capacitive components. The capacitive component <emphasis>Icap</emphasis> is derived from Ohm's law, where <emphasis>Cm</emphasis> and <emphasis>Vm</emphasis> denote the membrane capacitance and trans-membrane voltage, respectively.
+</para>
+
+<informalequation id="eqn_capacitive_current">
+          <cwml_equation>
+I_{cap} = C_m \cdot \frac{d V_m}{d t}
+</cwml_equation>
+        </informalequation>
+
+<para>
+The resistive components are characterised in the original model as conductances (<emphasis>g</emphasis>), the reciprocals of the resistances. The currents are dependent on the transmembrane voltage (<emphasis>Vm</emphasis>) and the equilibrium potentials (<emphasis>E</emphasis>) of the individual ions. There are two forces driving the ion flux: the chemical gradient of the ions and the electrical gradient resulting from the different concentrations of charged particles on each side of the membrane. The equilibrium potential or reversal potential arises from equating the electrical and chemical potentials. The difference between the equilibrium potential for an ion and the transmembrane potential is the driving force for the ionic flow. The resistive currents can therefore be written:
+
+</para>
+
+<informalequation id="eqn_resistive_current">
+          <cwml_equation>
+I_{ion} = g_{ion} \cdot (V_m - E_{ion})
+</cwml_equation>
+        </informalequation>
+
+<para>
+The experiments suggested that <emphasis>gNa</emphasis> and <emphasis>gK</emphasis> were time dependent but the conductances of the other ions could be considered to be constant. Depolarisation of the membrane causes a fast transient increase in sodium conductance and a gradual and sustained increase in potassium conductance. The time dependence is represented by a gate variable or activation coefficient <emphasis>x</emphasis> which indicates the probability of a gate in the channel being open. The conductance for a time dependent channel can thus be written in terms of its gate variable <emphasis>x</emphasis> (<emphasis>0 &lt;= x &lt;= 1</emphasis>) and a maximum conductance <emphasis>gion,max</emphasis> as follows:
+
+</para>
+
+<informalequation id="eqn_resistive_current_in_terms_of_gate_variable">
+          <cwml_equation>
+g_{ion} = g_{ion,max} \cdot x
+</cwml_equation>
+        </informalequation>
+
+<para>
+where <emphasis>x</emphasis> satisfies the differential equation: 
+</para>
+
+<informalequation id="eqn_gate_variable_equation">
+          <cwml_equation>
+\frac{d x}{d t} = \alpha_x \cdot (1 - x) - \beta_x \cdot x
+</cwml_equation>
+        </informalequation>
+
+<para>
+<emphasis/> and <emphasis/> are rate coefficients which are a non-linear functions of voltage and have the units of 1/time.
+</para>
+<!-- 16/07/2001 - WJH - This stuff is fairly irrelevant
+<paragraph>
+<cwml_equation_reference href="gate_variable_equation" /> can be rewritten as:
+</paragraph>
+
+<cwml_equation name="">
+\frac{d n}{d t} = -\frac{n - n_{\inf}}{\tau_x}
+</cwml_equation>
+
+<paragraph>
+where
+</paragraph>
+
+<cwml_equation name="">
+\tau_x = \frac{1}{\alpha_x + \beta_x}
+</cwml_equation>
+
+<cwml_equation name="">
+x_{\inf} = \frac{\alpha_x}{\alpha_x + \beta_x}
+</cwml_equation>
+
+<paragraph>
+When <cwml_variable>V<sub>m</sub></cwml_variable> is held constant the solution to the equation becomes:
+</paragraph>
+
+<cwml_equation name="">
+x(t) = x_{\inf} - (x_{\inf} - x_0)exp(\frac{-t}{tau_x})
+</cwml_equation>
+
+<paragraph>
+satisfying the boundary conditions <cwml_variable>x = x<sub>0</sub></cwml_variable> then t = 0. An example of this type of channel is in the potassium channel responsible for the repolarisation phase after the action potential
+</paragraph>
+-->
+
+<para>
+The activation coefficient can be raised to the power of <emphasis>k</emphasis> if there are <emphasis>k</emphasis> gates in series in one ion channel. Channels can also be given more then one gate variable to describe activation-inactivation behaviour. This gives current equations of the form:
+</para>
+
+<informalequation id="eqn_activation_inactivation_current">
+          <cwml_equation>
+I_{ion} = g_{ion,max} \cdot x \cdot y \cdot (V_m - E_{ion})
+</cwml_equation>
+        </informalequation>
+
+<para>
+where <emphasis>x</emphasis> is the activation variable and <emphasis>y</emphasis> is the inactivation variable. The rate coefficients for the inactivation variable <emphasis/> and <emphasis/> are in general much slower than the rate coefficients for the activation variable. An example of this type of channel is the fast sodium channel involved in the depolarisation of the membrane to generate the upstroke of the action potential.
+</para>
+
+<sect2 id="sec_sodium_conductance">
+<title>Sodium conductance</title>
+
+<para>
+The sodium conductance control theory that Hodgkin and Huxley chose to adopt involved two control particles. The first moves out of an inhibitory site when the transmembrane potential reaches a threshold allowing sodium ions to flow though the channel. A second inhibitory particle moves slowly to occupy the inhibitory site and stop the ion flow. These are represented by two variables each governed by a first order differential equation. The conductance is then expressed:
+</para>
+
+<informalequation id="eqn_sodium_conductance">
+            <cwml_equation>
+g_{Na} = g_{Na,max} \cdot m^3 \cdot h
+</cwml_equation>
+          </informalequation>
+
+<para>
+
+where <emphasis>m</emphasis> is an activation coefficient, <emphasis>h</emphasis> is an inactivation coefficient and <emphasis>gNa,max</emphasis> is the maximum sodium conductance. Both activation and inactivation variables are governed by the differential equations
+</para>
+
+<informalequation id="eqn_dm_dt">
+            <cwml_equation>
+\frac{d m}{d t} = \alpha_m \cdot (1 - m) - \beta_m \cdot m
+</cwml_equation>
+
+          </informalequation>
+
+<informalequation id="eqn_dh_dt">
+            <cwml_equation>
+\frac{d h}{d t} = \alpha_h \cdot (1 - h) - \beta_h \cdot h
+</cwml_equation>
+          </informalequation>
+
+<para>
+where the rate constants <emphasis/> and <emphasis/> are functions of voltage but not of time. Expressions for rate constants were found by fitting curves to experimental data from nerve fibres to give:
+
+</para>
+
+<informalequation id="eqn_alpha_m">
+            <cwml_equation>
+\alpha_m = \frac{0.1 \cdot (V_m + 25.0)}{exp\left(0.1 \cdot (V_m + 25.0)\right) - 1.0}
+</cwml_equation>
+          </informalequation>
+
+<informalequation id="eqn_beta_m">
+            <cwml_equation>
+\beta_m = 4 \cdot exp\left(\frac{V_m}{18.0}\right)
+</cwml_equation>
+          </informalequation>
+
+<informalequation id="eqn_alpha_h">
+            <cwml_equation>
+\alpha_h = 0.07 \cdot exp\left(\frac{V_m}{20.0}\right)
+</cwml_equation>
+          </informalequation>
+
+<informalequation id="eqn_beta_h">
+            <cwml_equation>
+\beta_h = \frac{1.0}{exp\left(0.1 \cdot (V_m + 30.0)\right) + 1.0}
+</cwml_equation>
+          </informalequation>
+
+<para>
+The total sodium current is then given by
+</para>
+
+<informalequation id="eqn_sodium_current">
+            <cwml_equation>
+\begin{split}
+i_{Na} &amp;= g_{Na} \cdot (V_m - E_{Na}) \\
+   &amp;= g_{Na,max} \cdot m^3 \cdot h \cdot (V_m - E_{Na})
+\end{split}
+</cwml_equation>
+          </informalequation>
+
+<para>
+where <emphasis>ENa</emphasis> is the reversal potential for the sodium channel.
+
+</para>
+
+</sect2>
+
+<sect2 id="sec_potassium_conductance">
+<title>Potassium conductance</title>
+
+<para>
+The potassium conductance can be modelled similarly, but there are only activation type channels for potassium. The equations are:
+</para>
+
+<informalequation id="eqn_potassium_conductance">
+            <cwml_equation>
+g_K = g_{K,max} \cdot n^4
+</cwml_equation>
+
+          </informalequation>
+
+<informalequation id="eqn_dn_dt">
+            <cwml_equation>
+\frac{d n}{d t} = \alpha_n \cdot (1 - n) - \beta_n \cdot n
+</cwml_equation>
+          </informalequation>
+
+<informalequation id="eqn_alpha_n">
+            <cwml_equation>
+\alpha_n = \frac{0.01 \cdot (V_m + 10.0)}{exp(0.1 \cdot (V_m + 10.0)) - 1.0}
+</cwml_equation>
+          </informalequation>
+
+<informalequation id="eqn_beta_n">
+            <cwml_equation>
+\beta_n = 0.125 \cdot exp\left(\frac{V_m}{80.0}\right)
+</cwml_equation>
+          </informalequation>
+
+<para>
+where <emphasis>n</emphasis> is the activation coefficient for the potassium channel, <emphasis>gK,max</emphasis> is the maximum conductance of potassium and <emphasis/> and <emphasis/> are the voltage dependent rate constants.
+
+</para>
+
+<para>
+The total potassium current is then given by
+</para>
+
+<informalequation id="eqn_potassium_current">
+            <cwml_equation>
+\begin{split}
+i_{K} &amp;= g_{K} \cdot (V_m - E_{K}) \\
+   &amp;= g_{K,max} \cdot n^4(V_m - E_{K})
+\end{split}
+</cwml_equation>
+          </informalequation>
+
+<para>
+
+where <emphasis>EK</emphasis> is the reversal potential for the potassium channel.
+</para>
+
+</sect2>
+
+<sect2 id="sec_leakage_current">
+<title>Leakage current</title>
+
+<para>
+The full Hodgkin Huxley model also included the leakage current to maintain the constant resting membrane potential in the absence of any depolarisation. The leakage current is given by
+</para>
+
+<informalequation id="eqn_leakage_current">
+
+            <cwml_equation>
+i_L = g_L \cdot (V_m - E_L)
+</cwml_equation>
+          </informalequation>
+
+<para>
+where <emphasis>EL</emphasis> is the reversal potential for the leakage current.
+</para>
+
+</sect2>
+
+<sect2 id="sec_full_hodgkin_huxley_model">
+
+<title>Putting it all together</title>
+
+<para>
+The full Hodgkin Huxley membrane current model is assembled by now combining the capacitive and resistive currents across the membrane into a single equation.
+</para>
+
+<informalequation id="eqn_full_model">
+            <cwml_equation>
+I = C_m \cdot \frac{d V_m}{d t} + i_{Na} + i_{K} + i_{L}
+</cwml_equation>
+          </informalequation>
+
+<para>
+All the equilibrium potentials are related to the resting membrane potential <emphasis>ER</emphasis>. The set of values used in the model are given in the table <xref linkend="table_constant_values"/>.
+
+</para>
+
+<informaltable id="table_constant_values">
+            <tgroup cols="3">
+              <thead>
+                <row>
+    <entry>Constant</entry>
+    <entry>Units</entry>
+    <entry>Value</entry>
+
+  </row>
+              </thead>
+              <tbody>
+  <thead>
+                  <row>
+    <entry>Constant</entry>
+    <entry>Units</entry>
+    <entry>Value</entry>
+
+  </row>
+                </thead>
+  <row>
+    <entry>
+                    <emphasis>Cm</emphasis>
+                  </entry>
+    <entry>
+                    <superscript>-2</superscript>
+
+                  </entry>
+    <entry>1.0</entry>
+  </row>
+  <row>
+    <entry>
+                    <emphasis>ER</emphasis>
+                  </entry>
+    <entry>mV</entry>
+
+    <entry>-75.0</entry>
+  </row>
+  <row>
+    <entry>
+                    <emphasis>ENa</emphasis>
+                  </entry>
+    <entry>mV</entry>
+
+    <entry>
+                    <emphasis>ER</emphasis> + 115.0</entry>
+  </row>
+  <row>
+    <entry>
+                    <emphasis>EK</emphasis>
+                  </entry>
+
+    <entry>mV</entry>
+    <entry>
+                    <emphasis>ER</emphasis> - 12.0</entry>
+  </row>
+  <row>
+    <entry>
+                    <emphasis>EL</emphasis>
+
+                  </entry>
+    <entry>mV</entry>
+    <entry>
+                    <emphasis>ER</emphasis> + 10.613</entry>
+  </row>
+  <row>
+    <entry>
+
+                    <emphasis>gNa,max</emphasis>
+                  </entry>
+    <entry>mS cm<superscript>-2</superscript>
+                  </entry>
+    <entry>120.0</entry>
+  </row>
+  <row>
+
+    <entry>
+                    <emphasis>gK,max</emphasis>
+                  </entry>
+    <entry>mS cm<superscript>-2</superscript>
+                  </entry>
+    <entry>36.0</entry>
+  </row>
+
+  <row>
+    <entry>
+                    <emphasis>gL</emphasis>
+                  </entry>
+    <entry>mS cm<superscript>-2</superscript>
+                  </entry>
+    <entry>0.3</entry>
+
+  </row>
+</tbody>
+            </tgroup>
+            <caption>
+Values for constants in the Hodgkin-Huxley equations.
+</caption>
+          </informaltable>
+
+</sect2>
+
+</sect1>
+  <sect1 id="sec_representing_in_cellml">
+
+<title>Representing the Model in CellML</title>
+
+<para>
+In CellML any model is represented by a network of components, typically chosen to reflect the natural physical entities in the system. Information is passed from one component to another through connections. A diagram showing the network defined in the CellML description of the Hodgkin-Huxley model is shown in <xref linkend="fig_cellml_rendering"/>.
+</para>
+
+<informalfigure float="0" id="fig_cellml_rendering">
+<mediaobject>
+  <imageobject>
+    <objectinfo>
+      <title>the cellml rendering of the hodgkin huxley squid axon model</title>
+    </objectinfo>
+    <imagedata fileref="cellml_model.gif"/>
+  </imageobject>
+</mediaobject>
+<caption>The network defined in the CellML description of the Hodgkin-Huxley model. Where a variable is passed from one component to another along a connection, the name of the variable is shown next to the component in which it is declared with a public or private interface value of <markup role="xml_attribute_value">out</markup>. The <markup role="xml_element_name">environment</markup> component discussed in <xref linkend="sec_environment_component"/> is not included in this diagram. A key describing the significance of the shapes of the components and the colours of the connections between them is in the <ulink url="${HTML_EXMPL_GRAPHICAL_NOTATION}">notation guide</ulink>.</caption>
+</informalfigure>
+
+<para>
+At the highest level, the model consists of four components with identifiers <markup role="xml_element_name">membrane</markup>, <markup role="xml_element_name">sodium_channel</markup>, <markup role="xml_element_name">potassium_channel</markup> and <markup role="xml_element_name">leakage_current</markup>. The membrane physically contains the two channels and the leakage current, as indicated by the blue arrows in <xref linkend="fig_cellml_rendering"/>. The channels and current act independently and are not connected to each other. Both the sodium and potassium channels encapsulate <emphasis>and</emphasis> contain further components: the sodium channel contains two components representing the m and h gates, and the potassium channel contains a component representing the n gate. The addition of an encapsulation relationship between the sodium channel and the m and h gates informs modellers and processing software that the m and h gates are important parts of the sodium channel model. It also prevents any other components that aren't also encapsulated by the sodium channel component from connecting to the m and h gates, effectively hiding them from the rest of the model.
+</para>
+
+<para>
+CellML processing software might choose to use the containment and encapsulation information in the model definition for the rendering of the model. An initial rendering might have the sodium channel, potassium channel, and leakage currents drawn inside the membrane component. Some label might indicate that the sodium and potassium channel components contain hidden detail. When the user double clicks on the sodium channel, they are shown the hidden m and h gate components.
+</para>
+
+<para>
+The breakdown of the model into components and the definition of encapsulation and containment relationships between them is somewhat arbitrary. When considering how a model should be broken into components, modellers are encouraged to consider which parts of a model might be re-used, and how the physiological elements of the system being modelled are naturally bounded. Containment relationships should be used to provide simple rendering information for processing software (ideally, this will correspond to the layout of the physical system), and encapsulation should be used to group sets of components into sub-models.
+</para>
+
+</sect1>
+  <sect1 id="sec_analysis_of_code">
+<title>Analysis of the CellML Code</title>
+
+<sect2 id="sec_the_model_element">
+<title>The model element</title>
+
+<para>
+The root element of the XML document containing the CellML definition of the Hodgkin-Huxley model is the <markup role="xml_element">model</markup> element shown in <xref linkend="fig_the_model_element"/>. (At this point, those not familiar with XML may want to consult the <ulink url="${HTML_XML_EXMPL_GUIDE}">quick introduction to XML</ulink> for help with understanding XML terms.) The <markup role="xml_element">model</markup> element defines a <markup role="xml_attribute">name</markup> attribute that allows this model to be unambiguously referenced by other models. For instance, this would be necessary if this model were to be combined with other models or partial models to create a larger model. It also defines an <markup role="xml_attribute">id</markup> attribute in the CellML Metadata namespace (which is mapped to the <markup role="xml_namespace_prefix">cmeta</markup> prefix). This <markup role="xml_attribute">id</markup> attribute is of XML type ID and may be used to attach metadata to this element, as discussed in <xref linkend="sec_model_metadata"/>.
+
+</para>
+
+<informalfigure float="0" id="fig_the_model_element">
+<literallayout class="normal" format="linespecific">
+<embeddedxml>
+<model xmlns="http://www.cellml.org/cellml/1.0#" name="hodgkin_huxley_squid_axon_1952" xpp:indent="4" cmeta:id="hodgkin_huxley_squid_axon_1952">
+
+  ...
+
+</model>
+</embeddedxml>
+</literallayout>
+<caption>The root element of the XML document containing the CellML description of the Hodgkin-Huxley model is the <markup role="xml_element">model</markup> element shown above.</caption>
+
+</informalfigure>
+
+<para>
+The <markup role="xml_element">model</markup> element also defines two XML namespaces. The first is the CellML namepsace, which is set to the default namespace and also mapped explicitly to the <markup role="xml_namespace_prefix">cellml</markup> prefix. The default namespace declaration (which looks like an <markup role="xml_attribute">xmlns</markup> attribute) means that the <markup role="xml_element">model</markup> element is itself in the CellML namespace. As such, it can be identified by any namespace-aware XML parser as a CellML element. In addition, any child elements that are not placed in another namespace, or that do not declare a new default namespace, will also be in the CellML namespace. Mapping the CellML namespace to the <markup role="xml_namespace_prefix">cellml</markup> prefix simplifies the declaration of elements and attributes in the CellML namespace later in the file. For instance, the <markup role="xml_namespace_prefix">cellml</markup> prefix can be used to place the <markup role="xml_attribute">units</markup> attribute on the <markup role="xml_element">cn</markup> element (which is in the MathML namespace) in the CellML namespace. The  declaration of the CellML namespace as both the default namespace and as a namespace mapped to the <markup role="xml_namespace_prefix">cellml</markup> prefix is recommended practice for any <markup role="xml_element">model</markup> element.
+
+</para>
+
+<para>
+The model element also defines the CellML Metadata namespace and maps it to the <markup role="xml_namespace_prefix">cmeta</markup> prefix. This allows the <markup role="xml_attribute">id</markup> attribute to be placed in the CellML Metadata namespace.
+</para>
+
+</sect2>
+
+<sect2 id="sec_declaration_of_units">
+<title>Declaration of units</title>
+
+<para>
+The CellML Specification defines a <ulink url="${HTML_SPEC_20010810_UNITS}#sec_units_cellml_units_dictionary">standard dictionary of units</ulink> that can be used in CellML models without further definition. This dictionary consists of the base SI units (as defined by the <ulink url="http://www.bipm.fr/">Bureau International des Poids et Mesures</ulink>) and some additional units commonly found in the types of biological models likely to be defined using CellML.
+</para>
+
+<para>
+A modeller who wishes to use units not declared in the standard dictionary can define additional units in the CellML model document. The units definitions from the Hodgkin Huxley model are shown in <xref linkend="fig_declaration_of_units"/>. These units definitions occur immediately within the root <markup role="xml_element">model</markup> element, giving them document-wide scope.
+</para>
+
+<informalfigure float="0" id="fig_declaration_of_units">
+<literallayout class="normal" format="linespecific">
+<embeddedxml>
+<units name="millisecond">
+  <unit units="second" prefix="milli"/>
+</units>
+
+<units name="per_millisecond">
+  <unit units="second" prefix="milli" exponent="-1"/>
+</units>
+
+<units name="millivolt">
+  <unit units="volt" prefix="milli"/>
+
+</units>
+
+<units name="milliS_per_cm2">
+  <unit units="siemens" prefix="milli"/>
+  <unit units="metre" prefix="centi" exponent="-2"/>
+</units>
+
+<units name="microF_per_cm2">
+  <unit units="farad" prefix="micro"/>
+  <unit units="metre" prefix="centi" exponent="-2"/>
+</units>
+
+<units name="microA_per_cm2">
+
+  <unit units="ampere" prefix="micro"/>
+  <unit units="metre" prefix="centi" exponent="-2"/>
+</units>
+</embeddedxml>
+</literallayout>
+<caption>The units definitions from the CellML description of the Hodgkin-Huxley model.</caption>
+</informalfigure>
+
+<para>
+The units definitions are declared with a set of <markup role="xml_element">units</markup> elements. Each <markup role="xml_element">units</markup> element must have a <markup role="xml_attribute">name</markup> attribute, which declares an identifier that can then be referenced in the <markup role="xml_attribute">units</markup> attribute on <markup role="xml_element">variable</markup> and <markup role="xml_element">cn</markup> elements (<markup role="xml_element">cn</markup> elements enclose bare numbers in MathML).
+
+</para>
+
+<para>
+Each <markup role="xml_element">units</markup> element may contain one or more <markup role="xml_element">unit</markup> elements. The units defined by the <markup role="xml_element">units</markup> element are a combination of the contents of these <markup role="xml_element">unit</markup> elements. <ulink url="${HTML_SPEC_20010810_UNITS}#sec_units_user_defined_units">Section 5.2.2</ulink> of the CellML Specification explains how the attributes for each <markup role="xml_element">unit</markup> element contribute to a new units definition. CellML processing software may choose to use these units definitions to verify the consistency of units across connections (inserting scale-factors, if appropriate) and check the dimensions of equations, as described in <ulink url="${HTML_SPEC_20010810_UNITS}#sec_units_conversion_between_units_definitions">Section 5.2.6</ulink> and <ulink url="${HTML_SPEC_20010810_UNITS}#sec_units_equation_dimension_checking">Section 5.2.7</ulink> of the CellML Specification, respectively.
+
+</para>
+
+</sect2>
+
+<sect2 id="sec_model_components">
+<title>Model components</title>
+
+<para>
+The CellML definition of the Hodgkin-Huxley model consists of a total of eight components. Seven of these correspond to physiological entities and were shown in the diagram in <xref linkend="fig_cellml_rendering"/>. Within each component variables are declared for use within the mathematics that determine the model's function. The interface on each variable declaration determines whether the value of the variable is calculated in the current component and exported, or calculated elsewhere and imported. The last component represents the model's environment. This is a convenient container for variables and constants that are global to the model, and for variables that are not associated with any other component.
+</para>
+
+<para>
+In the subsequent sections, the components corresponding to the environment, membrane, sodium channel, and sodium channel activation gate are all examined in detail. The remainder of the components closely resemble one of the components discussed and are not examined here.
+</para>
+
+<sect3 id="sec_environment_component">
+<title>The environment component</title>
+
+<para>
+The first <markup role="xml_element">component</markup> element defined in the CellML description of the Hodgkin-Huxley model has an identifier of <markup role="xml_element_name">environment</markup>. The complete definition is given in <xref linkend="fig_the_environment_component"/>. As the name suggests, this component does not correspond to a physical compartment in a cell, but rather is an abstract container used to define variables whose reach or scope could be thought of as <emphasis>global</emphasis>. 
+</para>
+
+<informalfigure float="0" id="fig_the_environment_component">
+
+<literallayout class="normal" format="linespecific">
+<embeddedxml>
+<component name="environment">
+  <variable units="millisecond" public_interface="out" name="time"/>
+</component>
+</embeddedxml>
+</literallayout>
+<caption>The <markup role="xml_element_name">environment</markup> component represents a convenient abstract container, which is used to define the independent variable <markup role="xml_element_name">time</markup> separately from the rest of the model.</caption>
+</informalfigure>
+
+<para>
+In the Hodgkin-Huxley model, the only global variable is the independent variable <markup role="xml_element_name">time</markup>. In CellML models no variables are given any kind of precedence or implicitly assumed to exist. This makes the model definition more robust and model components more re-usable. It is therefore necessary to declare variables to represent time and space if they are needed in a model, but it is not necessary to indicate that a variable like time is an independent variable, as this can be determined from analysis of the differential equations. One could theoretically call the variable that represents time <markup role="xml_element_name">A1</markup> and use the names <markup role="xml_element_name">t</markup> and <markup role="xml_element_name">time</markup> to represent other concepts in your model. It would be unwise to use the names <markup role="xml_element_name">time</markup> and <markup role="xml_element_name">t</markup> to represent anything other than time, or the names <markup role="xml_element_name">x</markup>, <markup role="xml_element_name">y</markup>, or <markup role="xml_element_name">z</markup> to represent anything other than space. Doing so would make it more difficult for other model authors to re-use your work.
+
+</para>
+
+<para>
+Note that the name <markup role="xml_element_name">environment</markup> has no special significance, but is simply a human-readable identifier enabling the modeller to determine the purpose of this component. We expect that software would make use of ontology or metadata information associated with the component to work out that this component would not be rendered in the same way as the <markup role="xml_element_name">membrane</markup> component, for example.
+</para>
+
+</sect3>
+
+<sect3 id="sec_membrane_component">
+<title>The membrane component</title>
+
+<para>
+The component at the root of the geometric hierarchy defined within the model is a component with an identifier of <markup role="xml_element_name">membrane</markup>, the full definition of which is shown in <xref linkend="fig_membrane_component"/>.
+</para>
+
+<informalfigure float="0" id="fig_membrane_component">
+<literallayout class="normal" format="linespecific">
+<embeddedxml>
+<component name="membrane">
+  <!-- these variables are defined here and used in other components -->
+  <variable name="V" initial_value="-75.0" xpp:ncols="2" xpp:indent="6" units="millivolt" public_interface="out"/>
+  <variable name="E_R" initial_value="-75.0" xpp:ncols="2" xpp:indent="6" units="millivolt" public_interface="out"/>
+
+  <!-- these variables are defined here and only used internally -->
+  <variable units="microF_per_cm2" name="Cm" initial_value="1.0"/>
+  <variable units="microA_per_cm2" name="I" initial_value="0.0"/>
+
+  <!-- these variables are imported from other components -->
+  <variable units="millisecond" public_interface="in" name="time"/>
+  <variable units="microA_per_cm2" public_interface="in" name="i_Na"/>
+  <variable units="microA_per_cm2" public_interface="in" name="i_K"/>
+  <variable units="microA_per_cm2" public_interface="in" name="i_L"/>
+
+  <!--
+    The membrane voltage (V) is calculated as an ordinary
+    differential equation in terms of the currents.
+  -->
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <apply id="V_diff_calculation">
+                        <eq/>
+      <apply>
+                          <diff/>
+        <bvar>
+                            <ci> time </ci>
+
+                          </bvar>
+        <ci> V </ci>
+      </apply>
+      <apply>
+                          <divide/>
+        <apply>
+                            <minus/>
+          <ci> I </ci>
+
+          <apply>
+                              <plus/>
+            <ci> i_Na </ci>
+            <ci> i_K </ci>
+            <ci> i_L </ci>
+          </apply>
+
+        </apply>
+        <ci> Cm </ci>
+      </apply>
+    </apply>
+  </math>
+</component>
+</embeddedxml>
+</literallayout>
+<caption>The definition of the <markup role="xml_element_name">membrane</markup> component from the CellML description of the Hodgkin-Huxley model.</caption>
+
+</informalfigure>
+
+<para>
+The <markup role="xml_element_name">membrane</markup> component declares eight variables. The first two of these, <markup role="xml_element_name">V</markup> and <markup role="xml_element_name">E_R</markup>, correspond to the quantities membrane voltage and membrane equilibrium potential, respectively. Their declarations have <markup role="xml_attribute">public_interface</markup> attributes with a value of <markup role="xml_attribute_value">out</markup>, indicating that they are defined in this component, that their values may be set and manipulated in this component and that their values are available to other components in the model. <markup role="xml_attribute">initial_value</markup> attributes are used on each of the <markup role="xml_element">variable</markup> elements to set the value of the variable when the independent variables (in this case just <markup role="xml_element_name">time</markup>) have values of 0.0.
+
+</para>
+
+<para>
+The variables <markup role="xml_element_name">Cm</markup> and <markup role="xml_element_name">I</markup>, which represent membrane capacitance and applied stimulus current, respectively, are declared with no interface, indicating that their values may only be manipulated within the <markup role="xml_element_name">membrane</markup> component and are not visible to other components.
+</para>
+
+<para>
+The final four variables, <markup role="xml_element_name">time</markup>, <markup role="xml_element_name">i_Na</markup>, <markup role="xml_element_name">i_K</markup>, and <markup role="xml_element_name">i_L</markup> represent time, and the sodium, potassium, and leakage currents through the membrane, respectively. They have <markup role="xml_attribute">public_interface</markup> attributes with a value of <markup role="xml_attribute_value">in</markup>, indicating that their value is calculated in another component and imported into this one.
+
+</para>
+
+<para>
+After the variable declarations, a block of <ulink url="http://www.w3.org/Math/">MathML</ulink> defines the single differential equation for <markup role="xml_element_name">V</markup> shown in <xref linkend="eqn_V_diff_calculation"/>. This is the inverse of <xref linkend="eqn_full_model"/> in <xref linkend="sec_full_hodgkin_huxley_model"/>. The <markup role="xml_attribute">id</markup> attribute on the first <markup role="xml_element">apply</markup> element allows metadata such as comments or annotations to be associated with the equation itself. This is included for demonstration purposes only, as no metadata is associated with any of the equations in this model.
+
+</para>
+
+<informalequation id="eqn_V_diff_calculation">
+              <cwml_equation>
+\frac{d\;V}{d\;time} = \frac{I - (i\_Na + i\_K + i\_L)}{Cm}
+</cwml_equation>
+            </informalequation>
+
+<para>
+As <markup role="xml_element_name">E_R</markup> and <markup role="xml_element_name">I</markup> can only be changed in this component, the lack of any equations modifying the values of these variables indicates that they are constant with respect to the independent variable <markup role="xml_element_name">time</markup>.
+
+</para>
+
+</sect3>
+
+<sect3 id="sec_sodium_channel_component">
+<title>The sodium_channel component</title>
+
+<para>
+Following the definition of the <markup role="xml_element_name">membrane</markup> component is the definition of a component with an identifier of <markup role="xml_element_name">sodium_channel</markup>. This component is physically inside the <markup role="xml_element_name">membrane</markup> component, and in turn, contains and encapsulates two components representing the m and h gates within the sodium channel. The full definition of the <markup role="xml_element_name">sodium_channel</markup> component is given in <xref linkend="fig_sodium_channel_component"/>.
+
+</para>
+
+<informalfigure float="0" id="fig_sodium_channel_component">
+<literallayout class="normal" format="linespecific">
+<embeddedxml>
+<component name="sodium_channel">
+  <!-- this variable is defined here and used in other components -->
+  <variable units="microA_per_cm2" public_interface="out" name="i_Na"/>
+
+  <!-- these variables are defined here and only used internally -->
+  <variable units="milliS_per_cm2" name="g_Na" initial_value="120.0"/>
+  <variable units="millivolt" name="E_Na"/>
+
+  <!-- these variables are imported from parent and sibling components -->
+  <variable private_interface="out" name="time" xpp:ncols="2" xpp:indent="6" units="millisecond" public_interface="in"/>
+  <variable private_interface="out" name="V" xpp:ncols="2" xpp:indent="6" units="millivolt" public_interface="in"/>
+  <variable units="millivolt" public_interface="in" name="E_R"/>
+
+  <!-- these variables are imported from encapsulated components -->
+  <variable units="dimensionless" private_interface="in" name="m"/>
+  <variable units="dimensionless" private_interface="in" name="h"/>
+
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <!--
+      The following equation determines the reversal potential of the
+      sodium channel in terms of the membrane resting potential.
+    -->
+    <apply id="E_Na_calculation">
+                        <eq/>
+      <ci> E_Na </ci>
+      <apply>
+                          <plus/>
+        <ci> E_R </ci>
+
+        <cn cellml:units="millivolt"> 115.0 </cn>
+      </apply>
+    </apply>
+
+    <!--
+      The following equation calculates the sodium current in terms
+      of the conductance, the membrane voltage, and the gate variables.
+    -->
+    <apply id="i_Na_calculation">
+                        <eq/>
+      <ci> i_Na </ci>
+
+      <apply>
+                          <times/>
+        <ci> g_Na </ci>
+        <apply>
+                            <power/>
+          <ci> m </ci>
+          <cn cellml:units="dimensionless"> 3.0 </cn>
+
+        </apply>
+        <ci> h </ci>
+        <apply>
+                            <minus/>
+          <ci> V </ci>
+          <ci> E_Na </ci>
+
+        </apply>
+      </apply>
+    </apply>
+  </math>
+</component>
+</embeddedxml>
+</literallayout>
+<caption>The definition of the <markup role="xml_element_name">sodium_channel</markup> component from the CellML description of the Hodgkin-Huxley model.</caption>
+</informalfigure>
+
+<para>
+Three variables are defined in this component: <markup role="xml_element_name">i_Na</markup>, <markup role="xml_element_name">g_Na</markup>, and <markup role="xml_element_name">E_Na</markup>, which correspond to the sodium current, maximum sodium channel conductance, and reversal potential of the sodium channel, respectively. <markup role="xml_element_name">i_Na</markup> is available for use by other components (it is imported into the <markup role="xml_element_name">membrane</markup> component for instance), whereas <markup role="xml_element_name">g_Na</markup> and <markup role="xml_element_name">E_Na</markup> are only used internally.
+
+</para>
+
+<para>
+Much of the mathematical functionality of the sodium channel is defined in the encapsulated m and h gate components, so some of the <markup role="xml_element">variable</markup> elements in this component define a <markup role="xml_attribute">private_interface</markup> attribute. The three variables <markup role="xml_element_name">time</markup>, <markup role="xml_element_name">V</markup>, and <markup role="xml_element_name">E_R</markup> correspond to the quantities time, membrane voltage, and membrane reversal potential, respectively. They are each declared with a <markup role="xml_attribute">public_interface</markup> attribute value of <markup role="xml_attribute_value">in</markup>, indicating that their value is imported from either a parent or sibling component in the encapsulation hierarchy. (For the proper definition of these terms, see <ulink url="${HTML_SPEC_20010810_GROUPING}#sec_grouping_bs_encapsulation">Section 6.2.2 of the CellML Specification</ulink>.) The <markup role="xml_element_name">time</markup> and <markup role="xml_element_name">V</markup> <markup role="xml_element">variable</markup> elements also define a <markup role="xml_attribute">private_interface</markup> attribute with a value of <markup role="xml_attribute_value">out</markup>, indicating that their value is available to any encapsulated components. In this sense, the <markup role="xml_element_name">sodium_channel</markup> component is acting as an interface between the encapsulated components and the rest of the model, which is not concerned with the inner workings of the sodium channel.
+
+</para>
+
+<para>
+Finally, the two variables <markup role="xml_element_name">m</markup> and <markup role="xml_element_name">h</markup> correspond to the activation and inactivation coefficients on the sodium channel, respectively. These are declared with a <markup role="xml_attribute">private_interface</markup> attribute value of <markup role="xml_attribute_value">in</markup>, indicating that the value of the variable is to be imported from an encapsulated component. The lack of a <markup role="xml_attribute">public_interface</markup> attribute ensures that these values are not accessible from outside the <markup role="xml_element_name">sodium_channel</markup> component.
+
+</para>
+
+<para>
+The <markup role="xml_element_name">sodium_channel</markup> component then defines the two equations depicted in <xref linkend="eqn_sodium_resting_potential"/> and <xref linkend="eqn_sodium_current_calculation"/>. The first sets the value of <markup role="xml_element_name">E_Na</markup> (the reversal potential of the channel) in terms of the membrane reversal potential. The second calculates the value of <markup role="xml_element_name">i_Na</markup> (the sodium current) in terms of the channel conductance, activation and inactivation coefficients, membrane voltage and reversal potential.
+</para>
+
+<informalequation id="eqn_sodium_resting_potential">
+              <cwml_equation>
+E\_Na = E\_R + 115.0
+</cwml_equation>
+            </informalequation>
+
+<informalequation id="eqn_sodium_current_calculation">
+              <cwml_equation>
+i\_Na = g\_Na \cdot m^3 \cdot h \cdot (V - E\_Na)
+</cwml_equation>
+            </informalequation>
+
+</sect3>
+
+<sect3 id="sec_sodium_channel_m_gate_component">
+<title>The sodium_channel_m_gate component</title>
+
+<para>
+The Hodgkin-Huxley model of the sodium channel presented in <xref linkend="sec_sodium_conductance"/> consists of two types of gates labelled m and h, which are arranged in series with three m gates and one h gate as indicated in the sodium current calculation in <xref linkend="eqn_sodium_current_calculation"/>. The gates are represented mathematically as coefficients in the 0-1 range, where m is an activation coefficient, meaning that the gate opens as the membrane voltage increases, and h is an inactivation coefficient. The value of each coefficient is determined by its own differential equation, depending on its own value as well as two voltage dependent rate constants. As the sodium current calculation only depends on the values of the activation and inactivation coefficients, the calculation of these coefficients can be conveniently moved into their own components. The <markup role="xml_element_name">sodium_channel_m_gate</markup> component defines the variables and equations pertaining to the m gate activation coefficient. The full component definition is given in <xref linkend="fig_sodium_channel_m_gate"/>.
+</para>
+
+<informalfigure float="0" id="fig_sodium_channel_m_gate">
+<literallayout class="normal" format="linespecific">
+<embeddedxml>
+<component name="sodium_channel_m_gate">
+  <!-- this variable is defined here and used in other components -->
+  <variable name="m" initial_value="0.05" xpp:ncols="2" xpp:indent="6" units="dimensionless" public_interface="out"/>
+
+  <!-- these variables are defined here and only used internally -->
+  <variable units="per_millisecond" name="alpha_m"/>
+  <variable units="per_millisecond" name="beta_m"/>
+
+  <!-- these variables are imported from parent and sibling components -->
+
+  <variable units="millivolt" public_interface="in" name="V"/>
+  <variable units="millisecond" public_interface="in" name="time"/>
+
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <!--
+      The rate constants on the m and h gates are functions
+      of membrane voltage
+    -->
+    <apply id="alpha_m_calculation">
+                        <eq/>
+      <ci> alpha_m </ci>
+
+      <apply>
+                          <divide/>
+        <apply>
+                            <times/>
+          <cn cellml:units="per_millisecond"> 0.1 </cn>
+          <apply>
+                              <plus/>
+            <ci> V </ci>
+
+            <cn cellml:units="millivolt"> 25.0 </cn>
+          </apply>
+        </apply>
+        <apply>
+                            <minus/>
+          <apply>
+                              <exp/>
+            <apply>
+
+                                <times/>
+              <cn cellml:units="dimensionless"> 0.1 </cn>
+              <apply>
+                                  <plus/>
+                <ci> V </ci>
+                <cn cellml:units="millivolt"> 25.0 </cn>
+
+              </apply>
+            </apply>
+          </apply>
+          <cn cellml:units="dimensionless"> 1.0 </cn>
+        </apply>
+      </apply>
+    </apply>
+
+    <apply id="beta_m_calculation">
+                        <eq/>
+      <ci> beta_m </ci>
+      <apply>
+                          <times/>
+        <cn cellml:units="per_millisecond"> 4.0 </cn>
+        <apply>
+
+                            <exp/>
+          <apply>
+                              <divide/>
+            <ci> V </ci>
+            <cn cellml:units="millivolt"> 18.0 </cn>
+          </apply>
+        </apply>
+
+      </apply>
+    </apply>
+
+    <apply id="dm_dt">
+                        <eq/>
+      <apply>
+                          <diff/>
+        <bvar>
+                            <ci> time </ci>
+
+                          </bvar>
+        <ci> m </ci>
+      </apply>
+      <apply>
+                          <minus/>
+        <apply>
+                            <times/>
+          <ci> alpha_m </ci>
+
+          <apply>
+                              <minus/>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <ci> m </ci>
+          </apply>
+        </apply>
+        <apply>
+
+                            <times/>
+          <ci> beta_m </ci>
+          <ci> m </ci>
+        </apply>
+      </apply>
+    </apply>
+  </math>
+
+</component>
+</embeddedxml>
+</literallayout>
+<caption>The definition of the <markup role="xml_element_name">sodium_channel_m_gate</markup> component from the CellML description of the Hodgkin-Huxley model.</caption>
+</informalfigure>
+
+<para>
+The <markup role="xml_element_name">sodium_channel_m_gate</markup> component defines five variables. The first, <markup role="xml_element_name">m</markup> (the activation coefficient), is declared with a <markup role="xml_attribute">public_interface</markup> attribute value of <markup role="xml_attribute_value">out</markup>, making it available to any components in the parent and sibling sets in the encapsulation hierarchy. In this case it is the parent <markup role="xml_element_name">sodium_channel</markup> component which makes use of this variable. It also declares an <markup role="xml_attribute">initial_value</markup> attribute value of <markup role="xml_attribute_value">0.05</markup>, which sets the value of <markup role="xml_element_name">m</markup> to 0.05 at the point where all independent variables (in this case just time) have a value of 0.0.
+
+</para>
+
+<para>
+The <markup role="xml_element_name">alpha_m</markup> and <markup role="xml_element_name">beta_m</markup> variables correspond to the rate coefficients for the m gate and are declared with no interface. Finally the <markup role="xml_element_name">V</markup> and <markup role="xml_element_name">time</markup> variables are declared with a <markup role="xml_attribute">public_interface</markup> attribute value of <markup role="xml_attribute_value">in</markup> indicating that their value is imported from a component in the parent or sibling set. In this case the parent <markup role="xml_element_name">sodium_channel</markup> component makes those variables available with <markup role="xml_attribute">private_interface</markup> attribute values of <markup role="xml_attribute_value">out</markup>.
+
+</para>
+
+<para>
+The equations defined in the subsequent MathML block correspond to <xref linkend="eqn_dm_dt"/>, <xref linkend="eqn_alpha_m"/>, and <xref linkend="eqn_beta_m"/> from <xref linkend="sec_sodium_conductance"/>.
+</para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="sec_containment_and_encapsulation">
+<title>Containment and encapsulation relationships</title>
+
+<para>
+As discussed in <xref linkend="sec_representing_in_cellml"/>, the CellML description of the Hodgkin-Huxley model defines both physical and encapsulation relationships between the components in the model. The geometric relationships might be used by CellML processing software as a rendering guideline, and the encapsulation relationships allow processing software to present different levels of model complexity to the user.
+</para>
+
+<para>
+Both containment (i.e., physical) and encapsulation relationships between components are defined in CellML using the <markup role="xml_element">group</markup> element. Each group element may contain one or more <markup role="xml_element">relationship_ref</markup> elements, each of which references a type of relationship that will apply to all parent-child component pairs defined within the <markup role="xml_element">group</markup> element. Parent-child pairs are defined by simply referencing the child component in a <markup role="xml_element">component_ref</markup> element that is defined inside a <markup role="xml_element">component_ref</markup> element referencing the parent component. The group elements from the CellML description of the Hodgkin-Huxley model are shown in <xref linkend="fig_group_elements"/>.
+
+</para>
+
+<!--
+<group>
+  <relationship_ref relationship="containment" />
+  <component_ref component="membrane">
+    <component_ref component="sodium_channel" />
+    <component_ref component="potassium_channel" />
+    <component_ref component="leakage_current" />
+  </component_ref>
+</group>
+
+<group>
+  <relationship_ref relationship="encapsulation" />
+  <relationship_ref relationship="containment" />
+  <component_ref component="sodium_channel">
+    <component_ref component="sodium_channel_m_gate" />
+    <component_ref component="sodium_channel_h_gate" />
+  </component_ref>
+</group>
+
+<group>
+  <relationship_ref relationship="encapsulation" />
+  <relationship_ref relationship="containment" />
+  <component_ref component="potassium_channel">
+    <component_ref component="potassium_channel_n_gate" />
+  </component_ref>
+</group>
+-->
+
+<informalfigure float="0" id="fig_group_elements">
+<literallayout class="normal" format="linespecific">
+<embeddedxml>
+<group rep="norepeat" choice="opt">
+  <relationship_ref relationship="containment"/>
+  <component_ref component="membrane">
+    <component_ref component="sodium_channel">
+      <component_ref component="sodium_channel_m_gate"/>
+      <component_ref component="sodium_channel_h_gate"/>
+
+    </component_ref>
+    <component_ref component="potassium_channel">
+      <component_ref component="potassium_channel_n_gate"/>
+    </component_ref>
+    <component_ref component="leakage_current"/>
+  </component_ref>
+</group>
+
+<group rep="norepeat" choice="opt">
+  <relationship_ref relationship="encapsulation"/>
+
+  <component_ref component="sodium_channel">
+    <component_ref component="sodium_channel_m_gate"/>
+    <component_ref component="sodium_channel_h_gate"/>
+  </component_ref>
+  <component_ref component="potassium_channel">
+    <component_ref component="potassium_channel_n_gate"/>
+  </component_ref>
+</group>
+</embeddedxml>
+</literallayout>
+
+<caption>The complete set of <markup role="xml_element">group</markup> elements used to define containment and encapsulation relationships in the CellML description of the Hodgkin-Huxley model.</caption>
+</informalfigure>
+
+<para>
+The first <markup role="xml_element">group</markup> element specifies the entirety of the containment hierarchy. The <markup role="xml_element_name">membrane</markup> component is the root of the hierarchy, containing the <markup role="xml_element_name">sodium_channel</markup>, <markup role="xml_element_name">potassium_channel</markup>, and <markup role="xml_element_name">leakage_current</markup> components. In turn the <markup role="xml_element_name">sodium_channel</markup> component contains the <markup role="xml_element_name">sodium_channel_m_gate</markup> and <markup role="xml_element_name">sodium_channel_h_gate</markup> components, and the <markup role="xml_element_name">potassium_channel</markup> component contains the <markup role="xml_element_name">potassium_channel_n_gate</markup> component. Only the <markup role="xml_element_name">environment</markup> component is not referenced in the containment hierarchy.
+
+</para>
+
+<para>
+The second <markup role="xml_element">group</markup> element specifies all of the encapsulation relationships between components in the model. The definition indicates that the  <markup role="xml_element_name">sodium_channel</markup> component encapsulates the <markup role="xml_element_name">sodium_channel_m_gate</markup> and <markup role="xml_element_name">sodium_channel_h_gate</markup> components, and the <markup role="xml_element_name">potassium_channel</markup> component encapsulates the <markup role="xml_element_name">potassium_channel_n_gate</markup> component. The components that are not referenced in the encapsulation hierarchy are siblings of the <markup role="xml_element_name">sodium_channel</markup> and <markup role="xml_element_name">potassium_channel</markup> components, both of which have no parent component.
+
+</para>
+
+<para>
+As for many model design issues in CellML, there's more than one way to do it. It would be possible to define each group of parent-child pairs in a separate <markup role="xml_element">group</markup> element. One could also associate both the containment and encapsulation relationships with, for instance, the grouping of the <markup role="xml_element_name">sodium_channel</markup> component and its children. The form shown in <xref linkend="fig_group_elements"/> is the recommended best practice because it allows someone looking at the XML code directly to see the entirety of each hierarchy in a single glance, rather than having to hunt through the model definition and piece the hierarchy together. This also makes it easier to validate that a given hierarchy does not contain duplicate component references.
+</para>
+
+</sect2>
+
+<sect2 id="sec_making_connections">
+
+<title>Passing variable values with connections</title>
+
+<para>
+The CellML model description concludes with ten <markup role="xml_element">connection</markup> elements, which are used to pass the values of the model's variables from one component to another. Each <markup role="xml_element">connection</markup> element contains a single <markup role="xml_element">map_components</markup> element, which references the components to be connected, and then one or more <markup role="xml_element">map_variables</markup> elements, which reference the variables from each component to be mapped together. The <markup role="xml_element">connection</markup> element used to pass the values of the <markup role="xml_element_name">V</markup>, <markup role="xml_element_name">E_R</markup>, and <markup role="xml_element_name">i_Na</markup> variables between the <markup role="xml_element_name">membrane</markup> and <markup role="xml_element_name">sodium_channel</markup> components is shown in <xref linkend="fig_connection_element"/>.
+
+</para>
+
+<informalfigure float="0" id="fig_connection_element">
+<literallayout class="normal" format="linespecific">
+<embeddedxml>
+<connection>
+  <map_components xpp:ncols="2" component_2="sodium_channel" component_1="membrane" xpp:indent="8"/>
+  <map_variables variable_2="V" variable_1="V"/>
+  <map_variables variable_2="E_R" variable_1="E_R"/>
+  <map_variables variable_2="i_Na" variable_1="i_Na"/>
+</connection>
+</embeddedxml>
+</literallayout>
+
+<caption>The <markup role="xml_element">connection</markup> element used to pass the values of the <markup role="xml_element_name">V</markup>, <markup role="xml_element_name">E_R</markup> and <markup role="xml_element_name">i_Na</markup> variables between the <markup role="xml_element_name">membrane</markup> and <markup role="xml_element_name">sodium_channel</markup> components. This is one of ten <markup role="xml_element">connection</markup> elements in the CellML description of the Hodgkin-Huxley model.</caption>
+
+</informalfigure>
+
+<para>
+The <markup role="xml_attribute">variable_1</markup> attribute on each <markup role="xml_element">map_variables</markup> element references a variable in the component referenced by the <markup role="xml_attribute">component_1</markup> attribute on the <markup role="xml_element">map_components</markup> element. Similarly, the <markup role="xml_attribute">variable_2</markup> attribute on each <markup role="xml_element">map_variables</markup> element references a variable in the component referenced by the <markup role="xml_attribute">component_2</markup> attribute on the <markup role="xml_element">map_components</markup> element. Each variable's value is passed from the component where it is declared with an interface value of <markup role="xml_attribute_value">out</markup> to the component where it is declared with an interface value of <markup role="xml_attribute_value">in</markup>, independent of whether a variable's name appears in the <markup role="xml_attribute">variable_1</markup> or <markup role="xml_attribute">variable_2</markup> attributes. In the example shown in <xref linkend="fig_connection_element"/>, all of the variables referenced have the same name in both the <markup role="xml_element_name">membrane</markup> and <markup role="xml_element_name">sodium_channel</markup> components, but this need not necessarily be the case.
+
+</para>
+
+</sect2>
+
+<sect2 id="sec_model_metadata">
+<title>Model metadata</title>
+
+<para>
+The CellML description of the Hodgkin-Huxley model also contains some limited metadata, defined within the system described in the <ulink url="${HTML_SPEC_20010810_METADATA}">metadata framework section of the CellML Specification</ulink>, and based on the syntax described in the <ulink url="${HTML_METADATA_20020116_OVERVIEW}">16 January 2002 draft of the CellML Metadata Specification</ulink>. This metadata demonstrates a small fraction of the full CellML Metadata data model and has been included for demonstration purposes only. The metadata from the CellML description of the Hodgkin Huxley model is shown in <xref linkend="fig_hh_metadata"/>, with the comments removed for brevity.
+</para>
+
+<informalfigure float="0" id="fig_hh_metadata">
+<literallayout class="normal" format="linespecific">
+<embeddedxml>
+  
+</embeddedxml>
+</literallayout>
+<caption>The metadata from the CellML description of the Hodgkin Huxley model, with the comments removed.</caption>
+</informalfigure>
+
+<para>
+CellML metadata is classified and associated with CellML documents and CellML elements using the <ulink url="http://www.w3.org/RDF">Resource Description Framework (RDF)</ulink>. The RDF specification defines an XML-based syntax for defining metadata. This syntax is suitable for embedding within CellML documents. Within the RDF framework, the CellML Metadata Specification recommends using elements from the Dublin Core for classifying various simple types of metadata as described in the <ulink url="http://www.dublincore.org/documents/2001/04/11/dcmes-xml/">XML Encoding of Simple Dublin Core Metadata</ulink> specification. Personal information is encoded using the syntax proposed in a W3C note entitled <ulink url="http://www.w3.org/TR/2001/NOTE-vcard-rdf-20010222">Representing vCard Objects in RDF/XML</ulink>. Citation information is stored using an XML serialization of the Object Management Group's <ulink url="http://www.omg.org/cgi-bin/doc?dtc/01-03-02">Bibliographic Query Service</ulink> specification developed for the CellML Metadata Specification. Finally, the CellML Metadata Specification proposes new elements for several types of metadata for which no XML-based syntax has already been standardised.
+
+</para>
+
+<para>
+In the example in <xref linkend="fig_hh_metadata"/>, an <markup role="xml_element">rdf:RDF</markup> element (an <markup role="xml_element">RDF</markup> element in the RDF namespace) encloses the metadata block, which defines metadata for two objects. The <markup role="xml_element">rdf:RDF</markup> element declares all of the namespaces that will be used within the element, redefining the CellML Metadata namespace even though it is declared on the parent <markup role="xml_element">model</markup> element. This is the recommended best practice as it ensures that the <markup role="xml_element">rdf:RDF</markup> element and its children form a self-contained and hence portable block of XML. Metadata is associated with a particular object by placing it inside an <markup role="xml_element">rdf:Description</markup> element that defines an <markup role="xml_attribute">about</markup> attribute. The first <markup role="xml_element">rdf:Description</markup> element has an empty <markup role="xml_attribute">about</markup> attribute, indicating that the enclosed metadata refers to the current document. The second <markup role="xml_element">rdf:Description</markup> element has an <markup role="xml_attribute">about</markup> attribute value of <markup role="xml_attribute_value">#hodgkin_huxley_squid_axon_1952</markup>. The hash (#) signifies that the subsequent text is the value of an attribute of type ID within the current document, which in this case is the <markup role="xml_attribute">cmeta:id</markup> attribute on the <markup role="xml_element">model</markup> element, which has this value.
+
+</para>
+
+<para>
+The first <markup role="xml_element">rdf:Description</markup> element defines some fairly basic information about the CellML document. Firstly, various vCard elements are used to describe a person who is identified as the document author with the Dublin Core <markup role="xml_element">dc:creator</markup> element. The subsequent blocks of metadata define the creation date and last modified date for the document. Finally the document's publisher is identified as <markup role="xml_element_content">The University of Auckland, Bioengineering Institute</markup>.
+</para>
+
+<para>
+In the second <markup role="xml_element">rdf:Description</markup> element, a human readable name for the model is provided using the Dublin Core <markup role="xml_element">dc:title</markup> element. A comment on the model is provided using CellML Metadata's <markup role="xml_element">cmeta:comment</markup> element, and the author of the annotation is identified. Finally, a <markup role="xml_element">bqs:Pubmed_id</markup> element is used to associate a citation with the model. The citation is identified by its Pubmed numeric identifier.
+
+</para>
+
+</sect2>
+
+</sect1>
+</article>
+</documentation>
+
+   <units name="millisecond">
+      <unit units="second" prefix="milli"/>
+   </units>
+   <units name="per_millisecond">
+      <unit units="second" prefix="milli" exponent="-1"/>
+   </units>
+   <units name="millivolt">
+      <unit units="volt" prefix="milli"/>
+   </units>
+   <units name="milliS_per_cm2">
+      <unit units="siemens" prefix="milli"/>
+      <unit units="metre" prefix="centi" exponent="-2"/>
+   </units>
+   <units name="microF_per_cm2">
+      <unit units="farad" prefix="micro"/>
+      <unit units="metre" prefix="centi" exponent="-2"/>
+   </units>
+   <units name="microA_per_cm2">
+      <unit units="ampere" prefix="micro"/>
+      <unit units="metre" prefix="centi" exponent="-2"/>
+   </units>
+   <component name="environment">
+      <variable units="millisecond" public_interface="out" name="time" cmeta:id="environment_time"/>
+   </component>
+   <component name="membrane">
+      <variable units="millivolt" public_interface="out" cmeta:id="membrane_V" name="V" initial_value="-75"/>
+      <variable units="millivolt" public_interface="out" name="E_R" initial_value="-75"/>
+      <variable units="microF_per_cm2" name="Cm" initial_value="1"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="microA_per_cm2" public_interface="in" name="i_Na"/>
+      <variable units="microA_per_cm2" public_interface="in" name="i_K"/>
+      <variable units="microA_per_cm2" public_interface="in" name="i_L"/>
+      <variable units="microA_per_cm2" public_interface="in" name="i_Stim"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>V</ci>
+            </apply>
+            <apply>
+               <divide/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <plus/>
+                     <apply>
+                        <minus/>
+                        <ci>i_Stim</ci>
+                     </apply>
+                     <ci>i_Na</ci>
+                     <ci>i_K</ci>
+                     <ci>i_L</ci>
+                  </apply>
+               </apply>
+               <ci>Cm</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="sodium_channel">
+      <variable units="microA_per_cm2" public_interface="out" name="i_Na" cmeta:id="sodium_channel_i_Na"/>
+      <variable units="milliS_per_cm2" name="g_Na" initial_value="120"/>
+      <variable units="millivolt" name="E_Na"/>
+      <variable units="millisecond" public_interface="in" private_interface="out" name="time"/>
+      <variable units="millivolt" public_interface="in" private_interface="out" name="V"/>
+      <variable units="millivolt" public_interface="in" name="E_R"/>
+      <variable units="dimensionless" private_interface="in" name="m"/>
+      <variable units="dimensionless" private_interface="in" name="h"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>E_Na</ci>
+            <apply>
+               <plus/>
+               <ci>E_R</ci>
+               <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">115</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>i_Na</ci>
+            <apply>
+               <times/>
+               <ci>g_Na</ci>
+               <apply>
+                  <power/>
+                  <ci>m</ci>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">3</cn>
+               </apply>
+               <ci>h</ci>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_Na</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="sodium_channel_m_gate">
+      <variable units="dimensionless" public_interface="out" name="m" initial_value="0.05"/>
+      <variable units="per_millisecond" name="alpha_m"/>
+      <variable units="per_millisecond" name="beta_m"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>alpha_m</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <apply>
+                     <minus/>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_millisecond">0.1</cn>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <ci>V</ci>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">50</cn>
+                  </apply>
+               </apply>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">50</cn>
+                           </apply>
+                        </apply>
+                        <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">10</cn>
+                     </apply>
+                  </apply>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">1</cn>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_m</ci>
+            <apply>
+               <times/>
+               <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_millisecond">4</cn>
+               <apply>
+                  <exp/>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <plus/>
+                           <ci>V</ci>
+                           <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">75</cn>
+                        </apply>
+                     </apply>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">18</cn>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>m</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <times/>
+                  <ci>alpha_m</ci>
+                  <apply>
+                     <minus/>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">1</cn>
+                     <ci>m</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <ci>beta_m</ci>
+                  <ci>m</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="sodium_channel_h_gate">
+      <variable units="dimensionless" public_interface="out" name="h" initial_value="0.6"/>
+      <variable units="per_millisecond" name="alpha_h"/>
+      <variable units="per_millisecond" name="beta_h"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>alpha_h</ci>
+            <apply>
+               <times/>
+               <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_millisecond">0.07</cn>
+               <apply>
+                  <exp/>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <plus/>
+                           <ci>V</ci>
+                           <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">75</cn>
+                        </apply>
+                     </apply>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">20</cn>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_h</ci>
+            <apply>
+               <divide/>
+               <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_millisecond">1</cn>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">45</cn>
+                           </apply>
+                        </apply>
+                        <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">10</cn>
+                     </apply>
+                  </apply>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">1</cn>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>h</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <times/>
+                  <ci>alpha_h</ci>
+                  <apply>
+                     <minus/>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">1</cn>
+                     <ci>h</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <ci>beta_h</ci>
+                  <ci>h</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="potassium_channel">
+      <variable units="microA_per_cm2" public_interface="out" name="i_K" cmeta:id="potassium_channel_i_K"/>
+      <variable units="milliS_per_cm2" name="g_K" initial_value="36"/>
+      <variable units="millivolt" name="E_K"/>
+      <variable units="millisecond" public_interface="in" private_interface="out" name="time"/>
+      <variable units="millivolt" public_interface="in" private_interface="out" name="V"/>
+      <variable units="millivolt" public_interface="in" name="E_R"/>
+      <variable units="dimensionless" private_interface="in" name="n"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>E_K</ci>
+            <apply>
+               <minus/>
+               <ci>E_R</ci>
+               <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">12</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>i_K</ci>
+            <apply>
+               <times/>
+               <ci>g_K</ci>
+               <apply>
+                  <power/>
+                  <ci>n</ci>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">4</cn>
+               </apply>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_K</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="potassium_channel_n_gate">
+      <variable units="dimensionless" public_interface="out" name="n" initial_value="0.325"/>
+      <variable units="per_millisecond" name="alpha_n"/>
+      <variable units="per_millisecond" name="beta_n"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>alpha_n</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <apply>
+                     <minus/>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_millisecond">0.01</cn>
+                  </apply>
+                  <apply>
+                     <plus/>
+                     <ci>V</ci>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">65</cn>
+                  </apply>
+               </apply>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <divide/>
+                        <apply>
+                           <minus/>
+                           <apply>
+                              <plus/>
+                              <ci>V</ci>
+                              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">65</cn>
+                           </apply>
+                        </apply>
+                        <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">10</cn>
+                     </apply>
+                  </apply>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">1</cn>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>beta_n</ci>
+            <apply>
+               <times/>
+               <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_millisecond">0.125</cn>
+               <apply>
+                  <exp/>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <plus/>
+                        <ci>V</ci>
+                        <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">75</cn>
+                     </apply>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">80</cn>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>n</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <times/>
+                  <ci>alpha_n</ci>
+                  <apply>
+                     <minus/>
+                     <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">1</cn>
+                     <ci>n</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <ci>beta_n</ci>
+                  <ci>n</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="leakage_current">
+      <variable units="microA_per_cm2" public_interface="out" name="i_L"/>
+      <variable units="milliS_per_cm2" name="g_L" initial_value="0.3"/>
+      <variable units="millivolt" name="E_L"/>
+      <variable units="millisecond" public_interface="in" name="time"/>
+      <variable units="millivolt" public_interface="in" name="V"/>
+      <variable units="millivolt" public_interface="in" name="E_R"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>E_L</ci>
+            <apply>
+               <plus/>
+               <ci>E_R</ci>
+               <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="millivolt">10.613</cn>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>i_L</ci>
+            <apply>
+               <times/>
+               <ci>g_L</ci>
+               <apply>
+                  <minus/>
+                  <ci>V</ci>
+                  <ci>E_L</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+
+<!-- This is a stimulus protocol, which allows the model to produce a train of action potentials -->
+
+<component name="stimulus_protocol">
+    <variable units="microA_per_cm2" public_interface="out" name="Istim" cmeta:id="stimulus_protocol_Istim"/>
+    <variable units="millisecond" cmeta:id="stimulus_protocol_IstimStart" name="IstimStart" initial_value="50"/>
+    <variable units="millisecond" cmeta:id="stimulus_protocol_IstimEnd" name="IstimEnd" initial_value="50000"/>
+    <variable units="microA_per_cm2" cmeta:id="stimulus_protocol_IstimAmplitude" name="IstimAmplitude" initial_value="20"/>
+    <variable units="millisecond" cmeta:id="stimulus_protocol_IstimPeriod" name="IstimPeriod" initial_value="200"/>
+    <variable units="millisecond" cmeta:id="stimulus_protocol_IstimPulseDuration" name="IstimPulseDuration" initial_value="0.5"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" id="Stimulus_Current_Equation">
+      <apply>
+        <eq/>
+        <ci>Istim</ci>
+        <piecewise>
+          <piece>
+            <ci>IstimAmplitude</ci>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci>time</ci>
+                <ci>IstimStart</ci>
+              </apply>
+              <apply>
+                <leq/>
+                <ci>time</ci>
+                <ci>IstimEnd</ci>
+              </apply>
+              <apply>
+                <leq/>
+                <apply>
+                  <minus/>
+                  <apply>
+                    <minus/>
+                    <ci>time</ci>
+                    <ci>IstimStart</ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <apply>
+                      <floor/>
+                      <apply>
+                        <divide/>
+                        <apply>
+                          <minus/>
+                          <ci>time</ci>
+                          <ci>IstimStart</ci>
+                        </apply>
+                        <ci>IstimPeriod</ci>
+                      </apply>
+                    </apply>
+                    <ci>IstimPeriod</ci>
+                  </apply>
+                </apply>
+                <ci>IstimPulseDuration</ci>
+              </apply>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="microA_per_cm2">0</cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+    <variable units="millisecond" public_interface="in" name="time"/>
+  </component>
+  <connection>
+    <map_components component_2="stimulus_protocol" component_1="membrane"/>
+    <map_variables variable_2="Istim" variable_1="i_Stim"/>
+  </connection>
+  <connection>
+    <map_components component_2="stimulus_protocol" component_1="environment"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+
+   <group>
+      <relationship_ref relationship="containment"/>
+      <component_ref component="membrane">
+         <component_ref component="sodium_channel">
+            <component_ref component="sodium_channel_m_gate"/>
+            <component_ref component="sodium_channel_h_gate"/>
+         </component_ref>
+         <component_ref component="potassium_channel">
+            <component_ref component="potassium_channel_n_gate"/>
+         </component_ref>
+         <component_ref component="leakage_current"/>
+      </component_ref>
+   </group>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="sodium_channel">
+         <component_ref component="sodium_channel_m_gate"/>
+         <component_ref component="sodium_channel_h_gate"/>
+      </component_ref>
+      <component_ref component="potassium_channel">
+         <component_ref component="potassium_channel_n_gate"/>
+      </component_ref>
+   </group>
+   <connection>
+      <map_components component_2="environment" component_1="membrane"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="sodium_channel"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="potassium_channel"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="environment" component_1="leakage_current"/>
+      <map_variables variable_2="time" variable_1="time"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_channel" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="E_R" variable_1="E_R"/>
+      <map_variables variable_2="i_Na" variable_1="i_Na"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_channel" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="E_R" variable_1="E_R"/>
+      <map_variables variable_2="i_K" variable_1="i_K"/>
+   </connection>
+   <connection>
+      <map_components component_2="leakage_current" component_1="membrane"/>
+      <map_variables variable_2="V" variable_1="V"/>
+      <map_variables variable_2="E_R" variable_1="E_R"/>
+      <map_variables variable_2="i_L" variable_1="i_L"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_channel_m_gate" component_1="sodium_channel"/>
+      <map_variables variable_2="m" variable_1="m"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="sodium_channel_h_gate" component_1="sodium_channel"/>
+      <map_variables variable_2="h" variable_1="h"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+   <connection>
+      <map_components component_2="potassium_channel_n_gate" component_1="potassium_channel"/>
+      <map_variables variable_2="n" variable_1="n"/>
+      <map_variables variable_2="time" variable_1="time"/>
+      <map_variables variable_2="V" variable_1="V"/>
+   </connection>
+
+
+
+
+
+
+
+
+
+<rdf:RDF>
+  <rdf:Bag rdf:about="rdf:#e9e44e76-9801-4440-a074-6509ae83c1b7">
+    <rdf:li>Neuron</rdf:li>
+    <rdf:li>giant axon</rdf:li>
+    <rdf:li>electrophysiology</rdf:li>
+  </rdf:Bag>
+  <rdf:Seq rdf:about="rdf:#5aa345d1-498a-40fe-852c-be5a6c19cb10">
+    <rdf:li rdf:resource="rdf:#51a60dc9-2f70-4eb6-845a-1dafe7feb919"/>
+    <rdf:li rdf:resource="rdf:#3e67593e-eafa-479e-8369-1879d475ea1a"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#9402b850-7050-4483-9cc7-a84fe2f91be2">
+    <vCard:Given>A</vCard:Given>
+    <vCard:Family>Hodgkin</vCard:Family>
+    <vCard:Other>L</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#00da010f-7f66-47c5-89f7-a0d13ca1ddf4">
+    <dcterms:modified rdf:resource="rdf:#9ee1d23e-9cd8-45d8-8b8f-fcf480cf5c95"/>
+    <rdf:value>Added more metadata.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#f9a8c5a9-bc9c-4b50-bdbe-e9e5956bc3bd"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>The University of Auckland, Bioengineering Institute</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#5f502734-46d5-4a70-bd04-3e0f1d128044"/>
+    <dcterms:created rdf:resource="rdf:#665adec2-47bb-4f04-80a1-68f545e81a0e"/>
+    <dc:creator rdf:resource="rdf:#110653f5-2489-488d-a6ed-8e8d5e1e49d0"/>
+    <cmeta:modification rdf:resource="rdf:#00da010f-7f66-47c5-89f7-a0d13ca1ddf4"/>
+    <cmeta:modification rdf:resource="rdf:#11e3f403-75e7-4da6-9f6b-c5732c0cab1d"/>
+    <cmeta:modification rdf:resource="rdf:#384803b0-d02a-414d-86fe-2ead34d6ede9"/>
+    <cmeta:modification rdf:resource="rdf:#70de1e12-eccf-4c2c-a514-a53a1018aeb3"/>
+    <cmeta:modification rdf:resource="rdf:#8fd18725-5764-4794-8857-23e4f6ce4b18"/>
+    <cmeta:modification rdf:resource="rdf:#926f9f08-b397-491a-ac44-76e38b182232"/>
+    <cmeta:modification rdf:resource="rdf:#f0c9b743-d359-449c-ac0c-25d95cf30ee6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#384803b0-d02a-414d-86fe-2ead34d6ede9">
+    <dcterms:modified rdf:resource="rdf:#70448d97-7f25-4048-8bd3-da91d466bfd1"/>
+    <rdf:value>Correcting the equation for dv/dt.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#85f445d5-2b20-4a8a-937a-44890e1ccf00"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#70448d97-7f25-4048-8bd3-da91d466bfd1">
+    <dcterms:W3CDTF>2002-11-20</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5f502734-46d5-4a70-bd04-3e0f1d128044">
+    <dc:creator rdf:resource="rdf:#eee88e88-b221-451f-84ca-e2517ca582d7"/>
+    <rdf:value>This version (07) has had a stimulus protocol component added (to version 06, by James Lawson, 15/06/07) to allow the model to simulate multiple action potentials. Version 05 was created by Penny Noble of Oxford University and is known to run in COR and PCEnv. The intial voltage membrane potential was changed from 0 mV to the correct value of -75 mV. (Version 06 is the same as version 05 but has updated documentation)</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="#hodgkin_huxley_squid_axon_1952">
+    <cmeta:bio_entity>Neuron</cmeta:bio_entity>
+    <ns7:simulation rdf:resource="rdf:#$Tpnot2"/>
+    <dc:title>The Classic Hodgkin-Huxley 1952 Model of A Squid Axon.</dc:title>
+    <cmeta:species>Squid</cmeta:species>
+    <bqs:Pubmed_id>2185861</bqs:Pubmed_id>
+    <bqs:reference rdf:resource="rdf:#2f069a61-06ba-4782-a877-f31e770cdf0d"/>
+    <bqs:reference rdf:resource="rdf:#c1c62bec-a4f9-4b41-91ab-bbc81d473192"/>
+    <cmeta:comment rdf:resource="rdf:#66bca445-cdee-4030-81ee-ed5b822bf666"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2f069a61-06ba-4782-a877-f31e770cdf0d">
+    <bqs:Pubmed_id>2185861</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#6a5c1370-80c1-4b42-aead-44170b5e073e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c1c62bec-a4f9-4b41-91ab-bbc81d473192">
+    <dc:subject rdf:resource="rdf:#34d6c118-3d31-4355-90dc-a2cb5ef18374"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#110653f5-2489-488d-a6ed-8e8d5e1e49d0">
+    <vCard:ORG rdf:resource="rdf:#5f6a3f59-56b0-4c8f-9885-b8cf157290ef"/>
+    <vCard:EMAIL rdf:resource="rdf:#18be6072-0bb2-486b-bf47-d786a8ccb00a"/>
+    <vCard:N rdf:resource="rdf:#e64f82a7-a34d-4f8b-8e60-012dbf5ea240"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#957446e8-2852-4457-a3f6-0e87906f21b9">
+    <dcterms:W3CDTF>1952-01-01</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#11e3f403-75e7-4da6-9f6b-c5732c0cab1d">
+    <dcterms:modified rdf:resource="rdf:#140c4615-dbeb-4856-aa9c-68f554470dfa"/>
+    <cmeta:modifier rdf:resource="rdf:#b7d9bdf8-8ab9-4b18-903c-84dc2b140727"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f9a8c5a9-bc9c-4b50-bdbe-e9e5956bc3bd">
+    <vCard:N rdf:resource="rdf:#bde7bd97-4909-4ba8-8a80-7457d90944ff"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#86821b4a-b64d-46a1-8aec-e3f4544cb540">
+    <dcterms:W3CDTF>2007-06-14T07:38:16+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#18be6072-0bb2-486b-bf47-d786a8ccb00a">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8fd18725-5764-4794-8857-23e4f6ce4b18">
+    <dcterms:modified rdf:resource="rdf:#6875edb4-a9cd-4bb6-b8f9-03b2c7cc8124"/>
+    <cmeta:modifier rdf:resource="rdf:#18a9b9a3-ea24-4c7d-9df0-4f3663e434bd"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#70de1e12-eccf-4c2c-a514-a53a1018aeb3">
+    <dcterms:modified rdf:resource="rdf:#5bc4f7d2-1306-4281-88b5-a5afe628bc66"/>
+    <rdf:value>Added stimulus protocol to allow simulation of trains of action potentials. The stimulus amplitude (20 microamperes per cm2) and duration (0.5 ms) were taken from the single stimulus in the previous version. Set a period of 200 ms (arbitrary) to allow visualisation of 3 action potentials together at a resonable zoom level.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#e897f342-e771-4ae3-876d-062dfdfccc88"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#34d6c118-3d31-4355-90dc-a2cb5ef18374">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value rdf:resource="rdf:#e9e44e76-9801-4440-a074-6509ae83c1b7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e897f342-e771-4ae3-876d-062dfdfccc88">
+    <vCard:N rdf:resource="rdf:#56197c17-2399-482e-9645-a522ed0beb31"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5bc4f7d2-1306-4281-88b5-a5afe628bc66">
+    <dcterms:W3CDTF>2007-06-15T12:32:55+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5f6a3f59-56b0-4c8f-9885-b8cf157290ef">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>The Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#3e67593e-eafa-479e-8369-1879d475ea1a">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#0f72a1b1-ef97-4005-ad81-81353e3383ef"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$Upnot2">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="rdf:#$Vpnot2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#56197c17-2399-482e-9645-a522ed0beb31">
+    <vCard:Given>James</vCard:Given>
+    <vCard:Family>Lawson</vCard:Family>
+    <vCard:Other>Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2db6628b-7f2e-4536-94e2-cbba185e47e3">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bd2a51c8-81c1-4015-8a10-a0ff312038a5">
+    <dcterms:W3CDTF>2002-11-20</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#eee0af8e-5256-4021-9426-80fe492518bc">
+    <dc:title>Journal of Physiology</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9ee1d23e-9cd8-45d8-8b8f-fcf480cf5c95">
+    <dcterms:W3CDTF>2002-07-19</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#eee88e88-b221-451f-84ca-e2517ca582d7">
+    <vCard:FN>James Lawson</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d7dedc5f-038d-45c5-b191-69311c173c69">
+    <vCard:N rdf:resource="rdf:#2db6628b-7f2e-4536-94e2-cbba185e47e3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bde7bd97-4909-4ba8-8a80-7457d90944ff">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e64f82a7-a34d-4f8b-8e60-012dbf5ea240">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f0c9b743-d359-449c-ac0c-25d95cf30ee6">
+    <dcterms:modified rdf:resource="rdf:#bd2a51c8-81c1-4015-8a10-a0ff312038a5"/>
+    <rdf:value>Correcting the equation for dv/dt.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#372d59c8-494a-409d-95e7-350b2ad6c199"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6d8cd909-915e-4a88-96ee-33dcda056c46">
+    <vCard:FN>Warren Hedley</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#926f9f08-b397-491a-ac44-76e38b182232">
+    <dcterms:modified rdf:resource="rdf:#86821b4a-b64d-46a1-8aec-e3f4544cb540"/>
+    <rdf:value>Fixed the broken figure links.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#d7dedc5f-038d-45c5-b191-69311c173c69"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6a5c1370-80c1-4b42-aead-44170b5e073e">
+    <dc:creator rdf:resource="rdf:#5aa345d1-498a-40fe-852c-be5a6c19cb10"/>
+    <dc:title>A quantitative description of membrane current and its application to conductance and excitation in nerve</dc:title>
+    <bqs:volume>117</bqs:volume>
+    <bqs:first_page>500</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#eee0af8e-5256-4021-9426-80fe492518bc"/>
+    <dcterms:issued rdf:resource="rdf:#957446e8-2852-4457-a3f6-0e87906f21b9"/>
+    <bqs:last_page>544</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#51a60dc9-2f70-4eb6-845a-1dafe7feb919">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#9402b850-7050-4483-9cc7-a84fe2f91be2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6875edb4-a9cd-4bb6-b8f9-03b2c7cc8124">
+    <dcterms:W3CDTF>2007-06-15T12:32:55+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#140c4615-dbeb-4856-aa9c-68f554470dfa">
+    <dcterms:W3CDTF>2007-06-20T16:01:50+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9b923383-f1a8-48c7-b1ee-0ca41c08de54">
+    <vCard:Given>David</vCard:Given>
+    <vCard:Family>Nickerson</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0f72a1b1-ef97-4005-ad81-81353e3383ef">
+    <vCard:Given>A</vCard:Given>
+    <vCard:Family>Huxley</vCard:Family>
+    <vCard:Other>F</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$Vpnot2">
+    <ns7:endingValue>750</ns7:endingValue>
+    <ns7:nonstandard-pointDensity>50000</ns7:nonstandard-pointDensity>
+    <ns7:maximumStepSize>0.01</ns7:maximumStepSize>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#665adec2-47bb-4f04-80a1-68f545e81a0e">
+    <dcterms:W3CDTF>2002-03-26T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#66bca445-cdee-4030-81ee-ed5b822bf666">
+    <dc:creator rdf:resource="rdf:#6d8cd909-915e-4a88-96ee-33dcda056c46"/>
+    <rdf:value>This is the CellML description of Hodgkin and Huxley's inspirational work on a mathematical description of currents through the membrane of a nerve fibre (axon) in a giant squid, and their application to the modelling of excitation in the nerve. It is generally regarded as the first example of a mathematical model of biology.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#18a9b9a3-ea24-4c7d-9df0-4f3663e434bd">
+    <vCard:N rdf:resource="rdf:#3b0e83c3-4898-4081-84fa-85c0d2807054"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#645f2f0c-9134-420b-9177-df0862a7a1fc">
+    <vCard:Given>David</vCard:Given>
+    <vCard:Family>Nickerson</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b7d9bdf8-8ab9-4b18-903c-84dc2b140727">
+    <vCard:N rdf:resource="rdf:#2513dee6-5449-443a-b035-2ff762ff3069"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#372d59c8-494a-409d-95e7-350b2ad6c199">
+    <vCard:N rdf:resource="rdf:#645f2f0c-9134-420b-9177-df0862a7a1fc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#85f445d5-2b20-4a8a-937a-44890e1ccf00">
+    <vCard:N rdf:resource="rdf:#9b923383-f1a8-48c7-b1ee-0ca41c08de54"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$Tpnot2">
+    <ns7:boundIntervals rdf:resource="rdf:#$Upnot2"/>
+  </rdf:Description>
+</rdf:RDF>
+</model>

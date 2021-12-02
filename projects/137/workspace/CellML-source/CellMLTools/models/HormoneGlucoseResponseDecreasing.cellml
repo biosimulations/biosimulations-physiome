@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="HormoneGlucoseResponseDecreasing" name="HormoneGlucoseResponseDecreasing"> 
+   <component name="HormoneGlucoseResponseDecreasing">
+      <variable name="h" public_interface="out" units="pM"/>
+      <variable name="glc" public_interface="in" units="mM"/>
+      <variable name="h_max" public_interface="in" units="pM"/>
+      <variable name="h_base" public_interface="in" units="pM"/>
+      <variable name="h_km" public_interface="in" units="pM"/>
+      <variable name="h_n" public_interface="in" units="dimensionless"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>h</ci>
+            <apply>
+               <times/>
+               <apply>
+                  <minus/>
+                  <ci>h_max</ci>
+                  <ci>h_base</ci>
+               </apply>
+               <apply>
+                  <minus/>
+                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <power/>
+                        <ci>glc</ci>
+                        <ci>h_n</ci>
+                     </apply>
+                     <apply>
+                        <plus/>
+                        <apply>
+                           <power/>
+                           <ci>glc</ci>
+                           <ci>h_n</ci>
+                        </apply>
+                        <apply>
+                           <power/>
+                           <ci>h_km</ci>
+                           <ci>h_n</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+</model>

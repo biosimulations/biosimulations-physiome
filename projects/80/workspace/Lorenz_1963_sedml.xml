@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sedML  xmlns="http://sed-ml.org/" xmlns:math="http://www.w3.org/1998/Math/MathML" level="1" version="1">
+ <listOfSimulations>
+   <uniformTimeCourse id="simulation1" initialTime="0" outputStartTime="0" outputEndTime="30" numberOfPoints="1000" >
+     <algorithm kisaoID="KISAO:0000019"/>
+    </uniformTimeCourse>
+ </listOfSimulations>
+ <listOfModels>
+  <model id="model1" name="Lorenz_1963" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/randall/Lorenz_1963/@@rawfile/13da307bb6707a4040d00556202280c13a19a105/Lorenz_1963.cellml"/>
+ </listOfModels>
+ <listOfTasks>
+    <task id="task1" name="Phase space trajectory" modelReference="model1" simulationReference="simulation1"/>
+  </listOfTasks>
+
+  <listOfDataGenerators>
+    <dataGenerator id="t" name="t">
+      <listOfVariables>
+        <variable id="variable_t" taskReference="task1" target="/cellml:model/cellml:component[@name='Main']/cellml:variable[@name='t']" />
+      </listOfVariables>
+      <math:math>
+        <math:ci>variable_t</math:ci>
+      </math:math>
+    </dataGenerator>
+    
+    <dataGenerator id="x" name="x">
+      <listOfVariables>
+        <variable id="variable_x" taskReference="task1" target="/cellml:model/cellml:component[@name='Main']/cellml:variable[@name='x']" />
+      </listOfVariables>
+      <math:math>
+        <math:ci>variable_x</math:ci>
+      </math:math>
+    </dataGenerator>
+    
+    <dataGenerator id="y" name="y">
+      <listOfVariables>
+        <variable id="variable_y" taskReference="task1" target="/cellml:model/cellml:component[@name='Main']/cellml:variable[@name='y']" />
+      </listOfVariables>
+      <math:math>
+        <math:ci>variable_y</math:ci>
+      </math:math>
+    </dataGenerator>
+  
+    <dataGenerator id="z" name="z">
+      <listOfVariables>
+        <variable id="variable_z" taskReference="task1" target="/cellml:model/cellml:component[@name='Main']/cellml:variable[@name='z']" />
+      </listOfVariables>
+      <math:math>
+        <math:ci>variable_z</math:ci>
+      </math:math>
+    </dataGenerator>
+  </listOfDataGenerators>
+  
+  <listOfOutputs>
+    <plot2D id="plot1" name="Phase space trajectory xy">
+      <listOfCurves>
+        <curve id="p1c1" logX="false" logY="false" xDataReference="x" yDataReference="y" />
+      </listOfCurves>
+    </plot2D>
+
+    <plot2D id="plot2" name="Phase space trajectory xz">
+      <listOfCurves>
+        <curve id="p2c1" logX="false" logY="false" xDataReference="x" yDataReference="z" />
+      </listOfCurves>
+    </plot2D>
+
+    <plot2D id="plot3" name="Phase space trajectory yz">
+      <listOfCurves>
+        <curve id="p3c1" logX="false" logY="false" xDataReference="y" yDataReference="z" />
+      </listOfCurves>
+    </plot2D>
+
+    <plot2D id="plot4" name="Timeseries">
+      <listOfCurves>
+        <curve id="p4c1" logX="false" logY="false" xDataReference="t" yDataReference="x" />
+        <curve id="p4c2" logX="false" logY="false" xDataReference="t" yDataReference="y" />
+        <curve id="p4c3" logX="false" logY="false" xDataReference="t" yDataReference="z" />
+      </listOfCurves>
+    </plot2D>
+    
+  </listOfOutputs>
+</sedML>

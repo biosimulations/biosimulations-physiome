@@ -1,0 +1,697 @@
+<?xml version="1.0"?>
+<!--  FILE :  gall_model3_1999.xml
+
+CREATED :  10th April 2002
+
+LAST MODIFIED : 11th August 2003
+
+AUTHOR :  Catherine Lloyd
+          Bioengineering Institute
+          The University of Auckland
+          
+MODEL STATUS :  This model conforms to the CellML 1.0 Specification released on
+10th August 2001, and the 16/01/2002 CellML Metadata 1.0 Specification.
+
+DESCRIPTION :  This file contains a CellML description of Gall and Susa's
+1999 Na/Ca exchange in models for pancreatic beta-cells.
+
+CHANGES:  
+  18/07/2002 - CML - Added more metadata.
+  09/04/2003 - AAC - Added publication date information.
+  11/08/2003 - CML - Corrected equation.  
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/gall_susa_1999/gall_susa_1999_c.cellml" cmeta:id="gall_1999" name="gall_1999">
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Na/Ca Exchange in Models for Pancreatic Beta-Cells</title>
+  <author>
+    <firstname>Catherine</firstname>
+          <surname>Lloyd</surname>
+    <affiliation>
+      <shortaffil>Auckland Bioengineering Institute, The University of Auckland</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+        This CellML model represents Model III from the published paper. The CellML matches the published equations and the model runs in OpenCell and COR but it does not replicate the published results.
+          </para>
+  </section>
+  <sect1 id="sec_structure">
+<title>Model Structure</title>
+
+<para>
+ABSTRACT: In the presence of an insulinotropic glucose concentration, beta-cells, in intact pancreatic islets, exhibit periodic bursting electrical activity consisting of an alternation of active and silent phases. The fraction of time spent in the active phase over a period is called the plateau fraction and is correlated with the rate of insulin release. However, the mechanisms that regulate the plateau fraction remain unclear. In this paper we investigate the possible role of the plasma membrane Na+/Ca2+ exchange of the beta-cell in controlling the plateau fraction. We have extended different single-cell models to incorporate this Ca2+-activated electrogenic Ca2+ transporter. We find that the Na+/Ca2+ exchange can provide a physiological mechanism to increase the plateau fraction as the glucose concentration is raised. In addition, we show theoretically that the Na+/Ca2+ exchanger is a key regulator of the cytoplasmic calcium concentration in clusters of heterogeneous cells with gap-junctional electrical coupling.  
+</para>
+
+<para>
+The original paper reference is cited below:
+</para>
+
+<para>
+Effect of Na/Ca Exchange on Plateau Fraction and [Ca<superscript>2+</superscript>]<subscript>i</subscript> in Models for Bursting in Pancreatic Beta-Cells, David Gall and Isabella Susa, 1999,
+            <emphasis>Biophysical Journal</emphasis>, 77, 45-53. <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/10388739">PubMed ID: 10388739</ulink>  
+</para>
+
+
+<informalfigure float="0" id="fig_cell_diagram">
+<mediaobject>
+  <imageobject>
+    <objectinfo>
+      <title>cell schematic for the model</title>
+    </objectinfo>
+    <imagedata fileref="gall_1999.png"/>
+  </imageobject>
+</mediaobject>
+<caption>Schematic diagram of the pancreatic beta-cell plasma membrane showing the ionic currents captured by the three single cell mathematical models.</caption>
+</informalfigure>
+
+</sect1>
+</article>
+</documentation>
+  
+  <units name="millisecond">
+    <unit prefix="milli" units="second"/>
+  </units>
+  
+  <units name="per_millisecond">
+    <unit exponent="-1" units="millisecond"/>
+  </units>
+  
+  <units name="picoA">
+    <unit prefix="pico" units="ampere"/>
+  </units>
+  
+  <units name="femtoF">
+    <unit prefix="femto" units="farad"/>
+  </units>
+  
+  <units name="millimolar">
+    <unit prefix="milli" units="mole"/>
+    <unit exponent="-1" units="litre"/>
+  </units>
+  
+  <units name="micromolar">
+    <unit prefix="micro" units="mole"/>
+    <unit exponent="-1" units="litre"/>
+  </units>
+  
+  <units name="millivolt">
+    <unit prefix="milli" units="volt"/>
+  </units>
+  
+  <units name="picoS">
+    <unit prefix="pico" units="siemens"/>
+  </units>
+  
+  <units name="mole_per_microlitre_coulomb">
+    <unit units="mole"/>
+    <unit exponent="-1" prefix="micro" units="litre"/>
+    <unit exponent="-1" units="coulomb"/>
+  </units>
+ 
+  <component name="environment">
+    <variable name="time" public_interface="out" units="millisecond"/>
+  </component>
+  
+  <component cmeta:id="id_00038" name="membrane">
+    <variable initial_value="-76.0" name="V" public_interface="out" units="millivolt"/>
+    
+    <variable initial_value="5310.0" name="Cm" units="femtoF"/>
+    
+    <variable name="time" public_interface="in" units="millisecond"/>
+    <variable cmeta:id="id_00001" name="i_Ca" public_interface="in" units="picoA"/>
+    <variable cmeta:id="id_00016" name="i_K" public_interface="in" units="picoA"/>
+    <variable cmeta:id="id_00015" name="i_K_Ca" public_interface="in" units="picoA"/>
+    <variable cmeta:id="id_00024" name="i_Na_Ca" public_interface="in" units="picoA"/>
+     
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="membrane_voltage_diff_eq">
+        <eq/>
+        <apply>
+          <diff/>
+          <bvar>
+            <ci> time </ci>
+          </bvar>
+          <ci> V </ci>
+        </apply>
+        <apply>
+          <divide/>
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <ci> i_K </ci>
+              <ci> i_Ca </ci>
+              <ci> i_K_Ca </ci>
+              <ci> i_Na_Ca </ci>
+            </apply>
+          </apply>
+          <ci> Cm </ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00017" name="rapidly_activating_K_current">
+    <variable cmeta:id="id_00018" name="i_K" public_interface="out" units="picoA"/>
+    <variable cmeta:id="id_00019" initial_value="-75.0" name="V_K" public_interface="out" units="millivolt"/>
+   
+    <variable cmeta:id="id_00020" initial_value="2700.0" name="g_K" units="picoS"/>   
+   
+    <variable name="time" private_interface="out" public_interface="in" units="millisecond"/>
+    <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
+    
+    <variable name="n" private_interface="in" units="dimensionless"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="i_K_calculation">
+        <eq/>
+        <ci> i_K </ci>
+        <apply>
+          <times/>
+          <ci> g_K </ci>
+          <ci> n </ci>
+          <apply>
+            <minus/>
+            <ci> V </ci>
+            <ci> V_K </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component> 
+  
+  <component cmeta:id="id_00021" name="rapidly_activating_K_current_n_gate">
+    <variable cmeta:id="id_00022" initial_value="0.1" name="n" public_interface="out" units="dimensionless"/>
+    
+    <variable cmeta:id="id_00023" name="n_infinity" units="dimensionless"/>
+    <variable initial_value="0.85" name="lamda" units="dimensionless"/>
+    <variable name="tau_n" units="millisecond"/>
+    <variable initial_value="-15.0" name="V_n" units="millivolt"/>
+    <variable initial_value="5.6" name="S_n" units="millivolt"/>
+    <variable initial_value="65.0" name="a" units="millivolt"/>
+    <variable initial_value="20.0" name="b" units="millivolt"/>
+    <variable initial_value="6.0" name="c" units="millisecond"/>
+    <variable initial_value="-75.0" name="V_" units="millivolt"/>
+    
+    <variable name="V" public_interface="in" units="millivolt"/>
+    <variable name="time" public_interface="in" units="millisecond"/>
+   
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="n_diff_eq">
+        <eq/>
+        <apply>
+          <diff/>
+          <bvar>
+            <ci> time </ci>
+          </bvar>
+          <ci> n </ci>
+        </apply>
+        <apply>
+          <times/>
+          <ci> lamda </ci>
+          <apply>
+            <divide/>
+            <apply>
+              <minus/>
+              <ci> n_infinity </ci>
+              <ci> n </ci>
+            </apply>
+            <ci> tau_n </ci>
+          </apply>
+        </apply>
+      </apply>
+      
+      <apply id="n_infinity_calculation">
+        <eq/>
+        <ci> n_infinity </ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless"> 1.0 </cn>
+          <apply>
+            <plus/>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> V_n </ci>
+                  <ci> V </ci>
+                </apply>
+                <ci> S_n </ci>
+              </apply>
+            </apply>    
+          </apply>
+        </apply>
+      </apply>
+      
+      <apply id="tau_n_calculation">
+        <eq/>
+        <ci> tau_n </ci>
+        <apply>
+          <divide/>
+          <ci> c </ci>
+          <apply>
+            <plus/>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> V </ci>
+                  <ci> V_ </ci>
+                </apply>
+                <ci> a </ci>
+              </apply>
+            </apply>   
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> V_ </ci>
+                  <ci> V </ci>
+                </apply>
+                <ci> b </ci>
+              </apply>
+            </apply>    
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00002" name="calcium_current">
+    <variable cmeta:id="id_00003" name="i_Ca" public_interface="out" units="picoA"/>
+    
+    <variable cmeta:id="id_00004" initial_value="25.0" name="V_Ca" units="millivolt"/>
+    <variable cmeta:id="id_00005" initial_value="1000.0" name="g_Ca" units="picoS"/>   
+   
+    <variable name="time" private_interface="out" public_interface="in" units="millisecond"/>
+    <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
+    
+    <variable name="m_infinity" private_interface="in" units="dimensionless"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="i_Ca_calculation">
+        <eq/>
+        <ci> i_Ca </ci>
+        <apply>
+          <times/>
+          <ci> g_Ca </ci>
+          <ci> m_infinity </ci>
+          <apply>
+            <minus/>
+            <ci> V </ci>
+            <ci> V_Ca </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component> 
+  
+  <component cmeta:id="id_00006" name="calcium_current_m_gate">
+    <variable cmeta:id="id_00007" name="m_infinity" public_interface="out" units="dimensionless"/>
+    
+    <variable cmeta:id="id_00008" initial_value="-20.0" name="V_m" units="millivolt"/>
+    <variable cmeta:id="id_00009" initial_value="12.0" name="S_m" units="millivolt"/>
+    
+    <variable name="V" public_interface="in" units="millivolt"/>
+    <variable name="time" public_interface="in" units="millisecond"/>
+   
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+     <apply id="m_infinity_calculation">
+        <eq/>
+        <ci> m_infinity </ci>
+        <apply>
+          <divide/>
+          <cn cellml:units="dimensionless"> 1.0 </cn>
+          <apply>
+            <plus/>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <apply>
+              <exp/>
+              <apply>
+                <divide/>
+                <apply>
+                  <minus/>
+                  <ci> V_m </ci>
+                  <ci> V </ci>
+                </apply>
+                <ci> S_m </ci>
+              </apply>
+            </apply>    
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>   
+  
+  <component cmeta:id="id_00011" name="calcium_activated_K_current">
+    <variable cmeta:id="id_00012" name="i_K_Ca" public_interface="out" units="picoA"/>
+    
+    <variable cmeta:id="id_00013" initial_value="30000.0" name="g_K_Ca" units="picoS"/>   
+    <variable initial_value="70.0" name="K_d" units="micromolar"/>
+    
+    <variable cmeta:id="id_00014" name="V_K" public_interface="in" units="millivolt"/>
+    <variable name="time" public_interface="in" units="millisecond"/>
+    <variable name="V" public_interface="in" units="millivolt"/>
+    <variable name="Ca_i" public_interface="in" units="micromolar"/>
+     
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="i_K_Ca_calculation">
+        <eq/>
+        <ci> i_K_Ca </ci>
+        <apply>
+          <times/>
+          <ci> g_K_Ca </ci>
+          <apply>
+            <divide/>
+            <ci> Ca_i </ci>
+            <apply>
+              <plus/>
+              <ci> K_d </ci>
+              <ci> Ca_i </ci>
+            </apply>
+		  </apply>
+          <apply>
+            <minus/>
+            <ci> V </ci>
+            <ci> V_K </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component> 
+  
+  <component cmeta:id="id_00025" name="Na_Ca_exchanger_current">
+    <variable cmeta:id="id_00026" name="i_Na_Ca" public_interface="out" units="picoA"/>
+    
+    <variable cmeta:id="id_00027" initial_value="1000.0" name="g_Na_Ca" units="picoS"/>   
+    <variable initial_value="1.5" name="K_1_2" units="micromolar"/>
+    <variable cmeta:id="id_00028" name="V_Na_Ca" units="millivolt"/>
+    <variable initial_value="26.54" name="RT_F" units="millivolt"/>
+    <variable initial_value="5.0" name="nH" units="dimensionless"/>
+    
+    <variable name="time" public_interface="in" units="millisecond"/>
+    <variable name="V" public_interface="in" units="millivolt"/>
+    <variable cmeta:id="id_00029" name="Ca_i" public_interface="in" units="micromolar"/>
+    <variable cmeta:id="id_00030" name="Ca_o" public_interface="in" units="micromolar"/>
+    <variable cmeta:id="id_00034" name="Na_i" public_interface="in" units="millimolar"/>
+    <variable cmeta:id="id_00035" name="Na_o" public_interface="in" units="millimolar"/>
+     
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="i_Na_Ca_calculation">
+        <eq/>
+        <ci> i_Na_Ca </ci>
+        <apply>
+          <times/>
+          <ci> g_Na_Ca </ci>
+          <apply>
+            <divide/>
+            <apply>
+              <power/>
+              <ci> Ca_i </ci>
+              <ci> nH </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <apply>
+                <power/>
+                <ci> K_1_2 </ci>
+                <ci> nH </ci>
+              </apply>
+              <apply>
+                <power/>
+                <ci> Ca_i </ci>
+                <ci> nH </ci>
+              </apply>
+            </apply>
+		  </apply>
+		  <apply>
+            <minus/>
+            <ci> V </ci>
+            <ci> V_Na_Ca </ci>
+          </apply>
+        </apply>
+      </apply>
+      
+      <apply id="V_Na_Ca_calculation">
+        <eq/>
+        <ci> V_Na_Ca </ci>
+        <apply>
+          <times/>
+          <ci> RT_F </ci>
+          <apply>
+            <times/>
+            <cn cellml:units="dimensionless"> 3.0 </cn>
+            <apply>
+              <ln/>
+              <apply>
+                <minus/>
+                <apply>
+                  <divide/>
+                  <ci> Na_o </ci>
+                  <ci> Na_i </ci>
+                </apply>
+                <apply>
+                  <ln/>
+                  <apply>
+                    <divide/>
+                    <ci> Ca_o </ci>
+                    <ci> Ca_i </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>         
+    </math>
+  </component>
+  
+  <component cmeta:id="id_00031" name="ionic_concentrations">
+    <variable cmeta:id="id_00032" initial_value="0.52" name="Ca_i" public_interface="out" units="micromolar"/>
+    <variable cmeta:id="id_00033" initial_value="2600.0" name="Ca_o" public_interface="out" units="micromolar"/>
+    <variable cmeta:id="id_00036" initial_value="10.0" name="Na_i" public_interface="out" units="millimolar"/>
+    <variable cmeta:id="id_00037" initial_value="140.0" name="Na_o" public_interface="out" units="millimolar"/>
+    
+    <variable initial_value="0.7" name="Ca_ret" units="micromolar"/>          
+    <variable initial_value="0.001" name="f" units="dimensionless"/> 
+    <variable initial_value="0.64" name="k_Ca" units="per_millisecond"/>
+    <variable initial_value="0.0006" name="k_rel" units="per_millisecond"/>
+    <variable initial_value="0.2" name="k_pump" units="per_millisecond"/>
+    <variable initial_value="0.00006" name="alpha" units="mole_per_microlitre_coulomb"/>
+    
+    <variable name="time" public_interface="in" units="millisecond"/>
+    <variable cmeta:id="id_00010" name="i_Ca" public_interface="in" units="picoA"/>
+    <variable name="i_Na_Ca" public_interface="in" units="picoA"/>
+   
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="Ca_i_diff_eq">
+        <eq/>
+        <apply>
+          <diff/>
+          <bvar>
+            <ci> time </ci>
+          </bvar>
+          <ci> Ca_i </ci>
+        </apply>
+         <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> f </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <apply>
+                    <minus/>
+                    <ci> alpha </ci>
+                  </apply>
+                  <apply>
+                    <minus/>
+                    <ci> i_Ca </ci>
+                    <apply>
+                      <times/>
+                      <cn cellml:units="dimensionless"> 2.0 </cn>
+                      <ci> i_Na_Ca </ci>
+                    </apply> 
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> k_Ca </ci>
+                  <ci> Ca_i </ci>
+                </apply> 
+              </apply> 
+            </apply>
+            <apply>
+              <times/>
+              <ci> k_rel </ci>
+              <apply>
+                <minus/>
+                <ci> Ca_ret </ci>
+                <ci> Ca_i </ci>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> k_pump </ci>
+            <ci> Ca_i </ci>
+          </apply>
+        </apply>  
+      </apply>
+      
+      <apply id="Ca_ret_diff_eq">
+        <eq/>
+        <apply>
+          <diff/>
+          <bvar>
+            <ci> time </ci>
+          </bvar>
+          <ci> Ca_ret </ci>
+        </apply>
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <apply>
+              <minus/>
+              <ci> k_rel </ci>
+            </apply>
+            <apply>
+              <minus/>
+              <ci> Ca_ret </ci>
+              <ci> Ca_i </ci>
+            </apply> 
+          </apply>
+          <apply>
+            <times/>
+            <ci> k_pump </ci>
+            <ci> Ca_i </ci>
+          </apply>
+        </apply> 
+      </apply> 
+    </math>
+  </component>
+  
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="calcium_current">
+      <component_ref component="calcium_current_m_gate"/>
+    </component_ref>
+    <component_ref component="rapidly_activating_K_current">
+      <component_ref component="rapidly_activating_K_current_n_gate"/>
+    </component_ref>
+  </group>
+  
+  <connection>
+    <map_components component_1="membrane" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="rapidly_activating_K_current" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="calcium_current" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="calcium_activated_K_current" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="Na_Ca_exchanger_current" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="ionic_concentrations" component_2="environment"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="membrane" component_2="calcium_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_Ca" variable_2="i_Ca"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_1="membrane" component_2="rapidly_activating_K_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_K" variable_2="i_K"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="membrane" component_2="calcium_activated_K_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_K_Ca" variable_2="i_K_Ca"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_1="membrane" component_2="Na_Ca_exchanger_current"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="i_Na_Ca" variable_2="i_Na_Ca"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="rapidly_activating_K_current" component_2="calcium_activated_K_current"/>
+    <map_variables variable_1="V_K" variable_2="V_K"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="ionic_concentrations" component_2="calcium_current"/>
+    <map_variables variable_1="i_Ca" variable_2="i_Ca"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="ionic_concentrations" component_2="Na_Ca_exchanger_current"/>
+    <map_variables variable_1="i_Na_Ca" variable_2="i_Na_Ca"/>
+    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+    <map_variables variable_1="Na_i" variable_2="Na_i"/>
+    <map_variables variable_1="Ca_o" variable_2="Ca_o"/>
+    <map_variables variable_1="Na_o" variable_2="Na_o"/>
+  </connection> 
+  
+  <connection>
+    <map_components component_1="ionic_concentrations" component_2="calcium_activated_K_current"/>
+    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="calcium_current" component_2="calcium_current_m_gate"/>
+    <map_variables variable_1="m_infinity" variable_2="m_infinity"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="rapidly_activating_K_current" component_2="rapidly_activating_K_current_n_gate"/>
+    <map_variables variable_1="n" variable_2="n"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="V" variable_2="V"/>
+  </connection>
+  
+
+
+
+
+
+
+<rdf:RDF><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015269"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015269"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015269"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015269"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015269"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00018"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00019"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00020"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00021"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00022"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00023"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00024"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00025"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00026"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00027"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00028"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00029"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00030"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00031"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00032"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00033"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00034"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00035"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00036"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00037"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00038"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030322"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0060075"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042391"/></isVersionOf></rdf:Description></rdf:RDF></model>

@@ -1,0 +1,583 @@
+def model FCU_composite as
+ def import using "units_and_constants/units_BG.cellml" for
+unit mM using unit mM;
+unit fmol using unit fmol;
+unit per_fmol using unit per_fmol;
+unit J_per_mol using unit J_per_mol;
+unit fmol_per_sec using unit fmol_per_sec;
+unit C_per_mol using unit C_per_mol;
+  unit J_per_C using unit J_per_C;
+unit microm3 using unit microm3;
+  unit fF using unit fF;
+unit fC using unit fC;
+  unit fA using unit fA;
+unit per_second using unit per_second;
+  unit millivolt using unit millivolt;
+unit per_sec using unit per_sec;
+  unit J_per_K_per_mol using unit J_per_K_per_mol;
+unit fmol_per_L using unit fmol_per_L;
+  unit fmol_per_L_per_sec using unit fmol_per_L_per_sec;
+unit per_sec_per_fmol_per_L using unit per_sec_per_fmol_per_L;
+  unit uM using unit uM;
+unit mM_per_sec using unit mM_per_sec;
+  unit uM_per_sec using unit uM_per_sec;
+unit pL using unit pL;
+  unit m_to_u using unit m_to_u;
+ enddef;
+def import using "units_and_constants/constants_BG.cellml" for
+comp constants using comp constants;
+enddef;
+
+def import using "cAMP/BG_cAMP.cellml" for
+comp cAMP using comp cAMP;
+enddef;
+def import using "LRGbinding_B1AR/BG_LRGbinding_B1AR.cellml" for
+comp LRGbinding_B1AR using comp LRGbinding_B1AR;
+enddef;
+def import using "LRGbinding_M2/BG_LRGbinding_M2.cellml" for
+comp LRGbinding_M2 using comp LRGbinding_M2;
+enddef;
+def import using "GsProtein/BG_GsProtein.cellml" for
+comp GsProtein using comp GsProtein;
+enddef;
+def import using "GiProtein/BG_GiProtein.cellml" for
+comp GiProtein using comp GiProtein;
+enddef;
+
+def comp BG_parameters as
+var kappa_1a: fmol_per_sec {init: 3.63265e+06, pub: out};
+var kappa_1b: fmol_per_sec {init: 0.000758462, pub: out};
+var kappa_2a: fmol_per_sec {init: 333398, pub: out};
+var kappa_2b: fmol_per_sec {init: 0.0899646, pub: out};
+var kappa_3a: fmol_per_sec {init: 2.40489e+08, pub: out};
+var kappa_3b: fmol_per_sec {init: 2.79639e-17, pub: out};
+var kappa_4a: fmol_per_sec {init: 30916.4, pub: out};
+var kappa_4b: fmol_per_sec {init: 0.11891, pub: out};
+var kappa_5: fmol_per_sec {init: 824.604, pub: out};
+var kappa_6: fmol_per_sec {init: 6142.12, pub: out};
+var kappa_7: fmol_per_sec {init: 443048, pub: out};
+var kappa_GiAC: fmol_per_sec {init: 1734.45, pub: out};
+var kappa_sig1_B1: fmol_per_sec {init: 1320.77, pub: out};
+var kappa_sig2_B1: fmol_per_sec {init: 24.8319, pub: out};
+var kappa_sig3_B1: fmol_per_sec {init: 5.26566, pub: out};
+var kappa_sig4_B1: fmol_per_sec {init: 4.19518e+06, pub: out};
+var kappa_sig1_M2: fmol_per_sec {init: 2426.3, pub: out};
+var kappa_sig2_M2: fmol_per_sec {init: 68.6013, pub: out};
+var kappa_sig3_M2: fmol_per_sec {init: 14.5471, pub: out};
+var kappa_sig4_M2: fmol_per_sec {init: 2.90239e+06, pub: out};
+var kappa_phos_RGs: fmol_per_sec {init: 24.1902, pub: out};
+var kappa_phos_LRGs: fmol_per_sec {init: 7.80819, pub: out};
+var kappa_act1_Gs: fmol_per_sec {init: 1.42953, pub: out};
+var kappa_act2_Gs: fmol_per_sec {init: 0.0374674, pub: out};
+var kappa_hyd_Gs: fmol_per_sec {init: 0.287462, pub: out};
+var kappa_reassoc_Gs: fmol_per_sec {init: 2.7312e+06, pub: out};
+var kappa_phos_RGi: fmol_per_sec {init: 44.4383, pub: out};
+var kappa_phos_LRGi: fmol_per_sec {init: 21.5711, pub: out};
+var kappa_act1_Gi: fmol_per_sec {init: 0.410326, pub: out};
+var kappa_act2_Gi: fmol_per_sec {init: 0.000323464, pub: out};
+var kappa_hyd_Gi: fmol_per_sec {init: 2.02938, pub: out};
+var kappa_reassoc_Gi: fmol_per_sec {init: 1.70408e+06, pub: out};
+var K_ATP: per_fmol {init: 5.35546e-05, pub: out};
+var K_cAMP: per_fmol {init: 0.0158165, pub: out};
+var K_AC: per_fmol {init: 4.03967, pub: out};
+var K_AC_ATP: per_fmol {init: 7.66545, pub: out};
+var K_aGs_GTP_AC: per_fmol {init: 4.73286, pub: out};
+var K_aGs_GTP_AC_ATP: per_fmol {init: 2.74656, pub: out};
+var K_FSK_AC: per_fmol {init: 0.0656131, pub: out};
+var K_FSK_AC_ATP: per_fmol {init: 0.103955, pub: out};
+var K_PDE: per_fmol {init: 1.72816, pub: out};
+var K_PDE_cAMP: per_fmol {init: 1.22235, pub: out};
+var K_five_AMP: per_fmol {init: 0.0158165, pub: out};
+var K_IBMX: per_fmol {init: 0.0197666, pub: out};
+var K_PDEinh: per_fmol {init: 35.253, pub: out};
+var K_aGs_GTP: per_fmol {init: 0.085145, pub: out};
+var K_FSK: per_fmol {init: 1.07308e-05, pub: out};
+var K_aGi_GTP: per_fmol {init: 0.0120608, pub: out};
+var K_ACinh: per_fmol {init: 16.7602, pub: out};
+var K_PPi: per_fmol {init: 9.843e-05, pub: out};
+var K_L_B1: per_fmol {init: 0.0480673, pub: out};
+var K_R_B1: per_fmol {init: 0.00573574, pub: out};
+var K_Gs: per_fmol {init: 156.63, pub: out};
+var K_LR_B1: per_fmol {init: 0.767984, pub: out};
+var K_R_B1Gs: per_fmol {init: 517.271, pub: out};
+var K_LR_B1Gs: per_fmol {init: 456.649, pub: out};
+var K_L_M2: per_fmol {init: 0.0319627, pub: out};
+var K_R_M2: per_fmol {init: 0.0124678, pub: out};
+var K_Gi: per_fmol {init: 39.2246, pub: out};
+var K_LR_M2: per_fmol {init: 1.11006, pub: out};
+var K_R_M2Gi: per_fmol {init: 281.579, pub: out};
+var K_LR_M2Gi: per_fmol {init: 165.295, pub: out};
+var K_R_B1GsP: per_fmol {init: 0.625296, pub: out};
+var K_LR_B1GsP: per_fmol {init: 6.79829, pub: out};
+var K_beta_gamma_Gs: per_fmol {init: 1.83091e-05, pub: out};
+var K_aGs_GDP: per_fmol {init: 0.0215206, pub: out};
+var K_Pi: per_fmol {init: 0.00012979, pub: out};
+var K_R_M2GiP: per_fmol {init: 0.340383, pub: out};
+var K_LR_M2GiP: per_fmol {init: 2.4608, pub: out};
+var K_beta_gamma_Gi: per_fmol {init: 0.000207164, pub: out};
+var K_aGi_GDP: per_fmol {init: 0.00304839, pub: out};
+enddef;
+    def comp environment as
+var time: second {pub: out};
+var vol_myo: pL {init: 34.4, pub: out};
+var freq: dimensionless {init: 500};
+// stimulus
+// ramp UP and ramp DOWN
+var stimSt: second {init: 3.5e-4};
+var stimSt2: second {init: 3e-4}; 
+var stimDur: second {init: 0.25e-4};  
+var tR: second {init: 1.8e-4};
+var stimMag: fmol {init: 1e1};
+var stimHolding: fmol {init: 1e-5};   
+var m: fmol_per_sec;  
+m = stimMag/tR;   
+q_L_B1_init = sel          
+    case (time < stimSt) and (time > stimSt-tR):   
+        stimHolding+m*(time-stimSt+tR);
+    case (time >= stimSt) and (time < stimSt+stimDur): 
+        stimMag+stimHolding;   
+    case (time < stimSt+tR+stimDur) and (time >= stimSt+stimDur):  
+        stimHolding+-m*(time-stimSt-tR-stimDur);   
+    otherwise:             
+        stimHolding;       
+endsel;                    
+q_L_M2_init = sel          
+    case (time < stimSt2) and (time > stimSt2-tR): 
+        stimHolding+m*(time-stimSt2+tR);   
+    case (time >= stimSt2) and (time < stimSt2+stimDur):   
+        stimMag+stimHolding;   
+    case (time < stimSt2+tR+stimDur) and (time >= stimSt2+stimDur):
+        stimHolding+-m*(time-stimSt2-tR-stimDur);  
+    otherwise:             
+        stimHolding;       
+endsel;
+var q_ATP_init: fmol {init: 1e-888};
+var q_cAMP_init: fmol {init: 1e-888};
+var q_AC_init: fmol {init: 1e-888};
+var q_AC_ATP_init: fmol {init: 1e-888};
+var q_aGs_GTP_AC_init: fmol {init: 1e-888};
+var q_aGs_GTP_AC_ATP_init: fmol {init: 1e-888};
+var q_FSK_AC_init: fmol {init: 1e-888};
+var q_FSK_AC_ATP_init: fmol {init: 1e-888};
+var q_PDE_init: fmol {init: 1e-888};
+var q_PDE_cAMP_init: fmol {init: 1e-888};
+var q_five_AMP_init: fmol {init: 1e-888};
+var q_IBMX_init: fmol {init: 1e-888};
+var q_PDEinh_init: fmol {init: 1e-888};
+var q_aGs_GTP_init: fmol {init: 1e-888};
+var q_FSK_init: fmol {init: 1e-888};
+var q_aGi_GTP_init: fmol {init: 1e-888};
+var q_ACinh_init: fmol {init: 1e-888};
+var q_PPi_init: fmol {init: 1e-888};
+var q_L_B1_init: fmol {init: 1e-888};
+var q_R_B1_init: fmol {init: 1e-888};
+var q_Gs_init: fmol {init: 1e-888};
+var q_LR_B1_init: fmol {init: 1e-888};
+var q_R_B1Gs_init: fmol {init: 1e-888};
+var q_LR_B1Gs_init: fmol {init: 1e-888};
+var q_L_M2_init: fmol {init: 1e-888};
+var q_R_M2_init: fmol {init: 1e-888};
+var q_Gi_init: fmol {init: 1e-888};
+var q_LR_M2_init: fmol {init: 1e-888};
+var q_R_M2Gi_init: fmol {init: 1e-888};
+var q_LR_M2Gi_init: fmol {init: 1e-888};
+var q_R_B1GsP_init: fmol {init: 1e-888};
+var q_LR_B1GsP_init: fmol {init: 1e-888};
+var q_beta_gamma_Gs_init: fmol {init: 1e-888};
+var q_aGs_GDP_init: fmol {init: 1e-888};
+var q_Pi_init: fmol {init: 1e-888};
+var q_R_M2GiP_init: fmol {init: 1e-888};
+var q_LR_M2GiP_init: fmol {init: 1e-888};
+var q_beta_gamma_Gi_init: fmol {init: 1e-888};
+var q_aGi_GDP_init: fmol {init: 1e-888};
+
+// Global value
+var q_ATP: fmol {pub: out};
+var q_cAMP: fmol {pub: out};
+var q_AC: fmol {pub: out};
+var q_AC_ATP: fmol {pub: out};
+var q_aGs_GTP_AC: fmol {pub: out};
+var q_aGs_GTP_AC_ATP: fmol {pub: out};
+var q_FSK_AC: fmol {pub: out};
+var q_FSK_AC_ATP: fmol {pub: out};
+var q_PDE: fmol {pub: out};
+var q_PDE_cAMP: fmol {pub: out};
+var q_five_AMP: fmol {pub: out};
+var q_IBMX: fmol {pub: out};
+var q_PDEinh: fmol {pub: out};
+var q_aGs_GTP: fmol {pub: out};
+var q_FSK: fmol {pub: out};
+var q_aGi_GTP: fmol {pub: out};
+var q_ACinh: fmol {pub: out};
+var q_PPi: fmol {pub: out};
+var q_L_B1: fmol {pub: out};
+var q_R_B1: fmol {pub: out};
+var q_Gs: fmol {pub: out};
+var q_LR_B1: fmol {pub: out};
+var q_R_B1Gs: fmol {pub: out};
+var q_LR_B1Gs: fmol {pub: out};
+var q_L_M2: fmol {pub: out};
+var q_R_M2: fmol {pub: out};
+var q_Gi: fmol {pub: out};
+var q_LR_M2: fmol {pub: out};
+var q_R_M2Gi: fmol {pub: out};
+var q_LR_M2Gi: fmol {pub: out};
+var q_R_B1GsP: fmol {pub: out};
+var q_LR_B1GsP: fmol {pub: out};
+var q_beta_gamma_Gs: fmol {pub: out};
+var q_aGs_GDP: fmol {pub: out};
+var q_Pi: fmol {pub: out};
+var q_R_M2GiP: fmol {pub: out};
+var q_LR_M2GiP: fmol {pub: out};
+var q_beta_gamma_Gi: fmol {pub: out};
+var q_aGi_GDP: fmol {pub: out};
+
+// cAMP imports
+var q_ATP_mcAMP: fmol {pub: in};
+var q_cAMP_mcAMP: fmol {pub: in};
+var q_AC_mcAMP: fmol {pub: in};
+var q_AC_ATP_mcAMP: fmol {pub: in};
+var q_aGs_GTP_AC_mcAMP: fmol {pub: in};
+var q_aGs_GTP_AC_ATP_mcAMP: fmol {pub: in};
+var q_FSK_AC_mcAMP: fmol {pub: in};
+var q_FSK_AC_ATP_mcAMP: fmol {pub: in};
+var q_PDE_mcAMP: fmol {pub: in};
+var q_PDE_cAMP_mcAMP: fmol {pub: in};
+var q_five_AMP_mcAMP: fmol {pub: in};
+var q_IBMX_mcAMP: fmol {pub: in};
+var q_PDEinh_mcAMP: fmol {pub: in};
+var q_aGs_GTP_mcAMP: fmol {pub: in};
+var q_FSK_mcAMP: fmol {pub: in};
+var q_aGi_GTP_mcAMP: fmol {pub: in};
+var q_ACinh_mcAMP: fmol {pub: in};
+var q_PPi_mcAMP: fmol {pub: in};
+
+
+// LRGbinding_B1AR imports
+var q_L_B1_mLRGbinding_B1AR: fmol {pub: in};
+var q_R_B1_mLRGbinding_B1AR: fmol {pub: in};
+var q_Gs_mLRGbinding_B1AR: fmol {pub: in};
+var q_LR_B1_mLRGbinding_B1AR: fmol {pub: in};
+var q_R_B1Gs_mLRGbinding_B1AR: fmol {pub: in};
+var q_LR_B1Gs_mLRGbinding_B1AR: fmol {pub: in};
+
+
+// LRGbinding_M2 imports
+var q_L_M2_mLRGbinding_M2: fmol {pub: in};
+var q_R_M2_mLRGbinding_M2: fmol {pub: in};
+var q_Gi_mLRGbinding_M2: fmol {pub: in};
+var q_LR_M2_mLRGbinding_M2: fmol {pub: in};
+var q_R_M2Gi_mLRGbinding_M2: fmol {pub: in};
+var q_LR_M2Gi_mLRGbinding_M2: fmol {pub: in};
+
+
+// GsProtein imports
+var q_R_B1_mGsProtein: fmol {pub: in};
+var q_Gs_mGsProtein: fmol {pub: in};
+var q_R_B1Gs_mGsProtein: fmol {pub: in};
+var q_R_B1GsP_mGsProtein: fmol {pub: in};
+var q_LR_B1_mGsProtein: fmol {pub: in};
+var q_LR_B1Gs_mGsProtein: fmol {pub: in};
+var q_LR_B1GsP_mGsProtein: fmol {pub: in};
+var q_aGs_GTP_mGsProtein: fmol {pub: in};
+var q_beta_gamma_Gs_mGsProtein: fmol {pub: in};
+var q_aGs_GDP_mGsProtein: fmol {pub: in};
+var q_Pi_mGsProtein: fmol {pub: in};
+
+
+// GiProtein imports
+var q_R_M2_mGiProtein: fmol {pub: in};
+var q_Gi_mGiProtein: fmol {pub: in};
+var q_R_M2Gi_mGiProtein: fmol {pub: in};
+var q_R_M2GiP_mGiProtein: fmol {pub: in};
+var q_LR_M2_mGiProtein: fmol {pub: in};
+var q_LR_M2Gi_mGiProtein: fmol {pub: in};
+var q_LR_M2GiP_mGiProtein: fmol {pub: in};
+var q_aGi_GTP_mGiProtein: fmol {pub: in};
+var q_beta_gamma_Gi_mGiProtein: fmol {pub: in};
+var q_aGi_GDP_mGiProtein: fmol {pub: in};
+var q_Pi_mGiProtein: fmol {pub: in};
+
+
+q_ATP = q_ATP_init + q_ATP_mcAMP ;
+q_cAMP = q_cAMP_init + q_cAMP_mcAMP ;
+q_AC = q_AC_init + q_AC_mcAMP ;
+q_AC_ATP = q_AC_ATP_init + q_AC_ATP_mcAMP ;
+q_aGs_GTP_AC = q_aGs_GTP_AC_init + q_aGs_GTP_AC_mcAMP ;
+q_aGs_GTP_AC_ATP = q_aGs_GTP_AC_ATP_init + q_aGs_GTP_AC_ATP_mcAMP ;
+q_FSK_AC = q_FSK_AC_init + q_FSK_AC_mcAMP ;
+q_FSK_AC_ATP = q_FSK_AC_ATP_init + q_FSK_AC_ATP_mcAMP ;
+q_PDE = q_PDE_init + q_PDE_mcAMP ;
+q_PDE_cAMP = q_PDE_cAMP_init + q_PDE_cAMP_mcAMP ;
+q_five_AMP = q_five_AMP_init + q_five_AMP_mcAMP ;
+q_IBMX = q_IBMX_init + q_IBMX_mcAMP ;
+q_PDEinh = q_PDEinh_init + q_PDEinh_mcAMP ;
+q_aGs_GTP = q_aGs_GTP_init + q_aGs_GTP_mcAMP  + q_aGs_GTP_mGsProtein ;
+q_FSK = q_FSK_init + q_FSK_mcAMP ;
+q_aGi_GTP = q_aGi_GTP_init + q_aGi_GTP_mcAMP  + q_aGi_GTP_mGiProtein ;
+q_ACinh = q_ACinh_init + q_ACinh_mcAMP ;
+q_PPi = q_PPi_init + q_PPi_mcAMP ;
+q_L_B1 = q_L_B1_init + q_L_B1_mLRGbinding_B1AR ;
+q_R_B1 = q_R_B1_init + q_R_B1_mLRGbinding_B1AR  + q_R_B1_mGsProtein ;
+q_Gs = q_Gs_init + q_Gs_mLRGbinding_B1AR  + q_Gs_mGsProtein ;
+q_LR_B1 = q_LR_B1_init + q_LR_B1_mLRGbinding_B1AR  + q_LR_B1_mGsProtein ;
+q_R_B1Gs = q_R_B1Gs_init + q_R_B1Gs_mLRGbinding_B1AR  + q_R_B1Gs_mGsProtein ;
+q_LR_B1Gs = q_LR_B1Gs_init + q_LR_B1Gs_mLRGbinding_B1AR  + q_LR_B1Gs_mGsProtein ;
+q_L_M2 = q_L_M2_init + q_L_M2_mLRGbinding_M2 ;
+q_R_M2 = q_R_M2_init + q_R_M2_mLRGbinding_M2  + q_R_M2_mGiProtein ;
+q_Gi = q_Gi_init + q_Gi_mLRGbinding_M2  + q_Gi_mGiProtein ;
+q_LR_M2 = q_LR_M2_init + q_LR_M2_mLRGbinding_M2  + q_LR_M2_mGiProtein ;
+q_R_M2Gi = q_R_M2Gi_init + q_R_M2Gi_mLRGbinding_M2  + q_R_M2Gi_mGiProtein ;
+q_LR_M2Gi = q_LR_M2Gi_init + q_LR_M2Gi_mLRGbinding_M2  + q_LR_M2Gi_mGiProtein ;
+q_R_B1GsP = q_R_B1GsP_init + q_R_B1GsP_mGsProtein ;
+q_LR_B1GsP = q_LR_B1GsP_init + q_LR_B1GsP_mGsProtein ;
+q_beta_gamma_Gs = q_beta_gamma_Gs_init + q_beta_gamma_Gs_mGsProtein ;
+q_aGs_GDP = q_aGs_GDP_init + q_aGs_GDP_mGsProtein ;
+q_Pi = q_Pi_init + q_Pi_mGsProtein  + q_Pi_mGiProtein ;
+q_R_M2GiP = q_R_M2GiP_init + q_R_M2GiP_mGiProtein ;
+q_LR_M2GiP = q_LR_M2GiP_init + q_LR_M2GiP_mGiProtein ;
+q_beta_gamma_Gi = q_beta_gamma_Gi_init + q_beta_gamma_Gi_mGiProtein ;
+q_aGi_GDP = q_aGi_GDP_init + q_aGi_GDP_mGiProtein ;
+enddef;
+
+def map between environment and cAMP for
+vars time and time;
+vars q_ATP_mcAMP and q_ATP;
+vars q_ATP and q_ATP_global;
+vars q_cAMP_mcAMP and q_cAMP;
+vars q_cAMP and q_cAMP_global;
+vars q_AC_mcAMP and q_AC;
+vars q_AC and q_AC_global;
+vars q_AC_ATP_mcAMP and q_AC_ATP;
+vars q_AC_ATP and q_AC_ATP_global;
+vars q_aGs_GTP_AC_mcAMP and q_aGs_GTP_AC;
+vars q_aGs_GTP_AC and q_aGs_GTP_AC_global;
+vars q_aGs_GTP_AC_ATP_mcAMP and q_aGs_GTP_AC_ATP;
+vars q_aGs_GTP_AC_ATP and q_aGs_GTP_AC_ATP_global;
+vars q_FSK_AC_mcAMP and q_FSK_AC;
+vars q_FSK_AC and q_FSK_AC_global;
+vars q_FSK_AC_ATP_mcAMP and q_FSK_AC_ATP;
+vars q_FSK_AC_ATP and q_FSK_AC_ATP_global;
+vars q_PDE_mcAMP and q_PDE;
+vars q_PDE and q_PDE_global;
+vars q_PDE_cAMP_mcAMP and q_PDE_cAMP;
+vars q_PDE_cAMP and q_PDE_cAMP_global;
+vars q_five_AMP_mcAMP and q_five_AMP;
+vars q_five_AMP and q_five_AMP_global;
+vars q_IBMX_mcAMP and q_IBMX;
+vars q_IBMX and q_IBMX_global;
+vars q_PDEinh_mcAMP and q_PDEinh;
+vars q_PDEinh and q_PDEinh_global;
+vars q_aGs_GTP_mcAMP and q_aGs_GTP;
+vars q_aGs_GTP and q_aGs_GTP_global;
+vars q_FSK_mcAMP and q_FSK;
+vars q_FSK and q_FSK_global;
+vars q_aGi_GTP_mcAMP and q_aGi_GTP;
+vars q_aGi_GTP and q_aGi_GTP_global;
+vars q_ACinh_mcAMP and q_ACinh;
+vars q_ACinh and q_ACinh_global;
+vars q_PPi_mcAMP and q_PPi;
+vars q_PPi and q_PPi_global;
+enddef;
+
+def map between environment and LRGbinding_B1AR for
+vars time and time;
+vars q_L_B1_mLRGbinding_B1AR and q_L_B1;
+vars q_L_B1 and q_L_B1_global;
+vars q_R_B1_mLRGbinding_B1AR and q_R_B1;
+vars q_R_B1 and q_R_B1_global;
+vars q_Gs_mLRGbinding_B1AR and q_Gs;
+vars q_Gs and q_Gs_global;
+vars q_LR_B1_mLRGbinding_B1AR and q_LR_B1;
+vars q_LR_B1 and q_LR_B1_global;
+vars q_R_B1Gs_mLRGbinding_B1AR and q_R_B1Gs;
+vars q_R_B1Gs and q_R_B1Gs_global;
+vars q_LR_B1Gs_mLRGbinding_B1AR and q_LR_B1Gs;
+vars q_LR_B1Gs and q_LR_B1Gs_global;
+enddef;
+
+def map between environment and LRGbinding_M2 for
+vars time and time;
+vars q_L_M2_mLRGbinding_M2 and q_L_M2;
+vars q_L_M2 and q_L_M2_global;
+vars q_R_M2_mLRGbinding_M2 and q_R_M2;
+vars q_R_M2 and q_R_M2_global;
+vars q_Gi_mLRGbinding_M2 and q_Gi;
+vars q_Gi and q_Gi_global;
+vars q_LR_M2_mLRGbinding_M2 and q_LR_M2;
+vars q_LR_M2 and q_LR_M2_global;
+vars q_R_M2Gi_mLRGbinding_M2 and q_R_M2Gi;
+vars q_R_M2Gi and q_R_M2Gi_global;
+vars q_LR_M2Gi_mLRGbinding_M2 and q_LR_M2Gi;
+vars q_LR_M2Gi and q_LR_M2Gi_global;
+enddef;
+
+def map between environment and GsProtein for
+vars time and time;
+vars q_R_B1_mGsProtein and q_R_B1;
+vars q_R_B1 and q_R_B1_global;
+vars q_Gs_mGsProtein and q_Gs;
+vars q_Gs and q_Gs_global;
+vars q_R_B1Gs_mGsProtein and q_R_B1Gs;
+vars q_R_B1Gs and q_R_B1Gs_global;
+vars q_R_B1GsP_mGsProtein and q_R_B1GsP;
+vars q_R_B1GsP and q_R_B1GsP_global;
+vars q_LR_B1_mGsProtein and q_LR_B1;
+vars q_LR_B1 and q_LR_B1_global;
+vars q_LR_B1Gs_mGsProtein and q_LR_B1Gs;
+vars q_LR_B1Gs and q_LR_B1Gs_global;
+vars q_LR_B1GsP_mGsProtein and q_LR_B1GsP;
+vars q_LR_B1GsP and q_LR_B1GsP_global;
+vars q_aGs_GTP_mGsProtein and q_aGs_GTP;
+vars q_aGs_GTP and q_aGs_GTP_global;
+vars q_beta_gamma_Gs_mGsProtein and q_beta_gamma_Gs;
+vars q_beta_gamma_Gs and q_beta_gamma_Gs_global;
+vars q_aGs_GDP_mGsProtein and q_aGs_GDP;
+vars q_aGs_GDP and q_aGs_GDP_global;
+vars q_Pi_mGsProtein and q_Pi;
+vars q_Pi and q_Pi_global;
+enddef;
+
+def map between environment and GiProtein for
+vars time and time;
+vars q_R_M2_mGiProtein and q_R_M2;
+vars q_R_M2 and q_R_M2_global;
+vars q_Gi_mGiProtein and q_Gi;
+vars q_Gi and q_Gi_global;
+vars q_R_M2Gi_mGiProtein and q_R_M2Gi;
+vars q_R_M2Gi and q_R_M2Gi_global;
+vars q_R_M2GiP_mGiProtein and q_R_M2GiP;
+vars q_R_M2GiP and q_R_M2GiP_global;
+vars q_LR_M2_mGiProtein and q_LR_M2;
+vars q_LR_M2 and q_LR_M2_global;
+vars q_LR_M2Gi_mGiProtein and q_LR_M2Gi;
+vars q_LR_M2Gi and q_LR_M2Gi_global;
+vars q_LR_M2GiP_mGiProtein and q_LR_M2GiP;
+vars q_LR_M2GiP and q_LR_M2GiP_global;
+vars q_aGi_GTP_mGiProtein and q_aGi_GTP;
+vars q_aGi_GTP and q_aGi_GTP_global;
+vars q_beta_gamma_Gi_mGiProtein and q_beta_gamma_Gi;
+vars q_beta_gamma_Gi and q_beta_gamma_Gi_global;
+vars q_aGi_GDP_mGiProtein and q_aGi_GDP;
+vars q_aGi_GDP and q_aGi_GDP_global;
+vars q_Pi_mGiProtein and q_Pi;
+vars q_Pi and q_Pi_global;
+enddef;
+
+def map between BG_parameters and cAMP for
+vars kappa_1a and kappa_1a;
+vars kappa_1b and kappa_1b;
+vars kappa_2a and kappa_2a;
+vars kappa_2b and kappa_2b;
+vars kappa_3a and kappa_3a;
+vars kappa_3b and kappa_3b;
+vars kappa_4a and kappa_4a;
+vars kappa_4b and kappa_4b;
+vars kappa_5 and kappa_5;
+vars kappa_6 and kappa_6;
+vars kappa_7 and kappa_7;
+vars kappa_GiAC and kappa_GiAC;
+vars K_ATP and K_ATP;
+vars K_cAMP and K_cAMP;
+vars K_AC and K_AC;
+vars K_AC_ATP and K_AC_ATP;
+vars K_aGs_GTP_AC and K_aGs_GTP_AC;
+vars K_aGs_GTP_AC_ATP and K_aGs_GTP_AC_ATP;
+vars K_FSK_AC and K_FSK_AC;
+vars K_FSK_AC_ATP and K_FSK_AC_ATP;
+vars K_PDE and K_PDE;
+vars K_PDE_cAMP and K_PDE_cAMP;
+vars K_five_AMP and K_five_AMP;
+vars K_IBMX and K_IBMX;
+vars K_PDEinh and K_PDEinh;
+vars K_aGs_GTP and K_aGs_GTP;
+vars K_FSK and K_FSK;
+vars K_aGi_GTP and K_aGi_GTP;
+vars K_ACinh and K_ACinh;
+vars K_PPi and K_PPi;
+enddef;
+def map between BG_parameters and LRGbinding_B1AR for
+vars kappa_sig1_B1 and kappa_sig1_B1;
+vars kappa_sig2_B1 and kappa_sig2_B1;
+vars kappa_sig3_B1 and kappa_sig3_B1;
+vars kappa_sig4_B1 and kappa_sig4_B1;
+vars K_L_B1 and K_L_B1;
+vars K_R_B1 and K_R_B1;
+vars K_Gs and K_Gs;
+vars K_LR_B1 and K_LR_B1;
+vars K_R_B1Gs and K_R_B1Gs;
+vars K_LR_B1Gs and K_LR_B1Gs;
+enddef;
+def map between BG_parameters and LRGbinding_M2 for
+vars kappa_sig1_M2 and kappa_sig1_M2;
+vars kappa_sig2_M2 and kappa_sig2_M2;
+vars kappa_sig3_M2 and kappa_sig3_M2;
+vars kappa_sig4_M2 and kappa_sig4_M2;
+vars K_L_M2 and K_L_M2;
+vars K_R_M2 and K_R_M2;
+vars K_Gi and K_Gi;
+vars K_LR_M2 and K_LR_M2;
+vars K_R_M2Gi and K_R_M2Gi;
+vars K_LR_M2Gi and K_LR_M2Gi;
+enddef;
+def map between BG_parameters and GsProtein for
+vars kappa_phos_RGs and kappa_phos_RGs;
+vars kappa_phos_LRGs and kappa_phos_LRGs;
+vars kappa_act1_Gs and kappa_act1_Gs;
+vars kappa_act2_Gs and kappa_act2_Gs;
+vars kappa_hyd_Gs and kappa_hyd_Gs;
+vars kappa_reassoc_Gs and kappa_reassoc_Gs;
+vars K_R_B1 and K_R_B1;
+vars K_Gs and K_Gs;
+vars K_R_B1Gs and K_R_B1Gs;
+vars K_R_B1GsP and K_R_B1GsP;
+vars K_LR_B1 and K_LR_B1;
+vars K_LR_B1Gs and K_LR_B1Gs;
+vars K_LR_B1GsP and K_LR_B1GsP;
+vars K_aGs_GTP and K_aGs_GTP;
+vars K_beta_gamma_Gs and K_beta_gamma_Gs;
+vars K_aGs_GDP and K_aGs_GDP;
+vars K_Pi and K_Pi;
+enddef;
+def map between BG_parameters and GiProtein for
+vars kappa_phos_RGi and kappa_phos_RGi;
+vars kappa_phos_LRGi and kappa_phos_LRGi;
+vars kappa_act1_Gi and kappa_act1_Gi;
+vars kappa_act2_Gi and kappa_act2_Gi;
+vars kappa_hyd_Gi and kappa_hyd_Gi;
+vars kappa_reassoc_Gi and kappa_reassoc_Gi;
+vars K_R_M2 and K_R_M2;
+vars K_Gi and K_Gi;
+vars K_R_M2Gi and K_R_M2Gi;
+vars K_R_M2GiP and K_R_M2GiP;
+vars K_LR_M2 and K_LR_M2;
+vars K_LR_M2Gi and K_LR_M2Gi;
+vars K_LR_M2GiP and K_LR_M2GiP;
+vars K_aGi_GTP and K_aGi_GTP;
+vars K_beta_gamma_Gi and K_beta_gamma_Gi;
+vars K_aGi_GDP and K_aGi_GDP;
+vars K_Pi and K_Pi;
+enddef;
+
+def map between constants and cAMP for
+	vars R and R;
+	vars T and T;
+enddef;
+def map between constants and LRGbinding_B1AR for
+	vars R and R;
+	vars T and T;
+enddef;
+def map between constants and LRGbinding_M2 for
+	vars R and R;
+	vars T and T;
+enddef;
+def map between constants and GsProtein for
+	vars R and R;
+	vars T and T;
+enddef;
+def map between constants and GiProtein for
+	vars R and R;
+	vars T and T;
+enddef;
+
+enddef;

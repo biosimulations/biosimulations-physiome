@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="kinetic_equations_model">
+  <component name="kinetic_equations">
+    <variable name="k_12" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_21" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_23" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_32" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_34" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_43" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_45" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_54" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_25" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_52" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_56" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_65" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_61" private_interface="out" public_interface="in" units="per_second"/>
+    <variable name="k_16" private_interface="out" public_interface="in" units="per_second"/>
+    <variable initial_value="C_1_initial" name="C_1" private_interface="out" public_interface="out" units="umol"/>
+    <variable name="C_1_initial" public_interface="in" units="umol"/>
+    <variable initial_value="C_2_initial" name="C_2" private_interface="out" public_interface="out" units="umol"/>
+    <variable name="C_2_initial" public_interface="in" units="umol"/>
+    <variable initial_value="C_3_initial" name="C_3" private_interface="out" public_interface="out" units="umol"/>
+    <variable name="C_3_initial" public_interface="in" units="umol"/>
+    <variable initial_value="C_4_initial" name="C_4" private_interface="out" public_interface="out" units="umol"/>
+    <variable name="C_4_initial" public_interface="in" units="umol"/>
+    <variable initial_value="C_5_initial" name="C_5" private_interface="out" public_interface="out" units="umol"/>
+    <variable name="C_5_initial" public_interface="in" units="umol"/>
+    <variable name="C_6" private_interface="out" public_interface="out" units="umol"/>
+    <variable initial_value="C_6_temp_initial" name="C_6_temp" private_interface="out" public_interface="out" units="umol"/>
+    <variable name="C_6_temp_initial" public_interface="in" units="umol"/>
+    <variable name="C_T" private_interface="out" public_interface="in" units="umol"/>
+    <variable name="time" private_interface="out" public_interface="in" units="second"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>C_1</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <times/>
+                     <ci>k_21</ci>
+                     <ci>C_2</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <ci>k_61</ci>
+                     <ci>C_6</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <ci>k_12</ci>
+                     <ci>k_16</ci>
+                  </apply>
+                  <ci>C_1</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>C_2</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <times/>
+                     <ci>k_12</ci>
+                     <ci>C_1</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <ci>k_32</ci>
+                     <ci>C_3</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <ci>k_52</ci>
+                     <ci>C_5</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <ci>k_21</ci>
+                     <ci>k_23</ci>
+                     <ci>k_25</ci>
+                  </apply>
+                  <ci>C_2</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>C_3</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <times/>
+                     <ci>k_23</ci>
+                     <ci>C_2</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <ci>k_43</ci>
+                     <ci>C_4</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <ci>k_32</ci>
+                     <ci>k_34</ci>
+                  </apply>
+                  <ci>C_3</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>C_4</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <times/>
+                     <ci>k_34</ci>
+                     <ci>C_3</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <ci>k_54</ci>
+                     <ci>C_5</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <ci>k_45</ci>
+                     <ci>k_43</ci>
+                  </apply>
+                  <ci>C_4</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>C_5</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <times/>
+                     <ci>k_45</ci>
+                     <ci>C_4</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <ci>k_65</ci>
+                     <ci>C_6</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <ci>k_25</ci>
+                     <ci>C_2</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <ci>k_54</ci>
+                     <ci>k_52</ci>
+                     <ci>k_56</ci>
+                  </apply>
+                  <ci>C_5</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>C_6_temp</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <times/>
+                     <ci>k_16</ci>
+                     <ci>C_1</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <ci>k_56</ci>
+                     <ci>C_5</ci>
+                  </apply>
+               </apply>
+               <apply>
+                  <times/>
+                  <apply>
+                     <plus/>
+                     <ci>k_61</ci>
+                     <ci>k_65</ci>
+                  </apply>
+                  <ci>C_6_temp</ci>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>C_6</ci>
+            <apply>
+               <minus/>
+               <ci>C_T</ci>
+               <apply>
+                  <plus/>
+                  <ci>C_1</ci>
+                  <ci>C_2</ci>
+                  <ci>C_3</ci>
+                  <ci>C_4</ci>
+                  <ci>C_5</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="eskandari_2005_units_model.xml">
+    <units name="per_second" units_ref="per_second"/>
+    <units name="per_second5" units_ref="per_second5"/>
+    <units name="volt_per_second" units_ref="volt_per_second"/>
+    <units name="per_mol" units_ref="per_mol"/>
+    <units name="umol" units_ref="umol"/>
+    <units name="M" units_ref="M"/>
+    <units name="um2" units_ref="um2"/>
+    <units name="mol_per_um2" units_ref="mol_per_um2"/>
+    <units name="mM" units_ref="mM"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="J_per_K_per_mol" units_ref="J_per_K_per_mol"/>
+    <units name="pA_per_cm2" units_ref="pA_per_cm2"/>
+    <units name="uA" units_ref="uA"/>
+    <units name="uA_per_um2" units_ref="uA_per_um2"/>
+    <units name="uA_per_A" units_ref="uA_per_A"/>
+    <units name="umol_per_mol" units_ref="umol_per_mol"/>
+    <units name="C_per_mol" units_ref="C_per_mol"/>
+    <units name="per_M_per_second" units_ref="per_M_per_second"/>
+    <units name="per_M2_per_second" units_ref="per_M2_per_second"/>
+    <units name="M2" units_ref="M2"/>
+    <units name="M3" units_ref="M3"/>
+    <units name="M3_per_second" units_ref="M3_per_second"/>
+    <units name="per_M3_per_second5" units_ref="per_M3_per_second5"/>
+    <units name="M_per_second" units_ref="M_per_second"/>
+  </import>
+</model>

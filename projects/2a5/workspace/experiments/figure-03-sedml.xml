@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sedML xmlns="http://sed-ml.org/" xmlns:math="http://www.w3.org/1998/Math/MathML"
+	level="1" version="1">
+	<listOfSimulations>
+		<uniformTimeCourse id="simulation" initialTime="0"
+			outputStartTime="0" outputEndTime="100.0"
+			numberOfPoints="1000">
+			<algorithm kisaoID="KISAO:0000019" />
+		</uniformTimeCourse>
+	</listOfSimulations>
+	<listOfModels>
+		<model id="model" name="Mackenzie Model" language="urn:sedml:language:cellml"
+			source="figure-03.xml" />
+	</listOfModels>
+
+	<listOfTasks>
+		<task id="task1" name="Mackenzie Task" modelReference="model"
+			simulationReference="simulation" />
+	</listOfTasks>
+	<listOfDataGenerators>
+		<dataGenerator id="dgV" name="V">
+			<listOfVariables>
+				<variable id="V" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_1']/cellml:variable[@name='V']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>V</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgKhalf_gluc1" name="Khalf_glucose">
+			<listOfVariables>
+				<variable id="Khalf_gluc1" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_1']/cellml:variable[@name='Khalf_gluc']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Khalf_gluc1</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgKhalf_gluc2" name="Khalf_glucose">
+			<listOfVariables>
+				<variable id="Khalf_gluc2" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_2']/cellml:variable[@name='Khalf_gluc']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Khalf_gluc2</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgKhalf_Na3" name="Khalf_Na">
+			<listOfVariables>
+				<variable id="Khalf_Na3" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_3']/cellml:variable[@name='Khalf_Na']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Khalf_Na3</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgKhalf_Na4" name="Khalf_Na">
+			<listOfVariables>
+				<variable id="Khalf_Na4" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_4']/cellml:variable[@name='Khalf_Na']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Khalf_Na4</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgKhalf_Na5" name="Khalf_Na">
+			<listOfVariables>
+				<variable id="Khalf_Na5" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_5']/cellml:variable[@name='Khalf_Na']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Khalf_Na5</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgImax_gluc1" name="Imax_gluc">
+			<listOfVariables>
+				<variable id="Imax_gluc1" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_1']/cellml:variable[@name='Imax_gluc']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Imax_gluc1</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgImax_gluc2" name="Imax_gluc">
+			<listOfVariables>
+				<variable id="Imax_gluc2" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_2']/cellml:variable[@name='Imax_gluc']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Imax_gluc2</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgImax_Na3" name="Imax_Na">
+			<listOfVariables>
+				<variable id="Imax_Na3" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_3']/cellml:variable[@name='Imax_Na']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Imax_Na3</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgImax_Na4" name="Imax_Na">
+			<listOfVariables>
+				<variable id="Imax_Na4" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_4']/cellml:variable[@name='Imax_Na']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Imax_Na4</math:ci>
+			</math:math>
+		</dataGenerator>
+		<dataGenerator id="dgImax_Na5" name="Imax_Na">
+			<listOfVariables>
+				<variable id="Imax_Na5" taskReference="task"
+					target="/cellml:model/cellml:component[@name='variables_5']/cellml:variable[@name='Imax_Na']" />
+			</listOfVariables>
+			<math:math>
+				<math:ci>Imax_Na5</math:ci>
+			</math:math>
+		</dataGenerator>
+	</listOfDataGenerators>
+
+	<listOfOutputs>
+		<plot2D id="plot1" name="Khalf_gluc">
+			<listOfCurves>
+				<curve id="c1" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgKhalf_gluc1" />
+				<curve id="c2" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgKhalf_gluc2" />
+			</listOfCurves>
+		</plot2D>
+		<plot2D id="plot2" name="Khalf_Na">
+			<listOfCurves>
+				<curve id="c3" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgKhalf_Na3" />
+				<curve id="c4" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgKhalf_Na4" />
+				<curve id="c5" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgKhalf_Na5" />
+			</listOfCurves>
+		</plot2D>
+		<plot2D id="plot3" name="Imax_gluc">
+			<listOfCurves>
+				<curve id="c6" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgImax_gluc1" />
+				<curve id="c7" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgImax_gluc2" />
+			</listOfCurves>
+		</plot2D>
+		<plot2D id="plot4" name="Imax_Na">
+			<listOfCurves>
+				<curve id="c8" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgImax_Na3" />
+				<curve id="c9" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgImax_Na4" />
+				<curve id="c10" logX="false" logY="false" xDataReference="dgV"
+					yDataReference="dgImax_Na5" />
+			</listOfCurves>
+		</plot2D>
+	</listOfOutputs>
+</sedML>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="slow_inward_current_model">
+  <component name="slow_inward_current">
+    <variable name="i_si" private_interface="out" public_interface="out" units="uA_per_mm2"/>
+    <variable name="E_si" private_interface="out" public_interface="out" units="mV"/>
+    <variable name="g_si" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="time" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="V" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="Cai" private_interface="out" public_interface="in" units="concentration_units"/>
+    <variable name="d" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="f" private_interface="out" public_interface="in" units="dimensionless"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="E_si_calculation_eq">
+      <apply id="E_si_calculation"><eq/>
+        <ci> E_si </ci>
+        <apply><minus/>
+          <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 7.7 </cn>
+          <apply><times/>
+            <cn xmlns:cellml="http://www.cellml.org/cellml/1.1#" cellml:units="mV"> 13.0287 </cn>
+            <apply><ln/>
+              <ci> Cai </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="i_si_calculation_eq">
+      <apply id="i_si_calculation"><eq/>
+        <ci> i_si </ci>
+        <apply><times/>
+          <ci> g_si </ci>
+          <ci> d </ci>
+          <ci> f </ci>
+          <apply><minus/>
+            <ci> V </ci>
+            <ci> E_si </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="luo_rudy_I_model_1991_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+    <units name="gas_constant_units" units_ref="gas_constant_units"/>
+    <units name="faradays_constant_units" units_ref="faradays_constant_units"/>
+  </import>
+</model>

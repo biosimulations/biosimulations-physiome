@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- The BG of a chemical species, that is represented as a capacitor-->
+<model name="C_BG" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="units_BG.cellml">
+        <units name="J_per_K_per_mol" units_ref="J_per_K_per_mol"/>
+        <units name="J_per_mol" units_ref="J_per_mol"/>
+        <units name="fmol" units_ref="fmol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="per_fmol" units_ref="per_fmol"/>
+    </import>
+    <import xlink:href="constants_BG.cellml">
+        <component component_ref="constants_BG" name="constants_BG"/>
+    </import>
+    <component name="C_BG">
+        <!--Parameters-->
+        <variable name="R" private_interface="in" units="J_per_K_per_mol"/>
+        <variable name="T" public_interface="in" units="kelvin"/>
+        <variable name="K" public_interface="in" units="per_fmol"/>
+        <variable name="q_init" public_interface="in" units="fmol"/>
+        <!--Inputs-->
+        <variable name="t" public_interface="in" units="second"/>
+        <variable name="v" public_interface="in" units="fmol_per_sec"/>
+        <!--Outputs-->
+        <variable name="mu" public_interface="out" units="J_per_mol"/>
+        <!--Intermediate variables-->
+        <variable initial_value="q_init" name="q" units="fmol"/>
+        <!-- Constitutive relation of the C-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>mu</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K</ci>
+                            <ci>q</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <!--Conservation laws-->
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>q</ci>
+                </apply>
+                <ci>v</ci>
+            </apply>
+        </math>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="C_BG">
+            <component_ref component="constants_BG"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="C_BG" component_2="constants_BG"/>
+        <map_variables variable_1="R" variable_2="R"/>
+    </connection>
+</model>

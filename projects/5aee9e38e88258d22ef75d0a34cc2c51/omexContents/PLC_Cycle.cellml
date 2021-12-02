@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model
+    name="PLC_Cycle"
+    cmeta:id="PLC_Cycle"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+       
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <rdf:Description rdf:about="#PLC_Cycle">
+        <dc:creator rdf:parseType="Resource">
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Michael</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+            </vCard:EMAIL>
+        </dc:creator>
+
+        <dc:title>Cooling's PLC_Cycle Module</dc:title>
+    </rdf:Description>
+</rdf:RDF> 
+<!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->   
+<units name="s">
+    <unit units="second" />
+</units>
+
+<units name="um2">
+    <unit prefix="micro" units="meter" exponent="2" />
+</units>
+
+<units name="per_um2">
+    <unit units="um2" exponent="-1" />
+</units>
+
+<units name="per_um2_per_s">
+    <unit units="um2" exponent="-1" />
+    <unit units="s" exponent="-1" />
+</units>
+
+<units name="per_uM_per_s">
+    <unit units="uM" exponent="-1"/>
+    <unit units="s" exponent="-1" />
+</units>
+
+<units name="um2_per_s">
+    <unit units="um2" />
+    <unit units="s" exponent="-1" />
+</units>
+
+<units name="per_s">
+    <unit units="s" exponent="-1" />
+</units> 
+
+<units name="uM">
+    <unit prefix="micro" units="mole" />
+    <unit units="liter" exponent="-1" />
+</units>
+<!--
+********************************************************
+***    C   O   M   P   O   N   E   N   T   S         ***
+********************************************************
+-->
+<component name="PLC_Cycle">
+    
+    <variable name="t"   units="s" private_interface="in"/>
+    <variable name="Pc" initial_value="9.09" units="per_um2" public_interface="out"/>
+    <variable name="Pcg" initial_value="0.00" units="per_um2" public_interface="out"/> 
+    <variable name="J2" units="per_um2_per_s" public_interface="out"/>
+    <variable name="J3" units="per_um2_per_s" public_interface="out" />
+    <variable name="Gt" public_interface="in" units="per_um2" />
+    <variable name="Ca" units="uM" public_interface="in"/>
+    <variable name="J1" units="per_um2_per_s" public_interface="out"/>
+    <variable name="J4" units="per_um2_per_s" public_interface="out" />
+    <variable name="J5" units="per_um2_per_s" public_interface="out" />   
+    <variable name="J6" units="per_um2_per_s" public_interface="out" /> 
+    <variable name="kf1" initial_value="0.0167" units="per_uM_per_s" />
+    <variable name="kr1" initial_value="0.0167" units="per_s" />
+    <variable name="kf2" initial_value="0.00420" units="um2_per_s" />
+    <variable name="kr2" initial_value="1.00" units="per_s" />
+    <variable name="kf3" initial_value="0.0420" units="um2_per_s" />
+    <variable name="kr3" initial_value="1.00" units="per_s" />
+    <variable name="kf4" initial_value="0.0334" units="per_uM_per_s" />
+    <variable name="kr4" units="per_s" />
+    <variable name="Kd4" initial_value="0.1" units="uM" />
+    <variable name="kf5" initial_value="6.00" units="per_s" />
+    <variable name="kf6" initial_value="6.00" units="per_s" />   
+    <variable name="P" initial_value="90.9" units="per_um2" />
+    <variable name="Pg" initial_value="0.00" units="per_um2" />
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="J2_eq">
+        <apply id="J2_eq">
+            <eq/> 
+            <ci>J2</ci>
+            <apply>
+                <minus/>
+                <apply>
+                    <times />
+                    <ci>kf2</ci>
+                    <ci>P</ci>
+                    <ci>Gt</ci>
+                </apply>
+                <apply>
+                    <times />
+                    <ci>kr2</ci>
+                    <ci>Pg</ci>
+                </apply>
+            </apply>
+        </apply>
+    </math>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="J1_eq">
+        <apply id="J1_eq">
+            <eq/> 
+            <ci>J1</ci>
+            <apply>
+                <minus />
+                <apply>
+                    <times/>
+                    <ci>kf1</ci>
+                    <ci>P</ci>
+                    <ci>Ca</ci>
+                </apply>
+                <apply>
+                    <times/>
+                    <ci>kr1</ci>
+                    <ci>Pc</ci>
+                </apply>
+            </apply>
+        </apply>                 
+    </math>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="J3_eq">
+        <apply id="J3_eq">
+            <eq/> 
+            <ci>J3</ci>
+            <apply>
+                <minus/>
+                <apply>
+                    <times />
+                    <ci>kf3</ci>
+                    <ci>Pc</ci>
+                    <ci>Gt</ci>
+                </apply>
+                <apply>
+                    <times />
+                    <ci>kr3</ci>
+                    <ci>Pcg</ci>
+                </apply>
+            </apply>
+        </apply>
+    </math>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="Kd4_eq">
+        <apply id="kr4_eq">
+            <eq/> 
+            <ci>kr4</ci>
+            <apply>
+                <times/>
+                <ci>kf4</ci>
+                <ci>Kd4</ci>
+            </apply>
+        </apply>
+    </math>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="J4_eq">
+        <apply id="J4_eq">
+            <eq/> 
+            <ci>J4</ci>
+            <apply>
+                <minus />
+                <apply>
+                    <times/>
+                    <ci>kf4</ci>
+                    <ci>Pg</ci>
+                    <ci>Ca</ci>
+                </apply>
+                <apply>
+                    <times/>
+                    <ci>kr4</ci>
+                    <ci>Pcg</ci>
+                </apply>
+            </apply>
+        </apply>
+    </math>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="J5_eq">
+        <apply id="J5_eq">
+            <eq/> 
+            <ci>J5</ci>
+            <apply>
+                <times/>
+                <ci>kf5</ci>
+                <ci>Pcg</ci>
+            </apply>
+        </apply>
+    </math>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="J6_eq">
+        <apply id="J6_eq">
+            <eq/> 
+            <ci>J6</ci>
+            <apply>
+                <times/>
+                <ci>kf6</ci>
+                <ci>Pg</ci>
+            </apply>
+        </apply>
+    </math>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="dP_dt_eq">
+        <apply id="dP_dt_eq">
+            <eq/> 
+            <apply>
+                <diff/>
+                <bvar>
+                    <ci>t</ci>
+                </bvar>
+                <ci>P</ci>
+            </apply>
+            <apply>
+                <minus />
+                <ci>J6</ci>
+                <apply>
+                    <plus />
+                    <ci>J2</ci>
+                    <ci>J1</ci>
+                </apply>
+            </apply>
+        </apply>
+    </math>  
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="dPg_dt_eq">
+        <apply id="dPg_dt_eq">
+            <eq/> 
+            <apply>
+                <diff/>
+                <bvar>
+                    <ci>t</ci>
+                </bvar>
+                <ci>Pg</ci>
+            </apply>
+            <apply>
+                <minus />
+                <ci>J2</ci>
+                <apply>
+                    <plus />
+                    <ci>J4</ci>
+                    <ci>J6</ci>
+                </apply>
+            </apply>
+        </apply>
+    </math>  
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="dPc_dt_eq">
+        <apply id="dPc_dt_eq">
+            <eq/> 
+            <apply>
+                <diff/>
+                <bvar>
+                    <ci>t</ci>
+                </bvar>
+                <ci>Pc</ci>
+            </apply>
+            <apply>
+                <minus />
+                <apply>
+                    <plus />
+                    <ci>J1</ci>
+                    <ci>J5</ci>
+                </apply>
+                <ci>J3</ci>
+            </apply>
+        </apply>
+    </math> 
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="dPcg_dt_eq">
+        <apply id="dPcg_dt_eq">
+            <eq/> 
+            <apply>
+                <diff/>
+                <bvar>
+                    <ci>t</ci>
+                </bvar>
+                <ci>Pcg</ci>
+            </apply>
+            <apply>
+                <minus />
+                <apply>
+                    <plus />
+                    <ci>J3</ci>
+                    <ci>J4</ci>
+                </apply>
+                <ci>J5</ci>
+            </apply>
+        </apply>
+    </math> 
+</component>
+
+</model>

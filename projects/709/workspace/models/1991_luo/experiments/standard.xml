@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model cmeta:id="LR_I" name="LR_I" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="generic.xml">
+        <component component_ref="interface" name="math_model"/>
+    </import>
+    <component cmeta:id="parameters" name="parameters">
+        <variable initial_value="5.4" name="Ko" private_interface="out" public_interface="out" units="concentration_units"/>
+    </component>
+    <component name="output_variables">
+        <variable name="V" public_interface="in" units="mV"/>
+        <variable name="time" public_interface="in" units="ms"/>
+    </component>
+    <connection>
+        <map_components component_1="math_model" component_2="parameters"/>
+        <map_variables variable_1="Ko" variable_2="Ko"/>
+    </connection>
+    <connection>
+        <map_components component_1="math_model" component_2="output_variables"/>
+        <map_variables variable_1="V" variable_2="V"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <import xlink:href="../luo_rudy_I_model_1991_units_model.xml">
+        <units name="concentration_units" units_ref="concentration_units"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="ms" units_ref="ms"/>
+    </import>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Nickerson</vCard:Family>
+                    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">David</vCard:Given>
+                </vCard:N>
+                <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">d.nickerson@auckland.ac.nz</rdf:value>
+                    <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+                </vCard:EMAIL>
+                <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The University of Auckland</vCard:Orgname>
+                    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Bioengineering Institute</vCard:Orgunit>
+                </vCard:ORG>
+            </dc:creator>
+            <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2009-06-22</dcterms:W3CDTF>
+            </dcterms:created>
+            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">&#xd;
+        Bioengineering Institute, The University of Auckland&#xd;
+      </dc:publisher>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#LR_I">
+            <cs:simulation xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:ID="simulation">
+                    <cs:multistepMethod xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">bdf</cs:multistepMethod>
+                    <cs:iterationMethod xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">newton</cs:iterationMethod>
+                    <cs:linearSolver xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">dense</cs:linearSolver>
+                    <cs:boundIntervals xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:parseType="Collection" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                            <cs:boundVariable xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+                                <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="generic.xml#time"/>
+                            </cs:boundVariable>
+                            <cs:maximumStepSize xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+                0.01&#xd;
+              </cs:maximumStepSize>
+                            <cs:tabulationStepSize xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+                1.0&#xd;
+              </cs:tabulationStepSize>
+                            <cs:startingValue xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+                0&#xd;
+              </cs:startingValue>
+                            <cs:endingValue xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#" rdf:datatype="http://www.w3.org/2001/XMLSchema#double" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">&#xd;
+                700&#xd;
+              </cs:endingValue>
+                        </rdf:Description>
+                    </cs:boundIntervals>
+                </rdf:Description>
+            </cs:simulation>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

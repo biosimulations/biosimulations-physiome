@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+    name="cubic_polynomial_1975"
+    cmeta:id="cubic_polynomial_1975"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+  <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+      xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:dcterms="http://purl.org/dc/terms/"
+      xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+
+    <!-- metadata about the CellML document itself -->
+    <rdf:Description rdf:about="">
+      <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Nickerson</vCard:Family>
+          <vCard:Given>David</vCard:Given>
+        </vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>d.nickerson@auckland.ac.nz</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>The University of Auckland</vCard:Orgname>
+          <vCard:Orgunit>The Bioengineering Institute</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2005-01-06</dcterms:W3CDTF>
+      </dcterms:created>
+    </rdf:Description>
+    
+    <rdf:Description rdf:about="#cubic_polynomial_1975">
+      <cmeta:comment rdf:parseType="Resource">
+        <rdf:value>
+          This is a CellML version of the cubic polynomial model of activation
+          from the 1975 paper by Hunter et. al.
+        </rdf:value>
+      </cmeta:comment>
+      <bqs:reference>
+        <bqs:Pubmed_id>792954</bqs:Pubmed_id>
+        <bqs:JournalArticle rdf:parseType="Resource">
+          <dc:creator>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Hunter</vCard:Family>
+                    <vCard:Given>P</vCard:Given>
+                    <vCard:Other>J</vCard:Other>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>McNaughton</vCard:Family>
+                    <vCard:Given>P</vCard:Given>
+                    <vCard:Other>A</vCard:Other>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Noble</vCard:Family>
+                    <vCard:Given>D</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+            </rdf:Seq>
+          </dc:creator>
+          <dc:title>
+            Analytical models of propagation in excitable cells
+          </dc:title>
+          <dcterms:issued rdf:parseType="Resource">
+            <dcterms:W3CDTF>1975</dcterms:W3CDTF>
+          </dcterms:issued>
+          <bqs:Journal rdf:parseType="Resource">
+            <dc:title>Progress in Biophysics and Molecular Biology</dc:title>
+          </bqs:Journal>
+          <bqs:volume>30</bqs:volume>
+          <bqs:first_page>99</bqs:first_page>
+          <bqs:last_page>144</bqs:last_page>
+        </bqs:JournalArticle>
+      </bqs:reference>
+    </rdf:Description>
+  </rdf:RDF>
+
+  <import xlink:href="../common/units.xml">
+    <units name="mV" units_ref="mV"/>
+    <units name="uApmmsq" units_ref="uA_per_mmsq"/>
+    <units name="uFpmmsq" units_ref="uF_per_mmsq"/>
+    <units name="mSpmmsq" units_ref="mS_per_mmsq"/>
+    <units name="ms" units_ref="ms"/>
+  </import>
+
+  <component name="interface" cmeta:id="interface">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#interface">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            We'll use this component as the "interface" to the model, all 
+            other components are hidden via encapsulation in this component.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+  
+    <!-- Variables we expect to be set/controlled externally -->
+    <variable name="t" units="ms" public_interface="in" private_interface="out"/>
+    <variable name="Cm" units="uFpmmsq" public_interface="in" private_interface="out"/>
+    <variable name="Vm_rest" units="mV" public_interface="in" private_interface="out"/>
+    <variable name="Vm_plateau" units="mV" public_interface="in" private_interface="out"/>
+    <variable name="Vm_threshold" units="mV" public_interface="in" private_interface="out"/>
+    <variable name="Vm_initial" units="mV" public_interface="in" private_interface="out"/>
+    <variable name="membrane_conductance" units="mSpmmsq" public_interface="in" private_interface="out"/>
+    <variable name="Istim" units="uApmmsq" public_interface="in" private_interface="out"/>
+    
+    <!-- Variables we want to make available externally -->
+    <variable name="Vm" units="mV" public_interface="out" private_interface="in"/>
+    <variable name="I" units="uApmmsq" public_interface="out" private_interface="in"/>
+  </component> <!--interface-->
+
+  <component name="membrane" cmeta:id="membrane">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#membrane">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            Evaluation of the membrane potential ODE.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <!-- Inputs -->
+    <variable name="t" units="ms" public_interface="in"/>
+    <variable name="Cm" units="uFpmmsq" public_interface="in"/>
+    <variable name="Istim" units="uApmmsq" public_interface="in"/>
+    <variable name="I" units="uApmmsq" public_interface="in"/>
+    <variable name="Vm_initial" units="mV" public_interface="in"/>
+    
+    <!-- Outputs computed here -->
+    <variable name="Vm" cmeta:id="Vm" units="mV" public_interface="out" initial_value="Vm_initial"/>
+    
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#Vm_diff_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            This is the main equation for the model, describing the dependency
+            of the time course of transmembrane potential on the single ionic
+            current plus any applied stimulus current.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="Vm_diff_calculation_eq">
+      <apply id="Vm_diff_calculation"><eq/>
+        <apply><diff/>
+          <bvar><ci>t</ci></bvar>
+          <ci>Vm</ci>
+        </apply>
+        <apply><divide/>
+          <apply><minus/>
+            <ci>Istim</ci>
+            <ci>I</ci>
+          </apply>
+          <ci>Cm</ci>
+        </apply>
+      </apply>
+    </math>
+  </component><!--membrane-->
+  
+  <component name="current" cmeta:id="current">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#current">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            The single current calculation.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+
+    <variable name="I" cmeta:id="I" units="uApmmsq" public_interface="out"/>
+
+    <variable name="Cm" units="uFpmmsq" public_interface="in"/>
+    <variable name="Vm_rest" units="mV" public_interface="in"/>
+    <variable name="Vm_plateau" units="mV" public_interface="in"/>
+    <variable name="Vm_threshold" units="mV" public_interface="in"/>
+    <variable name="membrane_conductance" units="mSpmmsq" public_interface="in"/>
+    <variable name="Vm" units="mV" public_interface="in"/>
+    
+    <variable name="plateau" units="mV"/>
+    <variable name="threshold" units="mV"/>
+    <variable name="phi" units="mV"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="plateau_calculation_eq">
+     <apply id="plateau_calculation"><eq/>
+        <ci>plateau</ci>
+        <apply><minus/>
+          <ci>Vm_plateau</ci>
+          <ci>Vm_rest</ci>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="threshold_calculation_eq">
+      <apply id="threshold_calculation"><eq/>
+        <ci>threshold</ci>
+        <apply><minus/>
+          <ci>Vm_threshold</ci>
+          <ci>Vm_rest</ci>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="phi_calculation_eq">
+      <apply id="phi_calculation"><eq/>
+        <ci>phi</ci>
+        <apply><minus/>
+          <ci>Vm</ci>
+          <ci>Vm_rest</ci>
+        </apply>
+      </apply>
+    </math>
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#current_calculation_eq">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            This is the calculation of the single current in this model, and where
+            the model name comes from.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <math xmlns="http://www.w3.org/1998/Math/MathML" cmeta:id="current_calculation_eq">
+      <apply id="current_calculation"><eq/>
+        <ci>I</ci>
+        <apply><times/>
+          <ci>membrane_conductance</ci>
+          <ci>phi</ci>
+          <apply><minus/>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply><divide/>
+              <ci>phi</ci>
+              <ci>threshold</ci>
+            </apply>
+          </apply>
+          <apply><minus/>
+            <cn cellml:units="dimensionless">1.0</cn>
+            <apply><divide/>
+              <ci>phi</ci>
+              <ci>plateau</ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component><!--current-->
+
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="interface">
+      <component_ref component="membrane"/>
+      <component_ref component="current"/>
+    </component_ref>
+  </group>
+
+  <connection>
+    <map_components component_1="interface" component_2="membrane"/>
+    <map_variables variable_1="t" variable_2="t"/>
+    <map_variables variable_1="Cm" variable_2="Cm"/>
+    <map_variables variable_1="Istim" variable_2="Istim"/>
+    <map_variables variable_1="Vm" variable_2="Vm"/>
+    <map_variables variable_1="Vm_initial" variable_2="Vm_initial"/>
+  </connection>
+  <connection>
+    <map_components component_1="interface" component_2="current"/>
+    <map_variables variable_1="Cm" variable_2="Cm"/>
+    <map_variables variable_1="Vm_rest" variable_2="Vm_rest"/>
+    <map_variables variable_1="Vm_plateau" variable_2="Vm_plateau"/>
+    <map_variables variable_1="Vm_threshold" variable_2="Vm_threshold"/>
+    <map_variables variable_1="membrane_conductance" variable_2="membrane_conductance"/>
+    <map_variables variable_1="I" variable_2="I"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="membrane" component_2="current"/>
+    <map_variables variable_1="I" variable_2="I"/>
+    <map_variables variable_1="Vm" variable_2="Vm"/>
+  </connection>
+</model>

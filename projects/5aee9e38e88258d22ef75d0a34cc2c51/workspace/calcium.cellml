@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model
+    name="calcium"
+    cmeta:id="calcium"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <rdf:Description rdf:about="#calcium">
+        <dc:creator rdf:parseType="Resource">
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Michael</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+            </vCard:EMAIL>
+        </dc:creator>
+
+        <dc:title>Cooling's calcium Module</dc:title>
+    </rdf:Description>
+</rdf:RDF> 
+<!--
+*******************************************************
+***         U   N   I   T   S                       ***
+*******************************************************
+-->
+<units name="s">
+    <unit units="second" />
+</units>
+
+<units name="uM_per_s">
+    <unit units="uM"/>
+    <unit units="s" exponent="-1" />
+</units> 
+
+<units name="uM">
+    <unit prefix="micro" units="mole" />
+    <unit units="liter" exponent="-1" />
+</units>
+<!--
+*********************************************************
+***       C   O   M   P   O   N   E   N   T   S       ***
+*********************************************************
+-->
+<component name="calcium">
+    <variable name="t"   units="s" private_interface="in"/>
+    <variable name="Ca" initial_value="0.100" units="uM" public_interface="out"/>
+    <variable name="J_gain_Ca" units="uM_per_s" public_interface="in" />
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"
+        cmeta:id="dCa_dt_eq">
+        <apply id="dCa_dt_eq">
+            <eq/> 
+            <apply>
+                <diff/>
+                <bvar>
+                    <ci>t</ci>
+                </bvar>
+                <ci>Ca</ci>
+            </apply>
+            <ci>J_gain_Ca</ci>      
+        </apply>
+    </math>
+</component>
+
+</model>

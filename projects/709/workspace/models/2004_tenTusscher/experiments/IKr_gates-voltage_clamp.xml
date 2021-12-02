@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+    name="IKr_gates_voltage_clamp"
+    cmeta:id="IKr_gates_voltage_clamp"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+      xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:dcterms="http://purl.org/dc/terms/"
+      xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <rdf:Description rdf:about="">
+      <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Nickerson</vCard:Family>
+          <vCard:Given>David</vCard:Given>
+        </vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>d.nickerson@auckland.ac.nz</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>The University of Auckland</vCard:Orgname>
+          <vCard:Orgunit>Bioengineering Institute</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2004-12-30</dcterms:W3CDTF>
+      </dcterms:created>
+      <dc:publisher>
+        Bioengineering Institute, The University of Auckland
+      </dc:publisher>
+    </rdf:Description>
+    <rdf:Description rdf:about="#IKr_gates_voltage_clamp">
+      <dc:title>
+        Voltage clamp experiment using ten Tusscher et al. (2004) rapid delayed
+        rectifier current gates.
+      </dc:title>
+      <cmeta:comment rdf:parseType="Resource">
+        <rdf:value>
+          This is the CellML description of a voltage clamp experiment examining
+          the rapid delayed rectifier current's gating variables from the 
+          ten Tusscher et al. (2004) human AP model. This produces the data for 
+          comparison to Fig. 6 of the AJP paper.
+        </rdf:value>
+        <dc:creator rdf:parseType="Resource">
+          <vCard:FN>David Nickerson</vCard:FN>
+        </dc:creator>
+      </cmeta:comment>
+      <bqs:reference rdf:parseType="Resource">
+        <bqs:Pubmed_id>14656705</bqs:Pubmed_id>
+        <bqs:JournalArticle rdf:parseType="Resource">
+          <dc:creator>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>ten Tusscher</vCard:Family>
+                    <vCard:Given>K</vCard:Given>
+                    <vCard:Other>H</vCard:Other>
+                    <vCard:Other>W</vCard:Other>
+                    <vCard:Other>J</vCard:Other>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Noble</vCard:Family>
+                    <vCard:Given>D</vCard:Given>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Noble</vCard:Family>
+                    <vCard:Given>P</vCard:Given>
+                    <vCard:Other>J</vCard:Other>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Panfilov</vCard:Family>
+                    <vCard:Given>A</vCard:Given>
+                    <vCard:Other>V</vCard:Other>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+            </rdf:Seq>
+          </dc:creator>
+          <dc:title>
+            A model for human ventricular tissue
+          </dc:title>
+          <dcterms:issued rdf:parseType="Resource">
+            <dcterms:W3CDTF>2004-04</dcterms:W3CDTF>
+          </dcterms:issued>
+          <bqs:Journal rdf:parseType="Resource">
+            <dc:title>American Journal of Physiology</dc:title>
+          </bqs:Journal>
+          <bqs:volume>286</bqs:volume>
+          <bqs:first_page>H1573</bqs:first_page>
+          <bqs:last_page>H1589</bqs:last_page>
+        </bqs:JournalArticle>
+      </bqs:reference>
+    </rdf:Description>
+  </rdf:RDF>
+  
+  <import xlink:href="../../common/units.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="mV_per_ms" units_ref="mV_per_ms"/>
+  </import>
+  <import xlink:href="../components/IKr.xml">
+    <component name="Xr1_gate" component_ref="Xr1_gate"/>
+    <component name="Xr2_gate" component_ref="Xr2_gate"/>
+  </import>
+  
+  <component name="voltage_clamp" cmeta:id="voltage_clamp">
+    <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+      <rdf:Description rdf:about="#voltage_clamp">
+        <cmeta:comment rdf:parseType="Resource">
+          <rdf:value>
+            We define here the voltage clamp experiment, in this case
+            a simple linear variation of membrane potential, expressed
+            as a differential equation.
+          </rdf:value>
+        </cmeta:comment>
+      </rdf:Description>
+    </rdf:RDF>
+    <variable name="time" public_interface="out" units="ms"/>
+    <variable name="Vm" initial_value="-150" public_interface="out" units="mV"/>
+    <variable name="dummy" initial_value="0" public_interface="out" units="dimensionless"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply><eq/>
+        <apply><diff/>
+          <bvar><ci>time</ci></bvar>
+          <ci>Vm</ci>
+        </apply>
+        <cn cellml:units="mV_per_ms">1.0</cn>
+      </apply>
+    </math>
+  </component>
+  <connection>
+    <map_components component_1="Xr1_gate" component_2="voltage_clamp"/>
+    <map_variables variable_1="V" variable_2="Vm"/>
+    <map_variables variable_1="Xr1_initial" variable_2="dummy"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="Xr2_gate" component_2="voltage_clamp"/>
+    <map_variables variable_1="V" variable_2="Vm"/>
+    <map_variables variable_1="Xr2_initial" variable_2="dummy"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+</model>

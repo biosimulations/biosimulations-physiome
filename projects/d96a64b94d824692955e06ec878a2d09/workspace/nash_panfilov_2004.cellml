@@ -1,0 +1,607 @@
+<?xml version='1.0'?>
+<!--  FILE :  nash_model_2004.xml
+
+CREATED : 22nd July 2004 
+
+LAST MODIFIED : 22nd July 2004
+
+AUTHOR :  Martyn Nash
+          Bioengineering Institute
+          The University of Auckland
+          
+MODEL STATUS :  This model conforms to the CellML 1.0 Specification released on
+10th August 2001, and the 16/1/02 CellML Metadata 1.0 Specification.
+
+DESCRIPTION :  This file contains a CellML description of the Nash and Panfilov 2004 electromechanical model of excitable tissue to study reentrant cardiac arrhythmias.
+
+  
+-->
+<model cmeta:id="nash_panfilov_2004_version01" name="nash_panfilov_2004_version01" xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+    <!--    Generally, we want to move away from initial/default values being
+    stored in the model directly. But until we are using CellML 1.1
+    it is probably quite useful to include the values in the model.
+  -->
+    <!-- Global units -->
+    <units name="mV">
+        <unit prefix="milli" units="volt"/>
+    </units>
+    <units name="uApmmsq">
+        <unit prefix="micro" units="ampere"/>
+        <unit exponent="-2" prefix="milli" units="metre"/>
+    </units>
+    <units name="uFpmmsq">
+        <unit prefix="micro" units="farad"/>
+        <unit exponent="-2" prefix="milli" units="metre"/>
+    </units>
+    <units name="ms">
+        <unit prefix="milli" units="second"/>
+    </units>
+    <units name="pms">
+        <unit exponent="-1" prefix="milli" units="second"/>
+    </units>
+    <units name="kPa">
+        <unit prefix="kilo" units="pascal"/>
+    </units>
+    <component cmeta:id="interface" name="interface">
+        <!-- Variables we expect to be set/controlled externally -->
+        <variable name="t" private_interface="out" public_interface="out" units="ms"/>
+        <variable initial_value="0.01" name="Cm" private_interface="out" units="uFpmmsq"/>
+        <variable initial_value="-85.0" name="Vr" private_interface="out" units="mV"/>
+        <variable initial_value="-75.0" name="Vth" private_interface="out" units="mV"/>
+        <variable initial_value="15.0" name="Vp" private_interface="out" units="mV"/>
+        <variable initial_value="8.0" name="k" private_interface="out" units="uApmmsq"/>
+        <variable initial_value="0.000155" name="epsilon" private_interface="out" units="pms"/>
+        <variable initial_value="0.0155" name="mu1" private_interface="out" units="pms"/>
+        <variable initial_value="0.3" name="mu2" private_interface="out" units="dimensionless"/>
+        <variable initial_value="1.0" name="e0" private_interface="out" units="dimensionless"/>
+        <variable initial_value="47.9" name="kTa" private_interface="out" units="kPa"/>
+        <variable name="Istim" private_interface="out" public_interface="in" units="uApmmsq"/>
+        <!-- Variables we want to make available externally -->
+        <variable name="Vm" private_interface="in" public_interface="out" units="mV"/>
+        <variable name="Iion" private_interface="in" public_interface="out" units="uApmmsq"/>
+        <variable name="r" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="u" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="Ta" private_interface="in" public_interface="out" units="kPa"/>
+    </component>
+    <!--interface-->
+    <component cmeta:id="membrane_potential" name="membrane_potential">
+        <!-- Inputs -->
+        <variable name="t" public_interface="in" units="ms"/>
+        <variable name="Cm" public_interface="in" units="uFpmmsq"/>
+        <variable name="Vr" public_interface="in" units="mV"/>
+        <variable name="Vth" public_interface="in" units="mV"/>
+        <variable name="Vp" public_interface="in" units="mV"/>
+        <variable name="Istim" public_interface="in" units="uApmmsq"/>
+        <variable name="Iion" public_interface="in" units="uApmmsq"/>
+        <!-- Outputs computed here -->
+        <variable initial_value="-85" name="Vm" private_interface="out" public_interface="out" units="mV"/>
+        <variable name="u" public_interface="out" units="dimensionless"/>
+        <variable name="a" public_interface="out" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="Vm_deriv">
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>Vm</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>Istim</ci>
+                        <ci>Iion</ci>
+                    </apply>
+                    <ci>Cm</ci>
+                </apply>
+            </apply>
+            <apply id="u_calc">
+                <eq/>
+                <ci>u</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>Vm</ci>
+                        <ci>Vr</ci>
+                    </apply>
+                    <apply>
+                        <minus/>
+                        <ci>Vp</ci>
+                        <ci>Vr</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply id="a_calc">
+                <eq/>
+                <ci>a</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>Vth</ci>
+                        <ci>Vr</ci>
+                    </apply>
+                    <apply>
+                        <minus/>
+                        <ci>Vp</ci>
+                        <ci>Vr</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!--membrane_potential-->
+    <component cmeta:id="ionic_current" name="ionic_current">
+        <!-- Inputs -->
+        <variable name="Vr" public_interface="in" units="mV"/>
+        <variable name="Vth" public_interface="in" units="mV"/>
+        <variable name="Vp" public_interface="in" units="mV"/>
+        <variable name="k" public_interface="in" units="uApmmsq"/>
+        <variable name="r" public_interface="in" units="dimensionless"/>
+        <variable name="u" public_interface="in" units="dimensionless"/>
+        <variable name="a" public_interface="in" units="dimensionless"/>
+        <!-- Outputs computed here -->
+        <variable name="Iion" private_interface="out" public_interface="out" units="uApmmsq"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="Iion_calc">
+                <eq/>
+                <ci>Iion</ci>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <times/>
+                        <ci>k</ci>
+                        <ci>u</ci>
+                        <apply>
+                            <minus/>
+                            <ci>u</ci>
+                            <ci>a</ci>
+                        </apply>
+                        <apply>
+                            <minus/>
+                            <ci>u</ci>
+                            <cn cellml:units="dimensionless">1.0</cn>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <times/>
+                        <ci>r</ci>
+                        <ci>u</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!--ionic_current-->
+    <component cmeta:id="recovery_variable" name="recovery_variable">
+        <!-- Inputs -->
+        <variable name="t" public_interface="in" units="ms"/>
+        <variable name="k" public_interface="in" units="uApmmsq"/>
+        <variable name="epsilon" public_interface="in" units="pms"/>
+        <variable name="mu1" public_interface="in" units="pms"/>
+        <variable name="mu2" public_interface="in" units="dimensionless"/>
+        <variable name="u" public_interface="in" units="dimensionless"/>
+        <variable name="a" public_interface="in" units="dimensionless"/>
+        <!-- Outputs computed here -->
+        <variable initial_value="0.0" name="r" private_interface="out" public_interface="out" units="dimensionless"/>
+        <!-- Local variables -->
+        <variable name="eps" units="pms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="r_deriv">
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>r</ci>
+                </apply>
+                <apply>
+                    <times/>
+                    <ci>eps</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <minus/>
+                            <ci>r</ci>
+                        </apply>
+                        <apply>
+                            <times/>
+                            <ci>k</ci>
+                            <ci>u</ci>
+                            <apply>
+                                <minus/>
+                                <ci>u</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>a</ci>
+                                    <cn cellml:units="dimensionless">1.0</cn>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply id="eps_calc">
+                <eq/>
+                <ci>eps</ci>
+                <apply>
+                    <plus/>
+                    <ci>epsilon</ci>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>mu1</ci>
+                            <ci>r</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <ci>mu2</ci>
+                            <ci>u</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!--recovery_variable-->
+    <component cmeta:id="active_tension" name="active_tension">
+        <!-- Inputs -->
+        <variable name="t" public_interface="in" units="ms"/>
+        <variable name="u" public_interface="in" units="dimensionless"/>
+        <variable name="e0" public_interface="in" units="dimensionless"/>
+        <variable name="kTa" public_interface="in" units="kPa"/>
+        <!-- Outputs computed here -->
+        <variable initial_value="0.0" name="Ta" private_interface="out" public_interface="out" units="kPa"/>
+        <!-- Local variables -->
+        <variable name="e_" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply id="Ta_deriv">
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>Ta</ci>
+                </apply>
+                <apply>
+                    <times/>
+                    <ci>e_</ci>
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <times/>
+                            <ci>kTa</ci>
+                            <ci>u</ci>
+                        </apply>
+                        <ci>Ta</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply id="e_calc">
+                <eq/>
+                <ci>e_</ci>
+                <piecewise>
+                    <piece>
+                        <apply>
+                            <times/>
+                            <cn cellml:units="dimensionless">100.0</cn>
+                            <ci>e0</ci>
+                        </apply>
+                        <apply>
+                            <lt/>
+                            <ci>u</ci>
+                            <cn cellml:units="dimensionless">0.05</cn>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <apply>
+                            <times/>
+                            <cn cellml:units="dimensionless">10.0</cn>
+                            <ci>e0</ci>
+                        </apply>
+                    </otherwise>
+                </piecewise>
+            </apply>
+        </math>
+    </component>
+    <!--active_tension-->
+    <connection>
+        <map_components component_1="interface" component_2="membrane_potential"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="Cm" variable_2="Cm"/>
+        <map_variables variable_1="Vr" variable_2="Vr"/>
+        <map_variables variable_1="Vth" variable_2="Vth"/>
+        <map_variables variable_1="Vp" variable_2="Vp"/>
+        <map_variables variable_1="Istim" variable_2="Istim"/>
+        <map_variables variable_1="Vm" variable_2="Vm"/>
+        <map_variables variable_1="u" variable_2="u"/>
+    </connection>
+    <connection>
+        <map_components component_1="interface" component_2="ionic_current"/>
+        <map_variables variable_1="Vr" variable_2="Vr"/>
+        <map_variables variable_1="Vth" variable_2="Vth"/>
+        <map_variables variable_1="Vp" variable_2="Vp"/>
+        <map_variables variable_1="k" variable_2="k"/>
+        <map_variables variable_1="Iion" variable_2="Iion"/>
+    </connection>
+    <connection>
+        <map_components component_1="interface" component_2="recovery_variable"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="k" variable_2="k"/>
+        <map_variables variable_1="epsilon" variable_2="epsilon"/>
+        <map_variables variable_1="mu1" variable_2="mu1"/>
+        <map_variables variable_1="mu2" variable_2="mu2"/>
+        <map_variables variable_1="r" variable_2="r"/>
+    </connection>
+    <connection>
+        <map_components component_1="interface" component_2="active_tension"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="e0" variable_2="e0"/>
+        <map_variables variable_1="kTa" variable_2="kTa"/>
+        <map_variables variable_1="Ta" variable_2="Ta"/>
+    </connection>
+    <connection>
+        <map_components component_1="membrane_potential" component_2="ionic_current"/>
+        <map_variables variable_1="u" variable_2="u"/>
+        <map_variables variable_1="a" variable_2="a"/>
+        <map_variables variable_1="Iion" variable_2="Iion"/>
+    </connection>
+    <connection>
+        <map_components component_1="membrane_potential" component_2="recovery_variable"/>
+        <map_variables variable_1="u" variable_2="u"/>
+        <map_variables variable_1="a" variable_2="a"/>
+    </connection>
+    <connection>
+        <map_components component_1="recovery_variable" component_2="ionic_current"/>
+        <map_variables variable_1="r" variable_2="r"/>
+    </connection>
+    <connection>
+        <map_components component_1="membrane_potential" component_2="active_tension"/>
+        <map_variables variable_1="u" variable_2="u"/>
+    </connection>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="interface">
+            <component_ref component="membrane_potential"/>
+            <component_ref component="ionic_current"/>
+            <component_ref component="recovery_variable"/>
+            <component_ref component="active_tension"/>
+        </component_ref>
+    </group>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:Seq xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#d2217bf5-29ca-434a-a174-7dd35011a958">
+            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="rdf:#d8a1f290-9512-423b-abcb-d6507e542104"/>
+            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="rdf:#219b0293-9d1f-411b-9e00-ddde2e973de6"/>
+        </rdf:Seq>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#membrane_potential">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#9ca973a1-0cf4-4cbf-8fdd-75aa4cb51f55" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#d1a2af11-008e-4823-ae5d-0ba90f03560e">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            Here we define the non-dimensional recovery variable, r. The kinetics
+            of the recovery variable have been reworked by Aliev and Panfilov to
+            provide more realistic restitution properties.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#56301c52-ecc1-412f-9196-e0e0bf8ffca2">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            The kinetics of the active tension.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#u_calc_eqn">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#a8dff835-17e3-4be9-93fa-a73254c3e333" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#ionic_current">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#af85210b-52d5-4a52-9d1a-8744bd77501f" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#d166b344-78fc-4bcb-a54e-a5a3932a2ca4">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            The non-dimensional and scaled threshold potential value.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#33d38b0b-a53b-43d4-91f1-9e1accc960ed">
+            <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Martyn</vCard:Given>
+            <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Nash</vCard:Family>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#c5e65c50-1dcd-4131-a448-efc2aaca12f8">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">martyn.nash@auckland.ac.nz</rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#0f855a1e-1a8b-4abf-beaa-18910135341d">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">d.nickerson@auckland.ac.nz</rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#c87ee15f-edf8-4517-a35d-15165e30eb1b">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            This is a dummy equation that we simply use to make grabbing the
+            value in CMISS much easier.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#3d0f7dcd-d98d-4560-945d-6cdf4e01540b">
+            <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#8e5ffc80-42ca-4b9d-b32a-1260dfda9c2e" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#c5e65c50-1dcd-4131-a448-efc2aaca12f8" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#33d38b0b-a53b-43d4-91f1-9e1accc960ed" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#2f0b14b0-a766-4111-bc46-81ee50020de2">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            This equation describes the kinetics of the transmembrane,
+            potential - the action potential.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#03dff719-bff5-46b7-903e-84f2e10e6cd3">
+            <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2004</dcterms:W3CDTF>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#active_tension">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#397fbdc3-2882-4426-aa8a-5efa7292e07c" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#c7f7f07a-4058-4275-b20d-7667183954f3">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Prog. Biophys. Molec. Biol.
+            </dc:title>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#r_deriv_eqn">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#c18f63f2-f928-4b14-90ec-b031813daebf" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#Iion_calc_eqn">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#96e163b2-3dbb-41c0-a13b-66ec64aecf7a" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#interface">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#c888d02d-3927-46e8-bfe1-a408016dc44a" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#81aa6d82-f8a9-4485-bf1f-0a78381dd343">
+            <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">M</vCard:Given>
+            <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Nash</vCard:Family>
+            <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">P</vCard:Other>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#IStim_for_cmiss_eq">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#c87ee15f-edf8-4517-a35d-15165e30eb1b" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#nash_panfilov_2004_version01">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">
+        Modified FitzHugh-Nagumo model
+      </dc:title>
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#3084bc4e-304b-4ecb-a847-57f18b8c0ef8" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#4f283f2b-2cf3-4683-b1ac-97b4099ee4c1" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <bqs:subject_type xmlns:bqs="http://www.cellml.org/bqs/1.0#">keyword</bqs:subject_type>
+                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                        <rdf:Bag xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">electromechanical</rdf:li>
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">electrophysiology</rdf:li>
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">myofilament mechanics</rdf:li>
+                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">excitable tissue</rdf:li>
+                        </rdf:Bag>
+                    </rdf:value>
+                </dc:subject>
+            </bqs:reference>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
+            <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#59d320a1-84d2-4c2a-b0b1-d97373ed351f" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#3d0f7dcd-d98d-4560-945d-6cdf4e01540b" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#645ee413-b7df-40fc-be2e-9c8e3dabd3a0" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#61db89ed-909f-432b-9df3-47d7b8a6041b">
+            <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">David</vCard:Given>
+            <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Nickerson</vCard:Family>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#fbef0f98-ca6d-4419-86ca-2f9fe72ea6f8">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#d2217bf5-29ca-434a-a174-7dd35011a958" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">
+            Electromechanical model of excitable tissue to study reentrant
+            cardiac arrhythmias
+          </dc:title>
+            <bqs:volume xmlns:bqs="http://www.cellml.org/bqs/1.0#">85</bqs:volume>
+            <bqs:first_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">501</bqs:first_page>
+            <bqs:Journal xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#c7f7f07a-4058-4275-b20d-7667183954f3" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#03dff719-bff5-46b7-903e-84f2e10e6cd3" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <bqs:last_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">522</bqs:last_page>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#Vm_deriv_eqn">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#2f0b14b0-a766-4111-bc46-81ee50020de2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#5dc219c0-f39f-4bf0-821a-baa31b8586ee">
+            <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The University of Auckland</vCard:Orgname>
+            <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The Bioengineering Institute</vCard:Orgunit>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#4f283f2b-2cf3-4683-b1ac-97b4099ee4c1">
+            <bqs:JournalArticle xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#fbef0f98-ca6d-4419-86ca-2f9fe72ea6f8" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#3084bc4e-304b-4ecb-a847-57f18b8c0ef8">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          This is a CellML version of the modified FitzHugh-Nagumo model, 
+          published by Aliev and Panfilov in 1996. While the
+          original two-variable model described a non-dimensional activation 
+          variable (u) and a non-dimensional recovery variable (v), 
+          here we formulate the model in terms of the `real' action potential
+          given by the time course of the transmembrane potential (Vm). In so
+          doing, the time rate of change of the activation variable describes
+          the total `ionic current' through the membrane with the original
+          model parameters adjusted to give the correct dimensionality.
+          This model has been further modified by Nash and Panfilov 2004 to
+          include the simplest model of active tension development.
+        </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#9ca973a1-0cf4-4cbf-8fdd-75aa4cb51f55">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            The component which defines the kinetics of the transmembrane potential.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#8cbf0378-f099-4b93-a475-3dad969b3eee">
+            <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">A</vCard:Given>
+            <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Panfilov</vCard:Family>
+            <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">V</vCard:Other>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#397fbdc3-2882-4426-aa8a-5efa7292e07c">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            This is the active tension relation from the Nash and Panfilov
+            article.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#a8dff835-17e3-4be9-93fa-a73254c3e333">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            The non-dimensional and scaled potential value.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#c888d02d-3927-46e8-bfe1-a408016dc44a">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            We'll use this component as the "interface" to the model, all 
+            other components are hidden via encapsulation in this component.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#219b0293-9d1f-411b-9e00-ddde2e973de6">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+            <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#8cbf0378-f099-4b93-a475-3dad969b3eee" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#59d320a1-84d2-4c2a-b0b1-d97373ed351f">
+            <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2004-07-22</dcterms:W3CDTF>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#recovery_variable">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#d1a2af11-008e-4823-ae5d-0ba90f03560e" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#c18f63f2-f928-4b14-90ec-b031813daebf">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            The kinetics of the recovery variable.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#Ta_deriv_eqn">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#56301c52-ecc1-412f-9196-e0e0bf8ffca2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#d8a1f290-9512-423b-abcb-d6507e542104">
+            <rdf:type xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+            <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#81aa6d82-f8a9-4485-bf1f-0a78381dd343" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#8e5ffc80-42ca-4b9d-b32a-1260dfda9c2e">
+            <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The University of Auckland</vCard:Orgname>
+            <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The Bioengineering Institute</vCard:Orgunit>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#645ee413-b7df-40fc-be2e-9c8e3dabd3a0">
+            <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#5dc219c0-f39f-4bf0-821a-baa31b8586ee" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#0f855a1e-1a8b-4abf-beaa-18910135341d" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+            <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#61db89ed-909f-432b-9df3-47d7b8a6041b" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#af85210b-52d5-4a52-9d1a-8744bd77501f">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            Here we define the total ionic current through the cellular
+            membrane - equivalent to the temporal derivative of the original
+            activation variable. One modification of Aliev and Panfilov is
+            in this equation, with the additional multiplication of the recovery 
+            variable with the normalised potential and removal of the scalar
+            multiplier.
+          </rdf:value>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#a_calc_eqn">
+            <cmeta:comment xmlns:cmeta="http://www.cellml.org/metadata/1.0#" rdf:resource="rdf:#d166b344-78fc-4bcb-a54e-a5a3932a2ca4" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        </rdf:Description>
+        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="rdf:#96e163b2-3dbb-41c0-a13b-66ec64aecf7a">
+            <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            The calcuation of the total ionic current.
+          </rdf:value>
+        </rdf:Description>
+    </rdf:RDF>
+</model>

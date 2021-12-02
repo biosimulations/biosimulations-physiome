@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+    name="cortassa_ECME_model_2006"
+    cmeta:id="cortassa_ECME_model_2006"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+  <import xlink:href="components/units.xml">
+    <units name="pH_units" units_ref="pH_units"/>
+    <units name="mM" units_ref="mM"/>
+    <units name="K" units_ref="K"/>
+    <units name="um" units_ref="um"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="uL" units_ref="uL"/>
+    <units name="per_mM3_per_ms" units_ref="per_mM3_per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="uA_per_cm2" units_ref="uA_per_cm2"/>
+    <units name="ms" units_ref="ms"/>
+    <units name="per_mM4_per_ms" units_ref="per_mM4_per_ms"/>
+    <units name="mM_per_ms_per_mV" units_ref="mM_per_ms_per_mV"/>
+    <units name="mM_per_ms" units_ref="mM_per_ms"/>
+    <units name="per_mM_per_ms" units_ref="per_mM_per_ms"/>
+    <units name="C_per_mmol" units_ref="C_per_mmol"/>
+    <units name="cm2" units_ref="cm2"/>
+    <units name="mM_per_mV" units_ref="mM_per_mV"/>
+    <units name="N_per_mm2" units_ref="N_per_mm2"/>
+    <units name="mS_per_cm2" units_ref="mS_per_cm2"/>
+    <units name="cm_per_s" units_ref="cm_per_s"/>
+    <units name="J_per_mol_per_K" units_ref="J_per_mol_per_K"/>
+    <units name="uF_per_cm2" units_ref="uF_per_cm2"/>
+  </import>
+  <component name="interface" cmeta:id="interface">
+    <variable name="time" cmeta:id="time" units="dimensionless" public_interface="in" private_interface="out"/>
+    <variable name="Istim" cmeta:id="Istim" units="dimensionless" public_interface="in" private_interface="out"/>
+    <variable name="Faraday" cmeta:id="Faraday" public_interface="in" private_interface="out" units="C_per_mmol"/>
+    <variable name="R" cmeta:id="R" public_interface="in" private_interface="out" units="J_per_mol_per_K"/>
+    <variable name="T" cmeta:id="T" public_interface="in" private_interface="out" units="K"/>
+    <variable name="clamp_ATPi" cmeta:id="clamp_ATPi" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="clamp_ATPi_cyto" cmeta:id="clamp_ATPi_cyto" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="LHospitalThreshold" cmeta:id="LHospitalThreshold" public_interface="in" private_interface="out" units="mV"/>
+    <variable name="kt_2" cmeta:id="kt_2" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="kf_2" cmeta:id="kf_2" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="kf_3" cmeta:id="kf_3" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="keq" cmeta:id="keq" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="CRT_cyto" cmeta:id="CRT_cyto" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="CRT_mito" cmeta:id="CRT_mito" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="VATPase_cyto" cmeta:id="VATPase_cyto" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="Acap" cmeta:id="Acap" public_interface="in" private_interface="out" units="cm2"/>
+    <variable name="AcCoA" cmeta:id="AcCoA" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="aL" cmeta:id="aL" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="b" cmeta:id="b" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="bL" cmeta:id="bL" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="C_m" cmeta:id="C_m" public_interface="in" private_interface="out" units="uF_per_cm2"/>
+    <variable name="Cao" cmeta:id="Cao" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="CIK" cmeta:id="CIK" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Cm" cmeta:id="Cm" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="CMDNtot" cmeta:id="CMDNtot" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Cmito" cmeta:id="Cmito" public_interface="in" private_interface="out" units="mM_per_mV"/>
+    <variable name="CPN" cmeta:id="CPN" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="CoA" cmeta:id="CoA" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="CSQNtot" cmeta:id="CSQNtot" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="DpH" cmeta:id="DpH" public_interface="in" private_interface="out" units="pH_units"/>
+    <variable name="Dpsio" cmeta:id="Dpsio" public_interface="in" private_interface="out" units="mV"/>
+    <variable name="eta" cmeta:id="eta" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="EtCS" cmeta:id="EtCS" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="EtID" cmeta:id="EtID" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="EtKG" cmeta:id="EtKG" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="EtMD" cmeta:id="EtMD" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="EtSDH" cmeta:id="EtSDH" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="FAD" cmeta:id="FAD" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="FADH2" cmeta:id="FADH2" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="fL" cmeta:id="fL" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="fm" cmeta:id="fm" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="fprime" cmeta:id="fprime" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="g" cmeta:id="g" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="G_Cab" cmeta:id="G_Cab" public_interface="in" private_interface="out" units="mS_per_cm2"/>
+    <variable name="G_Kp" cmeta:id="G_Kp" public_interface="in" private_interface="out" units="mS_per_cm2"/>
+    <variable name="G_Na" cmeta:id="G_Na" public_interface="in" private_interface="out" units="mS_per_cm2"/>
+    <variable name="G_Nab" cmeta:id="G_Nab" public_interface="in" private_interface="out" units="mS_per_cm2"/>
+    <variable name="gh" cmeta:id="gh" public_interface="in" private_interface="out" units="mM_per_ms_per_mV"/>
+    <variable name="gL" cmeta:id="gL" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="GLU" cmeta:id="GLU" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="gprime" cmeta:id="gprime" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="H" cmeta:id="H" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="hm" cmeta:id="hm" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="HTRPNtot" cmeta:id="HTRPNtot" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="ICahalf" cmeta:id="ICahalf" public_interface="in" private_interface="out" units="uA_per_cm2"/>
+    <variable name="INaKmax" cmeta:id="INaKmax" public_interface="in" private_interface="out" units="uA_per_cm2"/>
+    <variable name="IpCamax" cmeta:id="IpCamax" public_interface="in" private_interface="out" units="uA_per_cm2"/>
+    <variable name="KAATeq" cmeta:id="KAATeq" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="KaCa" cmeta:id="KaCa" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KACOeq" cmeta:id="KACOeq" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="kact" cmeta:id="kact" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KADP" cmeta:id="KADP" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kaminus" cmeta:id="kaminus" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="kaplus" cmeta:id="kaplus" public_interface="in" private_interface="out" units="per_mM4_per_ms"/>
+    <variable name="kbminus" cmeta:id="kbminus" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="kbplus" cmeta:id="kbplus" public_interface="in" private_interface="out" units="per_mM3_per_ms"/>
+    <variable name="Kca" cmeta:id="Kca" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kcminus" cmeta:id="kcminus" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="kcnsASP" cmeta:id="kcnsASP" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="kcplus" cmeta:id="kcplus" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="KCS" cmeta:id="KCS" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="kf1" cmeta:id="kf1" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="kfAAT" cmeta:id="kfAAT" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="kfACO" cmeta:id="kfACO" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="Kfb" cmeta:id="Kfb" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kfFH" cmeta:id="kfFH" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="KFHeq" cmeta:id="KFHeq" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="kfSL" cmeta:id="kfSL" public_interface="in" private_interface="out" units="per_mM_per_ms"/>
+    <variable name="kh_1" cmeta:id="kh_1" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kh_2" cmeta:id="kh_2" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Kh1" cmeta:id="Kh1" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Kh2" cmeta:id="Kh2" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Kh3" cmeta:id="Kh3" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Kh4" cmeta:id="Kh4" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="khtrpn_minus" cmeta:id="khtrpn_minus" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="khtrpn_plus" cmeta:id="khtrpn_plus" public_interface="in" private_interface="out" units="per_mM_per_ms"/>
+    <variable name="Ki_AM" cmeta:id="Ki_AM" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Ki_prime_SR" cmeta:id="Ki_prime_SR" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Ki_SR" cmeta:id="Ki_SR" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Ki1AD_NaK" cmeta:id="Ki1AD_NaK" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KiADP_CaP" cmeta:id="KiADP_CaP" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kIDH" cmeta:id="kIDH" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="KidhNADH" cmeta:id="KidhNADH" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KiFUM" cmeta:id="KiFUM" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Kioaa" cmeta:id="Kioaa" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KiOxaa" cmeta:id="KiOxaa" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kKGDH" cmeta:id="kKGDH" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="kltrpn_plus" cmeta:id="kltrpn_plus" public_interface="in" private_interface="out" units="per_mM_per_ms"/>
+    <variable name="kltrpn_minus" cmeta:id="kltrpn_minus" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="Km1AT_NaK" cmeta:id="Km1AT_NaK" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Km1ATP_CaP" cmeta:id="Km1ATP_CaP" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Km2ATP_CaP" cmeta:id="Km2ATP_CaP" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmAcCoA" cmeta:id="KmAcCoA" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Kmal" cmeta:id="Kmal" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmATP_AM" cmeta:id="KmATP_AM" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmATP_SR" cmeta:id="KmATP_SR" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmCMDN" cmeta:id="KmCMDN" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmCa" cmeta:id="KmCa" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmCSQN" cmeta:id="KmCSQN" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kMDH" cmeta:id="kMDH" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="Kmg" cmeta:id="Kmg" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmIDNAD" cmeta:id="KmIDNAD" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Kmiso" cmeta:id="Kmiso" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmKG" cmeta:id="KmKG" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmKGNAD" cmeta:id="KmKGNAD" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmKo" cmeta:id="KmKo" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmmNAD" cmeta:id="KmmNAD" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmNa" cmeta:id="KmNa" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmNai" cmeta:id="KmNai" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmnsCa" cmeta:id="KmnsCa" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmOaa" cmeta:id="KmOaa" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmpCa" cmeta:id="KmpCa" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="KmSucc" cmeta:id="KmSucc" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Kna" cmeta:id="Kna" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kNaCa" cmeta:id="kNaCa" public_interface="in" private_interface="out" units="uA_per_cm2"/>
+    <variable name="Knca" cmeta:id="Knca" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Ko" cmeta:id="Ko" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="Koff" cmeta:id="Koff" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="Krb" cmeta:id="Krb" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kres" cmeta:id="kres" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="kresf" cmeta:id="kresf" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="ksat" cmeta:id="ksat" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="kSDH" cmeta:id="kSDH" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="KSLeq" cmeta:id="KSLeq" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="KSR" cmeta:id="KSR" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="ktrans" cmeta:id="ktrans" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="kTrop_pn" cmeta:id="kTrop_pn" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="L" cmeta:id="L" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="LTRPNtot" cmeta:id="LTRPNtot" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="mcoop" cmeta:id="mcoop" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="Mg" cmeta:id="Mg" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="n" cmeta:id="n" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="na" cmeta:id="na" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="Nao" cmeta:id="Nao" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="ncoop" cmeta:id="ncoop" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="Nfb" cmeta:id="Nfb" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="nID" cmeta:id="nID" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="nKG" cmeta:id="nKG" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="Nrb" cmeta:id="Nrb" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="omega" cmeta:id="omega" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="p1" cmeta:id="p1" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="p2" cmeta:id="p2" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="p3" cmeta:id="p3" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="pa" cmeta:id="pa" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="pb" cmeta:id="pb" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="pc1" cmeta:id="pc1" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="pc2" cmeta:id="pc2" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="PCa" cmeta:id="PCa" public_interface="in" private_interface="out" units="cm_per_s"/>
+    <variable name="Pi" cmeta:id="Pi" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="PK" cmeta:id="PK" public_interface="in" private_interface="out" units="cm_per_s"/>
+    <variable name="PnsK" cmeta:id="PnsK" public_interface="in" private_interface="out" units="cm_per_s"/>
+    <variable name="PnsNa" cmeta:id="PnsNa" public_interface="in" private_interface="out" units="cm_per_s"/>
+    <variable name="r1" cmeta:id="r1" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="r2" cmeta:id="r2" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="r3" cmeta:id="r3" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="ra" cmeta:id="ra" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="rb" cmeta:id="rb" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="rc1" cmeta:id="rc1" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="rc2" cmeta:id="rc2" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="rhoF1" cmeta:id="rhoF1" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="rhoREF" cmeta:id="rhoREF" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="rhoREN" cmeta:id="rhoREN" public_interface="in" private_interface="out" units="mM"/>
+    <variable name="tautr" cmeta:id="tautr" public_interface="in" private_interface="out" units="ms"/>
+    <variable name="tauxfer" cmeta:id="tauxfer" public_interface="in" private_interface="out" units="ms"/>
+    <variable name="V_AM_scaler" cmeta:id="V_AM_scaler" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="V_AM_max" cmeta:id="V_AM_max" public_interface="in" private_interface="out" units="mM_per_ms"/>
+    <variable name="v1" cmeta:id="v1" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="VJSR" cmeta:id="VJSR" public_interface="in" private_interface="out" units="uL"/>
+    <variable name="vmaxf" cmeta:id="vmaxf" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="vmaxr" cmeta:id="vmaxr" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="VmDT" cmeta:id="VmDT" public_interface="in" private_interface="out" units="mM_per_ms"/>
+    <variable name="VmNC" cmeta:id="VmNC" public_interface="in" private_interface="out" units="mM_per_ms"/>
+    <variable name="Vmuni" cmeta:id="Vmuni" public_interface="in" private_interface="out" units="mM_per_ms"/>
+    <variable name="Vmyo" cmeta:id="Vmyo" public_interface="in" private_interface="out" units="uL"/>
+    <variable name="VNSR" cmeta:id="VNSR" public_interface="in" private_interface="out" units="uL"/>
+    <variable name="VSS" cmeta:id="VSS" public_interface="in" private_interface="out" units="uL"/>
+    <variable name="zeta" cmeta:id="zeta" public_interface="in" private_interface="out" units="N_per_mm2"/>
+    <variable name="f_xb" cmeta:id="f_xb" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="SL" cmeta:id="SL" public_interface="in" private_interface="out" units="um"/>
+    <variable name="gmin_xb" cmeta:id="gmin_xb" public_interface="in" private_interface="out" units="per_ms"/>
+    <variable name="zNa" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="zK" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="zCa" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="one" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="p_KNa" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable name="ATPi_initial" cmeta:id="ATPi_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="V_initial" cmeta:id="V_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="C1_RyR_initial" cmeta:id="C1_RyR_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="C2_RyR_initial" cmeta:id="C2_RyR_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="O2_RyR_initial" cmeta:id="O2_RyR_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="mNa_initial" cmeta:id="mNa_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="hNa_initial" cmeta:id="hNa_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="jNa_initial" cmeta:id="jNa_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="xKs_initial" cmeta:id="xKs_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="Open_initial" cmeta:id="Open_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="OCa_initial" cmeta:id="OCa_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="yCa_initial" cmeta:id="yCa_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="Ki_initial" cmeta:id="Ki_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="Nai_initial" cmeta:id="Nai_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="Cai_initial" cmeta:id="Cai_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="ADPm_initial" cmeta:id="ADPm_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="Dpsi_initial" cmeta:id="Dpsi_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="NADH_initial" cmeta:id="NADH_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="Oaa_initial" cmeta:id="Oaa_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="AKG_initial" cmeta:id="AKG_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="SCoA_initial" cmeta:id="SCoA_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="Succ_initial" cmeta:id="Succ_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="FUM_initial" cmeta:id="FUM_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="MAL_initial" cmeta:id="MAL_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="ISOC_initial" cmeta:id="ISOC_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="Cam_initial" cmeta:id="Cam_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CaNSR_initial" cmeta:id="CaNSR_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CaJSR_initial" cmeta:id="CaJSR_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CaSS_initial" cmeta:id="CaSS_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="N1_initial" cmeta:id="N1_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="P0_initial" cmeta:id="P0_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="P1_initial" cmeta:id="P1_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="P2_initial" cmeta:id="P2_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="P3_initial" cmeta:id="P3_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="LTRPNCa_initial" cmeta:id="LTRPNCa_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="HTRPNCa_initial" cmeta:id="HTRPNCa_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="C1_initial" cmeta:id="C1_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CCa0_initial" cmeta:id="CCa0_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="C0_initial" cmeta:id="C0_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="C2_initial" cmeta:id="C2_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CCa1_initial" cmeta:id="CCa1_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="C3_initial" cmeta:id="C3_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CCa2_initial" cmeta:id="CCa2_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="C4_initial" cmeta:id="C4_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CCa3_initial" cmeta:id="CCa3_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CCa4_initial" cmeta:id="CCa4_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CrPi_mito_initial" cmeta:id="CrPi_mito_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="CrPi_cyto_initial" cmeta:id="CrPi_cyto_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="ATPi_cyto_initial" cmeta:id="ATPi_cyto_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="ASP_initial" cmeta:id="ASP_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="N0_initial" cmeta:id="N0_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+ </component>
+  <import xlink:href="components/reversal_potential.xml">
+    <component name="ENa" component_ref="one_ion"/>
+  </import>
+  <connection>
+    <map_components component_1="model" component_2="ENa"/>
+    <map_variables variable_1="E_Na" variable_2="reversal_potential"/>
+    <map_variables variable_1="Nai" variable_2="intracellular_concentration"/>
+  </connection>
+  <connection>
+    <map_components component_1="ENa" component_2="interface"/>
+    <map_variables variable_1="z" variable_2="zNa"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="R" variable_2="R"/>
+    <map_variables variable_1="F" variable_2="Faraday"/>
+    <map_variables variable_1="extracellular_concentration" variable_2="Nao"/>
+  </connection>
+  <import xlink:href="components/reversal_potential.xml">
+    <component name="EK" component_ref="one_ion"/>
+  </import>
+  <connection>
+    <map_components component_1="model" component_2="EK"/>
+    <map_variables variable_1="E_K" variable_2="reversal_potential"/>
+    <map_variables variable_1="Ki" variable_2="intracellular_concentration"/>
+  </connection>
+  <connection>
+    <map_components component_1="EK" component_2="interface"/>
+    <map_variables variable_1="z" variable_2="zK"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="R" variable_2="R"/>
+    <map_variables variable_1="F" variable_2="Faraday"/>
+    <map_variables variable_1="extracellular_concentration" variable_2="Ko"/>
+  </connection>
+  <import xlink:href="components/reversal_potential.xml">
+    <component name="ECa" component_ref="one_ion"/>
+  </import>
+  <connection>
+    <map_components component_1="model" component_2="ECa"/>
+    <map_variables variable_1="E_Ca" variable_2="reversal_potential"/>
+    <map_variables variable_1="Cai" variable_2="intracellular_concentration"/>
+  </connection>
+  <connection>
+    <map_components component_1="ECa" component_2="interface"/>
+    <map_variables variable_1="z" variable_2="zCa"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="R" variable_2="R"/>
+    <map_variables variable_1="F" variable_2="Faraday"/>
+    <map_variables variable_1="extracellular_concentration" variable_2="Cao"/>
+  </connection>
+  <import xlink:href="components/reversal_potential.xml">
+    <component name="EKs" component_ref="two_ions"/>
+  </import>
+  <connection>
+    <map_components component_1="model" component_2="EKs"/>
+    <map_variables variable_1="E_Ks" variable_2="reversal_potential"/>
+    <map_variables variable_1="Ki" variable_2="intracellular_concentration_1"/>
+    <map_variables variable_1="Nai" variable_2="intracellular_concentration_2"/>
+  </connection>
+  <connection>
+    <map_components component_1="EKs" component_2="interface"/>
+    <map_variables variable_1="z" variable_2="zK"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="R" variable_2="R"/>
+    <map_variables variable_1="F" variable_2="Faraday"/>
+    <map_variables variable_1="multiplier_1" variable_2="one"/>
+    <map_variables variable_1="multiplier_2" variable_2="p_KNa"/>
+    <map_variables variable_1="extracellular_concentration_1" variable_2="Ko"/>
+    <map_variables variable_1="extracellular_concentration_2" variable_2="Nao"/>
+  </connection>
+  <import xlink:href="components/computed_constants.xml">
+    <component name="computed_constants" component_ref="computed_constants"/>
+  </import>
+  <import xlink:href="components/model.xml">
+    <component name="model" component_ref="model"/>
+  </import>
+  <connection>
+    <map_components component_1="interface" component_2="computed_constants"/>
+    <map_variables variable_1="Vmyo" variable_2="Vmyo"/>
+    <map_variables variable_1="VJSR" variable_2="VJSR"/>
+    <map_variables variable_1="VNSR" variable_2="VNSR"/>
+    <map_variables variable_1="VSS" variable_2="VSS"/>
+    <map_variables variable_1="f_xb" variable_2="f_xb"/>
+    <map_variables variable_1="gmin_xb" variable_2="gmin_xb"/>
+    <map_variables variable_1="SL" variable_2="SL"/>
+    <map_variables variable_1="kltrpn_minus" variable_2="kltrpn_minus"/>
+    <map_variables variable_1="kltrpn_plus" variable_2="kltrpn_plus"/>
+    <map_variables variable_1="Faraday" variable_2="Faraday"/>
+    <map_variables variable_1="R" variable_2="R"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Acap" variable_2="Acap"/>
+    <map_variables variable_1="C_m" variable_2="C_m"/>
+    <map_variables variable_1="Cao" variable_2="Cao"/>
+    <map_variables variable_1="Ko" variable_2="Ko"/>
+    <map_variables variable_1="Nao" variable_2="Nao"/>
+    <map_variables variable_1="PCa" variable_2="PCa"/>
+    <map_variables variable_1="ICahalf" variable_2="ICahalf"/>
+    <map_variables variable_1="PK" variable_2="PK"/>
+    <map_variables variable_1="KmNai" variable_2="KmNai"/>
+    <map_variables variable_1="INaKmax" variable_2="INaKmax"/>
+    <map_variables variable_1="KmKo" variable_2="KmKo"/>
+    <map_variables variable_1="Ki1AD_NaK" variable_2="Ki1AD_NaK"/>
+    <map_variables variable_1="eta" variable_2="eta"/>
+    <map_variables variable_1="KmCa" variable_2="KmCa"/>
+    <map_variables variable_1="KmNa" variable_2="KmNa"/>
+    <map_variables variable_1="kNaCa" variable_2="kNaCa"/>
+    <map_variables variable_1="ksat" variable_2="ksat"/>
+    <map_variables variable_1="KiADP_CaP" variable_2="KiADP_CaP"/>
+    <map_variables variable_1="KmnsCa" variable_2="KmnsCa"/>
+    <map_variables variable_1="V_AM_scaler" variable_2="V_AM_scaler"/>
+    <map_variables variable_1="V_AM_max" variable_2="V_AM_max"/>
+    <map_variables variable_1="KmATP_AM" variable_2="KmATP_AM"/>
+    <map_variables variable_1="Ki_AM" variable_2="Ki_AM"/>
+    <map_variables variable_1="DpH" variable_2="DpH"/>
+    <map_variables variable_1="KCS" variable_2="KCS"/>
+    <map_variables variable_1="EtCS" variable_2="EtCS"/>
+    <map_variables variable_1="AcCoA" variable_2="AcCoA"/>
+    <map_variables variable_1="KmAcCoA" variable_2="KmAcCoA"/>
+    <map_variables variable_1="KACOeq" variable_2="KACOeq"/>
+    <map_variables variable_1="H" variable_2="H"/>
+    <map_variables variable_1="kh_1" variable_2="kh_1"/>
+    <map_variables variable_1="kh_2" variable_2="kh_2"/>
+    <map_variables variable_1="kIDH" variable_2="kIDH"/>
+    <map_variables variable_1="EtID" variable_2="EtID"/>
+    <map_variables variable_1="KADP" variable_2="KADP"/>
+    <map_variables variable_1="KaCa" variable_2="KaCa"/>
+    <map_variables variable_1="KidhNADH" variable_2="KidhNADH"/>
+    <map_variables variable_1="KmKGNAD" variable_2="KmKGNAD"/>
+    <map_variables variable_1="KmIDNAD" variable_2="KmIDNAD"/>
+    <map_variables variable_1="Mg" variable_2="Mg"/>
+    <map_variables variable_1="Kmg" variable_2="Kmg"/>
+    <map_variables variable_1="Kca" variable_2="Kca"/>
+    <map_variables variable_1="kKGDH" variable_2="kKGDH"/>
+    <map_variables variable_1="EtKG" variable_2="EtKG"/>
+    <map_variables variable_1="CoA" variable_2="CoA"/>
+    <map_variables variable_1="KSLeq" variable_2="KSLeq"/>
+    <map_variables variable_1="kSDH" variable_2="kSDH"/>
+    <map_variables variable_1="EtSDH" variable_2="EtSDH"/>
+    <map_variables variable_1="KmSucc" variable_2="KmSucc"/>
+    <map_variables variable_1="KiFUM" variable_2="KiFUM"/>
+    <map_variables variable_1="KiOxaa" variable_2="KiOxaa"/>
+    <map_variables variable_1="kfFH" variable_2="kfFH"/>
+    <map_variables variable_1="KFHeq" variable_2="KFHeq"/>
+    <map_variables variable_1="Kh3" variable_2="Kh3"/>
+    <map_variables variable_1="Kh4" variable_2="Kh4"/>
+    <map_variables variable_1="Kh1" variable_2="Kh1"/>
+    <map_variables variable_1="Kh2" variable_2="Kh2"/>
+    <map_variables variable_1="Koff" variable_2="Koff"/>
+    <map_variables variable_1="kMDH" variable_2="kMDH"/>
+    <map_variables variable_1="EtMD" variable_2="EtMD"/>
+    <map_variables variable_1="Kmal" variable_2="Kmal"/>
+    <map_variables variable_1="Kioaa" variable_2="Kioaa"/>
+    <map_variables variable_1="kfAAT" variable_2="kfAAT"/>
+    <map_variables variable_1="GLU" variable_2="GLU"/>
+    <map_variables variable_1="kcnsASP" variable_2="kcnsASP"/>
+    <map_variables variable_1="KAATeq" variable_2="KAATeq"/>
+    <map_variables variable_1="kres" variable_2="kres"/>
+    <map_variables variable_1="Dpsio" variable_2="Dpsio"/>
+    <map_variables variable_1="g" variable_2="g"/>
+    <map_variables variable_1="ra" variable_2="ra"/>
+    <map_variables variable_1="rc1" variable_2="rc1"/>
+    <map_variables variable_1="r1" variable_2="r1"/>
+    <map_variables variable_1="rhoREN" variable_2="rhoREN"/>
+    <map_variables variable_1="rc2" variable_2="rc2"/>
+    <map_variables variable_1="rb" variable_2="rb"/>
+    <map_variables variable_1="kresf" variable_2="kresf"/>
+    <map_variables variable_1="FADH2" variable_2="FADH2"/>
+    <map_variables variable_1="FAD" variable_2="FAD"/>
+    <map_variables variable_1="r2" variable_2="r2"/>
+    <map_variables variable_1="r3" variable_2="r3"/>
+    <map_variables variable_1="kf1" variable_2="kf1"/>
+    <map_variables variable_1="Pi" variable_2="Pi"/>
+    <map_variables variable_1="pa" variable_2="pa"/>
+    <map_variables variable_1="pc1" variable_2="pc1"/>
+    <map_variables variable_1="pb" variable_2="pb"/>
+    <map_variables variable_1="p1" variable_2="p1"/>
+    <map_variables variable_1="hm" variable_2="hm"/>
+    <map_variables variable_1="VmDT" variable_2="VmDT"/>
+    <map_variables variable_1="Kfb" variable_2="Kfb"/>
+    <map_variables variable_1="Krb" variable_2="Krb"/>
+    <map_variables variable_1="tautr" variable_2="tautr"/>
+    <map_variables variable_1="tauxfer" variable_2="tauxfer"/>
+    <map_variables variable_1="KmATP_SR" variable_2="KmATP_SR"/>
+    <map_variables variable_1="Ki_SR" variable_2="Ki_SR"/>
+    <map_variables variable_1="Ki_prime_SR" variable_2="Ki_prime_SR"/>
+    <map_variables variable_1="LTRPNtot" variable_2="LTRPNtot"/>
+    <map_variables variable_1="kTrop_pn" variable_2="kTrop_pn"/>
+    <map_variables variable_1="CMDNtot" variable_2="CMDNtot"/>
+    <map_variables variable_1="KmCMDN" variable_2="KmCMDN"/>
+    <map_variables variable_1="CSQNtot" variable_2="CSQNtot"/>
+    <map_variables variable_1="KmCSQN" variable_2="KmCSQN"/>
+    <map_variables variable_1="ktrans" variable_2="ktrans"/>
+    <map_variables variable_1="kact" variable_2="kact"/>
+    <map_variables variable_1="Vmuni" variable_2="Vmuni"/>
+    <map_variables variable_1="b" variable_2="b"/>
+    <map_variables variable_1="bL" variable_2="bL"/>
+    <map_variables variable_1="Cmito" variable_2="Cmito"/>
+    <map_variables variable_1="keq" variable_2="keq"/>
+    <map_variables variable_1="zeta" variable_2="zeta"/>
+  </connection>
+  <connection>
+    <map_components component_1="interface" component_2="model"/>
+    <map_variables variable_1="clamp_ATPi" variable_2="clamp_ATPi"/>
+    <map_variables variable_1="clamp_ATPi_cyto" variable_2="clamp_ATPi_cyto"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="Istim" variable_2="Istim"/>
+    <map_variables variable_1="LHospitalThreshold" variable_2="LHospitalThreshold"/>
+    <map_variables variable_1="G_Na" variable_2="G_Na"/>
+    <map_variables variable_1="G_Nab" variable_2="G_Nab"/>
+    <map_variables variable_1="G_Kp" variable_2="G_Kp"/>
+    <map_variables variable_1="Ko" variable_2="Ko"/>
+    <map_variables variable_1="Km1AT_NaK" variable_2="Km1AT_NaK"/>
+    <map_variables variable_1="eta" variable_2="eta"/>
+    <map_variables variable_1="G_Cab" variable_2="G_Cab"/>
+    <map_variables variable_1="IpCamax" variable_2="IpCamax"/>
+    <map_variables variable_1="KmpCa" variable_2="KmpCa"/>
+    <map_variables variable_1="Km1ATP_CaP" variable_2="Km1ATP_CaP"/>
+    <map_variables variable_1="Km2ATP_CaP" variable_2="Km2ATP_CaP"/>
+    <map_variables variable_1="PnsNa" variable_2="PnsNa"/>
+    <map_variables variable_1="Nao" variable_2="Nao"/>
+    <map_variables variable_1="PnsK" variable_2="PnsK"/>
+    <map_variables variable_1="KmATP_AM" variable_2="KmATP_AM"/>
+    <map_variables variable_1="Cm" variable_2="Cm"/>
+    <map_variables variable_1="CPN" variable_2="CPN"/>
+    <map_variables variable_1="KmIDNAD" variable_2="KmIDNAD"/>
+    <map_variables variable_1="KmOaa" variable_2="KmOaa"/>
+    <map_variables variable_1="kfACO" variable_2="kfACO"/>
+    <map_variables variable_1="CIK" variable_2="CIK"/>
+    <map_variables variable_1="Kmiso" variable_2="Kmiso"/>
+    <map_variables variable_1="nID" variable_2="nID"/>
+    <map_variables variable_1="KmKG" variable_2="KmKG"/>
+    <map_variables variable_1="nKG" variable_2="nKG"/>
+    <map_variables variable_1="kfSL" variable_2="kfSL"/>
+    <map_variables variable_1="KmSucc" variable_2="KmSucc"/>
+    <map_variables variable_1="kfFH" variable_2="kfFH"/>
+    <map_variables variable_1="Kmal" variable_2="Kmal"/>
+    <map_variables variable_1="KmmNAD" variable_2="KmmNAD"/>
+    <map_variables variable_1="r2" variable_2="r2"/>
+    <map_variables variable_1="r3" variable_2="r3"/>
+    <map_variables variable_1="rhoREF" variable_2="rhoREF"/>
+    <map_variables variable_1="rhoF1" variable_2="rhoF1"/>
+    <map_variables variable_1="p2" variable_2="p2"/>
+    <map_variables variable_1="p3" variable_2="p3"/>
+    <map_variables variable_1="pc2" variable_2="pc2"/>
+    <map_variables variable_1="pa" variable_2="pa"/>
+    <map_variables variable_1="gh" variable_2="gh"/>
+    <map_variables variable_1="Nfb" variable_2="Nfb"/>
+    <map_variables variable_1="Nrb" variable_2="Nrb"/>
+    <map_variables variable_1="KSR" variable_2="KSR"/>
+    <map_variables variable_1="vmaxf" variable_2="vmaxf"/>
+    <map_variables variable_1="vmaxr" variable_2="vmaxr"/>
+    <map_variables variable_1="KmATP_SR" variable_2="KmATP_SR"/>
+    <map_variables variable_1="v1" variable_2="v1"/>
+    <map_variables variable_1="kTrop_pn" variable_2="kTrop_pn"/>
+    <map_variables variable_1="kltrpn_plus" variable_2="kltrpn_plus"/>
+    <map_variables variable_1="LTRPNtot" variable_2="LTRPNtot"/>
+    <map_variables variable_1="kltrpn_minus" variable_2="kltrpn_minus"/>
+    <map_variables variable_1="khtrpn_plus" variable_2="khtrpn_plus"/>
+    <map_variables variable_1="HTRPNtot" variable_2="HTRPNtot"/>
+    <map_variables variable_1="khtrpn_minus" variable_2="khtrpn_minus"/>
+    <map_variables variable_1="KmCMDN" variable_2="KmCMDN"/>
+    <map_variables variable_1="KmCSQN" variable_2="KmCSQN"/>
+    <map_variables variable_1="L" variable_2="L"/>
+    <map_variables variable_1="na" variable_2="na"/>
+    <map_variables variable_1="VmNC" variable_2="VmNC"/>
+    <map_variables variable_1="Kna" variable_2="Kna"/>
+    <map_variables variable_1="n" variable_2="n"/>
+    <map_variables variable_1="Knca" variable_2="Knca"/>
+    <map_variables variable_1="kaplus" variable_2="kaplus"/>
+    <map_variables variable_1="ncoop" variable_2="ncoop"/>
+    <map_variables variable_1="kaminus" variable_2="kaminus"/>
+    <map_variables variable_1="kbplus" variable_2="kbplus"/>
+    <map_variables variable_1="mcoop" variable_2="mcoop"/>
+    <map_variables variable_1="kbminus" variable_2="kbminus"/>
+    <map_variables variable_1="kcplus" variable_2="kcplus"/>
+    <map_variables variable_1="kcminus" variable_2="kcminus"/>
+    <map_variables variable_1="aL" variable_2="aL"/>
+    <map_variables variable_1="omega" variable_2="omega"/>
+    <map_variables variable_1="gL" variable_2="gL"/>
+    <map_variables variable_1="fL" variable_2="fL"/>
+    <map_variables variable_1="gprime" variable_2="gprime"/>
+    <map_variables variable_1="fprime" variable_2="fprime"/>
+    <map_variables variable_1="kt_2" variable_2="kt_2"/>
+    <map_variables variable_1="kf_2" variable_2="kf_2"/>
+    <map_variables variable_1="CRT_cyto" variable_2="CRT_cyto"/>
+    <map_variables variable_1="kf_3" variable_2="kf_3"/>
+    <map_variables variable_1="CRT_mito" variable_2="CRT_mito"/>
+    <map_variables variable_1="VATPase_cyto" variable_2="VATPase_cyto"/>
+    <map_variables variable_1="fm" variable_2="fm"/>
+    <map_variables variable_1="kcnsASP" variable_2="kcnsASP"/>
+    <map_variables variable_1="KmNai" variable_2="KmNai"/>
+    <map_variables variable_1="ATPi_initial" variable_2="ATPi_initial"/>
+    <map_variables variable_1="V_initial" variable_2="V_initial"/>
+    <map_variables variable_1="C1_RyR_initial" variable_2="C1_RyR_initial"/>
+    <map_variables variable_1="C2_RyR_initial" variable_2="C2_RyR_initial"/>
+    <map_variables variable_1="O2_RyR_initial" variable_2="O2_RyR_initial"/>
+    <map_variables variable_1="mNa_initial" variable_2="mNa_initial"/>
+    <map_variables variable_1="hNa_initial" variable_2="hNa_initial"/>
+    <map_variables variable_1="jNa_initial" variable_2="jNa_initial"/>
+    <map_variables variable_1="xKs_initial" variable_2="xKs_initial"/>
+    <map_variables variable_1="Open_initial" variable_2="Open_initial"/>
+    <map_variables variable_1="OCa_initial" variable_2="OCa_initial"/>
+    <map_variables variable_1="yCa_initial" variable_2="yCa_initial"/>
+    <map_variables variable_1="Ki_initial" variable_2="Ki_initial"/>
+    <map_variables variable_1="Nai_initial" variable_2="Nai_initial"/>
+    <map_variables variable_1="Cai_initial" variable_2="Cai_initial"/>
+    <map_variables variable_1="ADPm_initial" variable_2="ADPm_initial"/>
+    <map_variables variable_1="Dpsi_initial" variable_2="Dpsi_initial"/>
+    <map_variables variable_1="NADH_initial" variable_2="NADH_initial"/>
+    <map_variables variable_1="Oaa_initial" variable_2="Oaa_initial"/>
+    <map_variables variable_1="AKG_initial" variable_2="AKG_initial"/>
+    <map_variables variable_1="SCoA_initial" variable_2="SCoA_initial"/>
+    <map_variables variable_1="Succ_initial" variable_2="Succ_initial"/>
+    <map_variables variable_1="FUM_initial" variable_2="FUM_initial"/>
+    <map_variables variable_1="MAL_initial" variable_2="MAL_initial"/>
+    <map_variables variable_1="ISOC_initial" variable_2="ISOC_initial"/>
+    <map_variables variable_1="Cam_initial" variable_2="Cam_initial"/>
+    <map_variables variable_1="CaNSR_initial" variable_2="CaNSR_initial"/>
+    <map_variables variable_1="CaJSR_initial" variable_2="CaJSR_initial"/>
+    <map_variables variable_1="CaSS_initial" variable_2="CaSS_initial"/>
+    <map_variables variable_1="N1_initial" variable_2="N1_initial"/>
+    <map_variables variable_1="P0_initial" variable_2="P0_initial"/>
+    <map_variables variable_1="P1_initial" variable_2="P1_initial"/>
+    <map_variables variable_1="P2_initial" variable_2="P2_initial"/>
+    <map_variables variable_1="P3_initial" variable_2="P3_initial"/>
+    <map_variables variable_1="LTRPNCa_initial" variable_2="LTRPNCa_initial"/>
+    <map_variables variable_1="HTRPNCa_initial" variable_2="HTRPNCa_initial"/>
+    <map_variables variable_1="C1_initial" variable_2="C1_initial"/>
+    <map_variables variable_1="CCa0_initial" variable_2="CCa0_initial"/>
+    <map_variables variable_1="C0_initial" variable_2="C0_initial"/>
+    <map_variables variable_1="C2_initial" variable_2="C2_initial"/>
+    <map_variables variable_1="CCa1_initial" variable_2="CCa1_initial"/>
+    <map_variables variable_1="C3_initial" variable_2="C3_initial"/>
+    <map_variables variable_1="CCa2_initial" variable_2="CCa2_initial"/>
+    <map_variables variable_1="C4_initial" variable_2="C4_initial"/>
+    <map_variables variable_1="CCa3_initial" variable_2="CCa3_initial"/>
+    <map_variables variable_1="CCa4_initial" variable_2="CCa4_initial"/>
+    <map_variables variable_1="CrPi_mito_initial" variable_2="CrPi_mito_initial"/>
+    <map_variables variable_1="CrPi_cyto_initial" variable_2="CrPi_cyto_initial"/>
+    <map_variables variable_1="ATPi_cyto_initial" variable_2="ATPi_cyto_initial"/>
+    <map_variables variable_1="ASP_initial" variable_2="ASP_initial"/>
+    <map_variables variable_1="N0_initial" variable_2="N0_initial"/>
+  </connection>
+  <connection>
+    <map_components component_1="computed_constants" component_2="model"/>
+    <map_variables variable_1="F_over_RT" variable_2="F_over_RT"/>
+    <map_variables variable_1="FaradayE3" variable_2="FaradayE3"/>
+    <map_variables variable_1="G_Ks" variable_2="G_Ks"/>
+    <map_variables variable_1="G_K1" variable_2="G_K1"/>
+    <map_variables variable_1="inv_5p98" variable_2="inv_5p98"/>
+    <map_variables variable_1="Pca_4En3" variable_2="Pca_4En3"/>
+    <map_variables variable_1="Cao_341" variable_2="Cao_341"/>
+    <map_variables variable_1="PKFe3" variable_2="PKFe3"/>
+    <map_variables variable_1="inv_ICahalf" variable_2="inv_ICahalf"/>
+    <map_variables variable_1="INaKmax_Ko_Ko_KmKo" variable_2="INaKmax_Ko_Ko_KmKo"/>
+    <map_variables variable_1="sigma" variable_2="sigma"/>
+    <map_variables variable_1="inv_Ki1AD_NaK" variable_2="inv_Ki1AD_NaK"/>
+    <map_variables variable_1="Nao_p3" variable_2="Nao_p3"/>
+    <map_variables variable_1="KmCa_Cao" variable_2="KmCa_Cao"/>
+    <map_variables variable_1="KmCa_Cao_ksat" variable_2="KmCa_Cao_ksat"/>
+    <map_variables variable_1="inv_KiADP_CaP" variable_2="inv_KiADP_CaP"/>
+    <map_variables variable_1="KmnsCa_p3" variable_2="KmnsCa_p3"/>
+    <map_variables variable_1="V_AM_scaler_max_1_f_01_12_23" variable_2="V_AM_scaler_max_1_f_01_12_23"/>
+    <map_variables variable_1="f_01" variable_2="f_01"/>
+    <map_variables variable_1="f_12" variable_2="f_12"/>
+    <map_variables variable_1="f_23" variable_2="f_23"/>
+    <map_variables variable_1="KmATP_AM_Ki_AM" variable_2="KmATP_AM_Ki_AM"/>
+    <map_variables variable_1="DmuH_Constant" variable_2="DmuH_Constant"/>
+    <map_variables variable_1="FRT_6_g" variable_2="FRT_6_g"/>
+    <map_variables variable_1="FRT2" variable_2="FRT2"/>
+    <map_variables variable_1="VCS_C1" variable_2="VCS_C1"/>
+    <map_variables variable_1="one_inv_KACOeq" variable_2="one_inv_KACOeq"/>
+    <map_variables variable_1="inv_KADP" variable_2="inv_KADP"/>
+    <map_variables variable_1="inv_KaCa" variable_2="inv_KaCa"/>
+    <map_variables variable_1="inv_KidhNADH" variable_2="inv_KidhNADH"/>
+    <map_variables variable_1="kIDH_EtID" variable_2="kIDH_EtID"/>
+    <map_variables variable_1="VIDH_Constant" variable_2="VIDH_Constant"/>
+    <map_variables variable_1="Mg_Kmg_1" variable_2="Mg_Kmg_1"/>
+    <map_variables variable_1="Mg_Kmg_1_Kca" variable_2="Mg_Kmg_1_Kca"/>
+    <map_variables variable_1="kKGDH_EtKG" variable_2="kKGDH_EtKG"/>
+    <map_variables variable_1="KmKGNAD_KmIDNAD" variable_2="KmKGNAD_KmIDNAD"/>
+    <map_variables variable_1="CoA_KSLeq" variable_2="CoA_KSLeq"/>
+    <map_variables variable_1="kSDH_EtSDH" variable_2="kSDH_EtSDH"/>
+    <map_variables variable_1="KmSucc_KiFUM" variable_2="KmSucc_KiFUM"/>
+    <map_variables variable_1="inv_KiOxaa" variable_2="inv_KiOxaa"/>
+    <map_variables variable_1="kfFH_KFHeq" variable_2="kfFH_KFHeq"/>
+    <map_variables variable_1="kMDH_Fh_EtMD" variable_2="kMDH_Fh_EtMD"/>
+    <map_variables variable_1="Kmal_Kioaa" variable_2="Kmal_Kioaa"/>
+    <map_variables variable_1="VAAT_Constant" variable_2="VAAT_Constant"/>
+    <map_variables variable_1="kcnsASP_KAATeq_kfAAT" variable_2="kcnsASP_KAATeq_kfAAT"/>
+    <map_variables variable_1="kres_sq_KmIDNAD" variable_2="kres_sq_KmIDNAD"/>
+    <map_variables variable_1="exp_6_FRT_Dpsio" variable_2="exp_6_FRT_Dpsio"/>
+    <map_variables variable_1="r1_exp_6_FRT_Dpsio" variable_2="r1_exp_6_FRT_Dpsio"/>
+    <map_variables variable_1="rhoREN_ra_rc1_exp_6_FRT_Dpsio" variable_2="rhoREN_ra_rc1_exp_6_FRT_Dpsio"/>
+    <map_variables variable_1="rhoREN_rc2" variable_2="rhoREN_rc2"/>
+    <map_variables variable_1="rhoREN_ra" variable_2="rhoREN_ra"/>
+    <map_variables variable_1="rhoRen_6_ra" variable_2="rhoRen_6_ra"/>
+    <map_variables variable_1="rhoRen_6_ra_rb" variable_2="rhoRen_6_ra_rb"/>
+    <map_variables variable_1="VFO_VHFe_C1" variable_2="VFO_VHFe_C1"/>
+    <map_variables variable_1="r2_r3_exp_AREF_FRT" variable_2="r2_r3_exp_AREF_FRT"/>
+    <map_variables variable_1="ra_exp_AREF_FRT" variable_2="ra_exp_AREF_FRT"/>
+    <map_variables variable_1="ra_rb" variable_2="ra_rb"/>
+    <map_variables variable_1="FRT_3" variable_2="FRT_3"/>
+    <map_variables variable_1="kf1_Pi" variable_2="kf1_Pi"/>
+    <map_variables variable_1="exp_3_FRT_Dpsio" variable_2="exp_3_FRT_Dpsio"/>
+    <map_variables variable_1="p1_exp_3_FRT_Dpsio" variable_2="p1_exp_3_FRT_Dpsio"/>
+    <map_variables variable_1="VATPase_C1" variable_2="VATPase_C1"/>
+    <map_variables variable_1="pa_300" variable_2="pa_300"/>
+    <map_variables variable_1="pa_pb_3" variable_2="pa_pb_3"/>
+    <map_variables variable_1="VmDT_75" variable_2="VmDT_75"/>
+    <map_variables variable_1="VmDT_20" variable_2="VmDT_20"/>
+    <map_variables variable_1="hm_F_over_RT" variable_2="hm_F_over_RT"/>
+    <map_variables variable_1="inv_Kfb" variable_2="inv_Kfb"/>
+    <map_variables variable_1="inv_Krb" variable_2="inv_Krb"/>
+    <map_variables variable_1="KmATP_SR_Ki_SR" variable_2="KmATP_SR_Ki_SR"/>
+    <map_variables variable_1="inv_Ki_prime_SR" variable_2="inv_Ki_prime_SR"/>
+    <map_variables variable_1="inv_tautr" variable_2="inv_tautr"/>
+    <map_variables variable_1="inv_tauxfer" variable_2="inv_tauxfer"/>
+    <map_variables variable_1="alpha_SL_fnormmax2" variable_2="alpha_SL_fnormmax2"/>
+    <map_variables variable_1="alpha_SL_fnormmax" variable_2="alpha_SL_fnormmax"/>
+    <map_variables variable_1="zeta_alpha_SL_fnormmax" variable_2="zeta_alpha_SL_fnormmax"/>
+    <map_variables variable_1="inv_LTRPNtot_Ktrop_half" variable_2="inv_LTRPNtot_Ktrop_half"/>
+    <map_variables variable_1="Ntrop" variable_2="Ntrop"/>
+    <map_variables variable_1="kTrop_pn_f_01" variable_2="kTrop_pn_f_01"/>
+    <map_variables variable_1="g_01_mod" variable_2="g_01_mod"/>
+    <map_variables variable_1="kTrop_pn_f_12_g_01_mod" variable_2="kTrop_pn_f_12_g_01_mod"/>
+    <map_variables variable_1="g_12_mod" variable_2="g_12_mod"/>
+    <map_variables variable_1="f_23_g_12_mod" variable_2="f_23_g_12_mod"/>
+    <map_variables variable_1="g_23_mod" variable_2="g_23_mod"/>
+    <map_variables variable_1="g_01_off_mod" variable_2="g_01_off_mod"/>
+    <map_variables variable_1="CMDNtot_KmCMDN" variable_2="CMDNtot_KmCMDN"/>
+    <map_variables variable_1="CSQNtot_KmCSQN" variable_2="CSQNtot_KmCSQN"/>
+    <map_variables variable_1="inv_ktrans" variable_2="inv_ktrans"/>
+    <map_variables variable_1="Vmuni_ktrans" variable_2="Vmuni_ktrans"/>
+    <map_variables variable_1="inv_kact" variable_2="inv_kact"/>
+    <map_variables variable_1="b_05" variable_2="b_05"/>
+    <map_variables variable_1="Acap_Vmyo_F" variable_2="Acap_Vmyo_F"/>
+    <map_variables variable_1="VJSR_VSS" variable_2="VJSR_VSS"/>
+    <map_variables variable_1="Vmyo_VSS" variable_2="Vmyo_VSS"/>
+    <map_variables variable_1="Acap_VSS_F" variable_2="Acap_VSS_F"/>
+    <map_variables variable_1="Vmyo_VNSR" variable_2="Vmyo_VNSR"/>
+    <map_variables variable_1="VJSR_VNSR" variable_2="VJSR_VNSR"/>
+    <map_variables variable_1="inv_C_m" variable_2="inv_C_m"/>
+    <map_variables variable_1="inv_bL" variable_2="inv_bL"/>
+    <map_variables variable_1="inv_keq" variable_2="inv_keq"/>
+    <map_variables variable_1="two_b" variable_2="two_b"/>
+    <map_variables variable_1="inv_Cmito" variable_2="inv_Cmito"/>
+  </connection>
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="interface">
+      <component_ref component="computed_constants"/>
+      <component_ref component="model"/>
+      <component_ref component="ENa"/>
+      <component_ref component="EK"/>
+      <component_ref component="ECa"/>
+      <component_ref component="EKs"/>
+    </component_ref>
+  </group>
+</model>

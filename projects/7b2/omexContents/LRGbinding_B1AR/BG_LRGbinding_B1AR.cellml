@@ -1,0 +1,739 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- BG model of ligand binding receptor, based on substep within beta1 adrenergic receptor activation (saucerman2003)
+ Species: L(igand), R(eceptor), LR, RG, LRG
+ 1sep21 initialising file 
+ 6sept21 with parameters from saucerman2003 for beta1adrenergic receptor or iancu2007 for muscarinic receptor-->
+<model name="BG_LRGbinding_B1AR" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="units_and_constants/units_BG.cellml">
+        <units name="per_sec" units_ref="per_sec"/>
+        <units name="J_per_K_per_mol" units_ref="J_per_K_per_mol"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+        <units name="fmol" units_ref="fmol"/>
+        <units name="fmol_per_L" units_ref="fmol_per_L"/>
+        <units name="fmol_per_L_per_sec" units_ref="fmol_per_L_per_sec"/>
+        <units name="per_sec_per_fmol_per_L" units_ref="per_sec_per_fmol_per_L"/>
+        <units name="per_fmol" units_ref="per_fmol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="J_per_mol" units_ref="J_per_mol"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="uM" units_ref="uM"/>
+        <units name="mM_per_sec" units_ref="mM_per_sec"/>
+        <units name="uM_per_sec" units_ref="uM_per_sec"/>
+        <units name="pL" units_ref="pL"/>
+        <units name="m_to_u" units_ref="m_to_u"/>
+    </import>
+    <import xlink:href="units_and_constants/constants_BG.cellml">
+        <component component_ref="constants" name="constants"/>
+    </import>
+    <component name="environment">
+        <variable name="time" public_interface="out" units="second"/>
+        <variable name="q_L_B1_init" units="fmol"/>
+        <variable initial_value="0.0004579000" name="q_R_B1_init" units="fmol"/>
+        <variable initial_value="0.1455400000" name="q_Gs_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_B1_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_R_B1Gs_init" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_B1Gs_init" units="fmol"/>
+        <!-- conservation mass checks-->
+        <variable name="L_T" public_interface="in" units="fmol"/>
+        <variable name="R_T" public_interface="in" units="fmol"/>
+        <variable name="Gs_T" public_interface="in" units="fmol"/>
+        <!-- stimulus-->
+        <variable initial_value="1.1" name="stimSt" units="second"/>
+        <variable initial_value="0.25" name="stimDur" units="second"/>
+        <variable initial_value="0.3" name="tR" units="second"/>
+        <variable initial_value="0e-5" name="stimMag" units="fmol"/>
+        <variable initial_value="1e-6" name="stimHolding" units="fmol"/>
+        <variable name="m" units="fmol_per_sec"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>m</ci>
+                <apply>
+                    <divide/>
+                    <ci>stimMag</ci>
+                    <ci>tR</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_L_B1_init</ci>
+                <piecewise>
+                    <piece>
+                        <apply>
+                            <plus/>
+                            <ci>stimHolding</ci>
+                            <apply>
+                                <times/>
+                                <ci>m</ci>
+                                <apply>
+                                    <plus/>
+                                    <apply>
+                                        <minus/>
+                                        <ci>time</ci>
+                                        <ci>stimSt</ci>
+                                    </apply>
+                                    <ci>tR</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <ci>stimSt</ci>
+                            </apply>
+                            <apply>
+                                <gt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <minus/>
+                                    <ci>stimSt</ci>
+                                    <ci>tR</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <piece>
+                        <apply>
+                            <plus/>
+                            <ci>stimMag</ci>
+                            <ci>stimHolding</ci>
+                        </apply>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <geq/>
+                                <ci>time</ci>
+                                <ci>stimSt</ci>
+                            </apply>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>stimSt</ci>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <piece>
+                        <apply>
+                            <plus/>
+                            <ci>stimHolding</ci>
+                            <apply>
+                                <times/>
+                                <apply>
+                                    <minus/>
+                                    <ci>m</ci>
+                                </apply>
+                                <apply>
+                                    <minus/>
+                                    <apply>
+                                        <minus/>
+                                        <apply>
+                                            <minus/>
+                                            <ci>time</ci>
+                                            <ci>stimSt</ci>
+                                        </apply>
+                                        <ci>tR</ci>
+                                    </apply>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                        <apply>
+                            <and/>
+                            <apply>
+                                <lt/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>stimSt</ci>
+                                    <ci>tR</ci>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                            <apply>
+                                <geq/>
+                                <ci>time</ci>
+                                <apply>
+                                    <plus/>
+                                    <ci>stimSt</ci>
+                                    <ci>stimDur</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </piece>
+                    <otherwise>
+                        <ci>stimHolding</ci>
+                    </otherwise>
+                </piecewise>
+            </apply>
+        </math>
+        <!-- Global value-->
+        <variable name="q_L_B1" public_interface="out" units="fmol"/>
+        <variable name="q_R_B1" public_interface="out" units="fmol"/>
+        <variable name="q_Gs" public_interface="out" units="fmol"/>
+        <variable name="q_LR_B1" public_interface="out" units="fmol"/>
+        <variable name="q_R_B1Gs" public_interface="out" units="fmol"/>
+        <variable name="q_LR_B1Gs" public_interface="out" units="fmol"/>
+        <!-- From submodule-->
+        <variable name="q_L_B1_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_R_B1_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_Gs_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_R_B1Gs_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1Gs_mLRGbinding_B1AR" public_interface="in" units="fmol"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>q_L_B1</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_L_B1_mLRGbinding_B1AR</ci>
+                    <ci>q_L_B1_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_B1</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_B1_mLRGbinding_B1AR</ci>
+                    <ci>q_R_B1_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_Gs</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_Gs_mLRGbinding_B1AR</ci>
+                    <ci>q_Gs_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_B1</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_B1_mLRGbinding_B1AR</ci>
+                    <ci>q_LR_B1_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_R_B1Gs</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_B1Gs_mLRGbinding_B1AR</ci>
+                    <ci>q_R_B1Gs_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_LR_B1Gs</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_LR_B1Gs_mLRGbinding_B1AR</ci>
+                    <ci>q_LR_B1Gs_init</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="LRGbinding_parameters">
+        <variable initial_value="12348" name="kappa_sig1_B1" units="fmol_per_sec"/>
+        <variable initial_value="115.247" name="kappa_sig2_B1" units="fmol_per_sec"/>
+        <variable initial_value="25.0713" name="kappa_sig3_B1" units="fmol_per_sec"/>
+        <variable initial_value="20531.2" name="kappa_sig4_B1" units="fmol_per_sec"/>
+        <variable initial_value="0.0943832" name="K_L_B1" units="per_fmol"/>
+        <variable initial_value="0.436088" name="K_R_B1" units="per_fmol"/>
+        <variable initial_value="0.156932" name="K_Gs" units="per_fmol"/>
+        <variable initial_value="214.78" name="K_LR_B1" units="per_fmol"/>
+        <variable initial_value="77.6889" name="K_R_B1Gs" units="per_fmol"/>
+        <variable initial_value="71.888" name="K_LR_B1Gs" units="per_fmol"/>
+    </component>
+    <component name="LRGbinding_B1AR">
+        <variable name="time" public_interface="in" units="second"/>
+        <!-- Physical parameters-->
+        <variable name="R" public_interface="in" units="J_per_K_per_mol"/>
+        <variable name="T" public_interface="in" units="kelvin"/>
+        <!-- Bond graph parameters, found using pinv of kinetic parameters-->
+        <variable name="kappa_sig1_B1" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_sig2_B1" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_sig3_B1" public_interface="in" units="fmol_per_sec"/>
+        <variable name="kappa_sig4_B1" public_interface="in" units="fmol_per_sec"/>
+        <variable name="K_L_B1" public_interface="in" units="per_fmol"/>
+        <variable name="K_R_B1" public_interface="in" units="per_fmol"/>
+        <variable name="K_Gs" public_interface="in" units="per_fmol"/>
+        <variable name="K_LR_B1" public_interface="in" units="per_fmol"/>
+        <variable name="K_R_B1Gs" public_interface="in" units="per_fmol"/>
+        <variable name="K_LR_B1Gs" public_interface="in" units="per_fmol"/>
+        <!-- Input from global environment-->
+        <variable name="q_L_B1_global" public_interface="in" units="fmol"/>
+        <variable name="q_R_B1_global" public_interface="in" units="fmol"/>
+        <variable name="q_Gs_global" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1_global" public_interface="in" units="fmol"/>
+        <variable name="q_R_B1Gs_global" public_interface="in" units="fmol"/>
+        <variable name="q_LR_B1Gs_global" public_interface="in" units="fmol"/>
+        <!-- Output to global environment-->
+        <variable initial_value="1e-18" name="q_L_B1" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-18" name="q_R_B1" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-18" name="q_Gs" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_B1" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-18" name="q_R_B1Gs" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-18" name="q_LR_B1Gs" public_interface="out" units="fmol"/>
+        <!-- Bond variables-->
+        <variable name="mu_L_B1" units="J_per_mol"/>
+        <variable name="mu_R_B1" units="J_per_mol"/>
+        <variable name="mu_Gs" units="J_per_mol"/>
+        <variable name="mu_LR_B1" units="J_per_mol"/>
+        <variable name="mu_R_B1Gs" units="J_per_mol"/>
+        <variable name="mu_LR_B1Gs" units="J_per_mol"/>
+        <variable name="vsig1_B1" units="fmol_per_sec"/>
+        <variable name="vsig2_B1" units="fmol_per_sec"/>
+        <variable name="vsig3_B1" units="fmol_per_sec"/>
+        <variable name="vsig4_B1" units="fmol_per_sec"/>
+        <!-- -->
+        <variable initial_value="34.4" name="vol" units="pL"/>
+        <!-- Constitutive equations-->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>mu_L_B1</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_L_B1</ci>
+                            <ci>q_L_B1_global</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>mu_R_B1</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_R_B1</ci>
+                            <ci>q_R_B1_global</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>mu_Gs</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_Gs</ci>
+                            <ci>q_Gs_global</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>mu_LR_B1</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_LR_B1</ci>
+                            <ci>q_LR_B1_global</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>mu_R_B1Gs</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_R_B1Gs</ci>
+                            <ci>q_R_B1Gs_global</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>mu_LR_B1Gs</ci>
+                <apply>
+                    <times/>
+                    <ci>R</ci>
+                    <ci>T</ci>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <times/>
+                            <ci>K_LR_B1Gs</ci>
+                            <ci>q_LR_B1Gs_global</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>vsig1_B1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>kappa_sig1_B1</ci>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <plus/>
+                                    <ci>mu_R_B1</ci>
+                                    <ci>mu_Gs</ci>
+                                </apply>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>mu_R_B1Gs</ci>
+                            <apply>
+                                <times/>
+                                <ci>R</ci>
+                                <ci>T</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>vsig2_B1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>kappa_sig2_B1</ci>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <plus/>
+                                    <ci>mu_R_B1Gs</ci>
+                                    <ci>mu_L_B1</ci>
+                                </apply>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>mu_LR_B1Gs</ci>
+                            <apply>
+                                <times/>
+                                <ci>R</ci>
+                                <ci>T</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>vsig3_B1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>kappa_sig3_B1</ci>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <plus/>
+                                    <ci>mu_LR_B1</ci>
+                                    <ci>mu_Gs</ci>
+                                </apply>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>mu_LR_B1Gs</ci>
+                            <apply>
+                                <times/>
+                                <ci>R</ci>
+                                <ci>T</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>vsig4_B1</ci>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <times/>
+                        <ci>kappa_sig4_B1</ci>
+                        <apply>
+                            <exp/>
+                            <apply>
+                                <divide/>
+                                <apply>
+                                    <plus/>
+                                    <ci>mu_R_B1</ci>
+                                    <ci>mu_L_B1</ci>
+                                </apply>
+                                <apply>
+                                    <times/>
+                                    <ci>R</ci>
+                                    <ci>T</ci>
+                                </apply>
+                            </apply>
+                        </apply>
+                    </apply>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>mu_LR_B1</ci>
+                            <apply>
+                                <times/>
+                                <ci>R</ci>
+                                <ci>T</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_L_B1</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>vsig2_B1</ci>
+                    </apply>
+                    <ci>vsig4_B1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_R_B1</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>vsig1_B1</ci>
+                    </apply>
+                    <ci>vsig4_B1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_Gs</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <apply>
+                        <minus/>
+                        <ci>vsig1_B1</ci>
+                    </apply>
+                    <ci>vsig3_B1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_LR_B1</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>vsig3_B1</ci>
+                    </apply>
+                    <ci>vsig4_B1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_R_B1Gs</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>vsig1_B1</ci>
+                    <ci>vsig2_B1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_LR_B1Gs</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <ci>vsig2_B1</ci>
+                    <ci>vsig3_B1</ci>
+                </apply>
+            </apply>
+        </math>
+        <!-- mass conservation checks -->
+        <variable name="L_T" public_interface="out" units="fmol"/>
+        <variable name="R_T" public_interface="out" units="fmol"/>
+        <variable name="Gs_T" public_interface="out" units="fmol"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>L_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_L_B1_global</ci>
+                    <ci>q_LR_B1_global</ci>
+                    <ci>q_LR_B1Gs_global</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>R_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_R_B1_global</ci>
+                    <ci>q_LR_B1_global</ci>
+                    <ci>q_R_B1Gs_global</ci>
+                    <ci>q_LR_B1Gs_global</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>Gs_T</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_Gs_global</ci>
+                    <ci>q_R_B1Gs_global</ci>
+                    <ci>q_LR_B1Gs_global</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="environment" component_2="LRGbinding_B1AR"/>
+        <map_variables variable_1="time" variable_2="time"/>
+        <map_variables variable_1="q_L_B1_mLRGbinding_B1AR" variable_2="q_L_B1"/>
+        <map_variables variable_1="q_L_B1" variable_2="q_L_B1_global"/>
+        <map_variables variable_1="q_R_B1_mLRGbinding_B1AR" variable_2="q_R_B1"/>
+        <map_variables variable_1="q_R_B1" variable_2="q_R_B1_global"/>
+        <map_variables variable_1="q_Gs_mLRGbinding_B1AR" variable_2="q_Gs"/>
+        <map_variables variable_1="q_Gs" variable_2="q_Gs_global"/>
+        <map_variables variable_1="q_LR_B1_mLRGbinding_B1AR" variable_2="q_LR_B1"/>
+        <map_variables variable_1="q_LR_B1" variable_2="q_LR_B1_global"/>
+        <map_variables variable_1="q_R_B1Gs_mLRGbinding_B1AR" variable_2="q_R_B1Gs"/>
+        <map_variables variable_1="q_R_B1Gs" variable_2="q_R_B1Gs_global"/>
+        <map_variables variable_1="q_LR_B1Gs_mLRGbinding_B1AR" variable_2="q_LR_B1Gs"/>
+        <map_variables variable_1="q_LR_B1Gs" variable_2="q_LR_B1Gs_global"/>
+        <map_variables variable_1="L_T" variable_2="L_T"/>
+        <map_variables variable_1="R_T" variable_2="R_T"/>
+        <map_variables variable_1="Gs_T" variable_2="Gs_T"/>
+    </connection>
+    <connection>
+        <map_components component_1="LRGbinding_parameters" component_2="LRGbinding_B1AR"/>
+        <map_variables variable_1="kappa_sig1_B1" variable_2="kappa_sig1_B1"/>
+        <map_variables variable_1="kappa_sig2_B1" variable_2="kappa_sig2_B1"/>
+        <map_variables variable_1="kappa_sig3_B1" variable_2="kappa_sig3_B1"/>
+        <map_variables variable_1="kappa_sig4_B1" variable_2="kappa_sig4_B1"/>
+        <map_variables variable_1="K_L_B1" variable_2="K_L_B1"/>
+        <map_variables variable_1="K_R_B1" variable_2="K_R_B1"/>
+        <map_variables variable_1="K_Gs" variable_2="K_Gs"/>
+        <map_variables variable_1="K_LR_B1" variable_2="K_LR_B1"/>
+        <map_variables variable_1="K_R_B1Gs" variable_2="K_R_B1Gs"/>
+        <map_variables variable_1="K_LR_B1Gs" variable_2="K_LR_B1Gs"/>
+    </connection>
+    <connection>
+        <map_components component_1="constants" component_2="LRGbinding_B1AR"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+</model>

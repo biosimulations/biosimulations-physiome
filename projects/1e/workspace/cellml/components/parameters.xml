@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+    name="cortassa_ECME_model_2006_parameters"
+    cmeta:id="parameters-model"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rdf:RDF
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+          xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+          xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+          xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:dcterms="http://purl.org/dc/terms/"
+          xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+          xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+    <rdf:Description rdf:ID="andre">
+      <vCard:N rdf:parseType="Resource">
+        <vCard:Family>Nickerson</vCard:Family>
+        <vCard:Given>David</vCard:Given>
+      </vCard:N>
+      <vCard:EMAIL rdf:parseType="Resource">
+        <rdf:value>david.nickerson@nus.edu.sg</rdf:value>
+        <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+      </vCard:EMAIL>
+      <vCard:ORG rdf:parseType="Resource">
+        <vCard:Orgname>National University of Singapore</vCard:Orgname>
+        <vCard:Orgunit>Division of Bioengineering</vCard:Orgunit>
+      </vCard:ORG>
+    </rdf:Description>
+    <rdf:Description rdf:about="#parameters-model">
+      <cmeta:comment rdf:parseType="Resource">
+        <rdf:value>
+          Here we define the default set of parameter values for the CellML encoding of the Cortassa et al (2006) Biophys J model. The parameters reflect those specified in the original article with some modified due to personal communication with Sonia Cortassa.
+        </rdf:value>
+      </cmeta:comment>
+      <dc:creator rdf:resource="#andre"/>
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2008-05-19</dcterms:W3CDTF>
+      </dcterms:created>
+      <dc:publisher>
+        Division of Bioengineering, National University of Singapore
+      </dc:publisher>
+      <bqs:reference rdf:parseType="Resource">
+        <bqs:Pubmed_id>16679365</bqs:Pubmed_id>
+      </bqs:reference>
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Adding #clamp_ATPi and #clamp_ATPi_cyto variables to the model to allow the ATP concentration variables to be clamped in order to reproduce figure 6(a) from the original Cortassa et al (2006) Biophys J article.
+        </rdf:value>
+        <cmeta:modifier rdf:resource="#andre"/>
+        <dcterms:modified rdf:parseType="Resource">
+          <dcterms:W3CDTF>2009-01-06</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+    </rdf:Description>
+    <rdf:Description rdf:about="#VmNC">
+      <cmeta:modification rdf:parseType="Resource">
+        <rdf:value>
+          Reduced the maximal rate of the mitochondrial Na/Ca exchanger in order to increase the calcium accumulation within the mitochondria at high pacing frequencies. The altered value has no affect on the general intracellular calcium dynamics. The value changed from 1.0e-4 to 0.625e-4 mM/ms.
+        </rdf:value>
+        <cmeta:modifier rdf:resource="#andre"/>
+        <dcterms:modified rdf:parseType="Resource">
+          <dcterms:W3CDTF>2008-05-30</dcterms:W3CDTF>
+        </dcterms:modified>
+      </cmeta:modification>
+    </rdf:Description>
+  </rdf:RDF>
+  <import xlink:href="units.xml">
+    <units name="pH_units" units_ref="pH_units"/>
+    <units name="mM" units_ref="mM"/>
+    <units name="K" units_ref="K"/>
+    <units name="um" units_ref="um"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="uL" units_ref="uL"/>
+    <units name="per_mM3_per_ms" units_ref="per_mM3_per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="uA_per_cm2" units_ref="uA_per_cm2"/>
+    <units name="ms" units_ref="ms"/>
+    <units name="per_mM4_per_ms" units_ref="per_mM4_per_ms"/>
+    <units name="mM_per_ms_per_mV" units_ref="mM_per_ms_per_mV"/>
+    <units name="mM_per_ms" units_ref="mM_per_ms"/>
+    <units name="per_mM_per_ms" units_ref="per_mM_per_ms"/>
+    <units name="C_per_mmol" units_ref="C_per_mmol"/>
+    <units name="cm2" units_ref="cm2"/>
+    <units name="mM_per_mV" units_ref="mM_per_mV"/>
+    <units name="N_per_mm2" units_ref="N_per_mm2"/>
+    <units name="mS_per_cm2" units_ref="mS_per_cm2"/>
+    <units name="cm_per_s" units_ref="cm_per_s"/>
+    <units name="J_per_mol_per_K" units_ref="J_per_mol_per_K"/>
+    <units name="uF_per_cm2" units_ref="uF_per_cm2"/>
+  </import>
+  <component name="parameters">
+    <variable name="clamp_ATPi" cmeta:id="clamp_ATPi" public_interface="out" private_interface="out" initial_value="0.0" units="dimensionless"/>
+    <variable name="clamp_ATPi_cyto" cmeta:id="clamp_ATPi_cyto" public_interface="out" private_interface="out" initial_value="0.0" units="dimensionless"/>
+    <variable name="Faraday" cmeta:id="Faraday" public_interface="out" private_interface="out" initial_value="96.5" units="C_per_mmol"/>
+    <variable name="R" cmeta:id="R" public_interface="out" initial_value="8.314" units="J_per_mol_per_K"/>
+    <variable name="T" cmeta:id="T" public_interface="out" private_interface="out" initial_value="310.0" units="K"/>
+    <variable name="LHospitalThreshold" cmeta:id="LHospitalThreshold" public_interface="out" private_interface="out" initial_value="1e-7" units="mV"/>
+    <variable name="kt_2" cmeta:id="kt_2" public_interface="out" private_interface="out" initial_value="2.0e-3" units="dimensionless"/>
+    <variable name="kf_2" cmeta:id="kf_2" public_interface="out" private_interface="out" initial_value="1.4e-4" units="dimensionless"/>
+    <variable name="kf_3" cmeta:id="kf_3" public_interface="out" private_interface="out" initial_value="1.33e-6" units="dimensionless"/>
+    <variable name="keq" cmeta:id="keq" public_interface="out" private_interface="out" initial_value="0.0095" units="dimensionless"/>
+    <variable name="CRT_cyto" cmeta:id="CRT_cyto" public_interface="out" private_interface="out" initial_value="25.0" units="mM"/>
+    <variable name="CRT_mito" cmeta:id="CRT_mito" public_interface="out" private_interface="out" initial_value="25.0" units="mM"/>
+    <variable name="VATPase_cyto" cmeta:id="VATPase_cyto" public_interface="out" private_interface="out" initial_value="1.0E-5" units="dimensionless"/>
+    <variable name="Acap" cmeta:id="Acap" public_interface="out" private_interface="out" initial_value="1.534E-4" units="cm2"/>
+    <variable name="AcCoA" cmeta:id="AcCoA" public_interface="out" private_interface="out" initial_value="1.0" units="mM"/>
+    <variable name="aL" cmeta:id="aL" public_interface="out" private_interface="out" initial_value="2.0" units="dimensionless"/>
+    <variable name="b" cmeta:id="b" public_interface="out" private_interface="out" initial_value="0.5" units="dimensionless"/>
+    <variable name="bL" cmeta:id="bL" public_interface="out" private_interface="out" initial_value="2.0" units="dimensionless"/>
+    <variable name="C_m" cmeta:id="C_m" public_interface="out" private_interface="out" initial_value="1.0" units="uF_per_cm2"/>
+    <variable name="Cao" cmeta:id="Cao" public_interface="out" private_interface="out" initial_value="2.0" units="mM"/>
+    <variable name="CIK" cmeta:id="CIK" public_interface="out" private_interface="out" initial_value="1.0" units="mM"/>
+    <variable name="Cm" cmeta:id="Cm" public_interface="out" private_interface="out" initial_value="1.5" units="mM"/>
+    <variable name="CMDNtot" cmeta:id="CMDNtot" public_interface="out" private_interface="out" initial_value="50E-3" units="mM"/>
+    <variable name="Cmito" cmeta:id="Cmito" public_interface="out" private_interface="out" initial_value="1.812E-3" units="mM_per_mV"/>
+    <variable name="CPN" cmeta:id="CPN" public_interface="out" private_interface="out" initial_value="10.0" units="mM"/>
+    <variable name="CoA" cmeta:id="CoA" public_interface="out" private_interface="out" initial_value="0.02" units="mM"/>
+    <variable name="CSQNtot" cmeta:id="CSQNtot" public_interface="out" private_interface="out" initial_value="35.0" units="mM"/>
+    <variable name="DpH" cmeta:id="DpH" public_interface="out" private_interface="out" initial_value="-0.6" units="pH_units"/>
+    <variable name="Dpsio" cmeta:id="Dpsio" public_interface="out" private_interface="out" initial_value="50.0" units="mV"/>
+    <variable name="eta" cmeta:id="eta" public_interface="out" private_interface="out" initial_value="0.35" units="dimensionless"/>
+    <variable name="EtCS" cmeta:id="EtCS" public_interface="out" private_interface="out" initial_value="0.4" units="mM"/>
+    <variable name="EtID" cmeta:id="EtID" public_interface="out" private_interface="out" initial_value="0.109" units="mM"/>
+    <variable name="EtKG" cmeta:id="EtKG" public_interface="out" private_interface="out" initial_value="0.5" units="mM"/>
+    <variable name="EtMD" cmeta:id="EtMD" public_interface="out" private_interface="out" initial_value="0.154" units="mM"/>
+    <variable name="EtSDH" cmeta:id="EtSDH" public_interface="out" private_interface="out" initial_value="0.5" units="mM"/>
+    <variable name="FAD" cmeta:id="FAD" public_interface="out" private_interface="out" initial_value="0.01" units="mM"/>
+    <variable name="FADH2" cmeta:id="FADH2" public_interface="out" private_interface="out" initial_value="1.24" units="mM"/>
+    <variable name="fL" cmeta:id="fL" public_interface="out" private_interface="out" initial_value="0.3" units="per_ms"/>
+    <variable name="fm" cmeta:id="fm" public_interface="out" private_interface="out" initial_value="0.0003" units="dimensionless"/>
+    <variable name="fprime" cmeta:id="fprime" public_interface="out" private_interface="out" initial_value="0.0" units="per_ms"/>
+    <variable name="g" cmeta:id="g" public_interface="out" private_interface="out" initial_value="0.85" units="dimensionless"/>
+    <variable name="G_Cab" cmeta:id="G_Cab" public_interface="out" private_interface="out" initial_value="0.003217" units="mS_per_cm2"/>
+    <variable name="G_Kp" cmeta:id="G_Kp" public_interface="out" private_interface="out" initial_value="0.00828" units="mS_per_cm2"/>
+    <variable name="G_Na" cmeta:id="G_Na" public_interface="out" private_interface="out" initial_value="12.8" units="mS_per_cm2"/>
+    <variable name="G_Nab" cmeta:id="G_Nab" public_interface="out" private_interface="out" initial_value="0.000545" units="mS_per_cm2"/>
+    <variable name="gh" cmeta:id="gh" public_interface="out" private_interface="out" initial_value="2.0E-7" units="mM_per_ms_per_mV"/>
+    <variable name="gL" cmeta:id="gL" public_interface="out" private_interface="out" initial_value="2.0" units="per_ms"/>
+    <variable name="GLU" cmeta:id="GLU" public_interface="out" private_interface="out" initial_value="10.0" units="mM"/>
+    <variable name="gprime" cmeta:id="gprime" public_interface="out" private_interface="out" initial_value="0.0" units="per_ms"/>
+    <variable name="H" cmeta:id="H" public_interface="out" private_interface="out" initial_value="2.5E-5" units="mM"/>
+    <variable name="hm" cmeta:id="hm" public_interface="out" private_interface="out" initial_value="0.5" units="dimensionless"/>
+    <variable name="HTRPNtot" cmeta:id="HTRPNtot" public_interface="out" private_interface="out" initial_value="140E-3" units="mM"/>
+    <variable name="ICahalf" cmeta:id="ICahalf" public_interface="out" private_interface="out" initial_value="-0.4583" units="uA_per_cm2"/>
+    <variable name="INaKmax" cmeta:id="INaKmax" public_interface="out" private_interface="out" initial_value="3.147" units="uA_per_cm2"/>
+    <variable name="IpCamax" cmeta:id="IpCamax" public_interface="out" private_interface="out" initial_value="0.575" units="uA_per_cm2"/>
+    <variable name="KAATeq" cmeta:id="KAATeq" public_interface="out" private_interface="out" initial_value="6.6" units="dimensionless"/>
+    <variable name="KaCa" cmeta:id="KaCa" public_interface="out" private_interface="out" initial_value="0.0005" units="mM"/>
+    <variable name="KACOeq" cmeta:id="KACOeq" public_interface="out" private_interface="out" initial_value="2.22" units="dimensionless"/>
+    <variable name="kact" cmeta:id="kact" public_interface="out" private_interface="out" initial_value="0.00038" units="mM"/>
+    <variable name="KADP" cmeta:id="KADP" public_interface="out" private_interface="out" initial_value="0.62" units="mM"/>
+    <variable name="kaminus" cmeta:id="kaminus" public_interface="out" private_interface="out" initial_value="0.576" units="per_ms"/>
+    <variable name="kaplus" cmeta:id="kaplus" public_interface="out" private_interface="out" initial_value="1.215E10" units="per_mM4_per_ms"/>
+    <variable name="kbminus" cmeta:id="kbminus" public_interface="out" private_interface="out" initial_value="1.930" units="per_ms"/>
+    <variable name="kbplus" cmeta:id="kbplus" public_interface="out" private_interface="out" initial_value="4.05E6" units="per_mM3_per_ms"/>
+    <variable name="Kca" cmeta:id="Kca" public_interface="out" private_interface="out" initial_value="0.00127" units="mM"/>
+    <variable name="kcminus" cmeta:id="kcminus" public_interface="out" private_interface="out" initial_value="0.0008" units="per_ms"/>
+    <variable name="kcnsASP" cmeta:id="kcnsASP" public_interface="out" private_interface="out" initial_value="1.5E-6" units="per_ms"/>
+    <variable name="kcplus" cmeta:id="kcplus" public_interface="out" private_interface="out" initial_value="0.10" units="per_ms"/>
+    <variable name="KCS" cmeta:id="KCS" public_interface="out" private_interface="out" initial_value="0.5" units="per_ms"/>
+    <variable name="kf1" cmeta:id="kf1" public_interface="out" private_interface="out" initial_value="1.71E6" units="dimensionless"/>
+    <variable name="kfAAT" cmeta:id="kfAAT" public_interface="out" private_interface="out" initial_value="6.44E-4" units="per_ms"/>
+    <variable name="kfACO" cmeta:id="kfACO" public_interface="out" private_interface="out" initial_value="0.0125" units="per_ms"/>
+    <variable name="Kfb" cmeta:id="Kfb" public_interface="out" private_interface="out" initial_value="0.00024" units="mM"/>
+    <variable name="kfFH" cmeta:id="kfFH" public_interface="out" private_interface="out" initial_value="0.00332" units="per_ms"/>
+    <variable name="KFHeq" cmeta:id="KFHeq" public_interface="out" private_interface="out" initial_value="1.0" units="dimensionless"/>
+    <variable name="kfSL" cmeta:id="kfSL" public_interface="out" private_interface="out" initial_value="0.005" units="per_mM_per_ms"/>
+    <variable name="kh_1" cmeta:id="kh_1" public_interface="out" private_interface="out" initial_value="8.1E-5" units="mM"/>
+    <variable name="kh_2" cmeta:id="kh_2" public_interface="out" private_interface="out" initial_value="5.98E-5" units="mM"/>
+    <variable name="Kh1" cmeta:id="Kh1" public_interface="out" private_interface="out" initial_value="1.131E-5" units="mM"/>
+    <variable name="Kh2" cmeta:id="Kh2" public_interface="out" private_interface="out" initial_value="26.7" units="mM"/>
+    <variable name="Kh3" cmeta:id="Kh3" public_interface="out" private_interface="out" initial_value="6.68E-9" units="mM"/>
+    <variable name="Kh4" cmeta:id="Kh4" public_interface="out" private_interface="out" initial_value="5.62E-6" units="mM"/>
+    <variable name="khtrpn_minus" cmeta:id="khtrpn_minus" public_interface="out" private_interface="out" initial_value="3.3E-4" units="per_ms"/>
+    <variable name="khtrpn_plus" cmeta:id="khtrpn_plus" public_interface="out" private_interface="out" initial_value="100.0" units="per_mM_per_ms"/>
+    <variable name="Ki_AM" cmeta:id="Ki_AM" public_interface="out" private_interface="out" initial_value="0.26" units="mM"/>
+    <variable name="Ki_prime_SR" cmeta:id="Ki_prime_SR" public_interface="out" private_interface="out" initial_value="5.1" units="mM"/>
+    <variable name="Ki_SR" cmeta:id="Ki_SR" public_interface="out" private_interface="out" initial_value="0.14" units="mM"/>
+    <variable name="Ki1AD_NaK" cmeta:id="Ki1AD_NaK" public_interface="out" private_interface="out" initial_value="0.1" units="mM"/>
+    <variable name="KiADP_CaP" cmeta:id="KiADP_CaP" public_interface="out" private_interface="out" initial_value="1.0" units="mM"/>
+    <variable name="kIDH" cmeta:id="kIDH" public_interface="out" private_interface="out" initial_value="0.05" units="per_ms"/>
+    <variable name="KidhNADH" cmeta:id="KidhNADH" public_interface="out" private_interface="out" initial_value="0.19" units="mM"/>
+    <variable name="KiFUM" cmeta:id="KiFUM" public_interface="out" private_interface="out" initial_value="1.3" units="mM"/>
+    <variable name="Kioaa" cmeta:id="Kioaa" public_interface="out" private_interface="out" initial_value="0.0031" units="mM"/>
+    <variable name="KiOxaa" cmeta:id="KiOxaa" public_interface="out" private_interface="out" initial_value="0.15" units="mM"/>
+    <variable name="kKGDH" cmeta:id="kKGDH" public_interface="out" private_interface="out" initial_value="7.5E-2" units="per_ms"/>
+    <variable name="kltrpn_plus" cmeta:id="kltrpn_plus" public_interface="out" private_interface="out" initial_value="100.0" units="per_mM_per_ms"/>
+    <variable name="kltrpn_minus" cmeta:id="kltrpn_minus" public_interface="out" private_interface="out" initial_value="40E-3" units="per_ms"/>
+    <variable name="Km1AT_NaK" cmeta:id="Km1AT_NaK" public_interface="out" private_interface="out" initial_value="0.008" units="mM"/>
+    <variable name="Km1ATP_CaP" cmeta:id="Km1ATP_CaP" public_interface="out" private_interface="out" initial_value="0.012" units="mM"/>
+    <variable name="Km2ATP_CaP" cmeta:id="Km2ATP_CaP" public_interface="out" private_interface="out" initial_value="0.23" units="mM"/>
+    <variable name="KmAcCoA" cmeta:id="KmAcCoA" public_interface="out" private_interface="out" initial_value="0.0126" units="mM"/>
+    <variable name="Kmal" cmeta:id="Kmal" public_interface="out" private_interface="out" initial_value="1.493" units="mM"/>
+    <variable name="KmATP_AM" cmeta:id="KmATP_AM" public_interface="out" private_interface="out" initial_value="0.03" units="mM"/>
+    <variable name="KmATP_SR" cmeta:id="KmATP_SR" public_interface="out" private_interface="out" initial_value="0.01" units="mM"/>
+    <variable name="KmCMDN" cmeta:id="KmCMDN" public_interface="out" private_interface="out" initial_value="2.38E-3" units="mM"/>
+    <variable name="KmCa" cmeta:id="KmCa" public_interface="out" private_interface="out" initial_value="1.38" units="mM"/>
+    <variable name="KmCSQN" cmeta:id="KmCSQN" public_interface="out" private_interface="out" initial_value="0.8" units="mM"/>
+    <variable name="kMDH" cmeta:id="kMDH" public_interface="out" private_interface="out" initial_value="0.111" units="per_ms"/>
+    <variable name="Kmg" cmeta:id="Kmg" public_interface="out" private_interface="out" initial_value="0.0308" units="mM"/>
+    <variable name="KmIDNAD" cmeta:id="KmIDNAD" public_interface="out" private_interface="out" initial_value="0.923" units="mM"/>
+    <variable name="Kmiso" cmeta:id="Kmiso" public_interface="out" private_interface="out" initial_value="1.52" units="mM"/>
+    <variable name="KmKG" cmeta:id="KmKG" public_interface="out" private_interface="out" initial_value="1.94" units="mM"/>
+    <variable name="KmKGNAD" cmeta:id="KmKGNAD" public_interface="out" private_interface="out" initial_value="38.7" units="mM"/>
+    <variable name="KmKo" cmeta:id="KmKo" public_interface="out" private_interface="out" initial_value="1.5" units="mM"/>
+    <variable name="KmmNAD" cmeta:id="KmmNAD" public_interface="out" private_interface="out" initial_value="0.2244" units="mM"/>
+    <variable name="KmNa" cmeta:id="KmNa" public_interface="out" private_interface="out" initial_value="87.5" units="mM"/>
+    <variable name="KmNai" cmeta:id="KmNai" public_interface="out" private_interface="out" initial_value="10.0" units="mM"/>
+    <variable name="KmnsCa" cmeta:id="KmnsCa" public_interface="out" private_interface="out" initial_value="0.0012" units="mM"/>
+    <variable name="KmOaa" cmeta:id="KmOaa" public_interface="out" private_interface="out" initial_value="0.00064" units="mM"/>
+    <variable name="KmpCa" cmeta:id="KmpCa" public_interface="out" private_interface="out" initial_value="0.0005" units="mM"/>
+    <variable name="KmSucc" cmeta:id="KmSucc" public_interface="out" private_interface="out" initial_value="0.03" units="mM"/>
+    <variable name="Kna" cmeta:id="Kna" public_interface="out" private_interface="out" initial_value="9.4" units="mM"/>
+    <variable name="kNaCa" cmeta:id="kNaCa" public_interface="out" private_interface="out" initial_value="9000.0" units="uA_per_cm2"/>
+    <variable name="Knca" cmeta:id="Knca" public_interface="out" private_interface="out" initial_value="3.75E-4" units="mM"/>
+    <variable name="Ko" cmeta:id="Ko" public_interface="out" private_interface="out" initial_value="5.4" units="mM"/>
+    <variable name="Koff" cmeta:id="Koff" public_interface="out" private_interface="out" initial_value="0.0399" units="dimensionless"/>
+    <variable name="Krb" cmeta:id="Krb" public_interface="out" private_interface="out" initial_value="1.64269" units="mM"/>
+    <variable name="kres" cmeta:id="kres" public_interface="out" private_interface="out" initial_value="1.35E18" units="dimensionless"/>
+    <variable name="kresf" cmeta:id="kresf" public_interface="out" private_interface="out" initial_value="5.765E13" units="dimensionless"/>
+    <variable name="ksat" cmeta:id="ksat" public_interface="out" private_interface="out" initial_value="0.1" units="dimensionless"/>
+    <variable name="kSDH" cmeta:id="kSDH" public_interface="out" private_interface="out" initial_value="0.005" units="per_ms"/>
+    <variable name="KSLeq" cmeta:id="KSLeq" public_interface="out" private_interface="out" initial_value="3.115" units="dimensionless"/>
+    <variable name="KSR" cmeta:id="KSR" public_interface="out" private_interface="out" initial_value="2.5" units="dimensionless"/>
+    <variable name="ktrans" cmeta:id="ktrans" public_interface="out" private_interface="out" initial_value="0.019" units="mM"/>
+    <variable name="kTrop_pn" cmeta:id="kTrop_pn" public_interface="out" private_interface="out" initial_value="0.04" units="per_ms"/>
+    <variable name="L" cmeta:id="L" public_interface="out" private_interface="out" initial_value="110.0" units="dimensionless"/>
+    <variable name="LTRPNtot" cmeta:id="LTRPNtot" public_interface="out" private_interface="out" initial_value="70E-3" units="mM"/>
+    <variable name="mcoop" cmeta:id="mcoop" public_interface="out" private_interface="out" initial_value="3.0" units="dimensionless"/>
+    <variable name="Mg" cmeta:id="Mg" public_interface="out" private_interface="out" initial_value="0.4" units="mM"/>
+    <variable name="n" cmeta:id="n" public_interface="out" private_interface="out" initial_value="3.0" units="dimensionless"/>
+    <variable name="na" cmeta:id="na" public_interface="out" private_interface="out" initial_value="2.8" units="dimensionless"/>
+    <variable name="Nao" cmeta:id="Nao" public_interface="out" private_interface="out" initial_value="140.0" units="mM"/>
+    <variable name="ncoop" cmeta:id="ncoop" public_interface="out" private_interface="out" initial_value="4.0" units="dimensionless"/>
+    <variable name="Nfb" cmeta:id="Nfb" public_interface="out" private_interface="out" initial_value="1.4" units="dimensionless"/>
+    <variable name="nID" cmeta:id="nID" public_interface="out" private_interface="out" initial_value="2.0" units="dimensionless"/>
+    <variable name="nKG" cmeta:id="nKG" public_interface="out" private_interface="out" initial_value="1.2" units="dimensionless"/>
+    <variable name="Nrb" cmeta:id="Nrb" public_interface="out" private_interface="out" initial_value="1.0" units="dimensionless"/>
+    <variable name="omega" cmeta:id="omega" public_interface="out" private_interface="out" initial_value="0.01" units="per_ms"/>
+    <variable name="p1" cmeta:id="p1" public_interface="out" private_interface="out" initial_value="1.346E-8" units="dimensionless"/>
+    <variable name="p2" cmeta:id="p2" public_interface="out" private_interface="out" initial_value="7.739E-7" units="dimensionless"/>
+    <variable name="p3" cmeta:id="p3" public_interface="out" private_interface="out" initial_value="6.65E-15" units="dimensionless"/>
+    <variable name="pa" cmeta:id="pa" public_interface="out" private_interface="out" initial_value="1.656E-8" units="per_ms"/>
+    <variable name="pb" cmeta:id="pb" public_interface="out" private_interface="out" initial_value="3.373E-10" units="per_ms"/>
+    <variable name="pc1" cmeta:id="pc1" public_interface="out" private_interface="out" initial_value="9.651E-17" units="per_ms"/>
+    <variable name="pc2" cmeta:id="pc2" public_interface="out" private_interface="out" initial_value="4.585E-17" units="per_ms"/>
+    <!-- FIXME: PCa/PK/PnsNa/PnsK should be in cm/s ? YES, to balance out F in C/mmol -->
+    <variable name="PCa" cmeta:id="PCa" public_interface="out" private_interface="out" initial_value="0.00124" units="cm_per_s"/>
+    <variable name="Pi" cmeta:id="Pi" public_interface="out" private_interface="out" initial_value="2.0" units="mM"/>
+    <variable name="PK" cmeta:id="PK" public_interface="out" private_interface="out" initial_value="1.11E-11" units="cm_per_s"/>
+    <variable name="PnsK" cmeta:id="PnsK" public_interface="out" private_interface="out" initial_value="0.0" units="cm_per_s"/>
+    <variable name="PnsNa" cmeta:id="PnsNa" public_interface="out" private_interface="out" initial_value="1.75E-7" units="cm_per_s"/>
+    <variable name="r1" cmeta:id="r1" public_interface="out" private_interface="out" initial_value="2.077E-18" units="dimensionless"/>
+    <variable name="r2" cmeta:id="r2" public_interface="out" private_interface="out" initial_value="1.728E-9" units="dimensionless"/>
+    <variable name="r3" cmeta:id="r3" public_interface="out" private_interface="out" initial_value="1.059E-26" units="dimensionless"/>
+    <variable name="ra" cmeta:id="ra" public_interface="out" private_interface="out" initial_value="6.394E-13" units="per_ms"/>
+    <variable name="rb" cmeta:id="rb" public_interface="out" private_interface="out" initial_value="1.762E-16" units="per_ms"/>
+    <variable name="rc1" cmeta:id="rc1" public_interface="out" private_interface="out" initial_value="2.656E-22" units="per_ms"/>
+    <variable name="rc2" cmeta:id="rc2" public_interface="out" private_interface="out" initial_value="8.632E-30" units="per_ms"/>
+    <variable name="rhoF1" cmeta:id="rhoF1" public_interface="out" private_interface="out" initial_value="0.05" units="mM"/>
+    <variable name="rhoREF" cmeta:id="rhoREF" public_interface="out" private_interface="out" initial_value="3.75E-4" units="mM"/>
+    <variable name="rhoREN" cmeta:id="rhoREN" public_interface="out" private_interface="out" initial_value="1.0E-1" units="mM"/>
+    <variable name="tautr" cmeta:id="tautr" public_interface="out" private_interface="out" initial_value="0.574713" units="ms"/>
+    <variable name="tauxfer" cmeta:id="tauxfer" public_interface="out" private_interface="out" initial_value="9.09091" units="ms"/>
+    <variable name="V_AM_scaler" cmeta:id="V_AM_scaler" public_interface="out" private_interface="out" initial_value="15.0" units="dimensionless"/>
+    <variable name="V_AM_max" cmeta:id="V_AM_max" public_interface="out" private_interface="out" initial_value="0.00048" units="mM_per_ms"/>
+    <variable name="v1" cmeta:id="v1" public_interface="out" private_interface="out" initial_value="3.6" units="per_ms"/>
+    <variable name="VJSR" cmeta:id="VJSR" public_interface="out" private_interface="out" initial_value="0.16E-6" units="uL"/>
+    <variable name="vmaxf" cmeta:id="vmaxf" public_interface="out" private_interface="out" initial_value="0.29892E-3" units="per_ms"/>
+    <variable name="vmaxr" cmeta:id="vmaxr" public_interface="out" private_interface="out" initial_value="0.31793E-3" units="per_ms"/>
+    <variable name="VmDT" cmeta:id="VmDT" public_interface="out" private_interface="out" initial_value="0.015" units="mM_per_ms"/>
+    <variable name="VmNC" cmeta:id="VmNC" public_interface="out" private_interface="out" initial_value="0.625E-4" units="mM_per_ms"/>
+    <variable name="Vmuni" cmeta:id="Vmuni" public_interface="out" private_interface="out" initial_value="0.0275" units="mM_per_ms"/>
+    <variable name="Vmyo" cmeta:id="Vmyo" public_interface="out" private_interface="out" initial_value="25.84E-6" units="uL"/>
+    <variable name="VNSR" cmeta:id="VNSR" public_interface="out" private_interface="out" initial_value="1.4E-6" units="uL"/>
+    <variable name="VSS" cmeta:id="VSS" public_interface="out" private_interface="out" initial_value="0.495E-9" units="uL"/>
+    <variable name="zeta" cmeta:id="zeta" public_interface="out" private_interface="out" initial_value="0.1" units="N_per_mm2"/>
+    <variable name="f_xb" cmeta:id="f_xb" public_interface="out" private_interface="out" initial_value="0.05" units="per_ms"/>
+    <variable name="SL" cmeta:id="SL" public_interface="out" private_interface="out" initial_value="2.15" units="um"/>
+    <variable name="gmin_xb" cmeta:id="gmin_xb" public_interface="out" private_interface="out" initial_value="0.1" units="per_ms"/>
+    
+    <variable name="zNa" initial_value="1" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="zK" initial_value="1" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="zCa" initial_value="2" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="one" initial_value="1" public_interface="out" private_interface="out" units="dimensionless"/>
+    <variable name="p_KNa" initial_value="0.01833" public_interface="out" private_interface="out" units="dimensionless"/>
+  </component>
+</model>

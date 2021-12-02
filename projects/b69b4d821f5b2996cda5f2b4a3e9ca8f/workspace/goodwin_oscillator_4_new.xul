@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<window id="layout-diagram" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" style="overflow: auto" onload="setupDocument()">
+<hbox>
+	<scale id="zoom_scale" value="10" min="7" max="14" flex="4"/>
+	<label value="Zoom" control="zoom_scale" flex="1"/>
+	<button id="reset_button" label="Reset View" flex="1"/>
+	<spacer flex="34"/>
+</hbox>
+<script>
+<![CDATA[
+window.model_entities =
+  {
+
+			
+	X1: {
+		id: "X1",
+		y: "X1/X1",
+		x: "environment/time",
+		graph: "Goodwin 1965 - Fig4: interacting oscillations",
+		colour: "#ff9900",
+		linestyle: "none"
+	},
+
+	X2: {
+		id: "X2",
+		y: "X2/X2",
+		x: "environment/time",
+		graph: "Goodwin 1965 - Fig4: interacting oscillations",
+		colour: "#ff00cc",
+		linestyle: "none"
+	},
+
+	Y2: {
+		id: "Y2",
+		y: "Y2/Y2",
+		x: "environment/time",
+		graph: "Goodwin 1965 - Fig4: interacting oscillations",
+		colour: "#cc00ff",
+		linestyle: "none"
+	},
+
+
+	Y1: {
+		id: "Y1",
+		y: "Y1/Y1",
+		x: "environment/time",
+		graph: "Goodwin 1965 - Fig4: interacting oscillations",
+		colour: "#3300ff",
+		linestyle: "none"
+	}
+
+	
+			
+ // Repeat the above section for each controllable graph trace.
+ // Remember to add a comma to each repeat after the final },
+ // except for the final one!
+ 
+};
+
+function flushVisibilityInformation(entity_id, entity_colour)
+{
+	var message = "";
+	var entity;
+
+	if (typeof pcenv != "undefined")
+	{
+		for (var i in window.model_entities)
+		{
+			entity = window.model_entities[i];
+			if (typeof entity_id == "undefined" || entity_id == window.model_entities[i].id)
+			{
+				pcenv.selectTrace
+				(
+					entity.graph,
+					entity.x,
+					entity.y,
+					typeof entity_colour == "undefined" ? "" : entity_colour,
+					entity.linestyle
+				);
+			}
+			if (entity.linestyle != "none")
+				message += i + ", ";
+		}
+		pcenv.status(message == "" ? "No fluxes displayed" : "Displaying flux of " + message.slice(0, -2));
+	}
+}
+
+function processSelectEntity(event)
+{
+	if (typeof pcenv != "undefined")
+		pcenv.status("In processSelectEntity");
+
+	var entity = window.model_entities[window.svgIdToName[event.currentTarget.id]];
+
+	switch(entity.linestyle)
+	{
+	case "none":
+		entity.linestyle = "lines";
+		highlightEntity(event.currentTarget.id);
+		break;
+	case "lines":
+		entity.linestyle = "none";
+		unlightEntity(event.currentTarget.id);
+		break;
+	}
+
+	flushVisibilityInformation(entity.id);
+}
+
+function processContext(event)
+{
+	// if (event.button != 2)
+	//   return true;
+
+	var entity = window.model_entities[window.svgIdToName[event.currentTarget.id]];
+
+	if (entity.context == null)
+		return true;
+
+	var menu = document.getElementById("entityContextMenu");
+
+	for (var c = menu.firstChild, x = null; c != null; c = x)
+	{
+		x = c.nextSibling;
+		menu.removeChild(c);
+	}
+
+	for (var i in entity.context)
+	{
+		var item = entity.context[i];
+
+		var mitem = document.createElementNS
+		(
+			"http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul",
+			"menuitem"
+		);
+
+		mitem.setAttribute("label", item.label);
+		mitem.setAttribute("url", item.url);
+		mitem.addEventListener("command", processShowEntityURL, false);
+		menu.appendChild(mitem);
+	}
+
+	menu.showPopup(window.diagram, event.screenX, event.screenY, "context");
+
+	event.stopPropagation;
+	return false;
+}
+
+function processShowEntityURL(event)
+{
+	url = event.target.getAttribute("url");
+
+	window.open(url);
+
+	var hl = document.getElementById("hidden-link");
+	hl.href = url;
+
+	// This is ugly, but it is one way to force everything through the proper
+	// external handler...
+	var evt = document.createEvent("HTMLEvents");
+	evt.initEvent("click", true, true);
+	hl.dispatchEvent(evt);
+}
+
+function highlightEntity(id)
+{
+	for (var path = document.getElementById(id + "_path1"), i = 1; path != null; path = document.getElementById(id + "_path" + ++i))
+	{
+		if (!(i in window.model_entities[window.svgIdToName[id]].path_colours))
+			window.model_entities[window.svgIdToName[id]].path_colours[i] = path.attributes.getNamedItem("stroke").value;
+		path.attributes.getNamedItem("stroke").value = "#ff0000";
+	}
+}
+
+function highlightEntityOnRollover(event) {
+	if (window.model_entities[window.svgIdToName[event.currentTarget.id]].colour)
+		flushVisibilityInformation(event.currentTarget.id, "#ffffff");
+
+	if (window.model_entities[window.svgIdToName[event.currentTarget.id]].linestyle == "none")
+		highlightEntity(event.currentTarget.id);
+}
+
+function unlightEntity(id)
+{
+	for (var path = document.getElementById(id + "_path1"), i = 1; path != null; path = document.getElementById(id + "_path" + ++i))
+		path.attributes.getNamedItem("stroke").value = window.model_entities[window.svgIdToName[id]].path_colours[i];
+}
+
+function unlightEntityOnRollover(event) {
+	if (window.model_entities[window.svgIdToName[event.currentTarget.id]].colour)
+		flushVisibilityInformation(event.currentTarget.id, window.model_entities[window.svgIdToName[event.currentTarget.id]].colour);
+
+	if (window.model_entities[window.svgIdToName[event.currentTarget.id]].linestyle == "none")
+		unlightEntity(event.currentTarget.id);
+}
+
+var mouseDown = false;
+var initial_x;
+var initial_y;
+var viewBox;
+
+function startDrag(event)
+{
+	if (event.button)
+		return true;
+
+	mouseDown = true;
+
+	initial_x = parseInt(currentZoom * event.pageX + parseInt(viewBox.value.match(/^-?\d+/)[0]));
+	initial_y = parseInt(currentZoom * event.pageY + parseInt(viewBox.value.match(/^-?\d+\s+(-?(\d+))/)[1]));
+}
+
+function stopDrag(event)
+{
+	if (!event.button)
+		mouseDown = false;
+}
+
+function moveDrag(event)
+{
+	if (mouseDown == true)
+		viewBox.value = viewBox.value.replace(/^-?\d+\s+-?\d+/, parseInt(initial_x - currentZoom * event.pageX) + " " + parseInt(initial_y - currentZoom * event.pageY));
+}
+
+function reset()
+{
+	var zoom_scale = document.getElementById("zoom_scale")
+	zoom_scale.value = zoom_scale.originalValue;
+	viewBox.value = viewBox.originalValue;
+}
+
+var initialZoom;
+var currentZoom = 1;
+var initialHeight;
+var initialWidth;
+
+function zoomDiagram(event)
+{
+	currentZoom = initialZoom / event.currentTarget.value;
+	viewBox.value = viewBox.value.replace(/\d+\s+\d+$/, parseInt(initialHeight * currentZoom) + " " + parseInt(initialWidth * currentZoom));
+}
+
+function setupDocument()
+{
+	flushVisibilityInformation();
+
+	window.diagram = document.getElementById("sachse");
+
+	window.svgIdToName = {};
+
+	for (var name in window.model_entities)
+	{
+		var id = window.model_entities[name].id;
+		window.model_entities[name].path_colours = [];
+
+		var svg = document.getElementById(id);
+		window.svgIdToName[id] = name;
+
+		svg.addEventListener("click", processSelectEntity, false);
+		svg.addEventListener("contextmenu", processContext, false);
+		svg.addEventListener("mouseover", highlightEntityOnRollover ,false);
+		svg.addEventListener("mouseout", unlightEntityOnRollover, false);
+	}
+
+	document.getElementsByTagName("svg")[0].addEventListener("mousedown", startDrag, false);
+	document.addEventListener("mouseup", stopDrag, false);
+	document.addEventListener("mousemove", moveDrag, false);
+	document.getElementById("reset_button").addEventListener("click", reset, false);
+
+	document.getElementById("zoom_scale").addEventListener("change", zoomDiagram, false);
+	document.getElementById("zoom_scale").originalValue = document.getElementById("zoom_scale").value;
+
+	viewBox = document.getElementsByTagName("svg")[0].attributes.getNamedItem("viewBox");
+	viewBox.originalValue = viewBox.value;
+
+	initialZoom = document.getElementById("zoom_scale").value;
+	initialHeight = parseInt(viewBox.value.match(/(\d+)\s+\d+$/)[1]);
+	initialWidth = parseInt(viewBox.value.match(/\d+$/)[0]);
+}
+
+]]>
+</script>
+
+<popupset>
+  <menupopup id="entityContextMenu" />
+</popupset>
+
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="423px" height="486px" viewBox="0 0 423 486" enable-background="new 0 0 423 486" xml:space="preserve">
+<g>
+	<circle fill="none" stroke="#272525" cx="73.626" cy="23.357" r="19"/>
+	<g>
+		<path d="M69.519,13.507h1.566v10.821h5.186v1.314h-6.752V13.507z"/>
+		<path d="M79.62,24.478h-0.025l-1.424,0.769l-0.215-0.844l1.79-0.958h0.944v8.192h-1.07V24.478z"/>
+	</g>
+</g>
+<circle fill="none" stroke="#272525" cx="73.705" cy="105.25" r="19"/>
+<g>
+	<path d="M66.999,95.562c0.793-0.162,1.927-0.252,3.008-0.252c1.674,0,2.754,0.306,3.51,0.99c0.613,0.54,0.955,1.368,0.955,2.305
+		c0,1.603-1.008,2.665-2.287,3.097v0.054c0.938,0.324,1.494,1.188,1.783,2.449c0.396,1.692,0.684,2.863,0.936,3.331h-1.619
+		c-0.198-0.36-0.469-1.386-0.811-2.899c-0.361-1.674-1.01-2.305-2.432-2.359h-1.478v5.258h-1.565V95.562z M68.565,101.09h1.604
+		c1.674,0,2.735-0.918,2.735-2.305c0-1.566-1.135-2.251-2.791-2.269c-0.756,0-1.297,0.072-1.549,0.145V101.09z"/>
+	<path d="M78.29,106.371h-0.025l-1.425,0.769l-0.214-0.844l1.789-0.958h0.944v8.192H78.29V106.371z"/>
+</g>
+<circle fill="none" stroke="#272525" cx="73.516" cy="187.751" r="19"/>
+<g>
+	<path d="M74.913,189.64c-0.576,0.287-1.729,0.595-3.205,0.595c-3.421,0-5.996-2.18-5.996-6.157c0-3.8,2.575-6.375,6.338-6.375
+		c1.513,0,2.467,0.323,2.881,0.541l-0.378,1.277c-0.595-0.288-1.44-0.505-2.448-0.505c-2.846,0-4.735,1.819-4.735,5.006
+		c0,2.972,1.711,4.88,4.664,4.88c0.953,0,1.926-0.197,2.557-0.505L74.913,189.64z"/>
+	<path d="M78.479,188.871h-0.024l-1.426,0.77l-0.214-0.846l1.79-0.957h0.945v8.191h-1.071V188.871z"/>
+</g>
+<g>
+	<rect x="47.125" y="250.732" fill="none" stroke="#000000" width="53" height="35.5"/>
+	<g>
+		<path d="M68.731,258.775c0.757-0.125,1.747-0.232,3.008-0.232c1.55,0,2.684,0.359,3.402,1.008
+			c0.666,0.576,1.063,1.459,1.063,2.539c0,1.099-0.324,1.963-0.937,2.593c-0.828,0.883-2.18,1.332-3.709,1.332
+			c-0.469,0-0.899-0.019-1.261-0.106v4.86h-1.567V258.775z M70.299,264.628c0.342,0.09,0.774,0.125,1.296,0.125
+			c1.891,0,3.043-0.918,3.043-2.592c0-1.604-1.135-2.377-2.863-2.377c-0.684,0-1.205,0.053-1.476,0.125V264.628z"/>
+		<path d="M79.915,269.603H79.89l-1.425,0.77l-0.214-0.845l1.789-0.958h0.944v8.191h-1.069V269.603z"/>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" x1="73.626" y1="42.357" x2="73.626" y2="80"/>
+		<polygon points="69.922,77.191 73.626,78.764 77.329,77.191 73.626,85.969 		"/>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" x1="73.626" y1="124.857" x2="73.626" y2="162.5"/>
+		<polygon points="69.922,159.691 73.626,161.264 77.329,159.691 73.626,168.468 		"/>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" x1="73.626" y1="207.107" x2="73.626" y2="244.75"/>
+		<polygon points="69.922,241.941 73.626,243.515 77.329,241.941 73.626,250.72 		"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" d="M54.083,250.25c-42.25-61.75-43.75-157-0.75-211.75"/>
+		<polygon points="54.511,42.997 52.57,39.472 48.686,38.421 57.02,33.806 		"/>
+	</g>
+</g>
+<g id="X1">
+	<rect id="X1_path1" x="78.617" y="49.298" fill="#FFFFFF" stroke="#000000" width="25.959" height="25.959"/>
+	<g>
+		<path d="M92.086,64.667l-1.205-2.087c-0.489-0.799-0.799-1.317-1.093-1.863H89.76c-0.267,0.546-0.531,1.051-1.021,1.877
+			l-1.135,2.073h-1.401l2.886-4.776l-2.772-4.665h1.414l1.247,2.213c0.351,0.616,0.616,1.093,0.868,1.597h0.043
+			c0.266-0.561,0.504-0.995,0.854-1.597l1.289-2.213h1.4L90.56,59.82l2.94,4.847H92.086z"/>
+		<path d="M96.159,63.765h-0.02l-1.107,0.597l-0.166-0.656l1.391-0.745h0.734v6.368h-0.832V63.765z"/>
+	</g>
+</g>
+<g id="Y1">
+	<rect id="Y1_path1" x="78.617" y="132.964" fill="#FFFFFF" stroke="#000000" width="25.959" height="25.959"/>
+	<g>
+		<path d="M89.312,148.333v-4.006l-2.983-5.435h1.387l1.331,2.605c0.363,0.714,0.646,1.289,0.938,1.947h0.029
+			c0.266-0.616,0.588-1.232,0.95-1.947l1.359-2.605h1.387l-3.166,5.421v4.021H89.312z"/>
+		<path d="M96.033,147.432h-0.02l-1.107,0.597l-0.166-0.656l1.391-0.744h0.734v6.367h-0.832V147.432z"/>
+	</g>
+</g>
+<g>
+	<path d="M12.688,127.188c-0.069-1.317-0.153-2.9-0.14-4.077h-0.042c-0.322,1.107-0.714,2.297-1.191,3.586l-1.667,4.581H8.723
+		l-1.527-4.496c-0.447-1.331-0.825-2.55-1.092-3.67H6.076c-0.028,1.177-0.099,2.76-0.183,4.174l-0.252,4.048H4.479l0.658-9.441
+		h1.555l1.611,4.566c0.392,1.163,0.714,2.199,0.952,3.18h0.042c0.238-0.953,0.575-1.989,0.995-3.18l1.681-4.566h1.555l0.589,9.441
+		h-1.191L12.688,127.188z"/>
+	<path d="M17.234,130.432h-0.02l-1.107,0.597l-0.167-0.656l1.392-0.745h0.734v6.368h-0.833L17.234,130.432L17.234,130.432z"/>
+</g>
+<g>
+	<path d="M87.354,225.188c-0.069-1.317-0.153-2.899-0.141-4.077h-0.042c-0.322,1.105-0.714,2.299-1.19,3.586l-1.667,4.581H83.39
+		l-1.527-4.495c-0.446-1.332-0.825-2.552-1.092-3.672h-0.027c-0.028,1.178-0.1,2.76-0.184,4.176l-0.252,4.047h-1.162l0.658-9.439
+		h1.555l1.611,4.566c0.393,1.162,0.715,2.199,0.952,3.18h0.042c0.238-0.953,0.574-1.99,0.994-3.18l1.682-4.566h1.555l0.589,9.439
+		h-1.19L87.354,225.188z"/>
+	<path d="M91.901,228.432h-0.02l-1.107,0.597l-0.167-0.656l1.393-0.744h0.733v6.367h-0.832V228.432z"/>
+</g>
+<g>
+	<circle fill="none" stroke="#272525" cx="196.666" cy="23.542" r="19"/>
+	<g>
+		<path d="M192.558,13.691h1.567v10.821h5.186v1.314h-6.753V13.691z"/>
+		<path d="M200.253,31.821V31.14l0.869-0.844c2.092-1.992,3.037-3.05,3.051-4.286c0-0.832-0.404-1.601-1.627-1.601
+			c-0.742,0-1.36,0.378-1.738,0.693l-0.354-0.781c0.566-0.479,1.374-0.832,2.318-0.832c1.766,0,2.51,1.21,2.51,2.382
+			c0,1.513-1.099,2.735-2.824,4.399l-0.654,0.605V30.9h3.68v0.92L200.253,31.821L200.253,31.821z"/>
+	</g>
+</g>
+<circle fill="none" stroke="#272525" cx="196.745" cy="105.435" r="19"/>
+<g>
+	<path d="M190.04,95.747c0.791-0.162,1.926-0.252,3.006-0.252c1.675,0,2.756,0.306,3.512,0.99c0.611,0.54,0.954,1.368,0.954,2.305
+		c0,1.603-1.009,2.665-2.286,3.097v0.054c0.937,0.324,1.494,1.188,1.781,2.449c0.396,1.692,0.685,2.863,0.938,3.331h-1.62
+		c-0.198-0.36-0.47-1.386-0.812-2.899c-0.359-1.674-1.008-2.305-2.431-2.359h-1.477v5.258h-1.565V95.747z M191.606,101.274h1.603
+		c1.675,0,2.735-0.918,2.735-2.305c0-1.566-1.134-2.251-2.79-2.269c-0.757,0-1.296,0.072-1.548,0.145V101.274z"/>
+	<path d="M198.923,113.714v-0.681l0.869-0.844c2.092-1.992,3.037-3.05,3.05-4.286c0-0.832-0.403-1.601-1.626-1.601
+		c-0.744,0-1.361,0.378-1.739,0.693l-0.353-0.781c0.565-0.479,1.373-0.832,2.317-0.832c1.767,0,2.51,1.21,2.51,2.382
+		c0,1.513-1.098,2.735-2.823,4.399l-0.656,0.605v0.025h3.682v0.92L198.923,113.714L198.923,113.714z"/>
+</g>
+<circle fill="none" stroke="#272525" cx="196.556" cy="187.936" r="19"/>
+<g>
+	<path d="M197.953,189.824c-0.576,0.288-1.729,0.594-3.205,0.594c-3.421,0-5.996-2.178-5.996-6.158c0-3.799,2.575-6.373,6.338-6.373
+		c1.513,0,2.467,0.324,2.881,0.541l-0.378,1.277c-0.594-0.287-1.44-0.504-2.449-0.504c-2.844,0-4.733,1.818-4.733,5.006
+		c0,2.971,1.71,4.879,4.662,4.879c0.954,0,1.928-0.197,2.558-0.504L197.953,189.824z"/>
+	<path d="M199.111,196.214v-0.682l0.87-0.844c2.092-1.992,3.037-3.051,3.049-4.285c0-0.832-0.401-1.602-1.625-1.602
+		c-0.743,0-1.36,0.379-1.739,0.693l-0.353-0.781c0.566-0.479,1.373-0.832,2.318-0.832c1.765,0,2.508,1.211,2.508,2.383
+		c0,1.512-1.096,2.734-2.822,4.398l-0.655,0.604v0.024h3.681v0.92h-5.231V196.214z"/>
+</g>
+<g>
+	<rect x="170.166" y="250.917" fill="none" stroke="#000000" width="53" height="35.5"/>
+	<g>
+		<path d="M191.772,258.96c0.756-0.127,1.746-0.233,3.007-0.233c1.549,0,2.684,0.358,3.403,1.008
+			c0.666,0.576,1.063,1.459,1.063,2.539c0,1.099-0.324,1.963-0.938,2.593c-0.828,0.883-2.178,1.334-3.709,1.334
+			c-0.468,0-0.899-0.02-1.26-0.109v4.861h-1.566V258.96L191.772,258.96z M193.339,264.813c0.342,0.09,0.772,0.126,1.297,0.126
+			c1.891,0,3.043-0.919,3.043-2.593c0-1.603-1.135-2.378-2.863-2.378c-0.685,0-1.207,0.056-1.477,0.127V264.813L193.339,264.813z"/>
+		<path d="M200.548,276.947v-0.682l0.869-0.844c2.092-1.992,3.037-3.051,3.05-4.287c0-0.83-0.403-1.6-1.626-1.6
+			c-0.744,0-1.361,0.379-1.739,0.692l-0.353-0.781c0.565-0.479,1.373-0.831,2.317-0.831c1.767,0,2.51,1.209,2.51,2.381
+			c0,1.514-1.098,2.735-2.823,4.399L202.097,276v0.024h3.682v0.92h-5.23V276.947z"/>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" x1="196.666" y1="42.542" x2="196.666" y2="80.185"/>
+		<polygon points="192.962,77.376 196.666,78.949 200.369,77.376 196.666,86.154 		"/>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" x1="196.666" y1="125.042" x2="196.666" y2="162.685"/>
+		<polygon points="192.962,159.876 196.666,161.449 200.369,159.876 196.666,168.653 		"/>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" x1="196.666" y1="207.292" x2="196.666" y2="244.935"/>
+		<polygon points="192.962,242.126 196.666,243.699 200.369,242.126 196.666,250.904 		"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" d="M215.773,250.435c42.25-61.75,43.75-157,0.75-211.75"/>
+		<polygon points="221.171,38.605 217.287,39.656 215.346,43.181 212.837,33.99 		"/>
+	</g>
+</g>
+<g id="X2">
+	<rect id="X2_path1" x="165.338" y="49.482" fill="#FFFFFF" stroke="#000000" width="25.959" height="25.959"/>
+	<g>
+		<path d="M178.125,64.851l-1.205-2.087c-0.488-0.799-0.797-1.317-1.092-1.863h-0.027c-0.268,0.546-0.533,1.051-1.023,1.877
+			l-1.135,2.073h-1.4l2.887-4.776l-2.773-4.665h1.416l1.246,2.213c0.35,0.616,0.617,1.093,0.869,1.597h0.041
+			c0.266-0.561,0.504-0.995,0.854-1.597l1.289-2.213h1.4l-2.871,4.594l2.939,4.847H178.125z"/>
+		<path d="M180.328,69.513v-0.529l0.676-0.657c1.625-1.547,2.359-2.371,2.369-3.331c0-0.646-0.312-1.244-1.264-1.244
+			c-0.576,0-1.057,0.294-1.352,0.539l-0.273-0.607c0.439-0.373,1.068-0.646,1.803-0.646c1.371,0,1.949,0.94,1.949,1.852
+			c0,1.175-0.854,2.125-2.195,3.418l-0.508,0.47v0.02h2.859v0.715H180.328z"/>
+	</g>
+</g>
+<g id="Y2">
+	<rect id="Y2_path1" x="165.338" y="133.151" fill="#FFFFFF" stroke="#000000" width="25.959" height="25.959"/>
+	<g>
+		<path d="M175.352,148.518v-4.006l-2.982-5.435h1.387l1.33,2.605c0.365,0.714,0.645,1.289,0.939,1.947h0.025
+			c0.268-0.616,0.59-1.232,0.953-1.947l1.359-2.605h1.387l-3.166,5.421v4.02H175.352z"/>
+		<path d="M180.201,153.18v-0.528l0.676-0.656c1.627-1.547,2.361-2.371,2.371-3.33c0-0.646-0.312-1.244-1.264-1.244
+			c-0.578,0-1.061,0.293-1.354,0.539l-0.273-0.607c0.439-0.373,1.066-0.646,1.803-0.646c1.371,0,1.949,0.94,1.949,1.853
+			c0,1.175-0.854,2.125-2.193,3.418l-0.51,0.472v0.02h2.861v0.715h-4.066V153.18z"/>
+	</g>
+</g>
+<g>
+	<path d="M261.728,127.187c-0.069-1.317-0.153-2.9-0.141-4.077h-0.041c-0.322,1.107-0.715,2.297-1.191,3.586l-1.666,4.581h-0.926
+		l-1.526-4.496c-0.447-1.331-0.825-2.55-1.093-3.67h-0.026c-0.028,1.177-0.1,2.76-0.184,4.174l-0.252,4.048h-1.163l0.658-9.441
+		h1.555l1.611,4.566c0.393,1.163,0.715,2.199,0.953,3.18h0.041c0.238-0.953,0.575-1.989,0.995-3.18l1.681-4.566h1.555l0.59,9.441
+		h-1.19L261.728,127.187z"/>
+	<path d="M264.403,135.995v-0.529l0.677-0.657c1.627-1.547,2.36-2.371,2.371-3.331c0-0.646-0.314-1.244-1.265-1.244
+		c-0.578,0-1.059,0.294-1.352,0.539l-0.275-0.607c0.441-0.373,1.068-0.646,1.803-0.646c1.371,0,1.949,0.94,1.949,1.852
+		c0,1.175-0.852,2.125-2.192,3.418l-0.511,0.47v0.021h2.86v0.715H264.403z"/>
+</g>
+<g>
+	<path d="M210.394,225.371c-0.069-1.315-0.153-2.898-0.14-4.076h-0.042c-0.322,1.107-0.715,2.297-1.191,3.586l-1.666,4.58h-0.925
+		l-1.526-4.496c-0.448-1.33-0.825-2.549-1.093-3.67h-0.027c-0.027,1.178-0.099,2.761-0.183,4.174l-0.252,4.05h-1.163l0.658-9.44
+		h1.555l1.611,4.565c0.392,1.163,0.714,2.198,0.952,3.181h0.042c0.238-0.953,0.575-1.988,0.995-3.181l1.681-4.565h1.555l0.59,9.44
+		h-1.191L210.394,225.371z"/>
+	<path d="M213.069,234.18v-0.529l0.677-0.655c1.627-1.547,2.36-2.371,2.371-3.33c0-0.646-0.313-1.244-1.265-1.244
+		c-0.578,0-1.059,0.293-1.352,0.539l-0.274-0.607c0.44-0.373,1.067-0.646,1.802-0.646c1.372,0,1.95,0.939,1.95,1.853
+		c0,1.175-0.853,2.125-2.193,3.418l-0.511,0.472v0.02h2.861v0.715h-4.066V234.18z"/>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" d="M92.333,250c38-32,18.333-171.125,80.667-220"/>
+		<polygon points="173.075,34.648 172.027,30.763 168.505,28.818 177.697,26.317 		"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#000000" d="M178.334,250c-38-32-18.333-171.125-80.667-220"/>
+		<polygon points="102.163,28.818 98.64,30.763 97.592,34.647 92.97,26.317 		"/>
+	</g>
+</g>
+<g>
+	<path d="M115.354,127.188c-0.069-1.317-0.153-2.9-0.14-4.077h-0.043c-0.322,1.107-0.714,2.297-1.19,3.586l-1.667,4.581h-0.924
+		l-1.527-4.496c-0.447-1.331-0.825-2.55-1.092-3.67h-0.028c-0.027,1.177-0.099,2.76-0.183,4.174l-0.252,4.048h-1.162l0.658-9.441
+		h1.555l1.611,4.566c0.392,1.163,0.714,2.199,0.951,3.18h0.043c0.238-0.953,0.574-1.989,0.994-3.18l1.682-4.566h1.555l0.589,9.441
+		h-1.191L115.354,127.188z"/>
+	<path d="M119.9,130.432h-0.02l-1.106,0.597l-0.168-0.656l1.393-0.745h0.734v6.368H119.9V130.432z"/>
+</g>
+<g>
+	<path d="M156.394,127.187c-0.069-1.317-0.153-2.9-0.141-4.077h-0.041c-0.322,1.107-0.715,2.297-1.191,3.586l-1.666,4.581h-0.926
+		l-1.526-4.496c-0.447-1.331-0.825-2.55-1.093-3.67h-0.026c-0.028,1.177-0.1,2.76-0.184,4.174l-0.252,4.048h-1.163l0.658-9.441
+		h1.555l1.611,4.566c0.393,1.163,0.715,2.199,0.953,3.18h0.041c0.238-0.953,0.575-1.989,0.995-3.18l1.681-4.566h1.555l0.59,9.441
+		h-1.19L156.394,127.187z"/>
+	<path d="M159.069,135.995v-0.529l0.677-0.657c1.627-1.547,2.36-2.371,2.371-3.331c0-0.646-0.314-1.244-1.265-1.244
+		c-0.578,0-1.059,0.294-1.352,0.539l-0.275-0.607c0.441-0.373,1.068-0.646,1.803-0.646c1.371,0,1.949,0.94,1.949,1.852
+		c0,1.175-0.852,2.125-2.192,3.418l-0.511,0.47v0.021h2.86v0.715H159.069z"/>
+</g>
+</svg>
+</window>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink" name="stimulated" cmeta:id="stimulated_model">
+  
+  <import xlink:href="units.xml">
+    <units name="mV" units_ref="mV"/>
+    <units name="ms" units_ref="ms"/>
+    <units name="K" units_ref="K"/>
+    <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
+    <units name="mS_per_cmsq" units_ref="mS_per_cmsq"/>
+    <units name="uF_per_cmsq" units_ref="uF_per_cmsq"/>
+  </import>
+  <import xlink:href="INa.xml">
+    <component name="INa" component_ref="INa"/>
+  </import>
+  <import xlink:href="IK.xml">
+    <component name="IK" component_ref="IK"/>
+  </import>
+  <import xlink:href="Ileak.xml">
+    <component name="Ileak" component_ref="Ileak"/>
+  </import>
+  <component name="action_potential" cmeta:id="action_potential">
+    
+    <variable cmeta:id="V_initial" name="V_initial" public_interface="in" private_interface="out" units="mV"/>
+    <variable cmeta:id="n_initial" name="n_initial" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="m_initial" name="m_initial" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="h_initial" name="h_initial" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="Istim" name="Istim" public_interface="in" private_interface="out" units="uA_per_cmsq"/>
+    <variable cmeta:id="INa" name="INa" public_interface="out" private_interface="in" units="uA_per_cmsq"/>
+    <variable cmeta:id="IK" name="IK" public_interface="out" private_interface="in" units="uA_per_cmsq"/>
+    <variable cmeta:id="Ileak" name="Ileak" public_interface="out" private_interface="in" units="uA_per_cmsq"/>
+    <variable cmeta:id="V" name="V" public_interface="out" private_interface="out" units="mV" initial_value="V_initial"/>
+    <variable cmeta:id="minus_V" name="minus_V" public_interface="out" private_interface="out" units="mV"/>
+    <variable cmeta:id="VNa" name="VNa" public_interface="in" private_interface="out" units="mV"/>
+    <variable cmeta:id="VK" name="VK" public_interface="in" private_interface="out" units="mV"/>
+    <variable cmeta:id="Vleak" name="Vleak" public_interface="in" private_interface="out" units="mV"/>
+    <variable cmeta:id="gNa_max" name="gNa_max" public_interface="in" private_interface="out" units="mS_per_cmsq"/>
+    <variable cmeta:id="gK_max" name="gK_max" public_interface="in" private_interface="out" units="mS_per_cmsq"/>
+    <variable cmeta:id="gleak_max" name="gleak_max" public_interface="in" private_interface="out" units="mS_per_cmsq"/>
+    <variable cmeta:id="Cm" name="Cm" public_interface="in" private_interface="out" units="uF_per_cmsq"/>
+    <variable cmeta:id="Tref_rates" name="Tref_rates" public_interface="in" private_interface="out" units="K"/>
+    <variable cmeta:id="T" name="T" public_interface="in" private_interface="out" units="K"/>
+    <variable cmeta:id="Q10_rates" name="Q10_rates" public_interface="in" private_interface="out" units="dimensionless"/>
+    <variable cmeta:id="time" name="time" public_interface="in" private_interface="out" units="ms"/>
+    <variable cmeta:id="m" name="m" public_interface="out" private_interface="in" units="dimensionless"/>
+    <variable cmeta:id="h" name="h" public_interface="out" private_interface="in" units="dimensionless"/>
+    <variable cmeta:id="n" name="n" public_interface="out" private_interface="in" units="dimensionless"/>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="V_calculation"><eq/>
+        <apply><diff/>
+          <bvar><ci>time</ci></bvar>
+          <ci>V</ci>
+        </apply>
+        <apply><divide/>
+          <apply><minus/>
+            <ci>Istim</ci>
+            <apply><plus/>
+              <ci>INa</ci>
+              <ci>IK</ci>
+              <ci>Ileak</ci>
+            </apply>
+          </apply>
+          <ci>Cm</ci>
+        </apply>
+      </apply>
+    </math>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply id="minus_V_calculation"><eq/>
+        <ci>minus_V</ci>
+        <apply><minus/>
+          <ci>V</ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="action_potential">
+      <component_ref component="INa"/>
+      <component_ref component="IK"/>
+      <component_ref component="Ileak"/>
+    </component_ref>
+  </group>
+  <connection>
+    <map_components component_1="action_potential" component_2="INa"/>
+    <map_variables variable_1="INa" variable_2="INa"/>
+    <map_variables variable_1="m" variable_2="m"/>
+    <map_variables variable_1="h" variable_2="h"/>
+    <map_variables variable_1="m_initial" variable_2="m_initial"/>
+    <map_variables variable_1="h_initial" variable_2="h_initial"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="Tref_rates" variable_2="Tref"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Q10_rates" variable_2="Q10"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="VNa" variable_2="VNa"/>
+    <map_variables variable_1="gNa_max" variable_2="gNa_max"/>
+  </connection>
+  <connection>
+    <map_components component_1="action_potential" component_2="IK"/>
+    <map_variables variable_1="IK" variable_2="IK"/>
+    <map_variables variable_1="n" variable_2="n"/>
+    <map_variables variable_1="n_initial" variable_2="n_initial"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="Tref_rates" variable_2="Tref"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Q10_rates" variable_2="Q10"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="VK" variable_2="VK"/>
+    <map_variables variable_1="gK_max" variable_2="gK_max"/>
+  </connection>
+  <connection>
+    <map_components component_1="action_potential" component_2="Ileak"/>
+    <map_variables variable_1="Ileak" variable_2="Ileak"/>
+    <map_variables variable_1="V" variable_2="V"/>
+    <map_variables variable_1="Vleak" variable_2="Vleak"/>
+    <map_variables variable_1="gleak_max" variable_2="gleak_max"/>
+  </connection>
+</model>

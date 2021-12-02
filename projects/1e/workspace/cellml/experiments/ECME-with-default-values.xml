@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+    name="cortassa_ECME_model_2006"
+    cmeta:id="cortassa_ECME_model_2006"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+  <component name="interface" cmeta:id="interface">
+    <variable name="time" cmeta:id="time" units="dimensionless" public_interface="in" private_interface="out"/>
+    <variable name="Istim" cmeta:id="Istim" units="dimensionless" public_interface="in" private_interface="out"/>
+  </component>
+  <connection>
+    <map_components component_1="interface" component_2="model"/>
+    <map_variables variable_1="time" variable_2="time"/>
+    <map_variables variable_1="Istim" variable_2="Istim"/>
+  </connection>
+  <import xlink:href="../components/parameters.xml">
+    <component name="parameters" component_ref="parameters"/>
+  </import>
+  <import xlink:href="../components/initial_values.xml">
+    <component name="initial_values" component_ref="initial_values"/>
+  </import>
+  <import xlink:href="../cortassa_ECME_model_2006.xml">
+    <component name="model" component_ref="interface"/>
+  </import>
+  <connection>
+    <map_components component_1="parameters" component_2="model"/>
+    <map_variables variable_1="clamp_ATPi" variable_2="clamp_ATPi"/>
+    <map_variables variable_1="clamp_ATPi_cyto" variable_2="clamp_ATPi_cyto"/>
+    <map_variables variable_1="Vmyo" variable_2="Vmyo"/>
+    <map_variables variable_1="VJSR" variable_2="VJSR"/>
+    <map_variables variable_1="VNSR" variable_2="VNSR"/>
+    <map_variables variable_1="VSS" variable_2="VSS"/>
+    <map_variables variable_1="f_xb" variable_2="f_xb"/>
+    <map_variables variable_1="gmin_xb" variable_2="gmin_xb"/>
+    <map_variables variable_1="SL" variable_2="SL"/>
+    <map_variables variable_1="kltrpn_minus" variable_2="kltrpn_minus"/>
+    <map_variables variable_1="kltrpn_plus" variable_2="kltrpn_plus"/>
+    <map_variables variable_1="Acap" variable_2="Acap"/>
+    <map_variables variable_1="C_m" variable_2="C_m"/>
+    <map_variables variable_1="Cao" variable_2="Cao"/>
+    <map_variables variable_1="Ko" variable_2="Ko"/>
+    <map_variables variable_1="Nao" variable_2="Nao"/>
+    <map_variables variable_1="PCa" variable_2="PCa"/>
+    <map_variables variable_1="ICahalf" variable_2="ICahalf"/>
+    <map_variables variable_1="PK" variable_2="PK"/>
+    <map_variables variable_1="KmNai" variable_2="KmNai"/>
+    <map_variables variable_1="INaKmax" variable_2="INaKmax"/>
+    <map_variables variable_1="KmKo" variable_2="KmKo"/>
+    <map_variables variable_1="Ki1AD_NaK" variable_2="Ki1AD_NaK"/>
+    <map_variables variable_1="eta" variable_2="eta"/>
+    <map_variables variable_1="KmCa" variable_2="KmCa"/>
+    <map_variables variable_1="KmNa" variable_2="KmNa"/>
+    <map_variables variable_1="kNaCa" variable_2="kNaCa"/>
+    <map_variables variable_1="ksat" variable_2="ksat"/>
+    <map_variables variable_1="KiADP_CaP" variable_2="KiADP_CaP"/>
+    <map_variables variable_1="KmnsCa" variable_2="KmnsCa"/>
+    <map_variables variable_1="V_AM_scaler" variable_2="V_AM_scaler"/>
+    <map_variables variable_1="V_AM_max" variable_2="V_AM_max"/>
+    <map_variables variable_1="KmATP_AM" variable_2="KmATP_AM"/>
+    <map_variables variable_1="Ki_AM" variable_2="Ki_AM"/>
+    <map_variables variable_1="DpH" variable_2="DpH"/>
+    <map_variables variable_1="KCS" variable_2="KCS"/>
+    <map_variables variable_1="EtCS" variable_2="EtCS"/>
+    <map_variables variable_1="AcCoA" variable_2="AcCoA"/>
+    <map_variables variable_1="KmAcCoA" variable_2="KmAcCoA"/>
+    <map_variables variable_1="KACOeq" variable_2="KACOeq"/>
+    <map_variables variable_1="H" variable_2="H"/>
+    <map_variables variable_1="kh_1" variable_2="kh_1"/>
+    <map_variables variable_1="kh_2" variable_2="kh_2"/>
+    <map_variables variable_1="kIDH" variable_2="kIDH"/>
+    <map_variables variable_1="EtID" variable_2="EtID"/>
+    <map_variables variable_1="KADP" variable_2="KADP"/>
+    <map_variables variable_1="KaCa" variable_2="KaCa"/>
+    <map_variables variable_1="KidhNADH" variable_2="KidhNADH"/>
+    <map_variables variable_1="KmKGNAD" variable_2="KmKGNAD"/>
+    <map_variables variable_1="KmIDNAD" variable_2="KmIDNAD"/>
+    <map_variables variable_1="Mg" variable_2="Mg"/>
+    <map_variables variable_1="Kmg" variable_2="Kmg"/>
+    <map_variables variable_1="Kca" variable_2="Kca"/>
+    <map_variables variable_1="kKGDH" variable_2="kKGDH"/>
+    <map_variables variable_1="EtKG" variable_2="EtKG"/>
+    <map_variables variable_1="CoA" variable_2="CoA"/>
+    <map_variables variable_1="KSLeq" variable_2="KSLeq"/>
+    <map_variables variable_1="kSDH" variable_2="kSDH"/>
+    <map_variables variable_1="EtSDH" variable_2="EtSDH"/>
+    <map_variables variable_1="KmSucc" variable_2="KmSucc"/>
+    <map_variables variable_1="KiFUM" variable_2="KiFUM"/>
+    <map_variables variable_1="KiOxaa" variable_2="KiOxaa"/>
+    <map_variables variable_1="kfFH" variable_2="kfFH"/>
+    <map_variables variable_1="KFHeq" variable_2="KFHeq"/>
+    <map_variables variable_1="Kh3" variable_2="Kh3"/>
+    <map_variables variable_1="Kh4" variable_2="Kh4"/>
+    <map_variables variable_1="Kh1" variable_2="Kh1"/>
+    <map_variables variable_1="Kh2" variable_2="Kh2"/>
+    <map_variables variable_1="Koff" variable_2="Koff"/>
+    <map_variables variable_1="kMDH" variable_2="kMDH"/>
+    <map_variables variable_1="EtMD" variable_2="EtMD"/>
+    <map_variables variable_1="Kmal" variable_2="Kmal"/>
+    <map_variables variable_1="Kioaa" variable_2="Kioaa"/>
+    <map_variables variable_1="kfAAT" variable_2="kfAAT"/>
+    <map_variables variable_1="GLU" variable_2="GLU"/>
+    <map_variables variable_1="kcnsASP" variable_2="kcnsASP"/>
+    <map_variables variable_1="KAATeq" variable_2="KAATeq"/>
+    <map_variables variable_1="kres" variable_2="kres"/>
+    <map_variables variable_1="Dpsio" variable_2="Dpsio"/>
+    <map_variables variable_1="g" variable_2="g"/>
+    <map_variables variable_1="ra" variable_2="ra"/>
+    <map_variables variable_1="rc1" variable_2="rc1"/>
+    <map_variables variable_1="r1" variable_2="r1"/>
+    <map_variables variable_1="rhoREN" variable_2="rhoREN"/>
+    <map_variables variable_1="rc2" variable_2="rc2"/>
+    <map_variables variable_1="rb" variable_2="rb"/>
+    <map_variables variable_1="kresf" variable_2="kresf"/>
+    <map_variables variable_1="FADH2" variable_2="FADH2"/>
+    <map_variables variable_1="FAD" variable_2="FAD"/>
+    <map_variables variable_1="r2" variable_2="r2"/>
+    <map_variables variable_1="r3" variable_2="r3"/>
+    <map_variables variable_1="kf1" variable_2="kf1"/>
+    <map_variables variable_1="Pi" variable_2="Pi"/>
+    <map_variables variable_1="pa" variable_2="pa"/>
+    <map_variables variable_1="pc1" variable_2="pc1"/>
+    <map_variables variable_1="pb" variable_2="pb"/>
+    <map_variables variable_1="p1" variable_2="p1"/>
+    <map_variables variable_1="hm" variable_2="hm"/>
+    <map_variables variable_1="VmDT" variable_2="VmDT"/>
+    <map_variables variable_1="Kfb" variable_2="Kfb"/>
+    <map_variables variable_1="Krb" variable_2="Krb"/>
+    <map_variables variable_1="tautr" variable_2="tautr"/>
+    <map_variables variable_1="tauxfer" variable_2="tauxfer"/>
+    <map_variables variable_1="KmATP_SR" variable_2="KmATP_SR"/>
+    <map_variables variable_1="Ki_SR" variable_2="Ki_SR"/>
+    <map_variables variable_1="Ki_prime_SR" variable_2="Ki_prime_SR"/>
+    <map_variables variable_1="LTRPNtot" variable_2="LTRPNtot"/>
+    <map_variables variable_1="kTrop_pn" variable_2="kTrop_pn"/>
+    <map_variables variable_1="CMDNtot" variable_2="CMDNtot"/>
+    <map_variables variable_1="KmCMDN" variable_2="KmCMDN"/>
+    <map_variables variable_1="CSQNtot" variable_2="CSQNtot"/>
+    <map_variables variable_1="KmCSQN" variable_2="KmCSQN"/>
+    <map_variables variable_1="ktrans" variable_2="ktrans"/>
+    <map_variables variable_1="kact" variable_2="kact"/>
+    <map_variables variable_1="Vmuni" variable_2="Vmuni"/>
+    <map_variables variable_1="b" variable_2="b"/>
+    <map_variables variable_1="bL" variable_2="bL"/>
+    <map_variables variable_1="Cmito" variable_2="Cmito"/>
+    <map_variables variable_1="keq" variable_2="keq"/>
+    <map_variables variable_1="zeta" variable_2="zeta"/>
+    <map_variables variable_1="one" variable_2="one"/>
+    <map_variables variable_1="p_KNa" variable_2="p_KNa"/>
+    <map_variables variable_1="zK" variable_2="zK"/>
+    <map_variables variable_1="zCa" variable_2="zCa"/>
+    <map_variables variable_1="zNa" variable_2="zNa"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="R" variable_2="R"/>
+    <map_variables variable_1="Faraday" variable_2="Faraday"/>
+    <map_variables variable_1="LHospitalThreshold" variable_2="LHospitalThreshold"/>
+    <map_variables variable_1="G_Na" variable_2="G_Na"/>
+    <map_variables variable_1="G_Nab" variable_2="G_Nab"/>
+    <map_variables variable_1="G_Kp" variable_2="G_Kp"/>
+    <map_variables variable_1="Km1AT_NaK" variable_2="Km1AT_NaK"/>
+    <map_variables variable_1="G_Cab" variable_2="G_Cab"/>
+    <map_variables variable_1="IpCamax" variable_2="IpCamax"/>
+    <map_variables variable_1="KmpCa" variable_2="KmpCa"/>
+    <map_variables variable_1="Km1ATP_CaP" variable_2="Km1ATP_CaP"/>
+    <map_variables variable_1="Km2ATP_CaP" variable_2="Km2ATP_CaP"/>
+    <map_variables variable_1="PnsNa" variable_2="PnsNa"/>
+    <map_variables variable_1="PnsK" variable_2="PnsK"/>
+    <map_variables variable_1="Cm" variable_2="Cm"/>
+    <map_variables variable_1="CPN" variable_2="CPN"/>
+    <map_variables variable_1="KmOaa" variable_2="KmOaa"/>
+    <map_variables variable_1="kfACO" variable_2="kfACO"/>
+    <map_variables variable_1="CIK" variable_2="CIK"/>
+    <map_variables variable_1="Kmiso" variable_2="Kmiso"/>
+    <map_variables variable_1="nID" variable_2="nID"/>
+    <map_variables variable_1="KmKG" variable_2="KmKG"/>
+    <map_variables variable_1="nKG" variable_2="nKG"/>
+    <map_variables variable_1="kfSL" variable_2="kfSL"/>
+    <map_variables variable_1="KmmNAD" variable_2="KmmNAD"/>
+    <map_variables variable_1="rhoREF" variable_2="rhoREF"/>
+    <map_variables variable_1="rhoF1" variable_2="rhoF1"/>
+    <map_variables variable_1="p2" variable_2="p2"/>
+    <map_variables variable_1="p3" variable_2="p3"/>
+    <map_variables variable_1="pc2" variable_2="pc2"/>
+    <map_variables variable_1="gh" variable_2="gh"/>
+    <map_variables variable_1="Nfb" variable_2="Nfb"/>
+    <map_variables variable_1="Nrb" variable_2="Nrb"/>
+    <map_variables variable_1="KSR" variable_2="KSR"/>
+    <map_variables variable_1="vmaxf" variable_2="vmaxf"/>
+    <map_variables variable_1="vmaxr" variable_2="vmaxr"/>
+    <map_variables variable_1="v1" variable_2="v1"/>
+    <map_variables variable_1="khtrpn_plus" variable_2="khtrpn_plus"/>
+    <map_variables variable_1="HTRPNtot" variable_2="HTRPNtot"/>
+    <map_variables variable_1="khtrpn_minus" variable_2="khtrpn_minus"/>
+    <map_variables variable_1="L" variable_2="L"/>
+    <map_variables variable_1="na" variable_2="na"/>
+    <map_variables variable_1="VmNC" variable_2="VmNC"/>
+    <map_variables variable_1="Kna" variable_2="Kna"/>
+    <map_variables variable_1="n" variable_2="n"/>
+    <map_variables variable_1="Knca" variable_2="Knca"/>
+    <map_variables variable_1="kaplus" variable_2="kaplus"/>
+    <map_variables variable_1="ncoop" variable_2="ncoop"/>
+    <map_variables variable_1="kaminus" variable_2="kaminus"/>
+    <map_variables variable_1="kbplus" variable_2="kbplus"/>
+    <map_variables variable_1="mcoop" variable_2="mcoop"/>
+    <map_variables variable_1="kbminus" variable_2="kbminus"/>
+    <map_variables variable_1="kcplus" variable_2="kcplus"/>
+    <map_variables variable_1="kcminus" variable_2="kcminus"/>
+    <map_variables variable_1="aL" variable_2="aL"/>
+    <map_variables variable_1="omega" variable_2="omega"/>
+    <map_variables variable_1="gL" variable_2="gL"/>
+    <map_variables variable_1="fL" variable_2="fL"/>
+    <map_variables variable_1="gprime" variable_2="gprime"/>
+    <map_variables variable_1="fprime" variable_2="fprime"/>
+    <map_variables variable_1="kt_2" variable_2="kt_2"/>
+    <map_variables variable_1="kf_2" variable_2="kf_2"/>
+    <map_variables variable_1="CRT_cyto" variable_2="CRT_cyto"/>
+    <map_variables variable_1="kf_3" variable_2="kf_3"/>
+    <map_variables variable_1="CRT_mito" variable_2="CRT_mito"/>
+    <map_variables variable_1="VATPase_cyto" variable_2="VATPase_cyto"/>
+    <map_variables variable_1="fm" variable_2="fm"/>
+  </connection>
+  <connection>
+    <map_components component_1="initial_values" component_2="model"/>
+    <map_variables variable_1="ATPi_initial" variable_2="ATPi_initial"/>
+    <map_variables variable_1="V_initial" variable_2="V_initial"/>
+    <map_variables variable_1="C1_RyR_initial" variable_2="C1_RyR_initial"/>
+    <map_variables variable_1="C2_RyR_initial" variable_2="C2_RyR_initial"/>
+    <map_variables variable_1="O2_RyR_initial" variable_2="O2_RyR_initial"/>
+    <map_variables variable_1="mNa_initial" variable_2="mNa_initial"/>
+    <map_variables variable_1="hNa_initial" variable_2="hNa_initial"/>
+    <map_variables variable_1="jNa_initial" variable_2="jNa_initial"/>
+    <map_variables variable_1="xKs_initial" variable_2="xKs_initial"/>
+    <map_variables variable_1="Open_initial" variable_2="Open_initial"/>
+    <map_variables variable_1="OCa_initial" variable_2="OCa_initial"/>
+    <map_variables variable_1="yCa_initial" variable_2="yCa_initial"/>
+    <map_variables variable_1="Ki_initial" variable_2="Ki_initial"/>
+    <map_variables variable_1="Nai_initial" variable_2="Nai_initial"/>
+    <map_variables variable_1="Cai_initial" variable_2="Cai_initial"/>
+    <map_variables variable_1="ADPm_initial" variable_2="ADPm_initial"/>
+    <map_variables variable_1="Dpsi_initial" variable_2="Dpsi_initial"/>
+    <map_variables variable_1="NADH_initial" variable_2="NADH_initial"/>
+    <map_variables variable_1="Oaa_initial" variable_2="Oaa_initial"/>
+    <map_variables variable_1="AKG_initial" variable_2="AKG_initial"/>
+    <map_variables variable_1="SCoA_initial" variable_2="SCoA_initial"/>
+    <map_variables variable_1="Succ_initial" variable_2="Succ_initial"/>
+    <map_variables variable_1="FUM_initial" variable_2="FUM_initial"/>
+    <map_variables variable_1="MAL_initial" variable_2="MAL_initial"/>
+    <map_variables variable_1="ISOC_initial" variable_2="ISOC_initial"/>
+    <map_variables variable_1="Cam_initial" variable_2="Cam_initial"/>
+    <map_variables variable_1="CaNSR_initial" variable_2="CaNSR_initial"/>
+    <map_variables variable_1="CaJSR_initial" variable_2="CaJSR_initial"/>
+    <map_variables variable_1="CaSS_initial" variable_2="CaSS_initial"/>
+    <map_variables variable_1="N1_initial" variable_2="N1_initial"/>
+    <map_variables variable_1="P0_initial" variable_2="P0_initial"/>
+    <map_variables variable_1="P1_initial" variable_2="P1_initial"/>
+    <map_variables variable_1="P2_initial" variable_2="P2_initial"/>
+    <map_variables variable_1="P3_initial" variable_2="P3_initial"/>
+    <map_variables variable_1="LTRPNCa_initial" variable_2="LTRPNCa_initial"/>
+    <map_variables variable_1="HTRPNCa_initial" variable_2="HTRPNCa_initial"/>
+    <map_variables variable_1="C1_initial" variable_2="C1_initial"/>
+    <map_variables variable_1="CCa0_initial" variable_2="CCa0_initial"/>
+    <map_variables variable_1="C0_initial" variable_2="C0_initial"/>
+    <map_variables variable_1="C2_initial" variable_2="C2_initial"/>
+    <map_variables variable_1="CCa1_initial" variable_2="CCa1_initial"/>
+    <map_variables variable_1="C3_initial" variable_2="C3_initial"/>
+    <map_variables variable_1="CCa2_initial" variable_2="CCa2_initial"/>
+    <map_variables variable_1="C4_initial" variable_2="C4_initial"/>
+    <map_variables variable_1="CCa3_initial" variable_2="CCa3_initial"/>
+    <map_variables variable_1="CCa4_initial" variable_2="CCa4_initial"/>
+    <map_variables variable_1="CrPi_mito_initial" variable_2="CrPi_mito_initial"/>
+    <map_variables variable_1="CrPi_cyto_initial" variable_2="CrPi_cyto_initial"/>
+    <map_variables variable_1="ATPi_cyto_initial" variable_2="ATPi_cyto_initial"/>
+    <map_variables variable_1="ASP_initial" variable_2="ASP_initial"/>
+    <map_variables variable_1="N0_initial" variable_2="N0_initial"/>
+  </connection>
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="interface">
+      <component_ref component="parameters"/>
+      <component_ref component="initial_values"/>
+      <component_ref component="model"/>
+    </component_ref>
+  </group>
+</model>

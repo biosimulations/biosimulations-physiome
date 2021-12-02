@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This CellML file was generated on 4/21/2013 at 7:48:44 at PM using:
+
+COR (0.9.31.1409)
+Copyright 2002-2013 Dr Alan Garny
+http://cor.physiol.ox.ac.uk/ - cor@physiol.ox.ac.uk
+
+CellML 1.0 was used to generate this model
+http://www.cellml.org/
+-->
+<model name="nazaret_2009_MCL" cmeta:id="nazaret_2009_MCL" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.1#">
+	<documentation xmlns="http://cellml.org/tmp-documentation">
+		<article>
+			<articleinfo>
+				<title>Mitochondrial energetic metabolism: a simplified model of TCA cycle with ATP production</title>
+				<author>
+					<firstname>Catherine</firstname>
+					<surname>Lloyd</surname>
+					<affiliation>
+						<shortaffil>Auckland Bioengineering Institute, The University of Auckland</shortaffil>
+					</affiliation>
+				</author>
+			</articleinfo>
+			<section id="sec_status">
+				<title>Model Status</title>
+				<para>
+            This CellML runs in both OpenCell and COR. It is the unscaled version of the model, taken from equations 16-25 in the original paper. There are no published results (figures) for the unscaled model therefore we do not know whether or not this CellML model is capable of reproducing the orignal model's results.
+          </para>
+			</section>
+			<sect1 id="sec_structure">
+				<title>Model Structure</title>
+				<para>
+ABSTRACT: Mitochondria play a central role in cellular energetic metabolism. The essential parts of this metabolism are the tricarboxylic acid (TCA) cycle, the respiratory chain and the adenosine triphosphate (ATP) synthesis machinery. Here a simplified model of these three metabolic components with a limited set of differential equations is presented. The existence of a steady state is demonstrated and results of numerical simulations are presented. The relevance of a simple model to represent actual in vivo behavior is discussed.
+</para>
+				<para>
+The original paper reference is cited below:
+</para>
+				<para>
+Mitochondrial energetic metabolism: a simplified model of TCA cycle with ATP production, Nazaret C, Heiske M, Thurley K, and Mazat JP, 2009, <emphasis>Journal of Theoretical Biology</emphasis>, 258, 455-464.  <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/19007794">PubMed ID: 19007794</ulink>
+				</para>
+				<informalfigure float="0" id="fig_reaction_diagram">
+					<mediaobject>
+						<imageobject>
+							<objectinfo>
+								<title>reaction diagram</title>
+							</objectinfo>
+							<imagedata fileref="nazaret_2009.png"/>
+						</imageobject>
+					</mediaobject>
+					<caption>Schematic diagram of the model.</caption>
+				</informalfigure>
+			</sect1>
+		</article>
+	</documentation>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="#nazaret_2009"><simulation xmlns="http://www.cellml.org/metadata/simulation/1.0#"><rdf:Description rdf:nodeID="n1"/></simulation></rdf:Description><rdf:Description rdf:about=""><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:nodeID="n2"/></creator><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Mitochondrial energetic metabolism: a simplified model of TCA cycle with ATP production (unscaled version)</title></rdf:Description><rdf:Description rdf:nodeID="n3"><rdf:_4><rdf:Description rdf:nodeID="n4"/></rdf:_4><rdf:_3><rdf:Description rdf:nodeID="n5"/></rdf:_3><rdf:_2><rdf:Description rdf:nodeID="n6"/></rdf:_2><rdf:_1><rdf:Description rdf:nodeID="n7"/></rdf:_1><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/></rdf:type></rdf:Description><rdf:Description rdf:nodeID="n8"><W3CDTF xmlns="http://purl.org/dc/terms/" xml:lang="en">2009-06-07</W3CDTF></rdf:Description><rdf:Description rdf:nodeID="n9"><JournalArticle xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n10"/></JournalArticle><Pubmed_id xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">19007794</Pubmed_id></rdf:Description><rdf:Description rdf:about="#ATP"><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">adenosine triphospahte</alternative><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">ATP</title></rdf:Description><rdf:Description rdf:about="#nazarat_2009"><reference xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n9"/></reference><reference xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n11"/></reference></rdf:Description><rdf:Description rdf:nodeID="n12"><Orgunit xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Auckland Bioengineering Institute</Orgunit><Orgname xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">The University of Auckland</Orgname></rdf:Description><rdf:Description rdf:nodeID="n13"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n14"/></N></rdf:Description><rdf:Description rdf:nodeID="n15"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n16"/></N></rdf:Description><rdf:Description rdf:nodeID="n17"><rdf:_2 xml:lang="en">TCA cycle</rdf:_2><rdf:_1 xml:lang="en">metabolism</rdf:_1><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/></rdf:type></rdf:Description><rdf:Description rdf:about="#delta_psi"><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">membrane potential</alternative><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">delta_psi</title></rdf:Description><rdf:Description rdf:nodeID="n18"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n19"/></N></rdf:Description><rdf:Description rdf:about="#AcCoA"><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">acetyl CoA</alternative><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">AcCoA</title></rdf:Description><rdf:Description rdf:nodeID="n2"><ORG xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n12"/></ORG><EMAIL xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n20"/></EMAIL><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n21"/></N></rdf:Description><rdf:Description rdf:nodeID="n6"><Person xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n13"/></Person></rdf:Description><rdf:Description rdf:nodeID="n22"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Journal of Theoretical Biology</title></rdf:Description><rdf:Description rdf:about="#Cit"><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">citrate</alternative><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Cit</title></rdf:Description><rdf:Description rdf:about="#KG"><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">alpha-ketoglutarate</alternative><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">KG</title></rdf:Description><rdf:Description rdf:nodeID="n16"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">K</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Thurley</Family></rdf:Description><rdf:Description rdf:nodeID="n11"><subject xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:nodeID="n23"/></subject></rdf:Description><rdf:Description rdf:about="#Pyr"><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">pyruvate</alternative><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Pyr</title></rdf:Description><rdf:Description rdf:nodeID="n23"><subject_type xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">keyword</subject_type><rdf:value><rdf:Description rdf:nodeID="n17"/></rdf:value></rdf:Description><rdf:Description rdf:nodeID="n5"><Person xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n15"/></Person></rdf:Description><rdf:Description rdf:about="#NAD"><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">nicotinamide adenine dinucleotide</alternative><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">NAD</title></rdf:Description><rdf:Description rdf:nodeID="n24"><endingValue xmlns="http://www.cellml.org/metadata/simulation/1.0#" xml:lang="en">3600</endingValue></rdf:Description><rdf:Description rdf:nodeID="n1"><boundIntervals xmlns="http://www.cellml.org/metadata/simulation/1.0#"><rdf:Description rdf:nodeID="n25"/></boundIntervals></rdf:Description><rdf:Description rdf:nodeID="n25"><rdf:first><rdf:Description rdf:nodeID="n24"/></rdf:first><rdf:rest><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></rdf:rest></rdf:Description><rdf:Description rdf:nodeID="n14"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">M</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Heiske</Family></rdf:Description><rdf:Description rdf:nodeID="n7"><Person xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n18"/></Person></rdf:Description><rdf:Description rdf:about="#OAA"><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">oxaloacetate</alternative><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">OAA</title></rdf:Description><rdf:Description rdf:nodeID="n26"><Other xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">P</Other><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">J</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Mazat</Family></rdf:Description><rdf:Description rdf:nodeID="n20"><rdf:type><rdf:Description rdf:about="http://imc.org/vCard/3.0#internet"/></rdf:type><rdf:value xml:lang="en">c.lloyd@auckland.ac.nz</rdf:value></rdf:Description><rdf:Description rdf:nodeID="n19"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">C</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Nazaret</Family></rdf:Description><rdf:Description rdf:nodeID="n10"><last_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">464</last_page><first_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">455</first_page><volume xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">258</volume><Journal xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n22"/></Journal><issued xmlns="http://purl.org/dc/terms/"><rdf:Description rdf:nodeID="n8"/></issued><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:nodeID="n3"/></creator><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">
+            Mitochondrial energetic metabolism: a simplified model of TCA cycle with ATP production
+          </title></rdf:Description><rdf:Description rdf:nodeID="n27"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n26"/></N></rdf:Description><rdf:Description rdf:nodeID="n21"><Other xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">May</Other><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Catherine</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Lloyd</Family></rdf:Description><rdf:Description rdf:nodeID="n4"><Person xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n27"/></Person></rdf:Description></rdf:RDF>
+	<import xmlns="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<units name="mM" units_ref="mM"/>
+		<units name="per_second" units_ref="per_second"/>
+		<units name="mM_per_second" units_ref="mM_per_second"/>
+		<units name="per_mM_per_second" units_ref="per_mM_per_second"/>
+		<units name="per_mM" units_ref="per_mM"/>
+	</import>
+	<import xmlns="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MassActionBiIrrev" name="v2_MassActionBiIrrev"/>
+	</import>
+	<import xmlns="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MassActionBiIrrev" name="v3_MassActionBiIrrev"/>
+	</import>
+	<import xmlns="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MassActionBiIrrev" name="v4_MassActionBiIrrev"/>
+	</import>
+	<import xmlns="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MassActionBiIrrev" name="v7_MassActionBiIrrev"/>
+	</import>
+	<import xmlns="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MassActionUniIrrev" name="v8_MassActionUniIrrev"/>
+	</import>
+	<import xmlns="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="MetabolicComponentLibrary-v0.1.cellml">
+		<component component_ref="MassActionUniIrrev" name="vANT_MassActionUniIrrev"/>
+	</import>   <units name="molar">
+      <unit units="mole"/>
+      <unit units="litre" exponent="-1"/>
+   </units>
+   <units name="micromolar">
+      <unit units="mole" prefix="micro"/>
+      <unit units="litre" exponent="-1"/>
+   </units>
+   <units name="millimolar">
+      <unit units="mole" prefix="milli"/>
+      <unit units="litre" exponent="-1"/>
+   </units>
+   <units name="millivolt">
+      <unit units="volt" prefix="milli"/>
+   </units>
+   <units name="per_millivolt">
+      <unit units="millivolt" exponent="-1"/>
+   </units>
+   <units name="per_micromolar">
+      <unit units="micromolar" exponent="-1"/>
+   </units>
+   <units name="per_millimolar">
+      <unit units="millimolar" exponent="-1"/>
+   </units>
+   <units name="molar_per_millivolt_per_second">
+      <unit units="molar"/>
+      <unit units="millivolt" exponent="-1"/>
+      <unit units="second" exponent="-1"/>
+   </units>
+   <units name="millimolar_per_millivolt">
+      <unit units="millimolar"/>
+      <unit units="millivolt" exponent="-1"/>
+   </units>
+   <units name="micromolar_per_second">
+      <unit units="micromolar"/>
+      <unit units="second" exponent="-1"/>
+   </units>
+   <units name="millimolar_per_second">
+      <unit units="millimolar"/>
+      <unit units="second" exponent="-1"/>
+   </units>
+   <units name="first_order_rate_constant">
+      <unit units="second" exponent="-1"/>
+   </units>
+   <units name="second_order_rate_constant">
+      <unit units="second" exponent="-1"/>
+      <unit units="molar" exponent="-1"/>
+   </units>
+   <units name="third_order_rate_constant">
+      <unit units="second" exponent="-1"/>
+      <unit units="molar" exponent="-2"/>
+   </units>
+   <units name="joule_per_mole_kelvin">
+      <unit units="joule"/>
+      <unit units="mole" exponent="-1"/>
+      <unit units="kelvin" exponent="-1"/>
+   </units>
+   <units name="joule_per_mole">
+      <unit units="joule"/>
+      <unit units="mole" exponent="-1"/>
+   </units>
+   <units name="coulomb_per_mole">
+      <unit units="coulomb"/>
+      <unit units="mole" exponent="-1"/>
+   </units>
+   <component name="Network">
+      <variable name="time" units="second" public_interface="out"/>
+      <variable name="Pyr" units="micromolar" initial_value="0.154" public_interface="out"/>
+      <variable name="AcCoA" units="micromolar" initial_value="0.063" public_interface="out"/>
+      <variable name="Cit" units="micromolar" initial_value="0.44" public_interface="out"/>
+      <variable name="KG" units="micromolar" initial_value="0.225" public_interface="out"/>
+      <variable name="OAA" units="micromolar" initial_value="0.005" public_interface="out"/>
+      <variable name="NAD" units="micromolar" initial_value="0.856" public_interface="out"/>
+      <variable name="ATP" units="micromolar" initial_value="3.536" public_interface="out"/>
+      <variable name="delta_psi" units="millivolt" initial_value="150" public_interface="out"/>
+      <variable name="v1" units="micromolar_per_second" public_interface="in"/>
+      <variable name="v2" units="micromolar_per_second" public_interface="in"/>
+      <variable name="v3" units="micromolar_per_second" public_interface="in"/>
+      <variable name="v4" units="micromolar_per_second" public_interface="in"/>
+      <variable name="v5" units="micromolar_per_second" public_interface="in"/>
+      <variable name="v6" units="micromolar_per_second" public_interface="in"/>
+      <variable name="v7" units="micromolar_per_second" public_interface="in"/>
+      <variable name="v8" units="micromolar_per_second" public_interface="in"/>
+      <variable name="vleak" units="micromolar_per_second" public_interface="in"/>
+      <variable name="vresp" units="micromolar_per_second" public_interface="in"/>
+      <variable name="vATP" units="micromolar_per_second" public_interface="in"/>
+      <variable name="vANT" units="micromolar_per_second" public_interface="in"/>
+      <variable name="At" units="millimolar" initial_value="4.16" public_interface="out"/>
+      <variable name="C" units="millimolar_per_millivolt"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>C</ci>
+            <cn type="e-notation" cellml:units="millimolar_per_millivolt">6.75   <sep/>
+            -6</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>Pyr</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <minus/>
+                  <ci>v1</ci>
+                  <ci>v2</ci>
+               </apply>
+               <ci>v7</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>AcCoA</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <ci>v2</ci>
+               <ci>v3</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>Cit</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <ci>v3</ci>
+               <ci>v4</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>KG</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <plus/>
+                  <ci>v4</ci>
+                  <ci>v6</ci>
+               </apply>
+               <ci>v5</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>OAA</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <plus/>
+                        <ci>v5</ci>
+                        <ci>v7</ci>
+                     </apply>
+                     <ci>v3</ci>
+                  </apply>
+                  <ci>v8</ci>
+               </apply>
+               <ci>v6</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>NAD</ci>
+            </apply>
+            <apply>
+               <plus/>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <ci>v2</ci>
+                     </apply>
+                     <ci>v4</ci>
+                  </apply>
+                  <apply>
+                     <times/>
+                     <cn cellml:units="dimensionless">2</cn>
+                     <ci>v5</ci>
+                  </apply>
+               </apply>
+               <ci>vresp</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>ATP</ci>
+            </apply>
+            <apply>
+               <minus/>
+               <apply>
+                  <plus/>
+                  <apply>
+                     <minus/>
+                     <ci>vATP</ci>
+                     <ci>vANT</ci>
+                  </apply>
+                  <ci>v5</ci>
+               </apply>
+               <ci>v7</ci>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>delta_psi</ci>
+            </apply>
+            <apply>
+               <times/>
+               <apply>
+                  <divide/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <ci>C</ci>
+               </apply>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <minus/>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <times/>
+                           <cn cellml:units="dimensionless">10</cn>
+                           <ci>vresp</ci>
+                        </apply>
+                        <apply>
+                           <times/>
+                           <cn cellml:units="dimensionless">3</cn>
+                           <ci>vATP</ci>
+                        </apply>
+                     </apply>
+                     <ci>vleak</ci>
+                  </apply>
+                  <ci>vANT</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="v1">
+      <variable name="v1" units="micromolar_per_second" public_interface="out"/>
+      <variable name="k1" units="micromolar_per_second"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k1</ci>
+            <cn cellml:units="micromolar_per_second">38</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>v1</ci>
+            <ci>k1</ci>
+         </apply>
+      </math>
+   </component>
+   <component name="v2">
+      <variable name="v2" units="micromolar_per_second" public_interface="out" private_interface="in"/>
+      <variable name="Pyr" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="NAD" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="k2" units="second_order_rate_constant" private_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k2</ci>
+            <cn cellml:units="second_order_rate_constant">152</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="v3">
+      <variable name="v3" units="micromolar_per_second" public_interface="out" private_interface="in"/>
+      <variable name="OAA" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="AcCoA" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="k3" units="second_order_rate_constant" private_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k3</ci>
+            <cn cellml:units="second_order_rate_constant">57142</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="v4">
+      <variable name="v4" units="micromolar_per_second" public_interface="out" private_interface="in"/>
+      <variable name="Cit" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="NAD" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="k4" units="second_order_rate_constant" private_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k4</ci>
+            <cn cellml:units="second_order_rate_constant">53</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="v5">
+      <variable name="v5" units="micromolar_per_second" public_interface="out"/>
+      <variable name="ATP" units="micromolar" public_interface="in"/>
+      <variable name="KG" units="micromolar" public_interface="in"/>
+      <variable name="NAD" units="micromolar" public_interface="in"/>
+      <variable name="At" units="millimolar" public_interface="in"/>
+      <variable name="k5" units="third_order_rate_constant"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k5</ci>
+            <cn cellml:units="third_order_rate_constant">82361</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>v5</ci>
+            <apply>
+               <times/>
+               <ci>k5</ci>
+               <ci>KG</ci>
+               <ci>NAD</ci>
+               <apply>
+                  <minus/>
+                  <ci>At</ci>
+                  <ci>ATP</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="v6">
+      <variable name="v6" units="micromolar_per_second" public_interface="out"/>
+      <variable name="OAA" units="micromolar" public_interface="in"/>
+      <variable name="KG" units="micromolar" public_interface="in"/>
+      <variable name="k6" units="first_order_rate_constant"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k6</ci>
+            <cn type="e-notation" cellml:units="first_order_rate_constant">3.2   <sep/>
+            -3</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>v6</ci>
+            <apply>
+               <times/>
+               <ci>k6</ci>
+               <apply>
+                  <minus/>
+                  <ci>OAA</ci>
+                  <ci>KG</ci>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="v7">
+      <variable name="v7" units="micromolar_per_second" public_interface="out" private_interface="in"/>
+      <variable name="Pyr" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="ATP" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="k7" units="second_order_rate_constant" private_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k7</ci>
+            <cn cellml:units="second_order_rate_constant">40</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="v8">
+      <variable name="v8" units="micromolar_per_second" public_interface="out" private_interface="in"/>
+      <variable name="OAA" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="k8" units="first_order_rate_constant" private_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>k8</ci>
+            <cn cellml:units="first_order_rate_constant">3.6</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="vANT">
+      <variable name="vANT" units="micromolar_per_second" public_interface="out" private_interface="in"/>
+      <variable name="ATP" units="micromolar" public_interface="in" private_interface="out"/>
+      <variable name="kANT" units="first_order_rate_constant" private_interface="out"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>kANT</ci>
+            <cn cellml:units="first_order_rate_constant">0.1</cn>
+         </apply>
+      </math>
+   </component>
+   <component name="vleak">
+      <variable name="vleak" units="micromolar_per_second" public_interface="out"/>
+      <variable name="delta_psi" units="millivolt" public_interface="in"/>
+      <variable name="kleak" units="molar_per_millivolt_per_second"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>kleak</ci>
+            <cn cellml:units="molar_per_millivolt_per_second">0.426</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>vleak</ci>
+            <apply>
+               <times/>
+               <ci>kleak</ci>
+               <ci>delta_psi</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="vresp">
+      <variable name="vresp" units="micromolar_per_second" public_interface="out"/>
+      <variable name="NAD" units="micromolar" public_interface="in"/>
+      <variable name="delta_psi" units="millivolt" public_interface="in"/>
+      <variable name="kresp" units="millimolar_per_second" initial_value="2.5"/>
+      <variable name="K" units="millimolar" initial_value="2"/>
+      <variable name="a" units="per_millivolt" initial_value="0.1"/>
+      <variable name="delta_psi_m" units="millivolt" initial_value="150"/>
+      <variable name="Nt" units="millimolar"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>Nt</ci>
+            <cn cellml:units="millimolar">1.07</cn>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>vresp</ci>
+            <apply>
+               <divide/>
+               <apply>
+                  <times/>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <times/>
+                        <ci>kresp</ci>
+                        <apply>
+                           <minus/>
+                           <ci>Nt</ci>
+                           <ci>NAD</ci>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <minus/>
+                        <apply>
+                           <plus/>
+                           <ci>K</ci>
+                           <ci>Nt</ci>
+                        </apply>
+                        <ci>NAD</ci>
+                     </apply>
+                  </apply>
+                  <cn cellml:units="dimensionless">1</cn>
+               </apply>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <exp/>
+                     <apply>
+                        <times/>
+                        <ci>a</ci>
+                        <apply>
+                           <minus/>
+                           <ci>delta_psi</ci>
+                           <ci>delta_psi_m</ci>
+                        </apply>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="vATP">
+      <variable name="vATP" units="micromolar_per_second" public_interface="out"/>
+      <variable name="ATP" units="micromolar" public_interface="in"/>
+      <variable name="ATP_crit_delta_psi" units="micromolar" public_interface="in"/>
+      <variable name="kATP" units="millimolar_per_second" initial_value="131.9"/>
+      <variable name="b" units="per_micromolar" initial_value="4"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>vATP</ci>
+            <apply>
+               <times/>
+               <ci>kATP</ci>
+               <apply>
+                  <minus/>
+                  <apply>
+                     <divide/>
+                     <cn cellml:units="dimensionless">2</cn>
+                     <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                           <exp/>
+                           <apply>
+                              <times/>
+                              <ci>b</ci>
+                              <apply>
+                                 <minus/>
+                                 <ci>ATP</ci>
+                                 <ci>ATP_crit_delta_psi</ci>
+                              </apply>
+                           </apply>
+                        </apply>
+                     </apply>
+                  </apply>
+                  <cn cellml:units="dimensionless">1</cn>
+               </apply>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <component name="ATP_crit_delta_psi">
+      <variable name="ATP_crit_delta_psi" units="micromolar" public_interface="out"/>
+      <variable name="At" units="millimolar" public_interface="in"/>
+      <variable name="delta_psi" units="millivolt" public_interface="in"/>
+      <variable name="R" units="joule_per_mole_kelvin" initial_value="8.314"/>
+      <variable name="T" units="kelvin" initial_value="298"/>
+      <variable name="F" units="coulomb_per_mole" initial_value="96485"/>
+      <variable name="Kapp" units="per_millimolar" initial_value="4.4e-6"/>
+      <variable name="Pi" units="millimolar" initial_value="2.44"/>
+      <variable name="delta_G_transport" units="joule_per_mole"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <ci>ATP_crit_delta_psi</ci>
+            <apply>
+               <divide/>
+               <ci>At</ci>
+               <apply>
+                  <plus/>
+                  <cn cellml:units="dimensionless">1</cn>
+                  <apply>
+                     <divide/>
+                     <apply>
+                        <exp/>
+                        <apply>
+                           <divide/>
+                           <apply>
+                              <times/>
+                              <apply>
+                                 <minus/>
+                                 <cn cellml:units="dimensionless">3</cn>
+                              </apply>
+                              <ci>delta_G_transport</ci>
+                           </apply>
+                           <apply>
+                              <times/>
+                              <ci>R</ci>
+                              <ci>T</ci>
+                           </apply>
+                        </apply>
+                     </apply>
+                     <apply>
+                        <times/>
+                        <ci>Kapp</ci>
+                        <ci>Pi</ci>
+                     </apply>
+                  </apply>
+               </apply>
+            </apply>
+         </apply>
+         <apply>
+            <eq/>
+            <ci>delta_G_transport</ci>
+            <apply>
+               <times/>
+               <cn cellml:units="dimensionless">0.0012</cn>
+               <ci>F</ci>
+               <ci>delta_psi</ci>
+            </apply>
+         </apply>
+      </math>
+   </component>
+   <group>
+      <relationship_ref relationship="encapsulation"/>
+      <component_ref component="v2">
+         <component_ref component="v2_MassActionBiIrrev"/>
+      </component_ref>
+      <component_ref component="v3">
+         <component_ref component="v3_MassActionBiIrrev"/>
+      </component_ref>
+      <component_ref component="v4">
+         <component_ref component="v4_MassActionBiIrrev"/>
+      </component_ref>
+      <component_ref component="v7">
+         <component_ref component="v7_MassActionBiIrrev"/>
+      </component_ref>
+      <component_ref component="v8">
+         <component_ref component="v8_MassActionUniIrrev"/>
+      </component_ref>
+      <component_ref component="vANT">
+         <component_ref component="vANT_MassActionUniIrrev"/>
+      </component_ref>
+   </group>
+   <connection>
+      <map_components component_1="v2" component_2="v2_MassActionBiIrrev"/>
+      <map_variables variable_1="v2" variable_2="J"/>
+      <map_variables variable_1="Pyr" variable_2="S1"/>
+      <map_variables variable_1="NAD" variable_2="S2"/>
+      <map_variables variable_1="k2" variable_2="k_f"/>
+   </connection>
+   <connection>
+      <map_components component_1="v3" component_2="v3_MassActionBiIrrev"/>
+      <map_variables variable_1="v3" variable_2="J"/>
+      <map_variables variable_1="OAA" variable_2="S1"/>
+      <map_variables variable_1="AcCoA" variable_2="S2"/>
+      <map_variables variable_1="k3" variable_2="k_f"/>
+   </connection>
+   <connection>
+      <map_components component_1="v4" component_2="v4_MassActionBiIrrev"/>
+      <map_variables variable_1="v4" variable_2="J"/>
+      <map_variables variable_1="Cit" variable_2="S1"/>
+      <map_variables variable_1="NAD" variable_2="S2"/>
+      <map_variables variable_1="k4" variable_2="k_f"/>
+   </connection>
+   <connection>
+      <map_components component_1="v7" component_2="v7_MassActionBiIrrev"/>
+      <map_variables variable_1="v7" variable_2="J"/>
+      <map_variables variable_1="Pyr" variable_2="S1"/>
+      <map_variables variable_1="ATP" variable_2="S2"/>
+      <map_variables variable_1="k7" variable_2="k_f"/>
+   </connection>
+   <connection>
+      <map_components component_1="v8" component_2="v8_MassActionUniIrrev"/>
+      <map_variables variable_1="v8" variable_2="J"/>
+      <map_variables variable_1="OAA" variable_2="S"/>
+      <map_variables variable_1="k8" variable_2="k_f"/>
+   </connection>
+   <connection>
+      <map_components component_1="vANT" component_2="vANT_MassActionUniIrrev"/>
+      <map_variables variable_1="vANT" variable_2="J"/>
+      <map_variables variable_1="ATP" variable_2="S"/>
+      <map_variables variable_1="kANT" variable_2="k_f"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="v1"/>
+      <map_variables variable_1="v1" variable_2="v1"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="v2"/>
+      <map_variables variable_1="v2" variable_2="v2"/>
+      <map_variables variable_1="Pyr" variable_2="Pyr"/>
+      <map_variables variable_1="NAD" variable_2="NAD"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="v3"/>
+      <map_variables variable_1="v3" variable_2="v3"/>
+      <map_variables variable_1="OAA" variable_2="OAA"/>
+      <map_variables variable_1="AcCoA" variable_2="AcCoA"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="v4"/>
+      <map_variables variable_1="v4" variable_2="v4"/>
+      <map_variables variable_1="Cit" variable_2="Cit"/>
+      <map_variables variable_1="NAD" variable_2="NAD"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="v5"/>
+      <map_variables variable_1="v5" variable_2="v5"/>
+      <map_variables variable_1="ATP" variable_2="ATP"/>
+      <map_variables variable_1="KG" variable_2="KG"/>
+      <map_variables variable_1="NAD" variable_2="NAD"/>
+      <map_variables variable_1="At" variable_2="At"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="v6"/>
+      <map_variables variable_1="v6" variable_2="v6"/>
+      <map_variables variable_1="OAA" variable_2="OAA"/>
+      <map_variables variable_1="KG" variable_2="KG"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="v7"/>
+      <map_variables variable_1="v7" variable_2="v7"/>
+      <map_variables variable_1="Pyr" variable_2="Pyr"/>
+      <map_variables variable_1="ATP" variable_2="ATP"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="v8"/>
+      <map_variables variable_1="v8" variable_2="v8"/>
+      <map_variables variable_1="OAA" variable_2="OAA"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="vANT"/>
+      <map_variables variable_1="vANT" variable_2="vANT"/>
+      <map_variables variable_1="ATP" variable_2="ATP"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="vleak"/>
+      <map_variables variable_1="vleak" variable_2="vleak"/>
+      <map_variables variable_1="delta_psi" variable_2="delta_psi"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="vresp"/>
+      <map_variables variable_1="vresp" variable_2="vresp"/>
+      <map_variables variable_1="NAD" variable_2="NAD"/>
+      <map_variables variable_1="delta_psi" variable_2="delta_psi"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="vATP"/>
+      <map_variables variable_1="vATP" variable_2="vATP"/>
+      <map_variables variable_1="ATP" variable_2="ATP"/>
+   </connection>
+   <connection>
+      <map_components component_1="ATP_crit_delta_psi" component_2="vATP"/>
+      <map_variables variable_1="ATP_crit_delta_psi" variable_2="ATP_crit_delta_psi"/>
+   </connection>
+   <connection>
+      <map_components component_1="Network" component_2="ATP_crit_delta_psi"/>
+      <map_variables variable_1="delta_psi" variable_2="delta_psi"/>
+      <map_variables variable_1="At" variable_2="At"/>
+   </connection>
+</model>

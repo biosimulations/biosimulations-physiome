@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model name="ElectrEcoBluDevice2_ProteinCDS_PhzM" cmeta:id="ElectrEcoBluDevice2_ProteinCDS_PhzM" 
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.0/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+    >
+            
+    <rdf:RDF>
+            <rdf:Description rdf:about="#ElectrEcoBluDevice2_ProteinCDS_PhzM">
+            <dc:creator>
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Mike</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            </vCard:EMAIL>
+            <vCard:ORG rdf:parseType="Resource">
+                <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+            </vCard:ORG>
+            </dc:creator>
+            </rdf:Description>
+   </rdf:RDF>
+
+  <import xlink:href="SVP_Templates200906/Template_ProteinCDS.cellml">
+      <units name="femtoliter" units_ref="femtoliter" />
+      <units name="RiPsInAttoMoles" units_ref="RiPsInAttoMoles" />
+      <units name="nM_per_s" units_ref="nM_per_s" />
+      <component name="Template_ProteinCDS" component_ref="Template_ProteinCDS" />
+  </import>
+
+   <component name="ElectrEcoBluDevice2_ProteinCDS_PhzM">
+      <variable name="localVolume" units="femtoliter" public_interface="in" private_interface="out"/>
+      <variable name="hostRNARiPs" units="RiPsInAttoMoles" public_interface="in" private_interface="out"/>
+      <variable name="J" units="nM_per_s" public_interface="out" private_interface="in"/>
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation" />
+    <component_ref component="ElectrEcoBluDevice2_ProteinCDS_PhzM">
+      <component_ref component="Template_ProteinCDS" />
+    </component_ref>
+   </group> 
+  
+   <connection>
+      <map_components component_1="Template_ProteinCDS" component_2="ElectrEcoBluDevice2_ProteinCDS_PhzM"/>
+      <map_variables variable_1="localVolume" variable_2="localVolume"/>
+      <map_variables variable_1="hostRNARiPs" variable_2="hostRNARiPs"/>
+      <map_variables variable_1="J" variable_2="J"/>
+   </connection>
+
+</model>

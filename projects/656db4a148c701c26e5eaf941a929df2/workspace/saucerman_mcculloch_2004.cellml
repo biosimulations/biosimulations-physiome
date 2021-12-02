@@ -1,0 +1,701 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="saucerman_2004" name="saucerman_2004">
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Mechanistic systems models of cell signaling networks: a case study of myocyte adrenergic regulation</title>
+  <author>
+    <firstname>Catherine</firstname>
+          <surname>Lloyd</surname>
+    <affiliation>
+      <shortaffil>Auckland Bioengineering Institute, The University of Auckland</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+        This CellML model runs in OpenCell (but not in COR due to the presence of circular equations - or DAEs) and the units are balanced. However it does not yet replicate the published results.
+          </para>
+  </section>
+  <sect1 id="sec_structure">
+<title>Model Structure</title>
+
+<para>
+ABSTRACT: Signal transduction networks coordinate a wide variety of cellular functions, including gene expression, metabolism, and cell fate processes. Understanding biological networks quantitatively is a major challenge to post-genomic biology, and mechanistic systems models will be crucial for this task. Here, we review approaches towards developing mechanistic systems models of established cell signaling networks. The ability of mechanistic system models to generate testable biological hypotheses and experimental strategies is discussed. As a case study of model development and analysis, we examined the functional roles of phospholamban, the L-type calcium channel, the ryanodine receptor, and troponin I phosphorylation upon beta-adrenergic stimulation in the rat ventricular myocyte. Model analysis revealed that while protein kinase A-mediated phosphorylation of the ryanodine receptor greatly increases its calcium sensitivity, calcium autoregulation may adapt quickly by negating potential increases in contractility. Systematic combinations of in silico perturbations supported the conclusion that phospholamban phosphoregulation is the primary mechanism for increased sarcoplasmic reticulum load and calcium relaxation rate during beta-adrenergic stimulation, while both phospholamban and the L-type calcium channel contribute to increased systolic calcium. Combined with detailed experimental studies, mechanistic systems models will be valuable for developing a quantitative understanding of cell signaling networks.
+</para>
+
+<para>
+The original paper reference is cited below:
+</para>
+
+<para>
+Mechanistic systems models of cell signalling networks: a case study of nyocyte adrenergic regulation, Jeffrey J. Saucerman and Andrew D. McCulloch, 2000, <emphasis>Progress in Biophysics and Molecular Biology</emphasis>
+          , 11, 369-391.  <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/15142747">PubMed ID: 15142747</ulink>
+</para>
+
+<informalfigure float="0" id="fig_cell_diagram">
+<mediaobject>
+  <imageobject>
+    <objectinfo>
+      <title>cell diagram</title>
+    </objectinfo>
+    <imagedata fileref="saucerman_mcculloch_2004.png"/>
+  </imageobject>
+</mediaobject>
+<caption>Schematic diagram of the beta1-adrenergic signalling ntework and its regulation of rat ventricular myocyte excitation-contraction coupling.</caption>
+</informalfigure>
+
+</sect1>
+</article>
+</documentation>
+  
+  
+  
+  <units name="micromolar">
+    <unit units="mole" prefix="micro"/>
+    <unit units="litre" exponent="-1"/>
+  </units>
+  
+  <units name="first_order_rate_constant">
+    <unit units="second" exponent="-1"/>
+  </units>
+  
+  
+  <component name="environment">
+    <variable units="second" public_interface="out" name="time"/>
+  </component>
+  
+  <component name="PKACII_RyR"> 
+    <variable units="micromolar" public_interface="out" name="PKACII_RyR"/>
+    
+    <variable units="micromolar" name="PKACII_RyRtot" initial_value="0.034"/>
+    
+    <variable units="micromolar" public_interface="in" name="RyR"/>
+    <variable units="micromolar" public_interface="in" name="Ks_RyR_PKAC"/>
+    <variable units="dimensionless" public_interface="in" name="epsilon"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <ci> PKACII_RyR </ci> 
+        <apply>
+          <plus/>
+          <ci> PKACII_RyRtot </ci>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> epsilon </ci>
+              <ci> RyR </ci>
+              <ci> PKACII_RyR </ci>
+            </apply>
+            <ci> Ks_RyR_PKAC </ci>
+          </apply>
+        </apply>
+      </apply> 
+    </math>
+  </component>
+  
+  <component name="PP1_RyR"> 
+    <variable units="micromolar" public_interface="out" name="PP1_RyR"/>
+    
+    <variable units="micromolar" name="PP1_RyRtot" initial_value="0.034"/>
+    
+    <variable units="micromolar" public_interface="in" name="RyRp"/>
+    <variable units="micromolar" public_interface="in" name="Ks_RyR_PP1"/>
+    <variable units="dimensionless" public_interface="in" name="epsilon"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <ci> PP1_RyR </ci> 
+        <apply>
+          <plus/>
+          <ci> PP1_RyRtot </ci>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> epsilon </ci>
+              <ci> RyRp </ci>
+              <ci> PP1_RyR </ci>
+            </apply>
+            <ci> Ks_RyR_PP1 </ci>
+          </apply>
+        </apply>
+      </apply> 
+    </math>
+  </component>
+  
+  <component name="PP2A_RyR"> 
+    <variable units="micromolar" public_interface="out" name="PP2A_RyR"/>
+    
+    <variable units="micromolar" name="PP2A_RyRtot" initial_value="0.034"/>
+    
+    <variable units="micromolar" public_interface="in" name="RyRp"/>
+    <variable units="micromolar" public_interface="in" name="Ks_RyR_PP2A"/>
+    <variable units="dimensionless" public_interface="in" name="epsilon"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <ci> PP2A_RyR </ci> 
+        <apply>
+          <plus/>
+          <ci> PP2A_RyRtot </ci>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> epsilon </ci>
+              <ci> RyRp </ci>
+              <ci> PP2A_RyR </ci>
+            </apply>
+            <ci> Ks_RyR_PP2A </ci>
+          </apply>
+        </apply>
+      </apply> 
+    </math>
+  </component>
+  
+  <component name="RyR"> 
+    <variable units="micromolar" public_interface="out" name="RyR"/>
+    
+    <variable units="micromolar" public_interface="in" name="RyRtot"/>
+    <variable units="micromolar" public_interface="in" name="PKACII_RyR"/>
+    <variable units="micromolar" public_interface="in" name="Ks_RyR_PKAC"/>
+    <variable units="dimensionless" public_interface="in" name="epsilon"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <ci> RyR </ci> 
+        <apply>
+          <plus/>
+          <ci> RyRtot </ci>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> epsilon </ci>
+              <ci> RyR </ci>
+              <ci> PKACII_RyR </ci>
+            </apply>
+            <ci> Ks_RyR_PKAC </ci>
+          </apply>
+        </apply>
+      </apply> 
+    </math>
+  </component>
+  
+  <component name="RyRp"> 
+    <variable units="micromolar" public_interface="out" name="RyRp"/>
+    
+    <variable units="micromolar" public_interface="in" name="RyRptot"/>
+    <variable units="micromolar" public_interface="in" name="PP1_RyR"/>
+    <variable units="micromolar" public_interface="in" name="PP2A_RyR"/>
+    <variable units="micromolar" public_interface="in" name="Ks_RyR_PP1"/>
+    <variable units="micromolar" public_interface="in" name="Ks_RyR_PP2A"/>
+    <variable units="dimensionless" public_interface="in" name="epsilon"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <ci> RyRp </ci> 
+        <apply>
+          <plus/>
+          <ci> RyRptot </ci>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> epsilon </ci>
+              <ci> RyRp </ci>
+              <ci> PP1_RyR </ci>
+            </apply>
+            <ci> Ks_RyR_PP1 </ci>
+          </apply>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> epsilon </ci>
+              <ci> RyRp </ci>
+              <ci> PP2A_RyR </ci>
+            </apply>
+            <ci> Ks_RyR_PP2A </ci>
+          </apply>
+        </apply>
+      </apply> 
+    </math>
+  </component>
+  
+  <component name="RyRtot"> 
+    <variable units="micromolar" public_interface="out" name="RyRtot"/>
+    
+    <variable units="micromolar" public_interface="in" name="RyRsum"/>
+    <variable units="micromolar" public_interface="in" name="RyRptot"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <ci> RyRtot </ci> 
+        <apply>
+          <minus/>
+          <ci> RyRsum </ci>
+          <ci> RyRptot </ci>
+        </apply>
+      </apply> 
+    </math>
+  </component>
+    
+  <component name="RyRptot"> 
+    <variable units="micromolar" public_interface="out" name="RyRptot" initial_value="1.0"/>
+    
+    <variable units="first_order_rate_constant" name="kPKA_RyR" initial_value="54.0"/>
+    <variable units="first_order_rate_constant" name="kPP1_RyR" initial_value="8.52"/>
+    <variable units="first_order_rate_constant" name="kPP2A_RyR" initial_value="10.1"/>
+    
+    <variable units="micromolar" public_interface="in" name="RyR"/>
+    <variable units="micromolar" public_interface="in" name="RyRp"/>
+    <variable units="micromolar" public_interface="in" name="PP1_RyR"/>
+    <variable units="micromolar" public_interface="in" name="PP2A_RyR"/>
+    <variable units="micromolar" public_interface="in" name="PKACII_RyR"/>
+    <variable units="micromolar" public_interface="in" name="Ks_RyR_PP1"/>
+    <variable units="micromolar" public_interface="in" name="Ks_RyR_PP2A"/>
+    <variable units="micromolar" public_interface="in" name="Ks_RyR_PKAC"/>
+    <variable units="dimensionless" public_interface="in" name="epsilon"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>RyRptot</ci> 
+        </apply>  
+        <apply>
+          <minus/>
+          <apply>
+            <times/>
+            <ci> kPKA_RyR </ci>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> epsilon </ci>
+                <ci> RyR </ci>
+                <ci> PKACII_RyR </ci>
+              </apply>
+              <ci> Ks_RyR_PKAC </ci>
+            </apply>
+          </apply>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> kPP1_RyR </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> epsilon </ci>
+                  <ci> RyRp </ci>
+                  <ci> PP1_RyR </ci>
+                </apply>
+                <ci> Ks_RyR_PP1 </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> kPP2A_RyR </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> epsilon </ci>
+                  <ci> RyRp </ci>
+                  <ci> PP2A_RyR </ci>
+                </apply>
+                <ci> Ks_RyR_PP2A </ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply> 
+    </math>
+  </component>
+  
+  <component name="KMrel"> 
+    <variable units="micromolar" public_interface="out" name="KMrel"/>
+    
+    <variable units="micromolar" name="KMrel0" initial_value="1.0"/>
+    
+    <variable units="micromolar" public_interface="in" name="RyRsum"/>
+    <variable units="micromolar" public_interface="in" name="RyRptot"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <ci> KMrel </ci> 
+        <apply>
+          <times/>
+          <apply>
+            <divide/>
+            <cn cellml:units="dimensionless"> 1.64 </cn>
+            <apply>
+              <plus/>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
+              <apply>
+                <divide/>
+                <ci> RyRptot </ci>
+                <ci> RyRsum </ci>
+              </apply>
+            </apply>
+          </apply>
+          <ci> KMrel0 </ci>
+        </apply>  
+      </apply> 
+    </math>
+  </component>
+  
+  <component name="TnI"> 
+    <variable units="micromolar" public_interface="out" name="TnI"/>
+    
+    <variable units="micromolar" public_interface="in" name="TnItot"/>
+    <variable units="micromolar" public_interface="in" name="TnIp"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <ci> TnI </ci> 
+        <apply>
+          <minus/>
+          <ci> TnItot </ci>
+          <ci> TnIp </ci>
+        </apply>
+      </apply> 
+    </math>
+  </component>
+    
+  <component name="TnIp"> 
+    <variable units="micromolar" public_interface="out" name="TnIp" initial_value="1.0"/>
+    
+    <variable units="first_order_rate_constant" name="kPKA_TnI" initial_value="54.0"/>
+    <variable units="first_order_rate_constant" name="kPP2A_TnI" initial_value="10.1"/>
+    <variable units="micromolar" name="KM_PKA_TnI" initial_value="21.0"/>
+    <variable units="micromolar" name="KM_PP2A_TnI" initial_value="3.0"/>
+    <variable units="micromolar" name="PKAC" initial_value="1.0"/>
+    <variable units="micromolar" name="PP2A" initial_value="1.0"/>
+    
+    <variable units="micromolar" public_interface="in" name="TnI"/>
+    <variable units="second" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci>TnIp</ci> 
+        </apply>  
+        <apply>
+          <minus/>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> kPKA_TnI </ci>
+              <ci> PKAC </ci>
+              <ci> TnI </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> KM_PKA_TnI </ci>
+              <ci> TnIp </ci>
+            </apply> 
+          </apply>
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> kPP2A_TnI </ci>
+              <ci> PP2A </ci>
+              <ci> TnIp </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> KM_PP2A_TnI </ci>
+              <ci> TnIp </ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply> 
+    </math>
+  </component>
+  
+  <component name="KMTnC"> 
+    <variable units="micromolar" public_interface="out" name="KMTnC"/>
+    
+    <variable units="micromolar" name="KMTnC0" initial_value="1.0"/>
+    
+    <variable units="micromolar" public_interface="in" name="TnIp"/>
+    <variable units="micromolar" public_interface="in" name="TnItot"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <eq/> 
+        <ci> KMTnC </ci> 
+        <apply>
+          <times/>
+          <apply>
+            <plus/>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 0.45 </cn>
+            <apply>
+              <divide/>
+              <ci> TnIp </ci>
+              <ci> TnItot </ci>
+            </apply>
+          </apply>
+          <ci> KMTnC0 </ci>
+        </apply>  
+      </apply> 
+    </math>
+  </component>
+  
+  <component name="kinetic_parameters"> 
+    <variable units="dimensionless" public_interface="out" name="epsilon" initial_value="10.0"/>
+    <variable units="micromolar" public_interface="out" name="RyRsum" initial_value="0.135"/>
+    <variable units="micromolar" public_interface="out" name="Ks_RyR_PKAC" initial_value="21.0"/>
+    <variable units="micromolar" public_interface="out" name="Ks_RyR_PP1" initial_value="7.0"/>
+    <variable units="micromolar" public_interface="out" name="Ks_RyR_PP2A" initial_value="4.1"/>
+    <variable units="micromolar" public_interface="out" name="TnItot" initial_value="70.0"/>
+  </component>
+  
+  
+  <connection>
+    <map_components component_2="environment" component_1="RyRptot"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="environment" component_1="TnIp"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="RyR" component_1="PKACII_RyR"/>
+    <map_variables variable_2="RyR" variable_1="RyR"/>
+    <map_variables variable_2="PKACII_RyR" variable_1="PKACII_RyR"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="PKACII_RyR"/>
+    <map_variables variable_2="epsilon" variable_1="epsilon"/>
+    <map_variables variable_2="Ks_RyR_PKAC" variable_1="Ks_RyR_PKAC"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="RyRp" component_1="PP1_RyR"/>
+    <map_variables variable_2="RyRp" variable_1="RyRp"/>
+    <map_variables variable_2="PP1_RyR" variable_1="PP1_RyR"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="PP1_RyR"/>
+    <map_variables variable_2="epsilon" variable_1="epsilon"/>
+    <map_variables variable_2="Ks_RyR_PP1" variable_1="Ks_RyR_PP1"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="RyRp" component_1="PP2A_RyR"/>
+    <map_variables variable_2="RyRp" variable_1="RyRp"/>
+    <map_variables variable_2="PP2A_RyR" variable_1="PP2A_RyR"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="PP2A_RyR"/>
+    <map_variables variable_2="epsilon" variable_1="epsilon"/>
+    <map_variables variable_2="Ks_RyR_PP2A" variable_1="Ks_RyR_PP2A"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="RyR"/>
+    <map_variables variable_2="epsilon" variable_1="epsilon"/>
+    <map_variables variable_2="Ks_RyR_PKAC" variable_1="Ks_RyR_PKAC"/>
+  </connection>
+ 
+  <connection>
+    <map_components component_2="RyRptot" component_1="RyRp"/>
+    <map_variables variable_2="RyRptot" variable_1="RyRptot"/>
+    <map_variables variable_2="RyRp" variable_1="RyRp"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="RyRp"/>
+    <map_variables variable_2="epsilon" variable_1="epsilon"/>
+    <map_variables variable_2="Ks_RyR_PP2A" variable_1="Ks_RyR_PP2A"/>
+    <map_variables variable_2="Ks_RyR_PP1" variable_1="Ks_RyR_PP1"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="RyR" component_1="RyRptot"/>
+    <map_variables variable_2="RyR" variable_1="RyR"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="RyR" component_1="RyRtot"/>
+    <map_variables variable_2="RyRtot" variable_1="RyRtot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="PKACII_RyR" component_1="RyRptot"/>
+    <map_variables variable_2="PKACII_RyR" variable_1="PKACII_RyR"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="PP1_RyR" component_1="RyRptot"/>
+    <map_variables variable_2="PP1_RyR" variable_1="PP1_RyR"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="PP2A_RyR" component_1="RyRptot"/>
+    <map_variables variable_2="PP2A_RyR" variable_1="PP2A_RyR"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="RyRptot"/>
+    <map_variables variable_2="epsilon" variable_1="epsilon"/>
+    <map_variables variable_2="Ks_RyR_PKAC" variable_1="Ks_RyR_PKAC"/>
+    <map_variables variable_2="Ks_RyR_PP2A" variable_1="Ks_RyR_PP2A"/>
+    <map_variables variable_2="Ks_RyR_PP1" variable_1="Ks_RyR_PP1"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="RyRptot" component_1="RyRtot"/>
+    <map_variables variable_2="RyRptot" variable_1="RyRptot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="RyRtot"/>
+    <map_variables variable_2="RyRsum" variable_1="RyRsum"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="KMrel"/>
+    <map_variables variable_2="RyRsum" variable_1="RyRsum"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="RyRptot" component_1="KMrel"/>
+    <map_variables variable_2="RyRptot" variable_1="RyRptot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="TnI" component_1="TnIp"/>
+    <map_variables variable_2="TnI" variable_1="TnI"/>
+    <map_variables variable_2="TnIp" variable_1="TnIp"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="TnI"/>
+    <map_variables variable_2="TnItot" variable_1="TnItot"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="TnIp" component_1="KMTnC"/>
+    <map_variables variable_2="TnIp" variable_1="TnIp"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="kinetic_parameters" component_1="KMTnC"/>
+    <map_variables variable_2="TnItot" variable_1="TnItot"/>
+  </connection>
+  
+
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    
+	<rdf:Description rdf:about="">
+      <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Lloyd</vCard:Family>
+          <vCard:Given>Catherine</vCard:Given>
+		  <vCard:Other>May</vCard:Other>
+        </vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>The University of Auckland</vCard:Orgname>
+          <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+    </rdf:Description>
+    
+    <rdf:Description rdf:about="#saucerman_2004">
+      <cmeta:bio_entity>cardiac mycocyte</cmeta:bio_entity>
+      
+      <bqs:reference rdf:parseType="Resource">
+        <dc:subject rdf:parseType="Resource">
+          <bqs:subject_type>keyword</bqs:subject_type>
+          <rdf:value>
+            <rdf:Bag>
+              <rdf:li>electrophysiology</rdf:li>
+			  <rdf:li>signal transduction</rdf:li>
+			  <rdf:li>cardiac</rdf:li>
+            </rdf:Bag>
+          </rdf:value>
+        </dc:subject>
+      </bqs:reference>
+
+      <bqs:reference rdf:parseType="Resource">
+        <bqs:Pubmed_id>15142747</bqs:Pubmed_id>
+        <bqs:JournalArticle rdf:parseType="Resource">
+          <dc:creator>
+            <rdf:Seq>
+              <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>Saucerman</vCard:Family>
+                    <vCard:Given>J</vCard:Given>
+					<vCard:Other>J</vCard:Other>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			  <rdf:li rdf:parseType="Resource">
+                <bqs:Person rdf:parseType="Resource">
+                  <vCard:N rdf:parseType="Resource">
+                    <vCard:Family>McCulloch</vCard:Family>
+                    <vCard:Given>A</vCard:Given>
+					<vCard:Other>D</vCard:Other>
+                  </vCard:N>
+                </bqs:Person>
+              </rdf:li>
+			</rdf:Seq>
+          </dc:creator>
+          <dc:title>
+            Mechanistic systems models of cell signaling networks: a case study of myocyte adrenergic regulation
+          </dc:title>
+          <dcterms:issued rdf:parseType="Resource">
+            <dcterms:W3CDTF>2004-06</dcterms:W3CDTF>
+          </dcterms:issued>
+          <bqs:Journal rdf:parseType="Resource">
+            <dc:title>Progress in Biophysics and Molecular Biology</dc:title>
+          </bqs:Journal>
+		  <bqs:volume>85</bqs:volume>
+          <bqs:first_page>261</bqs:first_page>
+          <bqs:last_page>278</bqs:last_page>
+        </bqs:JournalArticle>
+      </bqs:reference>
+    </rdf:Description>
+  </rdf:RDF>
+</model>

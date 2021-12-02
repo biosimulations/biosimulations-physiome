@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="MainDVad" name="MainDVad">
+
+<documentation xmlns="http://cellml.org/tmp-documentation">
+    <article>
+      <articleinfo>
+        <title>Lumped-parameter model of the systemic circulation with displacement pump VAD support</title>
+        <author>
+          <firstname>Yubing</firstname>
+          <surname>Shi</surname>
+          <affiliation>
+            <shortaffil>Sheffield University</shortaffil>
+          </affiliation>
+        </author>
+      </articleinfo>
+      <section id="sec_status">
+        <title>Model Status</title>
+        <para>
+            This model describes the human cardiovascular dynamics under a displacement pump type ventricular assist device (VAD) support using lumped-parameter modelling, based on the concept of hydraulic-electric analogue. The original model was implemented using C language. Due to the difference of description language and procedural language, some features such as the heart valve dynamics can not be realised effectively, and have to be simplified in the current CellML implementation.</para>
+			<para> The current CellML model implementation runs in OpenCell. The results have been validated against the original C implementation as well as those published data in literature.
+</para>
+
+      </section>
+      <sect1 id="sec_structure">
+        <title>Model Structure</title>
+        <para>
+The model comprises three main parts: the heart, the systemic loop, and the displacement pump VAD, as illustrated in Fig. 1.  The heart is modelled as a two-chambered pump with variable elastance and two heart valves to control the direction of blood flow. The systemic loop is sub-divided into a number of segments, namely: the aortic sinus, artery, arteriole, capillary and vein segments. In each segment, individual components are modelled by representations of the local resistance to blood flow, vessel elasticity and the inertia of the blood. The displacement pump VAD is described by prescribed pump inlet/outlet flow changes.
+</para>
+
+<informalfigure float="0" id="system_configuration">
+<mediaobject>
+  <imageobject>
+    <imagedata fileref="dvad.png"/>
+  </imageobject>
+</mediaobject>
+<caption>Schematic of the system configuration of the cardiovascular model</caption>
+</informalfigure>
+
+<para>
+The complete original model was presented in the following papers:
+</para>
+
+<para>
+A concentrated parameter model for the human cardiovascular system including heart valve dynamics and atrioventricular interaction, Korakianitis T, Shi Y, 2006. <emphasis>Medical Engineering and Physics</emphasis> 28, 613-28, <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/16293439">PubMed ID: 16293439</ulink>.</para>
+
+<para>
+Numerical simulation of cardiovascular dynamics with different types of VAD assistance, Shi Y, Korakianitis T, Bowles C, 2007. <emphasis>Journal of Biomechanics</emphasis> 40(13), 2919-2933, <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/17433816">PubMed ID: 17433816</ulink>.
+</para>
+
+      </sect1>
+    </article>
+  </documentation>
+
+<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Units.cellml">
+<units name="UnitP" units_ref="UnitP"/>
+<units name="UnitQ" units_ref="UnitQ"/>
+</import>
+
+<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ModelLeftHeartT.cellml">
+<component component_ref="LeftHeart" name="LHeart"/>
+</import>
+
+<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ModelSysT.cellml">
+<component component_ref="ModelSysT" name="Vessel"/>
+</import>
+
+<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ModelDPump.cellml"><component component_ref="ModelDPump" name="Vad"/>
+</import>
+
+<component name="environment">
+<variable cmeta:id="environment_t" name="t" public_interface="out" units="second"/>
+</component>
+
+<connection>
+<map_components component_1="environment" component_2="LHeart"/>
+<map_variables variable_1="t" variable_2="t"/>
+</connection>
+
+<connection>
+<map_components component_1="environment" component_2="Vad"/>
+<map_variables variable_1="t" variable_2="t"/>
+</connection>
+
+<connection>
+<map_components component_1="environment" component_2="Vessel"/>
+<map_variables variable_1="t" variable_2="t"/>
+</connection>
+
+<connection>
+<map_components component_1="LHeart" component_2="Vessel"/>
+<map_variables variable_1="Po" variable_2="Pi"/>
+<map_variables variable_1="Qo" variable_2="Qi"/>
+<map_variables variable_1="Pi" variable_2="Po"/>
+<map_variables variable_1="Qi" variable_2="Qo"/>
+</connection>
+
+<connection>
+<map_components component_1="Vad" component_2="LHeart"/>
+<map_variables variable_1="Qvi" variable_2="Qm"/>
+</connection>
+
+<connection>
+<map_components component_1="Vad" component_2="Vessel"/>
+<map_variables variable_1="Qvo" variable_2="Qm"/>
+</connection>
+
+  
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:nodeID="n1"><rdf:_1><rdf:Description rdf:nodeID="n2"/></rdf:_1><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/></rdf:type><rdf:_2><rdf:Description rdf:nodeID="n3"/></rdf:_2></rdf:Description><rdf:Description rdf:nodeID="n4"><rdf:rest><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></rdf:rest><rdf:first><rdf:Description rdf:nodeID="n5"/></rdf:first></rdf:Description><rdf:Description rdf:nodeID="n6"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n7"/></N></rdf:Description><rdf:Description rdf:nodeID="n2"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n8"/></N><ORG xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n9"/></ORG></rdf:Description><rdf:Description rdf:nodeID="n10"><rdf:_1><rdf:Description rdf:nodeID="n11"/></rdf:_1><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/></rdf:type><rdf:_2><rdf:Description rdf:nodeID="n12"/></rdf:_2></rdf:Description><rdf:Description rdf:nodeID="n13"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Y</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Shi</Family></rdf:Description><rdf:Description rdf:nodeID="n14"><rdf:_1><rdf:Description rdf:nodeID="n15"/></rdf:_1><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/></rdf:type><rdf:_2><rdf:Description rdf:nodeID="n16"/></rdf:_2><rdf:_3><rdf:Description rdf:nodeID="n17"/></rdf:_3></rdf:Description><rdf:Description rdf:nodeID="n17"><Person xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n6"/></Person></rdf:Description><rdf:Description rdf:about="#MainDVad"><reference xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n18"/></reference><reference xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n19"/></reference><reference xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n20"/></reference><simulation xmlns="http://www.cellml.org/metadata/simulation/1.0#"><rdf:Description rdf:nodeID="n21"/></simulation></rdf:Description><rdf:Description rdf:nodeID="n21"><boundIntervals xmlns="http://www.cellml.org/metadata/simulation/1.0#"><rdf:Description rdf:nodeID="n4"/></boundIntervals></rdf:Description><rdf:Description rdf:nodeID="n7"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">C</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Bowles</Family></rdf:Description><rdf:Description rdf:nodeID="n12"><Person xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n22"/></Person></rdf:Description><rdf:Description rdf:nodeID="n23"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">
+            Numerical simulation of cardiovascular dynamics with different types of VAD assistance
+          </title><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:nodeID="n14"/></creator><first_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">2919</first_page><last_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">2933</last_page><Journal xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n24"/></Journal><issued xmlns="http://purl.org/dc/terms/"><rdf:Description rdf:nodeID="n25"/></issued><volume xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">40</volume></rdf:Description><rdf:Description rdf:nodeID="n25"><W3CDTF xmlns="http://purl.org/dc/terms/" xml:lang="en">2007</W3CDTF></rdf:Description><rdf:Description rdf:nodeID="n8"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Yubing</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Shi</Family></rdf:Description><rdf:Description rdf:nodeID="n18"><Pubmed_id xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">16293439</Pubmed_id><JournalArticle xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n26"/></JournalArticle></rdf:Description><rdf:Description rdf:nodeID="n3"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n27"/></N><ORG xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n28"/></ORG></rdf:Description><rdf:Description rdf:nodeID="n29"><rdf:_1 xml:lang="en">cardiac</rdf:_1><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/></rdf:type><rdf:_2 xml:lang="en">cardiovascular circulation</rdf:_2></rdf:Description><rdf:Description rdf:nodeID="n30"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n31"/></N></rdf:Description><rdf:Description rdf:nodeID="n32"><W3CDTF xmlns="http://purl.org/dc/terms/" xml:lang="en">2006</W3CDTF></rdf:Description><rdf:Description rdf:nodeID="n19"><subject xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:nodeID="n33"/></subject></rdf:Description><rdf:Description rdf:about=""><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Lumped-parameter model of the systemic circulation with displacement pump VAD support</title><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:nodeID="n1"/></creator></rdf:Description><rdf:Description rdf:nodeID="n16"><Person xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n34"/></Person></rdf:Description><rdf:Description rdf:nodeID="n27"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Rod</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Hose</Family></rdf:Description><rdf:Description rdf:nodeID="n11"><Person xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n30"/></Person></rdf:Description><rdf:Description rdf:nodeID="n33"><rdf:value><rdf:Description rdf:nodeID="n29"/></rdf:value><subject_type xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">keyword</subject_type></rdf:Description><rdf:Description rdf:nodeID="n35"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">T</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Korakianitis</Family></rdf:Description><rdf:Description rdf:nodeID="n9"><Orgname xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">The University of Sheffield</Orgname></rdf:Description><rdf:Description rdf:nodeID="n31"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">T</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Korakianitis</Family></rdf:Description><rdf:Description rdf:nodeID="n15"><Person xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n36"/></Person></rdf:Description><rdf:Description rdf:nodeID="n22"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n37"/></N></rdf:Description><rdf:Description rdf:nodeID="n36"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n13"/></N></rdf:Description><rdf:Description rdf:nodeID="n37"><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Y</Given><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Shi</Family></rdf:Description><rdf:Description rdf:nodeID="n26"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">
+            A concentrated parameter model for the human cardiovascular system including heart valve dynamics and atrioventricular interaction
+          </title><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:nodeID="n10"/></creator><first_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">613</first_page><last_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">628</last_page><Journal xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n38"/></Journal><issued xmlns="http://purl.org/dc/terms/"><rdf:Description rdf:nodeID="n32"/></issued><volume xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">28</volume></rdf:Description><rdf:Description rdf:nodeID="n20"><Pubmed_id xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">17433816</Pubmed_id><JournalArticle xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:nodeID="n23"/></JournalArticle></rdf:Description><rdf:Description rdf:nodeID="n24"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Journal of Biomechanics</title></rdf:Description><rdf:Description rdf:nodeID="n5"><pointDensity xmlns="http://www.cellml.org/metadata/simulation/1.0#nonstandard-" xml:lang="en">10000</pointDensity><maximumStepSize xmlns="http://www.cellml.org/metadata/simulation/1.0#" xml:lang="en">0.1</maximumStepSize><endingValue xmlns="http://www.cellml.org/metadata/simulation/1.0#" xml:lang="en">2</endingValue></rdf:Description><rdf:Description rdf:nodeID="n34"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:nodeID="n35"/></N></rdf:Description><rdf:Description rdf:nodeID="n38"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Medical Engineering and Physics</title></rdf:Description><rdf:Description rdf:nodeID="n28"><Orgname xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">The University of Sheffield</Orgname></rdf:Description></rdf:RDF></model>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Current_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+    </import>
+    <component name="gating_rel">
+        <variable name="ca_SR" public_interface="in" units="dimensionless"/>
+        <variable initial_value="643751.68" name="koCa" public_interface="out" units="dimensionless"/>
+        <variable initial_value="18.495" name="kiCa" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0.45" name="ec50SR" public_interface="out" units="dimensionless"/>
+        <variable initial_value="15" name="MaxSR" public_interface="out" units="dimensionless"/>
+        <variable initial_value="1" name="MinSR" public_interface="out" units="dimensionless"/>
+        <variable name="kCaSR" public_interface="out" units="dimensionless"/>
+        <variable name="koSRCa" public_interface="out" units="dimensionless"/>
+        <variable name="kiSRCa" public_interface="out" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>kCaSR</ci>
+                <apply>
+                    <minus/>
+                    <ci>MaxSR</ci>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <minus/>
+                            <ci>MaxSR</ci>
+                            <ci>MinSR</ci>
+                        </apply>
+                        <apply>
+                            <plus/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <apply>
+                                <power/>
+                                <apply>
+                                    <divide/>
+                                    <ci>ec50SR</ci>
+                                    <ci>ca_SR</ci>
+                                </apply>
+                                <cn cellml:units="dimensionless">2.5</cn>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>koSRCa</ci>
+                <apply>
+                    <divide/>
+                    <ci>koCa</ci>
+                    <ci>kCaSR</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>kiSRCa</ci>
+                <apply>
+                    <times/>
+                    <ci>kiCa</ci>
+                    <ci>kCaSR</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model 
+	name="volume_receptors_model"
+	cmeta:id="volume_receptors_model"
+	
+	xmlns="http://www.cellml.org/cellml/1.1#"
+	xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+	xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+		<rdf:Description rdf:about="#volume_receptors_model">
+			<rdf:value>
+			The volume receptor nervous feedback mechanism:
+			The volume receptors are considered to be activated by right atrial pressure (PRA), 
+			and feedback is provided to control non-muscle arterial resistance and venous tone.
+			</rdf:value>
+		</rdf:Description>
+	</rdf:RDF>
+
+<!-- =============================================	Import the required units from the Units file	==================================================== -->
+	<import xlink:href="units.cellml">
+		<units name="minute" units_ref="minute"/>
+		<units name="per_minute" units_ref="per_minute"/>
+		<units name="beats_per_minute" units_ref="beats_per_minute"/>
+		<units name="beats_per_minute_per_mmHg" units_ref="beats_per_minute_per_mmHg"/>
+		<units name="minute_per_L" units_ref="minute_per_L"/>
+		<units name="mmHg" units_ref="mmHg"/>
+		<units name="per_mmHg" units_ref="per_mmHg"/>
+		<units name="mmHg_per_mL" units_ref="mmHg_per_mL"/>
+		<units name="mmHg_L" units_ref="mmHg_L"/>
+		<units name="per_mmHg2" units_ref="per_mmHg2"/>
+		<units name="mmHg3" units_ref="mmHg3"/>
+		<units name="monovalent_mEq" units_ref="monovalent_mEq"/>
+		<units name="monovalent_mEq_per_minute" units_ref="monovalent_mEq_per_minute"/>
+		<units name="monovalent_mEq_per_litre" units_ref="monovalent_mEq_per_litre"/>
+		<units name="mOsm" units_ref="mOsm"/>
+		<units name="mOsm_per_litre" units_ref="mOsm_per_litre"/>
+		<units name="mOsm_per_minute" units_ref="mOsm_per_minute"/>
+		<units name="monovalent_mEq_per_litre_per_minute" units_ref="monovalent_mEq_per_litre_per_minute"/>
+		<units name="litre2_per_monovalent_mEq_per_minute" units_ref="litre2_per_monovalent_mEq_per_minute"/>
+		<units name="L_per_minute" units_ref="L_per_minute"/>
+		<units name="per_mmHg_per_minute" units_ref="per_mmHg_per_minute"/>
+		<units name="mL" units_ref="mL"/>
+		<units name="gram_per_L" units_ref="gram_per_L"/>
+		<units name="L_mmHg_per_gram" units_ref="L_mmHg_per_gram"/>
+		<units name="L2_mmHg_per_gram2" units_ref="L2_mmHg_per_gram2"/>
+		<units name="mmHg_minute_per_L" units_ref="mmHg_minute_per_L"/>
+		<units name="mmHg_L_per_minute" units_ref="mmHg_L_per_minute"/>
+		<units name="gram_per_minute" units_ref="gram_per_minute"/>
+		<units name="mL_per_L" units_ref="mL_per_L"/>
+		<units name="mL_per_L_per_mmHg" units_ref="mL_per_L_per_mmHg"/>
+		<units name="mL_per_L_per_minute" units_ref="mL_per_L_per_minute"/>
+		<units name="mL_per_minute_per_mmHg" units_ref="mL_per_minute_per_mmHg"/>
+		<units name="L_mL_per_minute_per_mmHg" units_ref="L_mL_per_minute_per_mmHg"/>
+		<units name="L_per_mL" units_ref="L_per_mL"/>
+		<units name="L_per_mmHg" units_ref="L_per_mmHg"/>
+		<units name="mL_per_minute" units_ref="mL_per_minute"/>
+		<units name="L_per_minute_per_mmHg" units_ref="L_per_minute_per_mmHg"/>
+		<units name="L_per_minute_per_mmHg2" units_ref="L_per_minute_per_mmHg2"/>
+	</import>
+
+<!-- =====================================	Import all Parameters and State Variables from the Parameter file	============================================== -->
+	<import xlink:href="parameters.cellml">
+		<component component_ref="parameter_values" name="parameter_values"/>
+		<component component_ref="state_variables" name="state_variables"/>
+	</import>
+
+<!-- ========================================	VOLUME RECEPTORS TOP-LEVEL COMPONENT	============================================= -->
+	<component 	name="volume_receptors" 
+				cmeta:id="volume_receptors">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#volume_receptors">
+				<rdf:value>
+				Encapsulation grouping component containing all the components in the Volume Receptors Model. The inputs and 
+				outputs of the Volume Receptors Model must be passed by this component.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+
+		<variable name="time"	units="minute"	private_interface="out" public_interface="in"/>
+
+<!-- Inputs from components in other models -->
+		<variable name="PRA"	units="mmHg" private_interface="out" public_interface="in"/>
+
+<!-- Outputs to components in other models -->
+		<variable name="ATRRFB" 	units="dimensionless" private_interface="in" public_interface="out"/>
+		<variable name="ATRVFB" 	units="litre" private_interface="in" public_interface="out"/>
+	</component>
+
+<!-- OUTPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="volume_receptors" component_2="volume_effect_on_arteries"/>
+		<map_variables variable_1="ATRRFB" variable_2="ATRRFB"/>
+	</connection>
+	<connection>
+		<map_components component_1="volume_receptors" component_2="volume_effect_on_unstressed_venous_volume"/>
+		<map_variables variable_1="ATRVFB" variable_2="ATRVFB"/>
+	</connection>
+
+<!-- ========================================	EFFECT OF PRESSURE ON VOLUME RECEPTORS	============================================= -->
+	<component 	name="effect_of_pressure_on_volume_receptors" 
+				cmeta:id="effect_of_pressure_on_volume_receptors">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#effect_of_pressure_on_volume_receptors">
+				<rdf:value>
+				VR1 and VR2:  
+				The function curve in Block VR1 and sensitivity control in VR2 (controlled by 
+				variable AH9) provide a relationship between right atrial pressure (PRA) and an 
+				intermediate factor (AHZ) that controls the degree of nervous feedback.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#VR1_and_VR2">
+				<rdf:value>
+				VR1 and VR2:  
+				The function curve in Block VR1 and sensitivity control in VR2 (controlled by 
+				variable AH9) provide a relationship between right atrial pressure (PRA) and an 
+				intermediate factor (AHZ) that controls the degree of nervous feedback.
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#VR1_cont">
+				<rdf:value>
+				VR1 and VR2:  
+				The function curve in Block VR1 and sensitivity control in VR2 (controlled by 
+				variable AH9) provide a relationship between right atrial pressure (PRA) and an 
+				intermediate factor (AHZ) that controls the degree of nervous feedback.
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="PRA"	units="mmHg" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="AHZ" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="AH10"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="AH9"	units="per_mmHg" private_interface="none" public_interface="in"/>
+
+<!-- Internal variables -->
+		<variable name="AHZ1"	units="dimensionless" private_interface="none" public_interface="none"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="VR1_and_VR2">
+				<eq/>
+				<ci>AHZ1</ci>
+				<apply>
+					<times/>
+					<apply>
+						<power/>
+						<apply>
+							<abs/>
+							<ci>PRA</ci>
+						</apply>
+						<ci>AH10</ci>
+					</apply>
+					<ci>AH9</ci>
+				</apply>
+			</apply>
+			<apply id="VR1_cont">
+				<eq/>
+				<ci>AHZ</ci>
+				<piecewise>
+					<piece>
+						<apply>
+							<minus/>
+							<ci>AHZ1</ci>
+						</apply>
+						<apply>
+							<lt/>
+							<ci>PRA</ci>
+							<cn cellml:units="mmHg">0</cn>
+						</apply>
+					</piece>
+					<otherwise>
+						<ci>AHZ1</ci>
+					</otherwise>
+				</piecewise>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="effect_of_pressure_on_volume_receptors" component_2="volume_receptors"/>
+		<map_variables variable_1="PRA" variable_2="PRA"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="effect_of_pressure_on_volume_receptors" component_2="parameter_values"/>
+		<map_variables variable_1="AH9" variable_2="AH9"/>
+		<map_variables variable_1="AH10" variable_2="AH10"/>
+	</connection>
+
+<!-- ========================================	TIME-DEPENDENT VOLUME RECEPTOR ADAPTATION	============================================= -->
+	<component 	name="time_dependent_volume_receptor_adaptation" 
+				cmeta:id="time_dependent_volume_receptor_adaptation">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#time_dependent_volume_receptor_adaptation">
+				<rdf:value>
+				VR3, VR4, and VR5:  
+				Series of blocks to provide autoresetting of the volume receptors back 
+				toward zero with time.  The degree of reset is the variable (AHY), and 
+				the time constant for resetting is the variable (AH11).  
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#VR3_to_VR5">
+				<rdf:value>
+				VR3, VR4, and VR5:  
+				Series of blocks to provide autoresetting of the volume receptors back 
+				toward zero with time.  The degree of reset is the variable (AHY), and 
+				the time constant for resetting is the variable (AH11).  
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="AHZ"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="AHY_init"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="time"	units="minute" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable name="AHY" 	initial_value="AHY_init"	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="AH11"	units="minute" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="VR3_to_VR5">
+				<eq/>
+				<apply>
+					<diff/>
+					<bvar>
+						<ci>time</ci>
+					</bvar>
+					<ci>AHY</ci>
+				</apply>
+				<apply>
+					<divide/>
+					<apply>
+						<minus/>
+						<ci>AHZ</ci>
+						<ci>AHY</ci>
+					</apply>
+					<ci>AH11</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- STATE VARIABLES INITIAL VALUE -->
+	<connection>
+		<map_components component_1="time_dependent_volume_receptor_adaptation" component_2="state_variables"/>
+		<map_variables variable_1="AHY_init" variable_2="AHY_init"/>
+	</connection>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="time_dependent_volume_receptor_adaptation" component_2="effect_of_pressure_on_volume_receptors"/>
+		<map_variables variable_1="AHZ" variable_2="AHZ"/>
+	</connection>
+	<connection>
+		<map_components component_1="time_dependent_volume_receptor_adaptation" component_2="volume_receptors"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="time_dependent_volume_receptor_adaptation" component_2="parameter_values"/>
+		<map_variables variable_1="AH11" variable_2="AH11"/>
+	</connection>
+
+<!-- ========================================	TOTAL VOLUME NERVOUS FEEDBACK	============================================= -->
+	<component 	name="total_volume_nervous_feedback" 
+				cmeta:id="total_volume_nervous_feedback">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#total_volume_nervous_feedback">
+				<rdf:value>
+				VR6:
+				The final degree of effect of the volume nervous feedback mechanism is 
+				the output from block VR6 (AH7).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#VR6">
+				<rdf:value>
+				VR6:
+				The final degree of effect of the volume nervous feedback mechanism is 
+				the output from block VR6 (AH7).
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="AHZ"	units="dimensionless" private_interface="none" public_interface="in"/>
+		<variable name="AHY"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable	cmeta:id="total_volume_nervous_feedback_AH7"
+					name="AH7" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="VR6">
+				<eq/>
+				<ci>AH7</ci>
+				<apply>
+					<minus/>
+					<ci>AHZ</ci>
+					<ci>AHY</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="total_volume_nervous_feedback" component_2="effect_of_pressure_on_volume_receptors"/>
+		<map_variables variable_1="AHZ" variable_2="AHZ"/>
+	</connection>
+	<connection>
+		<map_components component_1="total_volume_nervous_feedback" component_2="time_dependent_volume_receptor_adaptation"/>
+		<map_variables variable_1="AHY" variable_2="AHY"/>
+	</connection>
+
+<!-- ========================================	VOLUME EFFECT ON ARTERIES	============================================= -->
+	<component 	name="volume_effect_on_arteries" 
+				cmeta:id="volume_effect_on_arteries">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#volume_effect_on_arteries">
+				<rdf:value>
+				VR7 and VR8:  
+				Sensitivity control for the volume receptor nervous feedback effect on the 
+				non-muscle arterial resistance.  The output multiplier effect for feedback 
+				to the arteries is the variable (ATRRFB) and the sensitivity controller is 
+				the variable (ATRFBM).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#VR7_and_VR8">
+				<rdf:value>
+				VR7 and VR8:  
+				Sensitivity control for the volume receptor nervous feedback effect on the 
+				non-muscle arterial resistance.  The output multiplier effect for feedback 
+				to the arteries is the variable (ATRRFB) and the sensitivity controller is 
+				the variable (ATRFBM).
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="AH7"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable 	cmeta:id="volume_effect_on_arteries_ATRRFB"
+					name="ATRRFB" 	units="dimensionless" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ATRFBM"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="VR7_and_VR8">
+				<eq/>
+				<ci>ATRRFB</ci>
+				<apply>
+					<plus/>
+					<apply>
+						<times/>
+						<ci>AH7</ci>
+						<ci>ATRFBM</ci>
+					</apply>
+					<cn cellml:units="dimensionless">1</cn>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="volume_effect_on_arteries" component_2="total_volume_nervous_feedback"/>
+		<map_variables variable_1="AH7" variable_2="AH7"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="volume_effect_on_arteries" component_2="parameter_values"/>
+		<map_variables variable_1="ATRFBM" variable_2="ATRFBM"/>
+	</connection>
+
+<!-- ========================================	VOLUME EFFECT ON UNSTRESSED VENOUS VOLUME	============================================= -->
+	<component 	name="volume_effect_on_unstressed_venous_volume" 
+				cmeta:id="volume_effect_on_unstressed_venous_volume">
+		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+			<rdf:Description rdf:about="#volume_effect_on_unstressed_venous_volume">
+				<rdf:value>
+				VR9:  
+				Sensitivity control for volume receptor feedback to the venous system.  
+				The output of Block 9 (ATRVFB) controls V0 of the venous tree.  The sensitivity 
+				controller is the variable (ATRVM).
+				</rdf:value>
+			</rdf:Description>
+			<rdf:Description rdf:about="#VR9">
+				<rdf:value>
+				VR9:  
+				Sensitivity control for volume receptor feedback to the venous system.  
+				The output of Block 9 (ATRVFB) controls V0 of the venous tree.  The sensitivity 
+				controller is the variable (ATRVM).
+				</rdf:value>
+			</rdf:Description>
+		</rdf:RDF>
+		
+<!-- Inputs from other components -->
+		<variable name="AH7"	units="dimensionless" private_interface="none" public_interface="in"/>
+
+<!-- Outputs to other components -->
+		<variable 	cmeta:id="volume_effect_on_unstressed_venous_volume_ATRVFB"
+					name="ATRVFB" 	units="litre" private_interface="none" public_interface="out"/>
+
+<!-- Parameters from parameter_file -->
+		<variable name="ATRVM"	units="litre" private_interface="none" public_interface="in"/>
+
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply id="VR9">
+				<eq/>
+				<ci>ATRVFB</ci>
+				<apply>
+					<times/>
+					<ci>AH7</ci>
+					<ci>ATRVM</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+<!-- INPUT CONNECTIONS -->
+	<connection>
+		<map_components component_1="volume_effect_on_unstressed_venous_volume" component_2="total_volume_nervous_feedback"/>
+		<map_variables variable_1="AH7" variable_2="AH7"/>
+	</connection>
+
+<!-- PARAMETER CONNECTIONS -->
+	<connection>
+		<map_components component_1="volume_effect_on_unstressed_venous_volume" component_2="parameter_values"/>
+		<map_variables variable_1="ATRVM" variable_2="ATRVM"/>
+	</connection>
+	
+<!-- ============================================================		GROUPING		=============================================================== -->
+
+	<group>
+		<relationship_ref relationship="containment"/>
+		<component_ref component="volume_receptors">
+			<component_ref component="effect_of_pressure_on_volume_receptors"/>
+			<component_ref component="time_dependent_volume_receptor_adaptation"/>
+			<component_ref component="total_volume_nervous_feedback"/>
+			<component_ref component="volume_effect_on_arteries"/>
+			<component_ref component="volume_effect_on_unstressed_venous_volume"/>
+		</component_ref>
+	</group>
+
+
+	<group>
+		<relationship_ref relationship="encapsulation"/>
+		<component_ref component="volume_receptors">
+			<component_ref component="parameter_values"/>
+			<component_ref component="state_variables"/>
+			<component_ref component="effect_of_pressure_on_volume_receptors"/>
+			<component_ref component="time_dependent_volume_receptor_adaptation"/>
+			<component_ref component="total_volume_nervous_feedback"/>
+			<component_ref component="volume_effect_on_arteries"/>
+			<component_ref component="volume_effect_on_unstressed_venous_volume"/>
+		</component_ref>
+	</group>
+
+</model>   

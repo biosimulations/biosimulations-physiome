@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink" name="IK_gating_kinetics" cmeta:id="IK_gating_kinetics_model">
+  
+
+  <import xlink:href="../components/units.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="mV_per_ms" units_ref="mV_per_ms"/>
+    <units name="mV" units_ref="mV"/>
+  </import>
+  <import xlink:href="../components/IK-gating-rates.xml">
+    <component name="alpha_n" component_ref="alpha_n"/>
+    <component name="beta_n" component_ref="beta_n"/>
+  </import>
+  <import xlink:href="../components/gating-variable.xml">
+    <component name="gate" component_ref="hh_gating_variable_steady_state"/>
+  </import>
+  <connection>
+    <map_components component_1="gate" component_2="alpha_n"/>
+    <map_variables variable_1="alpha" variable_2="alpha"/>
+  </connection>
+  <connection>
+    <map_components component_1="gate" component_2="beta_n"/>
+    <map_variables variable_1="beta" variable_2="beta"/>
+  </connection>
+  
+  <import xlink:href="potential-ramp.xml">
+    <component name="V" component_ref="ramp"/>
+  </import>
+  <import xlink:href="../components/default-variable-values.xml">
+    <component name="default_parameters" component_ref="parameters"/>
+    <component name="default_initial_conditions" component_ref="initial_conditions"/>
+  </import>
+  
+  <component name="time" cmeta:id="time_component">
+    
+    <variable cmeta:id="time" name="time" initial_value="0.0" public_interface="out" units="ms"/>
+  </component>
+  <connection>
+    <map_components component_1="gate" component_2="time"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="time" component_2="V"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+
+  <component name="V_parameters" cmeta:id="V_parameters">
+    
+    <variable name="k" initial_value="1.0" public_interface="out" units="mV_per_ms"/>
+    <variable cmeta:id="V" name="V" public_interface="in" units="mV"/>
+    <variable cmeta:id="n_inf" name="n_inf" public_interface="in" units="dimensionless"/>
+  </component>
+  <connection>
+    <map_components component_1="V_parameters" component_2="V"/>
+    <map_variables variable_1="k" variable_2="k"/>
+    <map_variables variable_1="V" variable_2="y"/>
+  </connection>
+  <connection>
+    <map_components component_1="alpha_n" component_2="V"/>
+    <map_variables variable_1="V" variable_2="y"/>
+  </connection>
+  <connection>
+    <map_components component_1="beta_n" component_2="V"/>
+    <map_variables variable_1="V" variable_2="y"/>
+  </connection>
+  <connection>
+    <map_components component_1="gate" component_2="V_parameters"/>
+    <map_variables variable_1="gate_inf" variable_2="n_inf"/>
+  </connection>
+
+  <component name="parameters" cmeta:id="parameters">
+    
+  </component>
+  <connection>
+    <map_components component_1="alpha_n" component_2="default_parameters"/>
+    <map_variables variable_1="Tref" variable_2="Tref_rates"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Q10" variable_2="Q10_rates"/>
+  </connection>
+  <connection>
+    <map_components component_1="beta_n" component_2="default_parameters"/>
+    <map_variables variable_1="Tref" variable_2="Tref_rates"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Q10" variable_2="Q10_rates"/>
+  </connection>
+  
+  <component name="initial_conditions" cmeta:id="initial_conditions">
+    
+    <variable cmeta:id="V_initial" name="V_initial" public_interface="out" units="mV" initial_value="-120.0"/>
+  </component>
+  <connection>
+    <map_components component_1="gate" component_2="default_initial_conditions"/>
+    <map_variables variable_1="gate_initial" variable_2="n_initial"/>
+  </connection>
+  <connection>
+    <map_components component_1="V" component_2="initial_conditions"/>
+    <map_variables variable_1="y_initial" variable_2="V_initial"/>
+  </connection>
+</model>

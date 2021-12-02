@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+    name="tnnp_s1s2_restitution_protocol"
+    cmeta:id="tnnp_s1s2_restitution_protocol"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rdf:RDF
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+      xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:dcterms="http://purl.org/dc/terms/"
+      xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+      xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#"
+      xmlns:cg="http://www.cellml.org/metadata/graphs/1.0#">
+    <rdf:Description rdf:about="">
+      <dc:creator rdf:parseType="Resource">
+        <vCard:N rdf:parseType="Resource">
+          <vCard:Family>Nickerson</vCard:Family>
+          <vCard:Given>David</vCard:Given>
+        </vCard:N>
+        <vCard:EMAIL rdf:parseType="Resource">
+          <rdf:value>david.nickerson@nus.edu.sg</rdf:value>
+          <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+        </vCard:EMAIL>
+        <vCard:ORG rdf:parseType="Resource">
+          <vCard:Orgname>National University of Singapore</vCard:Orgname>
+          <vCard:Orgunit>Division of Bioengineering</vCard:Orgunit>
+        </vCard:ORG>
+      </dc:creator>
+      <dcterms:created rdf:parseType="Resource">
+        <dcterms:W3CDTF>2007-04-24</dcterms:W3CDTF>
+      </dcterms:created>
+      <dc:publisher>
+        Division of Bioengineering, National University of Singapore
+      </dc:publisher>
+    </rdf:Description>
+    <rdf:Description rdf:about="#tnnp_s1s2_restitution_protocol_VALUE">
+      <cs:simulation>
+        <rdf:Description rdf:ID="simulation">
+          <cs:simulationName>S1S2</cs:simulationName>
+          <cs:multistepMethod>bdf</cs:multistepMethod>
+          <cs:iterationMethod>newton</cs:iterationMethod>
+          <cs:linearSolver>dense</cs:linearSolver>
+          <cs:boundIntervals rdf:parseType="Collection">
+            <rdf:Description>
+              <cs:boundVariable>
+                <rdf:Description rdf:about="http://www.bioeng.nus.edu.sg/compbiolab/papers/nickerson-PBMB-2008/experiments/TNNP-S1S2.xml#time"/>
+              </cs:boundVariable>
+              <cs:maximumStepSize 
+                rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                0.5
+              </cs:maximumStepSize>
+              <cs:tabulationStepSize
+                rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                5.0
+              </cs:tabulationStepSize>
+              <cs:startingValue
+                rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                0
+              </cs:startingValue>
+              <cs:endingValue
+                rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                11e3
+              </cs:endingValue>
+            </rdf:Description>
+          </cs:boundIntervals>
+        </rdf:Description>
+      </cs:simulation>
+    </rdf:Description>
+  </rdf:RDF>
+  
+  <import xlink:href="http://www.bioeng.nus.edu.sg/compbiolab/cellml/models/common/units.xml">
+    <units name="ms" units_ref="ms"/>
+  </import>
+  <import xlink:href="http://www.bioeng.nus.edu.sg/compbiolab/papers/nickerson-PBMB-2008/experiments/TNNP-S1S2.xml">
+    <component name="S1S2" component_ref="interface"/>
+  </import>
+
+  <component name="params" cmeta:id="params">
+    <variable name="basicCycleLength" initial_value="1000" public_interface="out" units="ms"/>
+    <variable name="S2Interval" initial_value="600" public_interface="out" units="ms"/>
+  </component>
+  <connection>
+    <map_components component_1="params" component_2="S1S2"/>
+    <map_variables variable_1="basicCycleLength" variable_2="basicCycleLength"/>
+    <map_variables variable_1="S2Interval" variable_2="S2Interval"/>
+  </connection>
+</model>

@@ -1,0 +1,70 @@
+<html>
+<head><title>ElectrEcoBlu Systems Model</title>
+<body>
+<h2>Model Overview<br /></h2>
+<p>This is a Systems Model for the gold medal-winning machine 'ElectrEcoBlu' produced by the team from Glagow University for the iGEM 2007 competition. Details about the project can be found <a class="external-link" href="http://parts.mit.edu/igem07/index.php/Glasgow">here</a>.</p>
+<p><img class="tmp-doc-informalfigure" src="ElectrEcoBlu_Schema.png" alt="" width="600" /></p>
+<p>Device 1 produces TF via a constitutive promoter, which combines with S to form a transcription factor for Device 2 (TFS). TFS produces PhzM and PhzS, intermediates to producing PYO which is the reducing agent of interest in this model.</p>
+<h2>Model Output</h2>
+<p>There are two versions of this model, the first has a positive feedback loop from Device 2, shown as a CDS for TF downstream of Device 2's promoter. Thus Device 2 produces more TF which feedsback on the Device's promoter. The second version does not have the RBS and CDS for TF in Device 2.</p>
+<p>The Figure below shows the PYO time-courses for the models, one without the TF feedback, and one with.</p>
+<p><img class="tmp-doc-informalfigure" src="ElectrEcoBlu_output.png" alt="" width="600" /></p>
+<h2>Model Files<br /></h2>
+<p>The entire model archive can be downloaded, or a ZIP file encapsulating all the files can been obtained from <a class="external-link" href="ElectrEcoBlu_AllFiles.zip">here</a>.</p>
+<h2>Model Architecture<br /></h2>
+<p>The numbers on the Figure above relate to imported components. A map of the imported component architecture is as follows:</p>
+<p>&nbsp;ElectrEcoBluModel.ElectrEcoBluModel_SVBM[</p>
+<p>&nbsp;ElectrEcoBluModel.eColiCell(Chassis_EColi(Template_Chassis_WellStirredBag))</p>
+<p>&nbsp;ElectrEcoBluModel.Time(Time)</p>
+<p>&nbsp;ElectrEcoBluModel.SpeciesInitialConcentrations</p>
+<p>1. ElectrEcoBluModel.ElectrEcoBluDevice1_Promoter(ElectrEcoBluDevice1_Promoter(Template_Promoter_Constitutive))</p>
+<p>2. ElectrEcoBluModel.RNA_Device1(Template_Species)</p>
+<p>3. ElectrEcoBluModel.RNA_Device1_interface</p>
+<p>4. ElectrEcoBluModel.Bioenvironment_Degradation_Device1RNA(Bioenvironment_Degradation_ElectrEcoBluDevice1RNA(Template_RxR1P1))</p>
+<p>5. ElectrEcoBluModel.ElectrEcoBluDevice1_RBS_TF(ElectrEcoBluDevice1_RBS_TF(Template_RBS))</p>
+<p>6. ElectrEcoBluModel.ElectrEcoBluDevice1_ProteinCDS_TF(ElectrEcoBluDevice1_ProteinCDS_TF(Template_ProteinCDS))</p>
+<p>7. ElectrEcoBluModel.TF(Template_Species)</p>
+<p>8. ElectrEcoBluModel.TF_interface</p>
+<p>9. ElectrEcoBluModel.Bioenvironment_Degradation_TF(Bioenvironment_Degradation_TF(Template_RxR1P1))</p>
+<p>10.ElectrEcoBluModel.S</p>
+<p>11.ElectrEcoBluModel.RxR2P1_TFSformation(Bioenvironment_RxR2P1_TFSFormation(Template_RxR2P1Rev)</p>
+<p>12.ElectrEcoBluModel.TFS(Template_Species)</p>
+<p>13.ElectrEcoBluModel.TFS_interface</p>
+<p>14.ElectrEcoBluModel.Bioenvironment_Degradation_TFS(Bioenvironment_Degradation_TFS(Template_RxR1P1))</p>
+<p>15.ElectrEcoBluModel.ElectrEcoBluDevice2_Promoter(ElectrEcoBluDevice2_Promoter(Template_Promoter_Inductive))</p>
+<p>16.ElectrEcoBluModel.RNA_Device2(Template_Species)</p>
+<p>17.ElectrEcoBluModel.RNA_Device2_interface</p>
+<p>18.ElectrEcoBluModel.Bioenvironment_Degradation_Device2RNA(Bioenvironment_Degradation_ElectrEcoBluDevice2RNA(Template_RxR1P1))</p>
+<p>19.ElectrEcoBluModel.ElectrEcoBluDevice2_RBS_PhzM(ElectrEcoBluDevice2_RBS_PhzM(Template_RBS))</p>
+<p>20.ElectrEcoBluModel.ElectrEcoBluDevice2_ProteinCDS_PhzM(ElectrEcoBluDevice2_ProteinCDS_PhzM(Template_ProteinCDS))</p>
+<p>21.ElectrEcoBluModel.ElectrEcoBluDevice2_RBS_PhzS(ElectrEcoBluDevice2_RBS_PhzS(Template_RBS))</p>
+<p>22.ElectrEcoBluModel.ElectrEcoBluDevice2_ProteinCDS_PhzS(ElectrEcoBluDevice2_ProteinCDS_PhzS(Template_ProteinCDS))</p>
+<p>23.ElectrEcoBluModel.ElectrEcoBluDevice2_RBS_TF(ElectrEcoBluDevice2_RBS_TF(Template_RBS))</p>
+<p>24.ElectrEcoBluModel.ElectrEcoBluDevice2_ProteinCDS_TF(ElectrEcoBluDevice2_ProteinCDS_TF(Template_ProteinCDS))</p>
+<p>25.ElectrEcoBluModel.PhzM(Template_Species)</p>
+<p>26.ElectrEcoBluModel.PhzM_interface</p>
+<p>27.ElectrEcoBluModel.Bioenvironment_Degradation_PhzM(Bioenvironment_Degradation_PhzM(Template_RxR1P1))</p>
+<p>28.ElectrEcoBluModel.PCA</p>
+<p>29.ElectrEcoBluModel.RxR1P1MM_ICformation(Bioenvironment_RxR1P1MM_ICFormation(Template_RxR1P1MM))</p>
+<p>30.ElectrEcoBluModel.IC(Template_Species)</p>
+<p>31.ElectrEcoBluModel.IC_interface</p>
+<p>32.ElectrEcoBluModel.Bioenvironment_Degradation_IC(Bioenvironment_Degradation_IC(Template_RxR1P1))</p>
+<p>33.ElectrEcoBluModel.PhzS(Template_Species)</p>
+<p>34.ElectrEcoBluModel.PhzS_interface</p>
+<p>35.ElectrEcoBluModel.Bioenvironment_Degradation_PhzS(Bioenvironment_Degradation_PhzS(Template_RxR1P1))</p>
+<p>36.ElectrEcoBluModel.RxR1P1MM_PYOformation(Bioenvironment_RxR1P1MM_PYOFormation(Template_RxR1P1MM))</p>
+<p>37.ElectrEcoBluModel.PYO(Template_Species)</p>
+<p>38.ElectrEcoBluModel.PYO_interface</p>
+<p>39.ElectrEcoBluModel.Bioenvironment_Degradation_PYO(Bioenvironment_Degradation_PYO(Template_RxR1P1))</p>
+<p>]</p>
+<p>where the following code is used:</p>
+<p>M[A] Model M contains A</p>
+<p>A(B)&nbsp; A imports a component that is referred to as B</p>
+<p>F.S Component or model is named S, held in file named F</p>
+<p>D Component is named D, held in file name D (i.e. shorthand for D.D)</p>
+<h2>Physical Implementation<br /></h2>
+<p>Two of the Parts used in this model have their DNA stored in the <a class="external-link" href="http://partsregistry.org/Main_Page">Repository of Standard Biological Parts</a>. They are as follows:</p>
+<p>The CDS for PhzM&nbsp; (number 20. above): Part <a class="external-link" href="http://partsregistry.org/Part:BBa_I723024">BBa_I723024</a>.</p>
+<p>The CDS for PhzS&nbsp; (number 22. above): Part <a class="external-link" href="http://partsregistry.org/Part:BBa_I723025">BBa_I723025</a>.</p>
+</body>
+</html>

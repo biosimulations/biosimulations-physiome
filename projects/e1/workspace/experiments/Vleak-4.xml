@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink" name="Eleak_4" cmeta:id="Eleak_4">
+  
+
+  <import xlink:href="../components/units.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
+    <units name="mV" units_ref="mV"/>
+  </import>
+  <import xlink:href="../components/stimulated.xml">
+    <component name="model" component_ref="action_potential"/>
+  </import>
+  <import xlink:href="periodic-IStim-protocol.xml">
+    <component name="stimulus_protocol" component_ref="stimulus_protocol"/>
+  </import>
+  <import xlink:href="../components/default-variable-values.xml">
+    <component name="default_parameters" component_ref="parameters"/>
+    <component name="default_initial_conditions" component_ref="initial_conditions"/>
+  </import>
+  
+  <component name="time" cmeta:id="time_component">
+    
+    <variable cmeta:id="time" name="time" initial_value="0.0" public_interface="out" units="ms"/>
+  </component>
+  <connection>
+    <map_components component_1="model" component_2="time"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="time" component_2="stimulus_protocol"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+
+  <component name="stimulus_protocol_params" cmeta:id="stimulus_protocol_params">
+    
+    <variable name="stimPeriod" initial_value="100" public_interface="out" units="ms"/>
+    <variable name="stimDuration" initial_value="0.5" public_interface="out" units="ms"/>
+    <variable name="stimCurrent" initial_value="-10.0" public_interface="out" units="uA_per_cmsq"/>
+  </component>
+  <connection>
+    <map_components component_1="stimulus_protocol_params" component_2="stimulus_protocol"/>
+    <map_variables variable_1="stimPeriod" variable_2="stimPeriod"/>
+    <map_variables variable_1="stimDuration" variable_2="stimDuration"/>
+    <map_variables variable_1="stimCurrent" variable_2="stimCurrent"/>
+  </connection>
+  <connection>
+    <map_components component_1="model" component_2="stimulus_protocol"/>
+    <map_variables variable_1="Istim" variable_2="IStim"/>
+  </connection>
+
+  <component name="parameters" cmeta:id="parameters">
+    
+    <variable cmeta:id="Vleak" name="Vleak" units="mV" initial_value="-4.0" public_interface="out"/>
+  </component>
+  <connection>
+    <map_components component_1="model" component_2="parameters"/>
+    <map_variables variable_1="Vleak" variable_2="Vleak"/>
+  </connection>
+  <connection>
+    <map_components component_1="model" component_2="default_parameters"/>
+    <map_variables variable_1="Cm" variable_2="Cm"/>
+    <map_variables variable_1="VNa" variable_2="VNa"/>
+    <map_variables variable_1="VK" variable_2="VK"/>
+    <map_variables variable_1="gNa_max" variable_2="gNa_max"/>
+    <map_variables variable_1="gK_max" variable_2="gK_max"/>
+    <map_variables variable_1="gleak_max" variable_2="gleak_max"/>
+    <map_variables variable_1="Tref_rates" variable_2="Tref_rates"/>
+    <map_variables variable_1="T" variable_2="T"/>
+    <map_variables variable_1="Q10_rates" variable_2="Q10_rates"/>
+  </connection>
+  
+  <component name="initial_conditions" cmeta:id="initial_conditions">
+    
+  </component>
+  <connection>
+    <map_components component_1="model" component_2="default_initial_conditions"/>
+    <map_variables variable_1="V_initial" variable_2="V_initial"/>
+    <map_variables variable_1="m_initial" variable_2="m_initial"/>
+    <map_variables variable_1="h_initial" variable_2="h_initial"/>
+    <map_variables variable_1="n_initial" variable_2="n_initial"/>
+  </connection>
+
+</model>

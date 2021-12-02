@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sedML  xmlns="http://sed-ml.org/" 
+    xmlns:math="http://www.w3.org/1998/Math/MathML" level="1" version="1">
+    <listOfSimulations>
+        <uniformTimeCourse id="simulation1" 
+            initialTime="0" outputStartTime="0" outputEndTime="500" 
+            numberOfPoints="750" >
+            <algorithm kisaoID="KISAO:0000019"/>
+        </uniformTimeCourse>
+    </listOfSimulations>
+    <listOfModels>
+        <model id="model11" name="ORd(1,1)" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/andre/testing-Sed-ML-nesting/@@rawfile/0e4cab31ce115723cfab9baaeabd831928527523/ORd/nestedTask-cellType-stimulusTime-ORd--cellType1--stimulusTime1.xml"/>
+        <model id="model12" name="ORd(1,2)" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/andre/testing-Sed-ML-nesting/@@rawfile/0e4cab31ce115723cfab9baaeabd831928527523/ORd/nestedTask-cellType-stimulusTime-ORd--cellType1--stimulusTime2.xml"/>
+        <model id="model13" name="ORd(1,3)" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/andre/testing-Sed-ML-nesting/@@rawfile/0e4cab31ce115723cfab9baaeabd831928527523/ORd/nestedTask-cellType-stimulusTime-ORd--cellType1--stimulusTime3.xml"/>
+        <model id="model21" name="ORd(2,1)" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/andre/testing-Sed-ML-nesting/@@rawfile/0e4cab31ce115723cfab9baaeabd831928527523/ORd/nestedTask-cellType-stimulusTime-ORd--cellType2--stimulusTime1.xml"/>
+        <model id="model22" name="ORd(2,2)" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/andre/testing-Sed-ML-nesting/@@rawfile/0e4cab31ce115723cfab9baaeabd831928527523/ORd/nestedTask-cellType-stimulusTime-ORd--cellType2--stimulusTime2.xml"/>
+        <model id="model23" name="ORd(2,3)" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/andre/testing-Sed-ML-nesting/@@rawfile/0e4cab31ce115723cfab9baaeabd831928527523/ORd/nestedTask-cellType-stimulusTime-ORd--cellType2--stimulusTime3.xml"/>
+        <model id="model31" name="ORd(3,1)" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/andre/testing-Sed-ML-nesting/@@rawfile/0e4cab31ce115723cfab9baaeabd831928527523/ORd/nestedTask-cellType-stimulusTime-ORd--cellType3--stimulusTime1.xml"/>
+        <model id="model32" name="ORd(3,2)" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/andre/testing-Sed-ML-nesting/@@rawfile/0e4cab31ce115723cfab9baaeabd831928527523/ORd/nestedTask-cellType-stimulusTime-ORd--cellType3--stimulusTime2.xml"/>
+        <model id="model33" name="ORd(3,3)" language="urn:sedml:language:cellml" source="http://models.cellml.org/w/andre/testing-Sed-ML-nesting/@@rawfile/0e4cab31ce115723cfab9baaeabd831928527523/ORd/nestedTask-cellType-stimulusTime-ORd--cellType3--stimulusTime3.xml"/>
+    </listOfModels>
+    
+    <listOfTasks>
+        <task id="task11" name="Action Potential - 1,1" modelReference="model11" simulationReference="simulation1"/>
+        <task id="task12" name="Action Potential - 1,2" modelReference="model12" simulationReference="simulation1"/>
+        <task id="task13" name="Action Potential - 1,3" modelReference="model13" simulationReference="simulation1"/>
+        <task id="task21" name="Action Potential - 2,1" modelReference="model21" simulationReference="simulation1"/>
+        <task id="task22" name="Action Potential - 2,2" modelReference="model22" simulationReference="simulation1"/>
+        <task id="task23" name="Action Potential - 2,3" modelReference="model23" simulationReference="simulation1"/>
+        <task id="task31" name="Action Potential - 3,1" modelReference="model31" simulationReference="simulation1"/>
+        <task id="task32" name="Action Potential - 3,2" modelReference="model32" simulationReference="simulation1"/>
+        <task id="task33" name="Action Potential - 3,3" modelReference="model33" simulationReference="simulation1"/>
+    </listOfTasks>
+    <listOfDataGenerators>
+        <dataGenerator id="time" name="time">
+            <listOfVariables>
+                <variable id="t" taskReference="task12" target="/cellml:model/cellml:component[@name='environment']/cellml:variable[@name='time']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>t</math:ci>
+            </math:math>
+        </dataGenerator>
+        <dataGenerator id="Vm11" name="Vm(1)">
+            <listOfVariables>
+                <variable id="v11" taskReference="task11" target="/cellml:model/cellml:component[@name='membrane']/cellml:variable[@name='v']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>v11</math:ci>
+            </math:math>
+        </dataGenerator>
+        <dataGenerator id="Vm12" name="Vm(1)">
+            <listOfVariables>
+                <variable id="v12" taskReference="task12" target="/cellml:model/cellml:component[@name='membrane']/cellml:variable[@name='v']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>v12</math:ci>
+            </math:math>
+        </dataGenerator>
+        <dataGenerator id="Vm13" name="Vm(1)">
+            <listOfVariables>
+                <variable id="v13" taskReference="task13" target="/cellml:model/cellml:component[@name='membrane']/cellml:variable[@name='v']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>v13</math:ci>
+            </math:math>
+        </dataGenerator>
+        <dataGenerator id="Vm21" name="Vm(2)">
+            <listOfVariables>
+                <variable id="v21" taskReference="task21" target="/cellml:model/cellml:component[@name='membrane']/cellml:variable[@name='v']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>v21</math:ci>
+            </math:math>
+        </dataGenerator>
+        <dataGenerator id="Vm22" name="Vm(2)">
+            <listOfVariables>
+                <variable id="v22" taskReference="task22" target="/cellml:model/cellml:component[@name='membrane']/cellml:variable[@name='v']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>v22</math:ci>
+            </math:math>
+        </dataGenerator>
+        <dataGenerator id="Vm23" name="Vm(2)">
+            <listOfVariables>
+                <variable id="v23" taskReference="task23" target="/cellml:model/cellml:component[@name='membrane']/cellml:variable[@name='v']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>v23</math:ci>
+            </math:math>
+        </dataGenerator>
+        <dataGenerator id="Vm31" name="Vm(3)">
+            <listOfVariables>
+                <variable id="v31" taskReference="task31" target="/cellml:model/cellml:component[@name='membrane']/cellml:variable[@name='v']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>v31</math:ci>
+            </math:math>
+        </dataGenerator>
+        <dataGenerator id="Vm32" name="Vm(3)">
+            <listOfVariables>
+                <variable id="v32" taskReference="task32" target="/cellml:model/cellml:component[@name='membrane']/cellml:variable[@name='v']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>v32</math:ci>
+            </math:math>
+        </dataGenerator>
+        <dataGenerator id="Vm33" name="Vm(3)">
+            <listOfVariables>
+                <variable id="v33" taskReference="task33" target="/cellml:model/cellml:component[@name='membrane']/cellml:variable[@name='v']" />
+            </listOfVariables>
+            <math:math>
+                <math:ci>v33</math:ci>
+            </math:math>
+        </dataGenerator>
+    </listOfDataGenerators>
+    
+    <listOfOutputs>
+        <plot2D id="plot1" name="Action Potential (1)">
+            <listOfCurves>
+                <curve id="c11" logX="false" logY="false" xDataReference="time" yDataReference="Vm11" />
+                <curve id="c12" logX="false" logY="false" xDataReference="time" yDataReference="Vm12" />
+                <curve id="c13" logX="false" logY="false" xDataReference="time" yDataReference="Vm13" />
+            </listOfCurves>
+        </plot2D>
+        <plot2D id="plot2" name="Action Potential (2)">
+            <listOfCurves>
+                <curve id="c21" logX="false" logY="false" xDataReference="time" yDataReference="Vm21" />
+                <curve id="c22" logX="false" logY="false" xDataReference="time" yDataReference="Vm22" />
+                <curve id="c23" logX="false" logY="false" xDataReference="time" yDataReference="Vm23" />
+            </listOfCurves>
+        </plot2D>
+        <plot2D id="plot3" name="Action Potential (3)">
+            <listOfCurves>
+                <curve id="c31" logX="false" logY="false" xDataReference="time" yDataReference="Vm31" />
+                <curve id="c32" logX="false" logY="false" xDataReference="time" yDataReference="Vm32" />
+                <curve id="c33" logX="false" logY="false" xDataReference="time" yDataReference="Vm33" />
+            </listOfCurves>
+        </plot2D>
+        <plot2D id="plot4" name="Action Potentials">
+            <listOfCurves>
+                <curve id="cc11" logX="false" logY="false" xDataReference="time" yDataReference="Vm11" />
+                <curve id="cc12" logX="false" logY="false" xDataReference="time" yDataReference="Vm12" />
+                <curve id="cc13" logX="false" logY="false" xDataReference="time" yDataReference="Vm13" />
+                <curve id="cc21" logX="false" logY="false" xDataReference="time" yDataReference="Vm21" />
+                <curve id="cc22" logX="false" logY="false" xDataReference="time" yDataReference="Vm22" />
+                <curve id="cc23" logX="false" logY="false" xDataReference="time" yDataReference="Vm23" />
+                <curve id="cc31" logX="false" logY="false" xDataReference="time" yDataReference="Vm31" />
+                <curve id="cc32" logX="false" logY="false" xDataReference="time" yDataReference="Vm32" />
+                <curve id="cc33" logX="false" logY="false" xDataReference="time" yDataReference="Vm33" />
+            </listOfCurves>
+        </plot2D>
+    </listOfOutputs>
+</sedML>

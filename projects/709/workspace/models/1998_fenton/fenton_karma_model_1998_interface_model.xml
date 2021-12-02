@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="fenton_karma_model_1998_interface_model">
+  <component name="fenton_karma_model_1998_interface_component">
+    <variable name="time" public_interface="in" private_interface="out" units="ms"/>
+    <variable name="u" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="Cm" private_interface="out" public_interface="in" units="uF_per_mm2"/>
+    <variable name="Vm" private_interface="in" public_interface="out" units="mV"/>
+    <variable name="Vm_initial" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="V_o" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="V_fi" private_interface="out" public_interface="in" units="mV"/>
+    <variable name="I_stim" private_interface="out" public_interface="in" units="uA_per_mm2"/>
+    <variable name="I_fi" private_interface="in" public_interface="out" units="uA_per_mm2"/>
+    <variable name="I_si" private_interface="in" public_interface="out" units="uA_per_mm2"/>
+    <variable name="I_so" private_interface="in" public_interface="out" units="uA_per_mm2"/>
+    <variable name="p" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="u_c" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="q" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="u_v" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="J_fi" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="tau_d" private_interface="in" public_interface="out" units="ms"/>
+    <variable name="g_fi_max" private_interface="out" public_interface="in" units="mS_per_mm2"/>
+    <variable name="v" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="v_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="tau_v_minus" private_interface="in" public_interface="out" units="ms"/>
+    <variable name="tau_v1_minus" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="tau_v2_minus" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="tau_v_plus" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="J_so" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="tau_0" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="tau_r" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="J_si" private_interface="in" public_interface="out" units="per_ms"/>
+    <variable name="tau_si" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="u_csi" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="k" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="w" private_interface="in" public_interface="out" units="dimensionless"/>
+    <variable name="w_initial" private_interface="out" public_interface="in" units="dimensionless"/>
+    <variable name="tau_w_minus" private_interface="out" public_interface="in" units="ms"/>
+    <variable name="tau_w_plus" private_interface="out" public_interface="in" units="ms"/>
+  </component>
+  <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="fenton_karma_model_1998_interface_component">
+      <component_ref component="membrane"/>
+      <component_ref component="p"/>
+      <component_ref component="q"/>
+      <component_ref component="fast_inward_current"/>
+      <component_ref component="fast_inward_current_v_gate"/>
+      <component_ref component="slow_outward_current"/>
+      <component_ref component="slow_inward_current"/>
+      <component_ref component="slow_inward_current_w_gate"/>
+    </component_ref>
+  </group>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="membrane_model.xml">
+    <component component_ref="membrane" name="membrane"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="p_model.xml">
+    <component component_ref="p" name="p"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="q_model.xml">
+    <component component_ref="q" name="q"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fast_inward_current_model.xml">
+    <component component_ref="fast_inward_current" name="fast_inward_current"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fast_inward_current_v_gate_model.xml">
+    <component component_ref="fast_inward_current_v_gate" name="fast_inward_current_v_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="slow_outward_current_model.xml">
+    <component component_ref="slow_outward_current" name="slow_outward_current"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="slow_inward_current_model.xml">
+    <component component_ref="slow_inward_current" name="slow_inward_current"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="slow_inward_current_w_gate_model.xml">
+    <component component_ref="slow_inward_current_w_gate" name="slow_inward_current_w_gate"/>
+  </import>
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="fenton_karma_model_1998_units_model.xml">
+    <units name="ms" units_ref="ms"/>
+    <units name="per_ms" units_ref="per_ms"/>
+    <units name="mV" units_ref="mV"/>
+    <units name="per_mV" units_ref="per_mV"/>
+    <units name="per_mV_ms" units_ref="per_mV_ms"/>
+    <units name="mS_per_mm2" units_ref="mS_per_mm2"/>
+    <units name="uF_per_mm2" units_ref="uF_per_mm2"/>
+    <units name="uA_per_mm2" units_ref="uA_per_mm2"/>
+    <units name="concentration_units" units_ref="concentration_units"/>
+  </import>
+  <connection>
+    <map_components component_1="fenton_karma_model_1998_interface_component" component_2="membrane"/>
+    <map_variables variable_1="u" variable_2="u"/>
+    <map_variables variable_1="Cm" variable_2="Cm"/>
+    <map_variables variable_1="Vm" variable_2="Vm"/>
+    <map_variables variable_1="Vm_initial" variable_2="Vm_initial"/>
+    <map_variables variable_1="V_o" variable_2="V_o"/>
+    <map_variables variable_1="V_fi" variable_2="V_fi"/>
+    <map_variables variable_1="I_stim" variable_2="I_stim"/>
+    <map_variables variable_1="I_fi" variable_2="I_fi"/>
+    <map_variables variable_1="I_si" variable_2="I_si"/>
+    <map_variables variable_1="I_so" variable_2="I_so"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="fenton_karma_model_1998_interface_component" component_2="p"/>
+    <map_variables variable_1="p" variable_2="p"/>
+    <map_variables variable_1="u_c" variable_2="u_c"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="p"/>
+    <map_variables variable_1="u" variable_2="u"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="q"/>
+    <map_variables variable_1="u" variable_2="u"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="fast_inward_current_v_gate"/>
+    <map_variables variable_1="u" variable_2="u"/>
+  </connection>
+  <connection>
+    <map_components component_1="membrane" component_2="slow_inward_current_w_gate"/>
+    <map_variables variable_1="u" variable_2="u"/>
+  </connection>
+  <connection>
+    <map_components component_1="fenton_karma_model_1998_interface_component" component_2="q"/>
+    <map_variables variable_1="q" variable_2="q"/>
+    <map_variables variable_1="u_v" variable_2="u_v"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="fenton_karma_model_1998_interface_component" component_2="fast_inward_current"/>
+    <map_variables variable_1="Cm" variable_2="Cm"/>
+    <map_variables variable_1="u_c" variable_2="u_c"/>
+    <map_variables variable_1="J_fi" variable_2="J_fi"/>
+    <map_variables variable_1="tau_d" variable_2="tau_d"/>
+    <map_variables variable_1="g_fi_max" variable_2="g_fi_max"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="fenton_karma_model_1998_interface_component" component_2="fast_inward_current_v_gate"/>
+    <map_variables variable_1="v" variable_2="v"/>
+    <map_variables variable_1="v_initial" variable_2="v_initial"/>
+    <map_variables variable_1="tau_v_minus" variable_2="tau_v_minus"/>
+    <map_variables variable_1="tau_v1_minus" variable_2="tau_v1_minus"/>
+    <map_variables variable_1="tau_v2_minus" variable_2="tau_v2_minus"/>
+    <map_variables variable_1="tau_v_plus" variable_2="tau_v_plus"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="fenton_karma_model_1998_interface_component" component_2="slow_outward_current"/>
+    <map_variables variable_1="J_so" variable_2="J_so"/>
+    <map_variables variable_1="tau_0" variable_2="tau_0"/>
+    <map_variables variable_1="tau_r" variable_2="tau_r"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="fenton_karma_model_1998_interface_component" component_2="slow_inward_current"/>
+    <map_variables variable_1="J_si" variable_2="J_si"/>
+    <map_variables variable_1="tau_si" variable_2="tau_si"/>
+    <map_variables variable_1="u_csi" variable_2="u_csi"/>
+    <map_variables variable_1="k" variable_2="k"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="fenton_karma_model_1998_interface_component" component_2="slow_inward_current_w_gate"/>
+    <map_variables variable_1="w" variable_2="w"/>
+    <map_variables variable_1="w_initial" variable_2="w_initial"/>
+    <map_variables variable_1="tau_w_minus" variable_2="tau_w_minus"/>
+    <map_variables variable_1="tau_w_plus" variable_2="tau_w_plus"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="p" component_2="fast_inward_current"/>
+    <map_variables variable_1="p" variable_2="p"/>
+  </connection>
+  <connection>
+    <map_components component_1="p" component_2="fast_inward_current_v_gate"/>
+    <map_variables variable_1="p" variable_2="p"/>
+  </connection>
+  <connection>
+    <map_components component_1="p" component_2="slow_outward_current"/>
+    <map_variables variable_1="p" variable_2="p"/>
+  </connection>
+  <connection>
+    <map_components component_1="p" component_2="slow_inward_current"/>
+    <map_variables variable_1="p" variable_2="p"/>
+  </connection>
+  <connection>
+    <map_components component_1="p" component_2="slow_inward_current_w_gate"/>
+    <map_variables variable_1="p" variable_2="p"/>
+  </connection>
+  <connection>
+    <map_components component_1="q" component_2="fast_inward_current"/>
+    <map_variables variable_1="q" variable_2="q"/>
+  </connection>
+  <connection>
+    <map_components component_1="q" component_2="fast_inward_current_v_gate"/>
+    <map_variables variable_1="q" variable_2="q"/>
+  </connection>
+  <connection>
+    <map_components component_1="fast_inward_current" component_2="membrane"/>
+    <map_variables variable_1="J_fi" variable_2="J_fi"/>
+    <map_variables variable_1="u" variable_2="u"/>
+  </connection>
+  <connection>
+    <map_components component_1="fast_inward_current_v_gate" component_2="fast_inward_current"/>
+    <map_variables variable_1="v" variable_2="v"/>
+  </connection>
+  <connection>
+    <map_components component_1="slow_outward_current" component_2="membrane"/>
+    <map_variables variable_1="J_so" variable_2="J_so"/>
+    <map_variables variable_1="u" variable_2="u"/>
+  </connection>
+  <connection>
+    <map_components component_1="slow_inward_current" component_2="membrane"/>
+    <map_variables variable_1="J_si" variable_2="J_si"/>
+    <map_variables variable_1="u" variable_2="u"/>
+  </connection>
+  <connection>
+    <map_components component_1="slow_inward_current_w_gate" component_2="slow_inward_current"/>
+    <map_variables variable_1="w" variable_2="w"/>
+  </connection>
+</model>

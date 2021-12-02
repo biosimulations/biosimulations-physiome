@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="temperature_factor" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#">
+    <!-- calculate temperature factor-->
+    <component name="temperature_factor">
+        <variable name="phi" public_interface="out" units="dimensionless"/>
+        <variable name="T" public_interface="in" units="kelvin" />
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>phi</ci>
+                <apply>
+                    <power/>
+                    <cn cellml:units="dimensionless">3</cn>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <minus/>
+                            <ci>T</ci>
+                            <cn cellml:units="kelvin" >6.3</cn>
+                        </apply>
+                        <cn cellml:units="kelvin" >10</cn>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>
