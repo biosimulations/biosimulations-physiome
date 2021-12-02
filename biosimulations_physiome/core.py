@@ -1,33 +1,44 @@
 import asyncio
-from cmath import log
 import json
+from pickle import TRUE
 import git
-
-
-import requests
 import os 
 import zipfile
 import logging
 import shutil
 from bs4 import BeautifulSoup
+from numpy import true_divide
 import aiohttp
 import re
 
 FULL_LIST= "https://models.physiomeproject.org/exposure/listing/full-list"
+
+# TODO make this configurable from command line
+CONFIG={
+    "GetWorkspaces": True,
+    "GetMetadata": True,
+    "GetArchives": True,
+    "LogLevel": "DEBUG",
+    "LogFile": "log.txt",
+    "ClearProjects": True,
+    "StartAt": 0,
+    "EndAt": -1
+}
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 # create console handler and set level to debug
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
+fh = logging.FileHandler(CONFIG['LogFile'])
+fh.setLevel(logging.LOG)
 # create formatter
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 # add formatter to ch
 ch.setFormatter(formatter)
 # add ch to logger
 logger.addHandler(ch)
-
-
+logger.addHandler(fh)
 
 
 
@@ -38,8 +49,11 @@ async def importProjects():
     projectExposureLinks = await getProjectsList()
     numProjects = len(projectExposureLinks)
     
+    if(CONFIG['ClearProjects']):
+        shutil.rmtree('projects', ignore_errors=True)
+    
     async with aiohttp.ClientSession() as session:
-        shutil.rmtree("projects", ignore_errors=True)
+        
 
         # various hrefs for the project
         project_urls_task = []
@@ -64,7 +78,7 @@ async def importProjects():
             
             projectName = projectlink['project'].split('/')[-1]
 
-            archive_tasks.append(asyncio.ensure_future(getProjectArchive(session, projectlink['archive'])))
+            #archive_tasks.append(asyncio.ensure_future(getProjectArchive(session, projectlink['archive'])))
             
             workspace_tasks.append(getProjectWorkspace(projectName, projectlink['workspace']))
             
@@ -95,15 +109,17 @@ async def importProjects():
         
         projectMetadatas= dict(zip(projectNames, metadata))
         
+        logger.info(f'Imported {numProjects} projects')
+        logger.log(f'Saving metadata to projects.json')
         with open('projects.json', 'w') as f:
             json.dump(projectMetadatas, f)
         
         
         
 
-        logger.debug(f'Got {len(archives)- len(failed_project_archive_download)} archives')
-        logger.debug(f'Got {len(workspaces)- len(failed_project_workspace_download)} workspaces')
-        logger.debug(f'Got {len(metadata)- len(failed_project_metadata_download)} metadata')
+        logger.log(f'Got {len(archives)- len(failed_project_archive_download)}/{len(archives)} archives')
+        logger.log(f'Got {len(workspaces)- len(failed_project_workspace_download)}/{len(workspaces)} workspaces')
+        logger.log(f'Got {len(metadata)- len(failed_project_metadata_download)}/{len(metadata)} metadata')
 
             
 
@@ -145,7 +161,7 @@ async def getProjectsList():
             links =req['collection']['links']
             links=  list(map(lambda x: x['href'], links)) 
             
-            return links[:]
+            return links[CONFIG['StartAt']:CONFIG['EndAt']]
         
 
 async def getProjectHrefs(session, projectExposureHref):
@@ -193,6 +209,7 @@ async def getProjectWorkspace(name, link):
     """
     Saves the workspace for the project
     """
+    
     loop = asyncio.get_event_loop()
     await loop.run_in_executor(None, getGitRepo, name, link)
     return True
@@ -203,7 +220,7 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
     """
     
     """
-
+    projectName= project_href.split('/')[-1]
     model_metadata = {
         "identifier": "",
         "hash": "",
@@ -221,6 +238,7 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
     }
     if(project_href):
         async with session.get(project_href, headers={'Accept': 'application/json'}) as resp:
+            logger.debug(f'Getting project info for {project_href}')
             try: 
                 req = await resp.json()
                 model_metadata['identifier'] = project_href.split('/')[-1]    
@@ -232,13 +250,15 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
                     if item["name"] == "commit_id":
                         model_metadata['hash'] = item['value']
             except Exception as e:
+                logger.error(f'Failed to get project info for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
     else:
+        logger.error(f'Failed to get project info for {projectName} due to missing project href')
         model_metadata['errors'].append('No project href')
 
     if(documentation_href):
         async with session.get(documentation_href, headers={'Accept': 'text/html'}) as resp:
-            
+            logger.debug(f'Getting documentation for {projectName}')
             try:
                 html_page = (await resp.text())
                 if(html_page):
@@ -253,13 +273,16 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
                     
                     model_metadata['description'] = '\n'.join(description)
             except Exception as e:
+                logger.error(f'Failed to get documentation for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
     else:
+        logger.error(f'Failed to get documentation for {projectName} due to missing documentation href')
         model_metadata['errors'].append('No documentation href')
                 
             
     if(metadata_href):
         async with session.get(metadata_href, headers={'Accept': 'application/json'}) as resp:
+            logger.debug(f'Getting metadata for {projectName}')
             try:
                 req= await resp.json()
                 metadatas= req['collection']['items'][0]['data']
@@ -277,8 +300,10 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
                     if metadata['name'] == 'model_author':
                         model_metadata['authors'] = metadata['value']
             except(Exception) as e:
+                logger.error(f'Failed to get metadata for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
     else:
+        logger.error(f'Failed to get metadata for {projectName} due to missing metadata href')
         model_metadata['errors'].append('No metadata href')
 
             
