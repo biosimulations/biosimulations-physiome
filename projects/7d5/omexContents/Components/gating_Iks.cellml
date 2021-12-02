@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="gating_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <!--        unit mM using unit mM;-->
+        <units name="mV_ms" units_ref="mV_ms"/>
+        <units name="ms" units_ref="ms"/>
+        <!--        unit pA_per_pF using unit pA_per_pF;
+        unit nS_per_pF using unit nS_per_pF;-->
+    </import>
+    <component name="gating_Iks">
+        <variable name="v" public_interface="in" units="mV"/>
+        <variable name="alpha_act" public_interface="out" units="per_ms"/>
+        <variable name="beta_act" public_interface="out" units="per_ms"/>
+        <variable name="ks_1" public_interface="in" units="dimensionless"/>
+        <variable name="ks_2" public_interface="in" units="dimensionless"/>
+        <variable name="ks_3" public_interface="out" units="dimensionless"/>
+        <variable name="ks_4" public_interface="out" units="dimensionless"/>
+        <variable name="ks_5" public_interface="in" units="dimensionless"/>
+        <variable name="ks_6" public_interface="in" units="dimensionless"/>
+        <variable name="tau_ks_const" public_interface="in" units="dimensionless"/>
+        <variable name="x_ks_inf_act" public_interface="out" units="dimensionless"/>
+        <variable name="tau_ks_act" public_interface="out" units="ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>ks_3</ci>
+                <apply>
+                    <times/>
+                    <ci>ks_5</ci>
+                    <ci>ks_1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>ks_4</ci>
+                <apply>
+                    <divide/>
+                    <cn cellml:units="dimensionless">1</cn>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <divide/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>ks_2</ci>
+                        </apply>
+                        <apply>
+                            <divide/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>ks_6</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>alpha_act</ci>
+                <apply>
+                    <times/>
+                    <ci>ks_1</ci>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>v</ci>
+                            <ci>ks_2</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>beta_act</ci>
+                <apply>
+                    <times/>
+                    <ci>ks_3</ci>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>v</ci>
+                            <ci>ks_4</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>x_ks_inf_act</ci>
+                <apply>
+                    <divide/>
+                    <ci>alpha_act</ci>
+                    <apply>
+                        <plus/>
+                        <ci>alpha_act</ci>
+                        <ci>beta_act</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>tau_ks_act</ci>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                            <plus/>
+                            <ci>alpha_act</ci>
+                            <ci>beta_act</ci>
+                        </apply>
+                    </apply>
+                    <ci>tau_ks_const</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

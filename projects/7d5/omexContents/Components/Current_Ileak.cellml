@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Current_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+    </import>
+    <component name="Current_leak">
+        <!--        var v: mV {pub: in};-->
+        <variable name="ca_i" public_interface="in" units="mM"/>
+        <variable name="ca_SR" public_interface="in" units="mM"/>
+        <variable initial_value="0.0000016" name="V_leak" public_interface="out" units="per_ms"/>
+        <variable name="j_leak" public_interface="out" units="mM_per_ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>j_leak</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <minus/>
+                        <ci>ca_SR</ci>
+                        <ci>ca_i</ci>
+                    </apply>
+                    <ci>V_leak</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

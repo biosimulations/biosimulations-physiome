@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="gate_initials" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Compute initial values of m, n and h based on initial value of V and temperature T (T does not affect the computation)-->
+    <import xlink:href="units.cellml">
+        <units name="mV" units_ref="mV"/>
+        <units name="per_ms" units_ref="per_ms"/>
+    </import>
+    <import xlink:href="gate_steady.cellml">
+        <component component_ref="gate_steady" name="m_gate_steady"/>
+    </import>
+    <import xlink:href="gate_steady.cellml">
+        <component component_ref="gate_steady" name="n_gate_steady"/>
+    </import>
+    <import xlink:href="gate_steady.cellml">
+        <component component_ref="gate_steady" name="h_gate_steady"/>
+    </import>
+    <import xlink:href="INa-gating-rates.cellml">
+        <component component_ref="alpha_m" name="alpha_m"/>
+        <component component_ref="beta_m" name="beta_m"/>
+        <component component_ref="alpha_h" name="alpha_h"/>
+        <component component_ref="beta_h" name="beta_h"/>
+    </import>
+    <import xlink:href="IK-gating-rates.cellml">
+        <component component_ref="alpha_n" name="alpha_n"/>
+        <component component_ref="beta_n" name="beta_n"/>
+    </import>
+    <import xlink:href="temperature_factor.cellml">
+        <component component_ref="temperature_factor" name="temperature_factor"/>
+    </import>
+    <component name="gate_initials">
+        <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
+        <variable name="V_b" private_interface="out" public_interface="in" units="mV"/>
+        <variable name="m_initial" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="n_initial" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="h_initial" private_interface="in" public_interface="out" units="dimensionless"/>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="gate_initials">
+            <component_ref component="alpha_m"/>
+            <component_ref component="beta_m"/>
+            <component_ref component="alpha_n"/>
+            <component_ref component="beta_n"/>
+            <component_ref component="alpha_h"/>
+            <component_ref component="beta_h"/>
+            <component_ref component="m_gate_steady"/>
+            <component_ref component="n_gate_steady"/>
+            <component_ref component="h_gate_steady"/>
+            <component_ref component="temperature_factor"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="gate_initials"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="alpha_m"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="beta_m"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="alpha_n"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="beta_n"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="alpha_h"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="beta_h"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_initials" component_2="alpha_m"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_initials" component_2="beta_m"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_initials" component_2="alpha_n"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_initials" component_2="beta_n"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_initials" component_2="alpha_h"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_initials" component_2="beta_h"/>
+        <map_variables variable_1="V_b" variable_2="V"/>
+    </connection>
+    <connection>
+        <map_components component_1="m_gate_steady" component_2="alpha_m"/>
+        <map_variables variable_1="alpha_X" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="n_gate_steady" component_2="alpha_n"/>
+        <map_variables variable_1="alpha_X" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="h_gate_steady" component_2="alpha_h"/>
+        <map_variables variable_1="alpha_X" variable_2="alpha"/>
+    </connection>
+    <connection>
+        <map_components component_1="m_gate_steady" component_2="beta_m"/>
+        <map_variables variable_1="beta_X" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="n_gate_steady" component_2="beta_n"/>
+        <map_variables variable_1="beta_X" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="h_gate_steady" component_2="beta_h"/>
+        <map_variables variable_1="beta_X" variable_2="beta"/>
+    </connection>
+    <connection>
+        <map_components component_1="m_gate_steady" component_2="gate_initials"/>
+        <map_variables variable_1="X_s" variable_2="m_initial"/>
+    </connection>
+    <connection>
+        <map_components component_1="n_gate_steady" component_2="gate_initials"/>
+        <map_variables variable_1="X_s" variable_2="n_initial"/>
+    </connection>
+    <connection>
+        <map_components component_1="h_gate_steady" component_2="gate_initials"/>
+        <map_variables variable_1="X_s" variable_2="h_initial"/>
+    </connection>
+</model>

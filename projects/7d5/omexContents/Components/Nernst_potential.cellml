@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Nernst_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="J_per_mol_per_kelvin" units_ref="J_per_mol_per_kelvin"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+    </import>
+    <component name="Nernst">
+        <variable initial_value="5.4" name="Ko" public_interface="out" units="mM"/>
+        <variable name="Ki" public_interface="in" units="mM"/>
+        <variable name="Cao" public_interface="in" units="mM"/>
+        <variable name="ca_i" public_interface="in" units="mM"/>
+        <variable name="Nao" public_interface="in" units="mM"/>
+        <variable name="Na_i" public_interface="in" units="mM"/>
+        <variable name="R" public_interface="in" units="J_per_mol_per_kelvin"/>
+        <variable name="T" public_interface="in" units="kelvin"/>
+        <variable name="F" public_interface="in" units="C_per_mol"/>
+        <variable name="E_K" public_interface="out" units="mV"/>
+        <variable name="E_Ca" public_interface="out" units="mV"/>
+        <variable name="E_Na" public_interface="out" units="mV"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>E_K</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>R</ci>
+                            <ci>T</ci>
+                        </apply>
+                        <ci>F</ci>
+                    </apply>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <divide/>
+                            <ci>Ko</ci>
+                            <ci>Ki</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>E_Ca</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <cn cellml:units="dimensionless">0.5</cn>
+                            <ci>R</ci>
+                            <ci>T</ci>
+                        </apply>
+                        <ci>F</ci>
+                    </apply>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <divide/>
+                            <ci>Cao</ci>
+                            <ci>ca_i</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>E_Na</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>R</ci>
+                            <ci>T</ci>
+                        </apply>
+                        <ci>F</ci>
+                    </apply>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <divide/>
+                            <ci>Nao</ci>
+                            <ci>Na_i</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

@@ -1,4 +1,5 @@
 import asyncio
+from cmath import log
 import json
 import git
 
@@ -62,7 +63,7 @@ async def importProjects():
         for projectlink in projectLinks:
             
             projectName = projectlink['project'].split('/')[-1]
-            
+
             archive_tasks.append(asyncio.ensure_future(getProjectArchive(session, projectlink['archive'])))
             
             workspace_tasks.append(getProjectWorkspace(projectName, projectlink['workspace']))
@@ -120,11 +121,11 @@ async def getProjectArchive(session, link):
     name= link.split('/')[-2]
     
     async with session.get(link, headers={'Accept': 'application/zip'}) as resp:
-
+        logger.debug(f'Downloading {name} omex archive')
         archive = await resp.read()
         with open(f'projects/{name}/{name}.omex', 'wb') as f:
             f.write(archive)
-        
+        logger.debug(f'Extracting {name} omex archive')
         with zipfile.ZipFile(f'projects/{name}/{name}.omex') as zf:
             zf.extractall(f'projects/{name}/omexContents')
         return True
@@ -138,6 +139,7 @@ async def getProjectsList():
     
     async with aiohttp.ClientSession() as session:
         async with session.get(FULL_LIST,headers={'Accept': 'application/json'}) as resp:
+            logger.debug(f'Getting full list of projects')
             req = await resp.json()
             
             links =req['collection']['links']
@@ -151,6 +153,7 @@ async def getProjectHrefs(session, projectExposureHref):
     Returns the hrefs for the project
     """
     async with session.get(projectExposureHref, headers={'Accept': 'application/json'}) as resp:
+        logger.debug(f'Getting project hrefs for {projectExposureHref}')
         links ={
             'project': projectExposureHref,
             'archive': f'{projectExposureHref}/download_generated_omex',
@@ -173,14 +176,26 @@ async def getProjectHrefs(session, projectExposureHref):
                 
         return links
         
+def getGitRepo(name, link):
+    logger.debug(f'Getting git repo for {name}')    
+    repo= git.Repo.clone_from(link, f'projects/{name}/workspace')
+    logger.debug(f'Cloned {name}')
+    logger.debug(f'Getting git submodules for {name}')
+    for submodule in repo.submodules:
+        submodule.update(init=True)
+    logger.debug(f'Updated git submodules for {name}')
+    logger.debug(f'removing git folder for {name}')
+    
+    shutil.rmtree(f'projects/{name}/workspace/.git', ignore_errors=True)
+  
+    
 async def getProjectWorkspace(name, link):
     """
     Saves the workspace for the project
     """
     loop = asyncio.get_event_loop()
-    await loop.run_in_executor(None, git.Repo.clone_from, link, f'projects/{name}/workspace')
+    await loop.run_in_executor(None, getGitRepo, name, link)
     return True
-    
 
 
 
