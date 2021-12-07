@@ -1,13 +1,11 @@
 import asyncio
 import json
-from pickle import TRUE
 import git
 import os 
 import zipfile
 import logging
 import shutil
 from bs4 import BeautifulSoup
-from numpy import true_divide
 import aiohttp
 import re
 
@@ -31,7 +29,7 @@ logger.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
 fh = logging.FileHandler(CONFIG['LogFile'])
-fh.setLevel(logging.LOG)
+fh.setLevel(logging.WARN)
 # create formatter
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 # add formatter to ch
@@ -78,21 +76,20 @@ async def importProjects():
             
             projectName = projectlink['project'].split('/')[-1]
 
-            #archive_tasks.append(asyncio.ensure_future(getProjectArchive(session, projectlink['archive'])))
+            archive_tasks.append(asyncio.ensure_future(getProjectArchive(session, projectlink['archive'])))
             
             workspace_tasks.append(getProjectWorkspace(projectName, projectlink['workspace']))
             
 
             metadata_tasks.append(asyncio.ensure_future(getProjectInfo(session, projectlink['project'], projectlink['documentation'], projectlink['metadata'])))
 
-        try:
-            archives = await asyncio.gather(*archive_tasks, return_exceptions=True)
-            workspaces = await asyncio.gather(*workspace_tasks, return_exceptions=True)
-            metadata = await asyncio.gather(*metadata_tasks, return_exceptions=True)
+        all_tasks = await asyncio.gather(*archive_tasks, *workspace_tasks, *metadata_tasks, return_exceptions=True)  
+        archives= all_tasks[:numProjects]
+        workspaces= all_tasks[numProjects:2*numProjects]
+        metadata= all_tasks[2*numProjects:3*numProjects]
 
-        except Exception as e:
-            logger.error(e)
-                    
+
+
         projectNames = [projectlink['project'].split('/')[-1] for projectlink in projectLinks]
         failed_project_archive_download= [ projectNames[index] for index, archive in enumerate(archives) if isinstance(archive, Exception)]
         if(len(failed_project_archive_download) > 0):
@@ -110,16 +107,15 @@ async def importProjects():
         projectMetadatas= dict(zip(projectNames, metadata))
         
         logger.info(f'Imported {numProjects} projects')
-        logger.log(f'Saving metadata to projects.json')
+        logger.info(f'Saving metadata to projects.json')
         with open('projects.json', 'w') as f:
-            json.dump(projectMetadatas, f)
-        
+            json.dump(projectMetadatas, f)    
         
         
 
-        logger.log(f'Got {len(archives)- len(failed_project_archive_download)}/{len(archives)} archives')
-        logger.log(f'Got {len(workspaces)- len(failed_project_workspace_download)}/{len(workspaces)} workspaces')
-        logger.log(f'Got {len(metadata)- len(failed_project_metadata_download)}/{len(metadata)} metadata')
+        logger.info(f'Got {len(archives)- len(failed_project_archive_download)}/{len(archives)} archives')
+        logger.info(f'Got {len(workspaces)- len(failed_project_workspace_download)}/{len(workspaces)} workspaces')
+        logger.info(f'Got {len(metadata)- len(failed_project_metadata_download)}/{len(metadata)} metadata')
 
             
 
@@ -197,8 +193,7 @@ def getGitRepo(name, link):
     repo= git.Repo.clone_from(link, f'projects/{name}/workspace')
     logger.debug(f'Cloned {name}')
     logger.debug(f'Getting git submodules for {name}')
-    for submodule in repo.submodules:
-        submodule.update(init=True)
+    repo.submodule_update(recursive=True)
     logger.debug(f'Updated git submodules for {name}')
     logger.debug(f'removing git folder for {name}')
     
@@ -211,8 +206,8 @@ async def getProjectWorkspace(name, link):
     """
     
     loop = asyncio.get_event_loop()
-    await loop.run_in_executor(None, getGitRepo, name, link)
-    return True
+    return await loop.run_in_executor(None, getGitRepo, name, link)
+    
 
 
 
@@ -221,6 +216,7 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
     
     """
     projectName= project_href.split('/')[-1]
+    
     model_metadata = {
         "identifier": "",
         "hash": "",
@@ -232,7 +228,12 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
         "tags": [],
         "created": None,
         "modified": None,
-        "citation": [],
+        "citation": {
+            "title": None,
+            "authors": None,
+            "journal": None,
+            "identifier": None,
+        },
         "contributor": "Bilal Shaikh",
         "errors": [],
     }
@@ -246,12 +247,13 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
 
                 for item in data:
                     if item['name'] == 'title':
-                        model_metadata['title'] = item['value']
+                        model_metadata['title'] = (item['value'] or "").strip()
                     if item["name"] == "commit_id":
                         model_metadata['hash'] = item['value']
             except Exception as e:
                 logger.error(f'Failed to get project info for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
+                raise
     else:
         logger.error(f'Failed to get project info for {projectName} due to missing project href')
         model_metadata['errors'].append('No project href')
@@ -265,9 +267,9 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
                     soup = BeautifulSoup(html_page, 'html.parser')
                     # Get the metadata from the page
                     image= soup.find("img", class_="tmp-doc-informalfigure")
-                    image_url = documentation_href + image['src']
-
-                    model_metadata['thumbnails'].append(image_url)
+                    if(image):
+                        image_url = documentation_href+ image['src']
+                        model_metadata['thumbnails'].append(image_url)
                     description = soup.find("div", id="content-core").find_all(re.compile("[hp]"))
                     description = [x.get_text() for x in description]
                     
@@ -275,6 +277,7 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
             except Exception as e:
                 logger.error(f'Failed to get documentation for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
+                raise
     else:
         logger.error(f'Failed to get documentation for {projectName} due to missing documentation href')
         model_metadata['errors'].append('No documentation href')
@@ -290,21 +293,24 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
                     if metadata['name'] == 'keywords':
                         model_metadata['tags'] = metadata['value']
                     if metadata['name'] == 'citation_title':
-                        model_metadata['citation'].append(metadata['value'])
+                        model_metadata['citation']['title'] =metadata['value']
                     if metadata['name'] == 'citation_authors':
-                        model_metadata['citation'].append(metadata['value'])
+                        model_metadata['citation']["authors"] = metadata['value']
                     if metadata['name'] == 'citation_journal':
-                        model_metadata['citation'].append(metadata['value'])
+                        model_metadata['citation']['journal'] =metadata['value'] 
                     if metadata['name'] == 'citation_id':
-                        model_metadata['citation'].append(metadata['value'])
+                        model_metadata['citation']['identifier'] = metadata['value']
                     if metadata['name'] == 'model_author':
                         model_metadata['authors'] = metadata['value']
             except(Exception) as e:
                 logger.error(f'Failed to get metadata for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
+                raise
     else:
         logger.error(f'Failed to get metadata for {projectName} due to missing metadata href')
         model_metadata['errors'].append('No metadata href')
+    if(model_metadata['errors']):
+        raise Exception(f'Failed to get full metadata for {projectName} due to {model_metadata["errors"]}')
 
             
     return model_metadata
