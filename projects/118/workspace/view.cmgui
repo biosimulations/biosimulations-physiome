@@ -1,0 +1,17 @@
+gfx create region vessel;
+gfx read region projectr2_wedge.xml region vessel;
+gfx read region projectr2.xml region vessel;
+gfx define faces egroup vessel;
+gfx modify g_element vessel general clear;
+gfx modify g_element vessel lines coordinate coordinates exterior tessellation default LOCAL native_discretization NONE select_on material default selected_material default_selected;
+gfx modify g_element vessel surfaces coordinate coordinates exterior tessellation default LOCAL native_discretization NONE select_on material tissue selected_material default_selected render_shaded;
+gfx create window 1;
+gfx modify window 1 set perturb_lines;
+# make groups so you can to visualise the wedge elements separately from the tets:
+gfx create egroup inside region vessel;
+gfx modify egroup vessel/inside add 1..20300;
+gfx modify g_element vessel/inside general clear;
+gfx create egroup outside region vessel;
+gfx modify egroup vessel/outside add 20301..32084;
+gfx modify g_element vessel/outside general clear;
+

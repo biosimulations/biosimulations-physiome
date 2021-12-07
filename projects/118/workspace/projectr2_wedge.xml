@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Fieldml version="0.5"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xsi:noNamespaceSchemaLocation="http://www.fieldml.org/resources/xml/0.5/FieldML_0.5.xsd">
+<Region name="vessel">
+
+<Import xlink:href="http://www.fieldml.org/resources/xml/0.5/FieldML_Library_0.5.xml" region="library">
+ <ImportType localName="real.1d" remoteName="real.1d" />
+ <ImportEvaluator localName="real.3d.component.argument" remoteName="real.3d.component.argument" />
+ <ImportEvaluator localName="chart.3d.argument" remoteName="chart.3d.argument" />
+ <ImportType localName="coordinates.rc.3d" remoteName="coordinates.rc.3d" />
+ <ImportType localName="coordinates.rc.3d.component" remoteName="coordinates.rc.3d.component" />
+ <ImportEvaluator localName="coordinates.rc.3d.component.argument" remoteName="coordinates.rc.3d.component.argument" />
+ <ImportType localName="trilinearWedge12.parameters" remoteName="parameters.3d.unit.trilinearWedge12" />
+ <ImportEvaluator localName="trilinearWedge12.interpolator" remoteName="interpolator.3d.unit.trilinearWedge12" />
+ <ImportEvaluator localName="trilinearWedge12.parameters.argument" remoteName="parameters.3d.unit.trilinearWedge12.argument" />
+ <ImportEvaluator localName="trilinearWedge12.parameters.component.argument" remoteName="parameters.3d.unit.trilinearWedge12.component.argument" />
+ <ImportEvaluator localName="shape.unit.wedge12" remoteName="shape.unit.wedge12"/>
+ <ImportEvaluator localName="shape.unit.tetrahedron" remoteName="shape.unit.tetrahedron"/>
+</Import>
+
+<EnsembleType name="nodes">
+ <Members>
+  <MemberRange min="1" max="10492" />
+ </Members>
+</EnsembleType>
+
+<MeshType name="trilinearWedge.mesh">
+ <Elements name="elements">
+  <Members>
+   <MemberRange min="20301" max="32084" />
+  </Members>
+ </Elements>
+ <Chart name="chart">
+  <Components name="trilinearWedge.mesh.chart.component" count="3" />
+ </Chart>
+ <Shapes evaluator="shape.unit.wedge12" />
+</MeshType>
+
+<DataResource name="coordinates.dofs.data.resource">
+ <DataResourceDescription>
+  <DataResourceHref xlink:href="projectr2.msh" format="PLAIN_TEXT"/>
+ </DataResourceDescription>
+ <ArrayDataSource name="node.coordinates.dofs.data" location="4" rank="2">
+  <RawArraySize>
+   10492 3
+  </RawArraySize>
+ </ArrayDataSource>
+ <ArrayDataSource name="mesh.trilinearWedge12.connectivity.data" location="30799" rank="2">
+  <RawArraySize>
+   11784 6
+  </RawArraySize>
+ </ArrayDataSource>
+</DataResource>
+
+<ArgumentEvaluator name="nodes.argument" valueType="nodes" />
+
+<ParameterEvaluator name="node.coordinates.dofs" valueType="real.1d">
+ <DenseArrayData data="node.coordinates.dofs.data">
+  <DenseIndexes>
+   <IndexEvaluator evaluator="nodes.argument" />
+   <IndexEvaluator evaluator="coordinates.rc.3d.component.argument" />
+  </DenseIndexes>
+ </DenseArrayData>
+</ParameterEvaluator>
+
+<ArgumentEvaluator name="trilinearWedge.mesh.argument" valueType="trilinearWedge.mesh" />
+
+<!-- Definition of scalar field template -->
+
+<ArgumentEvaluator name="dofs.node.argument" valueType="real.1d">
+ <!-- expected to be a function of node -->
+ <Arguments>
+  <Argument name="nodes.argument" />
+ </Arguments>
+</ArgumentEvaluator>
+
+<ParameterEvaluator name="mesh.trilinearWedge12.connectivity" valueType="nodes">
+ <DenseArrayData data="mesh.trilinearWedge12.connectivity.data">
+  <DenseIndexes>
+   <IndexEvaluator evaluator="trilinearWedge.mesh.argument.elements" />
+   <IndexEvaluator evaluator="trilinearWedge12.parameters.component.argument" />
+  </DenseIndexes>
+ </DenseArrayData>
+</ParameterEvaluator>
+
+<AggregateEvaluator name="mesh.template1.trilinearWedge12.parameters" valueType="trilinearWedge12.parameters">
+ <Bindings>
+  <BindIndex argument="trilinearWedge12.parameters.component.argument" indexNumber="1" />
+  <Bind argument="nodes.argument" source="mesh.trilinearWedge12.connectivity" />
+ </Bindings>
+ <ComponentEvaluators default="dofs.node.argument" />
+</AggregateEvaluator>
+
+<ReferenceEvaluator name="mesh.template1.trilinearWedge12" evaluator="trilinearWedge12.interpolator" valueType="real.1d">
+ <Bindings>
+  <Bind argument="chart.3d.argument" source="trilinearWedge.mesh.argument.chart" />
+  <Bind argument="trilinearWedge12.parameters.argument" source="mesh.template1.trilinearWedge12.parameters" />
+ </Bindings>
+</ReferenceEvaluator>
+
+<PiecewiseEvaluator name="trilinearWedge.mesh.template1" valueType="real.1d">
+ <IndexEvaluators>
+  <IndexEvaluator evaluator="trilinearWedge.mesh.argument.elements" indexNumber="1" />
+ </IndexEvaluators>
+ <EvaluatorMap default="mesh.template1.trilinearWedge12" />
+</PiecewiseEvaluator>
+
+<!-- Interpolated field definitions -->
+
+<AggregateEvaluator name="coordinates" valueType="coordinates.rc.3d">
+ <Bindings>
+  <BindIndex argument="coordinates.rc.3d.component.argument" indexNumber="1" />
+  <Bind argument="dofs.node.argument" source="node.coordinates.dofs" />
+ </Bindings>
+ <ComponentEvaluators default="trilinearWedge.mesh.template1" />
+</AggregateEvaluator>
+
+</Region>
+</Fieldml>

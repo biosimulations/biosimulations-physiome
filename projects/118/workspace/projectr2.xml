@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Fieldml version="0.5"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xsi:noNamespaceSchemaLocation="http://www.fieldml.org/resources/xml/0.5/FieldML_0.5.xsd">
+<Region name="vessel">
+
+<Import xlink:href="http://www.fieldml.org/resources/xml/0.5/FieldML_Library_0.5.xml" region="library">
+ <ImportType localName="real.1d" remoteName="real.1d" />
+ <ImportEvaluator localName="real.3d.component.argument" remoteName="real.3d.component.argument" />
+ <ImportEvaluator localName="chart.3d.argument" remoteName="chart.3d.argument" />
+ <ImportType localName="coordinates.rc.3d" remoteName="coordinates.rc.3d" />
+ <ImportType localName="coordinates.rc.3d.component" remoteName="coordinates.rc.3d.component" />
+ <ImportEvaluator localName="coordinates.rc.3d.component.argument" remoteName="coordinates.rc.3d.component.argument" />
+ <ImportType localName="trilinearSimplex.parameters" remoteName="parameters.3d.unit.trilinearSimplex" />
+ <ImportEvaluator localName="trilinearSimplex.interpolator" remoteName="interpolator.3d.unit.trilinearSimplex" />
+ <ImportEvaluator localName="trilinearSimplex.parameters.argument" remoteName="parameters.3d.unit.trilinearSimplex.argument" />
+ <ImportEvaluator localName="trilinearSimplex.points.argument" remoteName="parameters.3d.unit.trilinearSimplex.component.argument" />
+ <ImportEvaluator localName="shape.unit.tetrahedron" remoteName="shape.unit.tetrahedron"/>
+</Import>
+
+<DataResource name="coordinates.dofs.data.resource">
+ <DataResourceDescription>
+  <DataResourceHref xlink:href="projectr2.msh" format="PLAIN_TEXT"/>
+ </DataResourceDescription>
+ <ArrayDataSource name="node.coordinates.dofs.data" location="4" rank="2">
+  <RawArraySize>
+   10492 3
+  </RawArraySize>
+ </ArrayDataSource>
+ <ArrayDataSource name="mesh.trilinearSimplex.connectivity.data" location="10496" rank="2">
+  <RawArraySize>
+   20300 4
+  </RawArraySize>
+ </ArrayDataSource>
+</DataResource>
+
+<EnsembleType name="nodes">
+ <Members>
+  <MemberRange min="1" max="10492" />
+ </Members>
+</EnsembleType>
+
+<ArgumentEvaluator name="nodes.argument" valueType="nodes" />
+
+<ParameterEvaluator name="node.coordinates.dofs" valueType="real.1d">
+ <DenseArrayData data="node.coordinates.dofs.data">
+  <DenseIndexes>
+   <IndexEvaluator evaluator="nodes.argument" />
+   <IndexEvaluator evaluator="coordinates.rc.3d.component.argument" />
+  </DenseIndexes>
+ </DenseArrayData>
+</ParameterEvaluator>
+
+<MeshType name="trilinearSimplex.mesh">
+ <Elements name="elements">
+  <Members>
+   <MemberRange min="1" max="20300" />
+  </Members>
+ </Elements>
+ <Chart name="chart">
+  <Components name="trilinearSimplex.mesh.chart.component" count="3" />
+ </Chart>
+ <Shapes evaluator="shape.unit.tetrahedron" />
+</MeshType>
+
+<ArgumentEvaluator name="trilinearSimplex.mesh.argument" valueType="trilinearSimplex.mesh" />
+
+<!-- Definition of scalar field template -->
+
+<ArgumentEvaluator name="dofs.node.argument" valueType="real.1d">
+ <!-- expected to be a function of node -->
+ <Arguments>
+  <Argument name="nodes.argument" />
+ </Arguments>
+</ArgumentEvaluator>
+
+<ParameterEvaluator name="mesh.trilinearSimplex.connectivity" valueType="nodes">
+ <DenseArrayData data="mesh.trilinearSimplex.connectivity.data">
+  <DenseIndexes>
+   <IndexEvaluator evaluator="trilinearSimplex.mesh.argument.elements" />
+   <IndexEvaluator evaluator="trilinearSimplex.points.argument" />
+  </DenseIndexes>
+ </DenseArrayData>
+</ParameterEvaluator>
+
+<AggregateEvaluator name="mesh.template1.trilinearSimplex.parameters" valueType="trilinearSimplex.parameters">
+ <Bindings>
+  <BindIndex argument="trilinearSimplex.points.argument" indexNumber="1" />
+  <Bind argument="nodes.argument" source="mesh.trilinearSimplex.connectivity" />
+ </Bindings>
+ <ComponentEvaluators default="dofs.node.argument" />
+</AggregateEvaluator>
+
+<ReferenceEvaluator name="mesh.template1.trilinearSimplex" evaluator="trilinearSimplex.interpolator" valueType="real.1d">
+ <Bindings>
+  <Bind argument="chart.3d.argument" source="trilinearSimplex.mesh.argument.chart" />
+  <Bind argument="trilinearSimplex.parameters.argument" source="mesh.template1.trilinearSimplex.parameters" />
+ </Bindings>
+</ReferenceEvaluator>
+
+<PiecewiseEvaluator name="trilinearSimplex.mesh.template1" valueType="real.1d">
+ <IndexEvaluators>
+  <IndexEvaluator evaluator="trilinearSimplex.mesh.argument.elements" indexNumber="1" />
+ </IndexEvaluators>
+ <EvaluatorMap default="mesh.template1.trilinearSimplex" />
+</PiecewiseEvaluator>
+
+<!-- Interpolated field definitions -->
+
+<AggregateEvaluator name="coordinates" valueType="coordinates.rc.3d">
+ <Bindings>
+  <BindIndex argument="coordinates.rc.3d.component.argument" indexNumber="1" />
+  <Bind argument="dofs.node.argument" source="node.coordinates.dofs" />
+ </Bindings>
+ <ComponentEvaluators default="trilinearSimplex.mesh.template1" />
+</AggregateEvaluator>
+
+</Region>
+</Fieldml>

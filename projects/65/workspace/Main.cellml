@@ -1,0 +1,1091 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" 
+xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+cmeta:id="VirtualBacterialPhotography" name="VirtualBacterialPhotography"
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:foaf="http://xmlns.com/foaf/0.1/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+
+<rdf:RDF>
+<foaf:Person rdf:nodeID="mike_cooling">	  
+	<foaf:givenName>Mike</foaf:givenName> 
+	<foaf:familyName>Cooling</foaf:familyName> 
+</foaf:Person>
+<foaf:Person rdf:nodeID="xiaoming_wang">	  
+	<foaf:givenName>Xiaoming</foaf:givenName> 
+	<foaf:familyName>Wang</foaf:familyName> 
+</foaf:Person>
+<foaf:Group>
+	<foaf:name>Auckland Bioengineering Institute</foaf:name>
+	<foaf:member rdf:nodeID="mike_cooling"/>
+	<foaf:member rdf:nodeID="xiaoming_wang"/>
+</foaf:Group>
+
+<rdf:Description rdf:about="#VirtualBacterialPhotography">
+	<foaf:maker  rdf:nodeID="mike_cooling"/> 
+	<foaf:maker  rdf:nodeID="xiaoming_wang"/> 
+
+	<dcterms:description>
+	This model was constructed as a modular teaching tool in the context of the bacterial system described in
+	Nature 438, 441-442, doi:10.1038/nature04405
+	Synthetic biology: Engineering Escherichia coli to see light
+	Anselm Levskaya1, Aaron A. Chevalier, Jeffrey J. Tabor, Zachary Booth Simpson,
+	Laura A. Lavery, Matthew Levy, Eric A. Davidson, Alexander Scouras, Andrew D. Ellington, Edward M. Marcotte and Christopher A. Voigt
+	</dcterms:description>
+</rdf:Description>
+</rdf:RDF>
+
+	<component name="SpeciesInitialValues">
+		<variable initial_value="0" name="ho1pcyA_mRNA" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="Ho1" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="BV" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="PcyA" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="PCB" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="Cph8" public_interface="out" units="molecule_per_micrometer2"/>
+		<variable initial_value="0" name="Cph8p" public_interface="out" units="molecule_per_micrometer2"/>	
+		<variable initial_value="0" name="ompR_mRNA" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="OmpR" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="OmpRp" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="ompC_lacZ_mRNA" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="Beta_Galactosidase" public_interface="out" units="nM"/>
+		<variable initial_value="0" name="Precipitate" public_interface="out" units="nM"/>
+	</component>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Chassis_EColi.cellml">
+		<component component_ref="Chassis_EColi" name="E_Coli"/>
+	</import>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Time.cellml">
+		<component component_ref="Time" name="Time"/>
+	</import>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ho1pcyA_Promoter.cellml">
+		<component component_ref="ho1pcyA_Promoter" name="ho1pcyA_Promoter"/>
+		<units name="nM_per_s" units_ref="nM_per_s"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ho1pcyA_Promoter" component_2="E_Coli"/>
+		<map_variables variable_1="localVolume" variable_2="cellVolume"/>
+	</connection>
+
+
+	<component name="ho1pcyA_mRNA_Interface">
+		<variable name="JPlusPromoter" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<ci>JPlusPromoter</ci>
+					<ci>JMinusDegradation</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+	<connection>
+		<map_components component_1="ho1pcyA_mRNA_Interface" component_2="Bioenvironment_Degradation_ho1pcyA_mRNA"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ho1pcyA_mRNA_Interface" component_2="ho1pcyA_mRNA"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ho1pcyA_mRNA_Interface" component_2="ho1pcyA_Promoter"/>
+		<map_variables variable_1="JPlusPromoter" variable_2="JRNA"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="ho1pcyA_mRNA"/>
+		<units name="nM" units_ref="nM"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ho1pcyA_mRNA" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="SpeciesInitialValues" component_2="ho1pcyA_mRNA"/>
+		<map_variables variable_1="ho1pcyA_mRNA" variable_2="concentrationInitialValue"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_ho1pcyA_mRNA.cellml">
+		<component component_ref="Bioenvironment_Degradation_ho1pcyA_mRNA" name="Bioenvironment_Degradation_ho1pcyA_mRNA"/>
+		<units name="per_s" units_ref="per_s"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ho1pcyA_mRNA" component_2="Bioenvironment_Degradation_ho1pcyA_mRNA"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ho1_RBS.cellml">
+		<component component_ref="ho1_RBS" name="ho1_RBS"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ho1_RBS" component_2="E_Coli"/>
+		<map_variables variable_1="localVolume" variable_2="cellVolume"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ho1_RBS" component_2="ho1pcyA_mRNA"/>
+		<map_variables variable_1="RNA" variable_2="concentration"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ho1_CDS.cellml">
+		<component component_ref="ho1_CDS" name="ho1_CDS"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ho1_CDS" component_2="E_Coli"/>
+		<map_variables variable_1="localVolume" variable_2="cellVolume"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ho1_CDS" component_2="ho1_RBS"/>
+		<map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="pcyA_RBS.cellml">
+		<component component_ref="pcyA_RBS" name="pcyA_RBS"/>
+	</import>
+
+	<connection>
+		<map_components component_1="E_Coli" component_2="pcyA_RBS"/>
+		<map_variables variable_1="cellVolume" variable_2="localVolume"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="pcyA_RBS" component_2="ho1pcyA_mRNA"/>
+		<map_variables variable_1="RNA" variable_2="concentration"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="pcyA_CDS.cellml">
+		<component component_ref="pcyA_CDS" name="pcyA_CDS"/>
+	</import>
+
+	<connection>
+		<map_components component_1="E_Coli" component_2="pcyA_CDS"/>
+		<map_variables variable_1="cellVolume" variable_2="localVolume"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="pcyA_RBS" component_2="pcyA_CDS"/>
+		<map_variables variable_1="RNARiPs" variable_2="hostRNARiPs"/>
+	</connection>
+
+	<component name="Ho1_Interface">
+		<variable name="JPlusProduction" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<ci>JPlusProduction</ci>
+					<ci>JMinusDegradation</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+	<connection>
+		<map_components component_1="Ho1_Interface" component_2="ho1_CDS"/>
+		<map_variables variable_1="JPlusProduction" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Ho1_Interface" component_2="Bioenvironment_Degradation_Ho1"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="Ho1"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Ho1" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Ho1" component_2="Ho1_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Ho1" component_2="SpeciesInitialValues"/>
+		<map_variables variable_1="concentrationInitialValue" variable_2="Ho1"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_Ho1.cellml">
+		<component component_ref="Bioenvironment_Degradation_Ho1" name="Bioenvironment_Degradation_Ho1"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Ho1" component_2="Bioenvironment_Degradation_Ho1"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+
+	<component name="PcyA_Interface">
+		<variable name="JPlusProduction" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<ci>JPlusProduction</ci>
+					<ci>JMinusDegradation</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+	<connection>
+		<map_components component_1="PcyA_Interface" component_2="Bioenvironment_Degradation_PcyA"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="PcyA_Interface" component_2="pcyA_CDS"/>
+		<map_variables variable_1="JPlusProduction" variable_2="J"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="PcyA"/>
+	</import>
+
+	<connection>
+		<map_components component_1="PcyA" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="PcyA" component_2="PcyA_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="PcyA" component_2="SpeciesInitialValues"/>
+		<map_variables variable_1="concentrationInitialValue" variable_2="PcyA"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_PcyA.cellml">
+		<component component_ref="Bioenvironment_Degradation_PcyA" name="Bioenvironment_Degradation_PcyA"/>
+	</import>
+
+	<connection>
+		<map_components component_1="PcyA" component_2="Bioenvironment_Degradation_PcyA"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+
+	<component name="BV_Interface">
+		<variable name="JPlusProduction" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<variable name="JMinusPCBFormation" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<apply>
+						<minus/>
+						<ci>JPlusProduction</ci>
+						<ci>JMinusDegradation</ci>
+					</apply>
+					<ci>JMinusPCBFormation</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+	<connection>
+		<map_components component_1="BV_Interface" component_2="Bioenvironment_Degradation_BV"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="BV_Interface" component_2="Bioenvironment_BVFormation"/>
+		<map_variables variable_1="JPlusProduction" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="BV_Interface" component_2="Bioenvironment_PCBFormation"/>
+		<map_variables variable_1="JMinusPCBFormation" variable_2="J"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="BV"/>
+	</import>
+
+	<connection>
+		<map_components component_1="BV" component_2="SpeciesInitialValues"/>
+		<map_variables variable_1="concentrationInitialValue" variable_2="BV"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="BV" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="BV" component_2="BV_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_BV.cellml">
+		<component component_ref="Bioenvironment_Degradation_BV" name="Bioenvironment_Degradation_BV"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Bioenvironment_Degradation_BV" component_2="BV"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Haem.cellml">
+		<component component_ref="Bioenvironment_Haem" name="Haem"/>
+	</import>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_BVFormation.cellml">
+		<component component_ref="Bioenvironment_BVFormation" name="Bioenvironment_BVFormation"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Bioenvironment_BVFormation" component_2="Haem"/>
+		<map_variables variable_1="reactant" variable_2="concentration"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Bioenvironment_BVFormation" component_2="Ho1"/>
+		<map_variables variable_1="catalyst" variable_2="concentration"/>
+	</connection>
+	
+
+	<component name="PCB_Interface">
+		<variable name="JPlusProduction" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<variable name="JMinusCph8Addition" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<ci>JPlusProduction</ci>
+					<apply>
+						<plus />
+						<ci>JMinusDegradation</ci>
+						<ci>JMinusCph8Addition</ci>
+					</apply>
+				</apply>
+			</apply>
+		</math>
+	</component>
+	
+	<connection>
+		<map_components component_1="PCB_Interface" component_2="Bioenvironment_Cph8Formation"/>
+		<map_variables variable_1="JMinusCph8Addition" variable_2="Jconcentration"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="PCB_Interface" component_2="Bioenvironment_Degradation_PCB"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="PCB_Interface" component_2="Bioenvironment_PCBFormation"/>
+		<map_variables variable_1="JPlusProduction" variable_2="J"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="PCB"/>
+	</import>
+
+	<connection>
+		<map_components component_1="PCB" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="PCB" component_2="PCB_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="PCB" component_2="SpeciesInitialValues"/>
+		<map_variables variable_1="concentrationInitialValue" variable_2="PCB"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_PCB.cellml">
+		<component component_ref="Bioenvironment_Degradation_PCB" name="Bioenvironment_Degradation_PCB"/>
+	</import>
+
+	<connection>
+		<map_components component_1="PCB" component_2="Bioenvironment_Degradation_PCB"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_PCBFormation.cellml">
+		<component component_ref="Bioenvironment_PCBFormation" name="Bioenvironment_PCBFormation"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Bioenvironment_PCBFormation" component_2="BV"/>
+		<map_variables variable_1="reactant" variable_2="concentration"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Bioenvironment_PCBFormation" component_2="PcyA"/>
+		<map_variables variable_1="catalyst" variable_2="concentration"/>
+	</connection>
+	
+	<component name="Cph8_Interface">
+		<variable name="JPlusPCBAddition" public_interface="in" units="molecule_per_micrometer2_per_s"/>
+		<variable name="JMinusCph8Phosphorylation" public_interface="in" units="molecule_per_micrometer2_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="molecule_per_micrometer2_per_s"/>
+		<variable name="JPlusOmpRpFormation" public_interface="in" units="molecule_per_micrometer2_per_s"/>
+		<variable name="JGain" public_interface="out" units="molecule_per_micrometer2_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+						<apply>
+							<plus/>
+							<ci>JPlusPCBAddition</ci>
+							<ci>JPlusOmpRpFormation</ci>
+						</apply>
+						<apply>
+							<plus/>
+							<ci>JMinusDegradation</ci>
+							<ci>JMinusCph8Phosphorylation</ci>
+						</apply>
+				</apply>
+			</apply>
+		</math>
+	</component>
+	
+	<connection>
+		<map_components component_1="Cph8_Interface" component_2="Bioenvironment_OmpRpFormation"/>
+		<map_variables variable_1="JPlusOmpRpFormation" variable_2="Jdensity"/>
+	</connection>
+	
+	<connection>
+		<map_components component_1="Cph8_Interface" component_2="Bioenvironment_LightDependentPhosphorylation_Cph8"/>
+		<map_variables variable_1="JMinusCph8Phosphorylation" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Cph8_Interface" component_2="Bioenvironment_Degradation_Cph8"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Cph8_Interface" component_2="Bioenvironment_Cph8Formation"/>
+		<map_variables variable_1="JPlusPCBAddition" variable_2="Jdensity"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_BoundSpecies.cellml">
+		<component component_ref="Template_BoundSpecies" name="Cph8"/>
+		<units name="molecule_per_micrometer2" units_ref="molecule_per_micrometer2"/>
+		<units name="molecule_per_micrometer2_per_s" units_ref="molecule_per_micrometer2_per_s"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Cph8" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="SpeciesInitialValues" component_2="Cph8"/>
+		<map_variables variable_1="Cph8" variable_2="densityInitialValue"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Cph8" component_2="Cph8_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_Cph8.cellml">
+		<component component_ref="Bioenvironment_Degradation_Cph8" name="Bioenvironment_Degradation_Cph8"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Cph8" component_2="Bioenvironment_Degradation_Cph8"/>
+		<map_variables variable_1="density" variable_2="density"/>
+	</connection>	
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Cph8_no_PCB.cellml">
+		<component component_ref="Bioenvironment_Cph8_no_PCB" name="Bioenvironment_Cph8_no_PCB"/>
+	</import>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Cph8Formation.cellml">
+		<component component_ref="Bioenvironment_Cph8Formation" name="Bioenvironment_Cph8Formation"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Bioenvironment_Cph8_no_PCB" component_2="Bioenvironment_Cph8Formation"/>
+		<map_variables variable_1="density" variable_2="Cph8_no_PCB"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Bioenvironment_Cph8Formation" component_2="PCB"/>
+		<map_variables variable_1="PCB" variable_2="concentration"/>
+	</connection>	
+	
+	<connection>
+		<map_components component_1="Bioenvironment_Cph8Formation" component_2="E_Coli"/>
+		<map_variables variable_1="Ccm" variable_2="Ccm"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Cph8" component_2="Bioenvironment_Cph8Formation"/>
+		<map_variables variable_1="density" variable_2="Cph8"/>
+	</connection>
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_PeriodicLightSource.cellml">
+		<component component_ref="Bioenvironment_PeriodicLightSource" name="Bioenvironment_PeriodicLightSource"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Bioenvironment_PeriodicLightSource" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+	
+	<component name="Cph8p_Interface">
+		<variable name="JPlusCph8Phosphorylation" public_interface="in" units="molecule_per_micrometer2_per_s"/>
+		<variable name="JGain" public_interface="out" units="molecule_per_micrometer2_per_s"/>
+		<variable name="JMinusOmpRpFormation" public_interface="in" units="molecule_per_micrometer2_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+					<apply>
+					<minus/>
+					<ci>JPlusCph8Phosphorylation</ci>
+					<ci>JMinusOmpRpFormation</ci>
+					</apply>
+			</apply>
+		</math>
+	</component>
+	
+	<connection>
+		<map_components component_1="Cph8p_Interface" component_2="Bioenvironment_OmpRpFormation"/>
+		<map_variables variable_1="JMinusOmpRpFormation" variable_2="Jdensity"/>
+	</connection>
+	
+	<connection>
+		<map_components component_1="Cph8p_Interface" component_2="Bioenvironment_LightDependentPhosphorylation_Cph8"/>
+		<map_variables variable_1="JPlusCph8Phosphorylation" variable_2="J"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_BoundSpecies.cellml">
+		<component component_ref="Template_BoundSpecies" name="Cph8p"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Cph8p" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="SpeciesInitialValues" component_2="Cph8p"/>
+		<map_variables variable_1="Cph8p" variable_2="densityInitialValue"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Cph8p" component_2="Cph8p_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+	
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_LightDependentPhosphorylation_Cph8.cellml">
+		<component component_ref="Bioenvironment_LightDependentPhosphorylation_Cph8" name="Bioenvironment_LightDependentPhosphorylation_Cph8"/>
+	</import>
+	
+	<connection>
+		<map_components component_1="Bioenvironment_LightDependentPhosphorylation_Cph8" component_2="Cph8"/>
+		<map_variables variable_1="density" variable_2="density"/>
+	</connection>
+	
+	<connection>
+		<map_components component_1="Bioenvironment_LightDependentPhosphorylation_Cph8" component_2="Bioenvironment_PeriodicLightSource"/>
+		<map_variables variable_1="lightIntensity" variable_2="lightIntensity"/>
+	</connection>
+	
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ompR_Promoter.cellml">
+		<component component_ref="ompR_Promoter" name="ompR_Promoter"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ompR_Promoter" component_2="E_Coli"/>
+		<map_variables variable_1="localVolume" variable_2="cellVolume"/>
+	</connection>
+	
+	<component name="ompR_mRNA_Interface">
+		<variable name="JPlusPromoter" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<ci>JPlusPromoter</ci>
+					<ci>JMinusDegradation</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+	<connection>
+		<map_components component_1="ompR_mRNA_Interface" component_2="Bioenvironment_Degradation_ompR_mRNA"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ompR_mRNA_Interface" component_2="ompR_mRNA"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ompR_mRNA_Interface" component_2="ompR_Promoter"/>
+		<map_variables variable_1="JPlusPromoter" variable_2="JRNA"/>
+	</connection>
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="ompR_mRNA"/>
+		<units name="nM" units_ref="nM"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ompR_mRNA" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="SpeciesInitialValues" component_2="ompR_mRNA"/>
+		<map_variables variable_1="ompR_mRNA" variable_2="concentrationInitialValue"/>
+	</connection>
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_ompR_mRNA.cellml">
+		<component component_ref="Bioenvironment_Degradation_ompR_mRNA" name="Bioenvironment_Degradation_ompR_mRNA"/>
+		<units name="per_s" units_ref="per_s"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ompR_mRNA" component_2="Bioenvironment_Degradation_ompR_mRNA"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ompR_RBS.cellml">
+		<component component_ref="ompR_RBS" name="ompR_RBS"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ompR_RBS" component_2="E_Coli"/>
+		<map_variables variable_1="localVolume" variable_2="cellVolume"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ompR_RBS" component_2="ompR_mRNA"/>
+		<map_variables variable_1="RNA" variable_2="concentration"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ompR_CDS.cellml">
+		<component component_ref="ompR_CDS" name="ompR_CDS"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ompR_CDS" component_2="E_Coli"/>
+		<map_variables variable_1="localVolume" variable_2="cellVolume"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ompR_CDS" component_2="ompR_RBS"/>
+		<map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+	</connection>
+	
+	<component name="OmpR_Interface">
+		<variable name="JPlusProduction" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<variable name="JMinusOmpRpFormation" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<ci>JPlusProduction</ci>
+						<apply>
+						<plus/>
+						<ci>JMinusDegradation</ci>
+						<ci>JMinusOmpRpFormation</ci>
+						</apply>
+				</apply>
+			</apply>
+		</math>
+	</component>
+	
+	<connection>
+		<map_components component_1="OmpR_Interface" component_2="Bioenvironment_OmpRpFormation"/>
+		<map_variables variable_1="JMinusOmpRpFormation" variable_2="Jconcentration"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="OmpR_Interface" component_2="ompR_CDS"/>
+		<map_variables variable_1="JPlusProduction" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="OmpR_Interface" component_2="Bioenvironment_Degradation_OmpR"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="OmpR"/>
+	</import>
+
+	<connection>
+		<map_components component_1="OmpR" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="OmpR" component_2="OmpR_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="OmpR" component_2="SpeciesInitialValues"/>
+		<map_variables variable_1="concentrationInitialValue" variable_2="OmpR"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_OmpR.cellml">
+		<component component_ref="Bioenvironment_Degradation_OmpR" name="Bioenvironment_Degradation_OmpR"/>
+	</import>
+
+	<connection>
+		<map_components component_1="OmpR" component_2="Bioenvironment_Degradation_OmpR"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+		
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_OmpRpFormation.cellml">
+		<component component_ref="Bioenvironment_OmpRpFormation" name="Bioenvironment_OmpRpFormation"/>
+	</import>
+	
+	<connection>
+		<map_components component_1="Bioenvironment_OmpRpFormation" component_2="E_Coli"/>
+		<map_variables variable_1="Ccm" variable_2="Ccm"/>
+	</connection>
+	
+	<connection>
+		<map_components component_1="Bioenvironment_OmpRpFormation" component_2="Cph8"/>
+		<map_variables variable_1="Cph8" variable_2="density"/>
+	</connection>
+	
+	<connection>
+		<map_components component_1="Bioenvironment_OmpRpFormation" component_2="Cph8p"/>
+		<map_variables variable_1="Cph8p" variable_2="density"/>
+	</connection>
+	
+	<connection>
+		<map_components component_1="Bioenvironment_OmpRpFormation" component_2="OmpR"/>
+		<map_variables variable_1="OmpR" variable_2="concentration"/>
+	</connection>
+	
+	<connection>
+		<map_components component_1="Bioenvironment_OmpRpFormation" component_2="OmpRp"/>
+		<map_variables variable_1="OmpRp" variable_2="concentration"/>
+	</connection>
+	
+	<component name="OmpRp_Interface">
+		<variable name="JPlusFormation" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<ci>JPlusFormation</ci>
+					<ci>JMinusDegradation</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+	<connection>
+		<map_components component_1="OmpRp_Interface" component_2="Bioenvironment_OmpRpFormation"/>
+		<map_variables variable_1="JPlusFormation" variable_2="Jconcentration"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="OmpRp_Interface" component_2="Bioenvironment_Degradation_OmpRp"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="OmpRp"/>
+	</import>
+
+	<connection>
+		<map_components component_1="OmpRp" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="OmpRp" component_2="OmpRp_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+	
+	<connection>
+		<map_components component_1="OmpRp" component_2="SpeciesInitialValues"/>
+		<map_variables variable_1="concentrationInitialValue" variable_2="OmpRp"/>
+	</connection>
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_OmpRp.cellml">
+		<component component_ref="Bioenvironment_Degradation_OmpRp" name="Bioenvironment_Degradation_OmpRp"/>
+	</import>
+
+	<connection>
+		<map_components component_1="OmpRp" component_2="Bioenvironment_Degradation_OmpRp"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ompC_lacZ_Promoter.cellml">
+		<component component_ref="ompC_lacZ_Promoter" name="ompC_lacZ_Promoter"/>
+	</import>
+	
+	<connection>
+		<map_components component_1="OmpRp" component_2="ompC_lacZ_Promoter"/>
+		<map_variables variable_1="concentration" variable_2="tFactor"/>
+	</connection>
+	
+	<connection>
+		<map_components component_1="E_Coli" component_2="ompC_lacZ_Promoter"/>
+		<map_variables variable_1="cellVolume" variable_2="localVolume"/>
+	</connection>
+	
+	<component name="ompC_lacZ_mRNA_Interface">
+		<variable name="JPlusPromoter" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<ci>JPlusPromoter</ci>
+					<ci>JMinusDegradation</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+	<connection>
+		<map_components component_1="ompC_lacZ_mRNA_Interface" component_2="Bioenvironment_Degradation_ompC_lacZ_mRNA"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ompC_lacZ_mRNA_Interface" component_2="ompC_lacZ_mRNA"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="ompC_lacZ_mRNA_Interface" component_2="ompC_lacZ_Promoter"/>
+		<map_variables variable_1="JPlusPromoter" variable_2="JRNA"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="ompC_lacZ_mRNA"/>
+		<units name="nM" units_ref="nM"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ompC_lacZ_mRNA" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="SpeciesInitialValues" component_2="ompC_lacZ_mRNA"/>
+		<map_variables variable_1="ompC_lacZ_mRNA" variable_2="concentrationInitialValue"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_ompC_lacZ_mRNA.cellml">
+		<component component_ref="Bioenvironment_Degradation_ompC_lacZ_mRNA" name="Bioenvironment_Degradation_ompC_lacZ_mRNA"/>
+		<units name="per_s" units_ref="per_s"/>
+	</import>
+
+	<connection>
+		<map_components component_1="ompC_lacZ_mRNA" component_2="Bioenvironment_Degradation_ompC_lacZ_mRNA"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="beta_galactosidase_RBS.cellml">
+		<component component_ref="beta_galactosidase_RBS" name="beta_galactosidase_RBS"/>
+	</import>
+
+	<connection>
+		<map_components component_1="beta_galactosidase_RBS" component_2="E_Coli"/>
+		<map_variables variable_1="localVolume" variable_2="cellVolume"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="beta_galactosidase_RBS" component_2="ompC_lacZ_mRNA"/>
+		<map_variables variable_1="RNA" variable_2="concentration"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="beta_galactosidase_CDS.cellml">
+		<component component_ref="beta_galactosidase_CDS" name="beta_galactosidase_CDS"/>
+	</import>
+
+	<connection>
+		<map_components component_1="beta_galactosidase_CDS" component_2="E_Coli"/>
+		<map_variables variable_1="localVolume" variable_2="cellVolume"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="beta_galactosidase_CDS" component_2="beta_galactosidase_RBS"/>
+		<map_variables variable_1="hostRNARiPs" variable_2="RNARiPs"/>
+	</connection>
+	
+	<component name="Beta_Galactosidase_Interface">
+		<variable name="JPlusProduction" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<variable name="JMinusDegradation" public_interface="in" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<apply>
+					<minus/>
+					<ci>JPlusProduction</ci>
+					<ci>JMinusDegradation</ci>
+				</apply>
+			</apply>
+		</math>
+	</component>
+
+	<connection>
+		<map_components component_1="Beta_Galactosidase_Interface" component_2="beta_galactosidase_CDS"/>
+		<map_variables variable_1="JPlusProduction" variable_2="J"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Beta_Galactosidase_Interface" component_2="Bioenvironment_Degradation_Beta_Galactosidase"/>
+		<map_variables variable_1="JMinusDegradation" variable_2="J"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="Beta_Galactosidase"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Beta_Galactosidase" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Beta_Galactosidase" component_2="Beta_Galactosidase_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Beta_Galactosidase" component_2="SpeciesInitialValues"/>
+		<map_variables variable_1="concentrationInitialValue" variable_2="Beta_Galactosidase"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_Degradation_Beta_Galactosidase.cellml">
+		<component component_ref="Bioenvironment_Degradation_Beta_Galactosidase" name="Bioenvironment_Degradation_Beta_Galactosidase"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Beta_Galactosidase" component_2="Bioenvironment_Degradation_Beta_Galactosidase"/>
+		<map_variables variable_1="concentration" variable_2="concentration"/>
+	</connection>
+	
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_S_Galactosidase.cellml">
+		<component component_ref="Bioenvironment_S_Galactosidase" name="S_Galactosidase"/>
+	</import>
+	
+	<component name="Precipitate_Interface">
+		<variable name="JPlusProduction" public_interface="in" units="nM_per_s"/>
+		<variable name="JGain" public_interface="out" units="nM_per_s"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq/>
+				<ci>JGain</ci>
+				<ci>JPlusProduction</ci>
+			</apply>
+		</math>
+	</component>
+
+	<connection>
+		<map_components component_1="Precipitate_Interface" component_2="Bioenvironment_PrecipitateFormation"/>
+		<map_variables variable_1="JPlusProduction" variable_2="J"/>
+	</connection>
+
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Species.cellml">
+		<component component_ref="Template_Species" name="Precipitate"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Precipitate" component_2="SpeciesInitialValues"/>
+		<map_variables variable_1="concentrationInitialValue" variable_2="Precipitate"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Precipitate" component_2="Time"/>
+		<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Precipitate" component_2="Precipitate_Interface"/>
+		<map_variables variable_1="JGain" variable_2="JGain"/>
+	</connection>
+
+	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="Bioenvironment_PrecipitateFormation.cellml">
+		<component component_ref="Bioenvironment_PrecipitateFormation" name="Bioenvironment_PrecipitateFormation"/>
+	</import>
+
+	<connection>
+		<map_components component_1="Bioenvironment_PrecipitateFormation" component_2="S_Galactosidase"/>
+		<map_variables variable_1="reactant" variable_2="concentration"/>
+	</connection>
+
+	<connection>
+		<map_components component_1="Bioenvironment_PrecipitateFormation" component_2="Beta_Galactosidase"/>
+		<map_variables variable_1="catalyst" variable_2="concentration"/>
+	</connection>
+</model>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="Bioenvironment_PCBFormation" name="Bioenvironment_PCBFormation">
+            
+
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_RxR1P1MM.cellml">
+    <units name="nM" units_ref="nM"/>
+    <units name="nM_per_s" units_ref="nM_per_s"/>
+    <units name="per_s" units_ref="per_s"/>
+    <component component_ref="Template_RxR1P1MM" name="Template_RxR1P1MM"/>
+  </import>
+
+   <component name="Bioenvironment_PCBFormation">
+    <variable name="J" private_interface="in" public_interface="out" units="nM_per_s"/>
+    <variable name="reactant" private_interface="out" public_interface="in" units="nM"/>
+    <variable name="catalyst" private_interface="out" public_interface="in" units="nM"/>
+    <variable initial_value="1" name="k" private_interface="out" units="per_s"/>
+    <variable initial_value="0.1" name="Km" private_interface="out" units="nM"/>
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="Bioenvironment_PCBFormation">
+      <component_ref component="Template_RxR1P1MM"/>
+    </component_ref>
+   </group> 
+  
+   
+
+<connection><map_components component_1="Bioenvironment_PCBFormation" component_2="Template_RxR1P1MM"/><map_variables variable_1="J" variable_2="J"/><map_variables variable_1="reactant" variable_2="reactant"/><map_variables variable_1="catalyst" variable_2="catalyst"/><map_variables variable_1="k" variable_2="k"/><map_variables variable_1="Km" variable_2="Km"/></connection></model>

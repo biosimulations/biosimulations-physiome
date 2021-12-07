@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<model name="Template_BoundSpecies" cmeta:id="Template_BoundSpecies"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.0/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+    >
+    
+   <units name="molecule">
+     <unit multiplier="0.0000000000000000000000016606" units="mole" />
+   </units>
+    
+    <units name="micrometer">
+    	<unit units="meter" prefix="micro"/>
+    </units>
+    
+    <units name="micrometer2">
+    	<unit units="micrometer" exponent="2"/>
+    </units>
+        
+   <units name="molecule_per_micrometer2">
+      <unit units="molecule" />
+      <unit units="micrometer2" exponent="-1"/>
+   </units> 
+   <units name="per_s">
+         <unit units="second" exponent="-1"/>
+   </units>
+   <units name="molecule_per_micrometer2_per_s">
+      <unit units="molecule_per_micrometer2"/>
+      <unit units="per_s"/>
+   </units>
+  
+   <component name="Template_BoundSpecies">
+      <variable name="time" units="second" public_interface="in"/>
+      <variable name="density" units="molecule_per_micrometer2" initial_value="densityInitialValue" public_interface="out"/>
+      <variable name="densityInitialValue" units="molecule_per_micrometer2" public_interface="in"/>
+      <variable name="JGain" units="molecule_per_micrometer2_per_s" public_interface="in"/>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+         <apply>
+            <eq/>
+            <apply>
+               <diff/>
+               <bvar>
+                  <ci>time</ci>
+               </bvar>
+               <ci>density</ci>
+            </apply>
+            <ci>JGain</ci>
+         </apply>
+      </math>
+   </component>
+</model>
+
+

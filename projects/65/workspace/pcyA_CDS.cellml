@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="pcyA_CDS" name="pcyA_CDS">
+            
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            <rdf:Description rdf:about="#pcyA_CDS">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.0/">
+            <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Mike</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            </vCard:EMAIL>
+            <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+            </vCard:ORG>
+            </dc:creator>
+            </rdf:Description>
+   </rdf:RDF>
+
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_ProteinCDS.cellml">
+      <units name="femtoliter" units_ref="femtoliter"/>
+      <units name="RiPsInAttoMoles" units_ref="RiPsInAttoMoles"/>
+      <units name="nM_per_s" units_ref="nM_per_s"/>
+      <component component_ref="Template_ProteinCDS" name="Template_ProteinCDS"/>
+  </import>
+
+   <component name="pcyA_CDS">
+      <variable name="localVolume" private_interface="out" public_interface="in" units="femtoliter"/>
+      <variable name="hostRNARiPs" private_interface="out" public_interface="in" units="RiPsInAttoMoles"/>
+      <variable name="J" private_interface="in" public_interface="out" units="nM_per_s"/>
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="pcyA_CDS">
+      <component_ref component="Template_ProteinCDS"/>
+    </component_ref>
+   </group> 
+  
+   
+
+<connection><map_components component_1="pcyA_CDS" component_2="Template_ProteinCDS"/><map_variables variable_1="localVolume" variable_2="localVolume"/><map_variables variable_1="hostRNARiPs" variable_2="hostRNARiPs"/><map_variables variable_1="J" variable_2="J"/></connection></model>

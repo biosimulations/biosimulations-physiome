@@ -1,0 +1,2057 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--  FILE :  waugh_model_2007.xml
+
+CREATED :  8th November 2007
+
+LAST MODIFIED : 8th November 2007
+
+AUTHOR :  Catherine Lloyd
+          Bioengineering Institute
+          The University of Auckland
+          
+MODEL STATUS :  This model conforms to the CellML 1.1 Specification.
+
+DESCRIPTION :  This file contains a CellML description of Waugh and Sherratt's 2007 mathematical model of macrophage dynamics in diabetic wound healing.
+
+CHANGES:  
+  
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="waugh_model_2007" name="waugh_model_2007">
+
+<documentation xmlns="http://cellml.org/tmp-documentation">
+<article>
+  <articleinfo>
+  <title>Modeling the effects of treating diabetic wounds with engineered skin substitutes</title>
+  <author>
+    <firstname>Catherine</firstname>
+          <surname>Lloyd</surname>
+    <affiliation>
+      <shortaffil>Auckland Bioengineering Institute, The University of Auckland</shortaffil>
+    </affiliation>
+  </author>
+</articleinfo>
+  <section id="sec_status">
+    <title>Model Status</title>
+    <para>
+        This CellML version of the model runs in PCEnv to recreate the results in the published paper.  The model has also been checked in COR and the units are consistent.  This particular version of the model represents wound healing in a diabetic patient treated with Apligraf.
+          </para>
+  </section>
+  <sect1 id="sec_structure">
+  <title>Model Structure</title>
+
+<para>
+ABSTRACT: In this paper, a novel mathematical model of wound healing in both normal and diabetic cases is presented, focusing upon the effects of adding two currently available commercial engineered skin substitute therapies to the wound (Apligraf) and Dermagraft). Our work extends a previously developed model, which considers inflammatory and repair macrophage dynamics in normal and diabetic wound healing. Here, we extend the model to include equations for platelet-derived growth factor concentration, fibroblast density, collagen density, and hyaluronan concentration. This enables us to examine the variation of these components in both normal and diabetic wound healing cases, and to model the treatment protocols of these therapies. Within the context of our model, we find that the key component to successful healing in diabetic wounds is hyaluronan and that the therapies work by increasing the amount of hyaluronan available in the wound environment. The time-to-healing results correlate with those observed in clinical trials and the model goes some way to establishing an understanding of why diabetic wounds do not heal, and how these treatments affect the diabetic wound environment to promote wound closure.
+</para>
+
+<para>
+The original paper reference is cited below:
+</para>
+
+<para>
+Modeling the effects of treating diabetic wounds with engineered skin substitutes, Helen V. Waugh and Jonathan A. Sherratt, 2007, <emphasis>Wound Repair and Regeneration</emphasis>, 15, 556-565.  <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/17650100">PubMed ID: 17650100</ulink>
+</para>
+
+<informalfigure float="0" id="fig_reaction_diagram">
+					<mediaobject>
+						<imageobject>
+							<objectinfo>
+								<title>model diagram</title>
+							</objectinfo>
+							<imagedata fileref="waugh_2007.png"/>
+						</imageobject>
+					</mediaobject>
+					<caption>Schematic diagram of the mathematical model describing macrophage and fibroblast dynamics in diabetic wound healing.</caption>
+				</informalfigure>
+
+</sect1>
+</article>
+</documentation> 
+  
+  <units name="day">
+    <unit units="second" multiplier="86400.0"/>
+  </units>
+
+  <units base_units="yes" name="cells"/>
+
+  <units name="pg_per_mm3">
+    <unit units="gram" prefix="pico"/>
+    <unit units="metre" prefix="milli" exponent="-3"/>
+  </units>
+
+  <units name="pg_per_mm3_per_day">
+    <unit units="gram" prefix="pico"/>
+    <unit units="metre" prefix="milli" exponent="-3"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="microg_per_mm3">
+    <unit units="gram" prefix="micro"/>
+    <unit units="metre" prefix="milli" exponent="-3"/>
+  </units>
+  
+  <units name="cells_per_mm3">
+    <unit units="cells"/>
+    <unit units="metre" prefix="milli" exponent="-3"/>
+  </units>
+
+  <units name="cells_per_mm3_per_day">
+    <unit units="cells"/>
+    <unit units="metre" prefix="milli" exponent="-3"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+  
+  <units name="cells_per_pg_per_day">
+    <unit units="cells"/>
+    <unit units="gram" prefix="pico" exponent="-1"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="mm3_per_cells">
+    <unit units="metre" prefix="milli" exponent="3"/>
+    <unit units="cells" exponent="-1"/>
+  </units>
+
+  <units name="mm3_per_cells_per_day">
+    <unit units="metre" prefix="milli" exponent="3"/>
+    <unit units="cells" exponent="-1"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="mm3_per_microg">
+    <unit units="metre" prefix="milli" exponent="3"/>
+    <unit units="gram" prefix="micro" exponent="-1"/>
+  </units>
+  
+  <units name="pg_per_cells_per_day">
+    <unit units="gram" prefix="pico"/>
+    <unit units="cells" exponent="-1"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="microg_per_cells_per_day">
+    <unit units="gram" prefix="micro"/>
+    <unit units="cells" exponent="-1"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="microg_per_mm3_per_day">
+    <unit units="gram" prefix="micro"/>
+    <unit units="metre" prefix="milli" exponent="-3"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="mm3_cells_per_pg2_day">
+    <unit units="metre" prefix="milli" exponent="3"/>
+    <unit units="cells"/>
+    <unit units="gram" prefix="pico" exponent="-2"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="mm6_cells_per_pg3_day">
+    <unit units="metre" prefix="milli" exponent="6"/>
+    <unit units="cells"/>
+    <unit units="gram" prefix="pico" exponent="-3"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <units name="mm9_per_pg3">
+    <unit units="metre" prefix="milli" exponent="9"/>
+    <unit units="gram" prefix="pico" exponent="-3"/>
+  </units>
+
+  <units name="mm6_per_pg2">
+    <unit units="metre" prefix="milli" exponent="6"/>
+    <unit units="gram" prefix="pico" exponent="-2"/>
+  </units>
+
+  <units name="mm3_per_pg">
+    <unit units="metre" prefix="milli" exponent="3"/>
+    <unit units="gram" prefix="pico" exponent="-1"/>
+  </units>
+
+  <units name="mm9_per_microg3">
+    <unit units="metre" prefix="milli" exponent="9"/>
+    <unit units="gram" prefix="micro" exponent="-3"/>
+  </units>
+
+  <units name="mm6_per_microg2">
+    <unit units="metre" prefix="milli" exponent="6"/>
+    <unit units="gram" prefix="micro" exponent="-2"/>
+  </units>
+
+  <units name="per_day">
+    <unit units="day" exponent="-1"/>
+  </units>
+  
+  
+  <component name="environment">
+    <variable units="day" public_interface="out" name="time"/>
+  </component>
+  
+  <component cmeta:id="phi_I" name="phi_I">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#phi_I">
+        <dc:title>phi_I</dc:title>
+        <dcterms:alternative>inflammatory macrophage cell density</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cells_per_mm3" public_interface="out" name="phi_I" initial_value="200.0"/>
+
+    <variable units="dimensionless" public_interface="in" name="alpha"/>
+    <variable units="dimensionless" public_interface="in" name="k1"/>
+    <variable units="per_day" public_interface="in" name="k2"/>
+    <variable units="mm3_per_cells" public_interface="in" name="k3"/>
+    <variable units="mm3_per_cells" public_interface="in" name="k5"/>
+    <variable units="mm3_per_microg" public_interface="in" name="k6"/>
+    <variable units="per_day" public_interface="in" name="d1"/>
+    <variable units="cells_per_mm3" public_interface="in" name="phi_R"/>
+    <variable units="cells_per_mm3_per_day" public_interface="in" name="K_T"/>
+    <variable units="cells_per_mm3" public_interface="in" name="F"/>
+    <variable units="microg_per_mm3" public_interface="in" name="C"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> phi_I </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> alpha </ci>
+              <ci> K_T </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> k1 </ci>
+              <ci> k2 </ci>
+              <ci> phi_I </ci>
+              <apply>
+                <minus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <times/>
+                    <ci> k3 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> phi_I </ci>
+                      <ci> phi_R </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> k5 </ci>
+                    <ci> F </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> k6 </ci>
+                    <ci> C </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> d1 </ci>
+            <ci> phi_I </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component cmeta:id="phi_R" name="phi_R">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#phi_R">
+        <dc:title>phi_R</dc:title>
+        <dcterms:alternative>repair macrophage cell density</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cells_per_mm3" public_interface="out" name="phi_R" initial_value="200.0"/>
+
+    <variable units="dimensionless" public_interface="in" name="alpha"/>
+    <variable units="dimensionless" public_interface="in" name="k1"/>
+    <variable units="per_day" public_interface="in" name="k2"/>
+    <variable units="mm3_per_cells" public_interface="in" name="k3"/>
+    <variable units="mm3_per_cells" public_interface="in" name="k5"/>
+    <variable units="mm3_per_microg" public_interface="in" name="k6"/>
+    <variable units="per_day" public_interface="in" name="d1"/>
+    <variable units="cells_per_mm3" public_interface="in" name="phi_I"/>
+    <variable units="cells_per_mm3_per_day" public_interface="in" name="K_T"/>
+    <variable units="cells_per_mm3" public_interface="in" name="F"/>
+    <variable units="microg_per_mm3" public_interface="in" name="C"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> phi_R </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <ci> alpha </ci>
+              </apply>
+              <ci> K_T </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> k1 </ci>
+              <ci> k2 </ci>
+              <ci> phi_R </ci>
+              <apply>
+                <minus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <times/>
+                    <ci> k3 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> phi_I </ci>
+                      <ci> phi_R </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> k5 </ci>
+                    <ci> F </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> k6 </ci>
+                    <ci> C </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> d1 </ci>
+            <ci> phi_R </ci>
+          </apply>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component cmeta:id="T" name="T">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#T">
+        <dc:title>T</dc:title>
+        <dcterms:alternative>transforming growth factor-beta concentration</dcterms:alternative>
+        <dcterms:alternative>TGF-beta</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="pg_per_mm3" public_interface="out" name="T" initial_value="6.0"/>
+    
+    <variable units="pg_per_mm3_per_day" name="Apligraf"/>
+    
+    <variable units="pg_per_cells_per_day" public_interface="in" name="k4"/>
+    <variable units="pg_per_cells_per_day" public_interface="in" name="k7"/>
+    <variable units="per_day" public_interface="in" name="d2"/>
+    <variable units="cells_per_mm3" public_interface="in" name="phi_I"/>
+    <variable units="cells_per_mm3" public_interface="in" name="F"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> T </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> k4 </ci>
+              <ci> phi_I </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> k7 </ci>
+              <ci> F </ci>
+            </apply>
+            <ci> Apligraf </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> d2 </ci>
+            <ci> T </ci>
+          </apply>
+        </apply>
+      </apply>
+  
+      <apply>
+        <eq/> 
+        <ci> Apligraf </ci> 
+        <piecewise>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 0.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.4 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.4 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.4 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.4 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.4 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 57.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+          </otherwise>
+        </piecewise>
+      </apply>        
+    </math>
+  </component>
+
+  <component cmeta:id="P" name="P">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#P">
+        <dc:title>P</dc:title>
+        <dcterms:alternative>PDGF concentration</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="pg_per_mm3" public_interface="out" name="P" initial_value="2.0"/>
+    
+    <variable units="pg_per_mm3_per_day" name="Apligraf"/>
+    
+    <variable units="pg_per_cells_per_day" public_interface="in" name="k8"/>
+    <variable units="pg_per_cells_per_day" public_interface="in" name="k9"/>
+    <variable units="per_day" public_interface="in" name="d3"/>
+    <variable units="cells_per_mm3" public_interface="in" name="phi_I"/>
+    <variable units="cells_per_mm3" public_interface="in" name="phi_R"/>
+    <variable units="cells_per_mm3" public_interface="in" name="F"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> P </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> k8 </ci>
+              <apply>
+                <plus/>
+                <ci> phi_I </ci>
+                <ci> phi_R </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> k9 </ci>
+              <ci> F </ci>
+            </apply>
+            <ci> Apligraf </ci> 
+          </apply>
+          <apply>
+            <times/>
+            <ci> d3 </ci>
+            <ci> P </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply>
+        <eq/> 
+        <ci> Apligraf </ci> 
+        <piecewise>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 0.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 1.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 1.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 1.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 1.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="pg_per_mm3_per_day"> 1.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 57.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="pg_per_mm3_per_day"> 0.0 </cn>
+          </otherwise>
+        </piecewise>
+      </apply>        
+    </math>
+  </component>
+
+  <component cmeta:id="F" name="F">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#F">
+        <dc:title>F</dc:title>
+        <dcterms:alternative>fibroblast density</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cells_per_mm3" public_interface="out" name="F" initial_value="50.0"/>
+
+    <variable units="cells_per_mm3_per_day" name="Apligraf"/>
+
+    <variable units="per_day" public_interface="in" name="k10"/>
+    <variable units="mm3_per_cells" public_interface="in" name="k3"/>
+    <variable units="mm3_per_cells" public_interface="in" name="k5"/>
+    <variable units="mm3_per_microg" public_interface="in" name="k6"/>
+    <variable units="per_day" public_interface="in" name="d4"/>
+    <variable units="cells_per_mm3" public_interface="in" name="phi_I"/>
+    <variable units="cells_per_mm3" public_interface="in" name="phi_R"/>
+    <variable units="cells_per_mm3_per_day" public_interface="in" name="M_P"/>
+    <variable units="microg_per_mm3" public_interface="in" name="C"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> F </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <ci> M_P </ci>
+            <apply>
+              <times/>
+              <ci> k10 </ci>
+              <ci> F </ci>
+              <apply>
+                <minus/>
+                <cn cellml:units="dimensionless"> 1.0 </cn>
+                <apply>
+                  <plus/>
+                  <apply>
+                    <times/>
+                    <ci> k3 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> phi_I </ci>
+                      <ci> phi_R </ci>
+                    </apply>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> k5 </ci>
+                    <ci> F </ci>
+                  </apply>
+                  <apply>
+                    <times/>
+                    <ci> k6 </ci>
+                    <ci> C </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <ci> Apligraf </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> d4 </ci>
+            <ci> F </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply>
+        <eq/> 
+        <ci> Apligraf </ci> 
+        <piecewise>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 0.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 1550.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 1550.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 1550.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 1550.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="cells_per_mm3_per_day"> 1550.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 57.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="cells_per_mm3_per_day"> 0.0 </cn>
+          </otherwise>
+        </piecewise>
+      </apply>        
+    </math>
+  </component>
+
+  <component cmeta:id="C" name="C">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#C">
+        <dc:title>C</dc:title>
+        <dcterms:alternative>collagen concentration</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="microg_per_mm3" public_interface="out" name="C" initial_value="10.0"/>
+    
+    <variable units="microg_per_mm3_per_day" name="Apligraf"/>
+    
+    <variable units="microg_per_cells_per_day" public_interface="in" name="k11"/>
+    <variable units="dimensionless" public_interface="in" name="f_T"/>
+    <variable units="dimensionless" public_interface="in" name="g_C"/>
+    <variable units="mm3_per_cells_per_day" public_interface="in" name="d5"/>
+    <variable units="cells_per_mm3" public_interface="in" name="F"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> C </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> k11 </ci>
+              <ci> F </ci>
+              <ci> f_T </ci>
+              <ci> g_C </ci>
+            </apply>
+            <ci> Apligraf </ci> 
+          </apply>
+          <apply>
+            <times/>
+            <ci> d5 </ci>
+            <ci> F </ci>
+            <ci> C </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply>
+        <eq/> 
+        <ci> Apligraf </ci> 
+        <piecewise>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 0.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.45 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.45 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.45 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.45 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.45 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 57.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+          </otherwise>
+        </piecewise>
+      </apply>        
+    </math>
+  </component>
+
+  <component cmeta:id="H" name="H">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#H">
+        <dc:title>H</dc:title>
+        <dcterms:alternative>hyaluronan concentration</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="microg_per_mm3" public_interface="out" name="H" initial_value="0.01"/>
+    
+    <variable units="microg_per_mm3_per_day" name="Apligraf"/>
+    
+    <variable units="microg_per_cells_per_day" public_interface="in" name="k12"/>
+    <variable units="per_day" public_interface="in" name="d6"/>
+    <variable units="cells_per_mm3" public_interface="in" name="F"/>
+    <variable units="day" public_interface="in" name="time"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <apply>
+          <diff/> 
+          <bvar>
+            <ci>time</ci>
+          </bvar> 
+          <ci> H </ci> 
+        </apply>
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> k12 </ci>
+              <ci> F </ci>
+            </apply>
+            <ci> Apligraf </ci> 
+          </apply>
+          <apply>
+            <times/>
+            <ci> d6 </ci>
+            <ci> H </ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply>
+        <eq/> 
+        <ci> Apligraf </ci> 
+        <piecewise>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 0.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 2.5 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 28.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 29.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 2.5 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 35.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 36.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 2.5 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 42.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 43.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 2.5 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 49.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 50.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="microg_per_mm3_per_day"> 2.5 </cn>
+            <apply>
+              <and/>
+              <apply>
+                <geq/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 56.0 </cn>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> time </ci>
+                <cn cellml:units="day"> 57.0 </cn>
+              </apply>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="microg_per_mm3_per_day"> 0.0 </cn>
+          </otherwise>
+        </piecewise>
+      </apply>        
+    </math>
+  </component>
+
+  <component cmeta:id="K_T" name="K_T">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#K_T">
+        <dc:title>K_T</dc:title>
+        <dcterms:alternative>monocyte migration to the wound in response to TGF-beta</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cells_per_mm3_per_day" public_interface="out" name="K_T"/>
+    
+    <variable units="mm6_cells_per_pg3_day" name="tau1" initial_value="-2.47"/>
+    <variable units="mm3_cells_per_pg2_day" name="tau2" initial_value="21.94"/>
+    <variable units="cells_per_pg_per_day" name="tau3" initial_value="6.41"/>
+    <variable units="cells_per_mm3_per_day" name="tau4" initial_value="1.75"/>
+    
+    <variable units="pg_per_mm3" public_interface="in" name="T"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci> K_T </ci> 
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <ci> tau1 </ci>
+            <apply>
+              <power/>
+              <ci> T </ci>
+              <cn cellml:units="dimensionless"> 3.0 </cn>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> tau2 </ci>
+            <apply>
+              <power/>
+              <ci> T </ci>
+              <cn cellml:units="dimensionless"> 2.0 </cn>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> tau3 </ci>
+            <ci> T </ci>
+          </apply>
+          <ci> tau4 </ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component cmeta:id="M_P" name="M_P">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#M_P">
+        <dc:title>M_P</dc:title>
+        <dcterms:alternative>fibroblast migration to the wound in response to PDGF</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="cells_per_mm3_per_day" public_interface="out" name="M_P"/>
+    
+    <variable units="mm6_cells_per_pg3_day" name="tau1" initial_value="15.333"/>
+    <variable units="mm3_cells_per_pg2_day" name="tau2" initial_value="-167.21"/>
+    <variable units="cells_per_pg_per_day" name="tau3" initial_value="452.38"/>
+    <variable units="cells_per_mm3_per_day" name="tau4" initial_value="2.6593"/>
+    
+    <variable units="pg_per_mm3" public_interface="in" name="P"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci> M_P </ci> 
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <ci> tau1 </ci>
+            <apply>
+              <power/>
+              <ci> P </ci>
+              <cn cellml:units="dimensionless"> 3.0 </cn>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> tau2 </ci>
+            <apply>
+              <power/>
+              <ci> P </ci>
+              <cn cellml:units="dimensionless"> 2.0 </cn>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> tau3 </ci>
+            <ci> P </ci>
+          </apply>
+          <ci> tau4 </ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component cmeta:id="f_T" name="f_T">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#f_T">
+        <dc:title>f_T</dc:title>
+        <dcterms:alternative>fibroblast synthesis of collagen in response to TGF-beta</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="dimensionless" public_interface="out" name="f_T"/>
+    
+    <variable units="mm9_per_pg3" name="tau1" initial_value="0.0092"/>
+    <variable units="mm6_per_pg2" name="tau2" initial_value="-0.1552"/>
+    <variable units="mm3_per_pg" name="tau3" initial_value="0.6279"/>
+    <variable units="dimensionless" name="tau4" initial_value="0.2527"/>
+    
+    <variable units="pg_per_mm3" public_interface="in" name="T"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci> f_T </ci> 
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <ci> tau1 </ci>
+            <apply>
+              <power/>
+              <ci> T </ci>
+              <cn cellml:units="dimensionless"> 3.0 </cn>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> tau2 </ci>
+            <apply>
+              <power/>
+              <ci> T </ci>
+              <cn cellml:units="dimensionless"> 2.0 </cn>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> tau3 </ci>
+            <ci> T </ci>
+          </apply>
+          <ci> tau4 </ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component cmeta:id="g_C" name="g_C">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#g_C">
+        <dc:title>g_C</dc:title>
+        <dcterms:alternative>effect of collagen on its own synthesis by fibroblasts</dcterms:alternative>
+      </rdf:Description>
+    </rdf:RDF>  
+    <variable units="dimensionless" public_interface="out" name="g_C"/>
+    
+    <variable units="mm9_per_microg3" name="tau1" initial_value="-4.33E-10"/>
+    <variable units="mm6_per_microg2" name="tau2" initial_value="0.0000009"/>
+    <variable units="mm3_per_microg" name="tau3" initial_value="-0.00055"/>
+    <variable units="dimensionless" name="tau4" initial_value="0.13"/>
+    
+    <variable units="microg_per_mm3" public_interface="in" name="C"/>
+    
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci> g_C </ci> 
+        <apply>
+          <plus/>
+          <apply>
+            <times/>
+            <ci> tau1 </ci>
+            <apply>
+              <power/>
+              <ci> C </ci>
+              <cn cellml:units="dimensionless"> 3.0 </cn>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> tau2 </ci>
+            <apply>
+              <power/>
+              <ci> C </ci>
+              <cn cellml:units="dimensionless"> 2.0 </cn>
+            </apply>
+          </apply>
+          <apply>
+            <times/>
+            <ci> tau3 </ci>
+            <ci> C </ci>
+          </apply>
+          <ci> tau4 </ci>
+        </apply>
+      </apply>
+    </math>
+  </component>
+
+  <component name="model_parameters">
+    <variable units="dimensionless" public_interface="out" name="alpha"/> 
+    <variable units="dimensionless" public_interface="out" name="k1" initial_value="0.05"/>
+    <variable units="per_day" public_interface="out" name="k2" initial_value="0.693"/>
+    <variable units="mm3_per_cells" public_interface="out" name="k3" initial_value="0.002"/>
+    <variable units="pg_per_cells_per_day" public_interface="out" name="k4" initial_value="0.07"/>
+    <variable units="mm3_per_cells" public_interface="out" name="k5" initial_value="0.0025"/>
+    <variable units="mm3_per_microg" public_interface="out" name="k6" initial_value="0.0004"/>
+    <variable units="pg_per_cells_per_day" public_interface="out" name="k7" initial_value="0.004"/>
+    <variable units="pg_per_cells_per_day" public_interface="out" name="k8" initial_value="0.015"/>
+    <variable units="pg_per_cells_per_day" public_interface="out" name="k9" initial_value="0.0015"/>
+    <variable units="per_day" public_interface="out" name="k10" initial_value="0.924"/>
+    <variable units="microg_per_cells_per_day" public_interface="out" name="k11" initial_value="5.0"/>
+    <variable units="microg_per_cells_per_day" public_interface="out" name="k12" initial_value="0.001"/>
+    <variable units="per_day" public_interface="out" name="d1" initial_value="0.2"/>
+    <variable units="per_day" public_interface="out" name="d2" initial_value="9.1"/>
+    <variable units="per_day" public_interface="out" name="d3" initial_value="4.0"/>
+    <variable units="per_day" public_interface="out" name="d4" initial_value="2.5"/>
+    <variable units="mm3_per_cells_per_day" public_interface="out" name="d5" initial_value="1.5E-5"/>
+    <variable units="per_day" public_interface="out" name="d6" initial_value="0.7"/>
+  
+    <variable units="microg_per_mm3" public_interface="in" name="H"/>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+      <apply>
+        <eq/> 
+        <ci> alpha </ci> 
+        <apply>
+          <plus/>
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <cn cellml:units="dimensionless"> 0.197 </cn>
+              <apply>
+                <log/>
+                <ci> H </ci>
+              </apply>
+            </apply>
+          </apply>
+          <cn cellml:units="dimensionless"> 0.4407 </cn>
+        </apply>
+      </apply>
+    </math>
+  </component>
+  
+  <connection>
+    <map_components component_2="environment" component_1="phi_I"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="environment" component_1="phi_R"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="environment" component_1="T"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="environment" component_1="P"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="environment" component_1="F"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="environment" component_1="C"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="environment" component_1="H"/>
+    <map_variables variable_2="time" variable_1="time"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="phi_R" component_1="phi_I"/>
+    <map_variables variable_2="phi_I" variable_1="phi_I"/>
+    <map_variables variable_2="phi_R" variable_1="phi_R"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="phi_I"/>
+    <map_variables variable_2="alpha" variable_1="alpha"/>
+    <map_variables variable_2="k1" variable_1="k1"/>
+    <map_variables variable_2="k2" variable_1="k2"/>
+    <map_variables variable_2="k3" variable_1="k3"/>
+    <map_variables variable_2="k5" variable_1="k5"/>
+    <map_variables variable_2="k6" variable_1="k6"/>
+    <map_variables variable_2="d1" variable_1="d1"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="K_T" component_1="phi_I"/>
+    <map_variables variable_2="K_T" variable_1="K_T"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="F" component_1="phi_I"/>
+    <map_variables variable_2="phi_I" variable_1="phi_I"/>
+    <map_variables variable_2="F" variable_1="F"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="C" component_1="phi_I"/>
+    <map_variables variable_2="C" variable_1="C"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="phi_R"/>
+    <map_variables variable_2="alpha" variable_1="alpha"/>
+    <map_variables variable_2="k1" variable_1="k1"/>
+    <map_variables variable_2="k2" variable_1="k2"/>
+    <map_variables variable_2="k3" variable_1="k3"/>
+    <map_variables variable_2="k5" variable_1="k5"/>
+    <map_variables variable_2="k6" variable_1="k6"/>
+    <map_variables variable_2="d1" variable_1="d1"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="K_T" component_1="phi_R"/>
+    <map_variables variable_2="K_T" variable_1="K_T"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="F" component_1="phi_R"/>
+    <map_variables variable_2="phi_R" variable_1="phi_R"/>
+    <map_variables variable_2="F" variable_1="F"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="C" component_1="phi_R"/>
+    <map_variables variable_2="C" variable_1="C"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="T" component_1="phi_I"/>
+    <map_variables variable_2="phi_I" variable_1="phi_I"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="F" component_1="T"/>
+    <map_variables variable_2="F" variable_1="F"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="T"/>
+    <map_variables variable_2="k4" variable_1="k4"/>
+    <map_variables variable_2="k7" variable_1="k7"/>
+    <map_variables variable_2="d2" variable_1="d2"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="P" component_1="phi_I"/>
+    <map_variables variable_2="phi_I" variable_1="phi_I"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="P" component_1="phi_R"/>
+    <map_variables variable_2="phi_R" variable_1="phi_R"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="F" component_1="P"/>
+    <map_variables variable_2="F" variable_1="F"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="P"/>
+    <map_variables variable_2="k8" variable_1="k8"/>
+    <map_variables variable_2="k9" variable_1="k9"/>
+    <map_variables variable_2="d3" variable_1="d3"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="C" component_1="F"/>
+    <map_variables variable_2="C" variable_1="C"/>
+    <map_variables variable_2="F" variable_1="F"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="M_P" component_1="F"/>
+    <map_variables variable_2="M_P" variable_1="M_P"/>
+  </connection>  
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="F"/>
+    <map_variables variable_2="k10" variable_1="k10"/>
+    <map_variables variable_2="k3" variable_1="k3"/>
+    <map_variables variable_2="k5" variable_1="k5"/>
+    <map_variables variable_2="k6" variable_1="k6"/>
+    <map_variables variable_2="d4" variable_1="d4"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="f_T" component_1="C"/>
+    <map_variables variable_2="f_T" variable_1="f_T"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="g_C" component_1="C"/>
+    <map_variables variable_2="g_C" variable_1="g_C"/>
+    <map_variables variable_2="C" variable_1="C"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="C"/>
+    <map_variables variable_2="k11" variable_1="k11"/>
+    <map_variables variable_2="d5" variable_1="d5"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="F" component_1="H"/>
+    <map_variables variable_2="F" variable_1="F"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="model_parameters" component_1="H"/>
+    <map_variables variable_2="k12" variable_1="k12"/>
+    <map_variables variable_2="d6" variable_1="d6"/>
+    <map_variables variable_2="H" variable_1="H"/>
+  </connection>  
+
+  <connection>
+    <map_components component_2="T" component_1="K_T"/>
+    <map_variables variable_2="T" variable_1="T"/>
+  </connection>
+
+  <connection>
+    <map_components component_2="P" component_1="M_P"/>
+    <map_variables variable_2="P" variable_1="P"/>
+  </connection> 
+
+  <connection>
+    <map_components component_2="T" component_1="f_T"/>
+    <map_variables variable_2="T" variable_1="T"/>
+  </connection>
+
+<rdf:RDF>
+  <rdf:Bag rdf:about="rdf:#ae6bd212-9aea-407a-8e6a-edee44126cd0">
+    <rdf:li>diabetes</rdf:li>
+    <rdf:li>wound healing</rdf:li>
+    <rdf:li>macrophage</rdf:li>
+  </rdf:Bag>
+  <rdf:Seq rdf:about="rdf:#96669b6e-0c5f-4d2c-a7c2-e6d50cbdf978">
+    <rdf:li rdf:resource="rdf:#d8722253-e6d7-4c17-bf0a-2b3dfcbae88b"/>
+    <rdf:li rdf:resource="rdf:#e9f1c279-ea38-4527-a153-527a09d5c2d0"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#42f344fa-72af-41b1-ad6d-2ee46bcb2f5e">
+    <vCard:Given>Jonathan</vCard:Given>
+    <vCard:Family>Sherratt</vCard:Family>
+    <vCard:Other>A</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e9f1c279-ea38-4527-a153-527a09d5c2d0">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#42f344fa-72af-41b1-ad6d-2ee46bcb2f5e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b522052e-7b98-47bd-8ca6-fca1c7691d1d">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6483626c-a9aa-4d91-a035-8807704c4810">
+    <dc:creator rdf:resource="rdf:#ff733a17-ceab-44ff-be1b-c7e009f5d6e8"/>
+    <rdf:value>This is a CellML description of Waugh and Sherratt's 2007 mathematical model of macrophage dynamics in diabetic wound healing.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#68656e06-4c96-4e87-a69c-d25fff5bfe0d">
+    <dc:creator rdf:resource="rdf:#78381788-042a-44af-bd28-ac5d30b396da"/>
+    <rdf:value>This CellML version of the model runs in PCEnv to recreate the results in the published paper.  The model has also been checked in COR and the units are consistent.  This particular version of the model represents wound healing in a diabetic patient treated with Apligraf.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d8722253-e6d7-4c17-bf0a-2b3dfcbae88b">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#c328162e-347a-49b7-a885-92382ea40229"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f402f87c-c601-43c4-a1a1-fe0af045a045">
+    <vCard:ORG rdf:resource="rdf:#b522052e-7b98-47bd-8ca6-fca1c7691d1d"/>
+    <vCard:EMAIL rdf:resource="rdf:#c95163d3-db81-4ba9-b4e5-9178548439e6"/>
+    <vCard:N rdf:resource="rdf:#7697e8d5-7d96-47ad-a699-7c959382b79e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#78381788-042a-44af-bd28-ac5d30b396da">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c95163d3-db81-4ba9-b4e5-9178548439e6">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c328162e-347a-49b7-a885-92382ea40229">
+    <vCard:Given>Helen</vCard:Given>
+    <vCard:Family>Waugh</vCard:Family>
+    <vCard:Other>V</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#1f78849b-8b90-4c33-bfb2-ba466aceb978">
+    <dc:creator rdf:resource="rdf:#96669b6e-0c5f-4d2c-a7c2-e6d50cbdf978"/>
+    <dc:title>Modeling the effects of treating diabetic wounds with engineered skin substitutes</dc:title>
+    <bqs:volume>15</bqs:volume>
+    <bqs:first_page>556</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#dac938a0-ebd6-4b6f-a6c9-629e257cfc4d"/>
+    <dcterms:issued rdf:resource="rdf:#73ff07af-2bf4-487a-b141-ee396b754976"/>
+    <bqs:last_page>565</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#fbc7838b-4f9d-4cb5-89dc-607ec5f2b2e9">
+    <bqs:Pubmed_id>17650100</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#1f78849b-8b90-4c33-bfb2-ba466aceb978"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8bf73395-9060-4cdd-b16f-b9e222cc0edc">
+    <dcterms:W3CDTF>2007-11-28T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ff733a17-ceab-44ff-be1b-c7e009f5d6e8">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0f8f85a2-6fbd-4141-a3e3-18ee76b9af9f">
+    <dc:subject rdf:resource="rdf:#aea95073-b5f7-4b26-b37c-39d739a96351"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#73ff07af-2bf4-487a-b141-ee396b754976">
+    <dcterms:W3CDTF>2007-07</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#dac938a0-ebd6-4b6f-a6c9-629e257cfc4d">
+    <dc:title>Wound Repair and Regeneration</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7697e8d5-7d96-47ad-a699-7c959382b79e">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="#waugh_model_2007">
+    <dc:title>
+        Waugh and Sherratt's 2007 mathematical model of macrophage dynamics in diabetic wound healing.
+      </dc:title>
+    <cmeta:comment rdf:resource="rdf:#6483626c-a9aa-4d91-a035-8807704c4810"/>
+    <bqs:reference rdf:resource="rdf:#0f8f85a2-6fbd-4141-a3e3-18ee76b9af9f"/>
+    <bqs:reference rdf:resource="rdf:#fbc7838b-4f9d-4cb5-89dc-607ec5f2b2e9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#aea95073-b5f7-4b26-b37c-39d739a96351">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value rdf:resource="rdf:#ae6bd212-9aea-407a-8e6a-edee44126cd0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>The University of Auckland, Auckland Bioengineering Institute</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#68656e06-4c96-4e87-a69c-d25fff5bfe0d"/>
+    <dcterms:created rdf:resource="rdf:#8bf73395-9060-4cdd-b16f-b9e222cc0edc"/>
+    <dc:creator rdf:resource="rdf:#f402f87c-c601-43c4-a1a1-fe0af045a045"/>
+  </rdf:Description>
+</rdf:RDF>
+</model>
