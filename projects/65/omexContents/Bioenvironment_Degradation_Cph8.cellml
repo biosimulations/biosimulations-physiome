@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="Bioenvironment_Degradation_Cph8" name="Bioenvironment_Degradation_Cph8">
+            
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            <rdf:Description rdf:about="#Bioenvironment_Degradation_Cph8">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.0/">
+            <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Mike</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            </vCard:EMAIL>
+            <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+            </vCard:ORG>
+            </dc:creator>
+            </rdf:Description>
+   </rdf:RDF>
+
+   <component name="Bioenvironment_Degradation_Cph8">
+    <variable name="J" private_interface="in" public_interface="out" units="molecule_per_micrometer2_per_s"/>
+    <variable name="density" private_interface="out" public_interface="in" units="molecule_per_micrometer2"/>
+    <variable initial_value="0.25" name="k" private_interface="out" units="per_s"/>
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="Bioenvironment_Degradation_Cph8">
+      <component_ref component="Template_RxBoundR1BoundP1"/>
+    </component_ref>
+   </group> 
+     
+
+<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_RxBoundR1BoundP1.cellml">
+	<component component_ref="Template_RxBoundR1BoundP1" name="Template_RxBoundR1BoundP1"/>
+	<units name="molecule_per_micrometer2_per_s" units_ref="molecule_per_micrometer2_per_s"/>
+	<units name="molecule_per_micrometer2" units_ref="molecule_per_micrometer2"/>
+	<units name="per_s" units_ref="per_s"/>
+</import>
+
+<connection><map_components component_1="Bioenvironment_Degradation_Cph8" component_2="Template_RxBoundR1BoundP1"/>
+<map_variables variable_1="J" variable_2="J"/><map_variables variable_1="k" variable_2="k"/>
+<map_variables variable_1="density" variable_2="density"/>
+</connection>
+
+</model>

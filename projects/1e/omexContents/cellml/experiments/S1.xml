@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model
+    name="figure_S1"
+    cmeta:id="figure_S1"
+    xmlns="http://www.cellml.org/cellml/1.1#"
+    xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rdf:RDF
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+          xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+          xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+          xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:dcterms="http://purl.org/dc/terms/"
+          xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+          xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#">
+    <rdf:Description rdf:about="#figure_S1">
+      <cs:simulation>
+        <rdf:Description rdf:ID="simulation">
+          <cs:simulationName>Figure S1 simulation</cs:simulationName>
+          <cs:multistepMethod>bdf</cs:multistepMethod>
+          <cs:iterationMethod>newton</cs:iterationMethod>
+          <cs:linearSolver>dense</cs:linearSolver>
+          <cs:boundIntervals rdf:parseType="Collection">
+            <rdf:Description>
+              <cs:boundVariable>
+                <rdf:Description rdf:about="#time"/>
+              </cs:boundVariable>
+              <cs:maximumStepSize 
+                                  rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                0.1
+              </cs:maximumStepSize>
+              <cs:tabulationStepSize
+                                    rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                5.0
+              </cs:tabulationStepSize>
+              <cs:startingValue
+                               rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                0
+              </cs:startingValue>
+              <cs:endingValue
+                             rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+                5.0e3
+              </cs:endingValue>
+            </rdf:Description>
+          </cs:boundIntervals>
+        </rdf:Description>
+      </cs:simulation>
+    </rdf:Description>
+  </rdf:RDF>
+  <import xlink:href="ECME-with-default-values.xml">
+    <component name="model" component_ref="interface"/>
+  </import>
+  <component name="time" cmeta:id="time_component">
+    <variable name="time" cmeta:id="time" units="dimensionless" public_interface="out"/>
+  </component>
+  <connection>
+    <map_components component_1="time" component_2="model"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <connection>
+    <map_components component_1="time" component_2="stimulus_current"/>
+    <map_variables variable_1="time" variable_2="time"/>
+  </connection>
+  <component name="stimulus_current" cmeta:id="stimulus_current_component">
+    <variable name="time" units="dimensionless" public_interface="in"/>
+    <variable name="Istim" cmeta:id="Istim" units="dimensionless" public_interface="out"/>
+    <variable name="stimPeriod" initial_value="4e3" units="dimensionless"/>
+    <variable name="stimDuration" initial_value="0.5" units="dimensionless"/>
+    <variable name="stimCurrent" initial_value="-100.0" units="dimensionless"/>
+    <math id="Istim_calculation" xmlns='http://www.w3.org/1998/Math/MathML'>
+      <apply><eq/>
+        <ci>Istim</ci>
+        <piecewise>
+          <piece>
+            <ci>stimCurrent</ci>
+            <apply><lt/>
+              <apply><rem/>
+                <ci>time</ci>
+                <ci>stimPeriod</ci>
+              </apply>
+              <ci>stimDuration</ci>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="dimensionless">0.0</cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+    </math>
+  </component>
+  <connection>
+    <map_components component_1="model" component_2="stimulus_current"/>
+    <map_variables variable_1="Istim" variable_2="Istim"/>
+  </connection>
+</model>

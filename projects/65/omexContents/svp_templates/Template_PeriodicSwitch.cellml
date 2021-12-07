@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<model xmlns="http://www.cellml.org/cellml/1.1#"
+ xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+name="Template_PeriodicSwitch">
+
+<component name="Template_PeriodicSwitch">
+	<variable public_interface="in" name="timeInterval" units="second"/>
+	<variable public_interface="in" name="firstPeriodValue" units="dimensionless"/>
+	<variable public_interface="in" name="secondPeriodValue" units="dimensionless"/>
+	<variable name="value" public_interface="out" units="dimensionless"/>
+	<variable name="time" public_interface="in" units="second"/>
+	<variable name="period" units="dimensionless" />
+	<math xmlns="http://www.w3.org/1998/Math/MathML">
+		<apply>
+			<eq/>
+			<ci>period</ci>
+				<apply>
+				<power/>
+					<cn cellml:units="dimensionless">-1</cn>
+					<apply>
+					<ceiling/>
+						<apply>
+						<divide/>
+						<ci>time</ci>
+						<ci>timeInterval</ci>
+						</apply>
+					</apply>
+				</apply>
+		</apply>
+		
+		<apply>
+			<eq/>
+			<ci>value</ci>
+			<piecewise>
+			     <piece>
+				<ci>firstPeriodValue</ci>
+				<apply>
+					<eq/>
+						<ci>period</ci>
+						<cn cellml:units="dimensionless">-1</cn>
+				</apply>
+			     </piece>
+			     <otherwise>
+				<ci>secondPeriodValue</ci>
+			     </otherwise>
+			</piecewise>
+		</apply>
+	</math>
+</component>
+
+</model>

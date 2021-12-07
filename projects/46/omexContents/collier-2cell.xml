@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model name="DeltaNotch" cmeta:id="DeltaNotchModel"
+	xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+	xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+		xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+		xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#"
+		xmlns:cg="http://www.cellml.org/metadata/graphs/1.0#">
+		<rdf:Description rdf:about="#DeltaNotchModel">
+			<cs:simulation>
+				<rdf:Description rdf:ID="simulation">
+					<cs:multistepMethod>bdf</cs:multistepMethod>
+					<cs:iterationMethod>newton</cs:iterationMethod>
+					<cs:linearSolver>dense</cs:linearSolver>
+					<cs:boundIntervals rdf:parseType="Collection">
+						<rdf:Description>
+							<cs:boundVariable>
+								<rdf:Description rdf:about="#time" />
+							</cs:boundVariable>
+							<cs:maximumStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0.01
+							</cs:maximumStepSize>
+							<cs:tabulationStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0.1
+							</cs:tabulationStepSize>
+							<cs:startingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0
+							</cs:startingValue>
+							<cs:endingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								25
+              </cs:endingValue>
+						</rdf:Description>
+					</cs:boundIntervals>
+				</rdf:Description>
+			</cs:simulation>
+		</rdf:Description>
+		<rdf:Description>
+			<cg:graph>
+				<rdf:Description rdf:ID="collier-2cell-graph">
+					<cg:x-label>Time</cg:x-label>
+					<cg:y-label>value</cg:y-label>
+					<cg:background-colour>#ffffff</cg:background-colour>
+					<cg:traces rdf:parseType="Collection">
+						<rdf:Description>
+							<cg:label>n1</cg:label>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#ff0000</cg:colour>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#time" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#n1" />
+							</cg:y-variable>
+						</rdf:Description>
+						<rdf:Description>
+							<cg:label>n2</cg:label>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#0000ff</cg:colour>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#time" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#n2" />
+							</cg:y-variable>
+						</rdf:Description>
+						<rdf:Description>
+							<cg:label>d1</cg:label>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#008000</cg:colour>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#time" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#d1" />
+							</cg:y-variable>
+						</rdf:Description>
+						<rdf:Description>
+							<cg:label>d2</cg:label>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#000000</cg:colour>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#time" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation" />
+								<cg:variable rdf:resource="#d2" />
+							</cg:y-variable>
+						</rdf:Description>
+					</cg:traces>
+				</rdf:Description>
+			</cg:graph>
+		</rdf:Description>
+	</rdf:RDF>
+
+	<import xlink:href="single-cell.xml">
+		<component name="cell_1" component_ref="component" />
+	</import>
+	<import xlink:href="single-cell.xml">
+		<component name="cell_2" component_ref="component" />
+	</import>
+
+	<component name="component">
+		<variable cmeta:id="n1_initial" name="n1_initial" units="dimensionless"
+			initial_value="1.0" public_interface="out" />
+		<variable cmeta:id="d1_initial" name="d1_initial" units="dimensionless"
+			initial_value="1.0" public_interface="out" />
+		<variable cmeta:id="n2_initial" name="n2_initial" units="dimensionless"
+			initial_value="0.99" public_interface="out" />
+		<variable cmeta:id="d2_initial" name="d2_initial" units="dimensionless"
+			initial_value="0.99" public_interface="out" />
+		<variable cmeta:id="n1" name="n1" units="dimensionless"
+			public_interface="in" />
+		<variable cmeta:id="d1" name="d1" units="dimensionless"
+			public_interface="in" />
+		<variable cmeta:id="n2" name="n2" units="dimensionless"
+			public_interface="in" />
+		<variable cmeta:id="d2" name="d2" units="dimensionless"
+			public_interface="in" />
+		<variable cmeta:id="cell_1_neighbourhood_d_average" name="cell_1_neighbourhood_d_average"
+			units="dimensionless" public_interface="out" />
+		<variable cmeta:id="cell_2_neighbourhood_d_average" name="cell_2_neighbourhood_d_average"
+			units="dimensionless" public_interface="out" />
+		<variable name="start_boundary_d" initial_value="0.0" units="dimensionless"/>
+		<variable cmeta:id="a" name="a" units="dimensionless"
+			initial_value="0.01" public_interface="out" />
+		<variable cmeta:id="b" name="b" units="dimensionless"
+			initial_value="100" public_interface="out" />
+		<variable cmeta:id="v" name="v" units="dimensionless"
+			initial_value="1" public_interface="out" />
+		<variable cmeta:id="k" name="k" units="dimensionless"
+			initial_value="2" public_interface="out" />
+		<variable cmeta:id="h" name="h" units="dimensionless"
+			initial_value="2" public_interface="out" />
+		<variable cmeta:id="time" name="time" units="dimensionless"
+			public_interface="out" />
+		<variable name="start_boundary_d" initial_value="0.0" units="dimensionless"/>
+		<variable name="end_boundary_d" initial_value="0.0" units="dimensionless"/>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+			<apply>
+				<eq />
+				<ci>cell_1_neighbourhood_d_average</ci>
+				<apply>
+					<times />
+					<apply><plus/>
+						<ci>d2</ci>
+						<ci>start_boundary_d</ci>
+					</apply>
+					<cn cellml:units="dimensionless">0.5</cn>
+				</apply>
+			</apply>
+			<apply>
+				<eq />
+				<ci>cell_2_neighbourhood_d_average</ci>
+				<apply>
+					<times />
+					<apply><plus/>
+						<ci>d1</ci>
+						<ci>end_boundary_d</ci>
+					</apply>
+					<cn cellml:units="dimensionless">0.5</cn>
+				</apply>
+			</apply>
+		</math>
+	</component>
+	<connection>
+		<map_components component_1="component" component_2="cell_1"/>
+    	<map_variables variable_1="n1" variable_2="n"/>
+    	<map_variables variable_1="n1_initial" variable_2="n_initial"/>
+    	<map_variables variable_1="d1" variable_2="d"/>
+    	<map_variables variable_1="d1_initial" variable_2="d_initial"/>
+    	<map_variables variable_1="cell_1_neighbourhood_d_average" variable_2="neighbourhood_d_average"/>
+    	<map_variables variable_1="a" variable_2="a"/>
+    	<map_variables variable_1="b" variable_2="b"/>
+    	<map_variables variable_1="v" variable_2="v"/>
+    	<map_variables variable_1="k" variable_2="k"/>
+    	<map_variables variable_1="h" variable_2="h"/>
+    	<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+	<connection>
+		<map_components component_1="component" component_2="cell_2"/>
+    	<map_variables variable_1="n2" variable_2="n"/>
+    	<map_variables variable_1="n2_initial" variable_2="n_initial"/>
+    	<map_variables variable_1="d2" variable_2="d"/>
+    	<map_variables variable_1="d2_initial" variable_2="d_initial"/>
+    	<map_variables variable_1="cell_2_neighbourhood_d_average" variable_2="neighbourhood_d_average"/>
+    	<map_variables variable_1="a" variable_2="a"/>
+    	<map_variables variable_1="b" variable_2="b"/>
+    	<map_variables variable_1="v" variable_2="v"/>
+    	<map_variables variable_1="k" variable_2="k"/>
+    	<map_variables variable_1="h" variable_2="h"/>
+    	<map_variables variable_1="time" variable_2="time"/>
+	</connection>
+</model>

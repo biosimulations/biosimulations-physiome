@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="Bioenvironment_Degradation_BV" name="Bioenvironment_Degradation_BV">
+            
+
+
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_RxR1P1.cellml">
+    <units name="per_s" units_ref="per_s"/>
+    <units name="nM" units_ref="nM"/>
+    <units name="nM_per_s" units_ref="nM_per_s"/>
+    <component component_ref="Template_RxR1P1" name="Template_RxR1P1"/>
+  </import>
+
+   <component name="Bioenvironment_Degradation_BV">
+    <variable name="concentration" private_interface="out" public_interface="in" units="nM"/>
+    <variable initial_value="5e-5" name="kDecay" private_interface="out" units="per_s"/>
+    <variable name="J" private_interface="in" public_interface="out" units="nM_per_s"/>
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="Bioenvironment_Degradation_BV">
+      <component_ref component="Template_RxR1P1"/>
+    </component_ref>
+   </group> 
+  
+   
+
+<connection><map_components component_1="Bioenvironment_Degradation_BV" component_2="Template_RxR1P1"/><map_variables variable_1="concentration" variable_2="concentration"/><map_variables variable_1="kDecay" variable_2="k"/><map_variables variable_1="J" variable_2="J"/></connection></model>

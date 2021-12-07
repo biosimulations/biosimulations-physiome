@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="ompC_lacZ_Promoter" name="ompC_lacZ_Promoter">
+            
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            <rdf:Description rdf:about="#ompC_lacZ_Promoter">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.0/">
+            <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Mike</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            </vCard:EMAIL>
+            <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+            </vCard:ORG>
+            </dc:creator>
+            </rdf:Description>
+   </rdf:RDF>
+
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_Promoter_PartiallyInductive.cellml">
+    <units name="femtoliter" units_ref="femtoliter"/>
+    <units name="nM_per_s" units_ref="nM_per_s"/>
+    <units name="nM" units_ref="nM"/>
+    <units name="PoPs" units_ref="PoPs"/>
+    <component component_ref="Template_Promoter_PartiallyInductive" name="Template_Promoter_PartiallyInductive"/>
+  </import>
+
+   <component name="ompC_lacZ_Promoter">
+    <variable name="localVolume" private_interface="out" public_interface="in" units="femtoliter"/>
+    <variable initial_value="3" name="k" private_interface="out" units="PoPs"/>
+    <variable initial_value="100" name="Km" private_interface="out" units="nM"/>
+    <variable initial_value="0.1" name="basalProportion" private_interface="out" units="dimensionless"/>
+    <variable initial_value="1" name="n" private_interface="out" units="dimensionless"/>
+    <variable name="JRNA" private_interface="in" public_interface="out" units="nM_per_s"/>
+    <variable name="tFactor" private_interface="in" public_interface="out" units="nM"/>
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="ompC_lacZ_Promoter">
+      <component_ref component="Template_Promoter_PartiallyInductive"/>
+    </component_ref>
+   </group> 
+  
+   
+
+<connection><map_components component_1="ompC_lacZ_Promoter" component_2="Template_Promoter_PartiallyInductive"/>
+<map_variables variable_1="localVolume" variable_2="localVolume"/>
+<map_variables variable_1="k" variable_2="k"/>
+<map_variables variable_1="basalProportion" variable_2="basalProportion"/>
+<map_variables variable_1="tFactor" variable_2="tFactor"/>
+<map_variables variable_1="n" variable_2="n"/>
+<map_variables variable_1="Km" variable_2="Km"/>
+<map_variables variable_1="JRNA" variable_2="JRNA"/></connection></model>

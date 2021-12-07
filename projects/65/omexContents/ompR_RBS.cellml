@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="ompR_RBS" name="ompR_RBS">
+            
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            <rdf:Description rdf:about="#ompR_RBS">
+            <dc:creator xmlns:dc="http://purl.org/dc/elements/1.0/">
+            <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Mike</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+            </vCard:EMAIL>
+            <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:parseType="Resource">
+                <vCard:Orgname>Auckland Bioengineering Institute</vCard:Orgname>
+                <vCard:Orgunit>University of Auckland</vCard:Orgunit>
+            </vCard:ORG>
+            </dc:creator>
+            </rdf:Description>
+   </rdf:RDF>
+
+  <import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="svp_templates/Template_RBS.cellml">
+    <units name="nM" units_ref="nM"/>
+    <units name="femtoliter" units_ref="femtoliter"/>
+    <units name="RiPsInAttoMoles" units_ref="RiPsInAttoMoles"/>
+    <units name="RiPs" units_ref="RiPs"/>
+    <component component_ref="Template_RBS" name="Template_RBS"/>
+  </import>
+
+   <component name="ompR_RBS">
+    <variable name="localVolume" private_interface="out" public_interface="in" units="femtoliter"/>
+    <variable name="RNA" private_interface="out" public_interface="in" units="nM"/>
+    <variable name="RNARiPs" private_interface="in" public_interface="out" units="RiPsInAttoMoles"/>
+    <variable initial_value="40" name="k" private_interface="out" units="RiPs"/>
+   </component>
+ 
+   <group>
+    <relationship_ref relationship="encapsulation"/>
+    <component_ref component="ompR_RBS">
+      <component_ref component="Template_RBS"/>
+    </component_ref>
+   </group> 
+  
+   
+
+<connection><map_components component_1="ompR_RBS" component_2="Template_RBS"/>
+<map_variables variable_1="localVolume" variable_2="localVolume"/>
+<map_variables variable_1="RNA" variable_2="RNA"/><map_variables variable_1="RNARiPs" variable_2="RNARiPs"/><map_variables variable_1="k" variable_2="k"/>
+</connection>
+</model>

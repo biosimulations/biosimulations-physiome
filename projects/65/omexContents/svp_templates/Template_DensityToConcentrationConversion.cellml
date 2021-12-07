@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<model xmlns="http://www.cellml.org/cellml/1.1#"
+ xmlns:cellml="http://www.cellml.org/cellml/1.1#"
+name="Template_DensityToConcentrationConversion">
+
+   <units name="M">
+      <unit units="mole"/>
+      <unit units="liter" exponent="-1"/>
+   </units> 
+
+   <units name="nM">
+      <unit units="M" prefix="nano"/>
+   </units>
+   
+   <units name="molecule">
+     <unit multiplier="0.0000000000000000000000016606" units="mole" />
+   </units>
+    
+    <units name="micrometer">
+    	<unit units="meter" prefix="micro"/>
+    </units>
+    
+    <units name="micrometer2">
+    	<unit units="micrometer" exponent="2"/>
+    </units>
+        
+   <units name="molecule_per_micrometer2">
+      <unit units="molecule" />
+      <unit units="micrometer2" exponent="-1"/>
+   </units> 
+  
+   <units name="molecule_per_micrometer2_per_nM">
+      <unit units="molecule" />
+      <unit units="micrometer2" exponent="-1"/>
+      <unit units="nM" exponent="-1"/>
+   </units> 
+
+<component name="Template_DensityToConcentrationConversion">
+	<variable name="concentration" public_interface="out" units="nM"/>
+	<variable name="density" public_interface="in" units="molecule_per_micrometer2"/>
+	<variable name="Ccm" public_interface="in" units="molecule_per_micrometer2_per_nM"/>
+	<math xmlns="http://www.w3.org/1998/Math/MathML">
+		<apply>
+			<eq/>
+			<ci>concentration</ci>
+			<apply>
+				<divide/>
+				<ci>density</ci>
+				<ci>Ccm</ci>
+			</apply>
+		</apply>
+	</math>
+</component>
+
+</model>
