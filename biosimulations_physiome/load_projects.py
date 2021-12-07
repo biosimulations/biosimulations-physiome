@@ -1,4 +1,5 @@
 import asyncio
+from curses import meta
 import json
 import git
 import os 
@@ -8,28 +9,18 @@ import shutil
 from bs4 import BeautifulSoup
 import aiohttp
 import re
+import time
 
 FULL_LIST= "https://models.physiomeproject.org/exposure/listing/full-list"
 
-# TODO make this configurable from command line
-CONFIG={
-    "GetWorkspaces": True,
-    "GetMetadata": True,
-    "GetArchives": True,
-    "LogLevel": "DEBUG",
-    "LogFile": "log.txt",
-    "ClearProjects": True,
-    "StartAt": 0,
-    "EndAt": -1
-}
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 # create console handler and set level to debug
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
-fh = logging.FileHandler(CONFIG['LogFile'])
-fh.setLevel(logging.WARN)
+fh = logging.FileHandler('log.txt')
+fh.setLevel(logging.DEBUG)
 # create formatter
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 # add formatter to ch
@@ -40,14 +31,16 @@ logger.addHandler(fh)
 
 
 
-async def importProjects():
+
+async def importProjects(clearProjects=False, startAt=0, endAt=-1, getWorkspaces=True, getMetadata=True, getArchives=True):
     """
     Imports all the projects in the database
     """
-    projectExposureLinks = await getProjectsList()
+    logger= logging.getLogger(__name__)
+    projectExposureLinks = await getProjectsList(startAt, endAt)
     numProjects = len(projectExposureLinks)
     
-    if(CONFIG['ClearProjects']):
+    if(clearProjects):
         shutil.rmtree('projects', ignore_errors=True)
     
     async with aiohttp.ClientSession() as session:
@@ -71,22 +64,39 @@ async def importProjects():
         metadata_tasks = []
         # Get the entire workspace for each project
         workspace_tasks = []
-
+        all_tasks = []
+        archives= []
+        metadata= []
+        workspaces= []
         for projectlink in projectLinks:
             
             projectName = projectlink['project'].split('/')[-1]
-
-            archive_tasks.append(asyncio.ensure_future(getProjectArchive(session, projectlink['archive'])))
+            if(getArchives):
+                archive_tasks.append(asyncio.ensure_future(getProjectArchive(session, projectlink['archive'])))
             
-            workspace_tasks.append(getProjectWorkspace(projectName, projectlink['workspace']))
+            if(getMetadata):
+                metadata_tasks.append(asyncio.ensure_future(getProjectInfo(session, projectlink['project'], projectlink['documentation'], projectlink['metadata'])))
+
+        
+        all_tasks = await asyncio.gather(*archive_tasks, *metadata_tasks, return_exceptions=True)  
+        if(getArchives):
+            archives = all_tasks[:numProjects]
+        if(getMetadata and getArchives):
+            metadata = all_tasks[numProjects:]
+        if(getMetadata and not getArchives):
+            metadata = all_tasks
+        # have to do this synchronously because otherwise we seem to be overloading the pmr git server
+        if(getWorkspaces):
+            for projectLink in projectLinks:
+                projectName = projectLink['project'].split('/')[-1]
+                getGitRepo(projectName, projectLink['workspace'])
+            # Delete all the .git folders and .gitmodules files to prevent issues with top level git repo
+            os.system('find . -type d -name ".git" -delete')
+            os.system('find . -type f -name ".gitmodules" -delete')
+
+                
             
-
-            metadata_tasks.append(asyncio.ensure_future(getProjectInfo(session, projectlink['project'], projectlink['documentation'], projectlink['metadata'])))
-
-        all_tasks = await asyncio.gather(*archive_tasks, *workspace_tasks, *metadata_tasks, return_exceptions=True)  
-        archives= all_tasks[:numProjects]
-        workspaces= all_tasks[numProjects:2*numProjects]
-        metadata= all_tasks[2*numProjects:3*numProjects]
+        
 
 
 
@@ -95,7 +105,7 @@ async def importProjects():
         if(len(failed_project_archive_download) > 0):
             logger.error(f'Failed to download project archives: {failed_project_archive_download}')
 
-        failed_project_workspace_download= [ projectNames[index] for index, workspace in enumerate(workspaces) if isinstance(workspace, Exception)]
+        failed_project_workspace_download= [ (projectNames[index], repr(workspace)) for index, workspace in enumerate(workspaces) if isinstance(workspace, Exception)]
         if(len(failed_project_workspace_download) > 0):
             logger.error(f'Failed to download project workspaces: {failed_project_workspace_download}')
 
@@ -144,7 +154,7 @@ async def getProjectArchive(session, link):
         
   
 
-async def getProjectsList():
+async def getProjectsList(startAt=0, endAt=-1):
     """
     Returns a list of all the projects in the database
     """
@@ -157,15 +167,14 @@ async def getProjectsList():
             links =req['collection']['links']
             links=  list(map(lambda x: x['href'], links)) 
             
-            return links[CONFIG['StartAt']:CONFIG['EndAt']]
+            return links[startAt:endAt]
         
 
 async def getProjectHrefs(session, projectExposureHref):
     """
     Returns the hrefs for the project
     """
-    async with session.get(projectExposureHref, headers={'Accept': 'application/json'}) as resp:
-        logger.debug(f'Getting project hrefs for {projectExposureHref}')
+    async with session.get(projectExposureHref, headers={'Accept': 'application/json'}) as resp:        
         links ={
             'project': projectExposureHref,
             'archive': f'{projectExposureHref}/download_generated_omex',
@@ -190,15 +199,21 @@ async def getProjectHrefs(session, projectExposureHref):
         
 def getGitRepo(name, link):
     logger.debug(f'Getting git repo for {name}')    
-    repo= git.Repo.clone_from(link, f'projects/{name}/workspace')
-    logger.debug(f'Cloned {name}')
-    logger.debug(f'Getting git submodules for {name}')
-    repo.submodule_update(recursive=True)
-    logger.debug(f'Updated git submodules for {name}')
-    logger.debug(f'removing git folder for {name}')
+    shutil.rmtree(f'projects/{name}/workspace', ignore_errors=True)
+
+    if(link):
+        try:
+            logger.info(f'Cloning {name}')
+            os.system(f'git clone --recurse-submodules {link} projects/{name}/workspace ')
+            shutil.rmtree(f'projects/{name}/workspace/.git', ignore_errors=True)
+            shutil.rmtree(f'projects/{name}/workspace/.gitmodules', ignore_errors=True)
+        except Exception as e:
+                logger.error(e)
+                return False   
+
     
-    shutil.rmtree(f'projects/{name}/workspace/.git', ignore_errors=True)
-  
+    
+    return True
     
 async def getProjectWorkspace(name, link):
     """
@@ -277,7 +292,7 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
             except Exception as e:
                 logger.error(f'Failed to get documentation for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
-                raise
+                
     else:
         logger.error(f'Failed to get documentation for {projectName} due to missing documentation href')
         model_metadata['errors'].append('No documentation href')
@@ -305,13 +320,11 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
             except(Exception) as e:
                 logger.error(f'Failed to get metadata for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
-                raise
+                
     else:
         logger.error(f'Failed to get metadata for {projectName} due to missing metadata href')
         model_metadata['errors'].append('No metadata href')
-    if(model_metadata['errors']):
-        raise Exception(f'Failed to get full metadata for {projectName} due to {model_metadata["errors"]}')
-        
+
     return model_metadata
         
 
