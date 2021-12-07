@@ -109,7 +109,7 @@ async def importProjects():
         logger.info(f'Imported {numProjects} projects')
         logger.info(f'Saving metadata to projects.json')
         with open('projects.json', 'w') as f:
-            json.dump(projectMetadatas, f)    
+            json.dump(metadata, f)    
         
         
 
@@ -311,8 +311,7 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
         model_metadata['errors'].append('No metadata href')
     if(model_metadata['errors']):
         raise Exception(f'Failed to get full metadata for {projectName} due to {model_metadata["errors"]}')
-
-            
+        
     return model_metadata
         
 
