@@ -1,7 +1,6 @@
 import asyncio
 from curses import meta
 import json
-import git
 import os 
 import zipfile
 import logging
@@ -9,7 +8,7 @@ import shutil
 from bs4 import BeautifulSoup
 import aiohttp
 import re
-import time
+
 
 FULL_LIST= "https://models.physiomeproject.org/exposure/listing/full-list"
 
@@ -75,7 +74,7 @@ async def importProjects(clearProjects=False, startAt=0, endAt=-1, getWorkspaces
                 archive_tasks.append(asyncio.ensure_future(getProjectArchive(session, projectlink['archive'])))
             
             if(getMetadata):
-                metadata_tasks.append(asyncio.ensure_future(getProjectInfo(session, projectlink['project'], projectlink['documentation'], projectlink['metadata'])))
+                metadata_tasks.append(asyncio.ensure_future(getProjectInfo(session, projectlink['project'], projectlink['documentation'], projectlink['metadata'], projectLink['workspace'])))
 
         
         all_tasks = await asyncio.gather(*archive_tasks, *metadata_tasks, return_exceptions=True)  
@@ -215,18 +214,11 @@ def getGitRepo(name, link):
     
     return True
     
-async def getProjectWorkspace(name, link):
-    """
-    Saves the workspace for the project
-    """
-    
-    loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, getGitRepo, name, link)
     
 
 
 
-async def getProjectInfo(session, project_href, documentation_href, metadata_href):
+async def getProjectInfo(session, project_href, documentation_href, metadata_href, workspace_href):
     """
     
     """
@@ -243,6 +235,7 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
         "tags": [],
         "created": None,
         "modified": None,
+        "source": workspace_href,
         "citation": {
             "title": None,
             "authors": None,

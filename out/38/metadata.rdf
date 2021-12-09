@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="http://omex-library.org/38.omex">
+    <dc:title>Li, Smith, 2009</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/38.omex">
+    <prism:keyword>cardiac</prism:keyword>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/38.omex">
+    <prism:keyword>electrophysiological</prism:keyword>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/38.omex">
+    <prism:keyword>ventricular myocyte</prism:keyword>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/38.omex">
+    <prism:keyword>electrophysiology</prism:keyword>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/38.omex">
+    <prism:keyword>cardiac electrophysiology</prism:keyword>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/38.omex">
+    <dc:description>Model Status
+
+This CellML model was written by the original model author and is known to be completely correct. 
+                
+ ValidateCellML confirms this model as valid CellML with consistent units
+Model Structure
+
+A model of Ca2+ dynamics in mouse ventricular myocytes from the C57BL/6 strain has been developed, based on experimental data at the same temperature and under consistent experimental conditions and protocols. 
+                
+2+
+
+Parameterisation of the NCX, SERCA and LCC formulations were done sequentially. The model of NCX, based on the Luo and Rudy 1994 formulation, was first fitted from the decay of the caffeine-induced [Ca2+]i transient, which allowed us to infer the flux through SERCA from the decay of the field-stimulated [Ca2+]i transient. Frequency-dependence of the flux through SERCA was accounted for using  Hund and Rudy 2002 formulation of Ca2+/calmodulin kinase II regulatory pathway, with parameters fitted to experimentally measured SERCA flux at 0.5, 1 and 3Hz pacing frequencies.  The L-type Ca2+ channel model, with slight modifications to the Hinch 2004 formulation, was fitted to data from voltage-clamp experiments. All these component models were then incorporated into the whole-cell AP model of Bondarenko et al., with parameters of RyR adjusted to match the experimentally observed time-to-peak of the [Ca2+]i transient at 3Hz, and parameters
+for the background Ca2+ current and PMCA adjusted to match experimentally observed diastolic [Ca2+]i levels.
+                
+2+
+2+
+2+
+2+
+2+
+2+
+2+
+Associated data
+
+Caffeine - Caffeine-induced Ca2+ transients from 18 individual myocytes
+2+
+Each file contains the time course of caffeine-induced Ca2+ transients from a myocyte. The traces were exported from IonOptix for the duration of the caffeine application.
+2+
+Related parameter: Kncx
+
+Fitting process: 1. The decay of individual transients were aligned and averaged. 
+2. The rate of decay of the average transient, after taking into account of intracellular buffering, was used to calculate Jncx. Jncx  was then used to fit Kncx in the Luo and Rudy 1994 model.
+
+3Hz - Field-stimulated Ca2+ transients at 3Hz from 19 individual myocytes
+2+
+Each file contains the time course of a Ca2+ transient, field stimulated at 3Hz, from a myocyte. The time course was exported from IonOptix for a duration of 1s starting from the first stimulus.
+2+
+Related parameter: Km, serca, Vserca at 3Hz
+Fitting process: 1. The individual transients were averaged. The decay of the average transient, from 70ms after-peak until the end of the period was analysed. 
+2. Jncx was inferred from previously fitted NCX model, and the difference between the total Ca2+ flux and Jncx was taken as the net SR Ca2+ uptake Jup. 
+3 A small SR leak (0.0082+ through SERCA Jserca = Jup+ Jleak
+4. Jserca was used to fit the Km,serca and Vserca at 3Hz.
+2+
+2+
+2+
+
+1Hz - Field-stimulated Ca2+ transients at 1Hz from 7 individual myocytes
+2+
+Each file contains the time course of a Ca2+ transient, field stimulated at 1Hz, from a myocyte.
+2+
+Related parameter: Estimated Vserca at 1Hz
+1. The derivation of Jserca at 1Hz is similar to above. 
+2. Jserca was used to constrain Vserca at 1Hz
+                    
+
+0.5Hz - Field-stimulated Ca2+ transients at 0.5Hz from 7 individual myocytes
+2+
+Each file contains the time course of a Ca2+ transient, field stimulated at 0.5Hz, from a myocyte
+2+
+Related parameter: Estimated Vserca at 0.5Hz
+1. The derivation of Jserca at 0.5Hz is similar to above. 
+2. Jserca was used to constrain Vserca at 0.5Hz
+
+Ica - Time courses of transmembrane currents from 5 individual myocytes.
+Each file contains the time course of experimentally measured L-type Ca2+ current from one myocyte, measured in nA. 
+2+
+PCaL, 
+Fitting process: 1. The time course of transmembrane currents individual myocytes were averaged for each test potential between -20 and 20mV (-20, -10, 0, 10, 20mV). 
+2. Averaged currents were converted into current densities by division by cell membrane capacitance (138.66pF).
+3. Simulated sum of late K+ currents, from the Bondarenko et al 2004 formulation, for test potentials -20, -10, 0, 10, 20mV were subtracted from the decay phase of each current.
+4. The decay of the current at each test potential, after correcting for late K+ currents, was fitted to a single exponential function, giving a time constant of decay tau value.
+5. The IV relation and tau values at each test potential were used to fit the model of LCC.
+                    
++
++
+
+Ica/IV.xls - Experimentally measured current-voltage relation for the L-type Ca2+ current
+2+
+Average current-voltage curve.
+Related parameter: PCaL, 
+Fitting process: as for Ica
+                    </dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00001">
+    <dc:identifier rdf:resource="None">None</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00001">
+    <rdfs:label>PMR workspace</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/38.omex">
+    <dc:source rdf:resource="local:00001">local:00001</dc:source>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00002">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00002">
+    <rdfs:label>ccby</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/38.omex">
+    <dc:license rdf:resource="local:00002">local:00002</dc:license>
+  </rdf:Description>
+</rdf:RDF>

@@ -1,4 +1,4 @@
-from .load_projects import importProjects
+from . import load_projects, process_projects
 import asyncio
 import fire
 import json
@@ -50,7 +50,7 @@ class BiosimulationsPhysiome:
         config= self.config
             
         print("Loading projects from Physiome Repository")
-        asyncio.run(importProjects(clearProjects=config['ClearProjects'], startAt=config['StartAt'], 
+        asyncio.run(load_projects.importProjects(clearProjects=config['ClearProjects'], startAt=config['StartAt'], 
                                     endAt=config['EndAt'],getArchives=config['GetArchives'], getMetadata=config['GetMetadata'], 
                                     getWorkspaces=config['GetWorkspaces']))
 
@@ -59,7 +59,11 @@ class BiosimulationsPhysiome:
         print(f'Processing projects from {projects_file}')
         projects = json.load(open(projects_file))
         for project in projects:
+            if not project["title"]:
+                continue
             print(f'Processing project {project["title"]}')
+            project_dir = f'{projects_dir}/{project["identifier"]}'
+            process_projects.process(project, project_dir)
         
         
 
