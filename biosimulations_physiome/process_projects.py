@@ -129,14 +129,14 @@ def process(metadata, project_path):
         "description": metadata["description"],
         "license": {
             "uri": "https://creativecommons.org/licenses/by/3.0/",
-            "label": "ccby",
+            "label": "CC BY 3.0",
         },
         "contributors": [],
         "creators": creators,
-        'sources': [{
-             "label": "PMR workspace",
-             # TODO add PMR workspace url when importing projects
-             "uri": metadata.get("source", "None")
+        'identifiers': [{
+             "label": "PMR",
+             # TODO: URL appropriate namespace 'e' or 'exposure'
+             "uri": "https://identifiers.org/pmr:{}/{}".format('e', metadata["identifier"])
          }],
         'predecessors': [],
         'successors': [],
