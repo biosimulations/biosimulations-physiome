@@ -118,7 +118,7 @@ async def importProjects(clearProjects=False, startAt=0, endAt=-1, getWorkspaces
         logger.info(f'Imported {numProjects} projects')
         logger.info(f'Saving metadata to projects.json')
         with open('projects.json', 'w') as f:
-            json.dump(metadata, f)    
+            json.dump(metadata, f, indent=4)    
         
         
 
@@ -276,7 +276,7 @@ async def getProjectInfo(session, project_href, documentation_href, metadata_hre
                     # Get the metadata from the page
                     image= soup.find("img", class_="tmp-doc-informalfigure")
                     if(image):
-                        image_url = documentation_href+ image['src']
+                        image_url = documentation_href+ "/" + image['src']
                         model_metadata['thumbnails'].append(image_url)
                     description = soup.find("div", id="content-core").find_all(re.compile("[hp]"))
                     description = [x.get_text() for x in description]
