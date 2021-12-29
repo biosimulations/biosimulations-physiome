@@ -74,7 +74,7 @@ async def importProjects(clearProjects=False, startAt=0, endAt=-1, getWorkspaces
                 archive_tasks.append(asyncio.ensure_future(getProjectArchive(session, projectlink['archive'])))
             
             if(getMetadata):
-                metadata_tasks.append(asyncio.ensure_future(getProjectInfo(session, projectlink['project'], projectlink['documentation'], projectlink['metadata'], projectLink['workspace'])))
+                metadata_tasks.append(asyncio.ensure_future(getProjectInfo(session, projectlink['project'], projectlink['documentation'], projectlink['metadata'], projectlink['workspace'])))
 
         
         all_tasks = await asyncio.gather(*archive_tasks, *metadata_tasks, return_exceptions=True)  
@@ -90,7 +90,8 @@ async def importProjects(clearProjects=False, startAt=0, endAt=-1, getWorkspaces
                 projectName = projectLink['project'].split('/')[-1]
                 getGitRepo(projectName, projectLink['workspace'])
             # Delete all the .git folders and .gitmodules files to prevent issues with top level git repo
-            os.system('find . -type d -name ".git" -delete')
+            os.system('find . -type d -name ".git" -ls -exec rm -rvf {} +')
+            os.system('find . -type f -name ".git" -ls -exec rm -rvf {} +')
             os.system('find . -type f -name ".gitmodules" -delete')
 
                 

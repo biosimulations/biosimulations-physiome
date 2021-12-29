@@ -59,8 +59,10 @@ def get_content_format_from_file_extension(file_extension):
         "txt": CombineArchiveContentFormat.TEXT,
         "md": CombineArchiveContentFormat.TEXT,
         "xlsx": CombineArchiveContentFormat.XLSX,
+        "h5": CombineArchiveContentFormat.HDF5,
 
         # TODO add the formats to biosimulators_utils ( see)
+
         "dll": CombineArchiveContentFormat.OTHER,
         "so": CombineArchiveContentFormat.OTHER,
         "conf": CombineArchiveContentFormat.OTHER,
@@ -75,6 +77,7 @@ def get_content_format_from_file_extension(file_extension):
         "js": CombineArchiveContentFormat.OTHER,
         "ai": CombineArchiveContentFormat.OTHER,
         "html": CombineArchiveContentFormat.OTHER,
+        "htm": CombineArchiveContentFormat.OTHER,
         "xul": CombineArchiveContentFormat.OTHER,
         "c": CombineArchiveContentFormat.OTHER,
         "exf": CombineArchiveContentFormat.OTHER,
@@ -89,6 +92,36 @@ def get_content_format_from_file_extension(file_extension):
         "connectivity": CombineArchiveContentFormat.TEXT,
         "orig": CombineArchiveContentFormat.OTHER,
         "README": CombineArchiveContentFormat.TEXT,
+        "css": CombineArchiveContentFormat.OTHER,
+        "psd": CombineArchiveContentFormat.OTHER,
+        "php": CombineArchiveContentFormat.OTHER,
+        "LICENSE": CombineArchiveContentFormat.TEXT,
+        "cgi": CombineArchiveContentFormat.OTHER,
+        "pl": CombineArchiveContentFormat.OTHER,
+        "odt": CombineArchiveContentFormat.OTHER,
+        "java": CombineArchiveContentFormat.OTHER,
+        "ico": CombineArchiveContentFormat.OTHER,
+        "log": CombineArchiveContentFormat.TEXT,
+        "graphml": CombineArchiveContentFormat.OTHER,
+        "class": CombineArchiveContentFormat.OTHER,
+        "classpath": CombineArchiveContentFormat.OTHER,
+        "prefs": CombineArchiveContentFormat.OTHER,
+        "kss": CombineArchiveContentFormat.OTHER,
+        "dig": CombineArchiveContentFormat.OTHER,
+        "mat": CombineArchiveContentFormat.MATLAB,
+        "owl": CombineArchiveContentFormat.OTHER,
+        "db": CombineArchiveContentFormat.OTHER,
+        "jar": CombineArchiveContentFormat.OTHER,
+        "sh": CombineArchiveContentFormat.OTHER,
+        "jar": CombineArchiveContentFormat.OTHER,
+        "mov": CombineArchiveContentFormat.OTHER,
+        "swf": CombineArchiveContentFormat.OTHER,
+        "xsl": CombineArchiveContentFormat.OTHER,
+        "as": CombineArchiveContentFormat.OTHER,
+        # Todo filer these?
+        "iml": CombineArchiveContentFormat.OTHER,
+        "pyc": CombineArchiveContentFormat.OTHER,
+        "gitignore": CombineArchiveContentFormat.TEXT,
     }
 
     if(file_extension in file_endings_to_format):
@@ -259,7 +292,7 @@ def process(metadata, project_path):
     write_metadata(omex_metadata, project_out_dir)
     # add metadata to contents
     metadata_content = CombineArchiveContent(
-        "metadata.rdf", CombineArchiveContentFormat.OMEX_METADATA, description="Metadata for the project in BioSimulations format")
+        "metadata.rdf", CombineArchiveContentFormat.OMEX_METADATA)
     combine_contents.append(metadata_content)
 
     # Write combine archive
