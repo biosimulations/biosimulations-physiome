@@ -4,10 +4,10 @@ import pandas as pd
 
 # The prefix of the saved output file name 
 prefilename = 'Ist_20ms'
-#suf=['20','-10']
-suf=['20']
+suf=['20','-10']
+#suf=['20']
 # Figure name
-prefig = 'IstPositive_10'
+prefig = 'IstPositive'
 figfile = '%s.png' % prefig
 # Set figure dimension (width, height) in inches.
 fw, fh = 12, 9
@@ -24,7 +24,7 @@ x_name = 'outputs/time'
 y_names =['outputs/minus_V','outputs/m','outputs/h','outputs/gNa','outputs/INa',
 'outputs/n','outputs/gK','outputs/IK','outputs/Ileak','outputs/Ii']
 y_labels =['-V (mV)','m','h','$g_{Na}$','$I_{Na}$','n','$g_{K}$','$I_{K}$','$I_{l}$','$I_{i}$']
-rol=int(10*1000)
+rol=int(20*1000)
 lines=['-','--']
 Ist=['$I_{st}=20$','$I_{st}=-10$']
 for j, suffix in enumerate(suf):

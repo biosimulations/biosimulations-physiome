@@ -35,23 +35,23 @@
   </units>
   
   
-  <component name="environment" cmeta:id="component0000">
+  <component name="environment">
     <variable cmeta:id="environment_time" name="time" public_interface="out" units="second"/>
   </component>
   
-  <component name="rate_constants" cmeta:id="component0001">
-    <variable name="kappa_L1" public_interface="out" units="per_second" cmeta:id="variable0000"/>
-    <variable initial_value="0.132" name="kappa_P1" public_interface="out" units="per_second" cmeta:id="variable0001"/>
-	<variable name="kappa_L2" public_interface="out" units="per_second" cmeta:id="variable0002"/>
-	<variable initial_value="3.78" name="kappa_P2" public_interface="out" units="per_second" cmeta:id="variable0003"/>
+  <component name="rate_constants">
+    <variable name="kappa_L1" public_interface="out" units="per_second"/>
+    <variable initial_value="0.132" name="kappa_P1" public_interface="out" units="per_second"/>
+	<variable name="kappa_L2" public_interface="out" units="per_second"/>
+	<variable initial_value="3.78" name="kappa_P2" public_interface="out" units="per_second"/>
     
-	<variable initial_value="0.054" name="kappa_L2_0" units="per_second" cmeta:id="variable0004"/>
-    <variable initial_value="2.4" name="kappa_L2_1" units="per_second" cmeta:id="variable0005"/>
-    <variable name="Kd_Ca" units="nanomolar" cmeta:id="variable0006"/>
-    <variable initial_value="3" name="n" units="dimensionless" cmeta:id="variable0007"/>
+	<variable initial_value="0.054" name="kappa_L2_0" units="per_second"/>
+    <variable initial_value="2.4" name="kappa_L2_1" units="per_second"/>
+    <variable name="Kd_Ca" units="nanomolar"/>
+    <variable initial_value="3" name="n" units="dimensionless"/>
     
-    <variable name="time" public_interface="in" units="second" cmeta:id="variable0008"/>
-    <variable name="Ca_i" public_interface="in" units="nanomolar" cmeta:id="variable0009"/>
+    <variable name="time" public_interface="in" units="second"/>
+    <variable name="Ca_i" public_interface="in" units="nanomolar"/>
 	
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="kappa_L1_calculation"><eq/><ci>kappa_L1</ci><piecewise><piece><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_second">0.000005</cn><apply><and/><apply><geq/><ci>time</ci><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="second">0</cn></apply><apply><lt/><ci>time</ci><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="second">40</cn></apply></apply></piece><otherwise><cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="per_second">0.00002</cn></otherwise></piecewise></apply>
@@ -62,18 +62,18 @@
     </math>
   </component>
   
-  <component name="cytosolic_calcium" cmeta:id="component0002">
+  <component name="cytosolic_calcium">
     <variable cmeta:id="cytosolic_calcium_Ca_i" initial_value="75" name="Ca_i" public_interface="out" units="nanomolar"/>
-    <variable initial_value="2000000.0" name="Ca_o" public_interface="out" units="nanomolar" cmeta:id="variable0010"/>
-    <variable name="Ca_i_ss" public_interface="out" units="nanomolar" cmeta:id="variable0011"/>
-    <variable initial_value="0.24" name="gamma" public_interface="out" units="dimensionless" cmeta:id="variable0012"/>
+    <variable initial_value="2000000.0" name="Ca_o" public_interface="out" units="nanomolar"/>
+    <variable name="Ca_i_ss" public_interface="out" units="nanomolar"/>
+    <variable initial_value="0.24" name="gamma" public_interface="out" units="dimensionless"/>
     
-    <variable name="kappa_L1" public_interface="in" units="per_second" cmeta:id="variable0013"/>
-	<variable name="kappa_P1" public_interface="in" units="per_second" cmeta:id="variable0014"/>
-	<variable name="kappa_L2" public_interface="in" units="per_second" cmeta:id="variable0015"/>
-	<variable name="kappa_P2" public_interface="in" units="per_second" cmeta:id="variable0016"/>
-    <variable name="Ca_s" public_interface="in" units="nanomolar" cmeta:id="variable0017"/>
-    <variable name="time" public_interface="in" units="second" cmeta:id="variable0018"/>
+    <variable name="kappa_L1" public_interface="in" units="per_second"/>
+	<variable name="kappa_P1" public_interface="in" units="per_second"/>
+	<variable name="kappa_L2" public_interface="in" units="per_second"/>
+	<variable name="kappa_P2" public_interface="in" units="per_second"/>
+    <variable name="Ca_s" public_interface="in" units="nanomolar"/>
+    <variable name="time" public_interface="in" units="second"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="Ca_i_diff_eq"><eq/><apply><diff/><bvar><ci>time</ci></bvar><ci>Ca_i</ci></apply><apply><plus/><apply><times/><apply><minus/><apply><plus/><ci>kappa_L1</ci><ci>kappa_P1</ci><apply><times/><ci>gamma</ci><apply><plus/><ci>kappa_L2</ci><ci>kappa_P2</ci></apply></apply></apply></apply><ci>Ca_i</ci></apply><apply><times/><ci>gamma</ci><ci>kappa_L2</ci><ci>Ca_s</ci></apply><apply><times/><ci>kappa_L1</ci><ci>Ca_o</ci></apply></apply></apply>
@@ -98,15 +98,15 @@
     </math>
   </component>
   
-  <component name="subspace_calcium" cmeta:id="component0003">
+  <component name="subspace_calcium">
     <variable cmeta:id="subspace_calcium_Ca_s" initial_value="5300.0" name="Ca_s" public_interface="out" units="nanomolar"/>
-    <variable name="Ca_s_ss" public_interface="out" units="nanomolar" cmeta:id="variable0019"/>
+    <variable name="Ca_s_ss" public_interface="out" units="nanomolar"/>
     
-	<variable name="Ca_i" public_interface="in" units="nanomolar" cmeta:id="variable0020"/>
-    <variable name="Ca_i_ss" public_interface="in" units="nanomolar" cmeta:id="variable0021"/>
-    <variable name="kappa_L2" public_interface="in" units="per_second" cmeta:id="variable0022"/>
-    <variable name="kappa_P2" public_interface="in" units="per_second" cmeta:id="variable0023"/>
-    <variable name="time" public_interface="in" units="second" cmeta:id="variable0024"/>
+	<variable name="Ca_i" public_interface="in" units="nanomolar"/>
+    <variable name="Ca_i_ss" public_interface="in" units="nanomolar"/>
+    <variable name="kappa_L2" public_interface="in" units="per_second"/>
+    <variable name="kappa_P2" public_interface="in" units="per_second"/>
+    <variable name="time" public_interface="in" units="second"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="Ca_s_diff_eq">
