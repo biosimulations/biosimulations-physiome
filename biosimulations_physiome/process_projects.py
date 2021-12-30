@@ -113,7 +113,6 @@ def get_content_format_from_file_extension(file_extension):
         "db": CombineArchiveContentFormat.OTHER,
         "jar": CombineArchiveContentFormat.OTHER,
         "sh": CombineArchiveContentFormat.OTHER,
-        "jar": CombineArchiveContentFormat.OTHER,
         "mov": CombineArchiveContentFormat.OTHER,
         "swf": CombineArchiveContentFormat.OTHER,
         "xsl": CombineArchiveContentFormat.OTHER,
@@ -204,7 +203,15 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors):
             "label": journal_article.get_citation(),
             "uri": journal_article.doi if journal_article.doi else None
         }]
+    
+    
+    project_id= metadata['identifier']
+    if(len(project_id)==32):        
+        identifier_uri= "https://identifiers.org/pmr:{}".format(project_id)
+    else:
+        identifier_uri= "https://models.physiomeproject.org/e/{}".format(project_id)
 
+        
     omex_metadata = [{
         'uri': '.',
         "combine_archive_uri": BIOSIMULATIONS_ROOT_URI_FORMAT.format(metadata["identifier"]),
@@ -221,7 +228,7 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors):
         "creators": creators,
         'identifiers': [{
             "label": "PMR",
-            "uri": "https://identifiers.org/pmr:{}".format(metadata["identifier"])
+            "uri": identifier_uri
         }],
         'predecessors': [],
         'successors': [],
