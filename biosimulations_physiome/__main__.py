@@ -54,22 +54,38 @@ class BiosimulationsPhysiome:
                                                  endAt=config['EndAt'], getArchives=config['GetArchives'], getMetadata=config['GetMetadata'],
                                                  getWorkspaces=config['GetWorkspaces']))
 
-    def process(self, projects_file="projects.json", projects_dir="projects"):
+    def process(self, project_id=None, projects_file="projects.json", projects_dir="projects"):
+
         print(f'Processing projects from {projects_file}')
         projects = json.load(open(projects_file))
 
-        projects_info = []
-        for project in projects:
-            if not project["title"]:
-                continue
-
+        def process_sub(project):
+            projects_info = []
             print(f'Processing project {project["title"]}')
             project_dir = f'{projects_dir}/{project["identifier"]}'
             project_info = process_projects.process(project, project_dir)
             projects_info.append(project_info)
-        # write projects_info as json to file
-        with open('projects.processed.json', 'w') as outfile:
-            json.dump(projects_info, outfile, indent=4)
+            return projects_info
+
+        if project_id:
+            project = [
+                project for project in projects if project["identifier"] == project_id][0]
+
+            print(project)
+            project_info = process_sub(project)
+            path = f'{project["identifier"]}.proccessed.json'
+            with open(path, 'w') as outfile:
+                json.dump(project_info, outfile, indent=4)
+
+        else:
+            for project in projects:
+                if not project["title"]:
+                    continue
+                projects_info = process_sub(project)
+
+            # write projects_info as json to file
+            with open('projects.processed.json', 'w') as outfile:
+                json.dump(projects_info, outfile, indent=4)
 
 
 def main():

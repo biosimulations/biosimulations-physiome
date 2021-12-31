@@ -201,17 +201,16 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors):
     if(journal_article):
         citations = [{
             "label": journal_article.get_citation(),
-            "uri": journal_article.doi if journal_article.doi else None
+            "uri": "https://identifiers.org/doi/" + journal_article.doi if journal_article.doi else None
         }]
-    
-    
-    project_id= metadata['identifier']
-    if(len(project_id)==32):        
-        identifier_uri= "https://identifiers.org/pmr:{}".format(project_id)
-    else:
-        identifier_uri= "https://models.physiomeproject.org/e/{}".format(project_id)
 
-        
+    project_id = metadata['identifier']
+    if(len(project_id) == 32):
+        identifier_uri = "https://identifiers.org/pmr:{}".format(project_id)
+    else:
+        identifier_uri = "https://models.physiomeproject.org/e/{}".format(
+            project_id)
+
     omex_metadata = [{
         'uri': '.',
         "combine_archive_uri": BIOSIMULATIONS_ROOT_URI_FORMAT.format(metadata["identifier"]),
@@ -257,7 +256,8 @@ def process(metadata, project_path):
 
     # New folder for Omex root
     contents_path = project_out_dir + "/contents"
-    shutil.rmtree(contents_path, ignore_errors=True) # Clear contents folder if exists
+    # Clear contents folder if exists
+    shutil.rmtree(contents_path, ignore_errors=True)
     combine_archive_path = f'{project_out_dir}/{project_id}.omex'
 
     # Copy workspace to new directory for omex root
@@ -266,6 +266,7 @@ def process(metadata, project_path):
     combine_contents = []
     has_sedml = False
     for root, dirs, files in os.walk(contents_path):
+
         for content in files:
             file_ending = content.split(".")[-1]
             if(file_ending == "DS_Store"):
@@ -274,14 +275,16 @@ def process(metadata, project_path):
                 continue
             if(file_ending == "session"):
                 continue
-
+            content_rel_dir = os.path.relpath(root, contents_path )
+            content_rel_path = os.path.join(content_rel_dir, content)
+            content_rel_path = content_rel_path.replace("./", "")
             file_format = get_content_format_from_file_extension(file_ending)
             is_sedml = file_format == CombineArchiveContentFormat.SED_ML
             if(is_sedml):
                 has_sedml = True
 
             combine_content = CombineArchiveContent(
-                content, file_format, is_sedml)
+                content_rel_path, file_format, is_sedml)
             combine_contents.append(combine_content)
 
     # Get Journal Info
@@ -307,7 +310,11 @@ def process(metadata, project_path):
         contents=combine_contents,)
 
     combine_writer.run(combine_archive, contents_path, combine_archive_path)
-
+    if(has_sedml):
+        os.makedirs("archive", exist_ok=True)
+        # Temporary to make uploading to biosimulations easier
+        path = "archive/{}.zip".format(project_id)
+        combine_writer.run(combine_archive, contents_path, path)
     # Remove combine input directory
     shutil.rmtree(contents_path, ignore_errors=True)
 
