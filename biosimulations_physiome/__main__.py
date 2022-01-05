@@ -6,7 +6,7 @@ import json
 import logging
 from .logging import setup_logging
 CONFIG = {
-    "GetWorkspaces": True,
+    "GetWorkspaces": False,
     "GetMetadata": True,
     "GetArchives": True,
     "LogLevel": "DEBUG",
@@ -50,8 +50,8 @@ class BiosimulationsPhysiome:
         config = self.config
 
         print("Loading projects from Physiome Repository")
-        asyncio.run(load_projects.importProjects(clearProjects=config['ClearProjects'], startAt=config['StartAt'],
-                                                 endAt=config['EndAt'], getArchives=config['GetArchives'], getMetadata=config['GetMetadata'],
+        asyncio.run(load_projects.importProjects(startAt=config['StartAt'],
+                                                 endAt=config['EndAt'], getMetadata=config['GetMetadata'],
                                                  getWorkspaces=config['GetWorkspaces']))
 
     def process(self, project_id=None, projects_file="projects.json", projects_dir="projects"):
