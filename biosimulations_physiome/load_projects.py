@@ -1,3 +1,4 @@
+from ast import mod
 import asyncio
 from cmath import pi
 from curses import meta
@@ -61,7 +62,7 @@ async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=Tr
         archives = []
         metadata = []
         workspaces = []
-        exit()
+        
         for projectlink in projectLinks:
 
             projectName = projectlink['project'].split('/')[-1]
@@ -70,7 +71,7 @@ async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=Tr
                     session, projectlink)))
 
         # Metadata for each project
-        metadata = await asyncio.gather(*metadata_tasks, return_exceptions=True)
+        metadata = await asyncio.gather(*metadata_tasks, return_exceptions=False)
 
         # have to do this synchronously because otherwise we seem to be overloading the pmr git server
         if(getWorkspaces):
@@ -151,6 +152,8 @@ async def getProjectHrefs(session, projectExposureHref):
                     for data in file_info['collection']['items'][0]['data']:
                         if data['name'] == 'title':
                             created_file_links['title'] = data['value']
+                        else:
+                            created_file_links['title']= file_prompt
                         if data['name'] == 'file_type':
                             created_file_links['file_type'] = data['value']
 
@@ -201,15 +204,18 @@ async def getProjectInfo(session, projectlink):
     """
 
     """
-    project_href, documentation_href, metadata_href, workspace_href = projectlink[
-        'project'], projectlink['documentation'], projectlink['metadata'], projectlink['workspace']
+    project_href = projectlink['project']
+    workspace_href = projectlink['workspace']
+   
     projectName = project_href.split('/')[-1]
-
+    project_content = projectlink['content']
+    
     model_metadata = {
         "identifier": "",
         "hash": "",
         "title": None,
         "description": None,
+        "summary": None,
         "authors": None,
         "license": None,
         "thumbnails": [],
@@ -223,6 +229,7 @@ async def getProjectInfo(session, projectlink):
             "journal": None,
             "identifier": None,
         },
+        "content_metadata": [],
         "contributor": "Bilal Shaikh",
         "errors": [],
     }
@@ -244,37 +251,65 @@ async def getProjectInfo(session, projectlink):
                     f'Failed to get project info for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
                 raise
-    else:
-        logger.error(
-            f'Failed to get project info for {projectName} due to missing project href')
-        model_metadata['errors'].append('No project href')
-
-    if(documentation_href):
-        async with session.get(documentation_href, headers={'Accept': 'text/html'}) as resp:
+        async with session.get(project_href, headers={'Accept': 'text/html'}) as resp:
             logger.debug(f'Getting documentation for {projectName}')
             try:
                 html_page = (await resp.text())
                 if(html_page):
                     soup = BeautifulSoup(html_page, 'html.parser')
-                    # Get the metadata from the page
-                    image = soup.find("img", class_="tmp-doc-informalfigure")
-                    if(image):
-                        image_url = documentation_href + "/" + image['src']
-                        model_metadata['thumbnails'].append(image_url)
-                    description = soup.find(
-                        "div", id="content-core").find_all(re.compile("[hp]"))
-                    description = [x.get_text() for x in description]
+                    content= soup.find('div', id='content')
+                    title= content.find('h1').text.strip()
+                    summary = content.find('div', id='parent-fieldname-description')
+                    if(summary):
+                        summary = summary.text.strip()
+                    else:
+                        summary = ""
 
-                    model_metadata['description'] = '\n'.join(description)
+                    model_metadata['summary'] = summary
+                    content_core = content.find('div', id='content-core')
+
+                    description = ''
+                    for child in (content_core.children or [] ):
+                        if child.name == 'title':
+                            continue        
+                        if isinstance(child, str):
+                            description += child
+                        elif child.name == 'table':
+                            continue
+                        else:
+                            description += child.text
+
+                    description = description.replace('\xa0', ' ')
+                    description = description.strip()
+                    description = re.sub(r'\n[ \t]+', '\n', description)
+                    description = re.sub(r'\n{2,}', '\n\n', description) 
+
+                    # Get the metadata from the page
+                    images = soup.find_all("img", class_="tmp-doc-informalfigure")
+                                        
+                    for image in (images or []):
+                        image_url = project_href + "/" + image['src']
+                        model_metadata['thumbnails'].append(image_url)
+
+                    # We might have the title already from the JSON call above
+                    if(title and model_metadata['title']==''):
+                        model_metadata['title'] = title
+                    
+                    model_metadata['description'] = description
             except Exception as e:
                 logger.error(
                     f'Failed to get documentation for {projectName}, {repr(e)}')
                 model_metadata['errors'].append(repr(e))
-
     else:
         logger.error(
-            f'Failed to get documentation for {projectName} due to missing documentation href')
-        model_metadata['errors'].append('No documentation href')
+            f'Failed to get project info for {projectName} due to missing project href')
+        model_metadata['errors'].append('No project href')
+
+    # The metadata may be present in the first child of the content. We can use it for the whole project,otherwise the top level projects won't have it
+    if(len(project_content)>0):
+        metadata_href = project_content[0].get('metadata')
+    else: 
+        metadata_href = None
 
     if(metadata_href):
         async with session.get(metadata_href, headers={'Accept': 'application/json'}) as resp:
@@ -304,5 +339,103 @@ async def getProjectInfo(session, projectlink):
         logger.error(
             f'Failed to get metadata for {projectName} due to missing metadata href')
         model_metadata['errors'].append('No metadata href')
+
+
+    # Now get all the children of the project
+    for child in project_content:
+        metadata_href, documentation_href, href = child["metadata"], child["documentation"], child["href"]
+        child_metadata = {
+            "title": child["title"],
+            "file_name": child["file_name"],
+            "file_type": child["file_type"],
+            "tags": [],
+            "citation": {
+                "title": None,
+                "authors": None,
+                "journal": None,
+                "identifier": None,
+            },
+            "authors": None,
+            "description": None,
+            "summary": None,
+            "thumbnails": [],
+            "errors": [],
+        }
+
+        if(metadata_href):
+            async with session.get(metadata_href, headers={'Accept': 'application/json'}) as resp:
+                logger.debug(f'Getting metadata for {projectName}')
+                try:
+                    req = await resp.json()
+                    metadatas = req['collection']['items'][0]['data']
+                    for metadata in metadatas:
+                        if metadata['name'] == 'keywords':
+                            child_metadata['tags'] = metadata['value']
+                        if metadata['name'] == 'citation_title':
+                            child_metadata['citation']['title'] = metadata['value']
+                        if metadata['name'] == 'citation_authors':
+                            child_metadata['citation']["authors"] = metadata['value']
+                        if metadata['name'] == 'citation_journal':
+                            child_metadata['citation']['journal'] = metadata['value']
+                        if metadata['name'] == 'citation_id':
+                            child_metadata['citation']['identifier'] = metadata['value']
+                        if metadata['name'] == 'model_author':
+                            child_metadata['authors'] = metadata['value']
+                except(Exception) as e:
+                    logger.error(
+                        f'Failed to get metadata for {title}, {repr(e)}')
+                    child_metadata['errors'].append(repr(e))
+        
+        if(documentation_href):
+            async with session.get(project_href, headers={'Accept': 'text/html'}) as resp:
+                logger.debug(f'Getting documentation for {projectName}')
+                try:
+                    html_page = (await resp.text())
+                    if(html_page):
+                        soup = BeautifulSoup(html_page, 'html.parser')
+                        content= soup.find('div', id='content')
+                        title= content.find('h1').text.strip()
+                        summary = content.find('div', id='parent-fieldname-description')
+                        if(summary):
+                            summary = summary.text.strip()
+                        else:
+                            summary = ""
+
+                        child_metadata['summary'] = summary
+                        content_core = content.find('div', id='content-core')
+
+                        description = ''
+                        for child in (content_core.children or [] ):
+                            if child.name == 'title':
+                                continue        
+                            if isinstance(child, str):
+                                description += child
+                            elif child.name == 'table':
+                                continue
+                            else:
+                                description += child.text
+
+                        description = description.replace('\xa0', ' ')
+                        description = description.strip()
+                        description = re.sub(r'\n[ \t]+', '\n', description)
+                        description = re.sub(r'\n{2,}', '\n\n', description) 
+
+                        # Get the metadata from the page
+                        images = soup.find_all("img", class_="tmp-doc-informalfigure")
+                                            
+                        for image in (images or []):
+                            image_url = project_href + "/" + image['src']
+                            child_metadata['thumbnails'].append(image_url)
+
+                        # We might have the title already from the JSON call above
+                        if(title and child_metadata['title']==''):
+                            child_metadata['title'] = title
+                        
+                        child_metadata['description'] = description
+                except Exception as e:
+                    logger.error(
+                        f'Failed to get documentation for {title}, {repr(e)}')
+                    child_metadata['errors'].append(repr(e))
+        model_metadata['content_metadata'].append(child_metadata)
 
     return model_metadata
