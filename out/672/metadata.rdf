@@ -4,12 +4,76 @@
     <dc:title>Hodgkin &amp; Huxley (1952) model</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex">
-    <dc:description>Action potential propagation along 1D cable model
-In the action potential propagation experiment, the propagated action potential model is configured and parameterised to simulate an action potential propagating along 1D cable.
-You can modify the parameters of temperature T and initial depolarization Vinitial  in the component parameters and initial_conditions, respectively.
-T
-Vinitial
-The simulation experiment can be obtained by loading the corresponding SED-ML document into OpenCOR and executing the simulation.</dc:description>
+    <dc:description>About this model
+
+Original publication:
+Hodgkin &amp; Huxley (1952): ‘A Quantitative Description of Membrane Current and its Application to Conduction and Excitation in Nerve’, J. Physiol. 117: 500-544.
+
+DOI:https://doi.org/10.1113/jphysiol.1952.sp004764
+
+Model status
+The current CellML model implementation runs in OpenCOR.
+The results have been validated against the data extracted from the figures in the published Hodgkin &amp; Huxley (1952).
+The model structure, simulation results and limitation have been detailed in the following sections.
+
+Model overview
+This workspace holds a CellML encoding of the Hodgkin &amp; Huxley (1952) model.
+The Hodgkin &amp; Huxley (1952) (HH) model is one of the foundational models of cellular electrophysiology.
+It defined the “standard” gating kinetics still used in many models today.
+The model includes potassium, sodium, and ‘leakage’ currents as well and the transmembrane electrical potential.
+The HH model was originally developed to investigate flow of electric charge in giant nerve axons in squid.
+
+A diagrammatic representation of the Hodgkin &amp; Huxley (1952) model.
+
+Modular description
+
+Components
+CellML divides the mathematical model into distinct components, which are able to be re-used.
+The main CellML components are:
+
+Membrane potential component
+Membrane current component (the ionic current during a voltage clamp)
+Propagated action potential component
+Potassium current component
+Sodium current component
+Leakage current component
+Gating kinetics component – a single definition instantiated three times for the n, m, and h gates
+Gating rates components (open/close rates for n, m, and h gates respectively)
+Gate initialization components (steady state values of n, m, and h gates for specified membrane potentials)
+Temperature component
+Time component
+
+Each of these blocks is itself a CellML model, which enables us to reuse the various components in future studies and models.
+
+Experiments
+Following best practices, this model separates the mathematics from the parameterisation of the model. The mathematical model is imported into a specific parameterised instance in order to perform numerical simulations.
+The parameterisation would include defining the stimulus protocol to be applied.
+This workspace has three sets of experiments:
+
+Periodic stimulation
+Voltage clamp experiment
+Action potential propagation along 1D cable model (please see Known issues)
+
+Simulation settings
+Simulation settings are encoded in SED-ML documents for experiment execution.
+The python scripts to run simulation and reproduce the figures in the original paper are also included.
+
+Model history
+The original model implementation is from VPH-MIP case study. The main modification is summarized as follows:
+
+Add the temperature component to enable the simulation at different temperatures.
+Add  membrane current component,  voltage clamp and voltage clamp experiment to simulate a membrane current during a voltage clamp.
+Add gate initialization components to enable the simulation of anode break excitation.
+Add propagated action potential model and action potential propagation experiment to simulate a propagated action potential (please see Known issues).
+Add the python scripts to run simulation and reproduce the figures in the original paper.
+
+Known issues
+
+The voltage clamp value cannot be -10 mV as the αn would be infinity.
+The propagated action potential model does not work, which needs further investigation in future.
+The temperature unit is set to Kelvin in the CellML models. If you want to simulate the model behavior at temperature T with unit Celsius, you do not need to do conversion as the offset is cancelled in the mathematical expressions including temperature factor.
+You need to set appropriate parameters and initial values in the CellML files, if you want to run simulation using OpenCOR rather than the provided Python scripts.
+The V in the model is defined relative to the resting potential, while the inward current is positive. This is different from the convention of modern physiological modelling.</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -43,5 +107,32 @@ The simulation experiment can be obtained by loading the corresponding SED-ML do
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex">
     <dc:license rdf:resource="local:00003">local:00003</dc:license>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/AP_propagation_experiment.cellml">
+    <dc:title>AP_propagation_experiment.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/clamped_current.cellml">
+    <dc:title>clamped_current.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/gate_initials.cellml">
+    <dc:title>gate_initials.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/periodic-stimulus.cellml">
+    <dc:title>periodic-stimulus.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/propagated_AP.cellml">
+    <dc:title>propagated_AP.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/stimulated.cellml">
+    <dc:title>stimulated.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/temperature_factor.cellml">
+    <dc:title>temperature_factor.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/time.cellml">
+    <dc:title>time.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/voltage_clamp_experiment.cellml">
+    <dc:title>voltage_clamp_experiment.cellml</dc:title>
   </rdf:Description>
 </rdf:RDF>

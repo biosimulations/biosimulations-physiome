@@ -12,59 +12,50 @@
   <rdf:Description rdf:about="http://omex-library.org/13c.omex">
     <dc:description>Model Status
 
-      This model is a lumped parameter ODE model produced by taking the original PDE model and stripping out all spatial variation; this gives a spatially homogeneous model which doesn't take into account diffusion.
-    
+This model is a lumped parameter ODE model produced by taking the original PDE model and stripping out all spatial variation; this gives a spatially homogeneous model which doesn't take into account diffusion.
 
-      This model validates with the validation service from the CellML API with no errors or warnings, and has been successfully simulated with the CellML Integration Service using the IDA and CVODE Adams-Moulton order 1-12 integrators. Due to the change to a lumped parameter formulation, the results of this model are not expected to be comparable to the published paper, nor to any biological reality, and so the results have not been checked against any other source.
-    
+This model validates with the validation service from the CellML API with no errors or warnings, and has been successfully simulated with the CellML Integration Service using the IDA and CVODE Adams-Moulton order 1-12 integrators. Due to the change to a lumped parameter formulation, the results of this model are not expected to be comparable to the published paper, nor to any biological reality, and so the results have not been checked against any other source.
+
 Model Structure
 
 Intracellular calcium dynamics are frequently the subject of theoretical mathematical models (De Young and Keizer, 1992, Li and Rinzel, 1994, Keizer and Levine, 1996, Jafri-Rice-Winslow, 1998, and Snyder et al., 2000 are just a few examples of calcium dynamic models that have been coded up into CellML).  The physical and chemical laws of calcium waves and oscillations can be expressed in terms of differential equations describing reaction kinetics, fluxes through membranes, and diffusion.  
 
- 
 In this study, Charles C. Fink et al. produce an image-based model of a intracellular calcium wave in differentiated neuroblastoma cells (see 
-    the figure
-   below).  One important conclusion from their analysis is that neuronal morphology plays a key role in controlling and shaping the inositol-1,4,5-triphosphate (IP3) dynamics that underlie the calcium wave.  The model is comprised of several components including: 
-
+the figure
+below).  One important conclusion from their analysis is that neuronal morphology plays a key role in controlling and shaping the inositol-1,4,5-triphosphate (IP3) dynamics that underlie the calcium wave.  The model is comprised of several components including: 
 
 IP3 dynamics
-  -
- which account for IP3 synthesis at the plasma membrane, diffusion into the cytosol, and its degradation.
+-
+which account for IP3 synthesis at the plasma membrane, diffusion into the cytosol, and its degradation.
 
 Calcium dynamics
-  -
- which calculate the changing intracellular calcium concentration.
+-
+which calculate the changing intracellular calcium concentration.
 
 Channel kinetics
-  -
- to describe calcium release from the endoplasmic reticulum (ER) into the cytosol through an IP3-sensitive channel.
+-
+to describe calcium release from the endoplasmic reticulum (ER) into the cytosol through an IP3-sensitive channel.
 
 SERCA pump kinetics
-  -
- to describe calcium uptake into the ER via the sarcoplasmic endoplasmic reticulum ATPase (SERCA) pumps.
+-
+to describe calcium uptake into the ER via the sarcoplasmic endoplasmic reticulum ATPase (SERCA) pumps.
 
 Leak
-  -
- which models calcium leak from the ER to the cytosol.
+-
+which models calcium leak from the ER to the cytosol.
+and
 
 Calcium buffering
-  -
- with endogenous buffers.
-   
+-
+with endogenous buffers.
+
 Their model is based on experimental data.  The binding of bradykinin (BK) to its receptor initiates a G-protein cascade, activation of phospholipase C, and degradation of phosphatidylinositol bisphosphate (PIP2) to IP3.  IP3 then diffuses through the cytosol from the plasma membrane to the ER where it activates Ca2+ release through the IP3R channel.  The concentration of cytosolic Ca2+ rises, and is subsequently reduced as Ca2+ binds to calcium buffers and is pumped back into the ER through the SERCA.  This Ca2+ wave was captured by Fink et al. through the use of fluorescent microscopy.  The model of this process was assembled using the Virtual Cell, a computational system for integrating experimentally recorded image, biochemical and electrophysiological data.  The model was tested by comparing several simulation results with the real experimental data, and Fink et al. found that there was good spatiotemporal agreement between the two data sets.
 
-2+
-2+
-2+
-2+
- 
 It should be noted that the following CellML description (for the raw CellML description of the model, see  below) is not quite true to the mathematical model published in the original paper (referenced below).  Currently CellML is unable to handle spatial elements, but this will hopefully be possible in the near future with the development of FieldML, an XML based language for spatially variable models.  This is important, as the relative positions of the cellular components such as receptors, pumps, channels and enzymes will determine the length of diffusion pathways and therefore the rate of reactions.
-
 
 An Image-Based Model of Calcium Waves in Differentiated Neuroblastoma Cells, Charles C. Fink, Boris Slepchenko, Ion I. Moraru, James Watras, James C. Schaff, and Leslie M. Loew, 2000, 
 Biophysical Journal
-, 79, 163-183. (Full text and PDF versions of the article are available to subscribers on the Biophysical Journal website.)  PubMed ID: 10866945
-</dc:description>
+, 79, 163-183. (Full text and PDF versions of the article are available to subscribers on the Biophysical Journal website.)  PubMed ID: 10866945</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/13c.omex">
     <collex:thumbnail rdf:resource="http://omex-library.org/13c.omex/fink_2000.png">http://omex-library.org/13c.omex/fink_2000.png</collex:thumbnail>
@@ -173,5 +164,8 @@ Biophysical Journal
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/13c.omex">
     <dc:license rdf:resource="local:00011">local:00011</dc:license>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/13c.omex/fink_slepchenko_moraru_watras_schaff_loew_2000.cellml">
+    <dc:title>An image-based model of calcium waves in differentiated neuroblastoma cells</dc:title>
   </rdf:Description>
 </rdf:RDF>

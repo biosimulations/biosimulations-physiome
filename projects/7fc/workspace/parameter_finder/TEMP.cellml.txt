@@ -1,0 +1,181 @@
+def model individual_crossbridge_TRPN as
+ def import using "units_and_constants/units_BG.cellml" for
+        unit mM using unit mM;
+unit fmol using unit fmol;
+unit per_fmol using unit per_fmol;
+        unit J_per_mol using unit J_per_mol;
+unit fmol_per_sec using unit fmol_per_sec;
+        unit C_per_mol using unit C_per_mol;
+  unit J_per_C using unit J_per_C;
+        unit microm3 using unit microm3;
+  unit fF using unit fF;
+        unit fC using unit fC;
+  unit fA using unit fA;
+        unit per_second using unit per_second;
+  unit millivolt using unit millivolt;
+        unit per_sec using unit per_sec;
+  unit J_per_K_per_mol using unit J_per_K_per_mol;
+        unit fmol_per_L using unit fmol_per_L;
+  unit fmol_per_L_per_sec using unit fmol_per_L_per_sec;
+        unit per_sec_per_fmol_per_L using unit per_sec_per_fmol_per_L;
+  unit uM using unit uM;
+        unit mM_per_sec using unit mM_per_sec;
+  unit uM_per_sec using unit uM_per_sec;
+        unit pL using unit pL;
+  unit m_to_u using unit m_to_u;
+ enddef;
+def import using "units_and_constants/constants_BG.cellml" for
+            comp constants using comp constants;
+enddef;
+
+    def comp environment as
+    var time: second {pub: out};
+    // initial values
+var q_TRPN_init: fmol {init: 1e-888};
+var q_Ca_i_init: fmol {init: 1e-888};
+var q_Ca_TRPN_init: fmol {init: 1e-888};
+var q_B_init: fmol {init: 1e-888};
+var q_U_init: fmol {init: 1e-888};
+var q_W_init: fmol {init: 1e-888};
+var q_S_init: fmol {init: 1e-888};
+// Global value
+var q_TRPN: fmol {pub: out};
+var q_Ca_i: fmol {pub: out};
+var q_Ca_TRPN: fmol {pub: out};
+var q_B: fmol {pub: out};
+var q_U: fmol {pub: out};
+var q_W: fmol {pub: out};
+var q_S: fmol {pub: out};
+// From submodule
+var q_TRPN_mcrossbridge_TRPN: fmol {pub: in};
+var q_Ca_i_mcrossbridge_TRPN: fmol {pub: in};
+var q_Ca_TRPN_mcrossbridge_TRPN: fmol {pub: in};
+var q_B_mcrossbridge_TRPN: fmol {pub: in};
+var q_U_mcrossbridge_TRPN: fmol {pub: in};
+var q_W_mcrossbridge_TRPN: fmol {pub: in};
+var q_S_mcrossbridge_TRPN: fmol {pub: in};
+q_TRPN = q_TRPN_mcrossbridge_TRPN + q_TRPN_init;
+q_Ca_i = q_Ca_i_mcrossbridge_TRPN + q_Ca_i_init;
+q_Ca_TRPN = q_Ca_TRPN_mcrossbridge_TRPN + q_Ca_TRPN_init;
+q_B = q_B_mcrossbridge_TRPN + q_B_init;
+q_U = q_U_mcrossbridge_TRPN + q_U_init;
+q_W = q_W_mcrossbridge_TRPN + q_W_init;
+q_S = q_S_mcrossbridge_TRPN + q_S_init;
+enddef;
+
+def comp crossbridge_TRPN_parameters as
+var kappa_R_TRPNCa: fmol_per_sec {init: 52.0453, pub: out};
+var kappa_R_BU: fmol_per_sec {init: 2.90875, pub: out};
+var kappa_R_UW: fmol_per_sec {init: 0.332501, pub: out};
+var kappa_R_WS: fmol_per_sec {init: 0.00782356, pub: out};
+var kappa_R_SU: fmol_per_sec {init: 140824, pub: out};
+var K_TRPN: per_fmol {init: 1.27424, pub: out};
+var K_Ca_i: per_fmol {init: 1.27424, pub: out};
+var K_Ca_TRPN: per_fmol {init: 0.11171, pub: out};
+var K_B: per_fmol {init: 6.06164, pub: out};
+var K_U: per_fmol {init: 2.27312, pub: out};
+var K_W: per_fmol {init: 14.8627, pub: out};
+var K_S: per_fmol {init: 3.71567e-06, pub: out};
+enddef;
+def comp crossbridge_TRPN as
+        var time: second {pub: in};
+        var R: J_per_K_per_mol {pub: in};
+        var T: kelvin {pub: in};
+        // parameters
+var kappa_R_TRPNCa: fmol_per_sec {pub: in};
+var kappa_R_BU: fmol_per_sec {pub: in};
+var kappa_R_UW: fmol_per_sec {pub: in};
+var kappa_R_WS: fmol_per_sec {pub: in};
+var kappa_R_SU: fmol_per_sec {pub: in};
+var K_TRPN: per_fmol {pub: in};
+var K_Ca_i: per_fmol {pub: in};
+var K_Ca_TRPN: per_fmol {pub: in};
+var K_B: per_fmol {pub: in};
+var K_U: per_fmol {pub: in};
+var K_W: per_fmol {pub: in};
+var K_S: per_fmol {pub: in};
+// Input from global environment
+var q_TRPN_global: fmol {pub: in};
+var q_Ca_i_global: fmol {pub: in};
+var q_Ca_TRPN_global: fmol {pub: in};
+var q_B_global: fmol {pub: in};
+var q_U_global: fmol {pub: in};
+var q_W_global: fmol {pub: in};
+var q_S_global: fmol {pub: in};
+// Output to global environment
+var q_TRPN: fmol {init: 1e-16, pub: out};
+var q_Ca_i: fmol {init: 1e-16, pub: out};
+var q_Ca_TRPN: fmol {init: 1e-16, pub: out};
+var q_B: fmol {init: 1e-16, pub: out};
+var q_U: fmol {init: 1e-16, pub: out};
+var q_W: fmol {init: 1e-16, pub: out};
+var q_S: fmol {init: 1e-16, pub: out};
+// Constitutive parameters
+var mu_TRPN: J_per_mol;
+var mu_Ca_i: J_per_mol;
+var mu_Ca_TRPN: J_per_mol;
+var mu_B: J_per_mol;
+var mu_U: J_per_mol;
+var mu_W: J_per_mol;
+var mu_S: J_per_mol;
+var v_R_TRPNCa: fmol_per_sec;
+var v_R_BU: fmol_per_sec;
+var v_R_UW: fmol_per_sec;
+var v_R_WS: fmol_per_sec;
+var v_R_SU: fmol_per_sec;
+mu_TRPN = R*T*ln(K_TRPN*q_TRPN_global);
+mu_Ca_i = R*T*ln(K_Ca_i*q_Ca_i_global);
+mu_Ca_TRPN = R*T*ln(K_Ca_TRPN*q_Ca_TRPN_global);
+mu_B = R*T*ln(K_B*q_B_global);
+mu_U = R*T*ln(K_U*q_U_global);
+mu_W = R*T*ln(K_W*q_W_global);
+mu_S = R*T*ln(K_S*q_S_global);
+v_R_TRPNCa = ppp;
+v_R_BU = ppp;
+v_R_UW = ppp;
+v_R_WS = ppp;
+v_R_SU = ppp;
+ode(q_TRPN, time) = qqq;
+ode(q_Ca_i, time) = qqq;
+ode(q_Ca_TRPN, time) = qqq;
+ode(q_B, time) = qqq;
+ode(q_U, time) = qqq;
+ode(q_W, time) = qqq;
+ode(q_S, time) = qqq;
+enddef;
+def map between environment and crossbridge_TRPN for
+vars time and time;
+vars q_TRPN_mcrossbridge_TRPN and q_TRPN;
+vars q_TRPN and q_TRPN_global;
+vars q_Ca_i_mcrossbridge_TRPN and q_Ca_i;
+vars q_Ca_i and q_Ca_i_global;
+vars q_Ca_TRPN_mcrossbridge_TRPN and q_Ca_TRPN;
+vars q_Ca_TRPN and q_Ca_TRPN_global;
+vars q_B_mcrossbridge_TRPN and q_B;
+vars q_B and q_B_global;
+vars q_U_mcrossbridge_TRPN and q_U;
+vars q_U and q_U_global;
+vars q_W_mcrossbridge_TRPN and q_W;
+vars q_W and q_W_global;
+vars q_S_mcrossbridge_TRPN and q_S;
+vars q_S and q_S_global;
+enddef;
+def map between crossbridge_TRPN and crossbridge_TRPN_parameters for
+vars kappa_R_TRPNCa and kappa_R_TRPNCa;
+vars kappa_R_BU and kappa_R_BU;
+vars kappa_R_UW and kappa_R_UW;
+vars kappa_R_WS and kappa_R_WS;
+vars kappa_R_SU and kappa_R_SU;
+vars K_TRPN and K_TRPN;
+vars K_Ca_i and K_Ca_i;
+vars K_Ca_TRPN and K_Ca_TRPN;
+vars K_B and K_B;
+vars K_U and K_U;
+vars K_W and K_W;
+vars K_S and K_S;
+enddef;
+def map between constants and crossbridge_TRPN for
+vars R and R;
+ vars T and T;
+enddef;
+enddef;

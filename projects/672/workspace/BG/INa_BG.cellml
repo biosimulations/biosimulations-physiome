@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- The BG of Na channel model that combines channel current and gating modules. -->
+<!-- The BG of Na channel model without gating modules. -->
 <model name="INa_BG" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
     <import xlink:href="../cellLib/BG/units_BG.cellml">
         <units name="per_fmol" units_ref="per_fmol"/>
@@ -19,7 +19,6 @@
     <component name="INa_BG">
         <!--Parameters-->
         <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="t" private_interface="out" public_interface="in" units="second"/>
         <variable name="kappa_Na" private_interface="out" public_interface="in" units="fmol_per_sec"/>
         <variable name="z_Na" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="K_i_Na" private_interface="out" public_interface="in" units="per_fmol"/>
@@ -57,9 +56,19 @@
         <variable name="z_h_f" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="z_h_r" private_interface="out" public_interface="in" units="dimensionless"/>
         <!--Inputs-->
+        <variable name="t" private_interface="out" public_interface="in" units="second"/>
         <variable name="V_m" private_interface="out" public_interface="in" units="volt"/>
         <!--Outputs-->
         <variable name="I_Na" private_interface="in" public_interface="out" units="fA"/>
+        <variable name="A_g_Na" private_interface="in" public_interface="out" units="J_per_mol"/>
+        <variable name="q_S00" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S10" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S20" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S30" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S01" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S11" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S21" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S31" private_interface="in" public_interface="out" units="fmol"/>
     </component>
     <group>
         <relationship_ref relationship="encapsulation"/>
@@ -114,6 +123,15 @@
         <map_variables variable_1="z_m_r" variable_2="z_m_r"/>
         <map_variables variable_1="z_h_f" variable_2="z_h_f"/>
         <map_variables variable_1="z_h_r" variable_2="z_h_r"/>
+        <map_variables variable_1="q_S00" variable_2="q_S00"/>
+        <map_variables variable_1="q_S10" variable_2="q_S10"/>
+        <map_variables variable_1="q_S20" variable_2="q_S20"/>
+        <map_variables variable_1="q_S30" variable_2="q_S30"/>
+        <map_variables variable_1="q_S01" variable_2="q_S01"/>
+        <map_variables variable_1="q_S11" variable_2="q_S11"/>
+        <map_variables variable_1="q_S21" variable_2="q_S21"/>
+        <map_variables variable_1="q_S31" variable_2="q_S31"/>
+        <map_variables variable_1="A_g_Na" variable_2="A_g_Na"/>
     </connection>
     <connection>
         <map_components component_1="INa_BG" component_2="IX_BG"/>

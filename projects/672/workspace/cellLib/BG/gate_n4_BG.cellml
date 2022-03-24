@@ -59,6 +59,11 @@
         <!--Outputs-->
         <variable name="A_g_K" private_interface="in" public_interface="out" units="J_per_mol"/>
         <variable name="v_n_K" public_interface="out" units="fmol_per_sec"/>
+        <variable name="q_S0" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S1" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S2" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S3" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S4" private_interface="in" public_interface="out" units="fmol"/>
         <!--Intermediate variables-->
         <variable name="v_n1" private_interface="in" units="fmol_per_sec"/>
         <variable name="v_n2" private_interface="in" units="fmol_per_sec"/>
@@ -113,10 +118,7 @@
             <apply>
                 <eq/>
                 <ci>v_S4</ci>
-                <apply>
-                    <minus/>
-                    <ci>v_n4</ci>
-                </apply>
+                <ci>v_n4</ci>
             </apply>
             <apply>
                 <eq/>
@@ -150,6 +152,7 @@
         <map_variables variable_1="T" variable_2="T"/>
         <map_variables variable_1="t" variable_2="t"/>
         <map_variables variable_1="q_S0_init" variable_2="q_init"/>
+        <map_variables variable_1="q_S0" variable_2="q"/>
         <map_variables variable_1="K_S0" variable_2="K"/>
         <map_variables variable_1="v_S0" variable_2="v"/>
     </connection>
@@ -158,6 +161,7 @@
         <map_variables variable_1="T" variable_2="T"/>
         <map_variables variable_1="t" variable_2="t"/>
         <map_variables variable_1="q_S1_init" variable_2="q_init"/>
+        <map_variables variable_1="q_S1" variable_2="q"/>
         <map_variables variable_1="K_S1" variable_2="K"/>
         <map_variables variable_1="v_S1" variable_2="v"/>
     </connection>
@@ -166,6 +170,7 @@
         <map_variables variable_1="T" variable_2="T"/>
         <map_variables variable_1="t" variable_2="t"/>
         <map_variables variable_1="q_S2_init" variable_2="q_init"/>
+        <map_variables variable_1="q_S2" variable_2="q"/>
         <map_variables variable_1="K_S2" variable_2="K"/>
         <map_variables variable_1="v_S2" variable_2="v"/>
     </connection>
@@ -174,6 +179,7 @@
         <map_variables variable_1="T" variable_2="T"/>
         <map_variables variable_1="t" variable_2="t"/>
         <map_variables variable_1="q_S3_init" variable_2="q_init"/>
+        <map_variables variable_1="q_S3" variable_2="q"/>
         <map_variables variable_1="K_S3" variable_2="K"/>
         <map_variables variable_1="v_S3" variable_2="v"/>
     </connection>
@@ -182,6 +188,7 @@
         <map_variables variable_1="T" variable_2="T"/>
         <map_variables variable_1="t" variable_2="t"/>
         <map_variables variable_1="q_S4_init" variable_2="q_init"/>
+        <map_variables variable_1="q_S4" variable_2="q"/>
         <map_variables variable_1="K_S4" variable_2="K"/>
         <map_variables variable_1="v_S4" variable_2="v"/>
         <map_variables variable_1="A_g_K" variable_2="mu"/>

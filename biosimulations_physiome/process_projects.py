@@ -1,26 +1,28 @@
+from cProfile import label
 import logging
 import shutil
 import time
 from dataclasses import dataclass, asdict
-import biosimulators_utils
-import Bio
-from biosimulators_utils.combine.data_model import CombineArchive, CombineArchiveContent, CombineArchiveContentFormat
-from biosimulators_utils.combine.io import CombineArchiveWriter
-from biosimulators_utils.config import Config
-from biosimulators_utils.omex_meta.data_model import BIOSIMULATIONS_ROOT_URI_FORMAT, OmexMetadataOutputFormat
-from biosimulators_utils.omex_meta.io import BiosimulationsOmexMetaWriter, BiosimulationsOmexMetaReader
-from biosimulators_utils.ref.data_model import Reference, JournalArticle
-from biosimulators_utils.ref.utils import get_reference
-from biosimulators_utils.sedml.data_model import (
-    SedDocument, Model, ModelLanguage, SteadyStateSimulation,
-    Task, DataGenerator, Report, DataSet)
-from biosimulators_utils.sedml.io import SedmlSimulationWriter
-from biosimulators_utils.sedml.model_utils import get_parameters_variables_outputs_for_simulation
+from typing import List
 
-from biosimulators_utils.warnings import BioSimulatorsWarning
+import Bio # type: ignore
+from biosimulators_utils.combine.data_model import CombineArchive, CombineArchiveContent, CombineArchiveContentFormat # type: ignore
+from biosimulators_utils.combine.io import CombineArchiveWriter # type: ignore
+from biosimulators_utils.config import Config # type: ignore
+from biosimulators_utils.omex_meta.data_model import BIOSIMULATIONS_ROOT_URI_FORMAT, OmexMetadataOutputFormat # type: ignore
+from biosimulators_utils.omex_meta.io import BiosimulationsOmexMetaWriter, BiosimulationsOmexMetaReader # type: ignore 
+from biosimulators_utils.ref.data_model import Reference, JournalArticle# type: ignore 
+from biosimulators_utils.ref.utils import get_reference # type: ignore
+from biosimulators_utils.sedml.data_model import ( # type: ignore
+    SedDocument, Model, ModelLanguage, SteadyStateSimulation,
+    Task, DataGenerator, Report, DataSet) 
+from biosimulators_utils.sedml.io import SedmlSimulationWriter # type: ignore
+from biosimulators_utils.sedml.model_utils import get_parameters_variables_outputs_for_simulation # type: ignore
+
+from biosimulators_utils.warnings import BioSimulatorsWarning # type: ignore
 import os
 import json
-
+from loguru import logger
 
 OUT_DIR = "out"
 
@@ -126,7 +128,7 @@ def get_content_format_from_file_extension(file_extension):
     if(file_extension in file_endings_to_format):
         file_format = file_endings_to_format[file_extension]
     else:
-        print("Unknown file format:", file_extension)
+        logger.warning(f'Unknown file format:, {file_extension or "None"}')
         file_format = CombineArchiveContentFormat.OTHER
     return file_format
 
@@ -146,8 +148,7 @@ def get_journal_info(metadata, out_path):
 
         else:
             pmid = metadata['citation']['identifier']
-            print(metadata["identifier"])
-            print(pmid)
+            
             # Handle case of https://models.physiomeproject.org/exposure/9d48e39f893b5f1e98e53778f606c2c2/bhalla_iyengar_1999_j.cellml/view
             if(pmid == "urn:miriam:pubmed:99105994"):
                 pmid = "urn:miriam:pubmed:9888852"
@@ -207,9 +208,11 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors):
     project_id = metadata['identifier']
     if(len(project_id) == 32):
         identifier_uri = "https://identifiers.org/pmr:{}".format(project_id)
+        label = "PMR: {}".format(project_id)
     else:
         identifier_uri = "https://models.physiomeproject.org/e/{}".format(
             project_id)
+        label = "PMR/e: {}".format(project_id)
 
     omex_metadata = [{
         'uri': '.',
@@ -226,7 +229,7 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors):
         "contributors": contributors,
         "creators": creators,
         'identifiers': [{
-            "label": "PMR",
+            "label": label,
             "uri": identifier_uri
         }],
         'predecessors': [],
@@ -237,12 +240,29 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors):
         'citations': citations
 
     }]
+    child_metadata = getChildMetadata(metadata)
+    omex_metadata = omex_metadata + child_metadata
+    
 
     return omex_metadata
 
 
+def getChildMetadata(metadata) -> List:
+    child_metadata = []
+    for contentMetadata in (metadata["content_metadata"] or []):
+        child_metadata = {
+            "combine_archive_uri": BIOSIMULATIONS_ROOT_URI_FORMAT.format(metadata["identifier"]),
+            "uri": contentMetadata["file_name"],
+            "title": contentMetadata["title"],
+            "thumbnails": contentMetadata["thumbnails"] or [],
+            "description": contentMetadata["description"],
+            "license": {
+                "uri": "https://creativecommons.org/licenses/by/3.0/",
+                "label": "CC BY 3.0",
+            }}
+    return child_metadata
+
 def process(metadata, project_path):
-    logger = logging.getLogger(__name__)
 
     # Clear output
     # Set up omex archive root folder
@@ -275,7 +295,7 @@ def process(metadata, project_path):
                 continue
             if(file_ending == "session"):
                 continue
-            content_rel_dir = os.path.relpath(root, contents_path )
+            content_rel_dir = os.path.relpath(root, contents_path)
             content_rel_path = os.path.join(content_rel_dir, content)
             content_rel_path = content_rel_path.replace("./", "")
             file_format = get_content_format_from_file_extension(file_ending)

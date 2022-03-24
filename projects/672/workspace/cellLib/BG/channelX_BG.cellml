@@ -22,11 +22,13 @@
         <variable name="A_g_X" public_interface="in" units="J_per_mol"/>
         <!--Outputs-->
         <variable name="v_p_X" public_interface="out" units="fmol_per_sec"/>
-        <variable name="v_X" public_interface="out" units="fmol_per_sec"/>
+        <variable name="v_i_X" public_interface="out" units="fmol_per_sec"/>
+        <variable name="v_e_X" public_interface="out" units="fmol_per_sec"/>
         <!--Intermediate variables-->
-        <variable name="A_i_Xf" units="J_per_mol"/>
-        <variable name="A_i_Xr" units="J_per_mol"/>
+        <variable name="A_f" units="J_per_mol"/>
+        <variable name="A_r" units="J_per_mol"/>
         <variable name="mu_V" units="J_per_mol"/>
+        <variable name="v_X" units="fmol_per_sec"/>
         <!-- Constitutive relation of the TF:z_X, Re_GHK:X-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -61,7 +63,7 @@
                                     <exp/>
                                     <apply>
                                         <divide/>
-                                        <ci>A_i_Xf</ci>
+                                        <ci>A_f</ci>
                                         <apply>
                                             <times/>
                                             <ci>R</ci>
@@ -73,7 +75,7 @@
                                     <exp/>
                                     <apply>
                                         <divide/>
-                                        <ci>A_i_Xr</ci>
+                                        <ci>A_r</ci>
                                         <apply>
                                             <times/>
                                             <ci>R</ci>
@@ -108,9 +110,9 @@
                                     </apply>
                                 </apply>
                                 <apply>
-                                    <exp/>
+                                    <minus/>
                                     <apply>
-                                        <minus/>
+                                        <exp/>
                                         <apply>
                                             <divide/>
                                             <ci>mu_V</ci>
@@ -120,8 +122,8 @@
                                                 <ci>T</ci>
                                             </apply>
                                         </apply>
-                                        <cn cellml:units="dimensionless">1</cn>
                                     </apply>
+                                    <cn cellml:units="dimensionless">1</cn>
                                 </apply>
                             </apply>
                             <apply>
@@ -130,7 +132,7 @@
                                     <exp/>
                                     <apply>
                                         <divide/>
-                                        <ci>A_i_Xf</ci>
+                                        <ci>A_f</ci>
                                         <apply>
                                             <times/>
                                             <ci>R</ci>
@@ -142,7 +144,7 @@
                                     <exp/>
                                     <apply>
                                         <divide/>
-                                        <ci>A_i_Xr</ci>
+                                        <ci>A_r</ci>
                                         <apply>
                                             <times/>
                                             <ci>R</ci>
@@ -158,25 +160,35 @@
             <!--Conservation laws-->
             <apply>
                 <eq/>
-                <ci>A_i_Xf</ci>
+                <ci>A_f</ci>
                 <apply>
-                    <minus/>
-                    <apply>
-                        <plus/>
-                        <ci>A_g_X</ci>
-                        <ci>mu_V</ci>
-                    </apply>
+                    <plus/>
+                    <ci>A_g_X</ci>
                     <ci>mu_i_X</ci>
+                    <ci>mu_V</ci>
                 </apply>
             </apply>
             <apply>
                 <eq/>
-                <ci>A_i_Xr</ci>
+                <ci>A_r</ci>
                 <apply>
-                    <minus/>
+                    <plus/>
                     <ci>A_g_X</ci>
                     <ci>mu_e_X</ci>
                 </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_i_X</ci>
+                <apply>
+                    <minus/>
+                    <ci>v_X</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>v_e_X</ci>
+                <ci>v_X</ci>
             </apply>
         </math>
     </component>

@@ -3,12 +3,11 @@ from . import load_projects, process_projects
 import asyncio
 import fire
 import json
-import logging
-from .logging import setup_logging
+from loguru import logger
 CONFIG = {
-    "GetWorkspaces": False,
+    "GetWorkspaces": True,
     "GetMetadata": True,
-    "GetArchives": True,
+    "GetArchives": False,
     "LogLevel": "DEBUG",
     "LogFile": "log.txt",
     "ClearProjects": False,
@@ -20,48 +19,29 @@ CONFIG = {
 class BiosimulationsPhysiome:
 
     def __init__(self, config_file=None):
-        log_level = logging.DEBUG
-        logging.getLevelName(CONFIG["LogLevel"])
-        log_file = CONFIG["LogFile"]
-        log_file_level = logging.DEBUG
-
-        logger = logging.getLogger(__name__)
-        logger.setLevel(log_level)
-        # create console handler and set level to debug
-        ch = logging.StreamHandler()
-        ch.setLevel(log_level)
-        fh = logging.FileHandler(log_file)
-        fh.setLevel(log_file_level)
-        # create formatter
-        formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        # add formatter to ch
-        ch.setFormatter(formatter)
-        # add ch to logger
-        logger.addHandler(ch)
-        logger.addHandler(fh)
-        self.config = CONFIG
-        print("BiosimulationsPhysiome")
+        logger.info("BiosimulationsPhysiome")
         if config_file:
             self.config = json.load(open(config_file))
+        else:
+            self.config = CONFIG
 
     def load(self):
 
         config = self.config
 
-        print("Loading projects from Physiome Repository")
+        logger.debug("Loading projects from Physiome Repository")
         asyncio.run(load_projects.importProjects(startAt=config['StartAt'],
                                                  endAt=config['EndAt'], getMetadata=config['GetMetadata'],
                                                  getWorkspaces=config['GetWorkspaces']))
 
     def process(self, project_id=None, projects_file="projects.json", projects_dir="projects"):
 
-        print(f'Processing projects from {projects_file}')
+        logger.debug(f'Processing projects from {projects_file}')
         projects = json.load(open(projects_file))
 
         def process_sub(project):
             projects_info = []
-            print(f'Processing project {project["title"]}')
+            logger.debug(f'Processing project {project["title"]}')
             project_dir = f'{projects_dir}/{project["identifier"]}'
             project_info = process_projects.process(project, project_dir)
             projects_info.append(project_info)
@@ -71,21 +51,28 @@ class BiosimulationsPhysiome:
             project = [
                 project for project in projects if project["identifier"] == project_id][0]
 
-            print(project)
+            logger.debug(project)
             project_info = process_sub(project)
             path = f'{project["identifier"]}.proccessed.json'
             with open(path, 'w') as outfile:
                 json.dump(project_info, outfile, indent=4)
 
         else:
+            projects_info = []
             for project in projects:
                 if not project["title"]:
                     continue
-                projects_info = process_sub(project)
+                project_info = process_sub(project)
+                projects_info.append(project_info[0])
 
             # write projects_info as json to file
             with open('projects.processed.json', 'w') as outfile:
                 json.dump(projects_info, outfile, indent=4)
+
+        def submit(self, prorject_id=None, projects_file="projects.json", out_dir="output"):
+            logger.debug(f'Submitting projects from {projects_file}')
+            projects = json.load(open(projects_file))
+            
 
 
 def main():

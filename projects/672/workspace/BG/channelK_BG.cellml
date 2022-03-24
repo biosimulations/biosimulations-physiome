@@ -10,16 +10,15 @@
     <import xlink:href="../cellLib/BG/channelX_BG.cellml">
         <component component_ref="channelX_BG" name="channelX_BG"/>
     </import>
-    <import xlink:href="../cellLib/BG/C_BG.cellml">
-        <component component_ref="C_BG" name="Ki_BG"/>
+    <import xlink:href="../cellLib/BG/Se_BG.cellml">
+        <component component_ref="Se_BG" name="Ki_BG"/>
     </import>
-    <import xlink:href="../cellLib/BG/C_BG.cellml">
-        <component component_ref="C_BG" name="Ke_BG"/>
+    <import xlink:href="../cellLib/BG/Se_BG.cellml">
+        <component component_ref="Se_BG" name="Ke_BG"/>
     </import>
     <component name="channelK_BG">
         <!--Parameters-->
         <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="t" private_interface="out" public_interface="in" units="second"/>
         <variable name="kappa_K" private_interface="out" public_interface="in" units="fmol_per_sec"/>
         <variable name="z_K" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="K_i_K" private_interface="out" public_interface="in" units="per_fmol"/>
@@ -27,6 +26,7 @@
         <variable name="K_e_K" private_interface="out" public_interface="in" units="per_fmol"/>
         <variable name="q_e_K_init" private_interface="out" public_interface="in" units="fmol"/>
         <!--Inputs-->
+        <variable name="t" private_interface="out" public_interface="in" units="second"/>
         <variable name="mu_p" private_interface="out" public_interface="in" units="J_per_mol"/>
         <variable name="A_g_K" private_interface="out" public_interface="in" units="J_per_mol"/>
         <!--Outputs-->
@@ -66,11 +66,11 @@
     <connection>
         <map_components component_1="channelX_BG" component_2="Ki_BG"/>
         <map_variables variable_1="mu_i_X" variable_2="mu"/>
-        <map_variables variable_1="v_X" variable_2="v"/>
+        <map_variables variable_1="v_i_X" variable_2="v"/>
     </connection>
     <connection>
         <map_components component_1="channelX_BG" component_2="Ke_BG"/>
         <map_variables variable_1="mu_e_X" variable_2="mu"/>
-        <map_variables variable_1="v_X" variable_2="v"/>
+        <map_variables variable_1="v_e_X" variable_2="v"/>
     </connection>
 </model>

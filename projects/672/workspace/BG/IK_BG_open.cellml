@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- The BG of open K channel model. -->
+<model name="IK_BG_open" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../cellLib/BG/units_BG.cellml">
+        <units name="per_fmol" units_ref="per_fmol"/>
+        <units name="fmol" units_ref="fmol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="fA" units_ref="fA"/>
+        <units name="J_per_mol" units_ref="J_per_mol"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+    </import>
+    <import xlink:href="../cellLib/Components/units.cellml">
+        <units name="mV" units_ref="mV"/>
+        <units name="mV_per_ms" units_ref="mV_per_ms"/>
+    </import>
+    <import xlink:href="default_values_BG.cellml">
+        <component component_ref="model_para" name="model_para"/>
+        <component component_ref="initials" name="initials"/>
+        <component component_ref="openCH_para" name="openCH_para"/>
+    </import>
+    <import xlink:href="../cellLib/Protocols/Voltage_ramp_protocol.cellml">
+        <component component_ref="vramp_protocol_ms" name="vramp_protocol"/>
+    </import>
+    <import xlink:href="../cellLib/BG/constants_BG.cellml">
+        <component component_ref="constants_BG" name="constants_BG"/>
+    </import>
+    <import xlink:href="../cellLib/Components/time.cellml">
+        <component component_ref="time_s" name="time"/>
+    </import>
+    <import xlink:href="../cellLib/BG/Se_BG.cellml">
+        <component component_ref="Se_BG" name="K_sa"/>
+    </import>
+    <import xlink:href="channelK_BG.cellml">
+        <component component_ref="channelK_BG" name="channelK_BG"/>
+    </import>
+    <!-- Connect the parameters to the protocol definition -->
+    <component name="Vstim_para">
+        <variable initial_value="-100" name="V_init" public_interface="out" units="mV"/>
+        <variable initial_value="1" name="V_rate" public_interface="out" units="mV_per_ms"/>
+    </component>
+    <connection>
+        <map_components component_1="Vstim_para" component_2="vramp_protocol"/>
+        <map_variables variable_1="V_init" variable_2="V_init"/>
+        <map_variables variable_1="V_rate" variable_2="V_rate"/>
+    </connection>
+    <connection>
+        <map_components component_1="vramp_protocol" component_2="boundary_conditions"/>
+        <map_variables variable_1="V" variable_2="V_m"/>
+    </connection>
+    <connection>
+        <map_components component_1="time" component_2="vramp_protocol"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <component name="boundary_conditions">
+        <variable name="F" public_interface="in" units="C_per_mol"/>
+        <variable name="V_m" public_interface="in" units="volt"/>
+        <variable name="mu_p" public_interface="out" units="J_per_mol"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>mu_p</ci>
+                <apply>
+                    <times/>
+                    <ci>F</ci>
+                    <ci>V_m</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="outputs">
+        <variable name="F" public_interface="in" units="C_per_mol"/>
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="v_p_K" public_interface="in" units="fmol_per_sec"/>
+        <variable name="I_K" public_interface="out" units="fA"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>I_K</ci>
+                <apply>
+                    <times/>
+                    <ci>F</ci>
+                    <ci>v_p_K</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="IK_BG_open">
+        <!--Parameters-->
+        <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
+        <variable name="kappa_K" private_interface="out" public_interface="in" units="fmol_per_sec"/>
+        <variable name="z_K" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="K_i_K" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="q_i_K_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="K_e_K" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="q_e_K_init" private_interface="out" public_interface="in" units="fmol"/>
+        <variable name="K_sa_K" private_interface="out" public_interface="in" units="per_fmol"/>
+        <variable name="q_sa_K" private_interface="out" public_interface="in" units="fmol"/>
+        <variable initial_value="0" name="v_sa_K" private_interface="out" units="fmol_per_sec"/>
+        <!--Inputs-->
+        <variable name="t" private_interface="out" public_interface="in" units="second"/>
+        <variable name="mu_p" private_interface="out" public_interface="in" units="J_per_mol"/>
+        <!--Outputs-->
+        <variable name="v_p_K" private_interface="in" public_interface="out" units="fmol_per_sec"/>
+    </component>
+    <group>
+        <relationship_ref relationship="encapsulation"/>
+        <component_ref component="IK_BG_open">
+            <component_ref component="channelK_BG"/>
+            <component_ref component="K_sa"/>
+        </component_ref>
+    </group>
+    <connection>
+        <map_components component_1="outputs" component_2="time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="outputs" component_2="IK_BG_open"/>
+        <map_variables variable_1="v_p_K" variable_2="v_p_K"/>
+    </connection>
+    <connection>
+        <map_components component_1="IK_BG_open" component_2="time"/>
+        <map_variables variable_1="t" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="boundary_conditions" component_2="IK_BG_open"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+    </connection>
+    <connection>
+        <map_components component_1="boundary_conditions" component_2="constants_BG"/>
+        <map_variables variable_1="F" variable_2="F"/>
+    </connection>
+    <connection>
+        <map_components component_1="outputs" component_2="constants_BG"/>
+        <map_variables variable_1="F" variable_2="F"/>
+    </connection>
+    <connection>
+        <map_components component_1="IK_BG_open" component_2="K_sa"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="K_sa_K" variable_2="K"/>
+        <map_variables variable_1="q_sa_K" variable_2="q_init"/>
+        <map_variables variable_1="v_sa_K" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="channelK_BG" component_2="K_sa"/>
+        <map_variables variable_1="A_g_K" variable_2="mu"/>
+    </connection>
+    <connection>
+        <map_components component_1="IK_BG_open" component_2="channelK_BG"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="t" variable_2="t"/>
+        <map_variables variable_1="kappa_K" variable_2="kappa_K"/>
+        <map_variables variable_1="z_K" variable_2="z_K"/>
+        <map_variables variable_1="K_i_K" variable_2="K_i_K"/>
+        <map_variables variable_1="q_i_K_init" variable_2="q_i_K_init"/>
+        <map_variables variable_1="K_e_K" variable_2="K_e_K"/>
+        <map_variables variable_1="q_e_K_init" variable_2="q_e_K_init"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+        <map_variables variable_1="v_p_K" variable_2="v_p_K"/>
+    </connection>
+    <connection>
+        <map_components component_1="model_para" component_2="IK_BG_open"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="z_K" variable_2="z_K"/>
+    </connection>
+    <connection>
+        <map_components component_1="openCH_para" component_2="IK_BG_open"/>
+        <map_variables variable_1="kappa_K" variable_2="kappa_K"/>
+        <map_variables variable_1="K_i_K" variable_2="K_i_K"/>
+        <map_variables variable_1="K_e_K" variable_2="K_e_K"/>
+        <map_variables variable_1="K_sa_K" variable_2="K_sa_K"/>
+        <map_variables variable_1="q_sa_K" variable_2="q_sa_K"/>
+    </connection>
+    <connection>
+        <map_components component_1="initials" component_2="IK_BG_open"/>
+        <map_variables variable_1="q_i_K_init" variable_2="q_i_K_init"/>
+        <map_variables variable_1="q_e_K_init" variable_2="q_e_K_init"/>
+    </connection>
+</model>

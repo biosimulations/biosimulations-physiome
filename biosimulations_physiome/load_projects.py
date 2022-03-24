@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 import aiohttp
 import re
 from loguru import logger
-
+import markdownify
 FULL_LIST = "https://models.physiomeproject.org/exposure/listing/full-list"
 
 
@@ -246,7 +246,7 @@ async def getProjectInfo(session, projectlink):
                     summary = content.find(
                         'div', id='parent-fieldname-description')
                     if(summary):
-                        summary = summary.text.strip()
+                        summary = markdownify.markdownify(summary)
                     else:
                         summary = ""
 

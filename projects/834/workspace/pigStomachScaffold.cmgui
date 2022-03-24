@@ -1,0 +1,23 @@
+gfx create material stomach normal_mode ambient 0.8 0.6588 0.5607 diffuse 0.8 0.6588 0.5607 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 0.3;
+
+gfx read element pigStomach.exf 
+
+gfx cre win
+gfx edit sce
+
+gfx modify g_element "/" general clear;
+gfx modify g_element "/" lines domain_mesh1d subgroup stomach coordinate coordinates face all tessellation default LOCAL line line_base_size 0 select_on material tissue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "body of stomach" coordinate coordinates face all tessellation default LOCAL select_on material tissue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "cardia of stomach" coordinate coordinates face all tessellation default LOCAL select_on material tissue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup duodenum coordinate coordinates face all tessellation default LOCAL select_on material tissue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup esophagus coordinate coordinates face all tessellation default LOCAL select_on material tissue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "fundus of stomach" coordinate coordinates face all tessellation default LOCAL select_on material tissue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "pyloric antrum" coordinate coordinates face all tessellation default LOCAL select_on material tissue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "pyloric canal" coordinate coordinates face all tessellation default LOCAL select_on material tissue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "mucosa of stomach" coordinate coordinates face all tessellation default LOCAL select_on material yellow selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "submucosa of stomach" coordinate coordinates face all tessellation default LOCAL select_on material red selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "circular muscle layer of stomach" coordinate coordinates face all tessellation default LOCAL select_on material cyan selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "serosa of stomach" coordinate coordinates face all tessellation default LOCAL select_on material tissue selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "longitudinal muscle layer of stomach" coordinate coordinates face all tessellation default LOCAL select_on material blue selected_material default_selected render_shaded;
+
+gfx mod window 1 set antialias 8

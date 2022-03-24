@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Current_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="ms" units_ref="ms"/>
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="mM3" units_ref="mM3"/>
+        <units name="J_per_mol_per_kelvin" units_ref="J_per_mol_per_kelvin"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="mV_ms" units_ref="mV_ms"/>
+        <units name="mM_per_ms" units_ref="mM_per_ms"/>
+        <units name="per_mM_per_ms" units_ref="per_mM_per_ms"/>
+        <units name="per_mM2_per_ms" units_ref="per_mM2_per_ms"/>
+    </import>
+    <import xlink:href="parameter.cellml">
+        <component component_ref="parameter" name="parameter"/>
+    </import>
+    <import xlink:href="parameter_Ina.cellml">
+        <component component_ref="parameter_Ina" name="parameter_Ina"/>
+    </import>
+    <import xlink:href="gating_Ina.cellml">
+        <component component_ref="gating_Ina" name="gating_Ina"/>
+    </import>
+    <component name="Current_Ina">
+        <variable name="v" private_interface="in" public_interface="out" units="mV"/>
+        <variable name="x_na_m_inf_act" public_interface="in" units="dimensionless"/>
+        <variable name="x_na_h_inf_inact" public_interface="in" units="dimensionless"/>
+        <variable name="x_na_j_inf_inact" public_interface="in" units="dimensionless"/>
+        <variable initial_value="0" name="X_na_m_act" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0" name="X_na_h_inact" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0" name="X_na_j_inact" public_interface="out" units="dimensionless"/>
+        <variable name="R" public_interface="in" units="J_per_mol_per_kelvin"/>
+        <variable name="T" public_interface="in" units="kelvin"/>
+        <variable name="F" public_interface="in" units="C_per_mol"/>
+        <variable name="E_Na" public_interface="out" units="mV"/>
+        <variable name="Nao" private_interface="in" public_interface="out" units="mM"/>
+        <variable initial_value="7.169281" name="Na_i" public_interface="out" units="mM"/>
+        <variable name="g_Na" public_interface="in" units="nS_per_pF"/>
+        <variable name="m_1" public_interface="in" units="dimensionless"/>
+        <variable name="m_2" public_interface="in" units="dimensionless"/>
+        <variable name="m_5" public_interface="in" units="dimensionless"/>
+        <variable name="m_6" public_interface="in" units="dimensionless"/>
+        <variable name="h_1" public_interface="in" units="dimensionless"/>
+        <variable name="h_2" public_interface="in" units="dimensionless"/>
+        <variable name="h_5" public_interface="in" units="dimensionless"/>
+        <variable name="h_6" public_interface="in" units="dimensionless"/>
+        <variable name="j_1" public_interface="in" units="dimensionless"/>
+        <variable name="j_2" public_interface="in" units="dimensionless"/>
+        <variable name="tau_m_const" public_interface="in" units="dimensionless"/>
+        <variable name="tau_h_const" public_interface="in" units="dimensionless"/>
+        <variable name="tau_j_const" public_interface="in" units="dimensionless"/>
+        <variable name="i_na" public_interface="out" units="pA_per_pF"/>
+        <!--        var r_0: dimensionless {pub: in};-->
+        <variable name="tau_na_m_act" public_interface="in" units="ms"/>
+        <variable name="tau_na_h_inact" public_interface="in" units="ms"/>
+        <variable name="tau_na_j_inact" public_interface="in" units="ms"/>
+        <variable initial_value="1" name="t" public_interface="out" units="ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>E_Na</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>R</ci>
+                            <ci>T</ci>
+                        </apply>
+                        <ci>F</ci>
+                    </apply>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <divide/>
+                            <ci>Nao</ci>
+                            <ci>Na_i</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>v</ci>
+                </apply>
+                <cn cellml:units="dimensionless">0</cn>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>X_na_h_inact</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>x_na_h_inf_inact</ci>
+                        <ci>X_na_h_inact</ci>
+                    </apply>
+                    <ci>tau_na_h_inact</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>X_na_m_act</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>x_na_m_inf_act</ci>
+                        <ci>X_na_m_act</ci>
+                    </apply>
+                    <ci>tau_na_m_act</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>X_na_j_inact</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>x_na_j_inf_inact</ci>
+                        <ci>X_na_j_inact</ci>
+                    </apply>
+                    <ci>tau_na_j_inact</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>i_na</ci>
+                <apply>
+                    <times/>
+                    <ci>g_Na</ci>
+                    <apply>
+                        <power/>
+                        <ci>X_na_m_act</ci>
+                        <cn cellml:units="dimensionless">3</cn>
+                    </apply>
+                    <ci>X_na_h_inact</ci>
+                    <ci>X_na_j_inact</ci>
+                    <apply>
+                        <minus/>
+                        <ci>v</ci>
+                        <ci>E_Na</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="Current_Ina" component_2="gating_Ina"/>
+        <map_variables variable_1="x_na_h_inf_inact" variable_2="x_na_h_inf_inact"/>
+        <map_variables variable_1="x_na_m_inf_act" variable_2="x_na_m_inf_act"/>
+        <map_variables variable_1="x_na_j_inf_inact" variable_2="x_na_j_inf_inact"/>
+        <map_variables variable_1="tau_na_h_inact" variable_2="tau_na_h_inact"/>
+        <map_variables variable_1="tau_na_m_act" variable_2="tau_na_m_act"/>
+        <map_variables variable_1="tau_na_j_inact" variable_2="tau_na_j_inact"/>
+    </connection>
+    <connection>
+        <map_components component_1="Current_Ina" component_2="parameter_Ina"/>
+        <map_variables variable_1="g_Na" variable_2="g_Na"/>
+        <map_variables variable_1="m_1" variable_2="m_1"/>
+        <map_variables variable_1="m_2" variable_2="m_2"/>
+        <map_variables variable_1="m_5" variable_2="m_5"/>
+        <map_variables variable_1="m_6" variable_2="m_6"/>
+        <map_variables variable_1="h_1" variable_2="h_1"/>
+        <map_variables variable_1="h_2" variable_2="h_2"/>
+        <map_variables variable_1="h_5" variable_2="h_5"/>
+        <map_variables variable_1="h_6" variable_2="h_6"/>
+        <map_variables variable_1="j_1" variable_2="j_1"/>
+        <map_variables variable_1="j_2" variable_2="j_2"/>
+        <map_variables variable_1="tau_m_const" variable_2="tau_m_const"/>
+        <map_variables variable_1="tau_h_const" variable_2="tau_h_const"/>
+        <map_variables variable_1="tau_j_const" variable_2="tau_j_const"/>
+    </connection>
+    <connection>
+        <map_components component_1="Current_Ina" component_2="parameter"/>
+        <map_variables variable_1="v" variable_2="v"/>
+        <map_variables variable_1="Nao" variable_2="Nao"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="F" variable_2="F"/>
+    </connection>
+    <connection>
+        <map_components component_1="gating_Ina" component_2="parameter"/>
+        <map_variables variable_1="v" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="parameter_Ina" component_2="gating_Ina"/>
+        <map_variables variable_1="m_1" variable_2="m_1"/>
+        <map_variables variable_1="m_2" variable_2="m_2"/>
+        <map_variables variable_1="m_5" variable_2="m_5"/>
+        <map_variables variable_1="m_6" variable_2="m_6"/>
+        <map_variables variable_1="h_1" variable_2="h_1"/>
+        <map_variables variable_1="h_2" variable_2="h_2"/>
+        <map_variables variable_1="h_5" variable_2="h_5"/>
+        <map_variables variable_1="h_6" variable_2="h_6"/>
+        <map_variables variable_1="j_1" variable_2="j_1"/>
+        <map_variables variable_1="j_2" variable_2="j_2"/>
+        <map_variables variable_1="tau_m_const" variable_2="tau_m_const"/>
+        <map_variables variable_1="tau_h_const" variable_2="tau_h_const"/>
+        <map_variables variable_1="tau_j_const" variable_2="tau_j_const"/>
+    </connection>
+</model>

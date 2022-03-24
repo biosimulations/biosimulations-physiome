@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Current_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="ms" units_ref="ms"/>
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="mM3" units_ref="mM3"/>
+        <units name="J_per_mol_per_kelvin" units_ref="J_per_mol_per_kelvin"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="mV_ms" units_ref="mV_ms"/>
+        <units name="mM_per_ms" units_ref="mM_per_ms"/>
+        <units name="per_mM_per_ms" units_ref="per_mM_per_ms"/>
+        <units name="per_mM2_per_ms" units_ref="per_mM2_per_ms"/>
+    </import>
+    <import xlink:href="parameter.cellml">
+        <component component_ref="parameter" name="parameter"/>
+    </import>
+    <import xlink:href="parameter_Ik1.cellml">
+        <component component_ref="parameter_Ik1" name="parameter_Ik1"/>
+    </import>
+    <import xlink:href="gating_Ik1.cellml">
+        <component component_ref="gating_Ik1" name="gating_Ik1"/>
+    </import>
+    <component name="Current_Ik1">
+        <variable name="v" public_interface="in" units="mV"/>
+        <variable name="R" public_interface="in" units="J_per_mol_per_kelvin"/>
+        <variable name="T" public_interface="in" units="kelvin"/>
+        <variable name="F" public_interface="in" units="C_per_mol"/>
+        <variable name="E_K" public_interface="out" units="mV"/>
+        <variable name="x_inf_act_Ik1" public_interface="in" units="dimensionless"/>
+        <variable name="Ko" public_interface="in" units="mM"/>
+        <variable name="i_k1" public_interface="out" units="pA_per_pF"/>
+        <variable name="g_k1" public_interface="out" units="nS_per_pF"/>
+        <variable name="var_1" private_interface="in" public_interface="out" units="nS_per_pF"/>
+        <variable name="var_2" private_interface="in" public_interface="out" units="per_ms"/>
+        <variable name="var_3" private_interface="in" public_interface="out" units="mV"/>
+        <variable name="var_4" private_interface="in" public_interface="out" units="mV"/>
+        <variable name="var_5" private_interface="in" public_interface="out" units="mV_ms"/>
+        <variable name="var_6" private_interface="in" public_interface="out" units="mV"/>
+        <variable initial_value="150" name="Ki" public_interface="out" units="mM"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>E_K</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>R</ci>
+                            <ci>T</ci>
+                        </apply>
+                        <ci>F</ci>
+                    </apply>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <divide/>
+                            <ci>Ko</ci>
+                            <ci>Ki</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>g_k1</ci>
+                <ci>var_1</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>i_k1</ci>
+                <apply>
+                    <times/>
+                    <ci>g_k1</ci>
+                    <apply>
+                        <root/>
+                        <apply>
+                            <divide/>
+                            <ci>Ko</ci>
+                            <cn cellml:units="mM">5.4</cn>
+                        </apply>
+                    </apply>
+                    <ci>x_inf_act_Ik1</ci>
+                    <apply>
+                        <minus/>
+                        <ci>v</ci>
+                        <ci>E_K</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+        <variable initial_value="1" name="t" public_interface="out" units="ms"/>
+        <variable initial_value="1" name="a" public_interface="out" units="dimensionless"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>a</ci>
+                </apply>
+                <cn cellml:units="dimensionless">1</cn>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="Current_Ik1" component_2="parameter"/>
+        <map_variables variable_1="v" variable_2="v"/>
+        <map_variables variable_1="R" variable_2="R"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="F" variable_2="F"/>
+        <map_variables variable_1="Ko" variable_2="Ko"/>
+    </connection>
+    <connection>
+        <map_components component_1="gating_Ik1" component_2="parameter"/>
+        <map_variables variable_1="v" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="Current_Ik1" component_2="parameter_Ik1"/>
+        <map_variables variable_1="var_1" variable_2="var_1"/>
+        <map_variables variable_1="var_2" variable_2="var_2"/>
+        <map_variables variable_1="var_3" variable_2="var_3"/>
+        <map_variables variable_1="var_4" variable_2="var_4"/>
+        <map_variables variable_1="var_5" variable_2="var_5"/>
+        <map_variables variable_1="var_6" variable_2="var_6"/>
+    </connection>
+    <connection>
+        <map_components component_1="gating_Ik1" component_2="parameter_Ik1"/>
+        <map_variables variable_1="var_2" variable_2="var_2"/>
+        <map_variables variable_1="var_3" variable_2="var_3"/>
+        <map_variables variable_1="var_4" variable_2="var_4"/>
+        <map_variables variable_1="var_5" variable_2="var_5"/>
+        <map_variables variable_1="var_6" variable_2="var_6"/>
+    </connection>
+    <connection>
+        <map_components component_1="Current_Ik1" component_2="gating_Ik1"/>
+        <map_variables variable_1="x_inf_act_Ik1" variable_2="x_inf_act_Ik1"/>
+    </connection>
+</model>

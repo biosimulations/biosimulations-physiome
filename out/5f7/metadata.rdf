@@ -8,14 +8,26 @@
 Auckland Bioengineering Institute, University of Auckland
 Model Status
 
-      This model has been encoded using the information available in the published article.
-      Only the nodal part of the model has been implemented:
-    
-2
-2
-2
-2
-2</dc:description>
+This model has been encoded using the information available in the published article.
+Only the nodal part of the model has been implemented:
+
+No equation to compute the membrane potential is provided.
+However, the model relies on the Hodgkin-Huxley formulation, so we rely on that formulation to compute the membrane potential.
+We use Cn as the capacitance and iNaf, iNap, iKs and iLk as the currents involved in the membrane dynamics.
+We also use iKf, but by default its conductance is set to 0 S/cm2.
+The authors mention that, based on experimental data, the value for gKf should be about 0.02 S/cm2, hence they tested their model using a range of values between 0.01 and 0.04 S/cm2.
+
+No initial values for the membrane potential (Vm) and the different gating variables (m, h, p, s and n) are provided.
+So, we set Vm to -80 mV (i.e. the resting potential used in the internodal segments) and the different gating variables to 0.
+From there, the model was run without any stimulus and for several days worth of simulation to reach steady state.
+
+No information about the kind of stimulus that should be applied to generate a default action potential is provided.
+However, various stimulus durations are mentioned in the published article, varying between 0.1 and 3 ms.
+So, we arbitrarily went for 0.5 ms.
+As for the stimulus amplitude, we went for the smallest value that yields an action potential (actually, a series of action potentials), i.e. 0.05 mA/cm2.
+(A stimulus amplitude of 0.04 mA/cm2 will just result in a blip.)
+
+Output of running the SED-ML file in OpenCOR.</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -49,5 +61,8 @@ Model Status
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/5f7.omex">
     <dc:license rdf:resource="local:00003">local:00003</dc:license>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/5f7.omex/mcintyre_richardson_grill_model_2001.cellml">
+    <dc:title>Modeling the excitability of mammalian nerve fibers: influence of afterpotentials on the recovery cycle</dc:title>
   </rdf:Description>
 </rdf:RDF>

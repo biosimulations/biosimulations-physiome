@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="gate_n4_BG_ss" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../cellLib/BG/units_BG.cellml">
+        <units name="J_per_mol" units_ref="J_per_mol"/>
+        <units name="fmol" units_ref="fmol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+    </import>
+    <import xlink:href="../cellLib/BG/gate_n4_BG.cellml">
+        <component component_ref="gate_n4_BG" name="gate_n4_BG"/>
+    </import>
+    <import xlink:href="default_values_BG.cellml">
+        <component component_ref="model_para" name="model_para"/>
+    </import>
+    <import xlink:href="../cellLib/Components/time.cellml">
+        <component component_ref="time_s" name="time"/>
+    </import>
+    <import xlink:href="../cellLib/BG/constants_BG.cellml">
+        <component component_ref="constants_BG" name="constants_BG"/>
+    </import>
+    <component name="boundary_conditions">
+        <variable name="F" public_interface="in" units="C_per_mol"/>
+        <variable initial_value="0" name="V_m" public_interface="out" units="volt"/>
+        <variable name="mu_p" public_interface="out" units="J_per_mol"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>mu_p</ci>
+                <apply>
+                    <times/>
+                    <ci>F</ci>
+                    <ci>V_m</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <component name="initials">
+        <variable initial_value="49.82" name="q_S0_init" public_interface="out" units="fmol"/>
+        <variable initial_value="0" name="q_S1_init" public_interface="out" units="fmol"/>
+        <variable initial_value="0" name="q_S2_init" public_interface="out" units="fmol"/>
+        <variable initial_value="0" name="q_S3_init" public_interface="out" units="fmol"/>
+        <variable initial_value="0" name="q_S4_init" public_interface="out" units="fmol"/>
+    </component>
+    <component name="outputs">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="A_g_K" public_interface="in" units="J_per_mol"/>
+        <variable name="v_n_K" public_interface="in" units="fmol_per_sec"/>
+        <variable name="q_S0" public_interface="in" units="fmol"/>
+        <variable name="q_S1" public_interface="in" units="fmol"/>
+        <variable name="q_S2" public_interface="in" units="fmol"/>
+        <variable name="q_S3" public_interface="in" units="fmol"/>
+        <variable name="q_S4" public_interface="in" units="fmol"/>
+        <variable name="q_S0_norm" units="dimensionless"/>
+        <variable name="q_S1_norm" units="dimensionless"/>
+        <variable name="q_S2_norm" units="dimensionless"/>
+        <variable name="q_S3_norm" units="dimensionless"/>
+        <variable name="q_S4_norm" units="dimensionless"/>
+        <variable name="q_total" units="fmol"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>q_total</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_S0</ci>
+                    <ci>q_S1</ci>
+                    <ci>q_S2</ci>
+                    <ci>q_S3</ci>
+                    <ci>q_S4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S0_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S0</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S1_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S1</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S2_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S2</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S3_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S3</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S4_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S4</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!-- and connect the output variable definitions to their actual source in the model -->
+    <connection>
+        <map_components component_1="gate_n4_BG" component_2="outputs"/>
+        <map_variables variable_1="A_g_K" variable_2="A_g_K"/>
+        <map_variables variable_1="v_n_K" variable_2="v_n_K"/>
+        <map_variables variable_1="q_S0" variable_2="q_S0"/>
+        <map_variables variable_1="q_S1" variable_2="q_S1"/>
+        <map_variables variable_1="q_S2" variable_2="q_S2"/>
+        <map_variables variable_1="q_S3" variable_2="q_S3"/>
+        <map_variables variable_1="q_S4" variable_2="q_S4"/>
+    </connection>
+    <connection>
+        <map_components component_1="boundary_conditions" component_2="gate_n4_BG"/>
+        <map_variables variable_1="mu_p" variable_2="mu_p"/>
+    </connection>
+    <connection>
+        <map_components component_1="boundary_conditions" component_2="constants_BG"/>
+        <map_variables variable_1="F" variable_2="F"/>
+    </connection>
+    <connection>
+        <map_components component_1="outputs" component_2="time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="gate_n4_BG" component_2="time"/>
+        <map_variables variable_1="t" variable_2="time"/>
+    </connection>
+    <!-- We connect the default parameters through to the model-->
+    <connection>
+        <map_components component_1="model_para" component_2="gate_n4_BG"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="K_S0" variable_2="K_S0"/>
+        <map_variables variable_1="K_S1" variable_2="K_S1"/>
+        <map_variables variable_1="K_S2" variable_2="K_S2"/>
+        <map_variables variable_1="K_S3" variable_2="K_S3"/>
+        <map_variables variable_1="K_S4" variable_2="K_S4"/>
+        <map_variables variable_1="kappa_n1" variable_2="kappa_n1"/>
+        <map_variables variable_1="kappa_n2" variable_2="kappa_n2"/>
+        <map_variables variable_1="kappa_n3" variable_2="kappa_n3"/>
+        <map_variables variable_1="kappa_n4" variable_2="kappa_n4"/>
+        <map_variables variable_1="z_n_f" variable_2="z_n_f"/>
+        <map_variables variable_1="z_n_r" variable_2="z_n_r"/>
+    </connection>
+    <connection>
+        <map_components component_1="initials" component_2="gate_n4_BG"/>
+        <map_variables variable_1="q_S0_init" variable_2="q_S0_init"/>
+        <map_variables variable_1="q_S1_init" variable_2="q_S1_init"/>
+        <map_variables variable_1="q_S2_init" variable_2="q_S2_init"/>
+        <map_variables variable_1="q_S3_init" variable_2="q_S3_init"/>
+        <map_variables variable_1="q_S4_init" variable_2="q_S4_init"/>
+    </connection>
+</model>

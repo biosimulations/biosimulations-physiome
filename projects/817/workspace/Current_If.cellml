@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Current_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="ms" units_ref="ms"/>
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="mM3" units_ref="mM3"/>
+        <units name="J_per_mol_per_kelvin" units_ref="J_per_mol_per_kelvin"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="mV_ms" units_ref="mV_ms"/>
+        <units name="mM_per_ms" units_ref="mM_per_ms"/>
+        <units name="per_mM_per_ms" units_ref="per_mM_per_ms"/>
+        <units name="per_mM2_per_ms" units_ref="per_mM2_per_ms"/>
+    </import>
+    <import xlink:href="parameter.cellml">
+        <component component_ref="parameter" name="parameter"/>
+    </import>
+    <import xlink:href="parameter_If.cellml">
+        <component component_ref="parameter_If" name="parameter_If"/>
+    </import>
+    <import xlink:href="gating_If.cellml">
+        <component component_ref="gating_If" name="gating_If"/>
+    </import>
+    <component name="Current_If">
+        <variable name="v" private_interface="in" public_interface="out" units="mV"/>
+        <variable initial_value="8.314472" name="R" public_interface="out" units="J_per_mol_per_kelvin"/>
+        <variable initial_value="310.0" name="T" public_interface="out" units="kelvin"/>
+        <variable initial_value="96.4853415" name="F" public_interface="out" units="C_per_mol"/>
+        <variable name="E_K" public_interface="out" units="mV"/>
+        <variable name="E_Na" public_interface="out" units="mV"/>
+        <variable name="Ko" private_interface="in" public_interface="out" units="mM"/>
+        <variable initial_value="150" name="Ki" public_interface="out" units="mM"/>
+        <variable initial_value="135" name="Na_i" public_interface="out" units="mM"/>
+        <variable name="Nao" private_interface="in" public_interface="out" units="mM"/>
+        <variable name="x_f_inf_act" public_interface="in" units="dimensionless"/>
+        <variable initial_value="0" name="X_f_act" public_interface="out" units="dimensionless"/>
+        <!--        var dX_f_act: dimensionless {init: 0, pub: out};-->
+        <variable name="i_f" public_interface="out" units="pA_per_pF"/>
+        <variable name="i_fNa" public_interface="out" units="pA_per_pF"/>
+        <variable name="i_fK" public_interface="out" units="pA_per_pF"/>
+        <variable name="xf_1" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="xf_2" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="xf_5" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="xf_6" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="xf_const" private_interface="in" public_interface="out" units="dimensionless"/>
+        <variable name="g_f" private_interface="in" public_interface="out" units="nS_per_pF"/>
+        <variable initial_value="0.491" name="NatoK_ratio" public_interface="out" units="dimensionless"/>
+        <variable name="Na_frac" public_interface="out" units="dimensionless"/>
+        <variable name="tau_f_act" public_interface="in" units="ms"/>
+        <variable initial_value="1" name="t" public_interface="out" units="ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>E_K</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>R</ci>
+                            <ci>T</ci>
+                        </apply>
+                        <ci>F</ci>
+                    </apply>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <divide/>
+                            <ci>Ko</ci>
+                            <ci>Ki</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>E_Na</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>R</ci>
+                            <ci>T</ci>
+                        </apply>
+                        <ci>F</ci>
+                    </apply>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <divide/>
+                            <ci>Nao</ci>
+                            <ci>Na_i</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>X_f_act</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>x_f_inf_act</ci>
+                        <ci>X_f_act</ci>
+                    </apply>
+                    <ci>tau_f_act</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>v</ci>
+                </apply>
+                <cn cellml:units="dimensionless">0</cn>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>Na_frac</ci>
+                <apply>
+                    <divide/>
+                    <ci>NatoK_ratio</ci>
+                    <apply>
+                        <plus/>
+                        <ci>NatoK_ratio</ci>
+                        <cn cellml:units="dimensionless">1</cn>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>i_fNa</ci>
+                <apply>
+                    <times/>
+                    <ci>Na_frac</ci>
+                    <ci>g_f</ci>
+                    <ci>X_f_act</ci>
+                    <apply>
+                        <minus/>
+                        <ci>v</ci>
+                        <ci>E_Na</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>i_fK</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <minus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <ci>Na_frac</ci>
+                    </apply>
+                    <ci>g_f</ci>
+                    <ci>X_f_act</ci>
+                    <apply>
+                        <minus/>
+                        <ci>v</ci>
+                        <ci>E_K</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>i_f</ci>
+                <apply>
+                    <plus/>
+                    <ci>i_fNa</ci>
+                    <ci>i_fK</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="Current_If" component_2="gating_If"/>
+        <map_variables variable_1="x_f_inf_act" variable_2="x_f_inf_act"/>
+        <map_variables variable_1="tau_f_act" variable_2="tau_f_act"/>
+    </connection>
+    <connection>
+        <map_components component_1="Current_If" component_2="parameter_If"/>
+        <map_variables variable_1="g_f" variable_2="g_f"/>
+        <map_variables variable_1="xf_1" variable_2="xf_1"/>
+        <map_variables variable_1="xf_2" variable_2="xf_2"/>
+        <map_variables variable_1="xf_5" variable_2="xf_5"/>
+        <map_variables variable_1="xf_6" variable_2="xf_6"/>
+        <map_variables variable_1="xf_const" variable_2="xf_const"/>
+    </connection>
+    <connection>
+        <map_components component_1="Current_If" component_2="parameter"/>
+        <map_variables variable_1="v" variable_2="v"/>
+        <map_variables variable_1="Ko" variable_2="Ko"/>
+        <map_variables variable_1="Nao" variable_2="Nao"/>
+    </connection>
+    <connection>
+        <map_components component_1="gating_If" component_2="parameter"/>
+        <map_variables variable_1="v" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="parameter_If" component_2="gating_If"/>
+        <map_variables variable_1="xf_1" variable_2="xf_1"/>
+        <map_variables variable_1="xf_2" variable_2="xf_2"/>
+        <map_variables variable_1="xf_5" variable_2="xf_5"/>
+        <map_variables variable_1="xf_6" variable_2="xf_6"/>
+        <map_variables variable_1="xf_const" variable_2="xf_const"/>
+    </connection>
+</model>

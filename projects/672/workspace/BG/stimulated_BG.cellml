@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="stimulated_BG" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="../cellLib/BG/units_BG.cellml">
+        <units name="per_fmol" units_ref="per_fmol"/>
+        <units name="fmol" units_ref="fmol"/>
+        <units name="fmol_per_sec" units_ref="fmol_per_sec"/>
+        <units name="fA" units_ref="fA"/>
+        <units name="fF" units_ref="fF"/>
+        <units name="fC" units_ref="fC"/>
+        <units name="fS" units_ref="fS"/>
+    </import>
+    <import xlink:href="AP_BG.cellml">
+        <component component_ref="AP_BG" name="AP_BG"/>
+    </import>
+    <import xlink:href="default_values_BG.cellml">
+        <component component_ref="model_para" name="model_para"/>
+        <component component_ref="initials" name="initials"/>
+    </import>
+    <import xlink:href="../cellLib/Components/time.cellml">
+        <component component_ref="time_s" name="time"/>
+    </import>
+    <component name="depolarization">
+        <variable initial_value="-5e+07" name="q_m_init" public_interface="out" units="fC"/>
+    </component>
+    <component name="outputs">
+        <variable name="time" public_interface="in" units="second"/>
+        <variable name="V_m" public_interface="in" units="volt"/>
+        <variable name="q_m" public_interface="in" units="fC"/>
+        <variable name="I_i" public_interface="in" units="fA"/>
+        <variable name="I_Na" public_interface="in" units="fA"/>
+        <variable name="I_K" public_interface="in" units="fA"/>
+        <variable name="I_leak" public_interface="in" units="fA"/>
+        <variable name="A_g_K" public_interface="in" units="J_per_mol"/>
+        <variable name="A_g_Na" public_interface="in" units="J_per_mol"/>
+        <variable name="q_S00" public_interface="in" units="fmol"/>
+        <variable name="q_S10" public_interface="in" units="fmol"/>
+        <variable name="q_S20" public_interface="in" units="fmol"/>
+        <variable name="q_S30" public_interface="in" units="fmol"/>
+        <variable name="q_S01" public_interface="in" units="fmol"/>
+        <variable name="q_S11" public_interface="in" units="fmol"/>
+        <variable name="q_S21" public_interface="in" units="fmol"/>
+        <variable name="q_S31" public_interface="in" units="fmol"/>
+        <variable name="q_S0" public_interface="in" units="fmol"/>
+        <variable name="q_S1" public_interface="in" units="fmol"/>
+        <variable name="q_S2" public_interface="in" units="fmol"/>
+        <variable name="q_S3" public_interface="in" units="fmol"/>
+        <variable name="q_S4" public_interface="in" units="fmol"/>
+        <variable name="q_S00_norm" units="dimensionless"/>
+        <variable name="q_S10_norm" units="dimensionless"/>
+        <variable name="q_S20_norm" units="dimensionless"/>
+        <variable name="q_S30_norm" units="dimensionless"/>
+        <variable name="q_S01_norm" units="dimensionless"/>
+        <variable name="q_S11_norm" units="dimensionless"/>
+        <variable name="q_S21_norm" units="dimensionless"/>
+        <variable name="q_S31_norm" units="dimensionless"/>
+        <variable name="q_total" units="fmol"/>
+        <variable name="q_S0_norm" units="dimensionless"/>
+        <variable name="q_S1_norm" units="dimensionless"/>
+        <variable name="q_S2_norm" units="dimensionless"/>
+        <variable name="q_S3_norm" units="dimensionless"/>
+        <variable name="q_S4_norm" units="dimensionless"/>
+        <variable name="qn_total" units="fmol"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>qn_total</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_S0</ci>
+                    <ci>q_S1</ci>
+                    <ci>q_S2</ci>
+                    <ci>q_S3</ci>
+                    <ci>q_S4</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S0_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S0</ci>
+                    <ci>qn_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S1_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S1</ci>
+                    <ci>qn_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S2_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S2</ci>
+                    <ci>qn_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S3_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S3</ci>
+                    <ci>qn_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S4_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S4</ci>
+                    <ci>qn_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_total</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_S00</ci>
+                    <ci>q_S10</ci>
+                    <ci>q_S20</ci>
+                    <ci>q_S30</ci>
+                    <ci>q_S01</ci>
+                    <ci>q_S11</ci>
+                    <ci>q_S21</ci>
+                    <ci>q_S31</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S00_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S00</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S10_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S10</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S20_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S20</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S30_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S30</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S01_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S01</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S11_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S11</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S21_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S21</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S31_norm</ci>
+                <apply>
+                    <divide/>
+                    <ci>q_S31</ci>
+                    <ci>q_total</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <!-- and connect the output variable definitions to their actual source in the model -->
+    <connection>
+        <map_components component_1="AP_BG" component_2="outputs"/>
+        <map_variables variable_1="V_m" variable_2="V_m"/>
+        <map_variables variable_1="q_m" variable_2="q_m"/>
+        <map_variables variable_1="I_i" variable_2="I_i"/>
+        <map_variables variable_1="I_Na" variable_2="I_Na"/>
+        <map_variables variable_1="I_K" variable_2="I_K"/>
+        <map_variables variable_1="I_leak" variable_2="I_leak"/>
+        <map_variables variable_1="q_S00" variable_2="q_S00"/>
+        <map_variables variable_1="q_S10" variable_2="q_S10"/>
+        <map_variables variable_1="q_S20" variable_2="q_S20"/>
+        <map_variables variable_1="q_S30" variable_2="q_S30"/>
+        <map_variables variable_1="q_S01" variable_2="q_S01"/>
+        <map_variables variable_1="q_S11" variable_2="q_S11"/>
+        <map_variables variable_1="q_S21" variable_2="q_S21"/>
+        <map_variables variable_1="q_S31" variable_2="q_S31"/>
+        <map_variables variable_1="q_S0" variable_2="q_S0"/>
+        <map_variables variable_1="q_S1" variable_2="q_S1"/>
+        <map_variables variable_1="q_S2" variable_2="q_S2"/>
+        <map_variables variable_1="q_S3" variable_2="q_S3"/>
+        <map_variables variable_1="q_S4" variable_2="q_S4"/>
+        <map_variables variable_1="A_g_Na" variable_2="A_g_Na"/>
+        <map_variables variable_1="A_g_K" variable_2="A_g_K"/>
+    </connection>
+    <connection>
+        <map_components component_1="depolarization" component_2="AP_BG"/>
+        <map_variables variable_1="q_m_init" variable_2="q_m_init"/>
+    </connection>
+    <connection>
+        <map_components component_1="outputs" component_2="time"/>
+        <map_variables variable_1="time" variable_2="time"/>
+    </connection>
+    <connection>
+        <map_components component_1="AP_BG" component_2="time"/>
+        <map_variables variable_1="t" variable_2="time"/>
+    </connection>
+    <!-- We connect the default parameters through to the model-->
+    <connection>
+        <map_components component_1="model_para" component_2="AP_BG"/>
+        <map_variables variable_1="T" variable_2="T"/>
+        <map_variables variable_1="kappa_Na" variable_2="kappa_Na"/>
+        <map_variables variable_1="z_Na" variable_2="z_Na"/>
+        <map_variables variable_1="K_i_Na" variable_2="K_i_Na"/>
+        <map_variables variable_1="K_e_Na" variable_2="K_e_Na"/>
+        <map_variables variable_1="K_S00" variable_2="K_S00"/>
+        <map_variables variable_1="K_S10" variable_2="K_S10"/>
+        <map_variables variable_1="K_S20" variable_2="K_S20"/>
+        <map_variables variable_1="K_S30" variable_2="K_S30"/>
+        <map_variables variable_1="K_S01" variable_2="K_S01"/>
+        <map_variables variable_1="K_S11" variable_2="K_S11"/>
+        <map_variables variable_1="K_S21" variable_2="K_S21"/>
+        <map_variables variable_1="K_S31" variable_2="K_S31"/>
+        <map_variables variable_1="kappa_m10" variable_2="kappa_m10"/>
+        <map_variables variable_1="kappa_m20" variable_2="kappa_m20"/>
+        <map_variables variable_1="kappa_m30" variable_2="kappa_m30"/>
+        <map_variables variable_1="kappa_m11" variable_2="kappa_m11"/>
+        <map_variables variable_1="kappa_m21" variable_2="kappa_m21"/>
+        <map_variables variable_1="kappa_m31" variable_2="kappa_m31"/>
+        <map_variables variable_1="kappa_h0" variable_2="kappa_h0"/>
+        <map_variables variable_1="kappa_h1" variable_2="kappa_h1"/>
+        <map_variables variable_1="kappa_h2" variable_2="kappa_h2"/>
+        <map_variables variable_1="kappa_h3" variable_2="kappa_h3"/>
+        <map_variables variable_1="z_m_f" variable_2="z_m_f"/>
+        <map_variables variable_1="z_m_r" variable_2="z_m_r"/>
+        <map_variables variable_1="z_h_f" variable_2="z_h_f"/>
+        <map_variables variable_1="z_h_r" variable_2="z_h_r"/>
+        <map_variables variable_1="kappa_K" variable_2="kappa_K"/>
+        <map_variables variable_1="z_K" variable_2="z_K"/>
+        <map_variables variable_1="K_i_K" variable_2="K_i_K"/>
+        <map_variables variable_1="K_e_K" variable_2="K_e_K"/>
+        <map_variables variable_1="K_S0" variable_2="K_S0"/>
+        <map_variables variable_1="K_S1" variable_2="K_S1"/>
+        <map_variables variable_1="K_S2" variable_2="K_S2"/>
+        <map_variables variable_1="K_S3" variable_2="K_S3"/>
+        <map_variables variable_1="K_S4" variable_2="K_S4"/>
+        <map_variables variable_1="kappa_n1" variable_2="kappa_n1"/>
+        <map_variables variable_1="kappa_n2" variable_2="kappa_n2"/>
+        <map_variables variable_1="kappa_n3" variable_2="kappa_n3"/>
+        <map_variables variable_1="kappa_n4" variable_2="kappa_n4"/>
+        <map_variables variable_1="z_n_f" variable_2="z_n_f"/>
+        <map_variables variable_1="z_n_r" variable_2="z_n_r"/>
+        <map_variables variable_1="C_m" variable_2="C_m"/>
+        <map_variables variable_1="g_leak" variable_2="g_leak"/>
+        <map_variables variable_1="V_leak" variable_2="V_leak"/>
+    </connection>
+    <connection>
+        <map_components component_1="initials" component_2="AP_BG"/>
+        <map_variables variable_1="q_i_Na_init" variable_2="q_i_Na_init"/>
+        <map_variables variable_1="q_e_Na_init" variable_2="q_e_Na_init"/>
+        <map_variables variable_1="q_S00_init" variable_2="q_S00_init"/>
+        <map_variables variable_1="q_S10_init" variable_2="q_S10_init"/>
+        <map_variables variable_1="q_S20_init" variable_2="q_S20_init"/>
+        <map_variables variable_1="q_S30_init" variable_2="q_S30_init"/>
+        <map_variables variable_1="q_S01_init" variable_2="q_S01_init"/>
+        <map_variables variable_1="q_S11_init" variable_2="q_S11_init"/>
+        <map_variables variable_1="q_S21_init" variable_2="q_S21_init"/>
+        <map_variables variable_1="q_S31_init" variable_2="q_S31_init"/>
+        <map_variables variable_1="q_i_K_init" variable_2="q_i_K_init"/>
+        <map_variables variable_1="q_e_K_init" variable_2="q_e_K_init"/>
+        <map_variables variable_1="q_S0_init" variable_2="q_S0_init"/>
+        <map_variables variable_1="q_S1_init" variable_2="q_S1_init"/>
+        <map_variables variable_1="q_S2_init" variable_2="q_S2_init"/>
+        <map_variables variable_1="q_S3_init" variable_2="q_S3_init"/>
+        <map_variables variable_1="q_S4_init" variable_2="q_S4_init"/>
+    </connection>
+</model>

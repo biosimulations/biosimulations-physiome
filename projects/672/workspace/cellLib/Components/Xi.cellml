@@ -5,8 +5,8 @@
         <units name="ms" units_ref="ms"/>
         <units name="pA_per_pF" units_ref="pA_per_pF"/>
         <units name="pA" units_ref="pA"/>
-        <units name="C_per_mmol" units_ref="C_per_mmol"/>
-        <units name="pF_per_cmsq" units_ref="pF_per_cmsq"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+        <units name="mF_per_cmsq" units_ref="mF_per_cmsq"/>
         <units name="cmsq" units_ref="cmsq"/>
         <units name="cm3" units_ref="cm3"/>
     </import>
@@ -14,10 +14,10 @@
         <variable name="time" public_interface="in" units="ms"/>
         <variable name="Xi_init" public_interface="in" units="mM"/>
         <variable name="IX_tot" public_interface="in" units="pA_per_pF"/>
-        <variable name="Cm" public_interface="in" units="pF_per_cmsq"/>
+        <variable name="Cm" public_interface="in" units="mF_per_cmsq"/>
         <variable name="Ac" public_interface="in" units="cmsq"/>
         <variable name="z_X" public_interface="in" units="dimensionless"/>
-        <variable name="F" public_interface="in" units="C_per_mmol"/>
+        <variable name="F" public_interface="in" units="C_per_mol"/>
         <variable name="Vc" public_interface="in" units="cm3"/>
         <variable initial_value="Xi_init" name="Xi" public_interface="out" units="mM"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -37,14 +37,9 @@
                         <apply>
                             <times/>
                             <apply>
-                                <divide/>
-                                <apply>
-                                    <minus/>
-                                    <cn cellml:units="ampere" type="e-notation">1<sep/>-12</cn>
-                                </apply>
-                                <cn cellml:units="pA">1</cn>
+                                <minus/>
+                                <ci>Ac</ci>
                             </apply>
-                            <ci>Ac</ci>
                             <ci>Cm</ci>
                         </apply>
                         <apply>

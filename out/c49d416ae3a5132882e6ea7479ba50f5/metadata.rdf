@@ -4,7 +4,30 @@
     <dc:title>Korakianitis, Shi, 2006</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex">
-    <dc:description></dc:description>
+    <dc:description>Model Status
+
+This model describes a zero dimensional model of human cardiovascular dynamics, based on a hydraulic-electric analogue. The original model was implemented in C, and has been applied to the study of cardiovascular dynamics under various healthy and diseased conditions including heart failure, valve disease, and heart failure under different modes of ventricular assist device support [1,2,3]. Due to some current limitations in the representation in CellML of algebraic differential equations, some features of the original model, such as the heart valve dynamics, have been simplified in the current CellML implementation.
+The current CellML model implementation runs in OpenCell. The results have been validated against the original C implementation and against other published data. Please note that because this is a 1.1 model it does not run in COR.
+
+Model Structure
+
+The model comprises three main parts: the heart, the systemic loop, and the pulmonary loop, as illustrated in Fig. 1.  The heart is modelled as a four-chambered pump with variable elastance and four heart valves to control the direction of blood flow. Systemic and pulmonary circulatory loops are sub-divided into a number of segments, namely: the aortic sinus/pulmonary artery sinus, artery, arteriole, capillary and vein segments. In each segment, individual components are modelled by representations of the local resistance to blood flow, vessel elasticity and the inertia of the blood. 
+
+Schematic of the system configuration of the cardiovascular model
+
+For the CellML representation of the model, several template components are defined: namely, TempRLC, TempRC, TempR, TempCDv, TempCDa, EAtrium and EVentricle.  The first three of these provide zero dimensional representations of the linearised governing equations for pressure and flow in the vessel segments.  TempCDv and TempCDa define the variable elastances of the cardiac chambers together with the heart valve dynamics. EAtrium and EVentricle define the activation functions, which are used in the calculation of these variable elastances.  In addition to the templates, a further component, ‘Units’, is defined.  This provides the definitions of the derived units of the variables of pressure, flow-rate, volume, vessel resistance, blood inertia, vessel elasticity etc. in the model.  The parameter settings for the model are specified in three separate components; ParaHeart, ParaSys and ParaPul, which contain the respective values for the system variables. The templates are then imported into the upper-level description of the model, in which each template-type is integrated with the unit definitions and specific parameter settings appropriate for the vessel segment or cardiac chamber described. Upper level component models for the systemic loop, the pulmonary loop and the heart are then constructed using the group feature to assemble the individual vessel segments or cardiac chambers into the general function modules. Finally the functional modules of heart, systemic loop and pulmonary loop are connected to form the complete CellML model.
+
+The complete original model was presented in the following papers:
+
+A concentrated parameter model for the human cardiovascular system including heart valve dynamics and atrioventricular interaction, Korakianitis T., Shi Y., 2006. Medical Engineering and Physics 28, 613-28, PubMed ID: 16293439.
+
+Numerical simulation of cardiovascular dynamics with healthy and diseased heart valves, Korakianitis T., Shi Y., 2006. Journal of Biomechanics 39 (11), 1964-82, PubMed ID: 16140309
+.
+
+Numerical simulation of cardiovascular dynamics with left heart failure and in-series pulsatile ventricular assist device, Shi Y., Korakianitis T., 2006. Artificial Organs 30 (12), 929-48, PubMed ID: 17181834.</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex">
+    <collex:thumbnail rdf:resource="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/CSysBase.png">http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/CSysBase.png</collex:thumbnail>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -38,5 +61,50 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex">
     <dc:license rdf:resource="local:00003">local:00003</dc:license>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/EAtrium.cellml">
+    <dc:title>EAtrium.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/EVentricle.cellml">
+    <dc:title>EVentricle.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/ModelHeart.cellml">
+    <dc:title>ModelHeart.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/ModelPul.cellml">
+    <dc:title>ModelPul.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/ModelSys.cellml">
+    <dc:title>ModelSys.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/ParaHeart.cellml">
+    <dc:title>ParaHeart.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/ParaPul.cellml">
+    <dc:title>ParaPul.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/ParaSys.cellml">
+    <dc:title>ParaSys.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/TempCDa.cellml">
+    <dc:title>TempCDa.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/TempCDv.cellml">
+    <dc:title>TempCDv.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/TempR.cellml">
+    <dc:title>TempR.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/TempRC.cellml">
+    <dc:title>TempRC.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/TempRLC.cellml">
+    <dc:title>TempRLC.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/Units.cellml">
+    <dc:title>Units.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/c49d416ae3a5132882e6ea7479ba50f5.omex/ModelMain.cellml">
+    <dc:title>Zero dimensional (lumped parameter) modelling of native human cardiovascular dynamics</dc:title>
   </rdf:Description>
 </rdf:RDF>

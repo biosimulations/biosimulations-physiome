@@ -15,23 +15,28 @@
         <!--Intermediate variables-->
         <variable name="V" units="volt"/>
         <!-- Constitutive relation of the R:leak-->
+        <!--V = I_leak/g_leak;-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
-                <ci>V</ci>
+                <ci>I_leak</ci>
                 <apply>
-                    <divide/>
-                    <ci>I_leak</ci>
+                    <times/>
+                    <apply>
+                        <minus/>
+                        <ci>V</ci>
+                    </apply>
                     <ci>g_leak</ci>
                 </apply>
             </apply>
             <!--Conservation laws-->
+            <!--V_m = V+V_leak;-->
             <apply>
                 <eq/>
-                <ci>V_m</ci>
+                <ci>V</ci>
                 <apply>
-                    <plus/>
-                    <ci>V</ci>
+                    <minus/>
+                    <ci>V_m</ci>
                     <ci>V_leak</ci>
                 </apply>
             </apply>

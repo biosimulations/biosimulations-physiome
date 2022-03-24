@@ -4,27 +4,72 @@
     <dc:title>Model of Excitation-Contraction in a uterine SMC</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6cf.omex">
-    <dc:description>Calcium concentration experiments
-In the Calcium concentration experiment 1, the Excitation-contraction unit is configured and parameterised. The component Cai is defined to generate a Ca2 + i profile close to the measured values in Figure 9C.
-Ca2 + i
-2 + i
-2 + 
-In the Calcium concentration experiment 2, the Excitation-contraction unit is configured and parameterised. The component Cai defines a piecewise linear function to construct the input Ca2 + i for Figure 10B.
-Ca2 + i
-2 + i
-2 + 
-You can bypass the parameters in the component model_parameters and initial_conditions and define your own parameters.
-The simulation experiment can be obtained by loading the corresponding SED-ML document Cai_experiment 1 and Cai_experiment 2 into OpenCOR and executing the simulation.
-MLC Phosphorylation and Stress Production by the Contracting Cell
-Figure [1] uses the settings in Calcium concentration experiment 1.
+    <dc:description>About this model
 
-Simulation of MLC phosphorylation (A) and force production (B) in human nonpregnant myometrium in response to an increase in Ca2 + i.
-Ca2 + i
-2 + i
-2 + 
-Figure [2] uses the settings in Calcium concentration experiment 2.
+Original publication:
+Bursztyn, Limor, et al (2007):  "Mathematical model of excitation-contraction in a uterine smooth muscle cell."  American Journal of Physiology-Cell Physiology 292.5 (2007): C1816-C1829.
 
-Stress development and relaxation during stretch-induced phasic contraction of human myometrium.</dc:description>
+DOI:https://pubmed.ncbi.nlm.nih.gov/17267547/
+
+Model status
+The current CellML implementation runs in OpenCOR.
+The results have been validated against the data extracted from the figures in the published Bursztyn, Limor, et al (2007). We found a few inconsistencies in parameter values and units presented in the primary paper. While the primary paper does not provide complete simulation experiment settings, we provide the settings used for the figure reproduction with the simulation results shown under Experiments. The model structure can be found in the documentation of Components. The limitation and curation process has been summarized in the Model history and  Known issues.
+
+Model overview
+This workspace holds a CellML encoding of the Bursztyn, Limor, et al (2007) model.
+The Bursztyn, Limor, et al (2007) paper describes three Ca2 +  control mechanisms: voltage-operated Ca2 +  channels, Ca2 +  pumps and Na +  ⁄ Ca2 +  exchangers, which employ the mathematical formulation proposed in Parthimos, Dimitris et al (1999). The cross-bridge model of Hai and Murphy (1988) is used to describe the processes of myosin light chain (MLC) phosphorylation and stress production, which is essentially a deterministic multi-state Markov model (MM).
+
+A diagrammatic representation of the Bursztyn, Limor, et al (2007) model.
+
+Modular description
+
+Components
+CellML divides the mathematical model into distinct components, which are able to be re-used.
+The main CellML components are:
+
+Excitation-contraction component, including:
+
+Nernst potential computation
+Four-stage cross-bridge model (CB4HM)
+Ions fluxes component
+
+Ions fluxes component, including:
+
+L-type voltage dependent Ca2 +  channels JVOCC, and the computation of current reuses the imported ionic current components
+the efflux through Ca2 +  pump JCa, pump
+the flux through the Na +  ⁄ Ca2 +  exchangers JNa ⁄ Ca
+
+Excitation-contraction unit, which decouples the connection between the excitation and contraction. This is used to test individual ion fluxes and contraction development.
+
+Each of these blocks is itself a CellML model, which enables us to reuse the various components in future studies and models.
+
+Experiments
+Following best practices, this model separates the mathematics from the parameterisation of the model. The mathematical model is imported into a specific parameterised instance in order to perform numerical simulations.
+The parameterisation would include defining the stimulus protocol to be applied.
+This workspace has seven sets of experiments and corresponding simulation results:
+
+Single stimulation experiment
+Multiple stimulation experiment
+Voltage ramp experiment
+Membrane potential simulation experiment
+Sodium concentration experiment
+Calcium concentration experiment 1
+Calcium concentration experiment 2
+
+Simulation settings
+Simulation settings are encoded in SED-ML documents for experiment execution. It is common that we may need to vary experimental settings to obtain data under various conditions. Hence, the full experimental settings are encoded in the simulation scripts.
+The Python scripts to run simulation and reproduce the figures in the original paper are included under the Simulation folder.
+
+Model history
+There is no publicly available code for this model.
+
+Known issues
+
+A few inconsistencies of parameter values and units, which seems to be typos and listed in the following table.
+
+Inconsistency of parameter values and units
+
+The specification of experiment settings for simulation is incomplete in the primary paper, and the experiment settings that we use are summarized along with simulation results.</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -58,5 +103,26 @@ Stress development and relaxation during stretch-induced phasic contraction of h
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6cf.omex">
     <dc:license rdf:resource="local:00003">local:00003</dc:license>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6cf.omex/Cai_experiment1.cellml">
+    <dc:title>Cai_experiment1.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6cf.omex/EC_uSMC.cellml">
+    <dc:title>EC_uSMC.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6cf.omex/Multi_stim_experiment.cellml">
+    <dc:title>Multi_stim_experiment.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6cf.omex/Nai_experiment.cellml">
+    <dc:title>Nai_experiment.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6cf.omex/Single_stim_experiment.cellml">
+    <dc:title>Single_stim_experiment.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6cf.omex/Vm_stim_experiment.cellml">
+    <dc:title>Vm_stim_experiment.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6cf.omex/Vramp_experiment.cellml">
+    <dc:title>Vramp_experiment.cellml</dc:title>
   </rdf:Description>
 </rdf:RDF>

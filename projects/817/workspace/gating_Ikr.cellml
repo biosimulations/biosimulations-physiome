@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="gating_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <!--        unit mM using unit mM;-->
+        <units name="mV_ms" units_ref="mV_ms"/>
+        <units name="ms" units_ref="ms"/>
+        <!--        unit pA_per_pF using unit pA_per_pF;
+        unit nS_per_pF using unit nS_per_pF;-->
+    </import>
+    <component name="gating_Ikr">
+        <variable name="v" public_interface="in" units="mV"/>
+        <variable name="alpha_act" public_interface="out" units="per_ms"/>
+        <variable name="beta_act" public_interface="out" units="per_ms"/>
+        <variable name="alpha_inact" public_interface="out" units="per_ms"/>
+        <variable name="beta_inact" public_interface="out" units="per_ms"/>
+        <!--        var act_inact: dimensionless {pub: out};
+        var g_Kr: dimensionless {pub: out};
+        var i_Kr: dimensionless {pub: out};
+        var Xr1_0: dimensionless {pub: in};-->
+        <variable name="Xr1_1" public_interface="in" units="dimensionless"/>
+        <variable name="Xr1_2" public_interface="in" units="dimensionless"/>
+        <variable name="Xr1_3" public_interface="out" units="dimensionless"/>
+        <variable name="Xr1_4" public_interface="out" units="dimensionless"/>
+        <variable name="Xr1_5" public_interface="in" units="dimensionless"/>
+        <variable name="Xr1_6" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_1" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_2" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_3" public_interface="out" units="dimensionless"/>
+        <variable name="Xr2_4" public_interface="out" units="dimensionless"/>
+        <variable name="Xr2_5" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_6" public_interface="in" units="dimensionless"/>
+        <variable name="Xr1_7" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_7" public_interface="in" units="dimensionless"/>
+        <variable name="x_inf_act" public_interface="out" units="dimensionless"/>
+        <variable name="x_inf_inact" public_interface="out" units="dimensionless"/>
+        <variable name="tau_kr_act" public_interface="out" units="ms"/>
+        <variable name="tau_kr_inact" public_interface="out" units="ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>Xr1_3</ci>
+                <apply>
+                    <times/>
+                    <ci>Xr1_5</ci>
+                    <ci>Xr1_1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>Xr2_3</ci>
+                <apply>
+                    <times/>
+                    <ci>Xr2_5</ci>
+                    <ci>Xr2_1</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>Xr1_4</ci>
+                <apply>
+                    <divide/>
+                    <cn cellml:units="dimensionless">1</cn>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <divide/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>Xr1_2</ci>
+                        </apply>
+                        <apply>
+                            <divide/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>Xr1_6</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>Xr2_4</ci>
+                <apply>
+                    <divide/>
+                    <cn cellml:units="dimensionless">1</cn>
+                    <apply>
+                        <plus/>
+                        <apply>
+                            <divide/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>Xr2_2</ci>
+                        </apply>
+                        <apply>
+                            <divide/>
+                            <cn cellml:units="dimensionless">1</cn>
+                            <ci>Xr2_6</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>alpha_act</ci>
+                <apply>
+                    <times/>
+                    <ci>Xr1_1</ci>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>v</ci>
+                            <ci>Xr1_2</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>beta_act</ci>
+                <apply>
+                    <times/>
+                    <ci>Xr1_3</ci>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>v</ci>
+                            <ci>Xr1_4</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>x_inf_act</ci>
+                <apply>
+                    <divide/>
+                    <ci>alpha_act</ci>
+                    <apply>
+                        <plus/>
+                        <ci>alpha_act</ci>
+                        <ci>beta_act</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>tau_kr_act</ci>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                            <plus/>
+                            <ci>alpha_act</ci>
+                            <ci>beta_act</ci>
+                        </apply>
+                    </apply>
+                    <ci>Xr1_7</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>alpha_inact</ci>
+                <apply>
+                    <times/>
+                    <ci>Xr2_1</ci>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>v</ci>
+                            <ci>Xr2_2</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>beta_inact</ci>
+                <apply>
+                    <times/>
+                    <ci>Xr2_3</ci>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <ci>v</ci>
+                            <ci>Xr2_4</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>x_inf_inact</ci>
+                <apply>
+                    <divide/>
+                    <ci>alpha_inact</ci>
+                    <apply>
+                        <plus/>
+                        <ci>alpha_inact</ci>
+                        <ci>beta_inact</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>tau_kr_inact</ci>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <divide/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                            <plus/>
+                            <ci>alpha_inact</ci>
+                            <ci>beta_inact</ci>
+                        </apply>
+                    </apply>
+                    <ci>Xr2_7</ci>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

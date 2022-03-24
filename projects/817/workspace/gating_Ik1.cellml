@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="gating_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="mV_ms" units_ref="mV_ms"/>
+        <units name="ms" units_ref="ms"/>
+    </import>
+    <component name="gating_Ik1">
+        <variable name="v" public_interface="in" units="mV"/>
+        <variable name="alpha_act" public_interface="out" units="per_ms"/>
+        <variable name="beta_act" public_interface="out" units="per_ms"/>
+        <variable name="x_inf_act_Ik1" public_interface="out" units="dimensionless"/>
+        <variable name="var_2" public_interface="in" units="per_ms"/>
+        <variable name="var_3" public_interface="in" units="mV"/>
+        <variable name="var_4" public_interface="in" units="mV"/>
+        <variable name="var_5" public_interface="in" units="mV_ms"/>
+        <variable name="var_6" public_interface="in" units="mV"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>alpha_act</ci>
+                <apply>
+                    <times/>
+                    <ci>var_2</ci>
+                    <apply>
+                        <exp/>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <plus/>
+                                <ci>v</ci>
+                                <ci>var_4</ci>
+                            </apply>
+                            <ci>var_3</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>beta_act</ci>
+                <apply>
+                    <exp/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <plus/>
+                            <ci>v</ci>
+                            <ci>var_6</ci>
+                        </apply>
+                        <ci>var_5</ci>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>x_inf_act_Ik1</ci>
+                <apply>
+                    <divide/>
+                    <ci>alpha_act</ci>
+                    <apply>
+                        <plus/>
+                        <ci>alpha_act</ci>
+                        <ci>beta_act</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+</model>

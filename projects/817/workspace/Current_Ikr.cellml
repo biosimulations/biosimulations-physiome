@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<model name="Current_eq" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <import xlink:href="unit.cellml">
+        <units name="ms" units_ref="ms"/>
+        <units name="per_ms" units_ref="per_ms"/>
+        <units name="mV" units_ref="mV"/>
+        <units name="mM" units_ref="mM"/>
+        <units name="mM3" units_ref="mM3"/>
+        <units name="J_per_mol_per_kelvin" units_ref="J_per_mol_per_kelvin"/>
+        <units name="C_per_mol" units_ref="C_per_mol"/>
+        <units name="nS_per_pF" units_ref="nS_per_pF"/>
+        <units name="pA_per_pF" units_ref="pA_per_pF"/>
+        <units name="mV_ms" units_ref="mV_ms"/>
+        <units name="mM_per_ms" units_ref="mM_per_ms"/>
+        <units name="per_mM_per_ms" units_ref="per_mM_per_ms"/>
+        <units name="per_mM2_per_ms" units_ref="per_mM2_per_ms"/>
+    </import>
+    <import xlink:href="parameter.cellml">
+        <component component_ref="parameter" name="parameter"/>
+    </import>
+    <import xlink:href="parameter_Ikr.cellml">
+        <component component_ref="parameter_Ikr" name="parameter_Ikr"/>
+    </import>
+    <import xlink:href="gating_Ikr.cellml">
+        <component component_ref="gating_Ikr" name="gating_Ikr"/>
+    </import>
+    <component name="Current_Ikr">
+        <variable name="v" private_interface="in" public_interface="out" units="mV"/>
+        <variable initial_value="8.314472" name="R" public_interface="out" units="J_per_mol_per_kelvin"/>
+        <variable initial_value="310.0" name="T" public_interface="out" units="kelvin"/>
+        <variable initial_value="96.4853415" name="F" public_interface="out" units="C_per_mol"/>
+        <variable name="E_K" public_interface="out" units="mV"/>
+        <variable name="Ko" private_interface="in" public_interface="out" units="mM"/>
+        <variable initial_value="150" name="Ki" public_interface="out" units="mM"/>
+        <variable name="x_inf_act" public_interface="in" units="dimensionless"/>
+        <variable name="x_inf_inact" public_interface="in" units="dimensionless"/>
+        <variable initial_value="0" name="X_kr_act" public_interface="out" units="dimensionless"/>
+        <variable initial_value="0" name="X_kr_inact" public_interface="out" units="dimensionless"/>
+        <variable name="Xr1_1" public_interface="in" units="dimensionless"/>
+        <variable name="Xr1_2" public_interface="in" units="dimensionless"/>
+        <variable name="Xr1_5" public_interface="in" units="dimensionless"/>
+        <variable name="Xr1_6" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_1" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_2" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_5" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_6" public_interface="in" units="dimensionless"/>
+        <variable name="Xr1_7" public_interface="in" units="dimensionless"/>
+        <variable name="Xr2_7" public_interface="in" units="dimensionless"/>
+        <variable name="g_Kr" public_interface="out" units="nS_per_pF"/>
+        <variable name="i_Kr" public_interface="out" units="pA_per_pF"/>
+        <variable name="Xr1_0" public_interface="in" units="nS_per_pF"/>
+        <variable name="tau_kr_act" public_interface="in" units="ms"/>
+        <variable name="tau_kr_inact" public_interface="in" units="ms"/>
+        <variable initial_value="1" name="t" public_interface="out" units="ms"/>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+                <eq/>
+                <ci>E_K</ci>
+                <apply>
+                    <times/>
+                    <apply>
+                        <divide/>
+                        <apply>
+                            <times/>
+                            <ci>R</ci>
+                            <ci>T</ci>
+                        </apply>
+                        <ci>F</ci>
+                    </apply>
+                    <apply>
+                        <ln/>
+                        <apply>
+                            <divide/>
+                            <ci>Ko</ci>
+                            <ci>Ki</ci>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>X_kr_act</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>x_inf_act</ci>
+                        <ci>X_kr_act</ci>
+                    </apply>
+                    <ci>tau_kr_act</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>X_kr_inact</ci>
+                </apply>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <minus/>
+                        <ci>x_inf_inact</ci>
+                        <ci>X_kr_inact</ci>
+                    </apply>
+                    <ci>tau_kr_inact</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>t</ci>
+                    </bvar>
+                    <ci>v</ci>
+                </apply>
+                <cn cellml:units="dimensionless">0</cn>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>g_Kr</ci>
+                <ci>Xr1_0</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>i_Kr</ci>
+                <apply>
+                    <times/>
+                    <ci>g_Kr</ci>
+                    <apply>
+                        <root/>
+                        <apply>
+                            <divide/>
+                            <ci>Ko</ci>
+                            <cn cellml:units="dimensionless">5.4</cn>
+                        </apply>
+                    </apply>
+                    <ci>X_kr_act</ci>
+                    <ci>X_kr_inact</ci>
+                    <apply>
+                        <minus/>
+                        <ci>v</ci>
+                        <ci>E_K</ci>
+                    </apply>
+                </apply>
+            </apply>
+        </math>
+    </component>
+    <connection>
+        <map_components component_1="Current_Ikr" component_2="gating_Ikr"/>
+        <map_variables variable_1="x_inf_act" variable_2="x_inf_act"/>
+        <map_variables variable_1="x_inf_inact" variable_2="x_inf_inact"/>
+        <map_variables variable_1="tau_kr_act" variable_2="tau_kr_act"/>
+        <map_variables variable_1="tau_kr_inact" variable_2="tau_kr_inact"/>
+    </connection>
+    <connection>
+        <map_components component_1="Current_Ikr" component_2="parameter_Ikr"/>
+        <map_variables variable_1="Xr1_0" variable_2="Xr1_0"/>
+        <map_variables variable_1="Xr1_1" variable_2="Xr1_1"/>
+        <map_variables variable_1="Xr1_2" variable_2="Xr1_2"/>
+        <map_variables variable_1="Xr1_5" variable_2="Xr1_5"/>
+        <map_variables variable_1="Xr1_6" variable_2="Xr1_6"/>
+        <map_variables variable_1="Xr2_1" variable_2="Xr2_1"/>
+        <map_variables variable_1="Xr2_2" variable_2="Xr2_2"/>
+        <map_variables variable_1="Xr2_5" variable_2="Xr2_5"/>
+        <map_variables variable_1="Xr2_6" variable_2="Xr2_6"/>
+        <map_variables variable_1="Xr1_7" variable_2="Xr1_7"/>
+        <map_variables variable_1="Xr2_7" variable_2="Xr2_7"/>
+    </connection>
+    <connection>
+        <map_components component_1="Current_Ikr" component_2="parameter"/>
+        <map_variables variable_1="v" variable_2="v"/>
+        <map_variables variable_1="Ko" variable_2="Ko"/>
+    </connection>
+    <connection>
+        <map_components component_1="gating_Ikr" component_2="parameter"/>
+        <map_variables variable_1="v" variable_2="v"/>
+    </connection>
+    <connection>
+        <map_components component_1="parameter_Ikr" component_2="gating_Ikr"/>
+        <map_variables variable_1="Xr1_1" variable_2="Xr1_1"/>
+        <map_variables variable_1="Xr1_2" variable_2="Xr1_2"/>
+        <map_variables variable_1="Xr1_5" variable_2="Xr1_5"/>
+        <map_variables variable_1="Xr1_6" variable_2="Xr1_6"/>
+        <map_variables variable_1="Xr2_1" variable_2="Xr2_1"/>
+        <map_variables variable_1="Xr2_2" variable_2="Xr2_2"/>
+        <map_variables variable_1="Xr2_5" variable_2="Xr2_5"/>
+        <map_variables variable_1="Xr2_6" variable_2="Xr2_6"/>
+        <map_variables variable_1="Xr1_7" variable_2="Xr1_7"/>
+        <map_variables variable_1="Xr2_7" variable_2="Xr2_7"/>
+    </connection>
+</model>

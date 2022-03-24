@@ -21,8 +21,8 @@
     <component name="AP_BG">
         <!--Parameters-->
         <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="t" private_interface="out" public_interface="in" units="second"/>
         <variable name="C_m" public_interface="in" units="fF"/>
+        <variable name="q_m_init" public_interface="in" units="fC"/>
         <variable name="g_leak" private_interface="out" public_interface="in" units="fS"/>
         <variable name="V_leak" private_interface="out" public_interface="in" units="volt"/>
         <variable name="kappa_Na" private_interface="out" public_interface="in" units="fmol_per_sec"/>
@@ -83,14 +83,30 @@
         <variable name="kappa_n4" private_interface="out" public_interface="in" units="fmol_per_sec"/>
         <variable name="z_n_f" private_interface="out" public_interface="in" units="dimensionless"/>
         <variable name="z_n_r" private_interface="out" public_interface="in" units="dimensionless"/>
+        <!--Inputs-->
+        <variable name="t" private_interface="out" public_interface="in" units="second"/>
         <!--Outputs-->
         <variable name="V_m" private_interface="out" public_interface="out" units="volt"/>
         <variable name="I_Na" private_interface="in" public_interface="out" units="fA"/>
         <variable name="I_K" private_interface="in" public_interface="out" units="fA"/>
         <variable name="I_leak" private_interface="in" public_interface="out" units="fA"/>
-        <!--Intermediate variables-->
-        <variable name="I_i" units="fA"/>
-        <variable name="q_m" units="fC"/>
+        <variable name="I_i" public_interface="out" units="fA"/>
+        <variable initial_value="q_m_init" name="q_m" public_interface="out" units="fC"/>
+        <variable name="A_g_K" private_interface="in" public_interface="out" units="J_per_mol"/>
+        <variable name="A_g_Na" private_interface="in" public_interface="out" units="J_per_mol"/>
+        <variable name="q_S00" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S10" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S20" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S30" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S01" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S11" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S21" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S31" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S0" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S1" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S2" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S3" private_interface="in" public_interface="out" units="fmol"/>
+        <variable name="q_S4" private_interface="in" public_interface="out" units="fmol"/>
         <!-- Constitutive relation of the C:mem-->
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -176,6 +192,15 @@
         <map_variables variable_1="z_h_r" variable_2="z_h_r"/>
         <map_variables variable_1="I_Na" variable_2="I_Na"/>
         <map_variables variable_1="V_m" variable_2="V_m"/>
+        <map_variables variable_1="q_S00" variable_2="q_S00"/>
+        <map_variables variable_1="q_S10" variable_2="q_S10"/>
+        <map_variables variable_1="q_S20" variable_2="q_S20"/>
+        <map_variables variable_1="q_S30" variable_2="q_S30"/>
+        <map_variables variable_1="q_S01" variable_2="q_S01"/>
+        <map_variables variable_1="q_S11" variable_2="q_S11"/>
+        <map_variables variable_1="q_S21" variable_2="q_S21"/>
+        <map_variables variable_1="q_S31" variable_2="q_S31"/>
+        <map_variables variable_1="A_g_Na" variable_2="A_g_Na"/>
     </connection>
     <connection>
         <map_components component_1="AP_BG" component_2="IK_BG"/>
@@ -205,6 +230,12 @@
         <map_variables variable_1="z_n_r" variable_2="z_n_r"/>
         <map_variables variable_1="I_K" variable_2="I_K"/>
         <map_variables variable_1="V_m" variable_2="V_m"/>
+        <map_variables variable_1="q_S0" variable_2="q_S0"/>
+        <map_variables variable_1="q_S1" variable_2="q_S1"/>
+        <map_variables variable_1="q_S2" variable_2="q_S2"/>
+        <map_variables variable_1="q_S3" variable_2="q_S3"/>
+        <map_variables variable_1="q_S4" variable_2="q_S4"/>
+        <map_variables variable_1="A_g_K" variable_2="A_g_K"/>
     </connection>
     <connection>
         <map_components component_1="AP_BG" component_2="Ileak_BG"/>
