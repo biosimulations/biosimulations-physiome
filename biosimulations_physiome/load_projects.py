@@ -2,34 +2,35 @@ from ast import mod
 import asyncio
 from cmath import pi
 from curses import meta
-from importlib.metadata import metadata
+from os.path import exists
+
 import json
 import os
 from time import sleep
-import zipfile
-import logging
 import shutil
 from bs4 import BeautifulSoup
 import aiohttp
-import re
+from aiohttp_client_cache import CachedSession, FileBackend, SQLiteBackend
 from loguru import logger
 import markdownify
 FULL_LIST = "https://models.physiomeproject.org/exposure/listing/full-list"
+CACHE = cache = SQLiteBackend(cache_name="cache", include_headers=True)
 
 
-async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=True):
+async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=True, overwrite=False):
     """
     Imports all the projects in the database
     """
-    logger = logging.getLogger(__name__)
+
     projectExposureLinks = await getProjectsList(startAt, endAt)
+    with open("Allprojects.json", "w") as f:
+        json.dump(projectExposureLinks, f)
+
     numProjects = len(projectExposureLinks)
+    logger.info("Importing {} projects".format(numProjects))
 
-    async with aiohttp.ClientSession() as session:
-
-        # various hrefs for the project
-        project_urls_task = []
-
+    project_urls_task = []
+    async with CachedSession(cache=CACHE) as session:
         for project in projectExposureLinks:
             logger.debug(f'Getting Links for {project}')
             projectName = project.split('/')[-1]
@@ -37,7 +38,6 @@ async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=Tr
             project_urls_task.append(getProjectHrefs(session, project))
 
         projectLinks = await asyncio.gather(*project_urls_task, return_exceptions=False)
-        print(projectLinks)
         with open('projectLinks.json', 'w') as f:
             json.dump(projectLinks, f, indent=4)
         # Extract the metadata we can from each project
@@ -48,28 +48,28 @@ async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=Tr
 
             projectName = projectlink['project'].split('/')[-1]
             if(getMetadata):
-                metadata_tasks.append(asyncio.ensure_future(getProjectInfo(
-                    session, projectlink)))
+                metadata_tasks.append(asyncio.ensure_future(getProjectInfo(session,
+                                                                           projectlink)))
 
-        # Metadata for each project
         metadata = await asyncio.gather(*metadata_tasks, return_exceptions=False)
-
-        # have to do this synchronously because otherwise we seem to be overloading the pmr git server
-        if(getWorkspaces):
-            sleep(2)
-            getGitRepos(projectLinks)
-
         with open('projects.json', 'w') as f:
             json.dump(metadata, f, indent=4)
 
+    # have to do this synchronously because otherwise we seem to be overloading the pmr git server
+    if(getWorkspaces):
+        sleep(2)
+        getGitRepos(projectLinks)
 
-async def getProjectHash(session, link):
+
+def getProjectHash(id):
     """
     Returns the hash of the project
     """
-    async with session.get(link, headers={'Accept': 'application/json'}) as resp:
-        req = await resp.json()
-        return req['project']['hash']
+    with open("projects.json", "r") as f:
+        projects = json.load(f)
+        for project in projects:
+            if(project['identifier'] == id):
+                return project['hash']
 
 
 async def getProjectsList(startAt=0, endAt=-1):
@@ -77,14 +77,13 @@ async def getProjectsList(startAt=0, endAt=-1):
     Returns a list of all the projects in the database
     """
 
-    async with aiohttp.ClientSession() as session:
+    async with CachedSession(cache=CACHE) as session:
         async with session.get(FULL_LIST, headers={'Accept': 'application/json'}) as resp:
             logger.debug(f'Getting full list of projects')
             req = await resp.json()
 
             links = req['collection']['links']
             links = list(map(lambda x: x['href'], links))
-
             return links[startAt:endAt]
 
 
@@ -92,6 +91,7 @@ async def getProjectHrefs(session, projectExposureHref):
     """
     Returns the hrefs for the project
     """
+
     async with session.get(projectExposureHref, headers={'Accept': 'application/json'}) as resp:
 
         created_project_links = {
@@ -101,7 +101,7 @@ async def getProjectHrefs(session, projectExposureHref):
 
         }
         exposure_info = await resp.json()
-        print("response for project: ", projectExposureHref)
+        logger.success(f'Got links for {projectExposureHref}')
 
         exposure_links = exposure_info['collection']['links']
         # Handle this weirdness for  PMR2/pmr2.app#6
@@ -159,20 +159,25 @@ def getGitRepos(projectLinks):
 
     # Delete all the .git folders and .gitmodules files to prevent issues with top level git repo
     logger.debug(f'Deleting .git folders and .gitmodules files')
-    os.system('find . -type d -name ".git" -ls -exec rm -rvf {} +')
-    os.system('find . -type f -name ".git" -ls -exec rm -rvf {} +')
-    os.system('find . -type f -name ".gitmodules" -delete')
+    os.system('find ./projects -type d -name ".git" -ls -exec rm -rvf {} +')
+    os.system('find ./projects -type f -name ".git" -ls -exec rm -rvf {} +')
+    os.system('find ./projects -type f -name ".gitmodules" -delete')
 
 
 def getGitRepo(name, link):
     logger.debug(f'Getting git repo for {name}')
     shutil.rmtree(f'projects/{name}/workspace', ignore_errors=True)
-
+    project_hash = getProjectHash(name)
     if(link):
         try:
             logger.info(f'Cloning {name}')
             os.system(
                 f'git clone --recurse-submodules {link} projects/{name}/workspace ')
+            if(project_hash):
+                cwd = os.getcwd()
+                os.chdir(f'projects/{name}/workspace')
+                os.system(f'git checkout {project_hash}')
+                os.chdir(cwd)
             shutil.rmtree(
                 f'projects/{name}/workspace/.git', ignore_errors=True)
             shutil.rmtree(
@@ -182,6 +187,74 @@ def getGitRepo(name, link):
             return False
 
     return True
+
+
+def parseHTMLPage(html_page, model_metadata):
+
+    soup = BeautifulSoup(html_page, 'html.parser')
+    if(not soup):
+        logger.error(f'Failed to parse HTML for {html_page}')
+
+        raise Exception(f'Failed to parse HTML for {html_page}')
+    content = soup.find('div', id='content')
+    if(not content):
+        logger.error(f'Failed to parse HTML Content for {html_page}')
+        raise Exception(f'Failed to parse HTML Content for {html_page}')
+
+    title = content.find('h1').text.strip()
+    summary = content.find(
+        'div', id='parent-fieldname-description')
+    if(summary):
+        summary = summary.text.strip()
+    else:
+        summary = ""
+
+    model_metadata['summary'] = summary
+    content_core = content.find('div', id='content-core')
+    for child in (content_core.children or []):
+        if child.name == 'title':
+            child.decompose()
+        elif child.name == 'table':
+            child.decompose()
+        else:
+            pass
+    description = markdownify.markdownify(str(content_core))
+    with open(f'descriptions', 'a') as f:
+        f.write(description)
+
+    # Get the metadata from the page
+    images = soup.find_all(
+        "img", class_="tmp-doc-informalfigure")
+
+    for image in (images or []):
+
+        model_metadata['thumbnails'].append(image['src'])
+
+    # We might have the title already from the JSON call above
+    if(title and model_metadata['title'] == ''):
+        model_metadata['title'] = title
+
+    model_metadata['description'] = description
+
+    return model_metadata
+
+
+def parseMetadata(req, model_metadata):
+    metadatas = req['collection']['items'][0]['data']
+    for metadata in metadatas:
+        if metadata['name'] == 'keywords':
+            model_metadata['tags'] = metadata['value']
+        if metadata['name'] == 'citation_title':
+            model_metadata['citation']['title'] = metadata['value']
+        if metadata['name'] == 'citation_authors':
+            model_metadata['citation']["authors"] = metadata['value']
+        if metadata['name'] == 'citation_journal':
+            model_metadata['citation']['journal'] = metadata['value']
+        if metadata['name'] == 'citation_id':
+            model_metadata['citation']['identifier'] = metadata['value']
+        if metadata['name'] == 'model_author':
+            model_metadata['authors'] = metadata['value']
+    return model_metadata
 
 
 async def getProjectInfo(session, projectlink):
@@ -217,7 +290,10 @@ async def getProjectInfo(session, projectlink):
         "contributor": "Bilal Shaikh",
         "errors": [],
     }
+    # This is the main page that is displayed for each model
+
     if(project_href):
+
         async with session.get(project_href, headers={'Accept': 'application/json'}) as resp:
             logger.debug(f'Getting project info for {project_href}')
             try:
@@ -239,52 +315,15 @@ async def getProjectInfo(session, projectlink):
             logger.debug(f'Getting documentation for {projectName}')
             try:
                 html_page = (await resp.text())
+
                 if(html_page):
-                    soup = BeautifulSoup(html_page, 'html.parser')
-                    content = soup.find('div', id='content')
-                    title = content.find('h1').text.strip()
-                    summary = content.find(
-                        'div', id='parent-fieldname-description')
-                    if(summary):
-                        summary = markdownify.markdownify(summary)
-                    else:
-                        summary = ""
+                    model_metadata = parseHTMLPage(html_page, model_metadata)
 
-                    model_metadata['summary'] = summary
-                    content_core = content.find('div', id='content-core')
-
-                    description = ''
-                    for child in (content_core.children or []):
-                        if child.name == 'title':
-                            continue
-                        if isinstance(child, str):
-                            description += child
-                        elif child.name == 'table':
-                            continue
-                        else:
-                            description += child.text
-
-                    description = description.replace('\xa0', ' ')
-                    description = description.strip()
-                    description = re.sub(r'\n[ \t]+', '\n', description)
-                    description = re.sub(r'\n{2,}', '\n\n', description)
-
-                    # Get the metadata from the page
-                    images = soup.find_all(
-                        "img", class_="tmp-doc-informalfigure")
-
-                    for image in (images or []):
-                        image_url = project_href + "/" + image['src']
-                        model_metadata['thumbnails'].append(image_url)
-
-                    # We might have the title already from the JSON call above
-                    if(title and model_metadata['title'] == ''):
-                        model_metadata['title'] = title
-
-                    model_metadata['description'] = description
             except Exception as e:
                 logger.error(
                     f'Failed to get documentation for {projectName}, {repr(e)}')
+                # logger.error({html_page})
+
                 model_metadata['errors'].append(repr(e))
     else:
         logger.error(
@@ -302,20 +341,7 @@ async def getProjectInfo(session, projectlink):
             logger.debug(f'Getting metadata for {projectName}')
             try:
                 req = await resp.json()
-                metadatas = req['collection']['items'][0]['data']
-                for metadata in metadatas:
-                    if metadata['name'] == 'keywords':
-                        model_metadata['tags'] = metadata['value']
-                    if metadata['name'] == 'citation_title':
-                        model_metadata['citation']['title'] = metadata['value']
-                    if metadata['name'] == 'citation_authors':
-                        model_metadata['citation']["authors"] = metadata['value']
-                    if metadata['name'] == 'citation_journal':
-                        model_metadata['citation']['journal'] = metadata['value']
-                    if metadata['name'] == 'citation_id':
-                        model_metadata['citation']['identifier'] = metadata['value']
-                    if metadata['name'] == 'model_author':
-                        model_metadata['authors'] = metadata['value']
+                model_metadata = parseMetadata(req, model_metadata)
             except(Exception) as e:
                 logger.error(
                     f'Failed to get metadata for {projectName}, {repr(e)}')
@@ -326,9 +352,11 @@ async def getProjectInfo(session, projectlink):
             f'Failed to get metadata for {projectName} due to missing metadata href')
         model_metadata['errors'].append('No metadata href')
 
-    # Now get all the children of the project
+    # Now do the same parsing for all the children of the project
     for child in project_content:
         metadata_href, documentation_href, href = child["metadata"], child["documentation"], child["href"]
+        title = child["title"]
+        file_name = child["file_name"]
         child_metadata = {
             "title": child["title"],
             "file_name": child["file_name"],
@@ -349,7 +377,7 @@ async def getProjectInfo(session, projectlink):
 
         if(metadata_href):
             async with session.get(metadata_href, headers={'Accept': 'application/json'}) as resp:
-                logger.debug(f'Getting metadata for {projectName}')
+                logger.debug(f'Getting metadata for {projectName}/{file_name}')
                 try:
                     req = await resp.json()
                     metadatas = req['collection']['items'][0]['data']
@@ -368,60 +396,22 @@ async def getProjectInfo(session, projectlink):
                             child_metadata['authors'] = metadata['value']
                 except(Exception) as e:
                     logger.error(
-                        f'Failed to get metadata for {title}, {repr(e)}')
+                        f'Failed to get metadata for {file_name}, {repr(e)}')
                     child_metadata['errors'].append(repr(e))
 
         if(documentation_href):
-            async with session.get(project_href, headers={'Accept': 'text/html'}) as resp:
-                logger.debug(f'Getting documentation for {projectName}')
+            async with session.get(documentation_href, headers={'Accept': 'text/html'}) as resp:
+                logger.debug(
+                    f'Getting documentation for {projectName}/{file_name}')
                 try:
                     html_page = (await resp.text())
+
                     if(html_page):
-                        soup = BeautifulSoup(html_page, 'html.parser')
-                        content = soup.find('div', id='content')
-                        title = content.find('h1').text.strip()
-                        summary = content.find(
-                            'div', id='parent-fieldname-description')
-                        if(summary):
-                            summary = summary.text.strip()
-                        else:
-                            summary = ""
-
-                        child_metadata['summary'] = summary
-                        content_core = content.find('div', id='content-core')
-
-                        description = ''
-                        for child in (content_core.children or []):
-                            if child.name == 'title':
-                                continue
-                            if isinstance(child, str):
-                                description += child
-                            elif child.name == 'table':
-                                continue
-                            else:
-                                description += child.text
-
-                        description = description.replace('\xa0', ' ')
-                        description = description.strip()
-                        description = re.sub(r'\n[ \t]+', '\n', description)
-                        description = re.sub(r'\n{2,}', '\n\n', description)
-
-                        # Get the metadata from the page
-                        images = soup.find_all(
-                            "img", class_="tmp-doc-informalfigure")
-
-                        for image in (images or []):
-                            image_url = project_href + "/" + image['src']
-                            child_metadata['thumbnails'].append(image_url)
-
-                        # We might have the title already from the JSON call above
-                        if(title and child_metadata['title'] == ''):
-                            child_metadata['title'] = title
-
-                        child_metadata['description'] = description
+                        child_metadata = parseHTMLPage(
+                            html_page, child_metadata)
                 except Exception as e:
                     logger.error(
-                        f'Failed to get documentation for {title}, {repr(e)}')
+                        f'Failed to get documentation for {file_name}, {repr(e)}')
                     child_metadata['errors'].append(repr(e))
         model_metadata['content_metadata'].append(child_metadata)
 

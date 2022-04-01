@@ -13,7 +13,7 @@ def submit():
     OUT_DIR = "out"
     runs = []
     for project in projects:
-
+        
         run_id = utils.run_simulation_project(
             project['identifier'],
             f'{OUT_DIR}/{project["identifier"]}/{project["identifier"]}.omex',

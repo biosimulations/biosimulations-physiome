@@ -4,22 +4,24 @@ import shutil
 import time
 from dataclasses import dataclass, asdict
 from typing import List
+import xml.etree.ElementTree as ET
 
-import Bio # type: ignore
-from biosimulators_utils.combine.data_model import CombineArchive, CombineArchiveContent, CombineArchiveContentFormat # type: ignore
-from biosimulators_utils.combine.io import CombineArchiveWriter # type: ignore
-from biosimulators_utils.config import Config # type: ignore
-from biosimulators_utils.omex_meta.data_model import BIOSIMULATIONS_ROOT_URI_FORMAT, OmexMetadataOutputFormat # type: ignore
-from biosimulators_utils.omex_meta.io import BiosimulationsOmexMetaWriter, BiosimulationsOmexMetaReader # type: ignore 
-from biosimulators_utils.ref.data_model import Reference, JournalArticle# type: ignore 
-from biosimulators_utils.ref.utils import get_reference # type: ignore
-from biosimulators_utils.sedml.data_model import ( # type: ignore
-    SedDocument, Model, ModelLanguage, SteadyStateSimulation,
-    Task, DataGenerator, Report, DataSet) 
-from biosimulators_utils.sedml.io import SedmlSimulationWriter # type: ignore
-from biosimulators_utils.sedml.model_utils import get_parameters_variables_outputs_for_simulation # type: ignore
+import Bio  # type: ignore
+from biosimulators_utils.combine.data_model import CombineArchive, CombineArchiveContent, CombineArchiveContentFormat   # type: ignore
+from biosimulators_utils.combine.io import CombineArchiveWriter  # type: ignore
+from biosimulators_utils.config import Config  # type: ignore
+from biosimulators_utils.omex_meta.data_model import BIOSIMULATIONS_ROOT_URI_FORMAT, OmexMetadataOutputFormat  # type: ignore
+from biosimulators_utils.omex_meta.io import BiosimulationsOmexMetaWriter, BiosimulationsOmexMetaReader  # type: ignore
+from biosimulators_utils.ref.data_model import Reference, JournalArticle  # type: ignore
+from biosimulators_utils.ref.utils import get_reference  # type: ignore
+from biosimulators_utils.sedml.data_model import (  # type: ignore
+    SedDocument, Model, ModelLanguage, UniformTimeCourseSimulation,
+    Task, DataGenerator, Report, DataSet,  Variable, DataGenerator, Report, DataSet, Plot, Plot2D, Curve, Surface)
+import copy
+from biosimulators_utils.sedml.io import SedmlSimulationWriter  # type: ignore
+from biosimulators_utils.sedml.model_utils import get_parameters_variables_outputs_for_simulation  # type: ignore
 
-from biosimulators_utils.warnings import BioSimulatorsWarning # type: ignore
+from biosimulators_utils.warnings import BioSimulatorsWarning  # type: ignore
 import os
 import json
 from loguru import logger
@@ -31,6 +33,7 @@ ENTREZ_DELAY = 0.5
 
 
 combine_writer = CombineArchiveWriter()
+logger.add("out.log", backtrace=True,  level="ERROR")
 
 
 def get_content_format_from_file_extension(file_extension):
@@ -148,7 +151,7 @@ def get_journal_info(metadata, out_path):
 
         else:
             pmid = metadata['citation']['identifier']
-            
+
             # Handle case of https://models.physiomeproject.org/exposure/9d48e39f893b5f1e98e53778f606c2c2/bhalla_iyengar_1999_j.cellml/view
             if(pmid == "urn:miriam:pubmed:99105994"):
                 pmid = "urn:miriam:pubmed:9888852"
@@ -242,13 +245,12 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors):
     }]
     child_metadata = getChildMetadata(metadata)
     omex_metadata = omex_metadata + child_metadata
-    
 
     return omex_metadata
 
 
 def getChildMetadata(metadata) -> List:
-    child_metadata = []
+    child_metadatas = []
     for contentMetadata in (metadata["content_metadata"] or []):
         child_metadata = {
             "combine_archive_uri": BIOSIMULATIONS_ROOT_URI_FORMAT.format(metadata["identifier"]),
@@ -260,7 +262,9 @@ def getChildMetadata(metadata) -> List:
                 "uri": "https://creativecommons.org/licenses/by/3.0/",
                 "label": "CC BY 3.0",
             }}
-    return child_metadata
+        child_metadatas.append(child_metadata)
+    return child_metadatas
+
 
 def process(metadata, project_path):
 
@@ -269,6 +273,7 @@ def process(metadata, project_path):
     project_id = metadata["identifier"]
 
     project_out_dir = os.path.join(OUT_DIR, project_id)
+    print(project_out_dir)
     os.makedirs(project_out_dir, exist_ok=True)
 
     # Workspace for project
@@ -281,7 +286,10 @@ def process(metadata, project_path):
     combine_archive_path = f'{project_out_dir}/{project_id}.omex'
 
     # Copy workspace to new directory for omex root
-    shutil.copytree(workspace_path, contents_path)
+    if os.path.exists(workspace_path):
+        shutil.copytree(workspace_path, contents_path)
+    else:
+        logger.warning("No workspace found for project {}".format(project_id))
 
     combine_contents = []
     has_sedml = False
@@ -297,8 +305,32 @@ def process(metadata, project_path):
                 continue
             content_rel_dir = os.path.relpath(root, contents_path)
             content_rel_path = os.path.join(content_rel_dir, content)
-            content_rel_path = content_rel_path.replace("./", "")
+            content_rel_path = content_rel_path.replace(
+                "./", "")
             file_format = get_content_format_from_file_extension(file_ending)
+            is_unspecified_xml = file_format == CombineArchiveContentFormat.XML
+            
+            if(is_unspecified_xml):
+                
+                try:
+                    tree = ET.parse(os.path.join(root, content))
+                    xml_root = tree.getroot()
+                    
+                    
+                    # check if root is a model with cellml namespaces
+                    
+                    if xml_root.tag.endswith("model"):
+                        logger.debug("Found CellML file {}".format(content))
+                        file_format = CombineArchiveContentFormat.CellML
+                    # check if root is sedML
+                    
+                    elif xml_root.tag.endswith("sedML"):
+                        logger.debug("Found SED-ML file {}".format(content))
+                        file_format = CombineArchiveContentFormat.SED_ML
+                except Exception as e:
+                    logger.error(e)
+                    
+            
             is_sedml = file_format == CombineArchiveContentFormat.SED_ML
             if(is_sedml):
                 has_sedml = True
@@ -325,22 +357,32 @@ def process(metadata, project_path):
         "metadata.rdf", CombineArchiveContentFormat.OMEX_METADATA)
     combine_contents.append(metadata_content)
 
-    # Write combine archive
+    if(has_sedml):
+        pass
+    else:
+        try:
+            sedml_content = generate_sedml(contents_path)
+            combine_contents = combine_contents + sedml_content
+        except(Exception) as e:
+            logger.error(
+                "Error generating SEDML for project {}: {}".format(project_id, e))
+            errors.append(str(e))
+
     combine_archive = CombineArchive(
         contents=combine_contents,)
 
     combine_writer.run(combine_archive, contents_path, combine_archive_path)
-    if(has_sedml):
-        os.makedirs("archive", exist_ok=True)
-        # Temporary to make uploading to biosimulations easier
-        path = "archive/{}.zip".format(project_id)
-        combine_writer.run(combine_archive, contents_path, path)
+
+    os.makedirs("archives", exist_ok=True)
+    combine_archive_path = "archives/" + project_id + ".omex"
+    combine_writer.run(combine_archive, contents_path, combine_archive_path)
+
     # Remove combine input directory
     shutil.rmtree(contents_path, ignore_errors=True)
-
     project_info = {
         "identifier": project_id,
         "title": metadata["title"],
+        "description": metadata["description"],
         "has_sedml": has_sedml,
         "has_journal": journal_article is not None,
         "combine_archive_path": combine_archive_path,
@@ -350,11 +392,158 @@ def process(metadata, project_path):
     return project_info
 
 
+def generate_sedml(contents_path) -> List[CombineArchiveContent]:
+    # get a list of all the files in the contents_path and subdirectories that end in .cellml
+    cellml_files = []
+    contents = []
+    for root, dirs, files in os.walk(contents_path):
+        for file in files:
+            if file.endswith(".cellml"):
+                cellml_files.append(os.path.join(root, file))
+            if file.endswith(".xml"):
+                tree = ET.parse(os.path.join(root, file))
+                xml_root = tree.getroot()
+                # check if xml root is a model with xmlns for cellml
+                if xml_root.tag.endswith("model"):
+                    cellml_files.append(os.path.join(root, file))
+
+    # make a dict of each file name and boolean value of whether it is imported by another file
+    is_imported = {file: False for file in cellml_files}
+
+    for file in cellml_files:
+        tree = ET.parse(file)
+        root = tree.getroot()
+        for child in root:
+            if child.tag == "import":
+                imported_file = child.attrib["xlink:href"]
+                imported_file = os.path.basename(imported_file)
+                is_imported[imported_file] = True
+    # make a list of all the files that are not imported
+    non_imported_files = [
+        file for file in cellml_files if not is_imported[file]]
+
+    if len(non_imported_files) == 0:
+        raise Exception("No non imported files found")
+    # get the first non imported file
+    first_non_imported_file = non_imported_files[0]
+    for index, cellml_file in enumerate(non_imported_files):
+        print(f"Cell ML file: {cellml_file}")
+        # create  sed document for the model
+        params,  sims, vars, plots = get_parameters_variables_outputs_for_simulation(
+            cellml_file, ModelLanguage.CellML, UniformTimeCourseSimulation, "KISAO_0000019")
+
+        sedml_doc = SedDocument()
+        model = Model(
+            id='model',
+            source=os.path.basename(cellml_file),
+            language=ModelLanguage.CellML.value,
+            changes=params,
+        )
+        sedml_doc.models.append(model)
+        for i_sim, sim in enumerate(sims):
+            sedml_doc.simulations.append(sim)
+
+            if len(sims) > 1:
+                sim_suffix = '_' + str(i_sim)
+            else:
+                sim_suffix = ''
+
+            task = Task(
+                id='task' + sim_suffix,
+                model=model,
+                simulation=sim,
+            )
+            sedml_doc.tasks.append(task)
+
+            report = Report(
+                id='report' + sim_suffix,
+            )
+            sedml_doc.outputs.append(report)
+
+            var_data_gen_map = {}
+
+            for var in vars:
+                var_copy = copy.copy(var)
+                var_copy.id = '{}{}'.format(var_copy.id, sim_suffix)
+                var_copy.task = task
+                data_gen = DataGenerator(
+                    id='data_generator{}_{}'.format(sim_suffix, var_copy.id),
+                    name=var_copy.name,
+                    variables=[var_copy],
+                    math=var_copy.id,
+                )
+                sedml_doc.data_generators.append(data_gen)
+                var_data_gen_map[var] = data_gen
+
+                report.data_sets.append(DataSet(
+                    id='data_set{}_{}'.format(sim_suffix, var_copy.id),
+                    label=var_copy.id,
+                    name=var_copy.name,
+                    data_generator=data_gen,
+                ))
+
+            for plot in plots:
+                plot_copy = copy.copy(plot)
+                plot_copy.id = '{}{}'.format(plot_copy.id, sim_suffix)
+
+                if isinstance(plot, Plot2D):
+                    plot_copy.curves = []
+                    for curve in plot.curves:
+                        assert len(curve.x_data_generator.variables) == 1
+                        assert len(curve.y_data_generator.variables) == 1
+                        assert curve.x_data_generator.math == curve.x_data_generator.variables[
+                            0].id
+                        assert curve.y_data_generator.math == curve.y_data_generator.variables[
+                            0].id
+
+                        plot_copy.curves.append(Curve(
+                            id='{}{}'.format(curve.id, sim_suffix),
+                            name=curve.name,
+                            x_data_generator=var_data_gen_map[curve.x_data_generator.variables[0]],
+                            y_data_generator=var_data_gen_map[curve.y_data_generator.variables[0]],
+                            x_scale=curve.x_scale,
+                            y_scale=curve.y_scale,
+                        ))
+
+                else:
+                    plot_copy.surfaces = []
+                    for surface in plot.surfaces:
+                        assert len(curve.x_data_generator.variables) == 1
+                        assert len(curve.y_data_generator.variables) == 1
+                        assert len(curve.z_data_generator.variables) == 1
+                        assert curve.x_data_generator.math == curve.x_data_generator.variables[
+                            0].id
+                        assert curve.y_data_generator.math == curve.y_data_generator.variables[
+                            0].id
+                        assert curve.z_data_generator.math == curve.z_data_generator.variables[
+                            0].id
+
+                        plot_copy.curves.append(Surface(
+                            id='{}{}'.format(curve.id, sim_suffix),
+                            name=curve.name,
+                            x_data_generator=var_data_gen_map[curve.x_data_generator.variables[0]],
+                            y_data_generator=var_data_gen_map[curve.y_data_generator.variables[0]],
+                            z_data_generator=var_data_gen_map[curve.z_data_generator.variables[0]],
+                            x_scale=curve.x_scale,
+                            y_scale=curve.y_scale,
+                            z_scale=curve.z_scale,
+                        ))
+
+                sedml_doc.outputs.append(plot_copy)
+
+        SedmlSimulationWriter().run(sedml_doc, os.path.join(
+            contents_path, f'simulation_{index}.sedml'))
+        content = CombineArchiveContent(
+            contents_path + f'/simulation_{index}.sedml', CombineArchiveContentFormat.SED_ML, True)
+        contents.append(content)
+    return contents
+
+
 def write_metadata(metadata, project_out_dir):
 
     config = Config(
         OMEX_METADATA_OUTPUT_FORMAT=OmexMetadataOutputFormat.rdfxml)
-
+    os.makedirs(project_out_dir, exist_ok=True)
     BiosimulationsOmexMetaWriter().run(metadata, project_out_dir +
                                        "/metadata.rdf", config=config)
     metadata_file = project_out_dir+"/metadata.rdf"
