@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <model name="periodic_stimulus" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- this block of XML is used by CSim to execute a simulation (https://code.google.com/p/cellml-simulator/) -->
-    <import xlink:href="../cellLib/Components/units.cellml">
+    <import xlink:href="../components/units.cellml">
         <units name="ms" units_ref="ms"/>
         <units name="mV" units_ref="mV"/>
         <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
         <units name="mS_per_cmsq" units_ref="mS_per_cmsq"/>
     </import>
-    <import xlink:href="../cellLib/Components/time.cellml">
-        <component component_ref="time_ms" name="time"/>
-    </import>
     <import xlink:href="../components/stimulated.cellml">
         <component component_ref="action_potential" name="periodic_stimulus"/>
     </import>
-    <import xlink:href="../cellLib/Protocols/periodic-IStim-protocol.cellml">
+    <import xlink:href="periodic-IStim-protocol.cellml">
         <component component_ref="stimulus_protocol" name="stimulus_protocol"/>
+    </import>
+    <import xlink:href="time.cellml">
+        <component component_ref="time" name="time"/>
     </import>
     <import xlink:href="../components/default-variable-values.cellml">
         <component component_ref="parameters" name="default_parameters_cell"/>
@@ -34,7 +34,7 @@
     <!-- Define the stimulus protocol parameter values -->
     <component name="stimulus_protocol_params">
         <variable initial_value="50" name="stimPeriod" public_interface="out" units="ms"/>
-        <variable initial_value="1" name="stimDuration" public_interface="out" units="ms"/>
+        <variable initial_value="0.5" name="stimDuration" public_interface="out" units="ms"/>
         <variable initial_value="0.0" name="stimCurrent" public_interface="out" units="uA_per_cmsq"/>
     </component>
     <!-- and connect the parameters to the protocol definition -->
@@ -69,10 +69,6 @@
         <map_variables variable_1="gNa_max" variable_2="gNa_max"/>
         <map_variables variable_1="gK_max" variable_2="gK_max"/>
         <map_variables variable_1="gleak_max" variable_2="gleak_max"/>
-        <map_variables variable_1="T0Na" variable_2="T0Na"/>
-        <map_variables variable_1="Q10Na" variable_2="Q10Na"/>
-        <map_variables variable_1="T0K" variable_2="T0K"/>
-        <map_variables variable_1="Q10K" variable_2="Q10K"/>
     </connection>
     <connection>
         <map_components component_1="periodic_stimulus" component_2="parameters"/>
@@ -84,6 +80,7 @@
         <map_variables variable_1="m_initial" variable_2="m_initial"/>
         <map_variables variable_1="h_initial" variable_2="h_initial"/>
         <map_variables variable_1="n_initial" variable_2="n_initial"/>
+        <map_variables variable_1="T" variable_2="T"/>
     </connection>
     <connection>
         <map_components component_1="boundary_conditions" component_2="gate_initials"/>
@@ -99,13 +96,11 @@
         <variable name="INa" public_interface="in" units="uA_per_cmsq"/>
         <variable name="IK" public_interface="in" units="uA_per_cmsq"/>
         <variable name="Ileak" public_interface="in" units="uA_per_cmsq"/>
-        <variable name="Ii" public_interface="in" units="uA_per_cmsq"/>
         <variable name="g" public_interface="in" units="mS_per_cmsq"/>
         <variable name="gK" public_interface="in" units="mS_per_cmsq"/>
         <variable name="gNa" public_interface="in" units="mS_per_cmsq"/>
         <variable name="V" public_interface="in" units="mV"/>
         <variable name="minus_V" public_interface="in" units="mV"/>
-        <variable name="Istim" public_interface="in" units="uA_per_cmsq"/>
         <variable name="h" public_interface="in" units="dimensionless"/>
         <variable name="m" public_interface="in" units="dimensionless"/>
         <variable name="n" public_interface="in" units="dimensionless"/>
@@ -116,7 +111,6 @@
         <map_variables variable_1="INa" variable_2="INa"/>
         <map_variables variable_1="IK" variable_2="IK"/>
         <map_variables variable_1="Ileak" variable_2="Ileak"/>
-        <map_variables variable_1="Ii" variable_2="Ii"/>
         <map_variables variable_1="V" variable_2="V"/>
         <map_variables variable_1="minus_V" variable_2="minus_V"/>
         <map_variables variable_1="h" variable_2="h"/>
@@ -125,10 +119,6 @@
         <map_variables variable_1="g" variable_2="g"/>
         <map_variables variable_1="gK" variable_2="gK"/>
         <map_variables variable_1="gNa" variable_2="gNa"/>
-    </connection>
-    <connection>
-        <map_components component_1="outputs" component_2="stimulus_protocol"/>
-        <map_variables variable_1="Istim" variable_2="IStim"/>
     </connection>
     <!-- and connect the time output to the source time variable -->
     <connection>

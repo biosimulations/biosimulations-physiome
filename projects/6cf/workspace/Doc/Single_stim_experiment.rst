@@ -54,7 +54,14 @@ Figure [#]_ shows simulations of :math:`Ca_i^{2+}` rise and decay following a 20
    
    Simulated :math:`Ca_i^{2+}` rise and decay.
 
-The experiment setting to reproduce primary Figure 5A and 5B are the same as the one used in primary Figure 2B and Figure 3A, respectively.
+The experiment setting to reproduce Figure 5 is summarized in the following:
+
+.. figure::  ../Simulation/table2.png
+   :width: 75%
+   :align: center
+   :alt: table2
+      
+   Experiment setting.
 
 Figure [#]_ shows simulations of :math:`Ca^{2+}` fluxes through various :math:`Ca^{2+}` control mechanisms. Plot A shows :math:`Ca^{2+}` flux through :math:`Na^{+}/Ca^{2+}` exchangers and :math:`Ca^{2+}` pumps during :math:`Ca_i^{2+}` decay for a holding potential of -80 mV followed by a 750 ms voltage pulse to 0 mV, while plot B shows :math:`Ca^{2+}` flux through :math:`Ca^{2+}` channels and :math:`Ca^{2+}` extraction mechanisms during :math:`Ca^{2+}` rise and decay in response to a 200 ms voltage pulse to 0 mV from a holding potential of -50 mV.
 
@@ -66,5 +73,3 @@ Figure [#]_ shows simulations of :math:`Ca^{2+}` fluxes through various :math:`C
    :alt: simFig5
          
    Simulated :math:`Ca^{2+}` fluxes through various :math:`Ca_i^{2+}` control mechanisms.         
-
-

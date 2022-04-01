@@ -8,7 +8,7 @@ prefilename = 'simFig13_'
 prefig = 'Fig13'
 figfile = 'sim%s.png' % prefig
 # Set figure dimension (width, height) in inches.
-fw, fh = 9, 6
+fw, fh = 12, 10
 fig = plt.figure(figsize=(fw,fh))
 fig.tight_layout()
 # Set subplots
@@ -71,7 +71,7 @@ for i, ifile in enumerate(fileindex):
     else:
         ax[i].set_xticklabels([])
 
-ax[i].set_title('%s in the primary publication' % (prefig))
+ax[i].set_title('%s in the paper' % (prefig))
  
     
 plt.savefig(figfile)        

@@ -14,10 +14,10 @@ Sensitivity Analysis for :math:`Na_i^{+}`
 
 Figure [#]_ A uses the settings in `Single stimulation experiment <Experiments/Single_stim_experiment.cellml/view>`_ and the values are list in the following.
 
-.. figure::  ../Simulation/table2.png
+.. figure::  ../Simulation/table3.png
    :width: 75%
    :align: center
-   :alt: table2
+   :alt: table3
 
    Experiment setting.
 

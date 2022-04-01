@@ -47,7 +47,7 @@ For the following figure, all enzymes of a given reaction are shown in maroon.
 
 For the above bond-graphs, a '0' node refers to a junction where all chemical potentials are the same. A '1' node refers to all fluxes being the same going in and out of the junction.
 
-.. csv-table:: List of chemical species
+.. csv-table:: List of abbreviations
    :header: "Abbreviation", "Name"
    :widths: 5, 15 
    

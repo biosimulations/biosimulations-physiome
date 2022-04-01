@@ -1,7 +1,7 @@
 About this model
 ====================
 
-This is a bond-graph model of the metabolism of the G-protein coupled receptor (:math:`{\beta}`-1 adrenergic receptor, R) and the associated Gs protein in the cardiac cell.
+This is a bond-graph model of the metabolism of the G-protein coupled receptor (beta-1 adrenergic receptor, R) and the associated Gs protein in the cardiac cell.
 
     **INPUTS:** 
         - Ligand (L) stimulus e.g. isoproterenol 
@@ -49,22 +49,6 @@ For the following figures, all enzymes are shown in maroon.
 
 For the above bond-graphs, a '0' node refers to a junction where all chemical potentials are the same. A '1' node refers to all fluxes being the same going in and out of the junction.
 
-.. csv-table:: List of chemical species
-   :header: "Abbreviation", "Name"
-   :widths: 5, 15 
-   
-   "Gs", "Gs protein"
-   "Gs\ :math:`{\alpha}`\", "Alpha subunit of the Gs protein"
-   "Gs\ :math:`{\beta\gamma}`\", "Beta and gamma subunits of the Gs protein"
-   "GDP", "Guanosine diphosphate"
-   "GRK", "G protein-coupled receptor kinase"
-   "GTP", "Guanosine triphosphate"
-   "L", "Ligand"
-   "P\ :sub:`i`", "Phosphate"
-   "R", "Receptor (:math:`{\beta}`-1 adrenergic receptor)"
-   "R\ :sub:`i`", "Receptor (inactive form)"
-   "R\ :sub:`tag`", "Receptor tagged for internalisation by GRK"
-   
 Parameter finding
 ~~~~~~~~~~~~~~~~~
 A description of the process to find bond-graph parameters is shown in the folder    `parameter_finder <parameter_finder>`_, which relies on the:

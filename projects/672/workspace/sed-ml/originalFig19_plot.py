@@ -42,41 +42,30 @@ h_data = data[h_name]
 T_data = data['parameters/T']
 
 ax[1] = fig.add_subplot(subpRow, subpCol, 1)
-ax[1].plot(x_data, y_data, color=cycle[0], label = 'CellML -V @ %d mV, %0.1f ℃' % (V_initial, T_data[1] ) )
-ax[1].plot(ox_data[0], oy_data[0], '.', color=cycle[0], label = 'HH -V @ %d mV, %0.1f ℃' % (V_initial, T_data[1] ) )
-ax[1].set_ylabel ('A: -V (mV)', fontsize= labelfontsize)
-start, end = ax[1].get_xlim()
-stepsize = 1
-ax[1].xaxis.set_ticks(np.arange(start, end, stepsize))
-ax[1].tick_params(direction='in', axis='both',which ='major') 
-plt.axhline(y=0.0, color="black", linestyle="--")
+ax[1].plot(x_data, y_data, color=cycle[0], label = 'CellML model -V @ %d mV, %0.1f ℃' % (V_initial, T_data[1] ) )
+ax[1].plot(ox_data[0], oy_data[0], '.', color=cycle[0], label = 'HH model -V @ %d mV, %0.1f ℃' % (V_initial, T_data[1] ) )
+ax[1].set_ylabel ('-V (mV)', fontsize= labelfontsize)
+
 ax[1].legend(frameon=False,loc= 'best')
 
 ax[2] = fig.add_subplot(subpRow, subpCol, 2)
-label1 = 'CellML $g_K$ @ %d mV, %0.1f ℃' % (V_initial, T_data[1] ) 
+label1 = 'CellML model g @ %d mV, %0.1f ℃' % (V_initial, T_data[1] ) 
 lns1 = ax[2].plot(x_data, g_data,  color=cycle[0] )
-label2 = 'HH $g_K$ @ %d mV, %0.1f ℃' % (V_initial, T_data[1] )
+label2 = 'HH model g @ %d mV, %0.1f ℃' % (V_initial, T_data[1] )
 lns2 = ax[2].plot(ox_data[1], oy_data[1], '.', color=cycle[0] )
-ax[2].set_ylabel ('B: $g_K$ (mS/$cm^2$)', fontsize= labelfontsize)
-ax[2].set_xlim([start, end])
-ax[2].xaxis.set_ticks(np.arange(start, end, stepsize))
-ax[2].tick_params(direction='in', axis='both',  which ='major')
+ax[2].set_ylabel ('g (mS/$cm^2$)', fontsize= labelfontsize)
 
 ax[3] = ax[2].twinx()
-label3 = 'CellML h @ %d mV, %0.1f ℃' % (V_initial, T_data[1] )
+label3 = 'CellML model h @ %d mV, %0.1f ℃' % (V_initial, T_data[1] )
 lns3 = ax[3].plot(x_data, h_data,  color=cycle[1])
-label4 = 'HH h @ %d mV, %0.1f ℃' % (V_initial, T_data[1] )
+label4 = 'HH model h @ %d mV, %0.1f ℃' % (V_initial, T_data[1] )
 lns4 = ax[3].plot(ox_data[2], oy_data[2], '.', color=cycle[1])
-ax[3].set_ylabel ('B: h', fontsize= labelfontsize)
+ax[3].set_ylabel ('h', fontsize= labelfontsize)
 
 ax[3].set_xlabel ('time(ms)', fontsize= labelfontsize)
 lns = lns1 + lns2 + lns3 + lns4
 ax[2].legend(lns, [label1, label2, label3, label4], frameon=False, loc= 'center right')
 
-ax[1].set_title('%s in the primary publication' % (prefig))
-
-ax[1].grid(axis='x',linestyle='-.')
-ax[2].grid(axis='x',linestyle='-.')
 plt.savefig(figfile)        
 plt.show()
 

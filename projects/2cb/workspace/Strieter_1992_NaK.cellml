@@ -2,124 +2,93 @@
 <!-- This CellML file was generated from:
  Strieter, J., et al. "A mathematical model of the rabbit cortical collecting tubule." American Journal of Physiology-Renal Physiology 263.6 (1992): F1063-F1075.-->
 <model cmeta:id="Strieter_1992_NaK" name="Strieter_1992_NaK" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<rdf:Description rdf:about="">
+			<dc:title>A kinetic model of Na+/K+-ATPase (sodium-potassium pump)</dc:title>
+		</rdf:Description>
+		<rdf:Description rdf:about="#Strieter_1992_NaK">
+			<bqs:reference rdf:parseType="Resource">
+				<dc:subject rdf:parseType="Resource">
+					<bqs:subject_type>keyword</bqs:subject_type>
+					<rdf:value>
+						<rdf:Bag>
+							<rdf:li>protein module</rdf:li>
+						</rdf:Bag>
+					</rdf:value>
+				</dc:subject>
+			</bqs:reference>
+		</rdf:Description>
+	</rdf:RDF>
+    
     <import xlink:href="Units/Units.cellml">
-        <units name="mV" units_ref="mV"/>
         <units name="mM" units_ref="mM"/>
-        <units name="C_per_mol" units_ref="C_per_mol"/>
-        <units name="mJ_per_mol_per_kelvin" units_ref="mJ_per_mol_per_kelvin"/>
-        <units name="umol_per_s_per_cm2" units_ref="umol_per_s_per_cm2"/>
-        <units name="mA_per_cm2" units_ref="mA_per_cm2"/>
+        <units name="mM_per_s" units_ref="mM_per_s"/>
     </import>
     <component name="NaK">
-        <variable name="V" public_interface="in" units="mV"/>
         <variable name="Na_int" public_interface="in" units="mM"/>
         <variable name="Na_ext" public_interface="in" units="mM"/>
         <variable name="K_int" public_interface="in" units="mM"/>
         <variable name="K_ext" public_interface="in" units="mM"/>
-        <variable initial_value="13" name="K_mNa" units="mM"/>
-        <variable initial_value="1" name="K_mK" units="mM"/>
-        <variable name="sigma" units="dimensionless"/>
-        <variable name="f_1" units="dimensionless"/>
-        <variable initial_value="96485" name="F" units="C_per_mol"/>
-        <variable initial_value="8314.41" name="R" units="mJ_per_mol_per_kelvin"/>
-        <variable initial_value="300" name="T" units="kelvin"/>
-        <variable name="J_NaK_max" public_interface="in" units="umol_per_s_per_cm2"/>
-        <variable name="J_NaK" public_interface="out" units="umol_per_s_per_cm2"/>
-        <variable name="I_NaK" public_interface="out" units="mA_per_cm2"/>
+        <variable name="NH4_ext" public_interface="in" units="mM"/>
+        <variable name="K_Na" units="mM"/>
+        <variable name="K_K" units="mM"/>
+        <variable name="K_NH4" units="mM"/>
+        <variable initial_value="10.8" name="J_NaK_Na_Max" units="mM_per_s"/>
+        <variable name="J_NaK_Na" public_interface="out" units="mM_per_s"/>
+        <variable name="J_NaK_K" public_interface="out" units="mM_per_s"/>
+        <variable name="J_NaK_NH4" public_interface="out" units="mM_per_s"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
-                <ci>sigma</ci>
+                <ci>K_Na</ci>
                 <apply>
                     <times/>
-                    <apply>
-                        <divide/>
-                        <cn cellml:units="dimensionless">1</cn>
-                        <cn cellml:units="dimensionless">7</cn>
-                    </apply>
-                    <apply>
-                        <minus/>
-                        <apply>
-                            <exp/>
-                            <apply>
-                                <divide/>
-                                <ci>Na_ext</ci>
-                                <cn cellml:units="mM">67.3</cn>
-                            </apply>
-                        </apply>
-                        <cn cellml:units="dimensionless">1</cn>
-                    </apply>
-                </apply>
-            </apply>
-            <apply>
-                <eq/>
-                <ci>f_1</ci>
-                <apply>
-                    <power/>
+                    <cn cellml:units="mM">0.2</cn>
                     <apply>
                         <plus/>
                         <cn cellml:units="dimensionless">1</cn>
                         <apply>
-                            <times/>
-                            <cn cellml:units="dimensionless">0.12</cn>
-                            <apply>
-                                <exp/>
-                                <apply>
-                                    <divide/>
-                                    <apply>
-                                        <times/>
-                                        <apply>
-                                            <minus/>
-                                            <cn cellml:units="dimensionless">0.1</cn>
-                                        </apply>
-                                        <ci>V</ci>
-                                        <ci>F</ci>
-                                    </apply>
-                                    <apply>
-                                        <times/>
-                                        <ci>R</ci>
-                                        <ci>T</ci>
-                                    </apply>
-                                </apply>
-                            </apply>
+                            <divide/>
+                            <ci>K_int</ci>
+                            <cn cellml:units="mM">8.33</cn>
                         </apply>
-                        <apply>
-                            <times/>
-                            <cn cellml:units="dimensionless">0.04</cn>
-                            <ci>sigma</ci>
-                            <apply>
-                                <exp/>
-                                <apply>
-                                    <divide/>
-                                    <apply>
-                                        <times/>
-                                        <apply>
-                                            <minus/>
-                                            <ci>V</ci>
-                                        </apply>
-                                        <ci>F</ci>
-                                    </apply>
-                                    <apply>
-                                        <times/>
-                                        <ci>R</ci>
-                                        <ci>T</ci>
-                                    </apply>
-                                </apply>
-                            </apply>
-                        </apply>
-                    </apply>
-                    <apply>
-                        <minus/>
-                        <cn cellml:units="dimensionless">1</cn>
                     </apply>
                 </apply>
             </apply>
             <apply>
                 <eq/>
-                <ci>J_NaK</ci>
+                <ci>K_K</ci>
                 <apply>
                     <times/>
-                    <ci>J_NaK_max</ci>
+                    <cn cellml:units="mM">0.1</cn>
+                    <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                            <divide/>
+                            <ci>Na_ext</ci>
+                            <cn cellml:units="mM">18.5</cn>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>K_NH4</ci>
+                <apply>
+                    <times/>
+                    <cn cellml:units="dimensionless">0.2</cn>
+                    <ci>K_K</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_NaK_Na</ci>
+                <apply>
+                    <times/>
+                    <ci>J_NaK_Na_Max</ci>
                     <apply>
                         <power/>
                         <apply>
@@ -128,7 +97,7 @@
                             <apply>
                                 <plus/>
                                 <ci>Na_int</ci>
-                                <ci>K_mNa</ci>
+                                <ci>K_Na</ci>
                             </apply>
                         </apply>
                         <cn cellml:units="dimensionless">3</cn>
@@ -141,7 +110,7 @@
                             <apply>
                                 <plus/>
                                 <ci>K_ext</ci>
-                                <ci>K_mK</ci>
+                                <ci>K_K</ci>
                             </apply>
                         </apply>
                         <cn cellml:units="dimensionless">2</cn>
@@ -150,33 +119,68 @@
             </apply>
             <apply>
                 <eq/>
-                <ci>I_NaK</ci>
+                <ci>J_NaK_K</ci>
+                <apply>
+                    <divide/>
+                    <apply>
+                        <times/>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <minus/>
+                                <cn cellml:units="dimensionless">2</cn>
+                            </apply>
+                            <cn cellml:units="dimensionless">3</cn>
+                        </apply>
+                        <ci>J_NaK_Na</ci>
+                    </apply>
+                    <apply>
+                        <plus/>
+                        <cn cellml:units="dimensionless">1</cn>
+                        <apply>
+                            <divide/>
+                            <apply>
+                                <times/>
+                                <ci>NH4_ext</ci>
+                                <ci>K_K</ci>
+                            </apply>
+                            <apply>
+                                <times/>
+                                <ci>K_ext</ci>
+                                <ci>K_NH4</ci>
+                            </apply>
+                        </apply>
+                    </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>J_NaK_NH4</ci>
                 <apply>
                     <times/>
-                    <ci>f_1</ci>
-                    <ci>F</ci>
-                    <ci>J_NaK</ci>
+                    <ci>J_NaK_K</ci>
+                    <apply>
+                        <power/>
+                        <apply>
+                            <divide/>
+                            <ci>NH4_ext</ci>
+                            <ci>K_NH4</ci>
+                        </apply>
+                        <cn cellml:units="dimensionless">1</cn>
+                    </apply>
+                    <apply>
+                        <power/>
+                        <apply>
+                            <divide/>
+                            <ci>K_K</ci>
+                            <ci>K_ext</ci>
+                        </apply>
+                        <cn cellml:units="dimensionless">1</cn>
+                    </apply>
                 </apply>
             </apply>
         </math>
     </component>
-    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
-            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A kinetic model of Na+/K+-ATPase (sodium-potassium pump)</dc:title>
-        </rdf:Description>
-        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#Strieter_1992_NaK">
-            <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                    <bqs:subject_type xmlns:bqs="http://www.cellml.org/bqs/1.0#">keyword</bqs:subject_type>
-                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                        <rdf:Bag xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">protein module</rdf:li>
-                        </rdf:Bag>
-                    </rdf:value>
-                </dc:subject>
-            </bqs:reference>
-        </rdf:Description>
-    </rdf:RDF>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <!--
       The following RDF block contains metadata that applies to this document

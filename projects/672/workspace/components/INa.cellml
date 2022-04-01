@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <model name="INa" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <import xlink:href="../cellLib/Components/units.cellml">
+    <import xlink:href="units.cellml">
         <units name="ms" units_ref="ms"/>
         <units name="mV" units_ref="mV"/>
         <units name="per_ms" units_ref="per_ms"/>
@@ -8,10 +8,10 @@
         <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
         <units name="mS_per_cmsq" units_ref="mS_per_cmsq"/>
     </import>
-    <import xlink:href="../cellLib/Components/gating-variable.cellml">
+    <import xlink:href="gating-variable.cellml">
         <component component_ref="hh_gating_variable" name="m_gate"/>
     </import>
-    <import xlink:href="../cellLib/Components/gating-variable.cellml">
+    <import xlink:href="gating-variable.cellml">
         <component component_ref="hh_gating_variable" name="h_gate"/>
     </import>
     <import xlink:href="INa-gating-rates.cellml">
@@ -19,6 +19,9 @@
         <component component_ref="beta_m" name="beta_m"/>
         <component component_ref="alpha_h" name="alpha_h"/>
         <component component_ref="beta_h" name="beta_h"/>
+    </import>
+    <import xlink:href="temperature_factor.cellml">
+        <component component_ref="temperature_factor" name="temperature_factor"/>
     </import>
     <component name="INa">
         <variable name="INa" private_interface="out" public_interface="out" units="uA_per_cmsq"/>
@@ -31,9 +34,7 @@
         <variable name="VNa" private_interface="out" public_interface="in" units="mV"/>
         <variable name="gNa" private_interface="out" public_interface="out" units="mS_per_cmsq"/>
         <variable name="gNa_max" private_interface="out" public_interface="in" units="mS_per_cmsq"/>
-        <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="T0Na" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="Q10Na" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="T" private_interface="out" public_interface="in" units="kelvin" />
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply id="INa_calculation">
                 <eq/>
@@ -73,25 +74,40 @@
             <component_ref component="beta_h"/>
             <component_ref component="m_gate"/>
             <component_ref component="h_gate"/>
+            <component_ref component="temperature_factor"/>
         </component_ref>
     </group>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="INa"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="alpha_m"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="beta_m"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="alpha_h"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="beta_h"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
     <connection>
         <map_components component_1="INa" component_2="m_gate"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="m_initial" variable_2="X_initial"/>
         <map_variables variable_1="m" variable_2="X"/>
-        <map_variables variable_1="T0Na" variable_2="T_0"/>
-        <map_variables variable_1="Q10Na" variable_2="Q_10"/>
-        <map_variables variable_1="T" variable_2="T"/>
     </connection>
     <connection>
         <map_components component_1="INa" component_2="h_gate"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="h_initial" variable_2="X_initial"/>
         <map_variables variable_1="h" variable_2="X"/>
-        <map_variables variable_1="T0Na" variable_2="T_0"/>
-        <map_variables variable_1="Q10Na" variable_2="Q_10"/>
-        <map_variables variable_1="T" variable_2="T"/>
     </connection>
     <connection>
         <map_components component_1="INa" component_2="alpha_m"/>

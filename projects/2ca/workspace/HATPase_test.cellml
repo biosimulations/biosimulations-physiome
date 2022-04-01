@@ -6,9 +6,7 @@
 <model cmeta:id="Weinstein_2000_HATPase" name="Weinstein_2000_HATPase" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
     <import xlink:href="Units/Units.cellml">
         <units name="mM" units_ref="mM"/>
-        <units name="per_s" units_ref="per_s"/>
-        <units name="mV" units_ref="mV"/>
-        <units name="umol_per_s_per_cm2" units_ref="umol_per_s_per_cm2"/>
+        <units name="mM_per_s" units_ref="mM_per_s"/>
     </import>
     <import xlink:href="Weinstein_2000_HATPase.cellml">
         <component component_ref="H_ATPase" name="H_ATPase"/>
@@ -20,9 +18,9 @@
         <variable name="time" public_interface="in" units="second"/>
         <variable name="H_int" public_interface="out" units="mM"/>
         <variable name="H_ext" public_interface="out" units="mM"/>
-        <variable initial_value="-30.0" name="psi_int" units="mV"/>
-        <variable initial_value="0.0" name="psi_ext" units="mV"/>
-        <variable name="psi" public_interface="out" units="mV"/>
+        <variable initial_value="-0.03" name="psi_int" units="volt"/>
+        <variable initial_value="0.0" name="psi_ext" units="volt"/>
+        <variable name="psi" public_interface="out" units="volt"/>
         <variable initial_value="7.5" name="pH_int" units="dimensionless"/>
         <variable initial_value="4.0" name="pH_ext" units="dimensionless"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -40,7 +38,7 @@
                 <ci>H_int</ci>
                 <apply>
                     <times/>
-                    <cn cellml:units="mM" type="e-notation">1<sep/>3</cn>
+                    <cn cellml:units="mM">1e3</cn>
                     <apply>
                         <power/>
                         <cn cellml:units="dimensionless">10</cn>
@@ -56,7 +54,7 @@
                 <ci>H_ext</ci>
                 <apply>
                     <times/>
-                    <cn cellml:units="mM" type="e-notation">1<sep/>3</cn>
+                    <cn cellml:units="mM">1e3</cn>
                     <apply>
                         <power/>
                         <cn cellml:units="dimensionless">10</cn>
@@ -92,8 +90,8 @@
         </math>
     </component>
     <component name="fluxes">
-        <variable name="J_Vtype_H_Max" public_interface="in" units="umol_per_s_per_cm2"/>
-        <variable name="J_Vtype_H" public_interface="in" units="umol_per_s_per_cm2"/>
+        <variable name="J_Vtype_H_Max" public_interface="in" units="mM_per_s"/>
+        <variable name="J_Vtype_H" public_interface="in" units="mM_per_s"/>
         <variable name="plot" units="dimensionless"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

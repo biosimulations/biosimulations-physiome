@@ -17,8 +17,7 @@ DESCRIPTION :  This file contains a CellML description of Yi et al's 2003 mathem
 CHANGES:  
   09/04/2003 - AAC - Added publication date information.  
   02/05/2005 - PJV - Changed unit dimensions to make them consistent.
--->
-<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="yi_2003" name="yi_2003">
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="yi_fogelson_keener_peskin_2003_version01" name="yi_fogelson_keener_peskin_2003_version01">
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
   <articleinfo>
@@ -27,7 +26,7 @@ CHANGES:
     <firstname>Catherine</firstname>
           <surname>Lloyd</surname>
     <affiliation>
-      <shortaffil>Auckland Bioengineering Institute, The University of Auckland</shortaffil>
+      <shortaffil>Bioengineering Institute, University of Auckland</shortaffil>
     </affiliation>
   </author>
 </articleinfo>
@@ -42,15 +41,29 @@ CHANGES:
 <title>Model Structure</title>
 
 <para>
-ABSTRACT: The response of tissue to ischemia (cessation of blood flow and deprivation of oxygen) includes swelling of the intracellular space, shrinkage of the extracellular space, and an increase in the extracellular potassium concentration. The responses of cardiac and brain tissue to ischemia are qualitatively different in that cardiac tissue shows a rise in extracellular potassium over several minutes from about 5 to 10-12 mM followed by a plateau, while brain tissue shows a similar initial rise followed by a very rapid increase in extracellular potassium to levels of 50-80 mM. During hypoxia the flow of blood (or perfusate) is maintained and, while there is a substantial efflux of potassium from cells, there is little accumulation of potassium in the interstitium. A mathematical model is proposed and studied to try to elucidate the mechanism(s) underlying the increase in extracellular potassium, and the different time courses seen in neural and cardiac tissue. The model involves a Hodgkin-Huxley-type description of transmembrane ion currents, allows for ion concentrations as well as volumes to change for both the intracellular and extracellular space, and includes coupling of damaged tissue to nearby healthy tissue. The model produces a response to ischemia much like that seen in neural tissue, and the mechanism underlying this response in the model is determined. The same mechanism is not present in cardiac ion models, and this may explain the qualitative difference in response shown in cardiac tissue.    
+Ischemia arises when both blood flow and oxygen transport to a tissue stop, while hypoxia describes a condition where normal blood flow continues but there is a reduction in the supply of oxygen to the tissue.  For both hypoxia and ischemia, depriving the tissue of oxygen causes cells to switch from aerobic to anaerobic respiration.  This results in reduced ATP synthesis, which in turn decreases the effectiveness of the cell membrane ion pumps, especially the Na-K-ATPase pump.  Additionally, in the case of ischemia, reduced blood flow has the effect of reducing the tissue's supply of metabolic substrates, and it also reduces the efficiency of waste product removal.     
 </para>
 
 <para>
-The original paper reference is cited below:
+Ischemia and hypoxia have been experimentally studied in a wide variety of species and different tissue types.  Tissue responses to ischemia include swelling of the intracellular space, shrinkage of the extracellular space, and an increase in the extracellular potassium concentration ([K<superscript>+</superscript>]<subscript>e</subscript>).  In neural tissue, this increase in extracellular potassium concentration occurs in two stages; an initial rapid increase from about 5 mM to 55 mM, followed by a slower increase up to 80 mM.  In cardiac myocytes, there are generally three phases observed: a rapid increase, a relative plateau, and a second, slower increase.  These increases in extracellular potassium concentration may have important pathological consequences.  For example, in cardiac ischemia, the increased [K<superscript>+</superscript>]<subscript>e</subscript> may cause arrhythmias.
 </para>
 
 <para>
-A Mathematical Study of Volume Shifts and Ionic Concentration Changes during Ischemia and Hypoxia, Chung-Seon Yi, Aaron L. Fogelson, James P. Keener, and Charles S. Peskin, 2003, <emphasis>Theoretical Journal of Biology</emphasis>, 220, 83-106. <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=12453453&amp;dopt=Abstract">PubMed ID: 12453453</ulink> 
+In 2003, Chung-Seon Yi, Aaron L. Fogelson, James P. Keener, and Charles S. Peskin studied the possible mechanisms underlying extracellular potassium accumulation during ischemia.  They developed a simple Hodgkin-Huxley type ionic model, which unlike other previously published models of cardiac myocytes, includes extracellular volume, capillary flow and the influence of nearby healthy tissue as variables (see figure 1 and figure 2 below).  The model describes events in a tissue consisting of a collection of homogeneous cells subject to ischemia or hypoxia, a homogeneous extracellular space surrounding three cells, a capillary compartment representing the vasculature for this piece of tissue, and another compartment corresponding to the healthy tissue surrounding the ischemic or hypoxic tissue.  The first three compartments combine to form the damaged tissue.  
+</para>
+
+<para>
+Model simulations produce a response to ischemia similar to that seen in neural tissue, and the mechanisms underlying this process in the model is elucidated.  However, Yi <emphasis>et al.</emphasis> found that the same underlying mechanism is not present in the cardiac ion model, and they suggest that this difference may explain the qualitative difference in response observed in cardiac tissue.
+</para>
+
+<para>
+The complete original paper reference is cited below:
+</para>
+
+<para>
+<ulink url="http://www.sciencedirect.com/science?_ob=ArticleURL&amp;_udi=B6WMD-4789XHH-8&amp;_user=140507&amp;_coverDate=01%2F07%2F2003&amp;_rdoc=8&amp;_fmt=summary&amp;_orig=browse&amp;_srch=%23toc%236932%232003%23997799998%23365817!&amp;_cdi=6932&amp;_sort=d&amp;_docanchor=&amp;wchp=dGLbVzz-lSztz&amp;_acct=C000011498&amp;_version=1&amp;_urlVersion=0&amp;_userid=140507&amp;md5=d49670d50ea95b76f07fd616d782751a">A Mathematical Study of Volume Shifts and Ionic Concentration Changes during Ischemia and Hypoxia</ulink>, Chung-Seon Yi, Aaron L. Fogelson, James P. Keener, and Charles S. Peskin, 2003, <ulink url="http://www.sciencedirect.com/science?_ob=JournalURL&amp;_cdi=6932&amp;_auth=y&amp;_acct=C000011498&amp;_version=1&amp;_urlVersion=0&amp;_userid=140507&amp;md5=c8e64d20ff203cda2255f4b6b7affe4f">
+            <emphasis>Theoretical Journal of Biology</emphasis>
+          </ulink>, 220, 83-106. (A PDF version of the article is available to subscribers of the Theoretical Journal of Biology.)  <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=12453453&amp;dopt=Abstract">PubMed ID: 12453453</ulink> 
 </para>
 
 <informalfigure float="0" id="fig_schematic_diagram">
@@ -81,6 +94,11 @@ A Mathematical Study of Volume Shifts and Ionic Concentration Changes during Isc
 </article>
 </documentation>
   
+  
+  <!--
+    Below, we define some additional units for association with variables and
+    constants within the model.
+  -->
   
   <units name="millivolt">
     <unit units="volt" prefix="milli"/>
@@ -2329,7 +2347,7 @@ A Mathematical Study of Volume Shifts and Ionic Concentration Changes during Isc
     <vCard:Family>Keener</vCard:Family>
     <vCard:Other>P</vCard:Other>
   </rdf:Description>
-  <rdf:Description rdf:about="#yi_2003">
+  <rdf:Description rdf:about="#yi_fogelson_keener_peskin_2003_version01">
     <dc:title>
         Yi et al's 2003 mathematical model of volume shifts and ionic 
         concentration changes during ischemia and hypoxia. 

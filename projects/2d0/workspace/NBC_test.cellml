@@ -4,9 +4,7 @@
 <model cmeta:id="Ostby_2009_NBC" name="Ostby_2009_NBC" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
     <import xlink:href="Units/Units.cellml">
         <units name="mM" units_ref="mM"/>
-        <units name="mV" units_ref="mV"/>
         <units name="mM_per_s" units_ref="mM_per_s"/>
-        <units name="umol_per_s_per_cm2" units_ref="umol_per_s_per_cm2"/>
     </import>
     <import xlink:href="Ostby_2009_NBC.cellml">
         <component component_ref="NBC" name="NBC"/>
@@ -16,7 +14,7 @@
     </component>
     <component name="concentrations">
         <variable name="time" public_interface="in" units="second"/>
-        <variable initial_value="-0.032" name="V_m" public_interface="out" units="mV"/>
+        <variable initial_value="-0.032" name="V_m" public_interface="out" units="volt"/>
         <variable initial_value="15.0" name="Na_int" public_interface="out" units="mM"/>
         <variable initial_value="146.0" name="Na_ext" public_interface="out" units="mM"/>
         <variable initial_value="9.0" name="HCO3_int" public_interface="out" units="mM"/>
@@ -36,8 +34,8 @@
         </math>
     </component>
     <component name="fluxes">
-        <variable name="J_NBC_Na" public_interface="in" units="umol_per_s_per_cm2"/>
-        <variable name="J_NBC_HCO3" public_interface="in" units="umol_per_s_per_cm2"/>
+        <variable name="J_NBC_Na" public_interface="in" units="mM_per_s"/>
+        <variable name="J_NBC_HCO3" public_interface="in" units="mM_per_s"/>
     </component>
     <connection>
         <map_components component_1="concentrations" component_2="NBC"/>

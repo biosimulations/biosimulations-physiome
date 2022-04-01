@@ -22,7 +22,7 @@ duration = 140
 Cai=[5.38843941249284e-5, 0.11]
 T=297
 # Define the interval of interest for this simulation experiment
-start, end, pointInterval = 0, t_ss+duration, 0.01
+start, end, pointInterval = 0, t_ss+duration, 0.1
 data.set_starting_point(start)
 data.set_ending_point(end)
 data.set_point_interval(pointInterval)

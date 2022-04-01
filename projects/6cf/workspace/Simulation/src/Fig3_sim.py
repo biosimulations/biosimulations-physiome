@@ -18,8 +18,8 @@ data = simulation.data()
 Vholding, t_ss = -50, 0
 duration = 0.2
 #Nai=16.55
-Nai=[ 2.9836]
-Cai_init = 130e-6
+Nai=[ 2.9836,16.55]
+Cai_init = 123e-6
 # Define the interval of interest for this simulation experiment
 start, pointInterval = 0, 0.001
 data.set_starting_point(start)

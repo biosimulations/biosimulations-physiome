@@ -8,7 +8,7 @@ http://COR.physiol.ox.ac.uk/ - COR@physiol.ox.ac.uk
 
 CellML 1.0 was used to generate this model
 http://www.CellML.org/
---><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xml:base="file:///H:/yamaguchi_takaki_matsubara_yasuhara_suga_1996/yamaguchi_takaki_matsubara_yasuhara_suga_1996.cellml" cmeta:id="yamaguchi_takaki_matsubara_yasuhara_suga_1996" name="yamaguchi_takaki_matsubara_yasuhara_suga_1996">
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="yamaguchi_takaki_matsubara_yasuhara_suga_1996" name="yamaguchi_takaki_matsubara_yasuhara_suga_1996">
   <documentation xmlns="http://cellml.org/tmp-documentation">
 		<article>
 			<articleinfo>
@@ -77,21 +77,21 @@ The original paper reference is cited below:
    <component name="environment">
       <variable cmeta:id="environment_t" name="t" public_interface="out" units="second"/>
    </component>
-   <component cmeta:id="id_00002" name="parameters">
+   <component name="parameters">
       <variable initial_value="0.1" name="D_Ca" public_interface="out" units="second"/>
       <variable initial_value="40" name="k_1" public_interface="out" units="per_second"/>
       <variable initial_value="20" name="k_2" public_interface="out" units="per_second"/>
       <variable initial_value="10" name="f" public_interface="out" units="per_second"/>
       <variable initial_value="10" name="g" public_interface="out" units="per_second"/>
-      <variable cmeta:id="id_00001" initial_value="1" name="Ca_max" public_interface="out" units="dimensionless"/>
-      <variable cmeta:id="id_00003" initial_value="1" name="Total_Tn" public_interface="out" units="dimensionless"/>
-      <variable cmeta:id="id_00004" initial_value="1" name="Total_CB" public_interface="out" units="dimensionless"/>
+      <variable initial_value="1" name="Ca_max" public_interface="out" units="dimensionless"/>
+      <variable initial_value="1" name="Total_Tn" public_interface="out" units="dimensionless"/>
+      <variable initial_value="1" name="Total_CB" public_interface="out" units="dimensionless"/>
    </component>
-   <component cmeta:id="id_00007" name="Ca_t">
+   <component name="Ca_t">
       <variable cmeta:id="Ca_t_Ca_t" name="Ca_t" public_interface="out" units="dimensionless"/>
       <variable name="t" public_interface="in" units="second"/>
-      <variable cmeta:id="id_00006" name="D_Ca" public_interface="in" units="second"/>
-      <variable cmeta:id="id_00005" name="Ca_max" public_interface="in" units="dimensionless"/>
+      <variable name="D_Ca" public_interface="in" units="second"/>
+      <variable name="Ca_max" public_interface="in" units="dimensionless"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -206,11 +206,11 @@ The original paper reference is cited below:
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00008" name="TnCa">
+   <component name="TnCa">
       <variable cmeta:id="TnCa_TnCa" initial_value="0" name="TnCa" public_interface="out" units="dimensionless"/>
       <variable name="t" public_interface="in" units="second"/>
-      <variable cmeta:id="id_00010" name="Ca_t" public_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00009" name="Total_Tn" public_interface="in" units="dimensionless"/>
+      <variable name="Ca_t" public_interface="in" units="dimensionless"/>
+      <variable name="Total_Tn" public_interface="in" units="dimensionless"/>
       <variable name="k_1" public_interface="in" units="per_second"/>
       <variable name="k_2" public_interface="in" units="per_second"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -244,12 +244,12 @@ The original paper reference is cited below:
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00019" name="CB_on">
+   <component name="CB_on">
       <variable cmeta:id="CB_on_CB_on" initial_value="0" name="CB_on" public_interface="out" units="dimensionless"/>
       <variable name="t" public_interface="in" units="second"/>
       <variable name="f" public_interface="in" units="per_second"/>
       <variable name="g" public_interface="in" units="per_second"/>
-      <variable cmeta:id="id_00011" name="TnCa" public_interface="in" units="dimensionless"/>
+      <variable name="TnCa" public_interface="in" units="dimensionless"/>
       <variable name="Total_CB" public_interface="in" units="dimensionless"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -282,7 +282,7 @@ The original paper reference is cited below:
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00018" name="CumCB">
+   <component name="CumCB">
       <variable cmeta:id="CumCB_CumCB_on" initial_value="0" name="CumCB_on" public_interface="out" units="dimensionless"/>
       <variable cmeta:id="CumCB_CumCB_off" initial_value="0" name="CumCB_off" public_interface="out" units="dimensionless"/>
       <variable name="t" public_interface="in" units="second"/>
@@ -290,7 +290,7 @@ The original paper reference is cited below:
       <variable name="g" public_interface="in" units="per_second"/>
       <variable name="CB_on" public_interface="in" units="dimensionless"/>
       <variable name="Total_CB" public_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00017" name="TnCa" public_interface="in" units="dimensionless"/>
+      <variable name="TnCa" public_interface="in" units="dimensionless"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -377,9 +377,9 @@ The original paper reference is cited below:
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00012" name="ATP">
-      <variable cmeta:id="id_00013" name="ATP" units="dimensionless"/>
-      <variable cmeta:id="id_00014" name="ATP_energy" public_interface="out" units="energy"/>
+   <component name="ATP">
+      <variable name="ATP" units="dimensionless"/>
+      <variable name="ATP_energy" public_interface="out" units="energy"/>
       <variable initial_value="1" name="epsilon" public_interface="out" units="energy"/>
       <variable initial_value="1" name="CumCB_on_end" units="dimensionless"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -399,11 +399,11 @@ The original paper reference is cited below:
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00016" name="equations_main">
+   <component name="equations_main">
       <variable name="Efficiency" units="dimensionless"/>
       <variable name="Economy" units="second_per_meter"/>
       <variable name="FLA" public_interface="in" units="energy"/>
-      <variable cmeta:id="id_00015" name="ATP_energy" public_interface="in" units="energy"/>
+      <variable name="ATP_energy" public_interface="in" units="energy"/>
       <variable name="g" public_interface="in" units="per_second"/>
       <variable name="phi" public_interface="in" units="force"/>
       <variable name="epsilon" public_interface="in" units="energy"/>
@@ -514,5 +514,164 @@ The original paper reference is cited below:
       <map_variables variable_1="g" variable_2="g"/>
    </connection>
 
-
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="rdf:#4bfd1f49-2ecb-4aae-82f7-53a185c51660"><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:about="rdf:#fe9a9cb4-46c4-463b-8dbe-6fdf8ec30f71"/></creator><rdf:value xml:lang="en">This model is known to run in both PCEnv and COR. It recreates the published results for the simulation, except in the case of FTI_end, FLA_max and ATP, because CellML cannot compute finite integrals or maximums of functions. These values are instead estimated based on graphs, but must be re-estimated for different initial conditions. The parameters for this model are the control values.</rdf:value></rdf:Description><rdf:Description rdf:about="rdf:#fe9a9cb4-46c4-463b-8dbe-6fdf8ec30f71"><FN xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Geoff Nunns</FN></rdf:Description><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0014868"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0014871"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#Ca_t_Ca_t"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#TnCa_TnCa"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:15422"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:15422"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:15422"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:15422"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:15422"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00018"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00019"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf></rdf:Description></rdf:RDF></model>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Seq rdf:about="rdf:#6476bfe2-66f5-42bd-84cf-0bfca5c6adff">
+    <rdf:li rdf:resource="rdf:#37aa8e11-be12-4686-847c-9475fcc358cb"/>
+    <rdf:li rdf:resource="rdf:#39359680-5dee-479f-b95b-0d53cb1eaad0"/>
+    <rdf:li rdf:resource="rdf:#2e26b6af-cada-481e-bb93-a6c31d3b8ae7"/>
+    <rdf:li rdf:resource="rdf:#72ed4a01-5cb2-4076-8482-cdb328a519ad"/>
+    <rdf:li rdf:resource="rdf:#c8e8f9b5-5f98-44f0-b324-a8a28d4086c8"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#1d5a07c5-b955-4f49-ae17-7257cb343060">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#91d95849-eb80-419e-bd3e-8525a3bb9c25"/>
+    <rdf:value>This model is known to run in both PCEnv and COR. It recreates the published results for the simulation, except in the case of FTI_end, FLA_max and ATP, because CellML cannot compute finite integrals or maximums of functions. These values are instead estimated based on graphs, but must be re-estimated for different initial conditions. The parameters for this model are the control values.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#fbf64143-b011-4342-9195-039132d98fc4">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Shingo</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Yasuhara</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#37aa8e11-be12-4686-847c-9475fcc358cb">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#0d0a8bd0-212f-4ce5-b59f-582541d121e6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#39359680-5dee-479f-b95b-0d53cb1eaad0">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#d9dad641-b390-4593-a02a-afec1bc21662"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#91d95849-eb80-419e-bd3e-8525a3bb9c25">
+    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Geoff Nunns</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e7c7c0c7-ee41-414d-bd9b-5bb1bdf443b2">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">1996-00-00 00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0d0a8bd0-212f-4ce5-b59f-582541d121e6">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Hiroki</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Yamaguchi</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4bfd1f49-2ecb-4aae-82f7-53a185c51660">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#fe9a9cb4-46c4-463b-8dbe-6fdf8ec30f71"/>
+    <rdf:value>This model is known to run in both PCEnv and COR. It recreates the published results for the simulation, except in the case of FTI_end, FLA_max and ATP, because CellML cannot compute finite integrals or maximums of functions. These values are instead estimated based on graphs, but must be re-estimated for different initial conditions. The parameters for this model are the control values.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a4ad92bd-6383-41d3-9461-864fb8cd87d4">
+    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Geoff Nunns</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#756bdc91-9b7e-4bf8-b6c8-a336a72a6205">
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#39adbeb4-8dae-47eb-ad1e-ff0032df4a0d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9901bbc6-e45c-4e52-9d04-97a589212da7">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Hiroyuki</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Suga</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$Ie8fD2">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="rdf:#$Je8fD2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$He8fD2">
+    <ns7:boundIntervals xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" rdf:resource="rdf:#$Ie8fD2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ab00d4a2-3bef-4758-a6c1-e6b6b9c5f44b">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Hiromi</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Matsubara</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#39adbeb4-8dae-47eb-ad1e-ff0032df4a0d">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Geoffrey</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Nunns</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Rogan</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d9dad641-b390-4593-a02a-afec1bc21662">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Miyako</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Takaki</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7c01780a-c238-4602-af10-c9ce6a6d178d">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Geoffrey</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Nunns</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Rogan</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#00dfdd87-1034-45ac-aab5-f26b52e8f704">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#a4ad92bd-6383-41d3-9461-864fb8cd87d4"/>
+    <rdf:value>This model is known to run in both PCEnv and COR. It recreates the published results for the simulation, except in the case of FTI_end, FLA_max and ATP, because CellML cannot compute finite integrals or maximums of functions. These values are instead estimated based on graphs, but must be re-estimated for different initial conditions. The parameters for this model are the control values.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c7b4422b-c131-428a-a6b2-6d26a66ad9fc">
+    <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#b0be0caa-17d9-44a1-adbe-c5abe75de39c"/>
+    <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#34252856-ee22-47f2-921d-dcff4d00b6c5"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#7c01780a-c238-4602-af10-c9ce6a6d178d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#fe9a9cb4-46c4-463b-8dbe-6fdf8ec30f71">
+    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Geoff Nunns</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#238b73ff-35c2-417b-80ac-d554b3b53bb4">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2008-06-26T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$Je8fD2">
+    <ns7:endingValue xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#">0.5</ns7:endingValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c8e8f9b5-5f98-44f0-b324-a8a28d4086c8">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#9901bbc6-e45c-4e52-9d04-97a589212da7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#05f25c83-6c64-499d-9d35-ecefe16d37a7">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2008-07-18T14:10:09+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4daa6e55-44d1-4e1c-85be-669e68e84e29">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">American Journal of Physiology</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#34252856-ee22-47f2-921d-dcff4d00b6c5">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>gnunns1@jhem.jhu.edu</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="#yamaguchi_takaki_matsubara_yasuhara_suga_1996">
+    <ns7:simulation xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" rdf:resource="rdf:#$He8fD2"/>
+    <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#4d7cbeb3-e50f-4dc3-a7ea-2795ecc19401"/>
+<bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource">
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value>
+      <rdf:Bag>
+        <rdf:li>calcium dynamics</rdf:li>
+        <rdf:li>myofilament mechanics</rdf:li>
+        <rdf:li>excitation-contraction coupling</rdf:li>
+      </rdf:Bag>
+    </rdf:value>
+  </dc:subject>
+</bqs:reference>
+    <cmeta:comment rdf:resource="rdf:#1d5a07c5-b955-4f49-ae17-7257cb343060"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2e26b6af-cada-481e-bb93-a6c31d3b8ae7">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#ab00d4a2-3bef-4758-a6c1-e6b6b9c5f44b"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b0be0caa-17d9-44a1-adbe-c5abe75de39c">
+    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Auckland Bioengineering Institute</vCard:Orgname>
+    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">CellML Team</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+    <cmeta:comment rdf:resource="rdf:#00dfdd87-1034-45ac-aab5-f26b52e8f704"/>
+    <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#238b73ff-35c2-417b-80ac-d554b3b53bb4"/>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#c7b4422b-c131-428a-a6b2-6d26a66ad9fc"/>
+    <cmeta:modification rdf:resource="rdf:#22c39aeb-832f-48e2-8b17-61e2d1ba7fe6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#72ed4a01-5cb2-4076-8482-cdb328a519ad">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#fbf64143-b011-4342-9195-039132d98fc4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4d7cbeb3-e50f-4dc3-a7ea-2795ecc19401">
+    <bqs:Pubmed_id xmlns:bqs="http://www.cellml.org/bqs/1.0#">8967394</bqs:Pubmed_id>
+    <bqs:JournalArticle xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#18e335aa-4ce7-4e60-bc84-b585152627a5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#18e335aa-4ce7-4e60-bc84-b585152627a5">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#6476bfe2-66f5-42bd-84cf-0bfca5c6adff"/>
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Constancy and variability of contractile efficiency as a function of calcium and cross-bridge kinetics: simulation</dc:title>
+    <bqs:volume xmlns:bqs="http://www.cellml.org/bqs/1.0#">270</bqs:volume>
+    <bqs:first_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">H1501</bqs:first_page>
+    <bqs:Journal xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#4daa6e55-44d1-4e1c-85be-669e68e84e29"/>
+    <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#e7c7c0c7-ee41-414d-bd9b-5bb1bdf443b2"/>
+    <bqs:last_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">H1508</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#22c39aeb-832f-48e2-8b17-61e2d1ba7fe6">
+    <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#05f25c83-6c64-499d-9d35-ecefe16d37a7"/>
+    <rdf:value>Added cmeta ids to variables so that the model works with session files</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#756bdc91-9b7e-4bf8-b6c8-a336a72a6205"/>
+  </rdf:Description>
+</rdf:RDF>
+</model>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='utf-8'?>
 <!--  FILE :  fink_model_1999.xml
 
 CREATED :  30th July 2002
@@ -17,7 +17,7 @@ DESCRIPTION :  This file contains a CellML description of Fink et al's 1999 mode
 CHANGES:  
   09/04/2003 - AAC - Added publication date information.  
   
---><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/fink_slepchenko_loew_1999/fink_slepchenko_loew_1999.cellml" cmeta:id="fink_slepchenko_loew_1999_version01" name="fink_slepchenko_loew_1999_version01">
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="fink_slepchenko_loew_1999_version01" name="fink_slepchenko_loew_1999_version01">
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
   <articleinfo>
@@ -94,38 +94,38 @@ The calcium response to IP<subscript>3</subscript> release and its subsequent de
   -->
   
   <units name="micromolar">
-    <unit prefix="micro" units="mole"/>
-    <unit exponent="-1" units="litre"/>
+    <unit units="mole" prefix="micro"/>
+    <unit units="litre" exponent="-1"/>
   </units>
   
   <units name="micrometre">
-    <unit prefix="micro" units="metre"/>
+    <unit units="metre" prefix="micro"/>
   </units>
   
   <units name="micromolar_micrometre_per_second">
     <unit units="micromolar"/>
     <unit units="micrometre"/>
-    <unit exponent="-1" units="second"/>
+    <unit units="second" exponent="-1"/>
   </units>
   
   <units name="micrometre_per_second">
     <unit units="micrometre"/>
-    <unit exponent="-1" units="second"/>
+    <unit units="second" exponent="-1"/>
   </units>
   
   <units name="micrometre_2_per_second">
-    <unit exponent="2" units="micrometre"/>
-    <unit exponent="-1" units="second"/>
+    <unit units="micrometre" exponent="2"/>
+    <unit units="second" exponent="-1"/>
   </units>
   
   <units name="flux">
     <unit units="micromolar"/>
-    <unit exponent="-1" units="second"/>
+    <unit units="second" exponent="-1"/>
   </units>
   
   <units name="second_order_rate_constant">
-    <unit exponent="-1" units="micromolar"/>
-    <unit exponent="-1" units="second"/>
+    <unit units="micromolar" exponent="-1"/>
+    <unit units="second" exponent="-1"/>
   </units>
   
   <!--
@@ -134,17 +134,17 @@ The calcium response to IP<subscript>3</subscript> release and its subsequent de
   -->
   
   <component name="environment">
-    <variable name="time" public_interface="out" units="second"/>
+    <variable units="second" public_interface="out" name="time"/>
   </component>
   
-  <component cmeta:id="id_00013" name="Calcium_dynamics">
-    <variable cmeta:id="id_00001" initial_value="0.05" name="Ca" public_interface="out" units="micromolar"/>
+  <component name="Calcium_dynamics">
+    <variable units="micromolar" public_interface="out" name="Ca" initial_value="0.05"/>
     
-    <variable name="time" public_interface="in" units="second"/>
-    <variable cmeta:id="id_00015" name="J_channel" public_interface="in" units="flux"/>
-    <variable cmeta:id="id_00003" name="J_pump" public_interface="in" units="flux"/>
-    <variable cmeta:id="id_00014" name="J_leak" public_interface="in" units="flux"/>
-    <variable name="beta" public_interface="in" units="dimensionless"/>
+    <variable units="second" public_interface="in" name="time"/>
+    <variable units="flux" public_interface="in" name="J_channel"/>
+    <variable units="flux" public_interface="in" name="J_pump"/>
+    <variable units="flux" public_interface="in" name="J_leak"/>
+    <variable units="dimensionless" public_interface="in" name="beta"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="Ca_diff_eq">
@@ -173,24 +173,24 @@ The calcium response to IP<subscript>3</subscript> release and its subsequent de
     </math> 
   </component>
   
-  <component cmeta:id="id_00010" name="ER">
-    <variable cmeta:id="id_00002" initial_value="400.0" name="Ca_ER" public_interface="out" units="micromolar"/>
+  <component name="ER">
+    <variable units="micromolar" public_interface="out" name="Ca_ER" initial_value="400.0"/>
   </component>
   
   <component name="Channel_kinetics">
-    <variable cmeta:id="id_00011" name="J_channel" public_interface="out" units="flux"/>
+    <variable units="flux" public_interface="out" name="J_channel"/>
     
-    <variable cmeta:id="id_00012" initial_value="2880.0" name="J_max" units="flux"/>
-    <variable initial_value="0.667" name="h" units="dimensionless"/>
-    <variable initial_value="0.17" name="K_act" units="micromolar"/>
-    <variable initial_value="0.03" name="K_I" units="micromolar"/>
-    <variable initial_value="0.1" name="K_inh" units="micromolar"/>
-    <variable initial_value="8.0" name="k_on" units="second_order_rate_constant"/>
-    <variable initial_value="0.01" name="I" units="micromolar"/>
+    <variable units="flux" name="J_max" initial_value="2880.0"/>
+    <variable units="dimensionless" name="h" initial_value="0.667"/>
+    <variable units="micromolar" name="K_act" initial_value="0.17"/>
+    <variable units="micromolar" name="K_I" initial_value="0.03"/>
+    <variable units="micromolar" name="K_inh" initial_value="0.1"/>
+    <variable units="second_order_rate_constant" name="k_on" initial_value="8.0"/>
+    <variable units="micromolar" name="I" initial_value="0.01"/>
     
-    <variable name="time" public_interface="in" units="second"/>
-    <variable name="Ca" public_interface="in" units="micromolar"/>
-    <variable name="Ca_ER" public_interface="in" units="micromolar"/>
+    <variable units="second" public_interface="in" name="time"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="micromolar" public_interface="in" name="Ca_ER"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="J_channel_calculation">
@@ -267,14 +267,14 @@ The calcium response to IP<subscript>3</subscript> release and its subsequent de
     </math> 
   </component>
   
-  <component cmeta:id="id_00004" name="SERCA_pump_kinetics">
-    <variable cmeta:id="id_00005" name="J_pump" public_interface="out" units="flux"/>
+  <component name="SERCA_pump_kinetics">
+    <variable units="flux" public_interface="out" name="J_pump"/>
     
-    <variable initial_value="5.85" name="V_max" units="flux"/>
-    <variable initial_value="0.24" name="K_p" units="micromolar"/>
+    <variable units="flux" name="V_max" initial_value="5.85"/>
+    <variable units="micromolar" name="K_p" initial_value="0.24"/>
     
-    <variable name="time" public_interface="in" units="second"/>
-    <variable name="Ca" public_interface="in" units="micromolar"/>
+    <variable units="second" public_interface="in" name="time"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="J_pump_calculation">
@@ -310,15 +310,15 @@ The calcium response to IP<subscript>3</subscript> release and its subsequent de
   </component>
   
   <component name="Calcium_buffering">
-    <variable name="beta" public_interface="out" units="dimensionless"/>
+    <variable units="dimensionless" public_interface="out" name="beta"/>
     
-    <variable initial_value="12.0" name="B_end" units="micromolar"/>
-    <variable initial_value="11.35" name="B_ex" units="micromolar"/>
-    <variable initial_value="0.3" name="K_end" units="micromolar"/>
-    <variable initial_value="0.26" name="K_ex" units="micromolar"/>
-    <variable name="Ca_ex" units="micromolar"/>
+    <variable units="micromolar" name="B_end" initial_value="12.0"/>
+    <variable units="micromolar" name="B_ex" initial_value="11.35"/>
+    <variable units="micromolar" name="K_end" initial_value="0.3"/>
+    <variable units="micromolar" name="K_ex" initial_value="0.26"/>
+    <variable units="micromolar" name="Ca_ex"/>
     
-    <variable name="time" public_interface="in" units="second"/>
+    <variable units="second" public_interface="in" name="time"/>
      
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="beta_calculation">
@@ -358,14 +358,14 @@ The calcium response to IP<subscript>3</subscript> release and its subsequent de
     </math> 
   </component>
   
-  <component cmeta:id="id_00006" name="Leak">
-    <variable cmeta:id="id_00007" name="J_leak" public_interface="out" units="flux"/>
+  <component name="Leak">
+    <variable units="flux" public_interface="out" name="J_leak"/>
     
-    <variable initial_value="0.0804" name="L" units="flux"/>
+    <variable units="flux" name="L" initial_value="0.0804"/>
     
-    <variable name="time" public_interface="in" units="second"/>
-    <variable cmeta:id="id_00008" name="Ca" public_interface="in" units="micromolar"/>
-    <variable cmeta:id="id_00009" name="Ca_ER" public_interface="in" units="micromolar"/>
+    <variable units="second" public_interface="in" name="time"/>
+    <variable units="micromolar" public_interface="in" name="Ca"/>
+    <variable units="micromolar" public_interface="in" name="Ca_ER"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="J_leak_calculation">
@@ -389,63 +389,198 @@ The calcium response to IP<subscript>3</subscript> release and its subsequent de
   </component>
   
   <connection>
-    <map_components component_1="Calcium_dynamics" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Calcium_dynamics"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="Channel_kinetics" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Channel_kinetics"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="SERCA_pump_kinetics" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="SERCA_pump_kinetics"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="Leak" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Leak"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="Calcium_buffering" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Calcium_buffering"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="Calcium_dynamics" component_2="Channel_kinetics"/>
-    <map_variables variable_1="Ca" variable_2="Ca"/>
-    <map_variables variable_1="J_channel" variable_2="J_channel"/>
+    <map_components component_2="Channel_kinetics" component_1="Calcium_dynamics"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+    <map_variables variable_2="J_channel" variable_1="J_channel"/>
   </connection>
   
   <connection>
-    <map_components component_1="Calcium_dynamics" component_2="SERCA_pump_kinetics"/>
-    <map_variables variable_1="Ca" variable_2="Ca"/>
-    <map_variables variable_1="J_pump" variable_2="J_pump"/>
+    <map_components component_2="SERCA_pump_kinetics" component_1="Calcium_dynamics"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+    <map_variables variable_2="J_pump" variable_1="J_pump"/>
   </connection>
   
   <connection>
-    <map_components component_1="Calcium_dynamics" component_2="Leak"/>
-    <map_variables variable_1="Ca" variable_2="Ca"/>
-    <map_variables variable_1="J_leak" variable_2="J_leak"/>
+    <map_components component_2="Leak" component_1="Calcium_dynamics"/>
+    <map_variables variable_2="Ca" variable_1="Ca"/>
+    <map_variables variable_2="J_leak" variable_1="J_leak"/>
   </connection>
   
   <connection>
-    <map_components component_1="Calcium_dynamics" component_2="Calcium_buffering"/>
-    <map_variables variable_1="beta" variable_2="beta"/>
+    <map_components component_2="Calcium_buffering" component_1="Calcium_dynamics"/>
+    <map_variables variable_2="beta" variable_1="beta"/>
   </connection>
   
   <connection>
-    <map_components component_1="ER" component_2="Channel_kinetics"/>
-    <map_variables variable_1="Ca_ER" variable_2="Ca_ER"/>
+    <map_components component_2="Channel_kinetics" component_1="ER"/>
+    <map_variables variable_2="Ca_ER" variable_1="Ca_ER"/>
   </connection>
   
   <connection>
-    <map_components component_1="ER" component_2="Leak"/>
-    <map_variables variable_1="Ca_ER" variable_2="Ca_ER"/>
+    <map_components component_2="Leak" component_1="ER"/>
+    <map_variables variable_2="Ca_ER" variable_1="Ca_ER"/>
   </connection>
 
 
-
-<rdf:RDF><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051208"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070296"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051208"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070296"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:63842"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00018"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0019870"/></isVersionOf></rdf:Description></rdf:RDF></model>
+<rdf:RDF>
+  <rdf:Bag rdf:about="rdf:#1a649420-1110-44ca-88dd-b90da508b157">
+    <rdf:li>calcium dynamics</rdf:li>
+    <rdf:li>ip3</rdf:li>
+    <rdf:li>Smooth Muscle</rdf:li>
+    <rdf:li>smooth muscle</rdf:li>
+    <rdf:li>IP3</rdf:li>
+  </rdf:Bag>
+  <rdf:Seq rdf:about="rdf:#2074521b-b7d5-4f98-bc52-8bef0bb50e5f">
+    <rdf:li rdf:resource="rdf:#ab68eaa0-136a-4adf-a07d-7f5da56a2b01"/>
+    <rdf:li rdf:resource="rdf:#0caa631e-ee04-4421-b26d-47b1e89e68b3"/>
+    <rdf:li rdf:resource="rdf:#073284f6-b78b-402d-92db-e0caa8b0ec17"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#5ee311c6-7337-4632-add4-667c1fee6374">
+    <dcterms:W3CDTF>2003-04-09</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b24ff8f9-beed-49c0-9a0f-2da36ba2d4d3">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>The Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ab2482eb-f94d-47a5-ae1e-f9ab660ae609">
+    <dc:subject rdf:resource="rdf:#31314fdf-ac65-4c97-a7c5-d073f7af3c40"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e081153c-787d-44d6-b060-37c4150476a8">
+    <dcterms:W3CDTF>2002-07-30</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#31314fdf-ac65-4c97-a7c5-d073f7af3c40">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value rdf:resource="rdf:#1a649420-1110-44ca-88dd-b90da508b157"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8734f611-1680-4e8c-a3de-be92a1202ce7">
+    <vCard:Given>Autumn</vCard:Given>
+    <vCard:Family>Cuellar</vCard:Family>
+    <vCard:Other>A</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c3cb2460-8666-4f46-a733-03f91bd2e61f">
+    <dcterms:modified rdf:resource="rdf:#5ee311c6-7337-4632-add4-667c1fee6374"/>
+    <rdf:value>
+          Added publication date information.
+        </rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#829ea927-976f-4e4c-b050-e068209a9c57"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#fink_slepchenko_loew_1999_version01">
+    <dc:title>
+        Fink et al's 1999 model of IP3-mediated Ca2+-release in smooth muscle  
+        cells.
+      </dc:title>
+    <cmeta:bio_entity>Smooth Muscle Cell</cmeta:bio_entity>
+    <cmeta:comment rdf:resource="rdf:#e7f1779b-5eed-4bf9-b981-76a0242c12f6"/>
+    <bqs:reference rdf:resource="rdf:#6fa23ed4-01b1-491c-8b24-9f30e32bc9c8"/>
+    <bqs:reference rdf:resource="rdf:#ab2482eb-f94d-47a5-ae1e-f9ab660ae609"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8360736d-fbb5-4b76-b5da-f2e6fae1cab6">
+    <vCard:ORG rdf:resource="rdf:#b24ff8f9-beed-49c0-9a0f-2da36ba2d4d3"/>
+    <vCard:EMAIL rdf:resource="rdf:#c6645d90-993d-4dbc-a5e2-2b393762b021"/>
+    <vCard:N rdf:resource="rdf:#70db4dcb-52f5-448d-a02b-a46a851b5f46"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#073284f6-b78b-402d-92db-e0caa8b0ec17">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#18690245-a8d3-4422-acfe-c87402f435c6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8d707487-9190-47ba-b229-dc3742b211a8">
+    <dc:creator rdf:resource="rdf:#2074521b-b7d5-4f98-bc52-8bef0bb50e5f"/>
+    <dc:title>
+            Determination of time-dependent inositol-1,4,5-triphosphate 
+            concentrations during calcium release in a smooth muscle cell
+          </dc:title>
+    <bqs:volume>77</bqs:volume>
+    <bqs:first_page>617</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#8684e6b4-1db7-462d-921a-3918e3240526"/>
+    <dcterms:issued rdf:resource="rdf:#d2fda1ca-207e-4bb2-8497-eb780ebe72d8"/>
+    <bqs:last_page>628</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#21b3948c-15af-4532-beb8-db3880949cc0">
+    <vCard:Given>Boris</vCard:Given>
+    <vCard:Family>Slepchenko</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8684e6b4-1db7-462d-921a-3918e3240526">
+    <dc:title>Biophysical Journal</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d2fda1ca-207e-4bb2-8497-eb780ebe72d8">
+    <dcterms:W3CDTF>1999-07</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6f62ffbf-434d-47f8-85cd-0abbb8ae43e1">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0caa631e-ee04-4421-b26d-47b1e89e68b3">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#21b3948c-15af-4532-beb8-db3880949cc0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6fa23ed4-01b1-491c-8b24-9f30e32bc9c8">
+    <bqs:Pubmed_id>10388786</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#8d707487-9190-47ba-b229-dc3742b211a8"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ab68eaa0-136a-4adf-a07d-7f5da56a2b01">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#0f394e85-02a2-43bd-be73-9f282cc2a021"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e7f1779b-5eed-4bf9-b981-76a0242c12f6">
+    <dc:creator rdf:resource="rdf:#6f62ffbf-434d-47f8-85cd-0abbb8ae43e1"/>
+    <rdf:value>
+          This is the CellML description of Fink et al's 1999 model of 
+          IP3-mediated Ca2+ release in smooth muscle cells.
+        </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c6645d90-993d-4dbc-a5e2-2b393762b021">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>
+        The University of Auckland, Bioengineering Institute
+      </dc:publisher>
+    <cmeta:modification rdf:resource="rdf:#c3cb2460-8666-4f46-a733-03f91bd2e61f"/>
+    <dcterms:created rdf:resource="rdf:#e081153c-787d-44d6-b060-37c4150476a8"/>
+    <dc:creator rdf:resource="rdf:#8360736d-fbb5-4b76-b5da-f2e6fae1cab6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#70db4dcb-52f5-448d-a02b-a46a851b5f46">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0f394e85-02a2-43bd-be73-9f282cc2a021">
+    <vCard:Given>Charles</vCard:Given>
+    <vCard:Family>Fink</vCard:Family>
+    <vCard:Other>C</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#829ea927-976f-4e4c-b050-e068209a9c57">
+    <vCard:N rdf:resource="rdf:#8734f611-1680-4e8c-a3de-be92a1202ce7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#18690245-a8d3-4422-acfe-c87402f435c6">
+    <vCard:Given>Leslie</vCard:Given>
+    <vCard:Family>Loew</vCard:Family>
+    <vCard:Other>M</vCard:Other>
+  </rdf:Description>
+</rdf:RDF>
+</model>

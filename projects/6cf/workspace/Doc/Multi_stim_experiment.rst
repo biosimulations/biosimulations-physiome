@@ -24,21 +24,13 @@ Figure [#]_ shows the model :math:`Ca_i^{2+}` to the train of pulse potentials.
 
    Simulated model reaction to a train of pulse potentials.         
 
-The experiment setting to reproduce Figure 2 is summarized in the following:
-
-.. figure::  ../Simulation/table3.png
-   :width: 75%
-   :align: center
-   :alt: table3
-
-   Experiment setting.
-
-Figure [#]_ shows simulations of changes in :math:`Ca_i^{2+}` and stress in response to pacing pulses. 
+Figure [#]_ shows simulations of changes in :math:`Ca_i^{2+}` and stress in response to pacing pulses.
 
 .. [#]
-         
+
 .. figure::  ../Simulation/simFig11.png
    :width: 75%
    :align: center
    :alt: simFig11
 
+   Simulated :math:`Ca_i^{2+}` and stress in response to a train of pulse potentials. 

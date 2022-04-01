@@ -45,7 +45,7 @@ for i, varName in enumerate(y_name):
     ax[i].set_xlabel ('Time (s)', fontsize= labelfontsize)
     ax[i].set_ylabel (y_labels[i], fontsize= labelfontsize)
     if i == 0:
-       ax[i].set_title('%s in the primary publication' % (prefig))
+       ax[i].set_title('%s in the paper' % (prefig))
 
 figfiles = '%s.png' % (figfile)
 plt.savefig(figfiles)        

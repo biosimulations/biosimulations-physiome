@@ -4,11 +4,30 @@
     cmeta:id="calcium"
     xmlns="http://www.cellml.org/cellml/1.1#"
     xmlns:cellml="http://www.cellml.org/cellml/1.1#"
-    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
-	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
-	>
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
     
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <rdf:Description rdf:about="#calcium">
+        <dc:creator rdf:parseType="Resource">
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Michael</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+            </vCard:EMAIL>
+        </dc:creator>
 
+        <dc:title>Cooling's calcium module for the Shen-derived protocol</dc:title>
+    </rdf:Description>
+</rdf:RDF> 
 <!--
 *******************************************************
 ***         U   N   I   T   S                       ***
@@ -18,14 +37,14 @@
       <unit units="second"/>
    </units>
    
-   <units  name="nM">
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM">
          <unit units="mole" prefix="nano"/>
          <unit units="liter" exponent="-1"/>
       </units>
-      <units  name="per_s">
+      <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_s">
          <unit units="s" exponent="-1"/>
       </units>
-      <units  name="nM_per_s">
+      <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM_per_s">
          <unit units="nM"/>
          <unit units="s" exponent="-1"/>
       </units>
@@ -35,12 +54,12 @@
 *********************************************************
 -->
  <component name="calcium">
-             <variable cmeta:id="v0" name="t"   units="s" public_interface="in"/>
-	     <variable cmeta:id="v1" name="Ca" units="nM" public_interface="out"/>
-             <variable cmeta:id="v2" name="stimEnd" units="s" initial_value="3600"/>
-             <variable cmeta:id="v3" name="trainPeriod" units="s" initial_value="50"/>
-             <variable cmeta:id="v4" name="timeInStim_modTrainPeriod" units="s"/>
-             <variable cmeta:id="v5" name="timeInStim_modPulsePeriod" units="s"/>
+             <variable name="t"   units="s" public_interface="in"/>
+             <variable name="stimEnd" units="s" initial_value="3600"/>
+             <variable name="Ca" units="nM" public_interface="out"/>
+             <variable name="trainPeriod" units="s" initial_value="50"/>
+             <variable name="timeInStim_modTrainPeriod" units="s"/>
+             <variable name="timeInStim_modPulsePeriod" units="s"/>
                           
              <math xmlns="http://www.w3.org/1998/Math/MathML">
              <apply>
@@ -200,55 +219,4 @@
              </math>
    </component>
 
-<rdf:RDF 
-  xmlns:dc="http://purl.org/dc/elements/1.1/" 
-  xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" 
-  xmlns:bqs="http://www.cellml.org/bqs/1.0#" 
-  xmlns:ro="http://www.obofoundry.org/ro/ro.owl#" 
-  xmlns:opb="http://bhi.washington.edu/OPB#" 
-  xmlns:j.0="http://imc.org/vCard/3.0#"
-  xmlns:semsim="http://www.bhi.washington.edu/SemSim#"
-  xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"
-  xmlns:bqmodel="http://biomodels.net/model-qualifiers/"
-  >
-	
-    <rdf:Description rdf:about="#calcium">
-        <dc:creator rdf:parseType="Resource">
-            <vCard:N rdf:parseType="Resource">
-                <vCard:Family>Cooling</vCard:Family>
-                <vCard:Given>Michael</vCard:Given>
-            </vCard:N>
-            <vCard:EMAIL rdf:parseType="Resource">
-                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
-                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
-            </vCard:EMAIL>
-        </dc:creator>
-
-        <dc:title>Cooling's calcium module for the Shen-derived protocol</dc:title>
-    </rdf:Description>
-	
-	<rdf:Description rdf:ID="v0">
-          <semsim:refersTo rdf:resource="http://identifiers.org/opb/OPB_01361" />
-    </rdf:Description>
-	
-	<rdf:Description rdf:ID="v1">
-      <semsim:isComputationalComponentFor>
-        <rdf:Description rdf:about="#property_1">
-          <semsim:physicalPropertyOf>
-            <rdf:Description rdf:about="#entity_0">
-              <ro:contained_in>
-                <rdf:Description rdf:about="#entity_1">
-                  <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:14067" />
-                </rdf:Description>
-              </ro:contained_in>
-              <semsim:refersTo rdf:resource="http://identifiers.org/chebi/CHEBI:39123" />
-            </rdf:Description>
-          </semsim:physicalPropertyOf>
-          <semsim:refersTo rdf:resource="http://identifiers.org/opb/OPB_00340" />
-        </rdf:Description>
-      </semsim:isComputationalComponentFor>
-    </rdf:Description>
-	
-</rdf:RDF> 
-   
 </model>

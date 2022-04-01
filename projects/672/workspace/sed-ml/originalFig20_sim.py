@@ -8,7 +8,6 @@
 import opencor as oc
 import get_init
 import imp
-import numpy as np
 imp.reload(get_init)
 
 # The prefix of the saved output file name 
@@ -22,7 +21,7 @@ simulation = oc.open_simulation(simfile)
 data = simulation.data()
 
 # Define the interval of interest for this simulation experiment
-start, end, pointInterval = 0, 22, 0.0001
+start, end, pointInterval = 0, 20.01, 0.001
 data.set_starting_point(start)
 data.set_ending_point(end)
 data.set_point_interval(pointInterval)
@@ -35,13 +34,8 @@ iV_initial = -15
 V_stim = -90
 t_stim = [20, 4.7284, 5.7302, 7.7352]
 suffixfile=['A', 'B', 'C', 'D',]
-varName = np.array(['outputs/time', 'outputs/minus_V'])
-vars = np.reshape(varName, (1, len(varName)))
-rows=int(end/pointInterval+2)
-r = np.zeros((rows,len(varName)))
 
 for i, iend in enumerate(t_stim):
-
    filename ='%s_%s.csv' % (prefilename, suffixfile[i])
    # Reset states and parameters
    simulation.reset(True)
@@ -54,31 +48,33 @@ for i, iend in enumerate(t_stim):
    # Run simulation from 0 to iend
    data.set_starting_point(start)
    data.set_ending_point(iend)
-   row1=int(iend/pointInterval+1)
    simulation.run()
+   if i>0:       
+       # Stimulate at iend and run till end
+       data.states()['outputs/V'] = V_stim
+       data.set_starting_point(iend)
+       data.set_ending_point(end)
+       simulation.run()
    # Access simulation results
    results = simulation.results()
-   # Grab a specific algebraic variable results 
-   row1=len(results.voi().values())
-   r[0:row1,0] = results.voi().values()
-   r[0:row1,1] = results.algebraic()['outputs/minus_V'].values()
-          
-   # Stimulate at iend and run till end
-   data.states()['outputs/V'] = V_stim+data.states()['outputs/V']
-   data.set_starting_point(iend)
-   data.set_ending_point(end)
-   simulation.run()
-    # Access simulation results
-   results = simulation.results()
-   # Grab a specific algebraic variable results 
-   r[row1:,0] = results.voi().values()[0:]
-   r[row1:,1] = results.algebraic()['outputs/minus_V'].values()[0:]
-
+   # Access the full datastore representation of the simulation results
+   ds = results.data_store()
+   voi_and_variables = ds.voi_and_variables()  
    # Save the simulation result
-   np.savetxt(filename, vars, fmt='%s',delimiter=",")
-   with open(filename, "ab") as f:
-       np.savetxt(f, r, delimiter=",")
-   f.close
+   outfile = open(filename, 'w')
+   cols = []
+   for key, item in voi_and_variables.items():
+       outfile.write(str(key) + ",")
+       cols.append(list(item.values()))
+   
+   outfile.write("\n")
+   
+   for i in range(0, len(cols[0])):
+       for j in range(0, len(cols)):
+           outfile.write(str(cols[j][i]) + ",")
+       outfile.write("\n")
+
+   outfile.close()
    # clear the results
    simulation.clear_results()
 

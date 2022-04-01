@@ -26,7 +26,6 @@ start, end, pointInterval = 0, t_ss+duration, 0.1
 data.set_starting_point(start)
 data.set_ending_point(end)
 data.set_point_interval(pointInterval)
-data.set_ode_solver_property('Interpolate solution', 'False')
 # Data to save
 varName = np.array(["V", "INa"])
 vars = np.reshape(varName, (1, len(varName)))

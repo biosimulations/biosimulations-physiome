@@ -16,7 +16,6 @@ This workspace has seven sets of experiments and corresponding simulation result
 Simulation settings 
 -------------------
 Simulation settings are encoded in SED-ML_ documents for experiment execution. It is common that we may need to vary experimental settings to obtain data under various conditions. Hence, the full experimental settings are encoded in the simulation scripts.
-The Python scripts to run simulation and reproduce the figures in the original paper are included under the ``Simulation`` folder. The name of the simulation and plot scripts
-indicates the Figure number in the primary paper. For example, Fig2_sim.py is used to generate the simulation data and Fig2_plot.py reproduces the graph shown in Figure 2 in the primary paper.
+The Python scripts to run simulation and reproduce the figures in the original paper are included under the ``Simulation`` folder.
 
 .. _SED-ML: http://sed-ml.org/

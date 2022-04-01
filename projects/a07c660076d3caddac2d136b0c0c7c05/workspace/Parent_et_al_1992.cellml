@@ -49,8 +49,7 @@ The original paper reference is cited below:
 		</article>
 	</documentation>
 
-
-	<units xmlns="http://www.cellml.org/cellml/1.0#" name="per_second">
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_second">
       <unit units="second" exponent="-1"/>
    </units>
    <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_second5">
@@ -72,10 +71,6 @@ The original paper reference is cited below:
    </units>
    <units xmlns="http://www.cellml.org/cellml/1.0#" name="um2">
       <unit units="metre" prefix="micro" exponent="2"/>
-   </units>
-   <units xmlns="http://www.cellml.org/cellml/1.0#" name="umol_per_second">
-      <unit units="umol"/>
-      <unit units="second" exponent="-1"/>
    </units>
    <units xmlns="http://www.cellml.org/cellml/1.0#" name="mol_per_um2">
       <unit units="mole"/>
@@ -223,11 +218,11 @@ The original paper reference is cited below:
       </math>
    </component>
    <component xmlns="http://www.cellml.org/cellml/1.0#" name="ion_concentrations">
-      <variable name="V" units="volt" initial_value="-55.4e-3" public_interface="out"/>
-      <variable name="Na_i" units="M" initial_value="19.6e-3" public_interface="out"/>
-      <variable name="Na_o" units="M" initial_value="140e-3" public_interface="out"/>
-      <variable name="glucose_i" units="M" initial_value="15.1e-3" public_interface="out"/>
-      <variable name="glucose_o" units="M" initial_value="5e-3" public_interface="out"/>
+      <variable name="V" units="volt" initial_value="-50e-3" public_interface="out"/>
+      <variable name="Na_i" units="M" initial_value="20e-3" public_interface="out"/>
+      <variable name="Na_o" units="M" initial_value="100e-3" public_interface="out"/>
+      <variable name="glucose_i" units="M" initial_value="10e-6" public_interface="out"/>
+      <variable name="glucose_o" units="M" initial_value="0e-3" public_interface="out"/>
       <variable name="time" units="second" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -1803,7 +1798,6 @@ The original paper reference is cited below:
       <variable name="F" units="C_per_mol" public_interface="in"/>
       <variable name="I_NaGl_pSS" units="uA" public_interface="out"/>
       <variable name="I_NaGl_SS" units="uA" public_interface="out"/>
-      <variable name="J_Na" units="umol_per_second" public_interface="out"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1951,43 +1945,6 @@ The original paper reference is cited below:
                            <ci>k_43</ci>
                            <ci>C4</ci>
                         </apply>
-                     </apply>
-                  </apply>
-               </apply>
-            </apply>
-         </apply>
-         <apply>
-            <eq/>
-            <ci>J_Na</ci>
-            <apply>
-               <times/>
-               <ci>n</ci>
-               <apply>
-                  <plus/>
-                  <apply>
-                     <minus/>
-                     <apply>
-                        <times/>
-                        <ci>k_25</ci>
-                        <ci>C2</ci>
-                     </apply>
-                     <apply>
-                        <times/>
-                        <ci>k_52</ci>
-                        <ci>C5</ci>
-                     </apply>
-                  </apply>
-                  <apply>
-                     <minus/>
-                     <apply>
-                        <times/>
-                        <ci>k_34</ci>
-                        <ci>C3</ci>
-                     </apply>
-                     <apply>
-                        <times/>
-                        <ci>k_43</ci>
-                        <ci>C4</ci>
                      </apply>
                   </apply>
                </apply>

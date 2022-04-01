@@ -1,12 +1,31 @@
 <?xml version='1.0'?>
 <!-- This CellML file was generated from:
- Weinstein, Alan M. "A kinetically defined Na+/H+ antiporter within a mathematical model of the rat proximal tubule." The Journal of general physiology 105.5 (1995): 617-641.
- If J_NHE3_H>0 then the flux direction is from intracellular space to extracellular space. (always [C_int]-J and [C_ext]+J)-->
+ Weinstein, Alan M. "A kinetically defined Na+/H+ antiporter within a mathematical model of the rat proximal tubule." The Journal of general physiology 105.5 (1995): 617-641.-->
 <model cmeta:id="Weinstein_1995_NHE3" name="Weinstein_1995_NHE3" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<rdf:Description rdf:about="">
+			<dc:title>A kinetic model of Na+/H+ exchanger (NHE3)</dc:title>
+		</rdf:Description>
+		<rdf:Description rdf:about="#Weinstein_1995_NHE3">
+			<bqs:reference rdf:parseType="Resource">
+				<dc:subject rdf:parseType="Resource">
+					<bqs:subject_type>keyword</bqs:subject_type>
+					<rdf:value>
+						<rdf:Bag>
+							<rdf:li>protein module</rdf:li>
+						</rdf:Bag>
+					</rdf:value>
+				</dc:subject>
+			</bqs:reference>
+		</rdf:Description>
+	</rdf:RDF>
+    
     <import xlink:href="Units/Units.cellml">
         <units name="mM" units_ref="mM"/>
-        <units name="cm_per_s" units_ref="cm_per_s"/>
-        <units name="umol_per_s_per_cm2" units_ref="umol_per_s_per_cm2"/>
+        <units name="mM_per_s" units_ref="mM_per_s"/>
+        <units name="per_s" units_ref="per_s"/>
     </import>
     <component name="NHE3">
         <variable name="Na_ext" public_interface="in" units="mM"/>
@@ -15,18 +34,18 @@
         <variable name="H_int" public_interface="in" units="mM"/>
         <variable name="NH4_ext" public_interface="in" units="mM"/>
         <variable name="NH4_int" public_interface="in" units="mM"/>
-        <variable name="J_NHE3_Na" public_interface="out" units="umol_per_s_per_cm2"/>
-        <variable name="J_NHE3_H" public_interface="out" units="umol_per_s_per_cm2"/>
-        <variable name="J_NHE3_NH4" public_interface="out" units="umol_per_s_per_cm2"/>
-        <variable name="J_NHE3_Na_Max" public_interface="out" units="umol_per_s_per_cm2"/>
+        <variable name="J_NHE3_Na" public_interface="out" units="mM_per_s"/>
+        <variable name="J_NHE3_H" public_interface="out" units="mM_per_s"/>
+        <variable name="J_NHE3_NH4" public_interface="out" units="mM_per_s"/>
+        <variable name="J_NHE3_Na_Max" public_interface="out" units="mM_per_s"/>
         <variable initial_value="1.0" name="x_T" units="mM"/>
-        <variable name="sigma" units="cm_per_s"/>
-        <variable name="P_Na" units="cm_per_s"/>
-        <variable name="P_H" units="cm_per_s"/>
-        <variable name="P_NH4" units="cm_per_s"/>
-        <variable initial_value="1.6e-3" name="P0_Na" units="cm_per_s"/>
-        <variable initial_value="0.48e-3" name="P0_H" units="cm_per_s"/>
-        <variable initial_value="1.6e-3" name="P0_NH4" units="cm_per_s"/>
+        <variable name="sigma" units="per_s"/>
+        <variable name="P_Na" units="per_s"/>
+        <variable name="P_H" units="per_s"/>
+        <variable name="P_NH4" units="per_s"/>
+        <variable initial_value="1.6e-3" name="P0_Na" units="per_s"/>
+        <variable initial_value="0.48e-3" name="P0_H" units="per_s"/>
+        <variable initial_value="1.6e-3" name="P0_NH4" units="per_s"/>
         <variable initial_value="30.0" name="K_Na" units="mM"/>
         <variable initial_value="72e-6" name="K_H" units="mM"/>
         <variable initial_value="27.0" name="K_NH4" units="mM"/>
@@ -417,23 +436,6 @@
             </apply>
         </math>
     </component>
-    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
-            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A kinetic model of Na+/H+ exchanger (NHE3)</dc:title>
-        </rdf:Description>
-        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#Weinstein_1995_NHE3">
-            <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                    <bqs:subject_type xmlns:bqs="http://www.cellml.org/bqs/1.0#">keyword</bqs:subject_type>
-                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                        <rdf:Bag xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">protein module</rdf:li>
-                        </rdf:Bag>
-                    </rdf:value>
-                </dc:subject>
-            </bqs:reference>
-        </rdf:Description>
-    </rdf:RDF>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
             <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A kinetic model of Na+/H+ exchanger (NHE3)</dc:title>

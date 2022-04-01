@@ -9,7 +9,7 @@ ofilenames = ['fig8A', 'fig8B']
 prefig = 'Fig8'
 figfile = 'sim%s' % prefig
 # Set figure dimension (width, height) in inches.
-fw, fh = 7, 10
+fw, fh = 7, 8
 fig = plt.figure(figsize=(fw,fh))
 ax, lns = {}, {}
 # This gives list with the colors from the cycle, which you can use to iterate over.
@@ -36,17 +36,17 @@ for h, plotN in enumerate(prefilenames):
             odata = pd.read_csv(ofilename)
             ox_data = odata['x']   
             oy_data = odata['Curve1']    
-            ax[h].plot(ox_data, oy_data, '.',  color=cycle[i], label = '[Na]$_i$=%.2f mM' % Nai[i]) 
+            ax[h].plot(ox_data, oy_data, '.',  color=cycle[i], label = '[Na]$_i$ = %.2fmM' % Nai[i]) 
             
             filename='../simulatedData/%s_%d.csv' % (prefilenames[h], i)
             data = pd.read_csv(filename)
             x_data = data[x_name[h]]-t_ss[i]      
             y_data = data[y_name[h]]*1000000   
-            ax[h].plot(x_data, y_data,  color=cycle[i], label = '[Na]$_i$=%.2f mM' % Nai[i])
+            ax[h].plot(x_data, y_data,  color=cycle[i], label = '[Na]$_i$ = %.2fmM' % Nai[i])
             ax[h].set_ylabel (y_labels[h], fontsize= labelfontsize)
             ax[h].set_xlabel (x_labels[h], fontsize= labelfontsize)
             ax[h].set_title('%s in the primary publication' % (prefig))
-        ax[h].legend(loc = 'upper center', bbox_to_anchor=(0.32, 1.04), ncol=2, fontsize=lfontsize, frameon=False)
+        ax[h].legend(loc = 'best', ncol=3, fontsize=lfontsize, frameon=False)
     else:
         for i in range(3):
             ofilename ='../originalData/%s%d.csv' % (ofilenames[h],i+1)

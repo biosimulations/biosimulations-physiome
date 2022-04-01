@@ -1,0 +1,19 @@
+gfx create material stomach normal_mode ambient 0.8 0.6588 0.5607 diffuse 0.8 0.6588 0.5607 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 0.3;
+
+gfx read element ratStomach.exf 
+
+gfx cre win
+gfx edit sce
+
+gfx modify g_element "/" general clear;
+gfx modify g_element "/" lines domain_mesh1d subgroup stomach coordinate coordinates face all tessellation default LOCAL line line_base_size 0 select_on material stomach selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "serosa of stomach" coordinate coordinates face all tessellation default LOCAL select_on material stomach selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "Longitudinal muscle layer of stomach" coordinate coordinates face all tessellation default LOCAL select_on material stomach selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "myenteric nerve plexus" coordinate coordinates face all tessellation default LOCAL select_on material stomach selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "stomach smooth muscle circular layer" coordinate coordinates face all tessellation default LOCAL select_on material stomach selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "submucosa of stomach" coordinate coordinates face all tessellation default LOCAL select_on material stomach selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "mucosa of stomach" coordinate coordinates face all tessellation default LOCAL select_on material stomach selected_material default_selected render_shaded;
+
+
+gfx mod window 1 set antialias 8
+gfx export threejs file ratStomach

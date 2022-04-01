@@ -30,14 +30,14 @@ for i, iV_clamp in enumerate(V_clamp):
     y_data = data[y_name]
     T_data = data['parameters/T']
     ax[i] = fig.add_subplot(subpRow, subpCol, plotindex[i])
-    ax[i].plot(x_data, y_data, color=cycle[0], label = 'CellML @ %d mV' % (iV_clamp ))
+    ax[i].plot(x_data, y_data, color=cycle[0], label = 'CellML model %d mV @%0.1f ℃' % (iV_clamp, T_data[1] ))
     ax[i].tick_params(direction='in', axis='both')   
 
     filename = 'fig11_%s.csv' % fileindex[i]
     odata = pd.read_csv(filename)
     ox_data = odata['x']   
     oy_data = odata['Curve1']
-    ax[i].plot(ox_data, oy_data, '.', color=cycle[1], label = 'HH @ %d mV' % (iV_clamp ) )
+    ax[i].plot(ox_data, oy_data, '.', color=cycle[1], label = 'HH model %d mV @%0.1f ℃' % (iV_clamp, T_data[1] ) )
 
 
     ax[i].legend(loc = 'best', fontsize=lfontsize, frameon=False)

@@ -1,178 +1,636 @@
 <?xml version="1.0"?>
-<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" name="figure_03">
-	<simulation xmlns="http://cellml.sourceforge.net/csim/simulation/0.1#"
-		id="simulation1">
-		<boundVariable start="0.0" end="100.0"
-			maxStep="0.1" tabulationStep="1.0" />
-		<!-- Figure 3(a) -->
-		<outputVariable component="variables_1" variable="V" column="1" />
-		<outputVariable component="variables_1" variable="Khalf_gluc" column="2" />
-		<outputVariable component="variables_2" variable="V" column="3" />
-		<outputVariable component="variables_2" variable="Khalf_gluc" column="4" />
-		<!-- Figure 3(b) -->
-		<outputVariable component="variables_3" variable="V" column="5" />
-		<outputVariable component="variables_3" variable="Khalf_Na" column="6" />
-		<outputVariable component="variables_4" variable="V" column="7" />
-		<outputVariable component="variables_4" variable="Khalf_Na" column="8" />
-		<outputVariable component="variables_5" variable="V" column="9" />
-		<outputVariable component="variables_5" variable="Khalf_Na" column="10" />
-		<!-- Figure 3(c) -->
-		<outputVariable component="variables_1" variable="V" column="11" />
-		<outputVariable component="variables_1" variable="Imax_gluc" column="12" />
-		<outputVariable component="variables_2" variable="V" column="13" />
-		<outputVariable component="variables_2" variable="Imax_gluc" column="14" />
-		<!-- Figure 3(d) -->
-		<outputVariable component="variables_3" variable="V" column="15" />
-		<outputVariable component="variables_3" variable="Imax_Na" column="16" />
-		<outputVariable component="variables_4" variable="V" column="17" />
-		<outputVariable component="variables_4" variable="Imax_Na" column="18" />
-		<outputVariable component="variables_5" variable="V" column="19" />
-		<outputVariable component="variables_5" variable="Imax_Na" column="20" />
-	</simulation>
+<model xmlns="http://www.cellml.org/cellml/1.1#" name="figure_03_a"
+	xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+		xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+		xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:cs="http://www.cellml.org/metadata/simulation/1.0#"
+		xmlns:cg="http://www.cellml.org/metadata/graphs/1.0#" xmlns:csim="http://cellml.sourceforge.net/CellMLSimulator/#">
+		<rdf:Description rdf:ID="andre">
+			<vCard:N rdf:parseType="Resource">
+				<vCard:Family>Nickerson</vCard:Family>
+				<vCard:Given>David</vCard:Given>
+			</vCard:N>
+			<vCard:EMAIL rdf:parseType="Resource">
+				<rdf:value>d.nickerson@auckland.ac.nz</rdf:value>
+				<rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+			</vCard:EMAIL>
+			<vCard:ORG rdf:parseType="Resource">
+				<vCard:Orgname>The University of Auckland</vCard:Orgname>
+				<vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+			</vCard:ORG>
+		</rdf:Description>
+		<rdf:Description rdf:ID="jonna">
+			<vCard:N rdf:parseType="Resource">
+				<vCard:Family>Terkildsen</vCard:Family>
+				<vCard:Given>Jonna</vCard:Given>
+			</vCard:N>
+			<vCard:EMAIL rdf:parseType="Resource">
+				<rdf:value>j.terkildsen@auckland.ac.nz</rdf:value>
+				<rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+			</vCard:EMAIL>
+			<vCard:ORG rdf:parseType="Resource">
+				<vCard:Orgname>The University of Auckland</vCard:Orgname>
+				<vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+			</vCard:ORG>
+		</rdf:Description>
+		<rdf:Description rdf:about="">
+		    <dc:creator rdf:resource="#andre" />
+			<dcterms:created rdf:parseType="Resource">
+				<dcterms:W3CDTF>2010-04-19</dcterms:W3CDTF>
+			</dcterms:created>
+			<dc:publisher>
+				Auckland Bioengineering Institute, The University of Auckland.
+			</dc:publisher>
+		</rdf:Description>
+		<rdf:Description rdf:about="#figure_03_a">
+			<cs:simulation>
+				<rdf:Description rdf:ID="simulation_1">
+					<cs:multistepMethod>bdf</cs:multistepMethod>
+					<cs:iterationMethod>newton</cs:iterationMethod>
+					<cs:linearSolver>dense</cs:linearSolver>
+					<cs:boundIntervals rdf:parseType="Collection">
+						<rdf:Description>
+							<cs:boundVariable>
+								<rdf:Description rdf:about="#time_1" />
+							</cs:boundVariable>
+							<cs:maximumStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0.1
+							</cs:maximumStepSize>
+							<cs:tabulationStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								1
+							</cs:tabulationStepSize>
+							<cs:startingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0
+							</cs:startingValue>
+							<cs:endingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								100
+							</cs:endingValue>
+						</rdf:Description>
+					</cs:boundIntervals>
+				</rdf:Description>
+			</cs:simulation>
+			<cs:simulation>
+				<rdf:Description rdf:ID="simulation_2">
+					<cs:multistepMethod>bdf</cs:multistepMethod>
+					<cs:iterationMethod>newton</cs:iterationMethod>
+					<cs:linearSolver>dense</cs:linearSolver>
+					<cs:boundIntervals rdf:parseType="Collection">
+						<rdf:Description>
+							<cs:boundVariable>
+								<rdf:Description rdf:about="#time_2" />
+							</cs:boundVariable>
+							<cs:maximumStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0.1
+							</cs:maximumStepSize>
+							<cs:tabulationStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								1
+							</cs:tabulationStepSize>
+							<cs:startingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0
+							</cs:startingValue>
+							<cs:endingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								100
+							</cs:endingValue>
+						</rdf:Description>
+					</cs:boundIntervals>
+				</rdf:Description>
+			</cs:simulation>
+			<cs:simulation>
+				<rdf:Description rdf:ID="simulation_3">
+					<cs:multistepMethod>bdf</cs:multistepMethod>
+					<cs:iterationMethod>newton</cs:iterationMethod>
+					<cs:linearSolver>dense</cs:linearSolver>
+					<cs:boundIntervals rdf:parseType="Collection">
+						<rdf:Description>
+							<cs:boundVariable>
+								<rdf:Description rdf:about="#time_3" />
+							</cs:boundVariable>
+							<cs:maximumStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0.1
+							</cs:maximumStepSize>
+							<cs:tabulationStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								1
+							</cs:tabulationStepSize>
+							<cs:startingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0
+							</cs:startingValue>
+							<cs:endingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								100
+							</cs:endingValue>
+						</rdf:Description>
+					</cs:boundIntervals>
+				</rdf:Description>
+			</cs:simulation>
+			<cs:simulation>
+				<rdf:Description rdf:ID="simulation_4">
+					<cs:multistepMethod>bdf</cs:multistepMethod>
+					<cs:iterationMethod>newton</cs:iterationMethod>
+					<cs:linearSolver>dense</cs:linearSolver>
+					<cs:boundIntervals rdf:parseType="Collection">
+						<rdf:Description>
+							<cs:boundVariable>
+								<rdf:Description rdf:about="#time_4" />
+							</cs:boundVariable>
+							<cs:maximumStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0.1
+							</cs:maximumStepSize>
+							<cs:tabulationStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								1
+							</cs:tabulationStepSize>
+							<cs:startingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0
+							</cs:startingValue>
+							<cs:endingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								100
+							</cs:endingValue>
+						</rdf:Description>
+					</cs:boundIntervals>
+				</rdf:Description>
+			</cs:simulation>
+			<cs:simulation>
+				<rdf:Description rdf:ID="simulation_5">
+					<cs:multistepMethod>bdf</cs:multistepMethod>
+					<cs:iterationMethod>newton</cs:iterationMethod>
+					<cs:linearSolver>dense</cs:linearSolver>
+					<cs:boundIntervals rdf:parseType="Collection">
+						<rdf:Description>
+							<cs:boundVariable>
+								<rdf:Description rdf:about="#time_5" />
+							</cs:boundVariable>
+							<cs:maximumStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0.1
+							</cs:maximumStepSize>
+							<cs:tabulationStepSize rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								1
+							</cs:tabulationStepSize>
+							<cs:startingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								0
+							</cs:startingValue>
+							<cs:endingValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double">
+								100
+							</cs:endingValue>
+						</rdf:Description>
+					</cs:boundIntervals>
+				</rdf:Description>
+			</cs:simulation>
+		</rdf:Description>
+		<rdf:Description>
+			<cg:graph>
+				<rdf:Description rdf:ID="SGLT2-figure-03-a">
+					<cg:title>Figure 3(a)</cg:title>
+					<dcterms:description rdf:parseType="Resource">
+						<rdf:value>
+							Reproduction of figure 3(a) from Mackenzie et al (1996).
+						</rdf:value>
+					</dcterms:description>
+					<csim:citation rdf:parseType="Resource">
+						<csim:authors>
+							<rdf:Seq>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#andre" />
+								</rdf:li>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#jonna" />
+								</rdf:li>
+							</rdf:Seq>
+						</csim:authors>
+						<dc:title>
+							An example validation study using annotated CellML models
+						</dc:title>
+						<dcterms:issued>2010-04-21</dcterms:issued>
+						<dcterms:bibliographicCitation>Demonstration for Experimental Biology</dcterms:bibliographicCitation>
+					</csim:citation>
+					<cg:x-label>Potential (V)</cg:x-label>
+					<cg:y-label>K_glucose_0.5 (M)</cg:y-label>
+					<cg:background-colour>#ffffff</cg:background-colour>
+					<cg:traces rdf:parseType="Collection">
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#ff0000</cg:colour>
+							<cg:label>Na_o=5mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_1" />
+								<cg:variable rdf:resource="#V_1" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_1" />
+								<cg:variable rdf:resource="#Khalf_gluc_1" />
+							</cg:y-variable>
+						</rdf:Description>
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#0000ff</cg:colour>
+							<cg:label>Na_o=100mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_2" />
+								<cg:variable rdf:resource="#V_2" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_2" />
+								<cg:variable rdf:resource="#Khalf_gluc_2" />
+							</cg:y-variable>
+						</rdf:Description>
+					</cg:traces>
+				</rdf:Description>
+			</cg:graph>
+			<cg:graph>
+				<rdf:Description rdf:ID="SGLT2-figure-03-b">
+					<cg:title>Figure 3(b)</cg:title>
+					<dcterms:description rdf:parseType="Resource">
+						<rdf:value>
+							Reproduction of figure 3(b) from Mackenzie et al (1996).
+						</rdf:value>
+					</dcterms:description>
+					<csim:citation rdf:parseType="Resource">
+						<csim:authors>
+							<rdf:Seq>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#andre" />
+								</rdf:li>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#jonna" />
+								</rdf:li>
+							</rdf:Seq>
+						</csim:authors>
+						<dc:title>
+							An example validation study using annotated CellML models
+						</dc:title>
+						<dcterms:issued>2010-04-21</dcterms:issued>
+						<dcterms:bibliographicCitation>Demonstration for Experimental Biology</dcterms:bibliographicCitation>
+					</csim:citation>
+					<cg:x-label>Potential (V)</cg:x-label>
+					<cg:y-label>K_Na_0.5 (M)</cg:y-label>
+					<cg:background-colour>#ffffff</cg:background-colour>
+					<cg:traces rdf:parseType="Collection">
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#ff0000</cg:colour>
+							<cg:label>Gluc_o=1mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_3" />
+								<cg:variable rdf:resource="#V_3" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_3" />
+								<cg:variable rdf:resource="#Khalf_Na_3" />
+							</cg:y-variable>
+						</rdf:Description>
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#0000ff</cg:colour>
+							<cg:label>Gluc_o=5mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_4" />
+								<cg:variable rdf:resource="#V_4" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_4" />
+								<cg:variable rdf:resource="#Khalf_Na_4" />
+							</cg:y-variable>
+						</rdf:Description>
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#008000</cg:colour>
+							<cg:label>Gluc_0=50mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_5" />
+								<cg:variable rdf:resource="#V_5" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_5" />
+								<cg:variable rdf:resource="#Khalf_Na_5" />
+							</cg:y-variable>
+						</rdf:Description>
+					</cg:traces>
+				</rdf:Description>
+			</cg:graph>
+			<cg:graph>
+				<rdf:Description rdf:ID="SGLT2-figure-03-c">
+					<cg:title>Figure 3(c)</cg:title>
+					<dcterms:description rdf:parseType="Resource">
+						<rdf:value>
+							Reproduction of figure 3(c) from Mackenzie et al (1996).
+						</rdf:value>
+					</dcterms:description>
+					<csim:citation rdf:parseType="Resource">
+						<csim:authors>
+							<rdf:Seq>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#andre" />
+								</rdf:li>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#jonna" />
+								</rdf:li>
+							</rdf:Seq>
+						</csim:authors>
+						<dc:title>
+							An example validation study using annotated CellML models
+						</dc:title>
+						<dcterms:issued>2010-04-21</dcterms:issued>
+						<dcterms:bibliographicCitation>Demonstration for Experimental Biology</dcterms:bibliographicCitation>
+					</csim:citation>
+					<cg:x-label>Potential (V)</cg:x-label>
+					<cg:y-label>Imax_gluc (uA)</cg:y-label>
+					<cg:background-colour>#ffffff</cg:background-colour>
+					<cg:traces rdf:parseType="Collection">
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#ff0000</cg:colour>
+							<cg:label>Na_o=5mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_1" />
+								<cg:variable rdf:resource="#V_1" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_1" />
+								<cg:variable rdf:resource="#Imax_gluc_1" />
+							</cg:y-variable>
+						</rdf:Description>
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#0000ff</cg:colour>
+							<cg:label>Na_o=100mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_2" />
+								<cg:variable rdf:resource="#V_2" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_2" />
+								<cg:variable rdf:resource="#Imax_gluc_2" />
+							</cg:y-variable>
+						</rdf:Description>
+					</cg:traces>
+				</rdf:Description>
+			</cg:graph>
+			<cg:graph>
+				<rdf:Description rdf:ID="SGLT2-figure-03-d">
+					<cg:title>Figure 3(d)</cg:title>
+					<dcterms:description rdf:parseType="Resource">
+						<rdf:value>
+							Reproduction of figure 3(d) from Mackenzie et al (1996).
+						</rdf:value>
+					</dcterms:description>
+					<csim:citation rdf:parseType="Resource">
+						<csim:authors>
+							<rdf:Seq>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#andre" />
+								</rdf:li>
+								<rdf:li rdf:parseType="Resource">
+									<dc:creator rdf:resource="#jonna" />
+								</rdf:li>
+							</rdf:Seq>
+						</csim:authors>
+						<dc:title>
+							An example validation study using annotated CellML models
+						</dc:title>
+						<dcterms:issued>2010-04-21</dcterms:issued>
+						<dcterms:bibliographicCitation>Demonstration for Experimental Biology</dcterms:bibliographicCitation>
+					</csim:citation>
+					<cg:x-label>Potential (V)</cg:x-label>
+					<cg:y-label>Imax_Na (M)</cg:y-label>
+					<cg:background-colour>#ffffff</cg:background-colour>
+					<cg:traces rdf:parseType="Collection">
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#ff0000</cg:colour>
+							<cg:label>Gluc_o=1mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_3" />
+								<cg:variable rdf:resource="#V_3" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_3" />
+								<cg:variable rdf:resource="#Imax_Na_3" />
+							</cg:y-variable>
+						</rdf:Description>
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#0000ff</cg:colour>
+							<cg:label>Gluc_o=5mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_4" />
+								<cg:variable rdf:resource="#V_4" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_4" />
+								<cg:variable rdf:resource="#Imax_Na_4" />
+							</cg:y-variable>
+						</rdf:Description>
+						<rdf:Description>
+							<cg:type rdf:resource="http://www.cellml.org/metadata/graphs/1.0#line" />
+							<cg:colour>#008000</cg:colour>
+							<cg:label>Gluc_0=50mM</cg:label>
+							<cg:x-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_5" />
+								<cg:variable rdf:resource="#V_5" />
+							</cg:x-variable>
+							<cg:y-variable rdf:parseType="Resource">
+								<cs:simulation rdf:resource="#simulation_5" />
+								<cg:variable rdf:resource="#Imax_Na_5" />
+							</cg:y-variable>
+						</rdf:Description>
+					</cg:traces>
+				</rdf:Description>
+			</cg:graph>
+		</rdf:Description>
+	</rdf:RDF>
 	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="figure-03-base.xml">
-		<component component_ref="variables" name="model_1"/>
+		<component component_ref="variables" name="model_1" />
 	</import>
 	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="figure-03-base.xml">
-		<component component_ref="variables" name="model_2"/>
+		<component component_ref="variables" name="model_2" />
 	</import>
 	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="figure-03-base.xml">
-		<component component_ref="variables" name="model_3"/>
+		<component component_ref="variables" name="model_3" />
 	</import>
 	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="figure-03-base.xml">
-		<component component_ref="variables" name="model_4"/>
+		<component component_ref="variables" name="model_4" />
 	</import>
 	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="figure-03-base.xml">
-		<component component_ref="variables" name="model_5"/>
+		<component component_ref="variables" name="model_5" />
 	</import>
-	<import xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../decomposed-model/mackenzie_1996_units_model.xml">
-		<units name="M" units_ref="M"/>
-		<units name="volt" units_ref="volt"/>
-		<units name="second" units_ref="second"/>
-		<units name="uA" units_ref="uA"/>
+	<import xmlns:xlink="http://www.w3.org/1999/xlink"
+		xlink:href="../decomposed-model/mackenzie_1996_units_model.xml">
+		<units name="M" units_ref="M" />
+		<units name="volt" units_ref="volt" />
+		<units name="second" units_ref="second" />
+		<units name="uA" units_ref="uA" />
 	</import>
 	<component name="variables_1" cmeta:id="variables_1">
-		<variable cmeta:id="Na_i_1" name="Na_i" units="M" public_interface="out" initial_value="10e-3"/>
-		<variable cmeta:id="Na_o_1" name="Na_o" units="M" public_interface="out" initial_value="5e-3"/>
-		<variable cmeta:id="glucose_i_1" name="glucose_i" units="M" public_interface="out" initial_value="0.0"/>
-		<variable cmeta:id="glucose_o_1" name="glucose_o" units="M" public_interface="out" initial_value="1.0e-3"/>
-		<variable cmeta:id="time_1" name="time" units="second" public_interface="in"/>
-		<variable cmeta:id="V_1" name="V" units="volt" public_interface="in"/>
-		<variable cmeta:id="Imax_Na_1" name="Imax_Na" public_interface="in" units="uA"/>
-		<variable cmeta:id="Imax_gluc_1" name="Imax_gluc" public_interface="in" units="uA"/>
-		<variable cmeta:id="Khalf_Na_1" name="Khalf_Na" public_interface="in" units="M"/>
-		<variable cmeta:id="Khalf_gluc_1" name="Khalf_gluc" public_interface="in" units="M"/>
+		<variable cmeta:id="Na_i_1" name="Na_i" units="M"
+			public_interface="out" initial_value="10e-3" />
+		<variable cmeta:id="Na_o_1" name="Na_o" units="M"
+			public_interface="out" initial_value="5e-3" />
+		<variable cmeta:id="glucose_i_1" name="glucose_i" units="M"
+			public_interface="out" initial_value="0.0" />
+		<variable cmeta:id="glucose_o_1" name="glucose_o" units="M"
+			public_interface="out" initial_value="1.0e-3" />
+		<variable cmeta:id="time_1" name="time" units="second"
+			public_interface="in" />
+		<variable cmeta:id="V_1" name="V" units="volt"
+			public_interface="in" />
+		<variable cmeta:id="Imax_Na_1" name="Imax_Na"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Imax_gluc_1" name="Imax_gluc"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Khalf_Na_1" name="Khalf_Na"
+			public_interface="in" units="M" />
+		<variable cmeta:id="Khalf_gluc_1" name="Khalf_gluc"
+			public_interface="in" units="M" />
 	</component>
 	<component name="variables_2" cmeta:id="variables_2">
-		<variable cmeta:id="Na_i_2" name="Na_i" units="M" public_interface="out" initial_value="10e-3"/>
-		<variable cmeta:id="Na_o_2" name="Na_o" units="M" public_interface="out" initial_value="100e-3"/>
-		<variable cmeta:id="glucose_i_2" name="glucose_i" units="M" public_interface="out" initial_value="0.0"/>
-		<variable cmeta:id="glucose_o_2" name="glucose_o" units="M" public_interface="out" initial_value="1.0e-3"/>
-		<variable cmeta:id="time_2" name="time" units="second" public_interface="in"/>
-		<variable cmeta:id="V_2" name="V" units="volt" public_interface="in"/>
-		<variable cmeta:id="Imax_Na_2" name="Imax_Na" public_interface="in" units="uA"/>
-		<variable cmeta:id="Imax_gluc_2" name="Imax_gluc" public_interface="in" units="uA"/>
-		<variable cmeta:id="Khalf_Na_2" name="Khalf_Na" public_interface="in" units="M"/>
-		<variable cmeta:id="Khalf_gluc_2" name="Khalf_gluc" public_interface="in" units="M"/>
+		<variable cmeta:id="Na_i_2" name="Na_i" units="M"
+			public_interface="out" initial_value="10e-3" />
+		<variable cmeta:id="Na_o_2" name="Na_o" units="M"
+			public_interface="out" initial_value="100e-3" />
+		<variable cmeta:id="glucose_i_2" name="glucose_i" units="M"
+			public_interface="out" initial_value="0.0" />
+		<variable cmeta:id="glucose_o_2" name="glucose_o" units="M"
+			public_interface="out" initial_value="1.0e-3" />
+		<variable cmeta:id="time_2" name="time" units="second"
+			public_interface="in" />
+		<variable cmeta:id="V_2" name="V" units="volt"
+			public_interface="in" />
+		<variable cmeta:id="Imax_Na_2" name="Imax_Na"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Imax_gluc_2" name="Imax_gluc"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Khalf_Na_2" name="Khalf_Na"
+			public_interface="in" units="M" />
+		<variable cmeta:id="Khalf_gluc_2" name="Khalf_gluc"
+			public_interface="in" units="M" />
 	</component>
 	<component name="variables_3" cmeta:id="variables_3">
-		<variable cmeta:id="Na_i_3" name="Na_i" units="M" public_interface="out" initial_value="10e-3"/>
-		<variable cmeta:id="Na_o_3" name="Na_o" units="M" public_interface="out" initial_value="100e-3"/>
-		<variable cmeta:id="glucose_i_3" name="glucose_i" units="M" public_interface="out" initial_value="0.0"/>
-		<variable cmeta:id="glucose_o_3" name="glucose_o" units="M" public_interface="out" initial_value="1.0e-3"/>
-		<variable cmeta:id="time_3" name="time" units="second" public_interface="in"/>
-		<variable cmeta:id="V_3" name="V" units="volt" public_interface="in"/>
-		<variable cmeta:id="Imax_Na_3" name="Imax_Na" public_interface="in" units="uA"/>
-		<variable cmeta:id="Imax_gluc_3" name="Imax_gluc" public_interface="in" units="uA"/>
-		<variable cmeta:id="Khalf_Na_3" name="Khalf_Na" public_interface="in" units="M"/>
-		<variable cmeta:id="Khalf_gluc_3" name="Khalf_gluc" public_interface="in" units="M"/>
+		<variable cmeta:id="Na_i_3" name="Na_i" units="M"
+			public_interface="out" initial_value="10e-3" />
+		<variable cmeta:id="Na_o_3" name="Na_o" units="M"
+			public_interface="out" initial_value="100e-3" />
+		<variable cmeta:id="glucose_i_3" name="glucose_i" units="M"
+			public_interface="out" initial_value="0.0" />
+		<variable cmeta:id="glucose_o_3" name="glucose_o" units="M"
+			public_interface="out" initial_value="1.0e-3" />
+		<variable cmeta:id="time_3" name="time" units="second"
+			public_interface="in" />
+		<variable cmeta:id="V_3" name="V" units="volt"
+			public_interface="in" />
+		<variable cmeta:id="Imax_Na_3" name="Imax_Na"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Imax_gluc_3" name="Imax_gluc"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Khalf_Na_3" name="Khalf_Na"
+			public_interface="in" units="M" />
+		<variable cmeta:id="Khalf_gluc_3" name="Khalf_gluc"
+			public_interface="in" units="M" />
 	</component>
 	<component name="variables_4" cmeta:id="variables_4">
-		<variable cmeta:id="Na_i_4" name="Na_i" units="M" public_interface="out" initial_value="10e-3"/>
-		<variable cmeta:id="Na_o_4" name="Na_o" units="M" public_interface="out" initial_value="100e-3"/>
-		<variable cmeta:id="glucose_i_4" name="glucose_i" units="M" public_interface="out" initial_value="0.0"/>
-		<variable cmeta:id="glucose_o_4" name="glucose_o" units="M" public_interface="out" initial_value="5.0e-3"/>
-		<variable cmeta:id="time_4" name="time" units="second" public_interface="in"/>
-		<variable cmeta:id="V_4" name="V" units="volt" public_interface="in"/>
-		<variable cmeta:id="Imax_Na_4" name="Imax_Na" public_interface="in" units="uA"/>
-		<variable cmeta:id="Imax_gluc_4" name="Imax_gluc" public_interface="in" units="uA"/>
-		<variable cmeta:id="Khalf_Na_4" name="Khalf_Na" public_interface="in" units="M"/>
-		<variable cmeta:id="Khalf_gluc_4" name="Khalf_gluc" public_interface="in" units="M"/>
+		<variable cmeta:id="Na_i_4" name="Na_i" units="M"
+			public_interface="out" initial_value="10e-3" />
+		<variable cmeta:id="Na_o_4" name="Na_o" units="M"
+			public_interface="out" initial_value="100e-3" />
+		<variable cmeta:id="glucose_i_4" name="glucose_i" units="M"
+			public_interface="out" initial_value="0.0" />
+		<variable cmeta:id="glucose_o_4" name="glucose_o" units="M"
+			public_interface="out" initial_value="5.0e-3" />
+		<variable cmeta:id="time_4" name="time" units="second"
+			public_interface="in" />
+		<variable cmeta:id="V_4" name="V" units="volt"
+			public_interface="in" />
+		<variable cmeta:id="Imax_Na_4" name="Imax_Na"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Imax_gluc_4" name="Imax_gluc"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Khalf_Na_4" name="Khalf_Na"
+			public_interface="in" units="M" />
+		<variable cmeta:id="Khalf_gluc_4" name="Khalf_gluc"
+			public_interface="in" units="M" />
 	</component>
 	<component name="variables_5" cmeta:id="variables_5">
-		<variable cmeta:id="Na_i_5" name="Na_i" units="M" public_interface="out" initial_value="10e-3"/>
-		<variable cmeta:id="Na_o_5" name="Na_o" units="M" public_interface="out" initial_value="100e-3"/>
-		<variable cmeta:id="glucose_i_5" name="glucose_i" units="M" public_interface="out" initial_value="0.0"/>
-		<variable cmeta:id="glucose_o_5" name="glucose_o" units="M" public_interface="out" initial_value="50.0e-3"/>
-		<variable cmeta:id="time_5" name="time" units="second" public_interface="in"/>
-		<variable cmeta:id="V_5" name="V" units="volt" public_interface="in"/>
-		<variable cmeta:id="Imax_Na_5" name="Imax_Na" public_interface="in" units="uA"/>
-		<variable cmeta:id="Imax_gluc_5" name="Imax_gluc" public_interface="in" units="uA"/>
-		<variable cmeta:id="Khalf_Na_5" name="Khalf_Na" public_interface="in" units="M"/>
-		<variable cmeta:id="Khalf_gluc_5" name="Khalf_gluc" public_interface="in" units="M"/>
+		<variable cmeta:id="Na_i_5" name="Na_i" units="M"
+			public_interface="out" initial_value="10e-3" />
+		<variable cmeta:id="Na_o_5" name="Na_o" units="M"
+			public_interface="out" initial_value="100e-3" />
+		<variable cmeta:id="glucose_i_5" name="glucose_i" units="M"
+			public_interface="out" initial_value="0.0" />
+		<variable cmeta:id="glucose_o_5" name="glucose_o" units="M"
+			public_interface="out" initial_value="50.0e-3" />
+		<variable cmeta:id="time_5" name="time" units="second"
+			public_interface="in" />
+		<variable cmeta:id="V_5" name="V" units="volt"
+			public_interface="in" />
+		<variable cmeta:id="Imax_Na_5" name="Imax_Na"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Imax_gluc_5" name="Imax_gluc"
+			public_interface="in" units="uA" />
+		<variable cmeta:id="Khalf_Na_5" name="Khalf_Na"
+			public_interface="in" units="M" />
+		<variable cmeta:id="Khalf_gluc_5" name="Khalf_gluc"
+			public_interface="in" units="M" />
 	</component>
 	<connection>
-		<map_components component_1="variables_1" component_2="model_1"/>
-		<map_variables variable_1="Na_i" variable_2="Na_i"/>
-		<map_variables variable_1="Na_o" variable_2="Na_o"/>
-		<map_variables variable_1="glucose_i" variable_2="glucose_i"/>
-		<map_variables variable_1="glucose_o" variable_2="glucose_o"/>
-		<map_variables variable_1="V" variable_2="V"/>
-		<map_variables variable_1="time" variable_2="time"/>
-		<map_variables variable_1="Imax_Na" variable_2="Imax_Na"/>
-		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc"/>
-		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na"/>
-		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc"/>
+		<map_components component_1="variables_1" component_2="model_1" />
+		<map_variables variable_1="Na_i" variable_2="Na_i" />
+		<map_variables variable_1="Na_o" variable_2="Na_o" />
+		<map_variables variable_1="glucose_i" variable_2="glucose_i" />
+		<map_variables variable_1="glucose_o" variable_2="glucose_o" />
+		<map_variables variable_1="V" variable_2="V" />
+		<map_variables variable_1="time" variable_2="time" />
+		<map_variables variable_1="Imax_Na" variable_2="Imax_Na" />
+		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc" />
+		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na" />
+		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc" />
 	</connection>
 	<connection>
-		<map_components component_1="variables_2" component_2="model_2"/>
-		<map_variables variable_1="Na_i" variable_2="Na_i"/>
-		<map_variables variable_1="Na_o" variable_2="Na_o"/>
-		<map_variables variable_1="glucose_i" variable_2="glucose_i"/>
-		<map_variables variable_1="glucose_o" variable_2="glucose_o"/>
-		<map_variables variable_1="V" variable_2="V"/>
-		<map_variables variable_1="time" variable_2="time"/>
-		<map_variables variable_1="Imax_Na" variable_2="Imax_Na"/>
-		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc"/>
-		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na"/>
-		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc"/>
+		<map_components component_1="variables_2" component_2="model_2" />
+		<map_variables variable_1="Na_i" variable_2="Na_i" />
+		<map_variables variable_1="Na_o" variable_2="Na_o" />
+		<map_variables variable_1="glucose_i" variable_2="glucose_i" />
+		<map_variables variable_1="glucose_o" variable_2="glucose_o" />
+		<map_variables variable_1="V" variable_2="V" />
+		<map_variables variable_1="time" variable_2="time" />
+		<map_variables variable_1="Imax_Na" variable_2="Imax_Na" />
+		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc" />
+		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na" />
+		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc" />
 	</connection>
 	<connection>
-		<map_components component_1="variables_3" component_2="model_3"/>
-		<map_variables variable_1="Na_i" variable_2="Na_i"/>
-		<map_variables variable_1="Na_o" variable_2="Na_o"/>
-		<map_variables variable_1="glucose_i" variable_2="glucose_i"/>
-		<map_variables variable_1="glucose_o" variable_2="glucose_o"/>
-		<map_variables variable_1="V" variable_2="V"/>
-		<map_variables variable_1="time" variable_2="time"/>
-		<map_variables variable_1="Imax_Na" variable_2="Imax_Na"/>
-		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc"/>
-		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na"/>
-		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc"/>
+		<map_components component_1="variables_3" component_2="model_3" />
+		<map_variables variable_1="Na_i" variable_2="Na_i" />
+		<map_variables variable_1="Na_o" variable_2="Na_o" />
+		<map_variables variable_1="glucose_i" variable_2="glucose_i" />
+		<map_variables variable_1="glucose_o" variable_2="glucose_o" />
+		<map_variables variable_1="V" variable_2="V" />
+		<map_variables variable_1="time" variable_2="time" />
+		<map_variables variable_1="Imax_Na" variable_2="Imax_Na" />
+		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc" />
+		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na" />
+		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc" />
 	</connection>
 	<connection>
-		<map_components component_1="variables_4" component_2="model_4"/>
-		<map_variables variable_1="Na_i" variable_2="Na_i"/>
-		<map_variables variable_1="Na_o" variable_2="Na_o"/>
-		<map_variables variable_1="glucose_i" variable_2="glucose_i"/>
-		<map_variables variable_1="glucose_o" variable_2="glucose_o"/>
-		<map_variables variable_1="V" variable_2="V"/>
-		<map_variables variable_1="time" variable_2="time"/>
-		<map_variables variable_1="Imax_Na" variable_2="Imax_Na"/>
-		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc"/>
-		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na"/>
-		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc"/>
+		<map_components component_1="variables_4" component_2="model_4" />
+		<map_variables variable_1="Na_i" variable_2="Na_i" />
+		<map_variables variable_1="Na_o" variable_2="Na_o" />
+		<map_variables variable_1="glucose_i" variable_2="glucose_i" />
+		<map_variables variable_1="glucose_o" variable_2="glucose_o" />
+		<map_variables variable_1="V" variable_2="V" />
+		<map_variables variable_1="time" variable_2="time" />
+		<map_variables variable_1="Imax_Na" variable_2="Imax_Na" />
+		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc" />
+		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na" />
+		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc" />
 	</connection>
 	<connection>
-		<map_components component_1="variables_5" component_2="model_5"/>
-		<map_variables variable_1="Na_i" variable_2="Na_i"/>
-		<map_variables variable_1="Na_o" variable_2="Na_o"/>
-		<map_variables variable_1="glucose_i" variable_2="glucose_i"/>
-		<map_variables variable_1="glucose_o" variable_2="glucose_o"/>
-		<map_variables variable_1="V" variable_2="V"/>
-		<map_variables variable_1="time" variable_2="time"/>
-		<map_variables variable_1="Imax_Na" variable_2="Imax_Na"/>
-		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc"/>
-		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na"/>
-		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc"/>
+		<map_components component_1="variables_5" component_2="model_5" />
+		<map_variables variable_1="Na_i" variable_2="Na_i" />
+		<map_variables variable_1="Na_o" variable_2="Na_o" />
+		<map_variables variable_1="glucose_i" variable_2="glucose_i" />
+		<map_variables variable_1="glucose_o" variable_2="glucose_o" />
+		<map_variables variable_1="V" variable_2="V" />
+		<map_variables variable_1="time" variable_2="time" />
+		<map_variables variable_1="Imax_Na" variable_2="Imax_Na" />
+		<map_variables variable_1="Imax_gluc" variable_2="Imax_gluc" />
+		<map_variables variable_1="Khalf_Na" variable_2="Khalf_Na" />
+		<map_variables variable_1="Khalf_gluc" variable_2="Khalf_gluc" />
 	</connection>
 </model>

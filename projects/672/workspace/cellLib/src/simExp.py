@@ -1,7 +1,7 @@
 # Simulate experiments
 import opencor as oc
 import numpy as np
-def simExp(simfile, savefiles,ending,indexStart,indexEnd,varSet,varLoop,varSave):
+def simExp(simfile, savefiles,start, ending, pointInterval,indexStart,indexEnd,varSet,varLoop,varSave):
    # Allow one variable to loop
    if len(varLoop)>1:
        sys.exit("The number of the variables to loop is greater than 1") 
@@ -10,7 +10,9 @@ def simExp(simfile, savefiles,ending,indexStart,indexEnd,varSet,varLoop,varSave)
    # The data object houses all the relevant information
    # and pointers to the OpenCOR internal data representations
    data = simulation.data()
-   data.set_ending_point(ending) 
+   data.set_starting_point(start)
+   data.set_ending_point(ending)
+   data.set_point_interval(pointInterval) 
    # If need to save peak value
    peak=False
    getallSave = list(varSave.values()) 
@@ -22,6 +24,7 @@ def simExp(simfile, savefiles,ending,indexStart,indexEnd,varSet,varLoop,varSave)
    loopPair = list(varLoop.values())[0]
    loopType=list(loopPair)[0]
    loopValues=list(loopPair.values())[0]
+   print(loopVar,loopValues)
    # Data to save
    varName = np.array(list(varSave))
    vars = np.reshape(varName, (1, len(varName)))
@@ -39,7 +42,7 @@ def simExp(simfile, savefiles,ending,indexStart,indexEnd,varSet,varLoop,varSave)
        simulation.reset(True)
        # Set parameter values
        if loopType=='constants':
-          data.constants()[loopVar] = ivalue
+          data.constants()[loopVar] = ivalue          
        elif loopType=='algebraic':
           data.algebraic()[loopVar] = ivalue
        elif loopType=='states':

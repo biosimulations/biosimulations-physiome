@@ -31,14 +31,14 @@ for h, iprefilename in enumerate(prefilename):
     odata = pd.read_csv(ofilename)
     ox_data = odata['x']   
     oy_data = odata['Curve1']    
-    ax[h].plot(ox_data, oy_data, '.',  color=cycle[0], label = 'Bursztyn et al.')
+    ax[h].plot(ox_data, oy_data, '.',  color=cycle[0], label = 'Bursztyn et al, Nai=16.55 mM')
     
     for i, iNai in enumerate(Nai):
         filename='../simulatedData/%s_%d.csv' % (iprefilename,i)
         data = pd.read_csv(filename)
         x_data = data[x_name]      
         y_data = data[y_name]*1000000   
-        ax[h].plot(x_data, y_data,  color=cycle[i], label = 'CellML' )       
+        ax[h].plot(x_data, y_data,  color=cycle[i], label = 'CellML, Nai=%.2f mM' % (iNai))       
            
     plt.tick_params(direction='in', axis='both')    
     ax[h].legend(loc = 'best', fontsize=lfontsize, frameon=False)

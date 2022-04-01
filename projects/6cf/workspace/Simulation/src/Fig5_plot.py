@@ -16,8 +16,8 @@ ax, lns = {}, {}
 cycle = plt.rcParams['axes.prop_cycle'].by_key()['color']
 # Set subplots
 lfontsize, labelfontsize = 11, 12 # legend, label fontsize
-t_ss = [16, 0]
-duration = [0, 0.2]
+t_ss = [3, 3]
+duration = [0.75, 0.2]
 # Read data from the files
 x_name = 'time'
 y_name = ["J_CaPump", "J_NaCa", "J_VOCC"]
@@ -42,11 +42,11 @@ for h, plotN in enumerate(prefilenames):
        
        filename='../simulatedData/%s.csv' % (prefilenames[h])
        data = pd.read_csv(filename)
-       x_data = data[x_name]      
+       x_data = data[x_name]- t_ss[h]-duration[h]      
        y_data = data[y_name[0]]*1000000   
-       ax[h].plot(x_data, y_data,  color=cycle[0], label = 'J$_{Ca,Pump}$')
+       ax[h].plot(x_data, y_data,  color=cycle[0], label = 'J$_{Ca,Pump}$)')
        y_data = data[y_name[1]]*1000000   
-       ax[h].plot(x_data, y_data,  color=cycle[1], label = 'J$_{Na/Ca}$') 
+       ax[h].plot(x_data, y_data,  color=cycle[1], label = 'J$_{Na/Ca}$)') 
    
     else:
        ofilename ='../originalData/%s.csv' % ofilenames[h+1]

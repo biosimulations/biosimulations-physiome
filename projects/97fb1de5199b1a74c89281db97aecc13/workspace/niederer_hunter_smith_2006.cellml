@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/niederer_hunter_smith_2006/niederer_hunter_smith_2006.cellml" cmeta:id="niederer_2006" name="niederer_2006">
+
+<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="niederer_2006" name="niederer_2006">
 
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
@@ -72,13 +73,13 @@ A Quantitative Analysis of Cardiac Myocyte Relaxation: A Simulation Study, Steve
    </component>
 
 
-   <component cmeta:id="id_00001" name="intracellular_ion_concentrations">
+   <component name="intracellular_ion_concentrations">
       <variable name="time" public_interface="in" units="ms"/>
       <variable cmeta:id="intracellular_ion_concentrations_Ca_i" name="Ca_i" public_interface="out" units="mM"/>
-      <variable cmeta:id="id_00002" name="Ca_b" public_interface="out" units="mM"/>
-      <variable cmeta:id="id_00003" initial_value="0.067593139865" name="TRPN" public_interface="out" units="mM"/>
-      <variable cmeta:id="id_00004" name="Ca_TRPN_Max" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00005" name="J_TRPN" public_interface="in" units="mM_per_ms"/>
+      <variable name="Ca_b" public_interface="out" units="mM"/>
+      <variable initial_value="0.067593139865" name="TRPN" public_interface="out" units="mM"/>
+      <variable name="Ca_TRPN_Max" public_interface="in" units="mM"/>
+      <variable name="J_TRPN" public_interface="in" units="mM_per_ms"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -399,15 +400,15 @@ A Quantitative Analysis of Cardiac Myocyte Relaxation: A Simulation Study, Steve
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00006" name="thinfilaments"/>
-   <component cmeta:id="id_00007" name="tropomyosin">
+   <component name="thinfilaments"/>
+   <component name="tropomyosin">
       <variable initial_value="0.014417937837" name="z" public_interface="out" units="dimensionless"/>
       <variable name="z_max" public_interface="out" units="dimensionless"/>
       <variable name="time" public_interface="in" units="ms"/>
       <variable name="k_on" public_interface="in" units="per_mM_per_ms"/>
       <variable name="k_Ref_off" public_interface="in" units="per_ms"/>
       <variable name="gamma_trpn" public_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00012" name="Ca_TRPN_Max" public_interface="in" units="mM"/>
+      <variable name="Ca_TRPN_Max" public_interface="in" units="mM"/>
       <variable initial_value="8e-3" name="alpha_0" units="per_ms"/>
       <variable initial_value="2e-3" name="alpha_r1" units="per_ms"/>
       <variable initial_value="1.75e-3" name="alpha_r2" units="per_ms"/>
@@ -417,14 +418,14 @@ A Quantitative Analysis of Cardiac Myocyte Relaxation: A Simulation Study, Steve
       <variable initial_value="1.05e-3" name="Ca_50ref" units="mM"/>
       <variable initial_value="0.85" name="z_p" units="dimensionless"/>
       <variable initial_value="-4" name="beta_1" units="dimensionless"/>
-      <variable cmeta:id="id_00014" name="Ca_50" units="mM"/>
-      <variable cmeta:id="id_00011" name="Ca_TRPN_50" units="mM"/>
+      <variable name="Ca_50" units="mM"/>
+      <variable name="Ca_TRPN_50" units="mM"/>
       <variable name="K_2" units="per_ms"/>
       <variable name="K_1" units="per_ms"/>
       <variable name="alpha_Tm" units="per_ms"/>
       <variable name="beta_Tm" units="per_ms"/>
       <variable name="beta_0" public_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00013" name="Ca_b" public_interface="in" units="mM"/>
+      <variable name="Ca_b" public_interface="in" units="mM"/>
       <variable name="lambda" public_interface="in" units="dimensionless"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -726,7 +727,7 @@ A Quantitative Analysis of Cardiac Myocyte Relaxation: A Simulation Study, Steve
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00008" name="troponin">
+   <component name="troponin">
       <variable name="J_TRPN" public_interface="out" units="mM_per_ms"/>
       <variable initial_value="70e-3" name="Ca_TRPN_Max" public_interface="out" units="mM"/>
       <variable name="TRPN" public_interface="in" units="mM"/>
@@ -811,7 +812,7 @@ A Quantitative Analysis of Cardiac Myocyte Relaxation: A Simulation Study, Steve
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00009" name="Myofilaments">
+   <component name="Myofilaments">
       <variable name="time" public_interface="in" units="ms"/>
       <variable name="lambda" public_interface="out" units="dimensionless"/>
       <variable name="ExtensionRatio" public_interface="out" units="dimensionless"/>
@@ -880,7 +881,7 @@ A Quantitative Analysis of Cardiac Myocyte Relaxation: A Simulation Study, Steve
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00010" name="filament_overlap">
+   <component name="filament_overlap">
       <variable name="lambda" public_interface="in" units="dimensionless"/>
       <variable name="overlap" public_interface="out" units="dimensionless"/>
       <variable initial_value="4.9" name="beta_0" public_interface="out" units="dimensionless"/>
@@ -1177,5 +1178,146 @@ A Quantitative Analysis of Cardiac Myocyte Relaxation: A Simulation Study, Steve
       <map_variables variable_1="T_0" variable_2="T_0"/>
    </connection>
 
-
-<rdf:RDF><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#intracellular_ion_concentrations_Ca_i"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0071691"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0071689"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005865"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005862"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67896"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67897"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67897"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf></rdf:Description></rdf:RDF></model>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Seq rdf:about="rdf:#887c750e-c9a6-4af3-bf5c-e07638d57973">
+    <rdf:li rdf:resource="rdf:#cd4567e9-796d-415f-8463-bfcc4af7136a"/>
+    <rdf:li rdf:resource="rdf:#f475ac2a-312b-4d06-9917-68437cf6c8da"/>
+    <rdf:li rdf:resource="rdf:#8fbfc9a4-eb83-48fe-8882-d7ca7e25046b"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Auckland Bioengineering Institute</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#22da1e29-04c8-420d-936b-bd8b2e486104"/>
+    <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#47b74e5d-97ed-4aaa-a687-07fd8f195b42"/>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#e137d61c-82dc-4189-b9f0-29b66171c2e1"/>
+    <cmeta:modification rdf:resource="rdf:#09f3904b-dd66-4a28-abac-7bb5cd351965"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8fbfc9a4-eb83-48fe-8882-d7ca7e25046b">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#dc21789e-b06b-41ab-af35-2d6feb9c5dbd"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#53e5d308-54da-4612-80cc-b8391fe05593">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>j.terkildsen@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#64bb668b-6f2c-493f-ae16-e2071198e2dd">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#982f649b-9600-4031-b4c1-3d8308448733"/>
+    <rdf:value>This is a CellML description of Niederer et al.'s computational model of cardiac myocyte relaxation as described in the 2006 paper "A quantitative analysis of cardiac myocyte relaxation: a simulation study"</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#dc21789e-b06b-41ab-af35-2d6feb9c5dbd">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">N</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Smith</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">P</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5b2dd97e-1afe-4815-8e78-2542050b7b7d">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">P</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Hunter</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">J</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#09f3904b-dd66-4a28-abac-7bb5cd351965">
+    <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#a4cc9a49-f551-4ae0-8ce6-2c5513162628"/>
+    <rdf:value>added cmeta id to T_0 variable</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#7f8791df-4ef7-4dcc-963d-9a0480c65a43"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#314dbed2-8642-4da9-80fd-945b5d1ec7ea">
+    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">James Lawson</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#982f649b-9600-4031-b4c1-3d8308448733">
+    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">James Lawson</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#52c457d5-26a5-4a89-89a2-aec7970789e1">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#887c750e-c9a6-4af3-bf5c-e07638d57973"/>
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A quantitative analysis of cardiac myocyte relaxation: a simulation study</dc:title>
+    <bqs:volume xmlns:bqs="http://www.cellml.org/bqs/1.0#">90(5)</bqs:volume>
+    <bqs:first_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">1697</bqs:first_page>
+    <bqs:Journal xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#4be66846-659c-4208-a256-233bf4cfad34"/>
+    <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#ad018539-ea8c-4542-954e-02753e2863fc"/>
+    <bqs:last_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">1722</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$1XTRo2">
+    <ns7:endingValue xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#">1000</ns7:endingValue>
+    <ns7:nonstandard-pointDensity xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#">10000</ns7:nonstandard-pointDensity>
+    <ns7:maximumStepSize xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#">0.1</ns7:maximumStepSize>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ef3cf40f-3b42-4ed0-993c-730bdf918afc">
+    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Auckland Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#02fbf752-3e20-4809-818c-bd7725477072">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Jonna</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Terkildsen</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$0XTRo2">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="rdf:#$1XTRo2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$+WTRo2">
+    <ns7:boundIntervals xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" rdf:resource="rdf:#$0XTRo2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7f8791df-4ef7-4dcc-963d-9a0480c65a43">
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#5558142b-a43a-435c-aa8d-7da64599a4cc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4f08decc-3fc3-49f4-9dba-6cfaa15a3c57">
+    <bqs:Pubmed_id xmlns:bqs="http://www.cellml.org/bqs/1.0#">16339881</bqs:Pubmed_id>
+    <bqs:JournalArticle xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#52c457d5-26a5-4a89-89a2-aec7970789e1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f475ac2a-312b-4d06-9917-68437cf6c8da">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#5b2dd97e-1afe-4815-8e78-2542050b7b7d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4749a01a-3930-41a0-b116-99b69afa57f2">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">S</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Niederer</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">A</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5558142b-a43a-435c-aa8d-7da64599a4cc">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">James</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Lawson</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#cd4567e9-796d-415f-8463-bfcc4af7136a">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#4749a01a-3930-41a0-b116-99b69afa57f2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4be66846-659c-4208-a256-233bf4cfad34">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Biophysical Journal</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a4cc9a49-f551-4ae0-8ce6-2c5513162628">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2008-08-05T10:32:30+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="#niederer_2006">
+    <ns7:simulation xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" rdf:resource="rdf:#$+WTRo2"/>
+    <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#4f08decc-3fc3-49f4-9dba-6cfaa15a3c57"/>
+<bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource">
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value>
+      <rdf:Bag>
+        <rdf:li>cardiac myocyte</rdf:li>
+        <rdf:li>endocrine</rdf:li>
+        <rdf:li>electrophysiology</rdf:li>
+        <rdf:li>relaxation</rdf:li>
+        <rdf:li>excitation-contraction coupling</rdf:li>
+      </rdf:Bag>
+    </rdf:value>
+  </dc:subject>
+</bqs:reference>
+    <cmeta:comment rdf:resource="rdf:#64bb668b-6f2c-493f-ae16-e2071198e2dd"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#22da1e29-04c8-420d-936b-bd8b2e486104">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#314dbed2-8642-4da9-80fd-945b5d1ec7ea"/>
+    <rdf:value>This model can be simulated in COR and PCEnv and is able to reproduce the results published in Niederer et al.'s 2006 paper.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#47b74e5d-97ed-4aaa-a687-07fd8f195b42">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2008-01-07T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ad018539-ea8c-4542-954e-02753e2863fc">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2006-03-01 00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e137d61c-82dc-4189-b9f0-29b66171c2e1">
+    <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#ef3cf40f-3b42-4ed0-993c-730bdf918afc"/>
+    <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#53e5d308-54da-4612-80cc-b8391fe05593"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#02fbf752-3e20-4809-818c-bd7725477072"/>
+  </rdf:Description>
+</rdf:RDF>
+</model>

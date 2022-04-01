@@ -39,7 +39,7 @@ for i, iV_clamp in enumerate(V_clamp):
    if i >= 5:
       data.set_ending_point(8)
    # Set constant parameter values
-   data.constants()['sPulse_protocol_ms_params/V_actTest'] = iV_clamp
+   data.constants()['voltage_clamp_protocol_params/V_clamp'] = iV_clamp
    data.constants()['parameters/T'] = T
    data.states()['outputs/m'] = m
    data.states()['outputs/n'] = n

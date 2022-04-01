@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <model name="stimulated" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <import xlink:href="../cellLib/Components/units.cellml">
+    <import xlink:href="units.cellml">
         <units name="mV" units_ref="mV"/>
         <units name="ms" units_ref="ms"/>
         <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
@@ -25,18 +25,13 @@
         <variable name="INa" private_interface="in" public_interface="out" units="uA_per_cmsq"/>
         <variable name="IK" private_interface="in" public_interface="out" units="uA_per_cmsq"/>
         <variable name="Ileak" private_interface="in" public_interface="out" units="uA_per_cmsq"/>
-        <variable name="Ii" public_interface="out" units="uA_per_cmsq"/>
         <variable name="gK" private_interface="in" public_interface="out" units="mS_per_cmsq"/>
         <variable name="gNa" private_interface="in" public_interface="out" units="mS_per_cmsq"/>
         <variable name="g" public_interface="out" units="mS_per_cmsq"/>
         <variable name="h" private_interface="in" public_interface="out" units="dimensionless"/>
         <variable name="m" private_interface="in" public_interface="out" units="dimensionless"/>
         <variable name="n" private_interface="in" public_interface="out" units="dimensionless"/>
-        <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="T0K" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="Q10K" private_interface="out" public_interface="in" units="dimensionless"/>
-        <variable name="T0Na" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="Q10Na" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="T" private_interface="out" public_interface="in" units="kelvin" />
         <variable initial_value="V_initial" name="V" private_interface="out" public_interface="out" units="mV"/>
         <variable name="minus_V" public_interface="out" units="mV"/>
         <variable name="VNa" private_interface="out" public_interface="in" units="mV"/>
@@ -48,16 +43,6 @@
         <variable name="Cm" private_interface="out" public_interface="in" units="uF_per_cmsq"/>
         <variable name="time" private_interface="out" public_interface="in" units="ms"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-                <eq/>
-                <ci>Ii</ci>
-                <apply>
-                    <plus/>
-                    <ci>INa</ci>
-                    <ci>IK</ci>
-                    <ci>Ileak</ci>
-                </apply>
-            </apply>
             <apply id="V_calculation">
                 <eq/>
                 <apply>
@@ -72,7 +57,12 @@
                     <apply>
                         <minus/>
                         <ci>Istim</ci>
-                        <ci>Ii</ci>
+                        <apply>
+                            <plus/>
+                            <ci>INa</ci>
+                            <ci>IK</ci>
+                            <ci>Ileak</ci>
+                        </apply>
                     </apply>
                     <ci>Cm</ci>
                 </apply>
@@ -118,8 +108,6 @@
         <map_variables variable_1="VNa" variable_2="VNa"/>
         <map_variables variable_1="gNa_max" variable_2="gNa_max"/>
         <map_variables variable_1="gNa" variable_2="gNa"/>
-        <map_variables variable_1="T0Na" variable_2="T0Na"/>
-        <map_variables variable_1="Q10Na" variable_2="Q10Na"/>
     </connection>
     <connection>
         <map_components component_1="action_potential" component_2="IK"/>
@@ -132,8 +120,6 @@
         <map_variables variable_1="VK" variable_2="VK"/>
         <map_variables variable_1="gK_max" variable_2="gK_max"/>
         <map_variables variable_1="gK" variable_2="gK"/>
-        <map_variables variable_1="T0K" variable_2="T0K"/>
-        <map_variables variable_1="Q10K" variable_2="Q10K"/>
     </connection>
     <connection>
         <map_components component_1="action_potential" component_2="Ileak"/>

@@ -14,10 +14,10 @@ Sensitivity Analysis for :math:`K_{Ca,1/2}`
 
 Figure [#]_ A uses the configurations in `Single stimulation experiment <Experiments/Single_stim_experiment.cellml/view>`_ and the experiment settings are listed in the following.
 
-.. figure::  ../Simulation/table2.png
+.. figure::  ../Simulation/table3.png
    :width: 75%
    :align: center
-   :alt: table2
+   :alt: table3
 
    Experiment setting.
 

@@ -15,10 +15,10 @@ simulation = oc.open_simulation(simfile)
 # and pointers to the OpenCOR internal data representations
 data = simulation.data()
 # Set the experiments
-Vholding, t_ss = -80, 16
+Vholding, t_ss = -80, 3
 Vtest = 0
-Nai=[ 16.55]
-Cai_init= 980.63e-6
+duration = [[0.6, 0.7], [1.3,3]]
+Nai=[ 16.55,2.9836]
 inhPump=[0, 1]
 # The prefix of the saved output file name 
 prefilename = ['simFig2A','simFig2B']
@@ -35,16 +35,15 @@ r = np.zeros((rows,len(varName)))
 
 for j, iprefilename in enumerate(prefilename):
     for k, iNai in enumerate(Nai):
-        data.set_ending_point(t_ss)
+        data.set_ending_point(t_ss+duration[k][j]+16)
         # Reset states and parameters
         simulation.reset(True)
         # Set constant parameter values
         data.constants()['Vstim_para/V_actHolding'] = Vholding
         data.constants()['Vstim_para/V_actTest'] = Vtest
-        data.constants()['Vstim_para/t_act'] = 0
+        data.constants()['Vstim_para/t_act'] = duration[k][j]
         data.constants()['Vstim_para/t_ss'] = t_ss
         data.constants()['control_para/Nai'] = iNai
-        data.states()['outputs/Cai'] = Cai_init
         data.constants()['control_para/inhPump'] = inhPump[j]
         simulation.run()
         # Access simulation results

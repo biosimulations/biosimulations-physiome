@@ -118,7 +118,7 @@ Known issues
    
 2.  The equations (S-5, S-6, S-7) have been multiplied by :math:`1e-15` for unit conversion.
    
-3.  The equations (S-13, S-14), (S-23,..., S-28), (S-33, S-34), (S-36, S-37), (S-43, S-44), and (S-80,..., S-91) have been multiplied by corresponding temperature factors. The reference temperature for :math:`I_{CaL}` is :math:`310` K, while :math:`I_{CaT}` is constructed based on :math:`297` K. The reference temperatures for other currents are :math:`297` K.
+3.  The equations (S-13, S-14), (S-23,..., S-28), (S-36, S-37), (S-43, S-44), and (S-80,..., S-91) have been multiplied by corresponding temperature factors. The reference temperature for :math:`I_{CaL}` is :math:`310` K, while :math:`I_{CaT}` is constructed based on :math:`297` K. The reference temperatures for other currents are :math:`297` K.
    
 4.  The intracellular :math:`Ca^{2+}` concentrations terms have been removed from the equations (S-67,..., S-70) and (S-75,..., S-78).
    
@@ -126,7 +126,7 @@ Known issues
     
 6.  For clamped :math:`I_{CaL}` in Figure 2, the :math:`\theta` and :math:`\delta` are set to :math:`0` to switch off the :math:`Ca_i^{2+}` dependency.
    
-7.  The holding voltage for Figure 5 was not specified, and we use :math:`-70` mV.
+7.  The holding voltage for Figure 4 was not specified, and we use :math:`-70` mV.
    
 8.  Using the default parameters provided in the paper except for the above modification, Figure 4, 5, 8, 9, 13 can be reproduced with marginal difference, while the difference becomes significant at less negative clamping voltages in Figure 2, 3, and 6. By increasing the intracellular concentrations, we have got better simulated IV curves, however, the specific experiment settings cannot be confirmed by the authors. For the same reason, there is a discrepancy in Figiure 10.
 

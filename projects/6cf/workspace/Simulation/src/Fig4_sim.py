@@ -18,8 +18,7 @@ data = simulation.data()
 Vholding, t_ss = -50, 0.2
 duration = 0.2
 #Nai=16.55
-Nai=[ 2.9836]
-Cai_init = 130e-6
+Nai=[ 2.9836,16.55]
 # Define the interval of interest for this simulation experiment
 start, pointInterval = 0, 0.001
 data.set_starting_point(start)
@@ -45,7 +44,6 @@ for j, prefilename in enumerate(prefilenames):
        data.constants()['Vstim_para/t_act'] = duration
        data.constants()['Vstim_para/t_ss'] = t_ss
        data.constants()['control_para/Nai'] = iNai
-       data.states()['outputs/Cai'] = Cai_init
        data.constants()['control_para/inhPump'] = inhPump
        simulation.run()
        # Access simulation results

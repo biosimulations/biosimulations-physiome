@@ -37,18 +37,18 @@
       <unit units="second"/>
    </units>
    
-   <units name="nM">
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM">
          <unit units="mole" prefix="nano"/>
          <unit units="liter" exponent="-1"/>
       </units>
-      <units name="per_s">
+      <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_s">
          <unit units="s" exponent="-1"/>
       </units>
-      <units  name="nM_per_s">
+      <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM_per_s">
          <unit units="nM"/>
          <unit units="s" exponent="-1"/>
       </units>
-    <units  name="per_nM_s">
+    <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_nM_s">
        <unit units="nM" exponent="-1"/>
        <unit units="s" exponent="-1"/>
     </units>
@@ -58,28 +58,28 @@
 *********************************************************
 -->
   <component name="NFAT_Cycling">
-          <variable cmeta:id="v17"  name="t"   units="s" public_interface="in"/>
+          <variable name="t"   units="s" public_interface="in"/>
           
-          <variable cmeta:id="v13" name="NFATN_c" units="nM" initial_value="0.0017047398"/>
-          <variable cmeta:id="v12" name="NFATN_n" units="nM" initial_value="0.50910553" public_interface="out"/>
-          <variable cmeta:id="v11" name="NFATp_c" units="nM" initial_value="0.9825855442"/>
-          <variable cmeta:id="v10" name="NFATp_n" units="nM" initial_value="0.27638027" public_interface="out"/>
+          <variable name="NFATN_c" units="nM" initial_value="0.0017047398"/>
+          <variable name="NFATN_n" units="nM" initial_value="0.50910553" public_interface="out"/>
+          <variable name="NFATp_c" units="nM" initial_value="0.9825855442"/>
+          <variable name="NFATp_n" units="nM" initial_value="0.27638027" public_interface="out"/>
            
-          <variable cmeta:id="v16" name="Ccn" units="dimensionless" public_interface="in"/> 
-          <variable cmeta:id="v15" name="Ntot" units="nM" public_interface="in"/>
-          <variable cmeta:id="v14" name="act_N" units="dimensionless" public_interface="in"/>
+          <variable name="Ccn" units="dimensionless" private_interface="in"/> 
+          <variable name="Ntot" units="nM" public_interface="in"/>
+          <variable name="act_N" units="dimensionless" private_interface="in"/>
           
-          <variable cmeta:id="v4" name="k_f1" units="per_nM_s" initial_value="7.68934e-6"/>
-          <variable cmeta:id="v8" name="k_r1" units="per_s" initial_value="0.019256"/>
-          <variable cmeta:id="v5" name="k_f2" units="per_s" initial_value="0.00144192"/>
-          <variable cmeta:id="v6" name="k_f3" units="per_s" initial_value="0.000361944"/>
-          <variable cmeta:id="v9" name="k_r3" units="per_nM_s" initial_value="4.70813e-5"/>
-          <variable cmeta:id="v7" name="k_f4" units="per_s" initial_value="0.000444695"/>
+          <variable name="k_f1" units="per_nM_s" initial_value="7.68934e-6"/>
+          <variable name="k_r1" units="per_s" initial_value="0.019256"/>
+          <variable name="k_f2" units="per_s" initial_value="0.00144192"/>
+          <variable name="k_f3" units="per_s" initial_value="0.000361944"/>
+          <variable name="k_r3" units="per_nM_s" initial_value="4.70813e-5"/>
+          <variable name="k_f4" units="per_s" initial_value="0.000444695"/>
     
-          <variable cmeta:id="v0" name="J1" units="nM_per_s"/>
-          <variable cmeta:id="v1" name="J2" units="nM_per_s"/>
-          <variable cmeta:id="v2" name="J3" units="nM_per_s"/>
-          <variable  cmeta:id="v3" name="J4" units="nM_per_s"/>
+          <variable name="J1" units="nM_per_s"/>
+          <variable name="J2" units="nM_per_s"/>
+          <variable name="J3" units="nM_per_s"/>
+          <variable name="J4" units="nM_per_s"/>
      <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>
                  <eq/>
@@ -105,7 +105,7 @@
                     </apply>
                  </apply>
               </apply>
-              <apply id="eq_0">
+              <apply>
                  <eq/>
                  <ci>J2</ci>
                  <apply>
@@ -138,7 +138,7 @@
                     </apply>
                  </apply>
               </apply>
-              <apply id="eq_1">
+              <apply>
                  <eq/>
                  <ci>J4</ci>
                  <apply>
@@ -217,263 +217,5 @@
           </apply>
      </math>
     </component>
-    
-      <rdf:RDF 
-      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-      xmlns:ro="http://www.obofoundry.org/ro/ro.owl#"
-      xmlns:service="http://www.cenitmio.es/ontologies/Service.owl#"
-      xmlns:opb="http://bhi.washington.edu/OPB#"  
-      xmlns:semsim="http://www.bhi.washington.edu/SemSim#"
-      xmlns:cito="http://purl.org/spar/cito"
-      xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"
-      xmlns:bqmodel="http://biomodels.net/model-qualifiers/"
-  >
-    
-    
-     <rdf:Description rdf:ID="v4">
-          <semsim:isComputationalComponentFor>
-            <rdf:Description rdf:about="#property_4">
-              <service:isAParameterOf>
-                <rdf:Description rdf:about="#entity_0">
-                  <semsim:isComputationalComponentFor>
-                    <rdf:Description rdf:about="#entity_1">
-                      <ro:contained_in>
-                        <rdf:Description rdf:about="#entity_2">
-    						<ro:contained_in>
-    							<rdf:Description rdf:about="#entity_3">
-    							  <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:14067" />
-    							</rdf:Description>
-    						  </ro:contained_in>
-                          <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:66835" />
-                        </rdf:Description>
-                      </ro:contained_in>
-                      <semsim:refersTo rdf:resource="http://identifiers.org/go/GO:0033173" />
-                    </rdf:Description>
-                  </semsim:isComputationalComponentFor>
-                  <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000101" />
-                </rdf:Description>
-              </service:isAParameterOf>
-              <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000614" />
-            </rdf:Description>
-          </semsim:isComputationalComponentFor>
-        </rdf:Description>
-    	
-    	<rdf:Description rdf:ID="v5">
-          <semsim:isComputationalComponentFor>
-            <rdf:Description rdf:about="#property_5">
-              <service:isAParameterOf>
-                <rdf:Description rdf:about="#entity_5">
-                  <semsim:isComputationalComponentFor>
-                    <rdf:Description rdf:about="#entity_4">
-                      <ro:contained_in>
-                        <rdf:Description rdf:about="#entity_3">
-                          <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:14067" />
-                        </rdf:Description>
-                      </ro:contained_in>
-                      <semsim:refersTo rdf:resource="http://identifiers.org/go/GO:0051531" />
-                    </rdf:Description>
-                  </semsim:isComputationalComponentFor>
-                  <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000044" />
-                </rdf:Description>
-              </service:isAParameterOf>
-              <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000614" />
-            </rdf:Description>
-          </semsim:isComputationalComponentFor>
-        </rdf:Description>
-    	
-    	<rdf:Description rdf:ID="v6">
-          <semsim:isComputationalComponentFor>
-            <rdf:Description rdf:about="#property_6">
-              <service:isAParameterOf>
-                <rdf:Description rdf:about="#entity_0">
-                  <semsim:isComputationalComponentFor>
-                    <rdf:Description rdf:about="#entity_1">
-                      <ro:contained_in>
-                        <rdf:Description rdf:about="#entity_2">
-    						<ro:contained_in>
-    							<rdf:Description rdf:about="#entity_3">
-    							  <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:14067" />
-    							</rdf:Description>
-    						  </ro:contained_in>
-                          <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:63840" />
-                        </rdf:Description>
-                      </ro:contained_in>
-                      <semsim:refersTo rdf:resource="http://identifiers.org/go/GO:0033173" />
-                    </rdf:Description>
-                  </semsim:isComputationalComponentFor>
-                  <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000101" />
-                </rdf:Description>
-              </service:isAParameterOf>
-              <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000614" />
-            </rdf:Description>
-          </semsim:isComputationalComponentFor>
-        </rdf:Description>
-    	
-    	<rdf:Description rdf:ID="v7">
-          <semsim:isComputationalComponentFor>
-            <rdf:Description rdf:about="#property_7">
-              <bqmodel:identity>
-                <rdf:Description rdf:about="#entity_6">
-                  <semsim:isComputationalComponentFor>
-                    <rdf:Description rdf:about="#entity_7">
-                      <ro:contained_in>
-                        <rdf:Description rdf:about="#entity_8">
-                          <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:14067" />
-                        </rdf:Description>
-                      </ro:contained_in>
-                      <semsim:refersTo rdf:resource="file:///C:/Users/rlyn081/Documents/local_ontologies/gene_ontology_edit.obo#GO:2001318" />
-                    </rdf:Description>
-                  </semsim:isComputationalComponentFor>
-                  <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000044" />
-                </rdf:Description>
-              </bqmodel:identity>
-              <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000614" />
-            </rdf:Description>
-          </semsim:isComputationalComponentFor>
-        </rdf:Description>
-    	
-    	<rdf:Description rdf:ID="v8">
-          <semsim:isComputationalComponentFor>
-            <rdf:Description rdf:about="#property_8">
-              <bqmodel:identity>
-                <rdf:Description rdf:about="#entity_0">
-                  <semsim:isComputationalComponentFor>
-                    <rdf:Description rdf:about="#entity_1">
-                      <ro:contained_in>
-                        <rdf:Description rdf:about="#entity_2">
-    						<ro:contained_in>
-    							<rdf:Description rdf:about="#entity_3">
-    							  <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:14067" />
-    							</rdf:Description>
-    						  </ro:contained_in>
-                          <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:66835" />
-                        </rdf:Description>
-                      </ro:contained_in>
-                      <semsim:refersTo rdf:resource="http://identifiers.org/go/GO:0033173" />
-                    </rdf:Description>
-                  </semsim:isComputationalComponentFor>
-                  <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000104" />
-                </rdf:Description>
-              </bqmodel:identity>
-              <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000033" />
-            </rdf:Description>
-          </semsim:isComputationalComponentFor>
-        </rdf:Description>
-    	
-    	<rdf:Description rdf:ID="v9">
-          <semsim:isComputationalComponentFor>
-            <rdf:Description rdf:about="#property_9">
-              <bqmodel:identity>
-                <rdf:Description rdf:about="#entity_10">
-                  <semsim:isComputationalComponentFor>
-                    <rdf:Description rdf:about="#entity_9">
-                      <ro:contained_in>
-                        <rdf:Description rdf:about="#entity_8">
-                          <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:67216" />
-                        </rdf:Description>
-                      </ro:contained_in>
-                      <semsim:refersTo rdf:resource="http://identifiers.org/go/GO:0033173" />
-                    </rdf:Description>
-                  </semsim:isComputationalComponentFor>
-                  <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000104" /> 
-                </rdf:Description>
-              </bqmodel:identity>
-              <semsim:refersTo rdf:resource="http://identifiers.org/biomodels.sbo/SBO:0000033" />
-            </rdf:Description>
-          </semsim:isComputationalComponentFor>
-        </rdf:Description>
-    	
-    	<rdf:Description rdf:ID="v16">
-              <bqbiol:identity rdf:resource="http://identifiers.org/opb/OPB_00375" />
-        </rdf:Description>
-    	
-    	<rdf:Description rdf:ID="v17">
-              <bqbiol:identity rdf:resource="http://identifiers.org/opb/OPB_01361" />
-    </rdf:Description>
-    
-<rdf:Description rdf:ID="eq_0">
-      <semsim:isComputationalComponentFor>
-        <rdf:Description rdf:about="#property_18">
-		  <ro:contained_in>
-                <rdf:Description rdf:about="#entity_3">
-                  <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:14067" />
-                </rdf:Description>
-              </ro:contained_in>
-            <semsim:refersTo rdf:resource="http://identifiers.org/go/GO:0051531" />
-		</rdf:Description>
-      </semsim:isComputationalComponentFor>
-    </rdf:Description>	
-	
-	<rdf:Description rdf:ID="eq_1">
-      <semsim:isComputationalComponentFor>
-        <rdf:Description rdf:about="#property_19">
-          <semsim:refersTo rdf:resource="http://identifiers.org/go/GO:0051531"/>
-		  <ro:contained_in>
-                <rdf:Description rdf:about="#entity_3">
-                  <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:14067" />
-                </rdf:Description>
-              </ro:contained_in>
-            <semsim:refersTo rdf:resource="file:///C:/Users/rlyn081/Documents/local_ontologies/gene_ontology_edit.obo#GO:2001318"/> <!-- There is no GO term for NFAT export-->
-		</rdf:Description>
-      </semsim:isComputationalComponentFor>
-    </rdf:Description>
-
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='k_f1']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-		<cito:usesDataFrom>doi:10.1093/emboj/cdg381</cito:usesDataFrom>
-	</rdf:Description>
-	
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='k_f2']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-		<cito:usesDataFrom>doi:10.1093/emboj/cdg381</cito:usesDataFrom>
-	</rdf:Description>
-	
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='k_f3']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-		<cito:usesDataFrom>doi:10.1093/emboj/cdg381</cito:usesDataFrom>
-	</rdf:Description>
-	
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='k_f4']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-		<cito:usesDataFrom>doi:10.1093/emboj/cdg381</cito:usesDataFrom>
-	</rdf:Description>
-	
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='k_r1']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-		<cito:usesDataFrom>doi:10.1093/emboj/cdg381</cito:usesDataFrom>
-	</rdf:Description>
-	
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='k_r3']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-		<cito:usesDataFrom>doi:10.1093/emboj/cdg381</cito:usesDataFrom>
-	</rdf:Description>
-	
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='NFATp_n']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-	</rdf:Description>
-	
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='NFATp_c']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-	</rdf:Description>
-	
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='NFATN_n']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-	</rdf:Description>
-	
-	<rdf:Description
-	rdf:about="#xpointernode(component[@name='NFATCycling']/variable[@name='NFATN_c']/@initial_value)">
-		<cito:usesDataFrom>doi:10.1113/jphysiol.2006.120048</cito:usesDataFrom>
-	</rdf:Description>
-	
-  </rdf:RDF>
 
 </model>

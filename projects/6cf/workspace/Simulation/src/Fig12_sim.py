@@ -16,7 +16,6 @@ simulation = oc.open_simulation(simfile)
 data = simulation.data()
 # Set the experiments
 end = 114
-Cai_init = 0.039e-3
 # Define the interval of interest for this simulation experiment
 start, pointInterval = 0, 0.001
 data.set_starting_point(start)
@@ -31,8 +30,7 @@ prefilenames = ['simFig12']
 for j, prefilename in enumerate(prefilenames):
     data.set_ending_point(end)   
     # Reset states and parameters
-    simulation.reset(True)  
-    data.states()['outputs/Cai'] = Cai_init 
+    simulation.reset(True)   
     simulation.run()
     # Access simulation results
     results = simulation.results()

@@ -9,7 +9,7 @@ ofilenames = ['fig7A', 'fig7B']
 prefig = 'Fig7'
 figfile = 'sim%s' % prefig
 # Set figure dimension (width, height) in inches.
-fw, fh = 7, 10
+fw, fh = 7, 8
 fig = plt.figure(figsize=(fw,fh))
 ax, lns = {}, {}
 # This gives list with the colors from the cycle, which you can use to iterate over.
@@ -36,17 +36,17 @@ for h, plotN in enumerate(prefilenames):
             odata = pd.read_csv(ofilename)
             ox_data = odata['x']   
             oy_data = odata['Curve1']    
-            ax[h].plot(ox_data, oy_data, '.',  color=cycle[i], label = 'Bursztyn et al' ) 
+            ax[h].plot(ox_data, oy_data, '.',  color=cycle[i], label = 'Bursztyn et al, K$_{Ca,1/2}$ = %dmV' % K_Cahalf[i]) 
             
             filename='../simulatedData/%s_%d.csv' % (prefilenames[h], i)
             data = pd.read_csv(filename)
             x_data = data[x_name[h]]-t_ss[i]      
             y_data = data[y_name[h]]*1000000   
-            ax[h].plot(x_data, y_data,  color=cycle[i], label = 'K$_{Ca,1/2}$=%d mV' % K_Cahalf[i])
+            ax[h].plot(x_data, y_data,  color=cycle[i], label = 'K$_{Ca,1/2}$ = %dmV' % K_Cahalf[i])
             ax[h].set_ylabel (y_labels[h], fontsize= labelfontsize)
             ax[h].set_xlabel (x_labels[h], fontsize= labelfontsize)
-            ax[h].set_title('%s in the primary publication' % (prefig))        
-        ax[h].legend(loc = 'upper center', bbox_to_anchor=(0.56, 1.0), ncol=3, fontsize=lfontsize, frameon=False) 
+            ax[h].set_title('%s in the primary publication' % (prefig))
+        ax[h].legend(loc = 'center right', fontsize=lfontsize, frameon=False)
     else:
         for i in range(3):
             ofilename ='../originalData/%s%d.csv' % (ofilenames[h],i+1)
@@ -62,8 +62,7 @@ for h, plotN in enumerate(prefilenames):
             ax[h].plot(x_data, y_data,  color=cycle[i], label = 'K$_{Ca,1/2}$ = %dmV' % K_Cahalf[i])
             ax[h].set_ylabel (y_labels[h], fontsize= labelfontsize)
             ax[h].set_xlabel (x_labels[h], fontsize= labelfontsize) 
-        
-        ax[h].legend(loc = 'center right', bbox_to_anchor=(1, 0.4), fontsize=lfontsize, frameon=False)    
+        ax[h].legend(loc = 'best', fontsize=lfontsize, frameon=False)    
                    
     plt.tick_params(direction='in', axis='both')    
     

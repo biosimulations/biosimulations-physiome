@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/terkildsen_niederer_crampin_hunter_smith_2008/Pandit_Hinch_Niederer.cellml" cmeta:id="Pandit_Hinch_Niederer_Model" name="Pandit_Hinch_Niederer_Model">
+<?xml version="1.0" encoding="utf-8"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" name="Pandit_Hinch_Niederer_Model" cmeta:id="Pandit_Hinch_Niederer_Model">
   
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
@@ -119,12 +119,12 @@ Using Physiome standards to couple cellular functions for rat cardiac excitation
       <variable initial_value="96487" name="F" public_interface="out" units="C_per_mole"/>
 
       <variable name="time" public_interface="in" units="ms"/>
-      <variable initial_value="0.0001" name="Cm" units="uF"/>
+      <variable name="Cm" initial_value="0.0001" units="uF"/>
 	  
       <variable name="I_Stim" public_interface="out" units="uA"/>
-      <variable initial_value="1e3" name="stim_period" units="ms"/>
-      <variable initial_value="10" name="stim_duration" units="ms"/>
-      <variable initial_value="-0.6e-3" name="stim_amplitude" units="uA"/>
+      <variable name="stim_period" units="ms" initial_value="1e3"/>
+      <variable name="stim_duration" units="ms" initial_value="10"/>
+      <variable name="stim_amplitude" units="uA" initial_value="-0.6e-3"/>
   
       <variable name="I_Na" public_interface="in" units="uA"/>
       <variable name="I_t" public_interface="in" units="uA"/>
@@ -261,26 +261,26 @@ Using Physiome standards to couple cellular functions for rat cardiac excitation
 
 <!-- USE HINCH PROPORTIONALITIES   -->
    <component name="cell_geometry">
-      <variable initial_value="25.85e3" name="V_myo" public_interface="out" units="um3"/>
-      <variable initial_value="2.098e3" name="V_SR" public_interface="out" units="um3"/>
-      <variable initial_value="25.85e-6" name="V_myo_uL" public_interface="out" units="uL"/>
-      <variable initial_value="2.098e-6" name="V_SR_uL" public_interface="out" units="uL"/>
+      <variable name="V_myo" units="um3" initial_value="25.85e3" public_interface="out"/>
+      <variable name="V_SR" units="um3" initial_value="2.098e3" public_interface="out"/>
+      <variable name="V_myo_uL" units="uL" initial_value="25.85e-6" public_interface="out"/>
+      <variable name="V_SR_uL" units="uL" initial_value="2.098e-6" public_interface="out"/>
    </component>
 
 <!-- This component converts the imported components from the Hinch Calcium Model to the correct units for the current composite model -->   
    <component name="convert_hinch">
-      <variable name="F" public_interface="in" units="C_per_mole"/>
-      <variable name="V_myo_uL" public_interface="in" units="uL"/>
-      <variable name="hinch_I_LCC" public_interface="in" units="mM_per_ms"/>
-      <variable name="hinch_I_NaCa" public_interface="in" units="mM_per_ms"/>
-      <variable name="hinch_I_pCa" public_interface="in" units="mM_per_ms"/>
-      <variable name="hinch_I_CaB" public_interface="in" units="mM_per_ms"/>
-      <variable name="hinch_I_RyR" public_interface="in" units="mM_per_ms"/>
-      <variable name="I_LCC" public_interface="out" units="uA"/>
-      <variable name="I_NaCa" public_interface="out" units="uA"/>
-      <variable name="I_pCa" public_interface="out" units="uA"/>
-      <variable name="I_CaB" public_interface="out" units="uA"/>
-      <variable name="I_RyR" public_interface="out" units="mM_per_ms"/>
+      <variable name="F" units="C_per_mole" public_interface="in"/>
+      <variable name="V_myo_uL" units="uL" public_interface="in"/>
+      <variable name="hinch_I_LCC" units="mM_per_ms" public_interface="in"/>
+      <variable name="hinch_I_NaCa" units="mM_per_ms" public_interface="in"/>
+      <variable name="hinch_I_pCa" units="mM_per_ms" public_interface="in"/>
+      <variable name="hinch_I_CaB" units="mM_per_ms" public_interface="in"/>
+      <variable name="hinch_I_RyR" units="mM_per_ms" public_interface="in"/>
+      <variable name="I_LCC" units="uA" public_interface="out"/>
+      <variable name="I_NaCa" units="uA" public_interface="out"/>
+      <variable name="I_pCa" units="uA" public_interface="out"/>
+      <variable name="I_CaB" units="uA" public_interface="out"/>
+      <variable name="I_RyR" units="mM_per_ms" public_interface="out"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -346,19 +346,19 @@ Using Physiome standards to couple cellular functions for rat cardiac excitation
 
 <!-- This component is a modified version of Pandit Na-K pump component. The maximum current has been increased from 0.8e-4uA to 0.95e-4uA and 
       the power applied to the intracellular sodium dependence has been increased from 1.5 to 4.0  -->
-   <component cmeta:id="id_00001" name="sodium_potassium_pump">
-      <variable cmeta:id="id_00002" name="i_NaK" public_interface="out" units="uA"/>
-      <variable cmeta:id="id_00003" initial_value="0.95e-4" name="i_NaK_max" units="uA"/>
-      <variable initial_value="1.5" name="K_m_K" units="mM"/>
-      <variable initial_value="10" name="K_m_Na" units="mM"/>
+   <component name="sodium_potassium_pump">
+      <variable name="i_NaK" units="uA" public_interface="out"/>
+      <variable name="i_NaK_max" units="uA" initial_value="0.95e-4"/>
+      <variable name="K_m_K" units="mM" initial_value="1.5"/>
+      <variable name="K_m_Na" units="mM" initial_value="10"/>
       <variable name="sigma" units="dimensionless"/>
-      <variable name="K_o" public_interface="in" units="mM"/>
-      <variable name="Na_o" public_interface="in" units="mM"/>
-      <variable name="Na_i" public_interface="in" units="mM"/>
-      <variable name="R" public_interface="in" units="mJ_per_mole_K"/>
-      <variable name="F" public_interface="in" units="C_per_mole"/>
-      <variable name="T" public_interface="in" units="kelvin"/>
-      <variable name="V" public_interface="in" units="mV"/>
+      <variable name="K_o" units="mM" public_interface="in"/>
+      <variable name="Na_o" units="mM" public_interface="in"/>
+      <variable name="Na_i" units="mM" public_interface="in"/>
+      <variable name="R" units="mJ_per_mole_K" public_interface="in"/>
+      <variable name="F" units="C_per_mole" public_interface="in"/>
+      <variable name="T" units="kelvin" public_interface="in"/>
+      <variable name="V" units="mV" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -480,12 +480,12 @@ Using Physiome standards to couple cellular functions for rat cardiac excitation
    </component>   
 
    
-   <component cmeta:id="id_00007" name="intracellular_ion_concentrations">
-      <variable cmeta:id="id_00004" initial_value="10.73519" name="Na_i" public_interface="out" units="mM"/>
-      <variable cmeta:id="id_00008" initial_value="0.00007901351" name="Ca_i" public_interface="out" units="mM"/>
+   <component name="intracellular_ion_concentrations">
+      <variable initial_value="10.73519" name="Na_i" public_interface="out" units="mM"/>
+      <variable initial_value="0.00007901351" name="Ca_i" public_interface="out" units="mM"/>
       <variable initial_value="700.0e-3" name="Ca_SR" public_interface="out" units="mM"/>
-      <variable cmeta:id="id_00011" initial_value="139.2751" name="K_i" public_interface="out" units="mM"/>
-      <variable cmeta:id="id_00014" initial_value="0.067593139865" name="TRPN" public_interface="out" units="mM"/> 
+      <variable initial_value="139.2751" name="K_i" public_interface="out" units="mM"/>
+      <variable initial_value="0.067593139865" name="TRPN" public_interface="out" units="mM"/> 
 
       <variable name="V_myo_uL" public_interface="in" units="uL"/>
       <variable name="V_SR_uL" public_interface="in" units="uL"/>
@@ -493,30 +493,30 @@ Using Physiome standards to couple cellular functions for rat cardiac excitation
       <variable name="time" public_interface="in" units="ms"/>
       <variable name="F" public_interface="in" units="C_per_mole"/>
 
-      <variable cmeta:id="id_00005" name="I_Na" public_interface="in" units="uA"/>
-      <variable cmeta:id="id_00015" name="I_B_Na" public_interface="in" units="uA"/>
-      <variable cmeta:id="id_00016" name="I_B_K" public_interface="in" units="uA"/>
-      <variable cmeta:id="id_00017" name="I_NaK" public_interface="in" units="uA"/>
-      <variable cmeta:id="id_00006" name="I_f_Na" public_interface="in" units="uA"/>
-      <variable cmeta:id="id_00012" name="I_f_K" public_interface="in" units="uA"/>
-      <variable cmeta:id="id_00013" name="I_K1" public_interface="in" units="uA"/>
+      <variable name="I_Na" public_interface="in" units="uA"/>
+      <variable name="I_B_Na" public_interface="in" units="uA"/>
+      <variable name="I_B_K" public_interface="in" units="uA"/>
+      <variable name="I_NaK" public_interface="in" units="uA"/>
+      <variable name="I_f_Na" public_interface="in" units="uA"/>
+      <variable name="I_f_K" public_interface="in" units="uA"/>
+      <variable name="I_K1" public_interface="in" units="uA"/>
       <variable name="I_t" public_interface="in" units="uA"/>
       <variable name="I_ss" public_interface="in" units="uA"/>
       <variable name="I_Stim" public_interface="in" units="uA"/>
 
-	  <variable cmeta:id="id_00018" name="I_RyR" public_interface="in" units="mM_per_ms"/>
-      <variable cmeta:id="id_00010" name="I_LCC" public_interface="in" units="uA"/>
-      <variable cmeta:id="id_00019" name="I_NaCa" public_interface="in" units="uA"/>
-      <variable cmeta:id="id_00020" name="I_SERCA" public_interface="in" units="mM_per_ms"/>
-      <variable cmeta:id="id_00009" name="I_pCa" public_interface="in" units="uA"/>
-      <variable cmeta:id="id_00021" name="I_CaB" public_interface="in" units="uA"/>
+	  <variable name="I_RyR" public_interface="in" units="mM_per_ms"/>
+      <variable name="I_LCC" public_interface="in" units="uA"/>
+      <variable name="I_NaCa" public_interface="in" units="uA"/>
+      <variable name="I_SERCA" public_interface="in" units="mM_per_ms"/>
+      <variable name="I_pCa" public_interface="in" units="uA"/>
+      <variable name="I_CaB" public_interface="in" units="uA"/>
       <variable name="I_SR" public_interface="in" units="mM_per_ms"/>
 
-	  <variable cmeta:id="id_00022" name="Ca_b" public_interface="out" units="mM"/>
-	  <variable cmeta:id="id_00023" name="Ca_TRPN_Max" public_interface="in" units="mM"/>
+	  <variable name="Ca_b" public_interface="out" units="mM"/>
+	  <variable name="Ca_TRPN_Max" public_interface="in" units="mM"/>
 
-      <variable cmeta:id="id_00024" name="I_TRPN" public_interface="in" units="mM_per_ms"/>
-	  <variable cmeta:id="id_00025" name="beta_CMDN" public_interface="in" units="dimensionless"/>
+      <variable name="I_TRPN" public_interface="in" units="mM_per_ms"/>
+	  <variable name="beta_CMDN" public_interface="in" units="dimensionless"/>
 	  
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -1131,6 +1131,179 @@ Using Physiome standards to couple cellular functions for rat cardiac excitation
       <map_variables variable_1="T_0" variable_2="T_0"/>
    </connection>
    
+<rdf:RDF>
+  <rdf:Seq rdf:about="rdf:#0a540d49-9617-4b05-9341-8a7f17f683b3">
+    <rdf:li rdf:resource="rdf:#1f27c209-2bce-4b3a-be80-c363512900f9"/>
+    <rdf:li rdf:resource="rdf:#86547e45-c5f4-4929-8993-d95fc2b621d2"/>
+    <rdf:li rdf:resource="rdf:#917da876-d567-45f1-b4c1-b340a3d648b2"/>
+    <rdf:li rdf:resource="rdf:#29081242-31b1-4b24-ad1d-eb9f01ddc28d"/>
+    <rdf:li rdf:resource="rdf:#b26a1772-6d22-4107-8cee-ef6dec68e161"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#f21899cf-1bbb-4a30-a8ff-97742d0e80f5">
+    <vCard:ORG rdf:resource="rdf:#40f32e3c-a471-4581-8b87-734a2319d764"/>
+    <vCard:EMAIL rdf:resource="rdf:#ad0325ea-d8e4-40b6-9759-f182c7432669"/>
+    <vCard:N rdf:resource="rdf:#59cdee69-09af-4c7c-bd3e-d49982596429"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#65988d73-d3a5-4cce-ba08-4d43789cea4c">
+    <vCard:Given>Jonna</vCard:Given>
+    <vCard:Family>Terkildsen</vCard:Family>
+    <vCard:Other>R</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6ac7103b-c16d-475d-a345-fc7279edaa17">
+    <vCard:Given>James</vCard:Given>
+    <vCard:Family>Lawson</vCard:Family>
+    <vCard:Other>Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#84adde57-db78-466a-97e6-9671c7d199a8">
+    <vCard:Given>Edmund</vCard:Given>
+    <vCard:Family>Crampin</vCard:Family>
+    <vCard:Other>J</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d4a45d7d-9362-4575-92bc-587671e78fcc">
+    <dc:creator rdf:resource="rdf:#2516a582-bc38-4e4c-a67e-164902ff8929"/>
+    <rdf:value/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$DtFl5">
+    <ns7:boundIntervals rdf:resource="rdf:#$EtFl5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#1f27c209-2bce-4b3a-be80-c363512900f9">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#65988d73-d3a5-4cce-ba08-4d43789cea4c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d864f300-bb41-438b-a374-22885e9a74e3">
+    <vCard:N rdf:resource="rdf:#6ac7103b-c16d-475d-a345-fc7279edaa17"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2c7e2db3-8c58-442c-b51b-6fc6d8be0003">
+    <dc:title>Experimental Physiology</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#86547e45-c5f4-4929-8993-d95fc2b621d2">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#e49f696e-26ed-4881-90ca-867d63100bae"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#39d628a5-b6eb-46b5-bacc-7e550717e71e">
+    <dcterms:W3CDTF>2008-07-00 00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$FtFl5">
+    <ns7:endingValue>5000</ns7:endingValue>
+    <ns7:nonstandard-pointDensity>10000</ns7:nonstandard-pointDensity>
+    <ns7:maximumStepSize>0.1</ns7:maximumStepSize>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Pandit_Hinch_Niederer_Model">
+    <ns7:simulation rdf:resource="rdf:#$ekohZ3"/>
+    <bqs:reference rdf:resource="rdf:#fbb24ccf-610d-44f1-a665-dd284da2e47f"/>
+<bqs:reference rdf:parseType="Resource">
+  <dc:subject rdf:parseType="Resource">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value>
+      <rdf:Bag>
+        <rdf:li>cardiac</rdf:li>
+        <rdf:li>electrophysiology</rdf:li>
+        <rdf:li>rat</rdf:li>
+        <rdf:li>excitation-contraction coupling</rdf:li>
+      </rdf:Bag>
+    </rdf:value>
+  </dc:subject>
+</bqs:reference>
+    <cmeta:comment rdf:resource="rdf:#d4a45d7d-9362-4575-92bc-587671e78fcc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>The University of Auckland, Bioengineering Institute</dc:publisher>
+    <dc:creator rdf:resource="rdf:#f21899cf-1bbb-4a30-a8ff-97742d0e80f5"/>
+    <ns7:simulation rdf:resource="rdf:#$DtFl5"/>
+    <cmeta:comment rdf:resource="rdf:#b399eb56-4c31-4dcb-9ed9-0ffa50d99506"/>
+    <dcterms:created rdf:resource="rdf:#c8c45897-f27e-41c8-bdf4-fdad5311d2c3"/>
+    <cmeta:modification rdf:resource="rdf:#01b1f3a9-8550-4c31-972a-2233ea5606b5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$gkohZ3">
+    <ns7:endingValue>5000</ns7:endingValue>
+    <ns7:nonstandard-pointDensity>10000</ns7:nonstandard-pointDensity>
+    <ns7:maximumStepSize>0.1</ns7:maximumStepSize>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$fkohZ3">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="rdf:#$gkohZ3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2516a582-bc38-4e4c-a67e-164902ff8929">
+    <vCard:FN/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#917da876-d567-45f1-b4c1-b340a3d648b2">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#84adde57-db78-466a-97e6-9671c7d199a8"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9ba8480f-fd11-476d-a01a-fef741bf1259">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b399eb56-4c31-4dcb-9ed9-0ffa50d99506">
+    <dc:creator rdf:resource="rdf:#9ba8480f-fd11-476d-a01a-fef741bf1259"/>
+    <rdf:value>Since this is the exact same model encoding which was used to create the results presented in the paper, this CellML model is known to accurately represent the published article.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e49f696e-26ed-4881-90ca-867d63100bae">
+    <vCard:Given>Steven</vCard:Given>
+    <vCard:Family>Niederer</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#29081242-31b1-4b24-ad1d-eb9f01ddc28d">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#afbd09d3-ee03-467d-88b1-4f9dfae56348"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#afbd09d3-ee03-467d-88b1-4f9dfae56348">
+    <vCard:Given>Peter</vCard:Given>
+    <vCard:Family>Hunter</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$ekohZ3">
+    <ns7:boundIntervals rdf:resource="rdf:#$fkohZ3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b26a1772-6d22-4107-8cee-ef6dec68e161">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#cc93efe7-f009-4939-91ea-8c40d10419d2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$EtFl5">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="rdf:#$FtFl5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b92ac5a4-36f4-4746-b65b-68ec42ad7b53">
+    <dc:creator rdf:resource="rdf:#0a540d49-9617-4b05-9341-8a7f17f683b3"/>
+    <dc:title>Using Physiome standards to couple cellular functions for rat cardiac excitation-contraction</dc:title>
+    <bqs:volume>93</bqs:volume>
+    <bqs:first_page>919</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#2c7e2db3-8c58-442c-b51b-6fc6d8be0003"/>
+    <dcterms:issued rdf:resource="rdf:#39d628a5-b6eb-46b5-bacc-7e550717e71e"/>
+    <bqs:last_page>929</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#cc93efe7-f009-4939-91ea-8c40d10419d2">
+    <vCard:Given>Nicolas</vCard:Given>
+    <vCard:Family>Smith</vCard:Family>
+    <vCard:Other>P</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#18e2d24c-8f28-4fb3-84b1-d0125c52598a">
+    <dcterms:W3CDTF>2008-08-06T12:44:02+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#40f32e3c-a471-4581-8b87-734a2319d764">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>The Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#01b1f3a9-8550-4c31-972a-2233ea5606b5">
+    <dcterms:modified rdf:resource="rdf:#18e2d24c-8f28-4fb3-84b1-d0125c52598a"/>
+    <rdf:value>Added CellML 1.0 model to version 01's documentation. 
 
+Added some cmeta:ids to variables</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#d864f300-bb41-438b-a374-22885e9a74e3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c8c45897-f27e-41c8-bdf4-fdad5311d2c3">
+    <dcterms:W3CDTF>2008-07-15T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ad0325ea-d8e4-40b6-9759-f182c7432669">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>j.terkildsen@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#59cdee69-09af-4c7c-bd3e-d49982596429">
+    <vCard:Given>Jonna</vCard:Given>
+    <vCard:Family>Terkildsen</vCard:Family>
+    <vCard:Other/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#fbb24ccf-610d-44f1-a665-dd284da2e47f">
+    <bqs:Pubmed_id>18344258</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#b92ac5a4-36f4-4746-b65b-68ec42ad7b53"/>
+  </rdf:Description>
+</rdf:RDF>
    
-<rdf:RDF><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005391"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005890"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006815"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005391"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005890"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006815"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005391"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005890"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006815"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62343"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0019870"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022841"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005391"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005890"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006815"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00018"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005219"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00019"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00020"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051208"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030899"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00021"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00022"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00023"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00024"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005861"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00025"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62343"/></isVersionOf></rdf:Description></rdf:RDF></model>
+</model>

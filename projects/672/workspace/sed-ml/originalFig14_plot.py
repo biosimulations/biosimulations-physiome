@@ -27,21 +27,19 @@ for i, iV_initial in enumerate(V_initial):
     x_data = data[x_name]   
     y_data = data[y_name]
     T_data = data['parameters/T']
-    ax.plot(x_data, y_data, color=cycle[i], label = 'CellML @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
+    ax.plot(x_data, y_data, color=cycle[i], label = 'CellML model @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
 
     filename = 'fig14.csv'
     odata = pd.read_csv(filename)
     ox_data = odata['x']   
     oy_data = odata['Curve1']
-    ax.plot(ox_data, oy_data, '.',  color=cycle[i], label = 'HH @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
+    ax.plot(ox_data, oy_data, '.',  color=cycle[i], label = 'HH model @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
 
     ax.tick_params(direction='in', axis='both')    
     ax.legend(loc = 'best', fontsize=lfontsize, frameon=False)
     ax.set_xlabel ('time(ms)', fontsize= labelfontsize)
     ax.set_ylabel ('-V (mV)', fontsize= labelfontsize)
 
-ax.set_title('%s in the primary publication' % (prefig))
-plt.grid(True,linestyle='-.')
 plt.savefig(figfile)        
 plt.show()
 

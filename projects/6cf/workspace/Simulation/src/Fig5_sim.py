@@ -16,12 +16,11 @@ simulation = oc.open_simulation(simfile)
 data = simulation.data()
 # Set the experiments
 Vholding=[-80, -50]
-t_ss = [16, 0]
-duration = [0, 0.2]
+t_ss = [3, 3]
+duration = [0.75, 0.2]
 Vtest = [0, 0]
 Nai=[ 16.55, 2.9836]
-Cai_init= [980.63e-6, 123e-6]
-end =[t_ss[0]+duration[0],t_ss[1]+duration[1]+3.5]
+end =[t_ss[0]+duration[0]+16,t_ss[1]+duration[1]+3.5]
 # Define the interval of interest for this simulation experiment
 start, pointInterval = 0, 0.001
 data.set_starting_point(start)
@@ -44,7 +43,6 @@ for j, prefilename in enumerate(prefilenames):
     data.constants()['Vstim_para/t_act'] = duration[j]
     data.constants()['Vstim_para/t_ss'] = t_ss[j]
     data.constants()['control_para/Nai'] = Nai[j]
-    data.states()['outputs/Cai'] = Cai_init[j]
     data.constants()['control_para/inhPump'] = inhPump
     simulation.run()
     # Access simulation results

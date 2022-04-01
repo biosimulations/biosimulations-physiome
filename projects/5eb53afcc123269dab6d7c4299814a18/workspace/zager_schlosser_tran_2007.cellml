@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <!--  FILE :  zager_model_2007.xml
 
 CREATED :  2nd July 2007
@@ -15,7 +15,7 @@ DESCRIPTION :  This file contains a CellML description of Zager, Schlosser and T
 
 CHANGES:  
   
---><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#"  cmeta:id="zager_model_2007" name="zager_model_2007">
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="zager_model_2007" name="zager_model_2007">
 
 <documentation xmlns="http://cellml.org/tmp-documentation">
 
@@ -68,62 +68,62 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
   
   
   <units name="hour">
-    <unit multiplier="3600.0" units="second"/>
+    <unit units="second" multiplier="3600.0"/>
   </units>
 
   <units name="micromole">
-    <unit prefix="micro" units="mole"/>
+    <unit units="mole" prefix="micro"/>
   </units>
 
   <units name="micromolar">
-    <unit prefix="micro" units="mole"/>
-    <unit exponent="-1" units="litre"/>
+    <unit units="mole" prefix="micro"/>
+    <unit units="litre" exponent="-1"/>
   </units>
 
   <units name="micromole_hour">
-    <unit prefix="micro" units="mole"/>
-    <unit exponent="-1" units="hour"/>
+    <unit units="mole" prefix="micro"/>
+    <unit units="hour" exponent="-1"/>
   </units>
 
   <units name="micromolar_hour">
     <unit units="micromolar"/>
-    <unit exponent="-1" units="hour"/>
+    <unit units="hour" exponent="-1"/>
   </units>
 
   <units name="litre_hour">
     <unit units="litre"/>
-    <unit exponent="-1" units="hour"/>
+    <unit units="hour" exponent="-1"/>
   </units>
   
   <units name="litre_hour_micromole">
     <unit units="litre"/>
     <unit units="hour"/>
-    <unit exponent="-1" prefix="micro" units="mole"/>
+    <unit units="mole" prefix="micro" exponent="-1"/>
   </units>
   
   <units name="first_order_rate_constant">
-    <unit exponent="-1" units="hour"/>
+    <unit units="hour" exponent="-1"/>
   </units>
   
   
   <component name="environment">
-    <variable cmeta:id="environment_time" name="time" public_interface="out" units="hour"/>
+    <variable units="hour" public_interface="out" name="time"/>
   </component>
  
   
   <component cmeta:id="Cgen_pp" name="Cgen_pp">
      
-    <variable cmeta:id="Cgen_pp_Cgen_pp" initial_value="0" name="Cgen_pp" public_interface="out" units="micromolar"/>
-    <variable name="Qpp" public_interface="out" units="litre_hour"/>
-    <variable initial_value="0.59" name="Ppp" public_interface="out" units="dimensionless"/>
-    <variable name="H_Cgen_pp" public_interface="out" units="dimensionless"/>
+    <variable units="micromolar" public_interface="out" name="Cgen_pp" initial_value="0"/>
+    <variable units="litre_hour" public_interface="out" name="Qpp"/>
+    <variable units="dimensionless" public_interface="out" name="Ppp" initial_value="0.59"/>
+    <variable units="dimensionless" public_interface="out" name="H_Cgen_pp"/>
     
-    <variable initial_value="0.188" name="Vpp" units="litre"/>
+    <variable units="litre" name="Vpp" initial_value="0.188"/>
     
-    <variable name="H_Cgen_B" public_interface="in" units="dimensionless"/>
-    <variable name="Qt" public_interface="in" units="litre_hour"/>
-    <variable name="Cgen_B" public_interface="in" units="micromolar"/>
-    <variable name="time" public_interface="in" units="hour"/> 
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_B"/>
+    <variable units="litre_hour" public_interface="in" name="Qt"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_B"/>
+    <variable units="hour" public_interface="in" name="time"/> 
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="1"> 
       <apply>
@@ -165,15 +165,15 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> H_Cgen_pp </ci>
         <piecewise>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.0 </cn>
+            <cn cellml:units="dimensionless"> 0.0 </cn>
             <apply>
               <lt/>
               <ci> Cgen_pp </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="micromolar"> 0.0 </cn>
+              <cn cellml:units="micromolar"> 0.0 </cn>
             </apply>
           </piece>
           <otherwise>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
           </otherwise>
         </piecewise>
       </apply>
@@ -183,7 +183,7 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> Qpp </ci>
         <apply>
           <times/>
-          <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.528 </cn>
+          <cn cellml:units="dimensionless"> 0.528 </cn>
           <ci> Qt </ci>
         </apply>
       </apply>
@@ -192,18 +192,18 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
 
   <component cmeta:id="Cgen_rp" name="Cgen_rp">
      
-    <variable cmeta:id="Cgen_rp_Cgen_rp" initial_value="0" name="Cgen_rp" public_interface="out" units="micromolar"/>
-    <variable initial_value="1.94" name="Prp" public_interface="out" units="dimensionless"/>
-    <variable name="Qrp" public_interface="out" units="litre_hour"/>
-    <variable name="H_Cgen_rp" public_interface="out" units="dimensionless"/>
+    <variable units="micromolar" public_interface="out" name="Cgen_rp" initial_value="0"/>
+    <variable units="dimensionless" public_interface="out" name="Prp" initial_value="1.94"/>
+    <variable units="litre_hour" public_interface="out" name="Qrp"/>
+    <variable units="dimensionless" public_interface="out" name="H_Cgen_rp"/>
     
-    <variable initial_value="0.012" name="Vrp" units="litre"/>
-    <variable initial_value="9.5" name="kgen_urine" units="first_order_rate_constant"/>
+    <variable units="litre" name="Vrp" initial_value="0.012"/>
+    <variable units="first_order_rate_constant" name="kgen_urine" initial_value="9.5"/>
     
-    <variable name="H_Cgen_B" public_interface="in" units="dimensionless"/>
-    <variable name="Qt" public_interface="in" units="litre_hour"/>
-    <variable name="Cgen_B" public_interface="in" units="micromolar"/>
-    <variable name="time" public_interface="in" units="hour"/> 
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_B"/>
+    <variable units="litre_hour" public_interface="in" name="Qt"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_B"/>
+    <variable units="hour" public_interface="in" name="time"/> 
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="1b"> 
       <apply>
@@ -254,15 +254,15 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> H_Cgen_rp </ci>
         <piecewise>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.0 </cn>
+            <cn cellml:units="dimensionless"> 0.0 </cn>
             <apply>
               <lt/>
               <ci> Cgen_rp </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="micromolar"> 0.0 </cn>
+              <cn cellml:units="micromolar"> 0.0 </cn>
             </apply>
           </piece>
           <otherwise>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
           </otherwise>
         </piecewise>
       </apply>
@@ -272,7 +272,7 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> Qrp </ci>
         <apply>
           <times/>
-          <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.289 </cn>
+          <cn cellml:units="dimensionless"> 0.289 </cn>
           <ci> Qt </ci>
         </apply>
       </apply>
@@ -281,23 +281,23 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
   
   <component cmeta:id="Cgen_l" name="Cgen_l">
      
-    <variable cmeta:id="Cgen_l_Cgen_l" initial_value="0" name="Cgen_l" public_interface="out" units="micromolar"/>
-    <variable name="Ql" public_interface="out" units="litre_hour"/>
-    <variable name="H_Cgen_l" public_interface="out" units="dimensionless"/>
-    <variable initial_value="0.0092" name="Vl" public_interface="out" units="litre"/>
-    <variable initial_value="3.61" name="Pl" public_interface="out" units="dimensionless"/>
+    <variable units="micromolar" public_interface="out" name="Cgen_l" initial_value="0"/>
+    <variable units="litre_hour" public_interface="out" name="Ql"/>
+    <variable units="dimensionless" public_interface="out" name="H_Cgen_l"/>
+    <variable units="litre" public_interface="out" name="Vl" initial_value="0.0092"/>
+    <variable units="dimensionless" public_interface="out" name="Pl" initial_value="3.61"/>
     
-    <variable name="Vmax" public_interface="in" units="micromolar_hour"/>
-    <variable name="Km" public_interface="in" units="micromolar"/>
-    <variable name="vinf" public_interface="in" units="micromole_hour"/>
-    <variable name="Prp" public_interface="in" units="dimensionless"/>
-    <variable name="H_Cgen_GI" public_interface="in" units="dimensionless"/>
-    <variable name="H_Cgen_B" public_interface="in" units="dimensionless"/>
-    <variable name="Qt" public_interface="in" units="litre_hour"/>
-    <variable name="QGI" public_interface="in" units="litre_hour"/>
-    <variable name="Cgen_B" public_interface="in" units="micromolar"/>
-    <variable name="Cgen_GI" public_interface="in" units="micromolar"/>
-    <variable name="time" public_interface="in" units="hour"/> 
+    <variable units="micromolar_hour" public_interface="in" name="Vmax"/>
+    <variable units="micromolar" public_interface="in" name="Km"/>
+    <variable units="micromole_hour" public_interface="in" name="vinf"/>
+    <variable units="dimensionless" public_interface="in" name="Prp"/>
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_GI"/>
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_B"/>
+    <variable units="litre_hour" public_interface="in" name="Qt"/>
+    <variable units="litre_hour" public_interface="in" name="QGI"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_B"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_GI"/>
+    <variable units="hour" public_interface="in" name="time"/> 
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="1c"> 
       <apply>
@@ -378,15 +378,15 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> H_Cgen_l </ci>
         <piecewise>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.0 </cn>
+            <cn cellml:units="dimensionless"> 0.0 </cn>
             <apply>
               <lt/>
               <ci> Cgen_l </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="micromolar"> 0.0 </cn>
+              <cn cellml:units="micromolar"> 0.0 </cn>
             </apply>
           </piece>
           <otherwise>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
           </otherwise>
         </piecewise>
       </apply>
@@ -396,7 +396,7 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> Ql </ci>
         <apply>
           <times/>
-          <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.03 </cn>
+          <cn cellml:units="dimensionless"> 0.03 </cn>
           <ci> Qt </ci>
         </apply>
       </apply>
@@ -405,17 +405,17 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
 
   <component cmeta:id="Cgen_GI" name="Cgen_GI">
      
-    <variable cmeta:id="Cgen_GI_Cgen_GI" initial_value="0" name="Cgen_GI" public_interface="out" units="micromolar"/>
-    <variable name="H_Cgen_GI" public_interface="out" units="dimensionless"/>
-    <variable name="QGI" public_interface="out" units="litre_hour"/>
+    <variable units="micromolar" public_interface="out" name="Cgen_GI" initial_value="0"/>
+    <variable units="dimensionless" public_interface="out" name="H_Cgen_GI"/>
+    <variable units="litre_hour" public_interface="out" name="QGI"/>
     
-    <variable initial_value="0.011" name="VGI" units="litre"/>
+    <variable units="litre" name="VGI" initial_value="0.011"/>
     
-    <variable name="Prp" public_interface="in" units="dimensionless"/>
-    <variable name="H_Cgen_B" public_interface="in" units="dimensionless"/>
-    <variable name="Qt" public_interface="in" units="litre_hour"/>
-    <variable name="Cgen_B" public_interface="in" units="micromolar"/>
-    <variable name="time" public_interface="in" units="hour"/> 
+    <variable units="dimensionless" public_interface="in" name="Prp"/>
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_B"/>
+    <variable units="litre_hour" public_interface="in" name="Qt"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_B"/>
+    <variable units="hour" public_interface="in" name="time"/> 
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="1d"> 
       <apply>
@@ -457,15 +457,15 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> H_Cgen_GI </ci>
         <piecewise>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.0 </cn>
+            <cn cellml:units="dimensionless"> 0.0 </cn>
             <apply>
               <lt/>
               <ci> Cgen_GI </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="micromolar"> 0.0 </cn>
+              <cn cellml:units="micromolar"> 0.0 </cn>
             </apply>
           </piece>
           <otherwise>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
           </otherwise>
         </piecewise>
       </apply>
@@ -475,7 +475,7 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> QGI </ci>
         <apply>
           <times/>
-          <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.153 </cn>
+          <cn cellml:units="dimensionless"> 0.153 </cn>
           <ci> Qt </ci>
         </apply>
       </apply>
@@ -484,21 +484,21 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
 
   <component cmeta:id="Ccon_l" name="Ccon_l">
      
-    <variable cmeta:id="Ccon_l_Ccon_l" initial_value="0" name="Ccon_l" public_interface="out" units="micromolar"/>
-    <variable name="H_Ccon_l" public_interface="out" units="dimensionless"/>
+    <variable units="micromolar" public_interface="out" name="Ccon_l" initial_value="0"/>
+    <variable units="dimensionless" public_interface="out" name="H_Ccon_l"/>
     
-    <variable name="Vl" public_interface="in" units="litre"/>
-    <variable name="kbile" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="Ql" public_interface="in" units="litre_hour"/>
-    <variable name="H_Cgen_l" public_interface="in" units="dimensionless"/>
-    <variable name="Vmax" public_interface="in" units="micromolar_hour"/>
-    <variable name="Km" public_interface="in" units="micromolar"/>
-    <variable name="H_Ccon_ROB" public_interface="in" units="dimensionless"/>
-    <variable name="Qt" public_interface="in" units="litre_hour"/>
-    <variable name="QGI" public_interface="in" units="litre_hour"/>
-    <variable name="Cgen_l" public_interface="in" units="micromolar"/>
-    <variable name="Ccon_ROB" public_interface="in" units="micromolar"/>
-    <variable name="time" public_interface="in" units="hour"/> 
+    <variable units="litre" public_interface="in" name="Vl"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="kbile"/>
+    <variable units="litre_hour" public_interface="in" name="Ql"/>
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_l"/>
+    <variable units="micromolar_hour" public_interface="in" name="Vmax"/>
+    <variable units="micromolar" public_interface="in" name="Km"/>
+    <variable units="dimensionless" public_interface="in" name="H_Ccon_ROB"/>
+    <variable units="litre_hour" public_interface="in" name="Qt"/>
+    <variable units="litre_hour" public_interface="in" name="QGI"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_l"/>
+    <variable units="micromolar" public_interface="in" name="Ccon_ROB"/>
+    <variable units="hour" public_interface="in" name="time"/> 
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="1e"> 
       <apply>
@@ -572,15 +572,15 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> H_Ccon_l </ci>
         <piecewise>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.0 </cn>
+            <cn cellml:units="dimensionless"> 0.0 </cn>
             <apply>
               <lt/>
               <ci> Ccon_l </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="micromolar"> 0.0 </cn>
+              <cn cellml:units="micromolar"> 0.0 </cn>
             </apply>
           </piece>
           <otherwise>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
           </otherwise>
         </piecewise>
       </apply>
@@ -589,17 +589,17 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
 
   <component cmeta:id="Ccon_ROB" name="Ccon_ROB">
      
-    <variable cmeta:id="Ccon_ROB_Ccon_ROB" initial_value="0" name="Ccon_ROB" public_interface="out" units="micromolar"/>
-    <variable name="H_Ccon_ROB" public_interface="out" units="dimensionless"/>
+    <variable units="micromolar" public_interface="out" name="Ccon_ROB" initial_value="0"/>
+    <variable units="dimensionless" public_interface="out" name="H_Ccon_ROB"/>
     
-	<variable initial_value="0.2408" name="VROB" units="litre"/>
-    <variable initial_value="0.0" name="kcon_urine" units="first_order_rate_constant"/>
+	<variable units="litre" name="VROB" initial_value="0.2408"/>
+    <variable units="first_order_rate_constant" name="kcon_urine" initial_value="0.0"/>
     
-    <variable name="H_Ccon_l" public_interface="in" units="dimensionless"/>
-    <variable name="Ql" public_interface="in" units="litre_hour"/>
-    <variable name="QGI" public_interface="in" units="litre_hour"/>
-    <variable name="Ccon_l" public_interface="in" units="micromolar"/>
-    <variable name="time" public_interface="in" units="hour"/> 
+    <variable units="dimensionless" public_interface="in" name="H_Ccon_l"/>
+    <variable units="litre_hour" public_interface="in" name="Ql"/>
+    <variable units="litre_hour" public_interface="in" name="QGI"/>
+    <variable units="micromolar" public_interface="in" name="Ccon_l"/>
+    <variable units="hour" public_interface="in" name="time"/> 
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="1f"> 
       <apply>
@@ -652,15 +652,15 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> H_Ccon_ROB </ci>
         <piecewise>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.0 </cn>
+            <cn cellml:units="dimensionless"> 0.0 </cn>
             <apply>
               <lt/>
               <ci> Ccon_ROB </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="micromolar"> 0.0 </cn>
+              <cn cellml:units="micromolar"> 0.0 </cn>
             </apply>
           </piece>
           <otherwise>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
           </otherwise>
         </piecewise>
       </apply>
@@ -669,20 +669,20 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
 
   <component cmeta:id="Acon_b" name="Acon_b">
      
-    <variable cmeta:id="Acon_b_Acon_b" initial_value="0" name="Acon_b" public_interface="out" units="micromole"/>
+    <variable units="micromole" public_interface="out" name="Acon_b" initial_value="0"/>
     
-    <variable name="d_t_Cgen_l" units="hour"/>
-    <variable initial_value="0.0865" name="tbasal" units="hour"/>
-    <variable initial_value="1.0107" name="ct" units="hour"/>
-    <variable initial_value="0.06561" name="cgen" units="litre_hour_micromole"/>
+    <variable units="hour" name="d_t_Cgen_l"/>
+    <variable units="hour" name="tbasal" initial_value="0.0865"/>
+    <variable units="hour" name="ct" initial_value="1.0107"/>
+    <variable units="litre_hour_micromole" name="cgen" initial_value="0.06561"/>
     
-    <variable name="Vl" public_interface="in" units="litre"/>
-    <variable name="kbile" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="H_Ccon_l" public_interface="in" units="dimensionless"/>
-    <variable name="H_Cgen_l" public_interface="in" units="dimensionless"/>
-    <variable name="Ccon_l" public_interface="in" units="micromolar"/>
-    <variable name="Cgen_l" public_interface="in" units="micromolar"/>
-    <variable name="time" public_interface="in" units="hour"/> 
+    <variable units="litre" public_interface="in" name="Vl"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="kbile"/>
+    <variable units="dimensionless" public_interface="in" name="H_Ccon_l"/>
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_l"/>
+    <variable units="micromolar" public_interface="in" name="Ccon_l"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_l"/>
+    <variable units="hour" public_interface="in" name="time"/> 
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="1g"> 
       <apply>
@@ -733,23 +733,23 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
   
   <component cmeta:id="Cgen_B" name="Cgen_B">
      
-    <variable cmeta:id="Cgen_B_Cgen_B" name="Cgen_B" public_interface="out" units="micromolar"/>
-    <variable name="H_Cgen_B" public_interface="out" units="dimensionless"/>
+    <variable units="micromolar" public_interface="out" name="Cgen_B"/>
+    <variable units="dimensionless" public_interface="out" name="H_Cgen_B"/>
     
-    <variable name="Prp" public_interface="in" units="dimensionless"/>
-    <variable name="Ppp" public_interface="in" units="dimensionless"/>
-    <variable name="Pl" public_interface="in" units="dimensionless"/>
-    <variable name="Qrp" public_interface="in" units="litre_hour"/>
-    <variable name="Qpp" public_interface="in" units="litre_hour"/>
-    <variable name="QGI" public_interface="in" units="litre_hour"/>
-    <variable name="Ql" public_interface="in" units="litre_hour"/>
-    <variable name="Qt" public_interface="in" units="litre_hour"/>
-    <variable name="H_Cgen_rp" public_interface="in" units="dimensionless"/>
-    <variable name="H_Cgen_pp" public_interface="in" units="dimensionless"/>
-    <variable name="H_Cgen_l" public_interface="in" units="dimensionless"/>
-    <variable name="Cgen_rp" public_interface="in" units="micromolar"/>
-    <variable name="Cgen_pp" public_interface="in" units="micromolar"/>
-    <variable name="Cgen_l" public_interface="in" units="micromolar"/>
+    <variable units="dimensionless" public_interface="in" name="Prp"/>
+    <variable units="dimensionless" public_interface="in" name="Ppp"/>
+    <variable units="dimensionless" public_interface="in" name="Pl"/>
+    <variable units="litre_hour" public_interface="in" name="Qrp"/>
+    <variable units="litre_hour" public_interface="in" name="Qpp"/>
+    <variable units="litre_hour" public_interface="in" name="QGI"/>
+    <variable units="litre_hour" public_interface="in" name="Ql"/>
+    <variable units="litre_hour" public_interface="in" name="Qt"/>
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_rp"/>
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_pp"/>
+    <variable units="dimensionless" public_interface="in" name="H_Cgen_l"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_rp"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_pp"/>
+    <variable units="micromolar" public_interface="in" name="Cgen_l"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="1h"> 
       <apply>
@@ -803,15 +803,15 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> H_Cgen_B </ci>
         <piecewise>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.0 </cn>
+            <cn cellml:units="dimensionless"> 0.0 </cn>
             <apply>
               <lt/>
               <ci> Cgen_B </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="micromolar"> 0.0 </cn>
+              <cn cellml:units="micromolar"> 0.0 </cn>
             </apply>
           </piece>
           <otherwise>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
           </otherwise>
         </piecewise>
       </apply>
@@ -819,21 +819,21 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
   </component>
   
   <component name="model_parameters">
-    <variable name="vinf" public_interface="out" units="micromole_hour"/>
-    <variable name="Qt" public_interface="out" units="litre_hour"/>
-    <variable initial_value="25.25" name="Vmax" public_interface="out" units="micromolar_hour"/>
-    <variable initial_value="0.6231" name="Km" public_interface="out" units="micromolar"/>
-    <variable initial_value="111.72" name="kbile" public_interface="out" units="first_order_rate_constant"/>
+    <variable units="micromole_hour" public_interface="out" name="vinf"/>
+    <variable units="litre_hour" public_interface="out" name="Qt"/>
+    <variable units="micromolar_hour" public_interface="out" name="Vmax" initial_value="25.25"/>
+    <variable units="micromolar" public_interface="out" name="Km" initial_value="0.6231"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="kbile" initial_value="111.72"/>
     
-    <variable initial_value="1.0" name="cv" units="micromole_hour"/>
-    <variable name="F" units="dimensionless"/>
-    <variable name="G" units="dimensionless"/>
-    <variable name="H" units="dimensionless"/>
-    <variable name="I" units="dimensionless"/>
-    <variable initial_value="0.1" name="epsilon" units="hour"/>
-    <variable initial_value="0.25" name="m_rat" units="dimensionless"/>
+    <variable units="micromole_hour" name="cv" initial_value="1.0"/>
+    <variable units="dimensionless" name="F"/>
+    <variable units="dimensionless" name="G"/>
+    <variable units="dimensionless" name="H"/>
+    <variable units="dimensionless" name="I"/>
+    <variable units="hour" name="epsilon" initial_value="0.1"/>
+    <variable units="dimensionless" name="m_rat" initial_value="0.25"/>
 
-    <variable name="time" public_interface="in" units="hour"/> 
+    <variable units="hour" public_interface="in" name="time"/> 
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="1i"> 
       <apply>
@@ -856,7 +856,7 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 0.0 </cn>
+                <cn cellml:units="hour"> 0.0 </cn>
               </apply>
             </apply>
           </piece>
@@ -873,7 +873,7 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
                 <ci> time </ci>
                 <apply>
                   <minus/>
-                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 1.0 </cn>
+                  <cn cellml:units="hour"> 1.0 </cn>
                   <ci> epsilon </ci>
                 </apply>
               </apply>
@@ -895,14 +895,14 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
               <apply>
                 <leq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 1.0 </cn>
+                <cn cellml:units="hour"> 1.0 </cn>
               </apply>
               <apply>
                 <gt/>
                 <ci> time </ci>
                 <apply>
                   <minus/>
-                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 1.0 </cn>
+                  <cn cellml:units="hour"> 1.0 </cn>
                   <ci> epsilon </ci>
                 </apply>
               </apply>
@@ -921,18 +921,18 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
                 <ci> time </ci>
                 <apply>
                   <plus/>
-                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 1.0 </cn>
+                  <cn cellml:units="hour"> 1.0 </cn>
                   <apply>
                     <divide/>
-                    <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 5.0 </cn>
-                    <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 60.0 </cn>
+                    <cn cellml:units="hour"> 5.0 </cn>
+                    <cn cellml:units="dimensionless"> 60.0 </cn>
                   </apply>
                 </apply>
               </apply>
               <apply>
                 <gt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 1.0 </cn>
+                <cn cellml:units="hour"> 1.0 </cn>
               </apply>
             </apply>
           </piece>
@@ -948,34 +948,34 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
             <times/>
             <apply>
               <divide/>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> -2.0 </cn>
+              <cn cellml:units="dimensionless"> -2.0 </cn>
               <apply>
                 <power/>
                 <ci> epsilon </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 3.0 </cn>
+                <cn cellml:units="dimensionless"> 3.0 </cn>
               </apply>
             </apply>
             <apply>
               <power/>
               <ci> time </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 3.0 </cn>
+              <cn cellml:units="dimensionless"> 3.0 </cn>
             </apply>
           </apply>
           <apply>
             <times/>
             <apply>
               <divide/>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 3.0 </cn>
+              <cn cellml:units="dimensionless"> 3.0 </cn>
               <apply>
                 <power/>
                 <ci> epsilon </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 2.0 </cn>
+                <cn cellml:units="dimensionless"> 2.0 </cn>
               </apply>
             </apply>
             <apply>
               <power/>
               <ci> time </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 2.0 </cn>
+              <cn cellml:units="dimensionless"> 2.0 </cn>
             </apply>
           </apply>
         </apply>
@@ -984,7 +984,7 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
       <apply>
         <eq/> 
         <ci> G </ci> 
-        <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+        <cn cellml:units="dimensionless"> 1.0 </cn>
       </apply>
 
       <apply>
@@ -996,42 +996,42 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
             <divide/>
             <apply>
               <times/>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 3.0 </cn>
+              <cn cellml:units="dimensionless"> 3.0 </cn>
               <apply>
                 <power/>
                 <apply>
                   <minus/>
-                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 1.0 </cn>
+                  <cn cellml:units="hour"> 1.0 </cn>
                   <ci> time </ci>
                 </apply>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 2.0 </cn>
+                <cn cellml:units="dimensionless"> 2.0 </cn>
               </apply>
             </apply>
             <apply>
               <power/>
               <ci> epsilon </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 2.0 </cn>
+              <cn cellml:units="dimensionless"> 2.0 </cn>
             </apply>
           </apply>
           <apply>
             <divide/>
             <apply>
               <times/>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 2.0 </cn>
+              <cn cellml:units="dimensionless"> 2.0 </cn>
               <apply>
                 <power/>
                 <apply>
                   <minus/>
-                  <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 1.0 </cn>
+                  <cn cellml:units="hour"> 1.0 </cn>
                   <ci> time </ci>
                 </apply>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 3.0 </cn>
+                <cn cellml:units="dimensionless"> 3.0 </cn>
               </apply>
             </apply>
             <apply>
               <power/>
               <ci> epsilon </ci>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 3.0 </cn>
+              <cn cellml:units="dimensionless"> 3.0 </cn>
             </apply>
           </apply>
         </apply>
@@ -1040,7 +1040,7 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
       <apply>
         <eq/> 
         <ci> I </ci> 
-        <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.0 </cn>
+        <cn cellml:units="dimensionless"> 0.0 </cn>
       </apply>
 
       <apply>
@@ -1048,11 +1048,11 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
         <ci> Qt </ci> 
         <apply>
           <times/>
-          <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="litre_hour"> 14.1 </cn>
+          <cn cellml:units="litre_hour"> 14.1 </cn>
           <apply>
             <power/>
             <ci> m_rat </ci>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 0.75 </cn>
+            <cn cellml:units="dimensionless"> 0.75 </cn>
           </apply>
         </apply>
       </apply>    
@@ -1061,185 +1061,346 @@ A delayed nonlinear PBPK model for genistein dosimetry in rats, Michael G. Zager
 
 
   <connection>
-    <map_components component_1="Cgen_pp" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Cgen_pp"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="Cgen_rp" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Cgen_rp"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_l" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Cgen_l"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="Cgen_GI" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Cgen_GI"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
 
   <connection>
-    <map_components component_1="Ccon_l" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Ccon_l"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
 
   <connection>
-    <map_components component_1="Ccon_ROB" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Ccon_ROB"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="Acon_b" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Acon_b"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
 
   <connection>
-    <map_components component_1="model_parameters" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="model_parameters"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="Cgen_pp" component_2="Cgen_B"/>
-    <map_variables variable_1="Cgen_B" variable_2="Cgen_B"/>
-    <map_variables variable_1="H_Cgen_B" variable_2="H_Cgen_B"/>
-    <map_variables variable_1="Cgen_pp" variable_2="Cgen_pp"/>
-    <map_variables variable_1="H_Cgen_pp" variable_2="H_Cgen_pp"/>
-    <map_variables variable_1="Qpp" variable_2="Qpp"/>
-    <map_variables variable_1="Ppp" variable_2="Ppp"/>
+    <map_components component_2="Cgen_B" component_1="Cgen_pp"/>
+    <map_variables variable_2="Cgen_B" variable_1="Cgen_B"/>
+    <map_variables variable_2="H_Cgen_B" variable_1="H_Cgen_B"/>
+    <map_variables variable_2="Cgen_pp" variable_1="Cgen_pp"/>
+    <map_variables variable_2="H_Cgen_pp" variable_1="H_Cgen_pp"/>
+    <map_variables variable_2="Qpp" variable_1="Qpp"/>
+    <map_variables variable_2="Ppp" variable_1="Ppp"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_pp" component_2="model_parameters"/>
-    <map_variables variable_1="Qt" variable_2="Qt"/>
+    <map_components component_2="model_parameters" component_1="Cgen_pp"/>
+    <map_variables variable_2="Qt" variable_1="Qt"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_rp" component_2="Cgen_B"/>
-    <map_variables variable_1="Cgen_B" variable_2="Cgen_B"/>
-    <map_variables variable_1="H_Cgen_B" variable_2="H_Cgen_B"/>
-    <map_variables variable_1="Cgen_rp" variable_2="Cgen_rp"/>
-    <map_variables variable_1="H_Cgen_rp" variable_2="H_Cgen_rp"/>
-    <map_variables variable_1="Qrp" variable_2="Qrp"/>
-    <map_variables variable_1="Prp" variable_2="Prp"/>
+    <map_components component_2="Cgen_B" component_1="Cgen_rp"/>
+    <map_variables variable_2="Cgen_B" variable_1="Cgen_B"/>
+    <map_variables variable_2="H_Cgen_B" variable_1="H_Cgen_B"/>
+    <map_variables variable_2="Cgen_rp" variable_1="Cgen_rp"/>
+    <map_variables variable_2="H_Cgen_rp" variable_1="H_Cgen_rp"/>
+    <map_variables variable_2="Qrp" variable_1="Qrp"/>
+    <map_variables variable_2="Prp" variable_1="Prp"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_rp" component_2="model_parameters"/>
-    <map_variables variable_1="Qt" variable_2="Qt"/>
+    <map_components component_2="model_parameters" component_1="Cgen_rp"/>
+    <map_variables variable_2="Qt" variable_1="Qt"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_l" component_2="Cgen_B"/>
-    <map_variables variable_1="Cgen_B" variable_2="Cgen_B"/>
-    <map_variables variable_1="H_Cgen_B" variable_2="H_Cgen_B"/>
-    <map_variables variable_1="Cgen_l" variable_2="Cgen_l"/>
-    <map_variables variable_1="H_Cgen_l" variable_2="H_Cgen_l"/>
-    <map_variables variable_1="Ql" variable_2="Ql"/>
-    <map_variables variable_1="Pl" variable_2="Pl"/>
+    <map_components component_2="Cgen_B" component_1="Cgen_l"/>
+    <map_variables variable_2="Cgen_B" variable_1="Cgen_B"/>
+    <map_variables variable_2="H_Cgen_B" variable_1="H_Cgen_B"/>
+    <map_variables variable_2="Cgen_l" variable_1="Cgen_l"/>
+    <map_variables variable_2="H_Cgen_l" variable_1="H_Cgen_l"/>
+    <map_variables variable_2="Ql" variable_1="Ql"/>
+    <map_variables variable_2="Pl" variable_1="Pl"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_l" component_2="Cgen_rp"/>
-    <map_variables variable_1="Prp" variable_2="Prp"/>
+    <map_components component_2="Cgen_rp" component_1="Cgen_l"/>
+    <map_variables variable_2="Prp" variable_1="Prp"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_l" component_2="Cgen_GI"/>
-    <map_variables variable_1="Cgen_GI" variable_2="Cgen_GI"/>
-    <map_variables variable_1="H_Cgen_GI" variable_2="H_Cgen_GI"/>
-    <map_variables variable_1="QGI" variable_2="QGI"/>
+    <map_components component_2="Cgen_GI" component_1="Cgen_l"/>
+    <map_variables variable_2="Cgen_GI" variable_1="Cgen_GI"/>
+    <map_variables variable_2="H_Cgen_GI" variable_1="H_Cgen_GI"/>
+    <map_variables variable_2="QGI" variable_1="QGI"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_l" component_2="model_parameters"/>
-    <map_variables variable_1="Qt" variable_2="Qt"/>
-    <map_variables variable_1="Vmax" variable_2="Vmax"/>
-    <map_variables variable_1="Km" variable_2="Km"/>
-    <map_variables variable_1="vinf" variable_2="vinf"/>
+    <map_components component_2="model_parameters" component_1="Cgen_l"/>
+    <map_variables variable_2="Qt" variable_1="Qt"/>
+    <map_variables variable_2="Vmax" variable_1="Vmax"/>
+    <map_variables variable_2="Km" variable_1="Km"/>
+    <map_variables variable_2="vinf" variable_1="vinf"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_GI" component_2="Cgen_B"/>
-    <map_variables variable_1="Cgen_B" variable_2="Cgen_B"/>
-    <map_variables variable_1="H_Cgen_B" variable_2="H_Cgen_B"/>
-    <map_variables variable_1="QGI" variable_2="QGI"/>
+    <map_components component_2="Cgen_B" component_1="Cgen_GI"/>
+    <map_variables variable_2="Cgen_B" variable_1="Cgen_B"/>
+    <map_variables variable_2="H_Cgen_B" variable_1="H_Cgen_B"/>
+    <map_variables variable_2="QGI" variable_1="QGI"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_GI" component_2="Cgen_rp"/>
-    <map_variables variable_1="Prp" variable_2="Prp"/>
+    <map_components component_2="Cgen_rp" component_1="Cgen_GI"/>
+    <map_variables variable_2="Prp" variable_1="Prp"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_GI" component_2="model_parameters"/>
-    <map_variables variable_1="Qt" variable_2="Qt"/>
+    <map_components component_2="model_parameters" component_1="Cgen_GI"/>
+    <map_variables variable_2="Qt" variable_1="Qt"/>
   </connection>
 
   <connection>
-    <map_components component_1="Ccon_l" component_2="Cgen_l"/>
-    <map_variables variable_1="Cgen_l" variable_2="Cgen_l"/>
-    <map_variables variable_1="H_Cgen_l" variable_2="H_Cgen_l"/>
-    <map_variables variable_1="Ql" variable_2="Ql"/>
-    <map_variables variable_1="Vl" variable_2="Vl"/>
+    <map_components component_2="Cgen_l" component_1="Ccon_l"/>
+    <map_variables variable_2="Cgen_l" variable_1="Cgen_l"/>
+    <map_variables variable_2="H_Cgen_l" variable_1="H_Cgen_l"/>
+    <map_variables variable_2="Ql" variable_1="Ql"/>
+    <map_variables variable_2="Vl" variable_1="Vl"/>
   </connection>
 
   <connection>
-    <map_components component_1="Ccon_l" component_2="Cgen_GI"/>
-    <map_variables variable_1="QGI" variable_2="QGI"/>
+    <map_components component_2="Cgen_GI" component_1="Ccon_l"/>
+    <map_variables variable_2="QGI" variable_1="QGI"/>
   </connection>
 
   <connection>
-    <map_components component_1="Ccon_l" component_2="model_parameters"/>
-    <map_variables variable_1="Qt" variable_2="Qt"/>
-    <map_variables variable_1="Vmax" variable_2="Vmax"/>
-    <map_variables variable_1="Km" variable_2="Km"/>
-    <map_variables variable_1="kbile" variable_2="kbile"/>
+    <map_components component_2="model_parameters" component_1="Ccon_l"/>
+    <map_variables variable_2="Qt" variable_1="Qt"/>
+    <map_variables variable_2="Vmax" variable_1="Vmax"/>
+    <map_variables variable_2="Km" variable_1="Km"/>
+    <map_variables variable_2="kbile" variable_1="kbile"/>
   </connection>
 
   <connection>
-    <map_components component_1="Ccon_l" component_2="Ccon_ROB"/>
-    <map_variables variable_1="Ccon_ROB" variable_2="Ccon_ROB"/>
-    <map_variables variable_1="H_Ccon_ROB" variable_2="H_Ccon_ROB"/>
-    <map_variables variable_1="Ccon_l" variable_2="Ccon_l"/>
-    <map_variables variable_1="H_Ccon_l" variable_2="H_Ccon_l"/>
+    <map_components component_2="Ccon_ROB" component_1="Ccon_l"/>
+    <map_variables variable_2="Ccon_ROB" variable_1="Ccon_ROB"/>
+    <map_variables variable_2="H_Ccon_ROB" variable_1="H_Ccon_ROB"/>
+    <map_variables variable_2="Ccon_l" variable_1="Ccon_l"/>
+    <map_variables variable_2="H_Ccon_l" variable_1="H_Ccon_l"/>
   </connection>
 
   <connection>
-    <map_components component_1="Ccon_ROB" component_2="Cgen_l"/>
-    <map_variables variable_1="Ql" variable_2="Ql"/>
+    <map_components component_2="Cgen_l" component_1="Ccon_ROB"/>
+    <map_variables variable_2="Ql" variable_1="Ql"/>
   </connection>
 
   <connection>
-    <map_components component_1="Ccon_ROB" component_2="Cgen_GI"/>
-    <map_variables variable_1="QGI" variable_2="QGI"/>
+    <map_components component_2="Cgen_GI" component_1="Ccon_ROB"/>
+    <map_variables variable_2="QGI" variable_1="QGI"/>
   </connection>
 
   <connection>
-    <map_components component_1="Ccon_l" component_2="Acon_b"/>
-    <map_variables variable_1="Ccon_l" variable_2="Ccon_l"/>
-    <map_variables variable_1="H_Ccon_l" variable_2="H_Ccon_l"/>
+    <map_components component_2="Acon_b" component_1="Ccon_l"/>
+    <map_variables variable_2="Ccon_l" variable_1="Ccon_l"/>
+    <map_variables variable_2="H_Ccon_l" variable_1="H_Ccon_l"/>
   </connection>
 
   <connection>
-    <map_components component_1="Acon_b" component_2="Cgen_l"/>
-    <map_variables variable_1="Cgen_l" variable_2="Cgen_l"/>
-    <map_variables variable_1="H_Cgen_l" variable_2="H_Cgen_l"/>
-    <map_variables variable_1="Vl" variable_2="Vl"/>
+    <map_components component_2="Cgen_l" component_1="Acon_b"/>
+    <map_variables variable_2="Cgen_l" variable_1="Cgen_l"/>
+    <map_variables variable_2="H_Cgen_l" variable_1="H_Cgen_l"/>
+    <map_variables variable_2="Vl" variable_1="Vl"/>
   </connection>
 
   <connection>
-    <map_components component_1="Acon_b" component_2="model_parameters"/>
-    <map_variables variable_1="kbile" variable_2="kbile"/>
+    <map_components component_2="model_parameters" component_1="Acon_b"/>
+    <map_variables variable_2="kbile" variable_1="kbile"/>
   </connection>
 
   <connection>
-    <map_components component_1="Cgen_B" component_2="model_parameters"/>
-    <map_variables variable_1="Qt" variable_2="Qt"/>
+    <map_components component_2="model_parameters" component_1="Cgen_B"/>
+    <map_variables variable_2="Qt" variable_1="Qt"/>
   </connection>
 
-
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="#zager_model_2007"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">
+<rdf:RDF>
+  <rdf:Bag rdf:about="rdf:#534bf4be-85a2-406a-a43c-6eaedff90b4a">
+    <rdf:li>endocrine</rdf:li>
+    <rdf:li>genistein</rdf:li>
+    <rdf:li>pharmacokinetics</rdf:li>
+    <rdf:li>biliary excretion</rdf:li>
+  </rdf:Bag>
+  <rdf:Seq rdf:about="rdf:#d0844ee5-1d36-47fe-a8da-cda60a0ab5e5">
+    <rdf:li rdf:resource="rdf:#be67f8a9-91a4-43b6-942b-3ce5ab5929a4"/>
+    <rdf:li rdf:resource="rdf:#737d6301-2936-4336-acf8-4a529166d187"/>
+    <rdf:li rdf:resource="rdf:#a681f8fc-89c0-45eb-a4f2-66a60678ad4b"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#beb0c910-d86c-404b-88ad-4b2702f6e17b">
+    <dcterms:modified rdf:resource="rdf:#056bce3e-c7dd-4585-bbaa-91f85ed61247"/>
+    <rdf:value>The original model author contacted me and gave me an updated equation to calculate "H" (used in the equation to calculate Vinf).  This fixed the units issue (inconsistency) and also fixed the model such that it now recreates the published results.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#dc5b669e-9bfa-4c47-871a-6f5f6467f61a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>The University of Auckland, Auckland Bioengineering Institute</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#ba88c7b2-a764-430c-881a-c27b763d6c91"/>
+    <dcterms:created rdf:resource="rdf:#68409981-0b15-481f-909e-a39301c602b1"/>
+    <dc:creator rdf:resource="rdf:#6c6defbf-af67-4ae7-8068-0b2d8de69343"/>
+    <cmeta:modification rdf:resource="rdf:#beb0c910-d86c-404b-88ad-4b2702f6e17b"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b53a2127-862e-44db-9b54-cfa15e513ffa">
+    <dcterms:W3CDTF>2007-01</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Ccon_ROB">
+    <dcterms:alternative>concentration of genistein conjugates in rest-of-body</dcterms:alternative>
+    <dc:title>Ccon_ROB</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#79eafc7e-f74a-4b2b-b69e-a74f83c721d8">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value rdf:resource="rdf:#534bf4be-85a2-406a-a43c-6eaedff90b4a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#dffd8e0d-c7d1-484b-bd8c-600fa8fbb5df">
+    <vCard:Given>Paul</vCard:Given>
+    <vCard:Family>Schlosser</vCard:Family>
+    <vCard:Other>M</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#631e9d2e-1867-497d-a186-c6b5b179682b">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#74cbce47-4dd7-4bf9-a212-43a8674f9e4b">
+    <vCard:Given>Hien</vCard:Given>
+    <vCard:Family>Tran</vCard:Family>
+    <vCard:Other>T</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#1e5cac47-7842-42e5-8cd3-eae8a5ded492">
+    <dc:creator rdf:resource="rdf:#d0844ee5-1d36-47fe-a8da-cda60a0ab5e5"/>
+    <dc:title>A delayed nonlinear PBPK model for genistein dosimetry in rats</dc:title>
+    <bqs:volume>69</bqs:volume>
+    <bqs:first_page>93</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#e99737a5-4053-4931-b718-a7a5d8ad461f"/>
+    <dcterms:issued rdf:resource="rdf:#b53a2127-862e-44db-9b54-cfa15e513ffa"/>
+    <bqs:last_page>117</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a681f8fc-89c0-45eb-a4f2-66a60678ad4b">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#74cbce47-4dd7-4bf9-a212-43a8674f9e4b"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#3a9b6bc4-d4d0-4969-90c8-8f25057c55d8">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e2c681e0-ab84-4b52-b7e5-04a6db02cb10">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f7b991c6-f4dc-4064-933f-c037a219d513">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#dc5b669e-9bfa-4c47-871a-6f5f6467f61a">
+    <vCard:N rdf:resource="rdf:#559e0019-cb47-4c69-bc59-914c5674cf08"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#be67f8a9-91a4-43b6-942b-3ce5ab5929a4">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#c743caa7-182a-4e53-b508-7f17550be65e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Acon_b">
+    <dcterms:alternative>amount of genistein conjugates in bile-delayed compartment</dcterms:alternative>
+    <dc:title>Acon_b</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ba88c7b2-a764-430c-881a-c27b763d6c91">
+    <dc:creator rdf:resource="rdf:#e2c681e0-ab84-4b52-b7e5-04a6db02cb10"/>
+    <rdf:value>The original model author has worked with us to get the CellML version of his model running in PCEnv to replicate the published results.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="#zager_model_2007">
+    <dc:title>
         Zager, Schlosser and Tran's 2007 delayed nonlinear PBPK model for genistein dosimetry.
-      </title><cmeta:comment><rdf:Description rdf:about="rdf:#b0e35253-b608-4089-94bb-4c05714b0984"/></cmeta:comment><reference xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:about="rdf:#38772a96-6246-4237-8abd-03b6cf2da71d"/></reference><reference xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:about="rdf:#650bf107-c41b-4c1d-9bf4-600d9aed0e69"/></reference><simulation xmlns="http://www.cellml.org/metadata/simulation/1.0#"><rdf:Description rdf:nodeID="n1"/></simulation></rdf:Description><rdf:Description rdf:about="rdf:#737d6301-2936-4336-acf8-4a529166d187"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:about="rdf:#dffd8e0d-c7d1-484b-bd8c-600fa8fbb5df"/></N><rdf:type><rdf:Description rdf:about="http://www.cellml.org/bqs/1.0#Person"/></rdf:type></rdf:Description><rdf:Description rdf:about="rdf:#38772a96-6246-4237-8abd-03b6cf2da71d"><subject xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:about="rdf:#79eafc7e-f74a-4b2b-b69e-a74f83c721d8"/></subject></rdf:Description><rdf:Description rdf:about=""><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:about="rdf:#6c6defbf-af67-4ae7-8068-0b2d8de69343"/></creator><cmeta:comment><rdf:Description rdf:about="rdf:#ba88c7b2-a764-430c-881a-c27b763d6c91"/></cmeta:comment><created xmlns="http://purl.org/dc/terms/"><rdf:Description rdf:about="rdf:#68409981-0b15-481f-909e-a39301c602b1"/></created><publisher xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">The University of Auckland, Auckland Bioengineering Institute</publisher><cmeta:modification><rdf:Description rdf:about="rdf:#beb0c910-d86c-404b-88ad-4b2702f6e17b"/></cmeta:modification></rdf:Description><rdf:Description rdf:about="rdf:#dc5b669e-9bfa-4c47-871a-6f5f6467f61a"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:about="rdf:#559e0019-cb47-4c69-bc59-914c5674cf08"/></N></rdf:Description><rdf:Description rdf:about="rdf:#ba88c7b2-a764-430c-881a-c27b763d6c91"><rdf:value xml:lang="en">The original model author has worked with us to get the CellML version of his model running in PCEnv to replicate the published results.</rdf:value><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:about="rdf:#e2c681e0-ab84-4b52-b7e5-04a6db02cb10"/></creator></rdf:Description><rdf:Description rdf:about="rdf:#e2c681e0-ab84-4b52-b7e5-04a6db02cb10"><FN xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Catherine Lloyd</FN></rdf:Description><rdf:Description rdf:about="rdf:#534bf4be-85a2-406a-a43c-6eaedff90b4a"><rdf:_3 xml:lang="en">pharmacokinetics</rdf:_3><rdf:_1 xml:lang="en">endocrine</rdf:_1><rdf:_2 xml:lang="en">genistein</rdf:_2><rdf:_4 xml:lang="en">biliary excretion</rdf:_4><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/></rdf:type></rdf:Description><rdf:Description rdf:about="#Ccon_ROB"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Ccon_ROB</title><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">concentration of genistein conjugates in rest-of-body</alternative></rdf:Description><rdf:Description rdf:nodeID="n2"><rdf:rest><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/></rdf:rest><rdf:first><rdf:Description rdf:nodeID="n3"/></rdf:first></rdf:Description><rdf:Description rdf:about="#Cgen_pp"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Cgen_pp</title><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">concentration of pure genistein in poorly perfused tissues</alternative></rdf:Description><rdf:Description rdf:nodeID="n1"><boundIntervals xmlns="http://www.cellml.org/metadata/simulation/1.0#"><rdf:Description rdf:nodeID="n2"/></boundIntervals></rdf:Description><rdf:Description rdf:about="rdf:#c743caa7-182a-4e53-b508-7f17550be65e"><Other xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">G</Other><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Zager</Family><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Michael</Given></rdf:Description><rdf:Description rdf:about="rdf:#68409981-0b15-481f-909e-a39301c602b1"><W3CDTF xmlns="http://purl.org/dc/terms/" xml:lang="en">2007-07-02T00:00:00+00:00</W3CDTF></rdf:Description><rdf:Description rdf:about="#Cgen_B"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Cgen_B</title><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">concentration of pure genistein in plasma</alternative></rdf:Description><rdf:Description rdf:about="rdf:#eadf1609-cc71-4466-b1d5-5fd558d0b9ca"><Orgname xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">The University of Auckland</Orgname><Orgunit xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Auckland Bioengineering Institute</Orgunit></rdf:Description><rdf:Description rdf:about="rdf:#be67f8a9-91a4-43b6-942b-3ce5ab5929a4"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:about="rdf:#c743caa7-182a-4e53-b508-7f17550be65e"/></N><rdf:type><rdf:Description rdf:about="http://www.cellml.org/bqs/1.0#Person"/></rdf:type></rdf:Description><rdf:Description rdf:about="rdf:#056bce3e-c7dd-4585-bbaa-91f85ed61247"><W3CDTF xmlns="http://purl.org/dc/terms/" xml:lang="en">2007-10-03T13:25:05+13:00</W3CDTF></rdf:Description><rdf:Description rdf:about="rdf:#a681f8fc-89c0-45eb-a4f2-66a60678ad4b"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:about="rdf:#74cbce47-4dd7-4bf9-a212-43a8674f9e4b"/></N><rdf:type><rdf:Description rdf:about="http://www.cellml.org/bqs/1.0#Person"/></rdf:type></rdf:Description><rdf:Description rdf:about="rdf:#79eafc7e-f74a-4b2b-b69e-a74f83c721d8"><rdf:value><rdf:Description rdf:about="rdf:#534bf4be-85a2-406a-a43c-6eaedff90b4a"/></rdf:value><subject_type xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">keyword</subject_type></rdf:Description><rdf:Description rdf:about="rdf:#b53a2127-862e-44db-9b54-cfa15e513ffa"><W3CDTF xmlns="http://purl.org/dc/terms/" xml:lang="en">2007-01</W3CDTF></rdf:Description><rdf:Description rdf:about="#Cgen_rp"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Cgen_rp</title><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">concentration of pure genistein in richly perfused tissues</alternative></rdf:Description><rdf:Description rdf:about="rdf:#beb0c910-d86c-404b-88ad-4b2702f6e17b"><rdf:value xml:lang="en">The original model author contacted me and gave me an updated equation to calculate &quot;H&quot; (used in the equation to calculate Vinf).  This fixed the units issue (inconsistency) and also fixed the model such that it now recreates the published results.</rdf:value><cmeta:modifier><rdf:Description rdf:about="rdf:#dc5b669e-9bfa-4c47-871a-6f5f6467f61a"/></cmeta:modifier><modified xmlns="http://purl.org/dc/terms/"><rdf:Description rdf:about="rdf:#056bce3e-c7dd-4585-bbaa-91f85ed61247"/></modified></rdf:Description><rdf:Description rdf:about="rdf:#e99737a5-4053-4931-b718-a7a5d8ad461f"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Bulletin of Mathematical Biology</title></rdf:Description><rdf:Description rdf:about="rdf:#631e9d2e-1867-497d-a186-c6b5b179682b"><rdf:value xml:lang="en">c.lloyd@auckland.ac.nz</rdf:value><rdf:type><rdf:Description rdf:about="http://imc.org/vCard/3.0#internet"/></rdf:type></rdf:Description><rdf:Description rdf:about="rdf:#650bf107-c41b-4c1d-9bf4-600d9aed0e69"><Pubmed_id xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">17024552</Pubmed_id><JournalArticle xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:about="rdf:#1e5cac47-7842-42e5-8cd3-eae8a5ded492"/></JournalArticle></rdf:Description><rdf:Description rdf:about="rdf:#1e5cac47-7842-42e5-8cd3-eae8a5ded492"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">A delayed nonlinear PBPK model for genistein dosimetry in rats</title><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:about="rdf:#d0844ee5-1d36-47fe-a8da-cda60a0ab5e5"/></creator><first_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">93</first_page><issued xmlns="http://purl.org/dc/terms/"><rdf:Description rdf:about="rdf:#b53a2127-862e-44db-9b54-cfa15e513ffa"/></issued><volume xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">69</volume><last_page xmlns="http://www.cellml.org/bqs/1.0#" xml:lang="en">117</last_page><Journal xmlns="http://www.cellml.org/bqs/1.0#"><rdf:Description rdf:about="rdf:#e99737a5-4053-4931-b718-a7a5d8ad461f"/></Journal></rdf:Description><rdf:Description rdf:about="#Ccon_l"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Ccon_l</title><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">concentration of genistein conjugates in liver</alternative></rdf:Description><rdf:Description rdf:about="#Cgen_l"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Cgen_l</title><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">concentration of pure genistein in liver</alternative></rdf:Description><rdf:Description rdf:about="rdf:#dffd8e0d-c7d1-484b-bd8c-600fa8fbb5df"><Other xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">M</Other><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Schlosser</Family><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Paul</Given></rdf:Description><rdf:Description rdf:about="rdf:#74cbce47-4dd7-4bf9-a212-43a8674f9e4b"><Other xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">T</Other><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Tran</Family><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Hien</Given></rdf:Description><rdf:Description rdf:about="rdf:#3a9b6bc4-d4d0-4969-90c8-8f25057c55d8"><FN xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Catherine Lloyd</FN></rdf:Description><rdf:Description rdf:about="#Cgen_GI"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Cgen_GI</title><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">concentration of pure genistein in gastrointestinal tract lumen</alternative></rdf:Description><rdf:Description rdf:about="rdf:#559e0019-cb47-4c69-bc59-914c5674cf08"><Other xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">May</Other><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Lloyd</Family><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Catherine</Given></rdf:Description><rdf:Description rdf:about="rdf:#d0844ee5-1d36-47fe-a8da-cda60a0ab5e5"><rdf:_3><rdf:Description rdf:about="rdf:#a681f8fc-89c0-45eb-a4f2-66a60678ad4b"/></rdf:_3><rdf:_1><rdf:Description rdf:about="rdf:#be67f8a9-91a4-43b6-942b-3ce5ab5929a4"/></rdf:_1><rdf:_2><rdf:Description rdf:about="rdf:#737d6301-2936-4336-acf8-4a529166d187"/></rdf:_2><rdf:type><rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/></rdf:type></rdf:Description><rdf:Description rdf:about="rdf:#f7b991c6-f4dc-4064-933f-c037a219d513"><Other xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">May</Other><Family xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Lloyd</Family><Given xmlns="http://www.w3.org/2001/vcard-rdf/3.0#" xml:lang="en">Catherine</Given></rdf:Description><rdf:Description rdf:nodeID="n3"><maximumStepSize xmlns="http://www.cellml.org/metadata/simulation/1.0#" xml:lang="en">0.1</maximumStepSize><endingValue xmlns="http://www.cellml.org/metadata/simulation/1.0#" xml:lang="en">1.1</endingValue></rdf:Description><rdf:Description rdf:about="rdf:#6c6defbf-af67-4ae7-8068-0b2d8de69343"><N xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:about="rdf:#f7b991c6-f4dc-4064-933f-c037a219d513"/></N><EMAIL xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:about="rdf:#631e9d2e-1867-497d-a186-c6b5b179682b"/></EMAIL><ORG xmlns="http://www.w3.org/2001/vcard-rdf/3.0#"><rdf:Description rdf:about="rdf:#eadf1609-cc71-4466-b1d5-5fd558d0b9ca"/></ORG></rdf:Description><rdf:Description rdf:about="#Acon_b"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">Acon_b</title><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">amount of genistein conjugates in bile-delayed compartment</alternative></rdf:Description><rdf:Description rdf:about="rdf:#b0e35253-b608-4089-94bb-4c05714b0984"><rdf:value xml:lang="en">This is the CellML description of Zager, Schlosser and Tran's 2007 delayed nonlinear PBPK model for genistein dosimetry.</rdf:value><creator xmlns="http://purl.org/dc/elements/1.1/"><rdf:Description rdf:about="rdf:#3a9b6bc4-d4d0-4969-90c8-8f25057c55d8"/></creator></rdf:Description></rdf:RDF></model>
+      </dc:title>
+    <cmeta:comment rdf:resource="rdf:#b0e35253-b608-4089-94bb-4c05714b0984"/>
+    <bqs:reference rdf:resource="rdf:#38772a96-6246-4237-8abd-03b6cf2da71d"/>
+    <bqs:reference rdf:resource="rdf:#650bf107-c41b-4c1d-9bf4-600d9aed0e69"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6c6defbf-af67-4ae7-8068-0b2d8de69343">
+    <vCard:ORG rdf:resource="rdf:#eadf1609-cc71-4466-b1d5-5fd558d0b9ca"/>
+    <vCard:EMAIL rdf:resource="rdf:#631e9d2e-1867-497d-a186-c6b5b179682b"/>
+    <vCard:N rdf:resource="rdf:#f7b991c6-f4dc-4064-933f-c037a219d513"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Cgen_B">
+    <dcterms:alternative>concentration of pure genistein in plasma</dcterms:alternative>
+    <dc:title>Cgen_B</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#737d6301-2936-4336-acf8-4a529166d187">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#dffd8e0d-c7d1-484b-bd8c-600fa8fbb5df"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e99737a5-4053-4931-b718-a7a5d8ad461f">
+    <dc:title>Bulletin of Mathematical Biology</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Cgen_GI">
+    <dcterms:alternative>concentration of pure genistein in gastrointestinal tract lumen</dcterms:alternative>
+    <dc:title>Cgen_GI</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#38772a96-6246-4237-8abd-03b6cf2da71d">
+    <dc:subject rdf:resource="rdf:#79eafc7e-f74a-4b2b-b69e-a74f83c721d8"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#68409981-0b15-481f-909e-a39301c602b1">
+    <dcterms:W3CDTF>2007-07-02T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Cgen_l">
+    <dcterms:alternative>concentration of pure genistein in liver</dcterms:alternative>
+    <dc:title>Cgen_l</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Cgen_rp">
+    <dcterms:alternative>concentration of pure genistein in richly perfused tissues</dcterms:alternative>
+    <dc:title>Cgen_rp</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#eadf1609-cc71-4466-b1d5-5fd558d0b9ca">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#650bf107-c41b-4c1d-9bf4-600d9aed0e69">
+    <bqs:Pubmed_id>17024552</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#1e5cac47-7842-42e5-8cd3-eae8a5ded492"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Cgen_pp">
+    <dcterms:alternative>concentration of pure genistein in poorly perfused tissues</dcterms:alternative>
+    <dc:title>Cgen_pp</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Ccon_l">
+    <dcterms:alternative>concentration of genistein conjugates in liver</dcterms:alternative>
+    <dc:title>Ccon_l</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#056bce3e-c7dd-4585-bbaa-91f85ed61247">
+    <dcterms:W3CDTF>2007-10-03T13:25:05+13:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#559e0019-cb47-4c69-bc59-914c5674cf08">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b0e35253-b608-4089-94bb-4c05714b0984">
+    <dc:creator rdf:resource="rdf:#3a9b6bc4-d4d0-4969-90c8-8f25057c55d8"/>
+    <rdf:value>This is the CellML description of Zager, Schlosser and Tran's 2007 delayed nonlinear PBPK model for genistein dosimetry.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c743caa7-182a-4e53-b508-7f17550be65e">
+    <vCard:Given>Michael</vCard:Given>
+    <vCard:Family>Zager</vCard:Family>
+    <vCard:Other>G</vCard:Other>
+  </rdf:Description>
+</rdf:RDF>
+</model>

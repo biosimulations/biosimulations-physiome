@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='utf-8'?>
 <!--  FILE :  boyett_SAN_model_2001.xml
 
 CREATED :  28th January 2002
@@ -20,7 +20,7 @@ CHANGES:
   19/07/2002 - CML - Added more metadata.
   20/04/2005 - PJV - Updated syntax to conform with cellml 1.1 specs 
 
---><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/boyett_zhang_garny_holden_2001/boyett_zhang_garny_holden_2001.cellml" cmeta:id="boyett_2001" name="boyett_2001">
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="boyett_2001" name="boyett_2001">
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
   <articleinfo>
@@ -114,19 +114,19 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
       <unit exponent="-1" units="second"/>
    </units>
    <units name="millimole_per_second">
-    <unit prefix="milli" units="mole"/>
-    <unit exponent="-1" units="second"/>
+    <unit units="mole" prefix="milli"/>
+    <unit units="second" exponent="-1"/>
   </units>
   <units name="per_second_millimolar">
-    <unit exponent="-1" units="second"/>
-    <unit exponent="-1" units="millimolar"/>
+    <unit units="second" exponent="-1"/>
+    <unit units="millimolar" exponent="-1"/>
   </units>
    
    <component name="environment">
       <variable cmeta:id="environment_time" name="time" public_interface="out" units="second"/>
    </component>
    
-   <component cmeta:id="id_00001" name="membrane">
+   <component name="membrane">
       <variable initial_value="0" name="dCell" public_interface="out" units="dimensionless"/>
       <variable name="FCell" public_interface="out" units="dimensionless"/>
       <variable cmeta:id="membrane_V" initial_value="-39.013558536" name="V" public_interface="out" units="millivolt"/>
@@ -137,17 +137,17 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
       <variable initial_value="2e-5" name="CmCentre" units="microF"/>
       <variable initial_value="6.5e-5" name="CmPeriphery" units="microF"/>
       <variable name="time" public_interface="in" units="second"/>
-      <variable cmeta:id="id_00002" name="i_Na" public_interface="in" units="nanoA"/>
-      <variable cmeta:id="id_00033" name="i_Ca_L" public_interface="in" units="nanoA"/>
-      <variable cmeta:id="id_00034" name="i_Ca_T" public_interface="in" units="nanoA"/>
+      <variable name="i_Na" public_interface="in" units="nanoA"/>
+      <variable name="i_Ca_L" public_interface="in" units="nanoA"/>
+      <variable name="i_Ca_T" public_interface="in" units="nanoA"/>
       <variable name="i_to" public_interface="in" units="nanoA"/>
       <variable name="i_sus" public_interface="in" units="nanoA"/>
       <variable name="i_K_r" public_interface="in" units="nanoA"/>
       <variable name="i_K_s" public_interface="in" units="nanoA"/>
-      <variable cmeta:id="id_00003" name="i_f_Na" public_interface="in" units="nanoA"/>
+      <variable name="i_f_Na" public_interface="in" units="nanoA"/>
       <variable name="i_f_K" public_interface="in" units="nanoA"/>
-      <variable cmeta:id="id_00004" name="i_b_Na" public_interface="in" units="nanoA"/>
-      <variable cmeta:id="id_00005" name="i_b_Ca" public_interface="in" units="nanoA"/>
+      <variable name="i_b_Na" public_interface="in" units="nanoA"/>
+      <variable name="i_b_Ca" public_interface="in" units="nanoA"/>
       <variable name="i_b_K" public_interface="in" units="nanoA"/>
       <variable name="i_NaCa" public_interface="in" units="nanoA"/>
       <variable name="i_p" public_interface="in" units="nanoA"/>
@@ -263,14 +263,14 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00005" name="sodium_current">
-      <variable cmeta:id="id_00006" name="FCell" public_interface="in" units="dimensionless"/>
+   <component name="sodium_current">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="sodium_current_i_Na" name="i_Na" public_interface="out" units="nanoA"/>
-      <variable cmeta:id="id_00007" name="g_Na" units="microlitre_per_second"/>
-      <variable cmeta:id="id_00008" initial_value="0" name="g_Na_Centre" units="microlitre_per_second"/>
-      <variable cmeta:id="id_00009" initial_value="1.2e-6" name="g_Na_Periphery" units="microlitre_per_second"/>
-      <variable cmeta:id="id_00010" name="E_Na" public_interface="in" units="millivolt"/>
-      <variable cmeta:id="id_00032" name="Na_o" public_interface="in" units="millimolar"/>
+      <variable name="g_Na" units="microlitre_per_second"/>
+      <variable initial_value="0" name="g_Na_Centre" units="microlitre_per_second"/>
+      <variable initial_value="1.2e-6" name="g_Na_Periphery" units="microlitre_per_second"/>
+      <variable name="E_Na" public_interface="in" units="millivolt"/>
+      <variable name="Na_o" public_interface="in" units="millimolar"/>
       <variable name="R" public_interface="in" units="millijoule_per_mole_kelvin"/>
       <variable name="F" public_interface="in" units="coulomb_per_mole"/>
       <variable name="T" public_interface="in" units="kelvin"/>
@@ -380,10 +380,10 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00011" name="sodium_current_m_gate">
-      <variable cmeta:id="id_00012" initial_value="0.092361701692" name="m" public_interface="out" units="dimensionless"/>
-      <variable cmeta:id="id_00013" name="m_infinity" units="dimensionless"/>
-      <variable cmeta:id="id_00014" name="tau_m" units="second"/>
+   <component name="sodium_current_m_gate">
+      <variable initial_value="0.092361701692" name="m" public_interface="out" units="dimensionless"/>
+      <variable name="m_infinity" units="dimensionless"/>
+      <variable name="tau_m" units="second"/>
       <variable name="V" public_interface="in" units="millivolt"/>
       <variable name="time" public_interface="in" units="second"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -489,16 +489,16 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00015" name="sodium_current_h_gate">
-      <variable cmeta:id="id_00016" name="h" public_interface="out" units="dimensionless"/>
-      <variable cmeta:id="id_00017" name="F_Na" units="dimensionless"/>
-      <variable cmeta:id="id_00018" initial_value="0.015905380261" name="h1" units="dimensionless"/>
-      <variable cmeta:id="id_00019" initial_value="0.01445216109" name="h2" units="dimensionless"/>
-      <variable cmeta:id="id_00020" name="h1_infinity" units="dimensionless"/>
-      <variable cmeta:id="id_00021" name="h2_infinity" units="dimensionless"/>
-      <variable cmeta:id="id_00022" name="tau_h1" units="second"/>
-      <variable cmeta:id="id_00023" name="tau_h2" units="second"/>
-      <variable cmeta:id="id_00024" name="V" public_interface="in" units="millivolt"/>
+   <component name="sodium_current_h_gate">
+      <variable name="h" public_interface="out" units="dimensionless"/>
+      <variable name="F_Na" units="dimensionless"/>
+      <variable initial_value="0.015905380261" name="h1" units="dimensionless"/>
+      <variable initial_value="0.01445216109" name="h2" units="dimensionless"/>
+      <variable name="h1_infinity" units="dimensionless"/>
+      <variable name="h2_infinity" units="dimensionless"/>
+      <variable name="tau_h1" units="second"/>
+      <variable name="tau_h2" units="second"/>
+      <variable name="V" public_interface="in" units="millivolt"/>
       <variable name="time" public_interface="in" units="second"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -750,13 +750,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00035" name="L_type_Ca_channel">
-      <variable cmeta:id="id_00037" name="FCell" private_interface="out" public_interface="in" units="dimensionless"/>
+   <component name="L_type_Ca_channel">
+      <variable name="FCell" private_interface="out" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="L_type_Ca_channel_i_Ca_L" name="i_Ca_L" public_interface="out" units="nanoA"/>
-      <variable cmeta:id="id_00036" initial_value="0.0058" name="g_Ca_L_Centre" units="microS"/>
-      <variable cmeta:id="id_00038" initial_value="0.0659" name="g_Ca_L_Periphery" units="microS"/>
-      <variable cmeta:id="id_00039" name="g_Ca_L" units="microS"/>
-      <variable cmeta:id="id_00040" initial_value="46.4" name="E_Ca_L" units="millivolt"/>
+      <variable initial_value="0.0058" name="g_Ca_L_Centre" units="microS"/>
+      <variable initial_value="0.0659" name="g_Ca_L_Periphery" units="microS"/>
+      <variable name="g_Ca_L" units="microS"/>
+      <variable initial_value="46.4" name="E_Ca_L" units="millivolt"/>
       <variable name="time" private_interface="out" public_interface="in" units="second"/>
       <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
       <variable name="d_L" private_interface="in" units="dimensionless"/>
@@ -825,13 +825,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00041" name="L_type_Ca_channel_d_gate">
-      <variable cmeta:id="id_00042" name="FCell" public_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00043" initial_value="0.04804900895" name="d_L" public_interface="out" units="dimensionless"/>
-      <variable cmeta:id="id_00044" name="alpha_d_L" units="per_second"/>
-      <variable cmeta:id="id_00045" name="beta_d_L" units="per_second"/>
-      <variable cmeta:id="id_00046" name="d_L_infinity" units="dimensionless"/>
-      <variable cmeta:id="id_00047" name="tau_d_L" units="second"/>
+   <component name="L_type_Ca_channel_d_gate">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
+      <variable initial_value="0.04804900895" name="d_L" public_interface="out" units="dimensionless"/>
+      <variable name="alpha_d_L" units="per_second"/>
+      <variable name="beta_d_L" units="per_second"/>
+      <variable name="d_L_infinity" units="dimensionless"/>
+      <variable name="tau_d_L" units="second"/>
       <variable name="V" public_interface="in" units="millivolt"/>
       <variable name="time" public_interface="in" units="second"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -992,13 +992,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00048" name="L_type_Ca_channel_f_gate">
-      <variable cmeta:id="id_00049" name="FCell" public_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00050" initial_value="0.48779845203" name="f_L" public_interface="out" units="dimensionless"/>
-      <variable cmeta:id="id_00051" name="alpha_f_L" units="per_second"/>
-      <variable cmeta:id="id_00052" name="beta_f_L" units="per_second"/>
-      <variable cmeta:id="id_00053" name="f_L_infinity" units="dimensionless"/>
-      <variable cmeta:id="id_00054" name="tau_f_L" units="second"/>
+   <component name="L_type_Ca_channel_f_gate">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
+      <variable initial_value="0.48779845203" name="f_L" public_interface="out" units="dimensionless"/>
+      <variable name="alpha_f_L" units="per_second"/>
+      <variable name="beta_f_L" units="per_second"/>
+      <variable name="f_L_infinity" units="dimensionless"/>
+      <variable name="tau_f_L" units="second"/>
       <variable name="V" public_interface="in" units="millivolt"/>
       <variable name="time" public_interface="in" units="second"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1119,17 +1119,17 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00055" name="T_type_Ca_channel">
-      <variable cmeta:id="id_00056" name="FCell" private_interface="out" public_interface="in" units="dimensionless"/>
+   <component name="T_type_Ca_channel">
+      <variable name="FCell" private_interface="out" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="T_type_Ca_channel_i_Ca_T" name="i_Ca_T" public_interface="out" units="nanoA"/>
-      <variable cmeta:id="id_00057" initial_value="0.0043" name="g_Ca_T_Centre" units="microS"/>
-      <variable cmeta:id="id_00058" initial_value="0.0139" name="g_Ca_T_Periphery" units="microS"/>
-      <variable cmeta:id="id_00059" name="g_Ca_T" units="microS"/>
-      <variable cmeta:id="id_00060" initial_value="45" name="E_Ca_T" units="millivolt"/>
+      <variable initial_value="0.0043" name="g_Ca_T_Centre" units="microS"/>
+      <variable initial_value="0.0139" name="g_Ca_T_Periphery" units="microS"/>
+      <variable name="g_Ca_T" units="microS"/>
+      <variable initial_value="45" name="E_Ca_T" units="millivolt"/>
       <variable name="time" private_interface="out" public_interface="in" units="second"/>
       <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
-      <variable cmeta:id="id_00061" name="d_T" private_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00062" name="f_T" private_interface="in" units="dimensionless"/>
+      <variable name="d_T" private_interface="in" units="dimensionless"/>
+      <variable name="f_T" private_interface="in" units="dimensionless"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1165,12 +1165,12 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00063" name="T_type_Ca_channel_d_gate">
-      <variable cmeta:id="id_00064" initial_value="0.42074047435" name="d_T" public_interface="out" units="dimensionless"/>
-      <variable cmeta:id="id_00065" name="alpha_d_T" units="per_second"/>
-      <variable cmeta:id="id_00066" name="beta_d_T" units="per_second"/>
-      <variable cmeta:id="id_00067" name="d_T_infinity" units="dimensionless"/>
-      <variable cmeta:id="id_00068" name="tau_d_T" units="second"/>
+   <component name="T_type_Ca_channel_d_gate">
+      <variable initial_value="0.42074047435" name="d_T" public_interface="out" units="dimensionless"/>
+      <variable name="alpha_d_T" units="per_second"/>
+      <variable name="beta_d_T" units="per_second"/>
+      <variable name="d_T_infinity" units="dimensionless"/>
+      <variable name="tau_d_T" units="second"/>
       <variable name="V" public_interface="in" units="millivolt"/>
       <variable name="time" public_interface="in" units="second"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1278,13 +1278,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00069" name="T_type_Ca_channel_f_gate">
-      <variable cmeta:id="id_00070" name="FCell" public_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00071" initial_value="0.038968420558" name="f_T" public_interface="out" units="dimensionless"/>
-      <variable cmeta:id="id_00072" name="alpha_f_T" units="per_second"/>
-      <variable cmeta:id="id_00073" name="beta_f_T" units="per_second"/>
-      <variable cmeta:id="id_00074" name="f_T_infinity" units="dimensionless"/>
-      <variable cmeta:id="id_00075" name="tau_f_T" units="second"/>
+   <component name="T_type_Ca_channel_f_gate">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
+      <variable initial_value="0.038968420558" name="f_T" public_interface="out" units="dimensionless"/>
+      <variable name="alpha_f_T" units="per_second"/>
+      <variable name="beta_f_T" units="per_second"/>
+      <variable name="f_T_infinity" units="dimensionless"/>
+      <variable name="tau_f_T" units="second"/>
       <variable name="V" public_interface="in" units="millivolt"/>
       <variable name="time" public_interface="in" units="second"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1679,8 +1679,8 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00153" name="rapid_delayed_rectifying_potassium_current">
-      <variable cmeta:id="id_00154" name="FCell" public_interface="in" units="dimensionless"/>
+   <component name="rapid_delayed_rectifying_potassium_current">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="rapid_delayed_rectifying_potassium_current_i_K_r" name="i_K_r" public_interface="out" units="nanoA"/>
       <variable initial_value="0.000797" name="g_K_r_Centre" units="microS"/>
       <variable initial_value="0.016" name="g_K_r_Periphery" units="microS"/>
@@ -1744,7 +1744,7 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00155" name="rapid_delayed_rectifying_potassium_current_P_af_gate">
+   <component name="rapid_delayed_rectifying_potassium_current_P_af_gate">
       <variable initial_value="0.13034201158" name="P_af" public_interface="out" units="dimensionless"/>
       <variable name="P_af_infinity" public_interface="out" units="dimensionless"/>
       <variable name="tau_P_af" units="second"/>
@@ -1845,7 +1845,7 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00156" name="rapid_delayed_rectifying_potassium_current_P_as_gate">
+   <component name="rapid_delayed_rectifying_potassium_current_P_as_gate">
       <variable initial_value="0.46960956028" name="P_as" public_interface="out" units="dimensionless"/>
       <variable name="P_as_infinity" units="dimensionless"/>
       <variable name="tau_P_as" units="second"/>
@@ -1925,7 +1925,7 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00157" name="rapid_delayed_rectifying_potassium_current_P_i_gate">
+   <component name="rapid_delayed_rectifying_potassium_current_P_i_gate">
       <variable initial_value="0.87993375273" name="P_i" public_interface="out" units="dimensionless"/>
       <variable name="P_i_infinity" units="dimensionless"/>
       <variable initial_value="0.002" name="tau_P_i" units="second"/>
@@ -1977,13 +1977,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00158" name="slow_delayed_rectifying_potassium_current">
-      <variable cmeta:id="id_00160" name="FCell" public_interface="in" units="dimensionless"/>
+   <component name="slow_delayed_rectifying_potassium_current">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="slow_delayed_rectifying_potassium_current_i_K_s" name="i_K_s" public_interface="out" units="nanoA"/>
-      <variable cmeta:id="id_00161" initial_value="0.000518" name="g_K_s_Centre" units="microS"/>
-      <variable cmeta:id="id_00162" initial_value="0.0104" name="g_K_s_Periphery" units="microS"/>
-      <variable cmeta:id="id_00163" name="g_K_s" units="microS"/>
-      <variable cmeta:id="id_00164" name="E_K_s" public_interface="in" units="millivolt"/>
+      <variable initial_value="0.000518" name="g_K_s_Centre" units="microS"/>
+      <variable initial_value="0.0104" name="g_K_s_Periphery" units="microS"/>
+      <variable name="g_K_s" units="microS"/>
+      <variable name="E_K_s" public_interface="in" units="millivolt"/>
       <variable name="time" private_interface="out" public_interface="in" units="second"/>
       <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
       <variable name="xs" private_interface="in" units="dimensionless"/>
@@ -2025,7 +2025,7 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00159" name="slow_delayed_rectifying_potassium_current_xs_gate">
+   <component name="slow_delayed_rectifying_potassium_current_xs_gate">
       <variable initial_value="0.082293827208" name="xs" public_interface="out" units="dimensionless"/>
       <variable name="alpha_xs" units="per_second"/>
       <variable name="beta_xs" units="per_second"/>
@@ -2266,13 +2266,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00025" name="sodium_background_current">
+   <component name="sodium_background_current">
       <variable name="FCell" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="sodium_background_current_i_b_Na" name="i_b_Na" public_interface="out" units="nanoA"/>
-      <variable cmeta:id="id_00026" initial_value="5.8e-5" name="g_b_Na_Centre" units="microS"/>
-      <variable cmeta:id="id_00027" initial_value="0.000189" name="g_b_Na_Periphery" units="microS"/>
-      <variable cmeta:id="id_00028" name="g_b_Na" units="microS"/>
-      <variable cmeta:id="id_00029" name="E_Na" public_interface="in" units="millivolt"/>
+      <variable initial_value="5.8e-5" name="g_b_Na_Centre" units="microS"/>
+      <variable initial_value="0.000189" name="g_b_Na_Periphery" units="microS"/>
+      <variable name="g_b_Na" units="microS"/>
+      <variable name="E_Na" public_interface="in" units="millivolt"/>
       <variable name="V" public_interface="in" units="millivolt"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -2307,13 +2307,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00138" name="potassium_background_current">
-      <variable cmeta:id="id_00139" name="FCell" public_interface="in" units="dimensionless"/>
+   <component name="potassium_background_current">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="potassium_background_current_i_b_K" name="i_b_K" public_interface="out" units="nanoA"/>
-      <variable cmeta:id="id_00140" initial_value="2.52e-5" name="g_b_K_Centre" units="microS"/>
-      <variable cmeta:id="id_00141" initial_value="8.19e-5" name="g_b_K_Periphery" units="microS"/>
-      <variable cmeta:id="id_00142" name="g_b_K" units="microS"/>
-      <variable cmeta:id="id_00143" name="E_K" public_interface="in" units="millivolt"/>
+      <variable initial_value="2.52e-5" name="g_b_K_Centre" units="microS"/>
+      <variable initial_value="8.19e-5" name="g_b_K_Periphery" units="microS"/>
+      <variable name="g_b_K" units="microS"/>
+      <variable name="E_K" public_interface="in" units="millivolt"/>
       <variable name="V" public_interface="in" units="millivolt"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -2348,13 +2348,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00076" name="calcium_background_current">
-      <variable cmeta:id="id_00077" name="FCell" public_interface="in" units="dimensionless"/>
+   <component name="calcium_background_current">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="calcium_background_current_i_b_Ca" name="i_b_Ca" public_interface="out" units="nanoA"/>
-      <variable cmeta:id="id_00078" initial_value="1.32e-5" name="g_b_Ca_Centre" units="microS"/>
-      <variable cmeta:id="id_00079" initial_value="4.3e-5" name="g_b_Ca_Periphery" units="microS"/>
-      <variable cmeta:id="id_00080" name="g_b_Ca" units="microS"/>
-      <variable cmeta:id="id_00081" name="E_Ca" public_interface="in" units="millivolt"/>
+      <variable initial_value="1.32e-5" name="g_b_Ca_Centre" units="microS"/>
+      <variable initial_value="4.3e-5" name="g_b_Ca_Periphery" units="microS"/>
+      <variable name="g_b_Ca" units="microS"/>
+      <variable name="E_Ca" public_interface="in" units="millivolt"/>
       <variable name="V" public_interface="in" units="millivolt"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -2389,13 +2389,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00144" name="sodium_calcium_exchanger">
-      <variable cmeta:id="id_00145" name="FCell" public_interface="in" units="dimensionless"/>
+   <component name="sodium_calcium_exchanger">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="sodium_calcium_exchanger_i_NaCa" name="i_NaCa" public_interface="out" units="nanoA"/>
-      <variable cmeta:id="id_00149" initial_value="2.7e-6" name="k_NaCa_Centre" units="nanoA"/>
-      <variable cmeta:id="id_00148" initial_value="8.8e-6" name="k_NaCa_Periphery" units="nanoA"/>
-      <variable cmeta:id="id_00147" name="k_NaCa" units="nanoA"/>
-      <variable cmeta:id="id_00146" initial_value="0.0001" name="d_NaCa" units="dimensionless"/>
+      <variable initial_value="2.7e-6" name="k_NaCa_Centre" units="nanoA"/>
+      <variable initial_value="8.8e-6" name="k_NaCa_Periphery" units="nanoA"/>
+      <variable name="k_NaCa" units="nanoA"/>
+      <variable initial_value="0.0001" name="d_NaCa" units="dimensionless"/>
       <variable initial_value="0.5" name="gamma_NaCa" units="dimensionless"/>
       <variable name="Na_i" public_interface="in" units="millimolar"/>
       <variable name="Na_o" public_interface="in" units="millimolar"/>
@@ -2505,10 +2505,10 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00150" name="sodium_potassium_pump">
-      <variable cmeta:id="id_00151" name="FCell" public_interface="in" units="dimensionless"/>
+   <component name="sodium_potassium_pump">
+      <variable name="FCell" public_interface="in" units="dimensionless"/>
       <variable cmeta:id="sodium_potassium_pump_i_p" name="i_p" public_interface="out" units="nanoA"/>
-      <variable cmeta:id="id_00152" initial_value="5.64" name="K_m_Na" units="millimolar"/>
+      <variable initial_value="5.64" name="K_m_Na" units="millimolar"/>
       <variable initial_value="0.621" name="K_m_K" units="millimolar"/>
       <variable initial_value="0.0478" name="i_p_max_Centre" units="nanoA"/>
       <variable initial_value="0.16" name="i_p_max_Periphery" units="nanoA"/>
@@ -2593,7 +2593,7 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00152" name="ionic_concentrations">
+   <component name="ionic_concentrations">
       <variable initial_value="8" name="Na_i" public_interface="out" units="millimolar"/>
       <variable initial_value="140" name="Na_o" public_interface="out" units="millimolar"/>
       <variable initial_value="0.0001" name="Ca_i" public_interface="out" units="millimolar"/>
@@ -2601,11 +2601,11 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
       <variable initial_value="140" name="K_i" public_interface="out" units="millimolar"/>
       <variable initial_value="5.4" name="K_o" public_interface="out" units="millimolar"/>
    </component>
-   <component cmeta:id="id_00031" name="reversal_and_equilibrium_potentials">
-      <variable cmeta:id="id_00030" name="E_Na" public_interface="out" units="millivolt"/>
+   <component name="reversal_and_equilibrium_potentials">
+      <variable name="E_Na" public_interface="out" units="millivolt"/>
       <variable name="E_K" public_interface="out" units="millivolt"/>
       <variable name="E_K_s" public_interface="out" units="millivolt"/>
-      <variable cmeta:id="id_00082" name="E_Ca" public_interface="out" units="millivolt"/>
+      <variable name="E_Ca" public_interface="out" units="millivolt"/>
       <variable name="K_o" public_interface="in" units="millimolar"/>
       <variable name="Na_o" public_interface="in" units="millimolar"/>
       <variable name="K_i" public_interface="in" units="millimolar"/>
@@ -2735,17 +2735,17 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
       </math>
    </component>
    
-   <component cmeta:id="sustained_inward_current" name="sustained_inward_current">
+   <component name="sustained_inward_current" cmeta:id="sustained_inward_current">
     
-    <variable name="i_st" public_interface="out" units="nanoA"/>
+    <variable units="nanoA" public_interface="out" name="i_st"/>
     
-    <variable initial_value="0.00214" name="g_st" units="microS"/>
+    <variable units="microS" name="g_st" initial_value="0.00214"/>
     
-    <variable name="time" private_interface="out" public_interface="in" units="second"/>
-    <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
+    <variable units="second" public_interface="in" private_interface="out" name="time"/>
+    <variable units="millivolt" public_interface="in" private_interface="out" name="V"/>
     
-    <variable name="d_s" private_interface="in" units="dimensionless"/>
-    <variable name="f_s" private_interface="in" units="dimensionless"/>
+    <variable units="dimensionless" private_interface="in" name="d_s"/>
+    <variable units="dimensionless" private_interface="in" name="f_s"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="i_st_calculation">
@@ -2767,15 +2767,15 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
   </component>
   
   <component name="sustained_inward_current_d_gate">
-    <variable initial_value="0.230" name="d_s" public_interface="out" units="dimensionless"/>
+    <variable units="dimensionless" public_interface="out" name="d_s" initial_value="0.230"/>
    
-    <variable name="alpha_d_s" units="per_second"/>
-    <variable name="beta_d_s" units="per_second"/>
-    <variable name="d_s_infinity" units="dimensionless"/>
-    <variable name="tau_d_s" units="second"/>
+    <variable units="per_second" name="alpha_d_s"/>
+    <variable units="per_second" name="beta_d_s"/>
+    <variable units="dimensionless" name="d_s_infinity"/>
+    <variable units="second" name="tau_d_s"/>
     
-    <variable name="V" public_interface="in" units="millivolt"/>
-    <variable name="time" public_interface="in" units="second"/>
+    <variable units="millivolt" public_interface="in" name="V"/>
+    <variable units="second" public_interface="in" name="time"/>
    
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="d_s_diff_eq">
@@ -2907,15 +2907,15 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
   </component>
   
   <component name="sustained_inward_current_f_gate">
-    <variable initial_value="0.283" name="f_s" public_interface="out" units="dimensionless"/>
+    <variable units="dimensionless" public_interface="out" name="f_s" initial_value="0.283"/>
    
-    <variable name="alpha_f_s" units="per_second"/>
-    <variable name="beta_f_s" units="per_second"/>
-    <variable name="f_s_infinity" units="dimensionless"/>
-    <variable name="tau_f_s" units="second"/>
+    <variable units="per_second" name="alpha_f_s"/>
+    <variable units="per_second" name="beta_f_s"/>
+    <variable units="dimensionless" name="f_s_infinity"/>
+    <variable units="second" name="tau_f_s"/>
     
-    <variable name="V" public_interface="in" units="millivolt"/>
-    <variable name="time" public_interface="in" units="second"/>
+    <variable units="millivolt" public_interface="in" name="V"/>
+    <variable units="second" public_interface="in" name="time"/>
    
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="f_s_diff_eq">
@@ -3046,53 +3046,53 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
     </math>
   </component>
   
-  <component cmeta:id="intracellular_calcium_handling" name="intracellular_calcium_handling">
+  <component name="intracellular_calcium_handling" cmeta:id="intracellular_calcium_handling">
     
-    <variable name="i_Ca_P" public_interface="out" units="nanoA"/>
+    <variable units="nanoA" public_interface="out" name="i_Ca_P"/>
     
-    <variable name="U_d" units="dimensionless"/>
-    <variable name="U_s" units="dimensionless"/>
-    <variable initial_value="0.24" name="i_Ca_P_max" units="nanoA"/>
-    <variable name="J_Ca_ds" units="millimole_per_second"/>
-    <variable name="J_Ca_r" units="millimole_per_second"/>
-    <variable name="J_Ca_P" units="millimole_per_second"/>
-    <variable initial_value="0.00000000096" name="J_Ca_P_max" units="millimole_per_second"/>
-    <variable name="J_Ca_u" units="millimole_per_second"/>
-    <variable initial_value="0.00000000096" name="J_Ca_u_max" units="millimole_per_second"/>
-    <variable name="J_Ca_ur" units="millimole_per_second"/>
-    <variable name="J_Ca_1" units="millimole_per_second"/>
-    <variable initial_value="0.001544" name="Ca_d" units="millimolar"/>
-    <variable initial_value="0.05487" name="Ca_s" units="millimolar"/>
-    <variable initial_value="6.983" name="Ca_u" units="millimolar"/>
-    <variable initial_value="4.909" name="Ca_r" units="millimolar"/>
-    <variable initial_value="0.4" name="B_d" units="millimolar"/>
-    <variable initial_value="0.2" name="B_s" units="millimolar"/>
-    <variable name="Vol_u" units="litre"/>
-    <variable name="Vol_r" units="litre"/>
-    <variable name="Vol_d" units="litre"/>
-    <variable name="Vol_s" units="litre"/>
-    <variable initial_value="8.0e-12" name="Vol_c" units="litre"/>
-    <variable initial_value="0.002" name="K_m_b" units="millimolar"/>
-    <variable initial_value="0.001" name="K_m_r" units="millimolar"/>
-    <variable initial_value="0.005" name="K_m_u" units="millimolar"/>
-    <variable initial_value="0.1" name="f_d" units="dimensionless"/>
-    <variable initial_value="0.3" name="f_r" units="dimensionless"/>
-    <variable initial_value="0.06" name="f_u" units="dimensionless"/>
-    <variable initial_value="3300.0" name="alpha_ds" units="per_second"/>
-    <variable initial_value="6670.0" name="alpha_fR" units="per_second_millimolar"/>
-    <variable initial_value="0.172" name="alpha_1" units="per_second"/>
-    <variable initial_value="333.5" name="alpha_r" units="per_second"/>
-    <variable initial_value="533.6" name="alpha_ur" units="per_second"/>
-    <variable initial_value="2.0" name="beta_fR" units="per_second"/>
-    <variable initial_value="0.188" name="f_R" units="dimensionless"/>
-    <variable name="i_Ca" units="nanoA"/>
+    <variable units="dimensionless" name="U_d"/>
+    <variable units="dimensionless" name="U_s"/>
+    <variable units="nanoA" name="i_Ca_P_max" initial_value="0.24"/>
+    <variable units="millimole_per_second" name="J_Ca_ds"/>
+    <variable units="millimole_per_second" name="J_Ca_r"/>
+    <variable units="millimole_per_second" name="J_Ca_P"/>
+    <variable units="millimole_per_second" name="J_Ca_P_max" initial_value="0.00000000096"/>
+    <variable units="millimole_per_second" name="J_Ca_u"/>
+    <variable units="millimole_per_second" name="J_Ca_u_max" initial_value="0.00000000096"/>
+    <variable units="millimole_per_second" name="J_Ca_ur"/>
+    <variable units="millimole_per_second" name="J_Ca_1"/>
+    <variable units="millimolar" name="Ca_d" initial_value="0.001544"/>
+    <variable units="millimolar" name="Ca_s" initial_value="0.05487"/>
+    <variable units="millimolar" name="Ca_u" initial_value="6.983"/>
+    <variable units="millimolar" name="Ca_r" initial_value="4.909"/>
+    <variable units="millimolar" name="B_d" initial_value="0.4"/>
+    <variable units="millimolar" name="B_s" initial_value="0.2"/>
+    <variable units="litre" name="Vol_u"/>
+    <variable units="litre" name="Vol_r"/>
+    <variable units="litre" name="Vol_d"/>
+    <variable units="litre" name="Vol_s"/>
+    <variable units="litre" name="Vol_c" initial_value="8.0e-12"/>
+    <variable units="millimolar" name="K_m_b" initial_value="0.002"/>
+    <variable units="millimolar" name="K_m_r" initial_value="0.001"/>
+    <variable units="millimolar" name="K_m_u" initial_value="0.005"/>
+    <variable units="dimensionless" name="f_d" initial_value="0.1"/>
+    <variable units="dimensionless" name="f_r" initial_value="0.3"/>
+    <variable units="dimensionless" name="f_u" initial_value="0.06"/>
+    <variable units="per_second" name="alpha_ds" initial_value="3300.0"/>
+    <variable units="per_second_millimolar" name="alpha_fR" initial_value="6670.0"/>
+    <variable units="per_second" name="alpha_1" initial_value="0.172"/>
+    <variable units="per_second" name="alpha_r" initial_value="333.5"/>
+    <variable units="per_second" name="alpha_ur" initial_value="533.6"/>
+    <variable units="per_second" name="beta_fR" initial_value="2.0"/>
+    <variable units="dimensionless" name="f_R" initial_value="0.188"/>
+    <variable units="nanoA" name="i_Ca"/>
     
-    <variable name="i_Ca_L" public_interface="in" units="nanoA"/>
-    <variable name="i_Ca_T" public_interface="in" units="nanoA"/>
-    <variable name="i_NaCa" public_interface="in" units="nanoA"/>
-    <variable name="i_b_Ca" public_interface="in" units="nanoA"/>
-    <variable name="time" public_interface="in" units="second"/>
-    <variable name="F" public_interface="in" units="coulomb_per_mole"/>
+    <variable units="nanoA" public_interface="in" name="i_Ca_L"/>
+    <variable units="nanoA" public_interface="in" name="i_Ca_T"/>
+    <variable units="nanoA" public_interface="in" name="i_NaCa"/>
+    <variable units="nanoA" public_interface="in" name="i_b_Ca"/>
+    <variable units="second" public_interface="in" name="time"/>
+    <variable units="coulomb_per_mole" public_interface="in" name="F"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="U_d_calculation">
@@ -3568,13 +3568,13 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
    </connection>
    
    <connection>
-    <map_components component_1="sustained_inward_current" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="sustained_inward_current"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="intracellular_calcium_handling" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="intracellular_calcium_handling"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
    <connection>
@@ -3655,9 +3655,9 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
       <map_variables variable_1="V" variable_2="V"/>
    </connection>
    <connection>
-    <map_components component_1="membrane" component_2="sustained_inward_current"/>
-    <map_variables variable_1="i_st" variable_2="i_st"/>
-    <map_variables variable_1="V" variable_2="V"/>
+    <map_components component_2="sustained_inward_current" component_1="membrane"/>
+    <map_variables variable_2="i_st" variable_1="i_st"/>
+    <map_variables variable_2="V" variable_1="V"/>
   </connection>
    <connection>
       <map_components component_1="membrane" component_2="reversal_and_equilibrium_potentials"/>
@@ -3666,27 +3666,27 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
       <map_variables variable_1="F" variable_2="F"/>
    </connection>
    <connection>
-    <map_components component_1="membrane" component_2="intracellular_calcium_handling"/>
-    <map_variables variable_1="i_Ca_P" variable_2="i_Ca_P"/>
-    <map_variables variable_1="F" variable_2="F"/>
+    <map_components component_2="intracellular_calcium_handling" component_1="membrane"/>
+    <map_variables variable_2="i_Ca_P" variable_1="i_Ca_P"/>
+    <map_variables variable_2="F" variable_1="F"/>
   </connection>
   <connection>
-    <map_components component_1="intracellular_calcium_handling" component_2="calcium_background_current"/>
-    <map_variables variable_1="i_b_Ca" variable_2="i_b_Ca"/>
+    <map_components component_2="calcium_background_current" component_1="intracellular_calcium_handling"/>
+    <map_variables variable_2="i_b_Ca" variable_1="i_b_Ca"/>
   </connection>
   <connection>
-    <map_components component_1="intracellular_calcium_handling" component_2="L_type_Ca_channel"/>
-    <map_variables variable_1="i_Ca_L" variable_2="i_Ca_L"/>
-  </connection>
-  
-  <connection>
-    <map_components component_1="intracellular_calcium_handling" component_2="T_type_Ca_channel"/>
-    <map_variables variable_1="i_Ca_T" variable_2="i_Ca_T"/>
+    <map_components component_2="L_type_Ca_channel" component_1="intracellular_calcium_handling"/>
+    <map_variables variable_2="i_Ca_L" variable_1="i_Ca_L"/>
   </connection>
   
   <connection>
-    <map_components component_1="intracellular_calcium_handling" component_2="sodium_calcium_exchanger"/>
-    <map_variables variable_1="i_NaCa" variable_2="i_NaCa"/>
+    <map_components component_2="T_type_Ca_channel" component_1="intracellular_calcium_handling"/>
+    <map_variables variable_2="i_Ca_T" variable_1="i_Ca_T"/>
+  </connection>
+  
+  <connection>
+    <map_components component_2="sodium_calcium_exchanger" component_1="intracellular_calcium_handling"/>
+    <map_variables variable_2="i_NaCa" variable_1="i_NaCa"/>
   </connection>
    <connection>
       <map_components component_1="reversal_and_equilibrium_potentials" component_2="sodium_current"/>
@@ -3833,22 +3833,55 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
       <map_variables variable_1="V" variable_2="V"/>
    </connection>
    <connection>
-    <map_components component_1="sustained_inward_current" component_2="sustained_inward_current_d_gate"/>
-    <map_variables variable_1="d_s" variable_2="d_s"/>
-    <map_variables variable_1="time" variable_2="time"/>
-    <map_variables variable_1="V" variable_2="V"/>
+    <map_components component_2="sustained_inward_current_d_gate" component_1="sustained_inward_current"/>
+    <map_variables variable_2="d_s" variable_1="d_s"/>
+    <map_variables variable_2="time" variable_1="time"/>
+    <map_variables variable_2="V" variable_1="V"/>
   </connection>
   
   <connection>
-    <map_components component_1="sustained_inward_current" component_2="sustained_inward_current_f_gate"/>
-    <map_variables variable_1="f_s" variable_2="f_s"/>
-    <map_variables variable_1="time" variable_2="time"/>
-    <map_variables variable_1="V" variable_2="V"/>
+    <map_components component_2="sustained_inward_current_f_gate" component_1="sustained_inward_current"/>
+    <map_variables variable_2="f_s" variable_1="f_s"/>
+    <map_variables variable_2="time" variable_1="time"/>
+    <map_variables variable_2="V" variable_1="V"/>
   </connection>
 
 
-
-<rdf:RDF><rdf:Description rdf:about="rdf:#b29b9a3e-6e5c-42a3-adb2-d15a76420329"><rdf:value xml:lang="en">
+<rdf:RDF>
+ <rdf:Seq rdf:about="rdf:#838604dd-7eb4-4a41-9eea-b6829fe8182d">
+    <rdf:li rdf:resource="rdf:#b36b9609-d3cc-48d0-a680-9c148714f2db"/>
+    <rdf:li rdf:resource="rdf:#0eb767dd-1a5d-416e-b4e0-23bcc50449de"/>
+    <rdf:li rdf:resource="rdf:#37d0874d-c0fb-4b34-a7a1-edbe02b74d87"/>
+    <rdf:li rdf:resource="rdf:#7ec0b0f5-e24e-47c5-be37-a55cb8dfcf36"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#2c7108cb-490a-44f7-aac7-6ba63b4c6149">
+    <dc:creator rdf:resource="rdf:#5369f8d3-b90c-4f0f-a58d-6b72980c83a5"/>
+    <rdf:value>This is the CellML description of Boyett et al's mathematical model of pacemaker activity in the sinoatrial node. Their model is a development of Zhang et al's earlier 2000 model of action potentials in SA node cells by considering intracellular Ca2+ handling. The SA node is functionally, anatomically and electrophysiologically heterogeneous. Boyett et al have considered this heterogeneity and they define two distinct models for the peripheral SA node and the central SA node. These models have the same equations but they vary in their parameters. Below is a CellML description of the model of action potentials in the periphery of the sinoatrial(SA) node. For a model of the central SA node action potential, use the equations below but substitute some parameters with the appropriate ones listed in the original paper.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#77bdc0f6-951e-4c30-ab7f-5a98f7a8affe">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0eb767dd-1a5d-416e-b4e0-23bcc50449de">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#c2c16df6-7906-45f0-b743-5c7f16299a29"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>The University of Auckland, Auckland Bioengineering Institute</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#3500001c-dc10-4b9b-af31-5eeea3e5ed9c"/>
+    <dcterms:created rdf:resource="rdf:#6fb66c1f-c812-4805-888f-4a0d3b6813f9"/>
+    <dc:creator rdf:resource="rdf:#86eb5768-3648-4f36-be74-a377c9e0eac6"/>
+    <cmeta:modification rdf:resource="rdf:#b378fb9b-2ff3-4980-ab79-9f127d16e92f"/>
+    <cmeta:modification rdf:resource="rdf:#2f8a84fd-bb2f-4f4e-83b6-fdfd05911a5a"/>
+    <cmeta:modification rdf:resource="rdf:#6fa7edc3-c3ce-4ef8-adef-991f67861768"/>
+    <cmeta:modification rdf:resource="rdf:#9996ac9e-ce05-40e4-be30-84fc38badf7d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#efc05e65-3a0f-45ae-bcae-e2bee793b050">
+    <dcterms:W3CDTF>2002-07-19</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b29b9a3e-6e5c-42a3-adb2-d15a76420329">
+    <rdf:value>
           The sodium current was originally thought to be absent in SA node 
           cells and consequently, most of the earlier models of the SA node 
           action potential do not include i_Na.  However, more recent 
@@ -3856,34 +3889,271 @@ Control of the pacemaker activity of the sinoatrial node by intracellular Ca<sup
           physiologically important.  The sodium channel has one activation 
           gate m and one inactivation gate which has two components, a fast and
           a slow inactivation variable; h1 and h2.
-          </rdf:value></rdf:Description><rdf:Description rdf:about="#hyperpolarisation_activated_current"><cmeta:comment><rdf:Description rdf:about="rdf:#f40d5b6c-163f-43d0-abdd-040a53da1c1d"/></cmeta:comment></rdf:Description><rdf:Description rdf:about="rdf:#f40d5b6c-163f-43d0-abdd-040a53da1c1d"><rdf:value xml:lang="en">
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="#hyperpolarisation_activated_current">
+    <cmeta:comment rdf:resource="rdf:#f40d5b6c-163f-43d0-abdd-040a53da1c1d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#1e9e6c84-61c7-4aa2-9423-3fe741ab381e">
+    <vCard:Given>James</vCard:Given>
+    <vCard:Family>Lawson</vCard:Family>
+    <vCard:Other>Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#3500001c-dc10-4b9b-af31-5eeea3e5ed9c">
+    <dc:creator rdf:resource="rdf:#c5de4ed2-d289-4591-87d6-a6e248f39637"/>
+    <rdf:value/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#09a16646-1c84-40ad-abd0-ed5a63e39a48">
+    <rdf:value>
+          Experimental evidence suggests that intracellular calcium controls a 
+          number of ionic currents.  Boyett et al incorporated intracellular 
+          calcium handling into the model of Zhang et al (2000). 
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="#L_type_Ca_channel">
+    <cmeta:comment rdf:resource="rdf:#02e18c1c-6f5c-41e7-8cd4-2f6009b2c81d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#37d0874d-c0fb-4b34-a7a1-edbe02b74d87">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#88772ddc-4ecb-4434-bdfb-21f1dd520fa5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#boyett_2001">
+    <dc:title>Boyett et al's 2001 mathematical model of control of pacemaker 
+      activity of the sinoatrial node</dc:title>
+    <cmeta:bio_entity>Sinoatrial Node Cell</cmeta:bio_entity>
+    <cmeta:comment rdf:resource="rdf:#2c7108cb-490a-44f7-aac7-6ba63b4c6149"/>
+    <bqs:reference rdf:resource="rdf:#de8f9276-0546-49a2-9099-bc6a15b6f13c"/>
+<bqs:reference rdf:parseType="Resource">
+  <dc:subject rdf:parseType="Resource">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value>
+      <rdf:Bag>
+        <rdf:li>pacemaker</rdf:li>
+        <rdf:li>atrial myocyte</rdf:li>
+        <rdf:li>calcium dynamics</rdf:li>
+        <rdf:li>electrophysiology</rdf:li>
+        <rdf:li>cardiac</rdf:li>
+        <rdf:li>sinoatrial node</rdf:li>
+      </rdf:Bag>
+    </rdf:value>
+  </dc:subject>
+</bqs:reference>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#88772ddc-4ecb-4434-bdfb-21f1dd520fa5">
+    <vCard:Given>A.</vCard:Given>
+    <vCard:Family>Garny</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4796d6ca-441e-437f-a008-c591de5f933c">
+    <rdf:value>
+          In their model, Boyett et al added the sustained inward current 
+          described by Guo et al (1995) and Shinagawa et al (2000) in rabbit 
+          and rat SA node cells.  The equations defined below are taken from 
+          Shinagawa et al (2000).
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c2c16df6-7906-45f0-b743-5c7f16299a29">
+    <vCard:Given>H.</vCard:Given>
+    <vCard:Family>Zhang</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="#ionic_concentrations">
+    <cmeta:comment rdf:resource="rdf:#ea0d6d02-19ae-45c4-ae35-0074de6868ac"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#447c1196-702b-41f6-bbf1-208d1434d7c0">
+    <dc:title>Philosophical Transactions of The Royal Society, Mathematical, Physical and Engineering Sciences</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#86eb5768-3648-4f36-be74-a377c9e0eac6">
+    <vCard:ORG rdf:resource="rdf:#2fe6bbc8-e4a8-4a94-846e-ba4747e7d0b5"/>
+    <vCard:EMAIL rdf:resource="rdf:#721d7928-1492-45ed-8bf2-930e997c2b89"/>
+    <vCard:N rdf:resource="rdf:#77bdc0f6-951e-4c30-ab7f-5a98f7a8affe"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6fb66c1f-c812-4805-888f-4a0d3b6813f9">
+    <dcterms:W3CDTF>2002-01-28T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d3808132-4e48-4017-a220-4434723e2c8c">
+    <vCard:Given>A</vCard:Given>
+	<vCard:Other>V</vCard:Other>
+    <vCard:Family>Holden</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#1549777a-a73d-461b-b5ed-d60c4881d930">
+    <vCard:Given>M</vCard:Given>
+	<vCard:Other>R</vCard:Other>
+    <vCard:Family>Boyett</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2f8a84fd-bb2f-4f4e-83b6-fdfd05911a5a">
+    <dcterms:modified rdf:resource="rdf:#efc05e65-3a0f-45ae-bcae-e2bee793b050"/>
+    <rdf:value>
+          Added more metadata.
+        </rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#c2255be5-290e-44ef-8cde-ae8d2f62d1bf"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7ec0b0f5-e24e-47c5-be37-a55cb8dfcf36">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#d3808132-4e48-4017-a220-4434723e2c8c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ea0d6d02-19ae-45c4-ae35-0074de6868ac">
+    <rdf:value>
+          Other SA node models have included computation of concentrations of 
+          intracellular Na+ and Ca2+.  In this model, Zhang et al have assumed 
+          that all ion concentrations remain constant.
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c5de4ed2-d289-4591-87d6-a6e248f39637">
+    <vCard:FN/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#de8f9276-0546-49a2-9099-bc6a15b6f13c">
+    <bqs:Pubmed_id/>
+    <bqs:JournalArticle rdf:resource="rdf:#ec1c5d11-29ef-4be3-a6d2-e9a5cc26a5ca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#69132b4c-a4db-4332-b73b-7d4e15955012">
+    <dcterms:W3CDTF>2009-05-28T15:58:34+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="#intracellular_calcium_handling">
+    <cmeta:comment rdf:resource="rdf:#09a16646-1c84-40ad-abd0-ed5a63e39a48"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ec1c5d11-29ef-4be3-a6d2-e9a5cc26a5ca">
+    <dc:creator rdf:resource="rdf:#838604dd-7eb4-4a41-9eea-b6829fe8182d"/>
+    <dc:title>Control of the pacemaker activity of the sinoatrial node by intracellular Ca2+. Experiments and modelling</dc:title>
+    <bqs:volume>359</bqs:volume>
+    <bqs:first_page>1045</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#447c1196-702b-41f6-bbf1-208d1434d7c0"/>
+    <dcterms:issued rdf:resource="rdf:#116d1b4e-7e0f-4f7a-9a13-2f22b9c6b301"/>
+    <bqs:last_page>1337</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2fe6bbc8-e4a8-4a94-846e-ba4747e7d0b5">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b36b9609-d3cc-48d0-a680-9c148714f2db">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#1549777a-a73d-461b-b5ed-d60c4881d930"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e7982718-8191-4340-9f32-3395a0f1d925">
+    <rdf:value>
+          The slow sigmoidal activation of i_K_s is modelled by squaring the 
+          gating variable xs.  The i_K_s channel is also slightly permeable to 
+          Na+ ions.
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c2255be5-290e-44ef-8cde-ae8d2f62d1bf">
+    <vCard:N rdf:resource="rdf:#ce73b61e-27f3-4d47-b242-0b41bc42b526"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b0be39a0-d30f-4258-9092-cd9a8831a039">
+    <dcterms:W3CDTF>2002-02-25</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f40d5b6c-163f-43d0-abdd-040a53da1c1d">
+    <rdf:value>
           i_f is a mixed current composed of both Na+ and K+ ions.  In the 
           equation to describe i_f, Zhang et al included i_f_Na and i_f_K as 
           separate components and they also included a single activation 
           variable y. 
-          </rdf:value></rdf:Description><rdf:Description rdf:about="#L_type_Ca_channel"><cmeta:comment><rdf:Description rdf:about="rdf:#02e18c1c-6f5c-41e7-8cd4-2f6009b2c81d"/></cmeta:comment></rdf:Description><rdf:Description rdf:about="rdf:#02e18c1c-6f5c-41e7-8cd4-2f6009b2c81d"><rdf:value xml:lang="en">
-          The L-type calcium channel has two gates, an activation gate d_L and 
-          an inactivation gate f_L.
-          </rdf:value></rdf:Description><rdf:Description rdf:about="#ionic_concentrations"><cmeta:comment><rdf:Description rdf:about="rdf:#ea0d6d02-19ae-45c4-ae35-0074de6868ac"/></cmeta:comment></rdf:Description><rdf:Description rdf:about="rdf:#ea0d6d02-19ae-45c4-ae35-0074de6868ac"><rdf:value xml:lang="en">
-          Other SA node models have included computation of concentrations of 
-          intracellular Na+ and Ca2+.  In this model, Zhang et al have assumed 
-          that all ion concentrations remain constant.
-          </rdf:value></rdf:Description><rdf:Description rdf:about="rdf:#e7982718-8191-4340-9f32-3395a0f1d925"><rdf:value xml:lang="en">
-          The slow sigmoidal activation of i_K_s is modelled by squaring the 
-          gating variable xs.  The i_K_s channel is also slightly permeable to 
-          Na+ ions.
-          </rdf:value></rdf:Description><rdf:Description rdf:about="#sodium_current"><cmeta:comment><rdf:Description rdf:about="rdf:#b29b9a3e-6e5c-42a3-adb2-d15a76420329"/></cmeta:comment></rdf:Description><rdf:Description rdf:about="#four_AP_sensitive_currents"><cmeta:comment><rdf:Description rdf:about="rdf:#49f80294-f412-4475-a5b3-b74fdfe6b32a"/></cmeta:comment></rdf:Description><rdf:Description rdf:about="rdf:#49f80294-f412-4475-a5b3-b74fdfe6b32a"><rdf:value xml:lang="en">
-          i_to and i_sus are respectively the transient and sustained
-          components of the 4-Aminopyridine-sensitive current.  The current has
-          an activation variable r and and inactivation variable q.
-          </rdf:value></rdf:Description><rdf:Description rdf:about="rdf:#e022a12b-fcc4-435a-90f4-0e3a090eb803"><rdf:value xml:lang="en">
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#17a8fab7-9ff9-4ef6-ae9f-c5c416f5e2f0">
+    <vCard:N rdf:resource="rdf:#1e9e6c84-61c7-4aa2-9423-3fe741ab381e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b378fb9b-2ff3-4980-ab79-9f127d16e92f">
+    <dcterms:modified rdf:resource="rdf:#69132b4c-a4db-4332-b73b-7d4e15955012"/>
+    <rdf:value>fixed e-notation errors&#13;
+&#13;
+updated curation status&#13;
+&#13;
+removed reference link in documentation</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#17a8fab7-9ff9-4ef6-ae9f-c5c416f5e2f0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#sodium_current">
+    <cmeta:comment rdf:resource="rdf:#b29b9a3e-6e5c-42a3-adb2-d15a76420329"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#four_AP_sensitive_currents">
+    <cmeta:comment rdf:resource="rdf:#49f80294-f412-4475-a5b3-b74fdfe6b32a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#258313e7-cf34-4d02-963d-d385963e2616">
+    <vCard:N rdf:resource="rdf:#6ac3bd84-ea1e-468b-9bb2-2a57c833ae03"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e022a12b-fcc4-435a-90f4-0e3a090eb803">
+    <rdf:value>
           The potassium cuurent in rabbit SA node cells can be divided into two
           kinetically different components, a fast cuurent i_K_r and a slow 
           current i_K_s.  Activation and inactivation of i_K_r has 
           double-exponential time courses.  To model this, Zhang et al have 
           used two activation variables; a fast one (P_a_f) and a slow one 
           (P_a_s).  There is a single inactivation variable P_i. 
-          </rdf:value></rdf:Description><rdf:Description rdf:about="#T_type_Ca_channel"><cmeta:comment><rdf:Description rdf:about="rdf:#a2bd07db-7119-4bc1-ac1c-32835c71483c"/></cmeta:comment></rdf:Description><rdf:Description rdf:about="rdf:#a2bd07db-7119-4bc1-ac1c-32835c71483c"><rdf:value xml:lang="en">
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#49f80294-f412-4475-a5b3-b74fdfe6b32a">
+    <rdf:value>
+          i_to and i_sus are respectively the transient and sustained
+          components of the 4-Aminopyridine-sensitive current.  The current has
+          an activation variable r and and inactivation variable q.
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5369f8d3-b90c-4f0f-a58d-6b72980c83a5">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="#sustained_inward_current">
+    <cmeta:comment rdf:resource="rdf:#4796d6ca-441e-437f-a008-c591de5f933c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#T_type_Ca_channel">
+    <cmeta:comment rdf:resource="rdf:#a2bd07db-7119-4bc1-ac1c-32835c71483c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="#slow_delayed_rectifying_potassium_current">
+    <cmeta:comment rdf:resource="rdf:#e7982718-8191-4340-9f32-3395a0f1d925"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6fa7edc3-c3ce-4ef8-adef-991f67861768">
+    <dcterms:modified rdf:resource="rdf:#b0be39a0-d30f-4258-9092-cd9a8831a039"/>
+    <rdf:value>
+          Corrected several equations.
+        </rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#258313e7-cf34-4d02-963d-d385963e2616"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#02e18c1c-6f5c-41e7-8cd4-2f6009b2c81d">
+    <rdf:value>
+          The L-type calcium channel has two gates, an activation gate d_L and 
+          an inactivation gate f_L.
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="#rapid_delayed_rectifying_potassium_current">
+    <cmeta:comment rdf:resource="rdf:#e022a12b-fcc4-435a-90f4-0e3a090eb803"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ce73b61e-27f3-4d47-b242-0b41bc42b526">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#116d1b4e-7e0f-4f7a-9a13-2f22b9c6b301">
+    <dcterms:W3CDTF>2001-01-01</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f57efa98-9e21-42a2-a43c-7b5c45ff7c90">
+    <vCard:N rdf:resource="rdf:#fb401e80-5d6e-42b5-9fda-059a363e37de"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#fb401e80-5d6e-42b5-9fda-059a363e37de">
+    <vCard:Given>Peter</vCard:Given>
+    <vCard:Family>Villiger</vCard:Family>
+    <vCard:Other>J</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9996ac9e-ce05-40e4-be30-84fc38badf7d">
+    <dcterms:modified rdf:resource="rdf:#c40dbc94-6e60-4bdd-b589-4bbd3e79804e"/>
+    <rdf:value>
+          Updated syntax to conform with cellml1.1 specs
+        </rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#f57efa98-9e21-42a2-a43c-7b5c45ff7c90"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c40dbc94-6e60-4bdd-b589-4bbd3e79804e">
+    <dcterms:W3CDTF>2005-04-20</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a2bd07db-7119-4bc1-ac1c-32835c71483c">
+    <rdf:value>
           The T-type calcium channel has two gates, an activation gate d_T and 
           an inactivation gate f_T.
-          </rdf:value></rdf:Description><rdf:Description rdf:about="#slow_delayed_rectifying_potassium_current"><cmeta:comment><rdf:Description rdf:about="rdf:#e7982718-8191-4340-9f32-3395a0f1d925"/></cmeta:comment></rdf:Description><rdf:Description rdf:about="#rapid_delayed_rectifying_potassium_current"><cmeta:comment><rdf:Description rdf:about="rdf:#e022a12b-fcc4-435a-90f4-0e3a090eb803"/></cmeta:comment></rdf:Description><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0060075"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030322"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042391"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#sodium_current_i_Na"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00018"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00019"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00020"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00021"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00022"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00023"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00024"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00025"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#sodium_background_current_i_b_Na"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00026"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00027"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00028"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00029"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00030"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00031"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00032"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00033"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00034"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00035"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#L_type_Ca_channel_i_Ca_L"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00036"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00037"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00038"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00039"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00040"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00041"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00042"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00043"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00044"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00045"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00046"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00047"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00048"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00049"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00050"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00051"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00052"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00053"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00054"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00055"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00056"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#T_type_Ca_channel_i_Ca_T"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00057"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00058"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00059"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00060"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00061"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00062"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00063"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00064"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00065"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00066"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00067"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00068"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00069"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00070"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00071"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00072"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00073"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00074"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00075"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00076"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00077"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#calcium_background_current_i_b_Ca"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00078"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00079"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00080"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00081"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00082"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#intracellular_calcium_handling"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00083"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00084"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00085"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00086"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00087"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00088"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00089"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00090"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005250"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00091"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00092"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00093"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00094"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00095"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00096"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#rapid_delayed_rectifying_potassium_current_i_K_r"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00097"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00098"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00099"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00100"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00101"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#slow_delayed_rectifying_potassium_current_i_K_s"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00102"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00103"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00104"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00105"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00106"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00107"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00108"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00109"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00110"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00111"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00112"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00113"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00114"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00115"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00116"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00117"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00118"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#potassium_background_current_i_b_K"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00119"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00120"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00121"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00122"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00123"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#sodium_calcium_exchanger_i_NaCa"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00124"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00125"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00126"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00127"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00128"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00129"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26216"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00130"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00131"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00132"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26216"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00133"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26216"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00134"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00135"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00136"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00137"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00138"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00139"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00140"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00141"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00142"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00143"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00144"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00145"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00146"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00147"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00148"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00149"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00150"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005391"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005890"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006815"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00151"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005391"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005890"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00152"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26216"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00153"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00154"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00155"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00156"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00157"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00158"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00159"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00160"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00161"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00162"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00163"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00164"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005251"/></isVersionOf></rdf:Description></rdf:RDF></model>
+          </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#721d7928-1492-45ed-8bf2-930e997c2b89">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6ac3bd84-ea1e-468b-9bb2-2a57c833ae03">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+</rdf:RDF>
+</model>

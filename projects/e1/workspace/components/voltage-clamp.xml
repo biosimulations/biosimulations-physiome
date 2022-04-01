@@ -19,6 +19,7 @@
     <component name="Ileak" component_ref="Ileak"/>
   </import>
   <component name="voltage_clamp" cmeta:id="voltage_clamp_component">
+    
     <variable cmeta:id="V_initial" name="V_initial" public_interface="in" private_interface="out" units="mV"/>
     <variable cmeta:id="n_initial" name="n_initial" public_interface="in" private_interface="out" units="dimensionless"/>
     <variable cmeta:id="m_initial" name="m_initial" public_interface="in" private_interface="out" units="dimensionless"/>
@@ -55,15 +56,9 @@
         <piecewise>
           <piece>
             <ci>Vnew</ci>
-            <apply><and/>
-	            <apply><gt/>
-	              <ci>time</ci>
-	              <cn cellml:units="ms">10.0</cn>
-	            </apply>
-	            <apply><lt/>
-	              <ci>time</ci>
-	              <cn cellml:units="ms">20.0</cn>
-	            </apply>
+            <apply><gt/>
+              <ci>time</ci>
+              <cn cellml:units="ms">0.0</cn>
             </apply>
           </piece>
           <otherwise>

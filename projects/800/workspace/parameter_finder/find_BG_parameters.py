@@ -1,6 +1,6 @@
 # This script calculates the bond graph parameters for all reactions of the
 # a given module. Specify the directory.
-# based on SERCA model of Pan et al, which is based on Tran et al. (2009).
+# based on SERCA model of Pan et al, which is based on Tran et al. (2009). 
 # Parameters calculated in module's directory, by using the kinetic
 # parameters and stoichiometric matrix.
 
@@ -16,10 +16,9 @@ from sympy import Matrix, S, nsimplify
 from scipy.linalg import null_space
 from fractions import Fraction
 
-
 def read_IDs(path):
     data = []
-    with open(path, 'r') as f:
+    with open(path,'r') as f:
         reader = csv.reader(f)
         for row in reader:
             data.append(row[0])
@@ -29,13 +28,12 @@ def read_IDs(path):
 
 def load_matrix(stoich_path):
     matrix = []
-    with open(stoich_path, 'r') as f:
-        reader = csv.reader(f, delimiter=',')
+    with open(stoich_path,'r') as f:
+        reader = csv.reader(f,delimiter=',')
         for row in reader:
             matrix.append([float(r) for r in row])
         f.close()
     return matrix
-
 
 # def rational_nullspace(A, max_denom = 10):
 #     v = null_space(A)
@@ -75,24 +73,25 @@ if __name__ == "__main__":
         matstr = ''
 
     ## Define volumes
-    V_myo = 34.4  # pL
+    V_myo = 34.4 # pL
     V = dict()
     V['V_myo'] = V_myo
 
     ## Load forward matrix
     if include_type2_reactions:
-        stoich_path = data_dir + '\\all_forward_matrix%s.txt' % matstr
+        stoich_path = data_dir + '\\all_forward_matrix%s.txt'%matstr
     else:
         stoich_path = data_dir + '\\all_noType2_forward_matrix.txt'
 
     N_f = load_matrix(stoich_path)
 
+
     ## Load reverse matrix
     if include_type2_reactions:
-        stoich_path = data_dir + '\\all_reverse_matrix%s.txt' % matstr
+        stoich_path = data_dir + '\\all_reverse_matrix%s.txt'%matstr
     else:
         stoich_path = data_dir + '\\all_noType2_reverse_matrix.txt'
-
+    
     N_r = load_matrix(stoich_path)
 
     N_fT = np.transpose(N_f)
@@ -112,15 +111,15 @@ if __name__ == "__main__":
 
     I = np.identity(num_cols)
 
-    M = np.append(np.append(I, N_fT, 1), np.append(I, N_rT, 1), 0)
+    M = np.append(np.append(I, N_fT,1), np.append(I, N_rT,1),0)
 
-    func = __import__('kinetic_parameters_%s' % modname)
+    func = __import__('kinetic_parameters_%s'%modname)
     [k_kinetic, N_cT, K_C, W] = func.kinetic_parameters(M, include_type2_reactions, dims, V)
     if not include_constraints:
         N_cT = []
 
     try:
-        M = np.append(M, N_cT, 0)
+        M = np.append(M, N_cT,0)
         k = np.append(k_kinetic, K_C, 0)
     except:
         k = k_kinetic
@@ -130,53 +129,56 @@ if __name__ == "__main__":
     lambda_expo = np.matmul(np.linalg.pinv(M), [math.log(ik) for ik in k])
     lambdaW = [math.exp(l) for l in lambda_expo]
 
+
     # Check that kinetic parameters are reproduced by bond graph parameters
-    k_est = np.matmul(M, [math.log(k) for k in lambdaW])
+    k_est = np.matmul(M,[math.log(k) for k in lambdaW])
     k_est = [math.exp(k) for k in k_est]
-    diff = [(k[i] - k_est[i]) / k[i] for i in range(len(k))]
+    diff = [(k[i] - k_est[i])/k[i] for i in range(len(k))]
 
     error = np.sum([abs(d) for d in diff])
 
     # Checks
     N_rref = sympy.Matrix(N).rref()
-    R = nsimplify(Matrix(N), rational=True).nullspace()  # rational_nullspace(N, max_denom=len(N[0]))
+    R = nsimplify(Matrix(N), rational=True).nullspace() #rational_nullspace(N, max_denom=len(N[0]))
     if R:
         R = np.transpose(np.array(R).astype(np.float64))[0]
     # Check that there is a detailed balance constraint
-    Z = nsimplify(Matrix(M), rational=True).nullspace()  # rational_nullspace(M, 2)
+    Z = nsimplify(Matrix(M), rational=True).nullspace() #rational_nullspace(M, 2)
     if Z:
         Z = np.transpose(np.array(Z).astype(np.float64))[0]
 
     kf = k_kinetic[:num_cols]
     kr = k_kinetic[num_cols:]
-    K_eq = [kf[i] / kr[i] for i in range(len(kr))]
+    K_eq = [kf[i]/kr[i] for i in range(len(kr))]
     try:
-        zero_est = np.matmul(np.transpose(R), K_eq)
-        zero_est_log = np.matmul(np.transpose(R), [math.log(k) for k in K_eq])
+        zero_est = np.matmul(np.transpose(R),K_eq)
+        zero_est_log = np.matmul(np.transpose(R),[math.log(k) for k in K_eq])
     except:
         print('undefined R nullspace')
 
     # if not R_mat:
     #     warning('R_mat is empty: matrix is full rank')
-
-    lambdak = [lambdaW[i] / W[i] for i in range(len(W))]
+    
+    lambdak = [lambdaW[i]/W[i] for i in range(len(W))]
     kappa = lambdak[:len(N[0])]
     K = lambdak[len(N[0]):]
 
     rxnID = read_IDs('data\\rxnID.txt')
     Kname = read_IDs('data\\Kname.txt')
 
+
     # ### print outputs ###
     for ik in range(len(kappa)):
-        print('var kappa_%s: fmol_per_sec {init: %g, pub: out};' % (rxnID[ik], kappa[ik]))
+        print('var kappa_%s: fmol_per_sec {init: %g, pub: out};' %(rxnID[ik],kappa[ik]))
     for ik in range(len(Kname)):
-        print('var K_%s: per_fmol {init: %g, pub: out};' % (Kname[ik], K[ik]))
+        print('var K_%s: per_fmol {init: %g, pub: out};' %(Kname[ik],K[ik]))
 
     file = open(output_dir + '/all_parameters_out.json', 'w')
-    data = {"K": K, "kappa": kappa, "k_kinetic": k_kinetic}
+    data = { "K": K, "kappa": kappa, "k_kinetic": k_kinetic }
     json.dump(data, file)
 
-    cellmlfilepath = os.getcwd() + '\\output\\TEMP.cellml.txt'
+
+    cellmlfilepath = os.getcwd() + '\\TEMP.cellml.txt'
     with open(cellmlfilepath, 'w') as cid:
         cid.write('def model individual_%s as\n def import using "units_and_constants/units_BG.cellml" for\n\
         unit mM using unit mM;\nunit fmol using unit fmol;\nunit per_fmol using unit per_fmol;\n\
@@ -189,31 +191,32 @@ if __name__ == "__main__":
         unit fmol_per_L using unit fmol_per_L;\n  unit fmol_per_L_per_sec using unit fmol_per_L_per_sec;\n\
         unit per_sec_per_fmol_per_L using unit per_sec_per_fmol_per_L;\n  unit uM using unit uM;\n\
         unit mM_per_sec using unit mM_per_sec;\n  unit uM_per_sec using unit uM_per_sec;\n\
-        unit pL using unit pL;\n  unit m_to_u using unit m_to_u;\n enddef;\n' % (modname))
+        unit pL using unit pL;\n  unit m_to_u using unit m_to_u;\n enddef;\n' %(modname))
         cid.write('def import using "units_and_constants/constants_BG.cellml" for\n\
             comp constants using comp constants;\nenddef;\n\n')
         cid.write("    def comp environment as\n\
     var time: second {pub: out};\n\
     // initial values\n")
         for Kn in Kname:
-            cid.write('var q_%s: fmol {init: 1e-888, pub: out};\n' % (Kn))
-        # cid.write('// Global value\n')
-        # for Kn in Kname:
-        #     cid.write('var q_%s: fmol {pub: out};\n'%Kn)
-        cid.write('// From submodule\n')
-        for rx in rxnID:
-            cid.write('var v_%s: fmol_per_sec {pub: in};\n' % (rx))
+            cid.write('var q_%s_init: fmol {init: 1e-888};\n' %(Kn))
+        cid.write('// Global value\n')
         for Kn in Kname:
-            cid.write('ode(q_%s, time) = vvv;\n' % (Kn))
+            cid.write('var q_%s: fmol {pub: out};\n'%Kn)
+        cid.write('// From submodule\n')
+        for Kn in Kname:
+            cid.write('var q_%s_m%s: fmol {pub: in};\n'%(Kn, modname))
+        for Kn in Kname:
+            cid.write('q_%s = q_%s_m%s + q_%s_init;\n'%(Kn, Kn,
+                modname,Kn))
         cid.write('enddef;\n\n')
-        cid.write('def comp %s_parameters as\n' % (modname))
+        cid.write('def comp %s_parameters as\n' %(modname))
         for ik in range(len(kappa)):
             cid.write('var kappa_%s: fmol_per_sec {init: %g, pub: out};\n' % (rxnID[ik], kappa[ik]))
         for ik in range(len(Kname)):
             cid.write('var K_%s: per_fmol {init: %g, pub: out};\n' % (Kname[ik], K[ik]))
         cid.write('enddef;\n')
 
-        cid.write('def comp %s as\n' % (modname))
+        cid.write('def comp %s as\n' %(modname))
         cid.write('        var time: second {pub: in};\n\
         var R: J_per_K_per_mol {pub: in};\n\
         var T: kelvin {pub: in};\n\
@@ -225,40 +228,36 @@ if __name__ == "__main__":
 
         cid.write('// Input from global environment\n')
         for Kn in Kname:
-            cid.write('var q_%s: fmol {pub: in};\n' % Kn)
-        # cid.write('// Output to global environment\n')
-        # for Kn in Kname:
-        #     # cid.write('var q_%s: fmol {init: 1e-16, pub: out};\n'%(Kn))
-        #     cid.write('var v_%s: fmol_per_sec {pub: out};\n'%(Kn))
+            cid.write('var q_%s_global: fmol {pub: in};\n'%Kn)
+        cid.write('// Output to global environment\n')
+        for Kn in Kname:
+            cid.write('var q_%s: fmol {init: 1e-16, pub: out};\n'%(Kn))
         cid.write('// Constitutive parameters\n')
         for Kn in Kname:
-            cid.write('var mu_%s: J_per_mol;\n' % (Kn))
+            cid.write('var mu_%s: J_per_mol;\n'%(Kn))
         for rx in rxnID:
-            cid.write('var v_%s: fmol_per_sec {pub: out};\n' % (rx))
+            cid.write('var v_%s: fmol_per_sec;\n'%(rx))
         for Kn in Kname:
-            cid.write('mu_%s = R*T*ln(K_%s*q_%s);\n' % (Kn, Kn, Kn))
+            cid.write('mu_%s = R*T*ln(K_%s*q_%s_global);\n'%(Kn,Kn,Kn))
         for rx in rxnID:
-            cid.write('v_%s = ppp;\n' % (rx))
-        # for Kn in Kname:
-        #     cid.write('v_%s = rrr;\n' %Kn)
-        # for Kn in Kname:
-        #     cid.write('ode(q_%s, time) = qqq;\n'%Kn)
+            cid.write('v_%s = ppp;\n'%(rx))
+        for Kn in Kname:
+            cid.write('ode(q_%s, time) = qqq;\n'%Kn)
         cid.write('enddef;\n')
 
-        cid.write('def map between environment and %s for\n' % modname)
+        cid.write('def map between environment and %s for\n'%modname)
         cid.write('vars time and time;\n')
         for Kn in Kname:
-            cid.write('vars q_%s and q_%s;\n' % (Kn, Kn))
-        for rx in rxnID:
-            cid.write('vars v_%s and v_%s;\n' % (rx, rx))
+            cid.write('vars q_%s_m%s and q_%s;\n'%(Kn, modname,Kn))
+            cid.write('vars q_%s and q_%s_global;\n'%(Kn, Kn))
         cid.write('enddef;\n')
-        cid.write('def map between %s and %s_parameters for\n' % (modname, modname))
+        cid.write('def map between %s and %s_parameters for\n'%(modname,modname))
         for ik in rxnID:
             cid.write('vars kappa_%s and kappa_%s;\n' % (ik, ik))
         for mod in Kname:
             cid.write('vars K_%s and K_%s;\n' % (mod, mod))
         cid.write('enddef;\n')
-        cid.write('def map between constants and %s for\n' % modname)
+        cid.write('def map between constants and %s for\n'%modname)
         cid.write('vars R and R;\n vars T and T;\n')
         cid.write('enddef;\n')
         cid.write('enddef;\n')

@@ -15,7 +15,7 @@ DESCRIPTION :  This file contains a CellML description of Cui and Kaandorp's 200
 
 CHANGES:  
  
---><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" cmeta:id="cui_kaandorp_2006" name="cui_kaandorp_2006">
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" cmeta:id="cui_kaandorp_2006" name="cui_kaandorp_2006_version01">
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
   <articleinfo>
@@ -46,7 +46,8 @@ The original paper reference is cited below:
 
 <para>
 Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Jaap A. Kaandorp, 2006, 
-            <emphasis>Cell Calcium</emphasis>, 39, 337-348. <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/16445978">PubMed ID: 16445978</ulink> 
+            <emphasis>Cell Calcium</emphasis>
+          , 39, 337-348. <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=16445978&amp;dopt=Abstract">PubMed ID: 16445978</ulink> 
 </para>
 
 <informalfigure float="0" id="fig_simplified_diagram">
@@ -66,6 +67,9 @@ Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Ja
 </documentation>
 
 
+  
+  
+  
   <units name="micromolar">
     <unit units="mole" prefix="micro"/>
     <unit units="litre" exponent="-1"/>
@@ -100,15 +104,15 @@ Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Ja
   </component>
   
   <component name="m" cmeta:id="m">
+     
     <variable units="micromolar" public_interface="out" cmeta:id="m_m" name="m" initial_value="0.0"/> 
     
     <variable units="fourth_order_rate_constant" name="kM_plus" initial_value="500.0"/>
     <variable units="first_order_rate_constant" name="kM_minus" initial_value="100.0"/>
     <variable units="micromolar" name="CaMtotal" initial_value="25.0"/>
-    <variable units="flux" name="dmdt" cmeta:id="m_dmdt"/>
-  
+    
     <variable units="micromolar" public_interface="in" name="x"/>  
-    <variable units="minute" public_interface="in" name="time"/>
+    <variable units="minute" public_interface="in" name="time"/> 
     
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="calmodulin"> 
       <apply>
@@ -144,8 +148,7 @@ Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Ja
         </apply>  
       </apply> 
     </math> 
-    
-	<math xmlns="http://www.w3.org/1998/Math/MathML" id="dmdt">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" id="dmdt">
       <apply>
         <eq/>
         <ci>dmdt</ci>
@@ -173,16 +176,17 @@ Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Ja
         </apply>
       </apply>
     </math>
+    <variable units="flux" name="dmdt" cmeta:id="m_dmdt"/>
   </component>
 
   <component name="z" cmeta:id="z">
+     
     <variable units="micromolar" public_interface="out" cmeta:id="z_z" name="z" initial_value="1.0E-8"/> 
     
     <variable units="second_order_rate_constant" name="kN_plus" initial_value="5.0"/>
     <variable units="first_order_rate_constant" name="kN_minus" initial_value="5.0"/>
     <variable units="micromolar" name="CaNtotal" initial_value="25.0"/>
-    <variable units="flux" name="dzdt" cmeta:id="z_dzdt"/>
-  
+    
     <variable units="micromolar" public_interface="in" name="m"/>  
     <variable units="minute" public_interface="in" name="time"/> 
     
@@ -216,8 +220,7 @@ Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Ja
         </apply>  
       </apply> 
     </math> 
-    
-	<math xmlns="http://www.w3.org/1998/Math/MathML" id="dzdt">
+  <math xmlns="http://www.w3.org/1998/Math/MathML" id="dzdt">
       <apply>
         <eq/>
         <ci>dzdt</ci>
@@ -241,9 +244,11 @@ Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Ja
         </apply>
       </apply>
     </math>
+    <variable units="flux" name="dzdt" cmeta:id="z_dzdt"/>
   </component>
 
   <component name="h" cmeta:id="h">
+    
     <variable units="dimensionless" public_interface="out" name="h" initial_value="0.0"/> 
     
     <variable units="first_order_rate_constant" name="d" initial_value="0.4"/>
@@ -466,6 +471,7 @@ Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Ja
   </component>
 
   <component name="x" cmeta:id="x">
+     
     <variable units="micromolar" public_interface="out" cmeta:id="x_x" name="x" initial_value="0.0"/> 
     
     <variable units="flux" name="Vx" initial_value="1000.0"/>
@@ -479,8 +485,7 @@ Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Ja
     <variable units="dimensionless" name="kc" initial_value="10.0"/>
     <variable units="first_order_rate_constant" name="alpha" initial_value="0.006"/>
     <variable units="micromolar" name="Caex" initial_value="1.0"/>
-    <variable units="flux" name="dxdt" cmeta:id="x_dxdt"/>
-    
+
     <variable units="dimensionless" public_interface="in" name="h"/>
     <variable units="dimensionless" public_interface="in" name="psi"/>
     <variable units="micromolar" public_interface="in" name="z"/>
@@ -597,7 +602,7 @@ Mathematical modeling of calcium homeostasis in yeast cells, Jiangjun Cui and Ja
         </apply>  
       </apply> 
     </math> 
-   
+  <variable units="flux" name="dxdt" cmeta:id="x_dxdt"/>
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="dxdt">
       <apply>
         <eq/>

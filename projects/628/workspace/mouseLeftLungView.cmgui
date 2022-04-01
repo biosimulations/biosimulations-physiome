@@ -1,0 +1,24 @@
+gfx define tessellation default minimum_divisions "1" refinement_factors "16" circle_divisions 12;
+gfx define tessellation default_points minimum_divisions "1" refinement_factors "1" circle_divisions 12;
+
+
+gfx create material lung normal_mode ambient 0.89 0.65 0.57 diffuse 0.89 0.6471 0.5686 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 1;
+
+
+gfx read elem "mouseLeftLungMesh.exf";
+
+
+gfx modify g_element "/" general clear;
+gfx modify g_element "/" lines domain_mesh1d coordinate coordinates face all tessellation default LOCAL line line_base_size 0 select_on material default selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d coordinate coordinates face all tessellation default LOCAL select_on material lung selected_material default_selected render_shaded;
+
+
+gfx create window 1 double_buffer;
+gfx modify window 1 image scene "/" filter default infinite_viewer_lighting two_sided_lighting;
+gfx modify window 1 image add_light default;
+gfx modify window 1 image add_light default_ambient;
+gfx modify window 1 layout simple ortho_axes z -y eye_spacing 0.25 width 808 height 1128;
+gfx modify window 1 set current_pane 1;
+gfx modify window 1 background colour 0 0 0 texture none;
+gfx modify window 1 view perspective eye_point -20.2379 27.8098 17.385 interest_point -3.68635 -7.80631 9.30224 up_vector -0.0226325 -0.231247 0.972632 view_angle 40 near_clipping_plane 2.00487 far_clipping_plane 81.376 relative_viewport ndc_placement -1 1 2 2 viewport_coordinates 0 0 1 1;
+gfx modify window 1 set transform_tool current_pane 1 std_view_angle 40 perturb_lines no_antialias depth_of_field 0.0 fast_transparency blend_normal;

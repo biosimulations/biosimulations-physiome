@@ -16,8 +16,9 @@ ax, lns = {}, {}
 cycle = plt.rcParams['axes.prop_cycle'].by_key()['color']
 # Set subplots
 lfontsize, labelfontsize = 11, 12 # legend, label fontsize
-Nai=[ 16.55]
-t_ss = 16
+duration = [ [0.6, 0.7],[1.3,3]]
+Nai=[ 16.55,2.9836]
+t_ss = 3
 # Read data from the files
 x_name = 'time'
 y_name = 'Cai'
@@ -31,14 +32,14 @@ for h, iprefilename in enumerate(prefilename):
     odata = pd.read_csv(ofilename)
     ox_data = odata['x']   
     oy_data = odata['Curve1']    
-    ax[h].plot(ox_data, oy_data, '.',  color=cycle[0], label = 'Bursztyn et al.')
+    ax[h].plot(ox_data, oy_data, '.',  color=cycle[0], label = 'Bursztyn et al, Nai=2.9836mM')
     
     for i, iNai in enumerate(Nai):
         filename='../simulatedData/%s_%d.csv' % (iprefilename,i)
         data = pd.read_csv(filename)
-        x_data = data[x_name]      
+        x_data = data[x_name]-duration[i][h]- t_ss      
         y_data = data[y_name]*1000000   
-        ax[h].plot(x_data, y_data,  color=cycle[i], label = 'CellML' )       
+        ax[h].plot(x_data, y_data,  color=cycle[i], label = 'dur=%.1fs, Nai=%.2fmM' % (duration[i][h],iNai))       
            
     plt.tick_params(direction='in', axis='both')    
     ax[h].legend(loc = 'best', fontsize=lfontsize, frameon=False)

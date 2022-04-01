@@ -41,22 +41,12 @@ for i, iV_initial in enumerate(V_initial):
     y_data = data[y_name]
     g_data = data[g_name]
     T_data = data['parameters/T']
-    lns1 = ax1.plot(x_data, y_data, color=cycle[0], label = 'CellML -V @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
-    lns2 = ax1.plot(vt, v, '.', color=cycle[0], label = 'HH  -V @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
+    lns1 = ax1.plot(x_data, y_data, color=cycle[0], label = 'CellML model V @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
+    lns2 = ax1.plot(vt, v, '.', color=cycle[0], label = 'HH model V @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
     ax2 = ax1.twinx()
-    lns3 = ax2.plot(x_data, g_data, color=cycle[1], label = 'CellML  g @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
-    lns4 = ax2.plot(gt, g, '.', color=cycle[1], label = 'HH  g @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
-    
-# Align 0
-ax1_ylims = ax1.axes.get_ylim()           # Find y-axis limits set by the plotter
-ax1_yratio = ax1_ylims[0] / ax1_ylims[1]  # Calculate ratio of lowest limit to highest limit
-ax2_ylims = ax2.axes.get_ylim()           # Find y-axis limits set by the plotter
-ax2_yratio = ax2_ylims[0] / ax2_ylims[1]  # Calculate ratio of lowest limit to highest limit
-if ax1_yratio < ax2_yratio: 
-    ax2.set_ylim(bottom = ax2_ylims[1]*ax1_yratio)
-else:
-    ax1.set_ylim(bottom = ax1_ylims[1]*ax2_yratio)
-    
+    lns3 = ax2.plot(x_data, g_data, color=cycle[1], label = 'CellML model g @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
+    lns4 = ax2.plot(gt, g, '.', color=cycle[1], label = 'HH model g @ %d mV, %0.1f ℃' % (iV_initial, T_data[1] ) )
+
 plt.tick_params(direction='in', axis='both')    
 # added these three lines
 lns = lns1 + lns2 + lns3 + lns4
@@ -65,8 +55,7 @@ ax1.legend(lns, labs, frameon=False, loc= 'best')
 plt.xlabel ('time(ms)', fontsize= labelfontsize)
 ax1.set_ylabel ('-V (mV)', fontsize= labelfontsize)
 ax2.set_ylabel ('g (mS/$cm^2$)', fontsize= labelfontsize)
-ax1.set_title('%s in the primary publication' % (prefig))
-plt.axhline(y=0.0, color="black", linestyle="--")
+plt.xlim(0, 10)
 plt.savefig(figfile)        
 plt.show()
 

@@ -18,7 +18,7 @@ cycle = plt.rcParams['axes.prop_cycle'].by_key()['color']
 lfontsize, labelfontsize = 11, 12 # legend, label fontsize
 duration = [160]
 # Read data from the files
-t_ss =[0, 0]
+t_ss =[3, 3]
 x_name = ['time','time']
 y_name = ["stress","Cai"]
 y_labels = ['(A) Stress (%)', '(A) [Ca]$_i$ (nM)','(B) Stress (%)', '(B) [Ca]$_i$ (nM)']

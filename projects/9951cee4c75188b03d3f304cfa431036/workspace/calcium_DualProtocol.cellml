@@ -37,31 +37,25 @@
       <unit units="second"/>
    </units>
    
-   <units  name="nM">
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM">
          <unit units="mole" prefix="nano"/>
          <unit units="liter" exponent="-1"/>
       </units>
-      <units  name="per_s">
+      <units xmlns="http://www.cellml.org/cellml/1.0#" name="per_s">
          <unit units="s" exponent="-1"/>
       </units>
-      <units  name="nM_per_s">
+      <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM_per_s">
          <unit units="nM"/>
          <unit units="s" exponent="-1"/>
       </units>
       
-         <units  name="ms">
+         <units xmlns="http://www.cellml.org/cellml/1.0#" name="ms">
             <unit units="s" exponent="-3"/>
          </units>
-         <units  name="nM_per_ms">
+         <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM_per_ms">
             <unit units="nM"/>
             <unit units="ms" exponent="-1"/>
    </units>
-   
-	<units  name="ms_per_s">
-		<unit units="ms" />
-		<unit units="per_s" />
-	</units>
-   
       
 <!--
 *********************************************************
@@ -69,15 +63,16 @@
 *********************************************************
 -->
  <component name="calcium">
-             <variable cmeta:id="v4" name="t"   units="s" public_interface="in"/>
-             <variable cmeta:id="v3" name="Ca" units="nM" public_interface="out"/>
+             <variable name="t"   units="s" public_interface="in"/>
+             <variable name="Ca" units="nM" public_interface="out"/>
              
-              <variable cmeta:id="v7" name="ms_in_pulse" units="ms"/>
-              <variable cmeta:id="v5" name="period" units="s" initial_value="1.02"/>
-              <variable cmeta:id="v0" name="baseline" units="nM"/>
-              <variable cmeta:id="v6" name="stimGradient" units="nM_per_ms"/>
-              <variable cmeta:id="v2" name="CaBeat" units="nM"/>
-              <variable cmeta:id="v1" name="CaSigTrans" units="nM" initial_value="0"/>
+             
+              <variable name="ms_in_pulse" units="ms"/>
+              <variable name="period" units="s" initial_value="1.02"/>
+              <variable name="baseline" units="nM"/>
+              <variable name="stimGradient" units="nM_per_ms"/>
+              <variable name="CaBeat" units="nM"/>
+              <variable name="CaSigTrans" units="nM" initial_value="0"/>
                           
              <math xmlns="http://www.w3.org/1998/Math/MathML">
              <apply>
@@ -85,7 +80,7 @@
                       <ci>ms_in_pulse</ci>
                       <apply>
                          <times/>
-                         <cn cellml:units="ms_per_s">1000</cn>
+                         <cn cellml:units="dimensionless">1000</cn>
                          <apply>
                             <minus/>
                             <ci>t</ci>
@@ -127,7 +122,7 @@
                                      <apply>
                                         <times/>
                                         <ci>period</ci>
-                                        <cn cellml:units="ms_per_s">1000</cn>
+                                        <cn cellml:units="dimensionless">1000</cn>
                                      </apply>
                                      <cn cellml:units="ms">16</cn>
                                   </apply>
@@ -220,43 +215,5 @@
          </apply>
              </math>
    </component>
-
- <rdf:RDF 
-  xmlns:ro="http://www.obofoundry.org/ro/ro.owl#" 
-  xmlns:opb="http://bhi.washington.edu/OPB#"  
-  xmlns:semsim="http://www.bhi.washington.edu/SemSim#" 
-  xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"
-  xmlns:bqmodel="http://biomodels.net/model-qualifiers/" 
-  >
-
-		
-    <rdf:Description rdf:ID="v3">
-      <semsim:isComputationalComponentFor>
-        <rdf:Description rdf:about="#property_3">
-          <semsim:physicalPropertyOf>
-            <rdf:Description rdf:about="#entity_0">
-              <ro:contained_in>
-                <rdf:Description rdf:about="#entity_1">
-                  <semsim:refersTo rdf:resource="http://identifiers.org/fma/FMA:14067" />
-                </rdf:Description>
-              </ro:contained_in>
-              <semsim:refersTo rdf:resource="http://identifiers.org/chebi/CHEBI:39123" />
-            </rdf:Description>
-          </semsim:physicalPropertyOf>
-          <semsim:refersTo rdf:resource="http://identifiers.org/opb/OPB_00340" />
-        </rdf:Description>
-      </semsim:isComputationalComponentFor>
-    </rdf:Description>
-	
-	<rdf:Description rdf:ID="v4">
-          <bqbiol:identity rdf:resource="http://identifiers.org/opb/OPB_01361" />
-    </rdf:Description>
-	
-	<rdf:Description rdf:ID="v5">
-          <bqbiol:identity rdf:resource="http://identifiers.org/opb/OPB_00268" />
-    </rdf:Description>
-	
-  </rdf:RDF>
-
 
 </model>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xml:base="file:///H:/bindschadler_sneyd_2001/bindschadler_sneyd_2001.cellml" cmeta:id="bindschadler_sneyd_2001" name="bindschadler_sneyd_2001">
+<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" cmeta:id="bindschadler_sneyd_2001" name="bindschadler_sneyd_2001">
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
   <articleinfo>
@@ -72,10 +72,15 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
   </component>
   
   <component cmeta:id="h1" name="h1">
-     
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#h1">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">h1</dc:title>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">receptor concentration in cell 1</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF> 
 	<variable name="time" public_interface="in" units="second"/>
     <variable name="phi3_c1" public_interface="in" units="per_second"/>
-    <variable cmeta:id="id_00001" initial_value="0.8" name="h1" public_interface="out" units="dimensionless"/>
+    <variable initial_value="0.8" name="h1" public_interface="out" units="dimensionless"/>
     <variable name="phi1_c1" public_interface="in" units="second_order_rate"/>
     <variable name="phi2_c1" public_interface="in" units="per_second"/>
     <variable name="p" public_interface="in" units="micro_molar"/>
@@ -126,10 +131,15 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
   </component>
   
   <component cmeta:id="h2" name="h2">
-     
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#h2">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">h2</dc:title>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">receptor concentration in cell 2</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF> 
     <variable name="time" public_interface="in" units="second"/>
     <variable name="phi3_c2" public_interface="in" units="per_second"/>
-    <variable cmeta:id="id_00002" initial_value="0.1" name="h2" public_interface="out" units="dimensionless"/>
+    <variable initial_value="0.1" name="h2" public_interface="out" units="dimensionless"/>
     <variable name="phi1_c2" public_interface="in" units="second_order_rate"/>
     <variable name="phi2_c2" public_interface="in" units="per_second"/>
     <variable name="p" public_interface="in" units="micro_molar"/>
@@ -180,7 +190,12 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
   </component>
   
   <component cmeta:id="phi" name="phi">
-     
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#phi">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">phi</dc:title>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">rate functions</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF> 
     <variable name="phi1_c1" public_interface="out" units="second_order_rate"/>
     <variable name="phi_1_c1" public_interface="out" units="per_second"/>
     <variable name="phi2_c1" public_interface="out" units="per_second"/>
@@ -332,13 +347,18 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
   </component>
   
   <component cmeta:id="j_pump" name="j_pump">
-     
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#j_pump">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">j_pump</dc:title>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">Ca2+ ATPase pump</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF> 
     <variable name="Vp" public_interface="in" units="micro_molar_per_second"/>
     <variable name="c1" public_interface="in" units="micro_molar"/>
     <variable name="c2" public_interface="in" units="micro_molar"/>
     <variable name="Kp" public_interface="in" units="micro_molar"/>
     <variable cmeta:id="j_pump_j_pump_c1" name="j_pump_c1" public_interface="out" units="micro_molar_per_second"/>
-    <variable cmeta:id="id_00003" name="j_pump_c2" public_interface="out" units="micro_molar_per_second"/>
+    <variable name="j_pump_c2" public_interface="out" units="micro_molar_per_second"/>
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="j_pump_c1">
       <apply>
         <eq/>
@@ -404,7 +424,12 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
   </component>
   
   <component cmeta:id="j_receptor" name="j_receptor">
-     
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#j_receptor">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">j_receptor</dc:title>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">IP3 receptor</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF> 
     <variable name="kf" public_interface="in" units="micro_molar_per_second"/>
     <variable name="p" public_interface="in" units="micro_molar"/>
     <variable name="h1" public_interface="in" units="dimensionless"/>
@@ -413,7 +438,7 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
     <variable name="phi_1_c1" public_interface="in" units="per_second"/>
     <variable name="phi_1_c2" public_interface="in" units="per_second"/>
     <variable cmeta:id="j_receptor_j_receptor_c1" name="j_receptor_c1" public_interface="out" units="micro_molar_per_second"/>
-    <variable cmeta:id="id_00009" name="j_receptor_c2" public_interface="out" units="micro_molar_per_second"/>
+    <variable name="j_receptor_c2" public_interface="out" units="micro_molar_per_second"/>
 	<variable name="h2" public_interface="in" units="dimensionless"/>
   
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="j_receptor_c1">
@@ -483,7 +508,12 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
   </component>
   
   <component cmeta:id="j_diffusion" name="j_diffusion">
-     
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#j_diffusion">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">j_diffusion</dc:title>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">calcium diffusion</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF> 
     <variable name="j_diffusion" public_interface="out" units="micro_molar_per_second"/>
     <variable name="D" public_interface="in" units="per_second"/>
     <variable name="c1" public_interface="in" units="micro_molar"/>
@@ -506,11 +536,16 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
   </component>
   
   <component cmeta:id="c1" name="c1">
-     
-    <variable cmeta:id="id_00004" initial_value="0.3" name="c1" public_interface="out" units="micro_molar"/>
-    <variable cmeta:id="id_00006" name="j_receptor_c1" public_interface="in" units="micro_molar_per_second"/>
-    <variable cmeta:id="id_00007" name="j_pump_c1" public_interface="in" units="micro_molar_per_second"/>
-    <variable cmeta:id="id_00008" name="j_leak" public_interface="in" units="micro_molar_per_second"/>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#c1">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">c1</dc:title>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">calcium concentration in cell 1</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF> 
+    <variable initial_value="0.3" name="c1" public_interface="out" units="micro_molar"/>
+    <variable name="j_receptor_c1" public_interface="in" units="micro_molar_per_second"/>
+    <variable name="j_pump_c1" public_interface="in" units="micro_molar_per_second"/>
+    <variable name="j_leak" public_interface="in" units="micro_molar_per_second"/>
     <variable name="j_diffusion" public_interface="in" units="micro_molar_per_second"/>
 	<variable name="time" public_interface="in" units="second"/>
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="d(c1)/d(time)">
@@ -538,11 +573,16 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
   </component>
   
   <component cmeta:id="c2" name="c2">
-     
-    <variable cmeta:id="id_00005" initial_value="0.1" name="c2" public_interface="out" units="micro_molar"/>
-    <variable cmeta:id="id_00007" name="j_receptor_c2" public_interface="in" units="micro_molar_per_second"/>
-    <variable cmeta:id="id_00006" name="j_pump_c2" public_interface="in" units="micro_molar_per_second"/>
-    <variable cmeta:id="id_00007" name="j_leak" public_interface="in" units="micro_molar_per_second"/>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="#c2">
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">c2</dc:title>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">calcium concentration in cell 2</dcterms:alternative>  
+      </rdf:Description>
+    </rdf:RDF> 
+    <variable initial_value="0.1" name="c2" public_interface="out" units="micro_molar"/>
+    <variable name="j_receptor_c2" public_interface="in" units="micro_molar_per_second"/>
+    <variable name="j_pump_c2" public_interface="in" units="micro_molar_per_second"/>
+    <variable name="j_leak" public_interface="in" units="micro_molar_per_second"/>
     <variable name="j_diffusion" public_interface="in" units="micro_molar_per_second"/>
 	<variable name="time" public_interface="in" units="second"/>
     <math xmlns="http://www.w3.org/1998/Math/MathML" id="d(c2)/d(time)">
@@ -713,5 +753,154 @@ Schematic diagram of the IP3 receptor model.  The receptor with its three possib
   </connection>
 
 
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Bag rdf:about="rdf:#0984ce3e-f973-40db-b74c-c1ae2db99b8e">
+    <rdf:li>bifurcation</rdf:li>
+    <rdf:li>oscillator</rdf:li>
+    <rdf:li>calcium dynamics</rdf:li>
+  </rdf:Bag>
+  <rdf:Seq rdf:about="rdf:#de8449ff-b4b5-4dff-87c5-eaf3c9f7cf5d">
+    <rdf:li rdf:resource="rdf:#15671e0c-2590-4ad0-aa86-72fb2e846bb3"/>
+    <rdf:li rdf:resource="rdf:#c95a2e51-3a66-41ef-8656-35229b6cd4d8"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#1a7bfc41-b4b7-4d7b-897e-04d16dbaaaff">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#de8449ff-b4b5-4dff-87c5-eaf3c9f7cf5d"/>
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A Bifurcation Analysis of Two Coupled Calcium Oscillators</dc:title>
+    <bqs:volume xmlns:bqs="http://www.cellml.org/bqs/1.0#">11</bqs:volume>
+    <bqs:first_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">237</bqs:first_page>
+    <bqs:Journal xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#e984bfb8-fe44-49b5-9a73-6eed0716afd8"/>
+    <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#8b259212-c93b-4d73-880f-f4196e852e70"/>
+    <bqs:last_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">246</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9bcc4947-9c78-47c5-aa66-8b0418293b07">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2007-12-06T14:07:34+13:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7a7077c2-db65-48b8-9710-5ac567ba66d9">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2004-03-14T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#df80a4bf-a518-44b3-ae25-206aacbd8f83">
+    <bqs:Pubmed_id xmlns:bqs="http://www.cellml.org/bqs/1.0#">12779457</bqs:Pubmed_id>
+    <bqs:JournalArticle xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#1a7bfc41-b4b7-4d7b-897e-04d16dbaaaff"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#49c5a7c9-2c51-4e11-92ea-47cd30b4e70b">
+    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">James Lawson</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f35cccde-ccfe-4150-8232-0c57ac47865f">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#49c5a7c9-2c51-4e11-92ea-47cd30b4e70b"/>
+    <rdf:value>This model has been curated and is known to run in PCEnv. The model is able to produce oscillating output similar to that shown in figures from the publication.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2e4d42b3-7f5d-45ea-90bc-7ef76b410554">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#42850c29-35cd-4245-8e59-1ddefdb54712">
+    <bqs:subject_type xmlns:bqs="http://www.cellml.org/bqs/1.0#">keyword</bqs:subject_type>
+    <rdf:value rdf:resource="rdf:#0984ce3e-f973-40db-b74c-c1ae2db99b8e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#957cfa89-3116-450e-bbe9-7df9ee9426e6">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">James</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Lawson</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f614dcd8-c814-4efb-9d7a-9b8b0327a3c1">
+    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">The University of Auckland, Auckland Bioengineering Institute</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#f35cccde-ccfe-4150-8232-0c57ac47865f"/>
+    <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#7a7077c2-db65-48b8-9710-5ac567ba66d9"/>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#9abd4459-6dec-4999-a3bb-3d66e8027fb7"/>
+    <cmeta:modification rdf:resource="rdf:#ccc38e4f-5767-4bd6-8196-a70b633111af"/>
+    <cmeta:modification rdf:resource="rdf:#b4886dbe-f37b-43fb-acb9-b0b8026f23fd"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e69d4683-efa8-4315-9c97-7b3f505fea2f">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Catherine</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Lloyd</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d2bcd970-a58c-4258-ac32-8937c3d4b1e3">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Michael</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Bindschadler</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#88f1c7e4-3b31-448c-a925-132833c561f3">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2009-05-28T14:54:14+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#928b4679-4c03-4745-be3c-b84d590156a6">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Vignesh</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Kumar</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9abd4459-6dec-4999-a3bb-3d66e8027fb7">
+    <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#309e7922-78cb-4837-8b97-05a213fe7ca0"/>
+    <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#2e4d42b3-7f5d-45ea-90bc-7ef76b410554"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#e69d4683-efa8-4315-9c97-7b3f505fea2f"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d0921c45-1ac1-4a88-b7f6-37b221f9c9bd">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#f614dcd8-c814-4efb-9d7a-9b8b0327a3c1"/>
+    <rdf:value>This is the CellML description of Bindschadler and Sneyd's bifurcation analysis of two coupled calcium oscillators.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="#bindschadler_sneyd_2001">
+    <ns7:simulation xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" rdf:resource="rdf:#$bQgES"/>
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Bindschadler and Sneyd's bifurcation analysis of two coupled calcium oscillators.</dc:title>
+    <cmeta:comment rdf:resource="rdf:#d0921c45-1ac1-4a88-b7f6-37b221f9c9bd"/>
+    <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#87f97fb5-0e18-4aaf-a14f-15cf01e848e6"/>
+    <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#df80a4bf-a518-44b3-ae25-206aacbd8f83"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#87f97fb5-0e18-4aaf-a14f-15cf01e848e6">
+    <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#42850c29-35cd-4245-8e59-1ddefdb54712"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e984bfb8-fe44-49b5-9a73-6eed0716afd8">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Chaos</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c95a2e51-3a66-41ef-8656-35229b6cd4d8">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#29569aeb-7683-4299-b932-8282c913a5c3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c4116453-0d7f-44af-b629-9ff21e7465d6">
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#928b4679-4c03-4745-be3c-b84d590156a6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#309e7922-78cb-4837-8b97-05a213fe7ca0">
+    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Auckland Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#29569aeb-7683-4299-b932-8282c913a5c3">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">James</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Sneyd</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$bQgES">
+    <ns7:boundIntervals xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" rdf:resource="rdf:#$cQgES"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e85662ee-d064-4750-93fa-ffdaa0305550">
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#957cfa89-3116-450e-bbe9-7df9ee9426e6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ccc38e4f-5767-4bd6-8196-a70b633111af">
+    <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#88f1c7e4-3b31-448c-a925-132833c561f3"/>
+    <rdf:value>Fixed duplicate connections
 
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="#h1"><title xmlns="http://purl.org/dc/elements/1.1/" xml:lang="en">h1</title><alternative xmlns="http://purl.org/dc/terms/" xml:lang="en">receptor concentration in cell 1</alternative></rdf:Description><rdf:Description rdf:about="#h2"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0004872"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/cl/CL:0000197"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0043235"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0004872"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/cl/CL:0000197"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0043235"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0004872"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/cl/CL:0000197"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0043235"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#j_pump"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0060401"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#j_pump_j_pump_c1"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0060401"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#c2"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#c1"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#j_receptor"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#j_receptor_j_receptor_c1"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005220"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#model_parameters_j_leak"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description></rdf:RDF></model>
+Fixed CellML 1.0/1.1 namespace mixing
+
+Updated documentation, curation status</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#e85662ee-d064-4750-93fa-ffdaa0305550"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#15671e0c-2590-4ad0-aa86-72fb2e846bb3">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#d2bcd970-a58c-4258-ac32-8937c3d4b1e3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$dQgES">
+    <ns7:endingValue xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#">50</ns7:endingValue>
+    <ns7:nonstandard-pointDensity xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#">100000</ns7:nonstandard-pointDensity>
+    <ns7:maximumStepSize xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#">0.001</ns7:maximumStepSize>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8b259212-c93b-4d73-880f-f4196e852e70">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2001-03</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$cQgES">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="rdf:#$dQgES"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b4886dbe-f37b-43fb-acb9-b0b8026f23fd">
+    <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#9bcc4947-9c78-47c5-aa66-8b0418293b07"/>
+    <rdf:value>Recoded model using parameters used by Biomodels Database as a guide</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#c4116453-0d7f-44af-b629-9ff21e7465d6"/>
+  </rdf:Description>
+</rdf:RDF>
+</model>

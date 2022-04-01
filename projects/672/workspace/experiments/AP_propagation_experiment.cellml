@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <model name="AP_propagation_experiment" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- run action potential propagation experiments-->
-    <import xlink:href="../cellLib/Components/units.cellml">
+    <import xlink:href="../components/units.cellml">
         <units name="ms" units_ref="ms"/>
         <units name="per_ms" units_ref="per_ms"/>
         <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
@@ -11,14 +11,12 @@
     <import xlink:href="../components/propagated_AP.cellml">
         <component component_ref="propagated_AP" name="propagated_AP"/>
     </import>
-    <import xlink:href="../cellLib/Components/time.cellml">
-        <component component_ref="time_ms" name="time"/>
+    <import xlink:href="time.cellml">
+        <component component_ref="time" name="time"/>
     </import>
     <import xlink:href="../components/default-variable-values.cellml">
         <component component_ref="parameters" name="default_parameters_cell"/>
-    </import>
-    <import xlink:href="../components/gate_initials.cellml">
-        <component component_ref="gate_initials" name="gate_initials"/>
+        <component component_ref="initial_conditions" name="default_initial_conditions"/>
     </import>
     <!-- Connect the time source variable to the model-->
     <connection>
@@ -27,16 +25,13 @@
     </connection>
     <!-- Here we could define any parameters that we want to differ from the default -->
     <component name="parameters">
-        <variable initial_value="18.5" name="T" private_interface="out" public_interface="out" units="kelvin"/>
+        <variable initial_value="18.5" name="T" private_interface="out" public_interface="out" units="kelvin" />
     </component>
     <component name="parameters_propagation">
         <variable initial_value="10.47" name="K" private_interface="out" public_interface="out" units="per_ms"/>
     </component>
-    <component name="boundary_conditions">
-        <variable initial_value="0.0" name="V_b" private_interface="out" public_interface="out" units="mV"/>
-    </component>
     <component name="initial_conditions">
-        <variable initial_value="0.1" name="V_initial" private_interface="out" public_interface="out" units="mV"/>
+        <variable initial_value="0" name="V_initial" private_interface="out" public_interface="out" units="mV"/>
     </component>
     <!-- We connect the default values through to the model -->
     <connection>
@@ -48,10 +43,6 @@
         <map_variables variable_1="gNa_max" variable_2="gNa_max"/>
         <map_variables variable_1="gK_max" variable_2="gK_max"/>
         <map_variables variable_1="gleak_max" variable_2="gleak_max"/>
-        <map_variables variable_1="T0Na" variable_2="T0Na"/>
-        <map_variables variable_1="Q10Na" variable_2="Q10Na"/>
-        <map_variables variable_1="T0K" variable_2="T0K"/>
-        <map_variables variable_1="Q10K" variable_2="Q10K"/>
     </connection>
     <connection>
         <map_components component_1="propagated_AP" component_2="parameters_propagation"/>
@@ -62,13 +53,9 @@
         <map_components component_1="propagated_AP" component_2="parameters"/>
         <map_variables variable_1="T" variable_2="T"/>
     </connection>
-    <connection>
-        <map_components component_1="boundary_conditions" component_2="gate_initials"/>
-        <map_variables variable_1="V_b" variable_2="V_b"/>
-    </connection>
     <!-- similarly for the initial conditions -->
     <connection>
-        <map_components component_1="propagated_AP" component_2="gate_initials"/>
+        <map_components component_1="propagated_AP" component_2="default_initial_conditions"/>
         <map_variables variable_1="m_initial" variable_2="m_initial"/>
         <map_variables variable_1="h_initial" variable_2="h_initial"/>
         <map_variables variable_1="n_initial" variable_2="n_initial"/>

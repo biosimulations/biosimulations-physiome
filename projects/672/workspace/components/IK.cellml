@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <model name="IK" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <import xlink:href="../cellLib/Components/units.cellml">
+    <import xlink:href="units.cellml">
         <units name="ms" units_ref="ms"/>
         <units name="mV" units_ref="mV"/>
         <units name="per_ms" units_ref="per_ms"/>
@@ -8,12 +8,15 @@
         <units name="uA_per_cmsq" units_ref="uA_per_cmsq"/>
         <units name="mS_per_cmsq" units_ref="mS_per_cmsq"/>
     </import>
-    <import xlink:href="../cellLib/Components/gating-variable.cellml">
+    <import xlink:href="gating-variable.cellml">
         <component component_ref="hh_gating_variable" name="n_gate"/>
     </import>
     <import xlink:href="IK-gating-rates.cellml">
         <component component_ref="alpha_n" name="alpha_n"/>
         <component component_ref="beta_n" name="beta_n"/>
+    </import>
+    <import xlink:href="temperature_factor.cellml">
+        <component component_ref="temperature_factor" name="temperature_factor"/>
     </import>
     <component name="IK">
         <variable name="IK" private_interface="out" public_interface="out" units="uA_per_cmsq"/>
@@ -24,9 +27,7 @@
         <variable name="VK" private_interface="out" public_interface="in" units="mV"/>
         <variable name="gK" private_interface="out" public_interface="out" units="mS_per_cmsq"/>
         <variable name="gK_max" private_interface="out" public_interface="in" units="mS_per_cmsq"/>
-        <variable name="T" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="T0K" private_interface="out" public_interface="in" units="kelvin"/>
-        <variable name="Q10K" private_interface="out" public_interface="in" units="dimensionless"/>
+        <variable name="T" private_interface="out" public_interface="in" units="kelvin" />
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply id="IK_calculation">
                 <eq/>
@@ -62,16 +63,26 @@
             <component_ref component="alpha_n"/>
             <component_ref component="beta_n"/>
             <component_ref component="n_gate"/>
+            <component_ref component="temperature_factor"/>
         </component_ref>
     </group>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="IK"/>
+        <map_variables variable_1="T" variable_2="T"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="alpha_n"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
+    <connection>
+        <map_components component_1="temperature_factor" component_2="beta_n"/>
+        <map_variables variable_1="phi" variable_2="phi"/>
+    </connection>
     <connection>
         <map_components component_1="IK" component_2="n_gate"/>
         <map_variables variable_1="time" variable_2="time"/>
         <map_variables variable_1="n_initial" variable_2="X_initial"/>
         <map_variables variable_1="n" variable_2="X"/>
-        <map_variables variable_1="T0K" variable_2="T_0"/>
-        <map_variables variable_1="Q10K" variable_2="Q_10"/>
-        <map_variables variable_1="T" variable_2="T"/>
     </connection>
     <connection>
         <map_components component_1="IK" component_2="alpha_n"/>

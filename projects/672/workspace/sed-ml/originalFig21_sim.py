@@ -21,7 +21,7 @@ simulation = oc.open_simulation(simfile)
 data = simulation.data()
 
 # Define the interval of interest for this simulation experiment
-start, end, pointInterval = 0, 100, 0.01
+start, end, pointInterval = 0, 10, 0.001
 data.set_starting_point(start)
 data.set_ending_point(end)
 data.set_point_interval(pointInterval)

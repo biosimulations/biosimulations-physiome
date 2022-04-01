@@ -15,10 +15,10 @@ simulation = oc.open_simulation(simfile)
 # and pointers to the OpenCOR internal data representations
 data = simulation.data()
 # Set the experiments
-Vholding, t_ss = -80, 0
+Vholding, t_ss = -80, 3
 duration = 1
 Nai=[16.55]
-Cai_init = 130e-6
+Cai_init = 0.1e-3
 inhPump = 1
 Vtest = 0
 # Define the interval of interest for this simulation experiment

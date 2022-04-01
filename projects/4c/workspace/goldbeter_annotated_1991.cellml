@@ -33,7 +33,7 @@ The original paper reference is cited below:
           A minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase, Albert Goldbeter, 1991, <emphasis>Proceedings of the National Academy of Sciences</emphasis>, 88, 9107-9111. <ulink url="http://www.ncbi.nlm.nih.gov/pubmed/1833774">PubMed ID: 1833774</ulink>
         </para>
         
-        <informalfigure float="0" id="fig_reaction_diagram">
+		<informalfigure float="0" id="fig_reaction_diagram">
           <mediaobject>
             <imageobject>
               <objectinfo>
@@ -68,19 +68,23 @@ The original paper reference is cited below:
   </component>
   
   <component cmeta:id="C" name="C">
-    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
       <rdf:Description rdf:about="#C">
         <dc:title>C</dc:title>
         <dcterms:alternative>cyclin concentration</dcterms:alternative>  
       </rdf:Description>
     </rdf:RDF> 
     <variable units="micromolar" public_interface="out" cmeta:id="C_C" name="C" initial_value="0.01">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+	  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
       <rdf:Description rdf:about="#C_C">
-        <bqbiol:isVersionOf rdf:resource="http://identifiers.org/uniprot/Q4KLA0"/>
-        <bqbiol:isVersionOf rdf:resource="http://identifiers.org/interpro/IPR006670"/>
-        <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000252"/>
-      </rdf:Description>
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:uniprot:Q4KLA0"/>
+            <rdf:li rdf:resource="urn:miriam:interpro:IPR006670"/>
+			<rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000252"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
       </rdf:RDF> 
     </variable>
     <variable units="dimensionless" public_interface="in" name="X"/>
@@ -88,7 +92,7 @@ The original paper reference is cited below:
     <variable units="micromolar" public_interface="in" name="Kd"/>
     <variable units="flux" public_interface="in" name="vi"/>
     <variable units="flux" public_interface="in" name="vd"/>
-    <variable units="minute" public_interface="in" name="time"/>
+	<variable units="minute" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
@@ -131,28 +135,32 @@ The original paper reference is cited below:
   </component>
   
   <component cmeta:id="M" name="M">
-    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#M">
         <dc:title>M</dc:title>
-        <dcterms:alternative>fraction of active cdc2 kinase</dcterms:alternative>  
+          <dcterms:alternative>fraction of active cdc2 kinase</dcterms:alternative>  
       </rdf:Description>
     </rdf:RDF> 
     <variable units="dimensionless" public_interface="out" cmeta:id="M_M" name="M" initial_value="0.01">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#M_M">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/uniprot/P24033"/>
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/uniprot/P35567"/>
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000252"/>
-        </rdf:Description>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#M_M">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:uniprot:P24033"/>
+            <rdf:li rdf:resource="urn:miriam:uniprot:P35567"/>
+			<rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000252"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
       </rdf:RDF> 
     </variable>
     
-    <variable units="dimensionless" public_interface="in" name="M_star" cmeta:id="M_M_"/>
+	<variable units="dimensionless" public_interface="in" name="M_star" cmeta:id="M_M_"/>
     <variable units="first_order_rate_constant" public_interface="in" name="V1"/>
     <variable units="first_order_rate_constant" public_interface="in" name="V2"/>
     <variable units="dimensionless" public_interface="in" name="K1"/>
     <variable units="dimensionless" public_interface="in" name="K2"/>
-    <variable units="minute" public_interface="in" name="time"/>
+	<variable units="minute" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
@@ -198,25 +206,29 @@ The original paper reference is cited below:
   </component>
   
   <component cmeta:id="M_star" name="M_star">
-    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#M_star">
         <dc:title>M_star</dc:title>
-        <dcterms:alternative>fraction of inactive cdc2 kinase</dcterms:alternative>  
+          <dcterms:alternative>fraction of inactive cdc2 kinase</dcterms:alternative>  
       </rdf:Description>
     </rdf:RDF> 
     <variable units="dimensionless" public_interface="out" name="M_star" cmeta:id="M_M_" >
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#M_M_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/uniprot/P24033"/>
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/uniprot/P35567"/>
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000252"/>
-        </rdf:Description>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#M_M_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:uniprot:P24033"/>
+            <rdf:li rdf:resource="urn:miriam:uniprot:P35567"/>
+			<rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000252"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
       </rdf:RDF> 
     </variable>
+	
+	<variable units="dimensionless" public_interface="in" cmeta:id="M_M" name="M"/>
     
-    <variable units="dimensionless" public_interface="in" cmeta:id="M_M" name="M"/>
-    
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	<math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <eq/>
         <ci>M_star</ci>
@@ -230,28 +242,36 @@ The original paper reference is cited below:
   </component>
   
   <component cmeta:id="X" name="X">
-    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#X">
         <dc:title>X</dc:title>
-        <dcterms:alternative>fraction of active cyclin protease</dcterms:alternative>  
+          <dcterms:alternative>fraction of active cyclin protease</dcterms:alternative>  
       </rdf:Description>
     </rdf:RDF> 
     <variable units="dimensionless" public_interface="out" cmeta:id="X_X" name="X" initial_value="0.01">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#X_X">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.go/GO:0005680"/>
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000297"/>
-          <bqbiol:hasVersion rdf:resource="http://identifiers.org/reactome/REACT_7165.1"/>
-        </rdf:Description>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#X_X">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.go:GO%3A0005680"/>
+			<rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000297"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+		<bqbiol:hasVersion>
+		  <rdf:Bag>
+		    <rdf:li rdf:resource="urn:miriam:reactome:REACT_7165.1"/>
+		  </rdf:Bag>
+		</bqbiol:hasVersion>
+      </rdf:Description>
       </rdf:RDF> 
     </variable>
     
-    <variable units="dimensionless" public_interface="in" name="X_star" cmeta:id="X_X_"/>
+	<variable units="dimensionless" public_interface="in" name="X_star" cmeta:id="X_X_"/>
     <variable units="first_order_rate_constant" public_interface="in" name="V3"/>
     <variable units="first_order_rate_constant" public_interface="in" name="V4"/>
     <variable units="dimensionless" public_interface="in" name="K3"/>
     <variable units="dimensionless" public_interface="in" name="K4"/>
-    <variable units="minute" public_interface="in" name="time"/>
+	<variable units="minute" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
@@ -297,24 +317,32 @@ The original paper reference is cited below:
   </component>
   
   <component cmeta:id="X_star" name="X_star">
-    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#X_star">
         <dc:title>X_star</dc:title>
-        <dcterms:alternative>fraction of inactive cyclin protease</dcterms:alternative>  
+          <dcterms:alternative>fraction of inactive cyclin protease</dcterms:alternative>  
       </rdf:Description>
     </rdf:RDF> 
     <variable units="dimensionless" public_interface="out" name="X_star" cmeta:id="X_X_">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#X_X_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.go/GO:0005680"/>
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000297"/>
-          <bqbiol:hasVersion rdf:resource="http://identifiers.org/reactome/REACT_7165.1"/>
-        </rdf:Description>
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#X_X_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.go:GO%3A0005680"/>
+			<rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000297"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+		<bqbiol:hasVersion>
+		  <rdf:Bag>
+		    <rdf:li rdf:resource="urn:miriam:reactome:REACT_7165.1"/>
+		  </rdf:Bag>
+		</bqbiol:hasVersion>
+      </rdf:Description>
       </rdf:RDF> 
     </variable>
     <variable units="dimensionless" public_interface="in" cmeta:id="X_X" name="X"/>
     
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	<math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <eq/>
         <ci>X_star</ci>
@@ -329,129 +357,189 @@ The original paper reference is cited below:
   
   <component name="model_parameters">
     <variable units="flux" public_interface="out" name="vi" cmeta:id="vi_" initial_value="0.025">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#vi_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000048"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#vi_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000048"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="flux" public_interface="out" name="vd" cmeta:id="vd_" initial_value="0.25">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#vd_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000186"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#vd_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000186"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="first_order_rate_constant" public_interface="out" name="kd" cmeta:id="kd_" initial_value="0.01">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#kd_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000022"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#kd_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000022"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="micromolar" public_interface="out" name="Kd" cmeta:id="Kd_" initial_value="0.02">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#Kd_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000027"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#Kd_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000027"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="micromolar" public_interface="out" name="Kc" cmeta:id="kc_" initial_value="0.5">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#kc_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000027"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#kc_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000027"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
     
-    <variable units="dimensionless" public_interface="out" name="K1" cmeta:id="K1_" initial_value="0.005">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#K1_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000027"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<variable units="dimensionless" public_interface="out" name="K1" cmeta:id="K1_" initial_value="0.005">
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#K1_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000027"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="dimensionless" public_interface="out" name="K2" cmeta:id="K2_" initial_value="0.005">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#K2_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000027"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#K2_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000027"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="dimensionless" public_interface="out" name="K3" cmeta:id="K3_" initial_value="0.005">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#K3_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000027"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#K3_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000027"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="dimensionless" public_interface="out" name="K4" cmeta:id="K4_" initial_value="0.005">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#K4_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000027"/>
-        </rdf:Description>
-      </rdf:RDF> 
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#K4_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000027"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
-    <variable units="first_order_rate_constant" public_interface="out" name="V1" cmeta:id="V1_">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#V1_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000186"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	
+	<variable units="first_order_rate_constant" public_interface="out" name="V1" cmeta:id="V1_">
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#V1_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000186"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="first_order_rate_constant" public_interface="out" name="V2" cmeta:id="V2_" initial_value="1.5">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#V2_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000186"/>
-        </rdf:Description>
-      </rdf:RDF> 
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#V2_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000186"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
-    <variable units="first_order_rate_constant" public_interface="out" name="V3" cmeta:id="V3_">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#V3_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000186"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	
+	<variable units="first_order_rate_constant" public_interface="out" name="V3" cmeta:id="V3_">
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#V3_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000186"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="first_order_rate_constant" public_interface="out" name="V4" cmeta:id="V4_" initial_value="0.5">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#V4_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000186"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#V4_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000186"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="first_order_rate_constant" public_interface="out" name="VM1" cmeta:id="VM1_" initial_value="3">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#VM1_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000025"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#VM1_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000025"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
+	
     <variable units="first_order_rate_constant" public_interface="out" name="VM3" cmeta:id="VM3_" initial_value="1">
-      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
-        <rdf:Description rdf:about="#VM1_">
-          <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.sbo/SBO:0000186"/>
-        </rdf:Description>
-      </rdf:RDF> 
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+      <rdf:Description rdf:about="#VM1_">
+        <bqbiol:isVersionOf>
+          <rdf:Bag>
+            <rdf:li rdf:resource="urn:miriam:obo.sbo:sbo%3A0000186"/>
+          </rdf:Bag>
+        </bqbiol:isVersionOf>
+	  </rdf:Description>
+    </rdf:RDF> 
     </variable>
-    
-    <variable units="micromolar" public_interface="in" name="C"/>
+	
+	<variable units="micromolar" public_interface="in" name="C"/>
     <variable units="dimensionless" public_interface="in" name="M"/>
     
-    <math xmlns="http://www.w3.org/1998/Math/MathML">
+	<math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <eq/>
         <ci>V1</ci>
@@ -496,12 +584,12 @@ The original paper reference is cited below:
   <connection>
     <map_components component_2="M" component_1="M_star"/>
     <map_variables variable_2="M" variable_1="M"/>
-    <map_variables variable_2="M_star" variable_1="M_star"/>
+	<map_variables variable_2="M_star" variable_1="M_star"/>
   </connection>
   <connection>
     <map_components component_2="X" component_1="X_star"/>
     <map_variables variable_2="X" variable_1="X"/>
-    <map_variables variable_2="X_star" variable_1="X_star"/>
+	<map_variables variable_2="X_star" variable_1="X_star"/>
   </connection>
   <connection>
     <map_components component_2="model_parameters" component_1="C"/>
@@ -532,7 +620,7 @@ The original paper reference is cited below:
   </connection>
 
 
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
     
     <rdf:Description rdf:about="">
       <dc:title>A minimal cascade model for the mitotic oscillator involving cyclin and cdc2 kinase (Model with MIRIAM annotations)</dc:title>
@@ -562,7 +650,7 @@ The original paper reference is cited below:
               <rdf:li>oscillator</rdf:li>
               <rdf:li>cell cycle</rdf:li>
               <rdf:li>cyclin</rdf:li>
-              <rdf:li>kinase</rdf:li>
+			  <rdf:li>kinase</rdf:li>
             </rdf:Bag>
           </rdf:value>
         </dc:subject>
@@ -578,7 +666,7 @@ The original paper reference is cited below:
                   <vCard:N rdf:parseType="Resource">
                     <vCard:Family>Goldbeter</vCard:Family>
                     <vCard:Given>A</vCard:Given>
-                  </vCard:N>
+			      </vCard:N>
                 </bqs:Person>
               </rdf:li>
             </rdf:Seq>
@@ -592,17 +680,33 @@ The original paper reference is cited below:
           <bqs:Journal rdf:parseType="Resource">
             <dc:title>Proceedings of the National Academy of Sciences USA</dc:title>
           </bqs:Journal>
-          <bqs:volume>88</bqs:volume>
+		  <bqs:volume>88</bqs:volume>
           <bqs:first_page>9107</bqs:first_page>
           <bqs:last_page>9111</bqs:last_page>
         </bqs:JournalArticle>
       </bqs:reference>
-      
-       <bqbiol:isDescribedBy rdf:resource="http://identifiers.org/pubmed/1833774"/>
-       <bqbiol:isHomologTo rdf:resource="http://identifiers.org/reactome/REACT_152"/>
-       <bqbiol:isVersionOf rdf:resource="http://identifiers.org/kegg.pathway/hsa04110"/>
-       <bqbiol:isVersionOf rdf:resource="http://identifiers.org/obo.go/GO:0000278"/>
-       <bqbiol:is rdf:resource="http://identifiers.org/taxonomy/8292"/>
+	  
+	  <bqmodel:isDescribedBy>
+         <rdf:Bag>
+           <rdf:li rdf:resource="urn:miriam:pubmed:1833774"/>
+         </rdf:Bag>
+       </bqmodel:isDescribedBy>
+       <bqbiol:isHomologTo>
+         <rdf:Bag>
+           <rdf:li rdf:resource="urn:miriam:reactome:REACT_152"/>
+         </rdf:Bag>
+       </bqbiol:isHomologTo>
+       <bqbiol:isVersionOf>
+         <rdf:Bag>
+           <rdf:li rdf:resource="urn:miriam:kegg.pathway:hsa04110"/>
+           <rdf:li rdf:resource="urn:miriam:obo.go:GO%3A0000278"/>
+         </rdf:Bag>
+       </bqbiol:isVersionOf>
+       <bqbiol:is>
+         <rdf:Bag>
+           <rdf:li rdf:resource="urn:miriam:taxonomy:8292"/>
+         </rdf:Bag>
+       </bqbiol:is>
     </rdf:Description>
   </rdf:RDF>
 </model>

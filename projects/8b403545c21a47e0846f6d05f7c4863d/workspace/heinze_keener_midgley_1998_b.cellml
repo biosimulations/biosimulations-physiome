@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#"  cmeta:id="heinze_model_1998" name="heinze_keener_midgley_model_1998_version01">
+<?xml version='1.0' encoding='utf-8'?>
+<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="heinze_model_1998" name="heinze_keener_midgley_model_1998_version01">
   
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
@@ -53,47 +53,47 @@ A mathematical model of luteinizing hormone release from ovine pituitary cells i
 
   
   <units name="hour">
-    <unit multiplier="3600.0" units="second"/>
+    <unit units="second" multiplier="3600.0"/>
   </units>
 
   <units name="ng">
-    <unit prefix="nano" units="gram"/>
+    <unit units="gram" prefix="nano"/>
   </units>
 
   <units name="ng_ml">
     <unit units="ng"/>
-    <unit exponent="-1" prefix="milli" units="litre"/>
+    <unit units="litre" prefix="milli" exponent="-1"/>
   </units>
 
   <units name="nanomolar">
-    <unit prefix="nano" units="mole"/>
-    <unit exponent="-1" units="litre"/>
+    <unit units="mole" prefix="nano"/>
+    <unit units="litre" exponent="-1"/>
   </units>
 
   <units name="first_order_rate_constant">
-    <unit exponent="-1" units="hour"/>
+    <unit units="hour" exponent="-1"/>
   </units>
 
   <units name="second_order_rate_constant">
-    <unit exponent="-1" units="nanomolar"/>
-    <unit exponent="-1" units="hour"/>
+    <unit units="nanomolar" exponent="-1"/>
+    <unit units="hour" exponent="-1"/>
   </units>
   
   
   <component name="environment">
-    <variable cmeta:id="environment_time" name="time" public_interface="out" units="hour"/>
+    <variable units="hour" public_interface="out" name="time"/>
   </component>
 
   <component cmeta:id="GnRH" name="GnRH">
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#GnRH">
-        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">GnRH</dc:title>
-        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">gonadotropin-releasing hormone</dcterms:alternative>
+        <dc:title>GnRH</dc:title>
+        <dcterms:alternative>gonadotropin-releasing hormone</dcterms:alternative>
       </rdf:Description>
     </rdf:RDF>  
-    <variable cmeta:id="GnRH_GnRH" name="GnRH" public_interface="out" units="nanomolar"/>
+    <variable units="nanomolar" public_interface="out" name="GnRH"/>
     
-    <variable name="time" public_interface="in" units="hour"/>
+    <variable units="hour" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML"> 
       <apply>
@@ -101,258 +101,258 @@ A mathematical model of luteinizing hormone release from ovine pituitary cells i
         <ci> GnRH </ci>   
         <piecewise>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.5 </cn>
+            <cn cellml:units="nanomolar"> 0.5 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 0.0 </cn>
+                <cn cellml:units="hour"> 0.0 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 0.0666667 </cn>
+                <cn cellml:units="hour"> 0.0666667 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.0 </cn>
+            <cn cellml:units="nanomolar"> 0.0 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 0.0666667 </cn>
+                <cn cellml:units="hour"> 0.0666667 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 0.4 </cn>
+                <cn cellml:units="hour"> 0.4 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.5 </cn>
+            <cn cellml:units="nanomolar"> 0.5 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 0.4 </cn>
+                <cn cellml:units="hour"> 0.4 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 0.4666667 </cn>
+                <cn cellml:units="hour"> 0.4666667 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.0 </cn>
+            <cn cellml:units="nanomolar"> 0.0 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 0.4666667 </cn>
+                <cn cellml:units="hour"> 0.4666667 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 2.4666667 </cn>
+                <cn cellml:units="hour"> 2.4666667 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.5 </cn>
+            <cn cellml:units="nanomolar"> 0.5 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 2.4666667 </cn>
+                <cn cellml:units="hour"> 2.4666667 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 2.533333 </cn>
+                <cn cellml:units="hour"> 2.533333 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.0 </cn>
+            <cn cellml:units="nanomolar"> 0.0 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 2.533333 </cn>
+                <cn cellml:units="hour"> 2.533333 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 2.6166667 </cn>
+                <cn cellml:units="hour"> 2.6166667 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.5 </cn>
+            <cn cellml:units="nanomolar"> 0.5 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 2.6166667 </cn>
+                <cn cellml:units="hour"> 2.6166667 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 2.6833333 </cn>
+                <cn cellml:units="hour"> 2.6833333 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.0 </cn>
+            <cn cellml:units="nanomolar"> 0.0 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 2.6833333 </cn>
+                <cn cellml:units="hour"> 2.6833333 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 4.6833333 </cn>
+                <cn cellml:units="hour"> 4.6833333 </cn>
               </apply>
             </apply>
           </piece>
            <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.5 </cn>
+            <cn cellml:units="nanomolar"> 0.5 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 4.6833333 </cn>
+                <cn cellml:units="hour"> 4.6833333 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 4.75 </cn>
+                <cn cellml:units="hour"> 4.75 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.0 </cn>
+            <cn cellml:units="nanomolar"> 0.0 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 4.75 </cn>
+                <cn cellml:units="hour"> 4.75 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 4.916667 </cn>
+                <cn cellml:units="hour"> 4.916667 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.5 </cn>
+            <cn cellml:units="nanomolar"> 0.5 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 4.916667 </cn>
+                <cn cellml:units="hour"> 4.916667 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 4.983333 </cn>
+                <cn cellml:units="hour"> 4.983333 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.0 </cn>
+            <cn cellml:units="nanomolar"> 0.0 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 4.983333 </cn>
+                <cn cellml:units="hour"> 4.983333 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 6.983333 </cn>
+                <cn cellml:units="hour"> 6.983333 </cn>
               </apply>
             </apply>
           </piece>
            <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.5 </cn>
+            <cn cellml:units="nanomolar"> 0.5 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 6.983333 </cn>
+                <cn cellml:units="hour"> 6.983333 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 7.066667 </cn>
+                <cn cellml:units="hour"> 7.066667 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.0 </cn>
+            <cn cellml:units="nanomolar"> 0.0 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 7.066667 </cn>
+                <cn cellml:units="hour"> 7.066667 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 7.733333 </cn>
+                <cn cellml:units="hour"> 7.733333 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.5 </cn>
+            <cn cellml:units="nanomolar"> 0.5 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 7.733333 </cn>
+                <cn cellml:units="hour"> 7.733333 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 7.8 </cn>
+                <cn cellml:units="hour"> 7.8 </cn>
               </apply>
             </apply>
           </piece>
           <piece>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="nanomolar"> 0.0 </cn>
+            <cn cellml:units="nanomolar"> 0.0 </cn>
             <apply>
               <and/>
               <apply>
                 <geq/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 7.8 </cn>
+                <cn cellml:units="hour"> 7.8 </cn>
               </apply>
               <apply>
                 <lt/>
                 <ci> time </ci>
-                <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="hour"> 9.8 </cn>
+                <cn cellml:units="hour"> 9.8 </cn>
               </apply>
             </apply>
           </piece>
@@ -364,17 +364,17 @@ A mathematical model of luteinizing hormone release from ovine pituitary cells i
   <component cmeta:id="F" name="F">
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#F">
-        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">F</dc:title>
-        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">free gonadotropin-releasing hormone receptor</dcterms:alternative>
+        <dc:title>F</dc:title>
+        <dcterms:alternative>free gonadotropin-releasing hormone receptor</dcterms:alternative>
       </rdf:Description>
     </rdf:RDF>  
-    <variable cmeta:id="F_F" initial_value="1.0" name="F" public_interface="out" units="dimensionless"/>
+    <variable units="dimensionless" public_interface="out" name="F" initial_value="1.0"/>
     
-    <variable name="kfb" public_interface="in" units="second_order_rate_constant"/>
-    <variable name="kdf" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="D" public_interface="in" units="dimensionless"/>
-    <variable name="GnRH" public_interface="in" units="nanomolar"/>
-    <variable name="time" public_interface="in" units="hour"/>
+    <variable units="second_order_rate_constant" public_interface="in" name="kfb"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="kdf"/>
+    <variable units="dimensionless" public_interface="in" name="D"/>
+    <variable units="nanomolar" public_interface="in" name="GnRH"/>
+    <variable units="hour" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML"> 
       <apply>
@@ -407,16 +407,16 @@ A mathematical model of luteinizing hormone release from ovine pituitary cells i
   <component cmeta:id="D" name="D">
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#D">
-        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">D</dc:title>
-        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">desensitized gonadotropin-releasing hormone receptor</dcterms:alternative>
+        <dc:title>D</dc:title>
+        <dcterms:alternative>desensitized gonadotropin-releasing hormone receptor</dcterms:alternative>
       </rdf:Description>
     </rdf:RDF>  
-    <variable cmeta:id="D_D" initial_value="0.0" name="D" public_interface="out" units="dimensionless"/>
+    <variable units="dimensionless" public_interface="out" name="D" initial_value="0.0"/>
     
-    <variable name="kbd" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="kdf" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="B" public_interface="in" units="dimensionless"/>
-    <variable name="time" public_interface="in" units="hour"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="kbd"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="kdf"/>
+    <variable units="dimensionless" public_interface="in" name="B"/>
+    <variable units="hour" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML"> 
       <apply>
@@ -448,17 +448,17 @@ A mathematical model of luteinizing hormone release from ovine pituitary cells i
   <component cmeta:id="B" name="B">
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#B">
-        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">B</dc:title>
-        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">bound gonadotropin-releasing hormone receptor</dcterms:alternative>
+        <dc:title>B</dc:title>
+        <dcterms:alternative>bound gonadotropin-releasing hormone receptor</dcterms:alternative>
       </rdf:Description>
     </rdf:RDF>  
-    <variable cmeta:id="B_B" initial_value="0.0" name="B" public_interface="out" units="dimensionless"/>
+    <variable units="dimensionless" public_interface="out" name="B" initial_value="0.0"/>
     
-    <variable name="kfb" public_interface="in" units="second_order_rate_constant"/>
-    <variable name="kbd" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="F" public_interface="in" units="dimensionless"/>
-    <variable name="GnRH" public_interface="in" units="nanomolar"/>
-    <variable name="time" public_interface="in" units="hour"/>
+    <variable units="second_order_rate_constant" public_interface="in" name="kfb"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="kbd"/>
+    <variable units="dimensionless" public_interface="in" name="F"/>
+    <variable units="nanomolar" public_interface="in" name="GnRH"/>
+    <variable units="hour" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML"> 
       <apply>
@@ -491,16 +491,16 @@ A mathematical model of luteinizing hormone release from ovine pituitary cells i
   <component cmeta:id="R" name="R">
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#R">
-        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">R</dc:title>
-        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">releasable luteinizing hormone</dcterms:alternative>
+        <dc:title>R</dc:title>
+        <dcterms:alternative>releasable luteinizing hormone</dcterms:alternative>
       </rdf:Description>
     </rdf:RDF>  
-    <variable cmeta:id="R_R" initial_value="2115.0" name="R" public_interface="out" units="ng_ml"/>
+    <variable units="ng_ml" public_interface="out" name="R" initial_value="2115.0"/>
     
-    <variable name="a1" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="a2" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="B" public_interface="in" units="dimensionless"/>
-    <variable name="time" public_interface="in" units="hour"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="a1"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="a2"/>
+    <variable units="dimensionless" public_interface="in" name="B"/>
+    <variable units="hour" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML"> 
       <apply>
@@ -532,17 +532,17 @@ A mathematical model of luteinizing hormone release from ovine pituitary cells i
   <component cmeta:id="C" name="C">
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <rdf:Description rdf:about="#C">
-        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">C</dc:title>
-        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">total (cumulative) amount of extracellular luteinizing hormone secreted</dcterms:alternative>
+        <dc:title>C</dc:title>
+        <dcterms:alternative>total (cumulative) amount of extracellular luteinizing hormone secreted</dcterms:alternative>
       </rdf:Description>
     </rdf:RDF>  
-    <variable initial_value="0.0" name="C" public_interface="out" units="ng_ml"/>
+    <variable units="ng_ml" public_interface="out" name="C" initial_value="0.0"/>
     
-    <variable name="a1" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="a2" public_interface="in" units="first_order_rate_constant"/>
-    <variable name="B" public_interface="in" units="dimensionless"/>
-    <variable name="R" public_interface="in" units="ng_ml"/>
-    <variable name="time" public_interface="in" units="hour"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="a1"/>
+    <variable units="first_order_rate_constant" public_interface="in" name="a2"/>
+    <variable units="dimensionless" public_interface="in" name="B"/>
+    <variable units="ng_ml" public_interface="in" name="R"/>
+    <variable units="hour" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML"> 
       <apply>
@@ -572,114 +572,114 @@ A mathematical model of luteinizing hormone release from ovine pituitary cells i
   </component>
 
   <component name="model_parameters"> 
-    <variable cmeta:id="model_parameters_kfb" initial_value="19.35" name="kfb" public_interface="out" units="second_order_rate_constant"/>
-    <variable cmeta:id="model_parameters_kdf" initial_value="2.52" name="kdf" public_interface="out" units="first_order_rate_constant"/>
-    <variable cmeta:id="model_parameters_kbd" initial_value="9.91" name="kbd" public_interface="out" units="first_order_rate_constant"/>
-    <variable initial_value="0.0328" name="a1" public_interface="out" units="first_order_rate_constant"/>
-    <variable initial_value="0.0830" name="a2" public_interface="out" units="first_order_rate_constant"/>
+    <variable units="second_order_rate_constant" public_interface="out" name="kfb" initial_value="19.35"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="kdf" initial_value="2.52"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="kbd" initial_value="9.91"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="a1" initial_value="0.0328"/>
+    <variable units="first_order_rate_constant" public_interface="out" name="a2" initial_value="0.0830"/>
   </component>
 
   <connection>
-    <map_components component_1="GnRH" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="GnRH"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="F" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="F"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="D" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="D"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
 
   <connection>
-    <map_components component_1="B" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="B"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="R" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="R"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
 
   <connection>
-    <map_components component_1="C" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="C"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="F" component_2="D"/>
-    <map_variables variable_1="D" variable_2="D"/>
+    <map_components component_2="D" component_1="F"/>
+    <map_variables variable_2="D" variable_1="D"/>
   </connection>
 
   <connection>
-    <map_components component_1="F" component_2="GnRH"/>
-    <map_variables variable_1="GnRH" variable_2="GnRH"/>
+    <map_components component_2="GnRH" component_1="F"/>
+    <map_variables variable_2="GnRH" variable_1="GnRH"/>
   </connection> 
 
   <connection>
-    <map_components component_1="F" component_2="model_parameters"/>
-    <map_variables variable_1="kdf" variable_2="kdf"/>
-    <map_variables variable_1="kfb" variable_2="kfb"/>
+    <map_components component_2="model_parameters" component_1="F"/>
+    <map_variables variable_2="kdf" variable_1="kdf"/>
+    <map_variables variable_2="kfb" variable_1="kfb"/>
   </connection>
 
   <connection>
-    <map_components component_1="D" component_2="B"/>
-    <map_variables variable_1="B" variable_2="B"/>
+    <map_components component_2="B" component_1="D"/>
+    <map_variables variable_2="B" variable_1="B"/>
   </connection>
 
   <connection>
-    <map_components component_1="D" component_2="model_parameters"/>
-    <map_variables variable_1="kbd" variable_2="kbd"/>
-    <map_variables variable_1="kdf" variable_2="kdf"/>
+    <map_components component_2="model_parameters" component_1="D"/>
+    <map_variables variable_2="kbd" variable_1="kbd"/>
+    <map_variables variable_2="kdf" variable_1="kdf"/>
   </connection>
 
   <connection>
-    <map_components component_1="F" component_2="B"/>
-    <map_variables variable_1="F" variable_2="F"/>
+    <map_components component_2="B" component_1="F"/>
+    <map_variables variable_2="F" variable_1="F"/>
   </connection>
 
   <connection>
-    <map_components component_1="B" component_2="GnRH"/>
-    <map_variables variable_1="GnRH" variable_2="GnRH"/>
+    <map_components component_2="GnRH" component_1="B"/>
+    <map_variables variable_2="GnRH" variable_1="GnRH"/>
   </connection> 
 
   <connection>
-    <map_components component_1="B" component_2="model_parameters"/>
-    <map_variables variable_1="kbd" variable_2="kbd"/>
-    <map_variables variable_1="kfb" variable_2="kfb"/>
+    <map_components component_2="model_parameters" component_1="B"/>
+    <map_variables variable_2="kbd" variable_1="kbd"/>
+    <map_variables variable_2="kfb" variable_1="kfb"/>
   </connection>
 
   <connection>
-    <map_components component_1="R" component_2="B"/>
-    <map_variables variable_1="B" variable_2="B"/>
+    <map_components component_2="B" component_1="R"/>
+    <map_variables variable_2="B" variable_1="B"/>
   </connection>
 
   <connection>
-    <map_components component_1="R" component_2="model_parameters"/>
-    <map_variables variable_1="a1" variable_2="a1"/>
-    <map_variables variable_1="a2" variable_2="a2"/>
+    <map_components component_2="model_parameters" component_1="R"/>
+    <map_variables variable_2="a1" variable_1="a1"/>
+    <map_variables variable_2="a2" variable_1="a2"/>
   </connection>
 
   <connection>
-    <map_components component_1="C" component_2="B"/>
-    <map_variables variable_1="B" variable_2="B"/>
+    <map_components component_2="B" component_1="C"/>
+    <map_variables variable_2="B" variable_1="B"/>
   </connection>
 
   <connection>
-    <map_components component_1="C" component_2="R"/>
-    <map_variables variable_1="R" variable_2="R"/>
+    <map_components component_2="R" component_1="C"/>
+    <map_variables variable_2="R" variable_1="R"/>
   </connection>
 
   <connection>
-    <map_components component_1="C" component_2="model_parameters"/>
-    <map_variables variable_1="a1" variable_2="a1"/>
-    <map_variables variable_1="a2" variable_2="a2"/>
+    <map_components component_2="model_parameters" component_1="C"/>
+    <map_variables variable_2="a1" variable_1="a1"/>
+    <map_variables variable_2="a2" variable_1="a2"/>
   </connection>
 
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF>
   <rdf:Bag rdf:about="rdf:#7cd17e43-ae09-4a9a-a024-d75274fc48ca">
     <rdf:li>luteinizing hormone</rdf:li>
     <rdf:li>gonadotropin-releasing hormone</rdf:li>
@@ -692,122 +692,122 @@ A mathematical model of luteinizing hormone release from ovine pituitary cells i
     <rdf:li rdf:resource="rdf:#f0f2783c-d0c8-4969-9d1d-cf06f0f0b73d"/>
   </rdf:Seq>
   <rdf:Description rdf:about="rdf:#1b4e0baa-0aa0-4c2e-bae0-1b647e6c001b">
-    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">A</vCard:Given>
-    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Midgley</vCard:Family>
-    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">R</vCard:Other>
+    <vCard:Given>A</vCard:Given>
+    <vCard:Family>Midgley</vCard:Family>
+    <vCard:Other>R</vCard:Other>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#c63dce83-1a99-43c0-b0dd-e95bf8f04a48">
-    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2007-07-20T00:00:00+00:00</dcterms:W3CDTF>
+    <dcterms:W3CDTF>2007-07-20T00:00:00+00:00</dcterms:W3CDTF>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#f0f2783c-d0c8-4969-9d1d-cf06f0f0b73d">
     <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
-    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#1b4e0baa-0aa0-4c2e-bae0-1b647e6c001b"/>
+    <vCard:N rdf:resource="rdf:#1b4e0baa-0aa0-4c2e-bae0-1b647e6c001b"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#400e2bc2-1822-444a-bc03-deb1c297da5a">
-    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#14217c73-46a8-4c66-b47e-124c7e193e5b"/>
+    <vCard:N rdf:resource="rdf:#14217c73-46a8-4c66-b47e-124c7e193e5b"/>
   </rdf:Description>
   <rdf:Description rdf:about="#heinze_model_1998">
-    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>
         Heinze et al's 1998 mathematical model of luteinizing hormone release from ovine pituitary cells in perifusion.
       </dc:title>
     <cmeta:comment rdf:resource="rdf:#196e8406-0466-436c-9029-6840c065b448"/>
-    <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#b6410053-4869-4761-8dc5-83b00ddc688a"/>
-    <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#c0956798-75ad-4a42-9646-0b9a8abc1dab"/>
+    <bqs:reference rdf:resource="rdf:#b6410053-4869-4761-8dc5-83b00ddc688a"/>
+    <bqs:reference rdf:resource="rdf:#c0956798-75ad-4a42-9646-0b9a8abc1dab"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#d4411908-a6dd-45bc-9044-32cfbd02fcc4">
-    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Catherine Lloyd</vCard:FN>
+    <vCard:FN>Catherine Lloyd</vCard:FN>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#cdb2de9e-d1ad-4de3-b4bb-ef152a4297c3">
-    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#13c09bb3-69dd-48a4-975f-43cbc0dcea5e"/>
+    <dc:creator rdf:resource="rdf:#13c09bb3-69dd-48a4-975f-43cbc0dcea5e"/>
     <rdf:value>The model has now been checked in COR too and the units have been checked and are now consistent.  The model runs in PCEnv to give the published results.</rdf:value>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#66e5f939-5691-40bd-bb92-39a7aca87587">
-    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#6215fcf7-5422-431b-8261-e181232d5ea7"/>
-    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A mathematical model of luteinizing hormone release from ovine pituitary cells in perifusion</dc:title>
-    <bqs:volume xmlns:bqs="http://www.cellml.org/bqs/1.0#">275</bqs:volume>
-    <bqs:first_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">E1061</bqs:first_page>
-    <bqs:Journal xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#3662f7e0-96bc-4bad-b856-685aa00bf04c"/>
-    <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#ae6d428f-201b-425a-8555-761a0f1049c2"/>
-    <bqs:last_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">E1071</bqs:last_page>
+    <dc:creator rdf:resource="rdf:#6215fcf7-5422-431b-8261-e181232d5ea7"/>
+    <dc:title>A mathematical model of luteinizing hormone release from ovine pituitary cells in perifusion</dc:title>
+    <bqs:volume>275</bqs:volume>
+    <bqs:first_page>E1061</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#3662f7e0-96bc-4bad-b856-685aa00bf04c"/>
+    <dcterms:issued rdf:resource="rdf:#ae6d428f-201b-425a-8555-761a0f1049c2"/>
+    <bqs:last_page>E1071</bqs:last_page>
   </rdf:Description>
   <rdf:Description rdf:about="">
-    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">The University of Auckland, Auckland Bioengineering Institute</dc:publisher>
+    <dc:publisher>The University of Auckland, Auckland Bioengineering Institute</dc:publisher>
     <cmeta:comment rdf:resource="rdf:#cdb2de9e-d1ad-4de3-b4bb-ef152a4297c3"/>
-    <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#c63dce83-1a99-43c0-b0dd-e95bf8f04a48"/>
-    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#76cdce8b-f163-4c41-a02c-2cf475800646"/>
+    <dcterms:created rdf:resource="rdf:#c63dce83-1a99-43c0-b0dd-e95bf8f04a48"/>
+    <dc:creator rdf:resource="rdf:#76cdce8b-f163-4c41-a02c-2cf475800646"/>
     <cmeta:modification rdf:resource="rdf:#d9042472-562d-4125-8912-9a844f117149"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#2280a9f8-6bb2-4b9f-a26c-fcf8e3069e4e">
     <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
-    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#a7b469bb-cf2f-4a4d-8a53-01a12173ea41"/>
+    <vCard:N rdf:resource="rdf:#a7b469bb-cf2f-4a4d-8a53-01a12173ea41"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#d9042472-562d-4125-8912-9a844f117149">
-    <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#c76edf06-acac-4d1c-acfc-b70918f53fb1"/>
+    <dcterms:modified rdf:resource="rdf:#c76edf06-acac-4d1c-acfc-b70918f53fb1"/>
     <rdf:value>The model has now been checked in COR too and the units have been checked and are now consistent.  The model runs in PCEnv to give the published results.</rdf:value>
     <cmeta:modifier rdf:resource="rdf:#400e2bc2-1822-444a-bc03-deb1c297da5a"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#49acaa8c-3b64-4fe8-9be0-a69b0511a7b5">
     <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
-    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#11b7b63d-5cc5-45fd-b853-396dfbb2c38b"/>
+    <vCard:N rdf:resource="rdf:#11b7b63d-5cc5-45fd-b853-396dfbb2c38b"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#203ca441-ecd9-4ffc-81b6-244909a02304">
-    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">The University of Auckland</vCard:Orgname>
-    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Auckland Bioengineering Institute</vCard:Orgunit>
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>Auckland Bioengineering Institute</vCard:Orgunit>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#b6410053-4869-4761-8dc5-83b00ddc688a">
-    <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#047b5148-fb98-410f-822c-9b5ebf4aeaef"/>
+    <dc:subject rdf:resource="rdf:#047b5148-fb98-410f-822c-9b5ebf4aeaef"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#dd6dbdc4-67de-4ba4-95bc-925effb6a1c2">
     <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
     <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#14217c73-46a8-4c66-b47e-124c7e193e5b">
-    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Catherine</vCard:Given>
-    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Lloyd</vCard:Family>
-    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">May</vCard:Other>
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#c0956798-75ad-4a42-9646-0b9a8abc1dab">
-    <bqs:Pubmed_id xmlns:bqs="http://www.cellml.org/bqs/1.0#">9843750</bqs:Pubmed_id>
-    <bqs:JournalArticle xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#66e5f939-5691-40bd-bb92-39a7aca87587"/>
+    <bqs:Pubmed_id>9843750</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#66e5f939-5691-40bd-bb92-39a7aca87587"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#13c09bb3-69dd-48a4-975f-43cbc0dcea5e">
-    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Catherine Lloyd</vCard:FN>
+    <vCard:FN>Catherine Lloyd</vCard:FN>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#047b5148-fb98-410f-822c-9b5ebf4aeaef">
-    <bqs:subject_type xmlns:bqs="http://www.cellml.org/bqs/1.0#">keyword</bqs:subject_type>
+    <bqs:subject_type>keyword</bqs:subject_type>
     <rdf:value rdf:resource="rdf:#7cd17e43-ae09-4a9a-a024-d75274fc48ca"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#76cdce8b-f163-4c41-a02c-2cf475800646">
-    <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#203ca441-ecd9-4ffc-81b6-244909a02304"/>
-    <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#dd6dbdc4-67de-4ba4-95bc-925effb6a1c2"/>
-    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#e129740a-f417-4c13-bdd0-e48b5f7190d1"/>
+    <vCard:ORG rdf:resource="rdf:#203ca441-ecd9-4ffc-81b6-244909a02304"/>
+    <vCard:EMAIL rdf:resource="rdf:#dd6dbdc4-67de-4ba4-95bc-925effb6a1c2"/>
+    <vCard:N rdf:resource="rdf:#e129740a-f417-4c13-bdd0-e48b5f7190d1"/>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#a7b469bb-cf2f-4a4d-8a53-01a12173ea41">
-    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">K</vCard:Given>
-    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Heinze</vCard:Family>
+    <vCard:Given>K</vCard:Given>
+    <vCard:Family>Heinze</vCard:Family>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#e129740a-f417-4c13-bdd0-e48b5f7190d1">
-    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Catherine</vCard:Given>
-    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Lloyd</vCard:Family>
-    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">May</vCard:Other>
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#11b7b63d-5cc5-45fd-b853-396dfbb2c38b">
-    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">R</vCard:Given>
-    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Keener</vCard:Family>
-    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">W</vCard:Other>
+    <vCard:Given>R</vCard:Given>
+    <vCard:Family>Keener</vCard:Family>
+    <vCard:Other>W</vCard:Other>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#196e8406-0466-436c-9029-6840c065b448">
-    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#d4411908-a6dd-45bc-9044-32cfbd02fcc4"/>
+    <dc:creator rdf:resource="rdf:#d4411908-a6dd-45bc-9044-32cfbd02fcc4"/>
     <rdf:value>This is a CellML description of Heinze et al's 1998 mathematical model of luteinizing hormone release from ovine pituitary cells in perifusion.</rdf:value>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#c76edf06-acac-4d1c-acfc-b70918f53fb1">
-    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2007-09-02T17:20:16+12:00</dcterms:W3CDTF>
+    <dcterms:W3CDTF>2007-09-02T17:20:16+12:00</dcterms:W3CDTF>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#3662f7e0-96bc-4bad-b856-685aa00bf04c">
-    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">American Journal of Physiology</dc:title>
+    <dc:title>American Journal of Physiology</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="rdf:#ae6d428f-201b-425a-8555-761a0f1049c2">
-    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">1998-12-00 00:00</dcterms:W3CDTF>
+    <dcterms:W3CDTF>1998-12-00 00:00</dcterms:W3CDTF>
   </rdf:Description>
 </rdf:RDF>
 </model>

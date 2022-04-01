@@ -33,7 +33,7 @@ for i, varName in enumerate(y_name):
     data = pd.read_csv(filename)
     x_data = data[x_name]
     y_data = data[varName]  
-    ax[i].plot(x_data, y_data,  color=cycle[j], label = '@$Ca_i$=%s, T=%dK' % (legends[j],T))
+    ax[i].plot(x_data, y_data,  color=cycle[j], label = 'CellML@$Ca_i$=%s, T=%dK' % (legends[j],T))
 
     ofilename ='fig5%s.csv' % (items[j])
     odata = pd.read_csv(ofilename)
@@ -46,7 +46,7 @@ for i, varName in enumerate(y_name):
     data = pd.read_csv(filename)
     x_data = data[x_name]
     y_data = data[varName]  
-    ax[i].plot(x_data, y_data,  color=cycle[j], label = '@$Ca_i$=%s, T=%dK' % (legends[j],T))
+    ax[i].plot(x_data, y_data,  color=cycle[j], label = 'CellML@$Ca_i$=%s, T=%dK' % (legends[j],T))
 
     ofilename ='fig5%s.csv' % (items[j])
     odata = pd.read_csv(ofilename)
@@ -58,7 +58,7 @@ for i, varName in enumerate(y_name):
     ax[i].legend(loc = 'best', fontsize=lfontsize, frameon=False)
     ax[i].set_xlabel ('Voltage (mV)', fontsize= labelfontsize)
     ax[i].set_ylabel (y_labels[i], fontsize= labelfontsize)
-    ax[i].set_title('%s in the primary publication' % (prefig))
+    ax[i].set_title('%s in the paper' % (prefig))
 
 figfiles = '%s.png' % (figfile)
 plt.savefig(figfiles)        

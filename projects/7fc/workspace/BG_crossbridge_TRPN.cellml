@@ -73,120 +73,91 @@
     <component name="environment">
         <variable name="time" public_interface="out" units="second"/>
         <!-- initial values-->
-        <variable initial_value="2.57" name="q_TRPN" public_interface="out" units="fmol"/>
-        <variable initial_value="6.82e-1" name="q_Cai" public_interface="out" units="fmol"/>
-        <variable initial_value="1e-6" name="q_Ca_TRPN" public_interface="out" units="fmol"/>
-        <variable initial_value="1" name="q_B" public_interface="out" units="fmol"/>
-        <variable initial_value="0" name="q_U" public_interface="out" units="fmol"/>
-        <variable initial_value="0" name="q_W" public_interface="out" units="fmol"/>
-        <variable initial_value="0" name="q_S" public_interface="out" units="fmol"/>
+        <variable initial_value="6.82e-1" name="q_Ca_i_init" units="fmol"/>
+        <variable initial_value="2.57" name="q_TRPN_init" units="fmol"/>
+        <variable initial_value="1e-6" name="q_Ca_TRPN_init" units="fmol"/>
+        <variable initial_value="1" name="q_B_init" units="fmol"/>
+        <variable initial_value="0" name="q_U_init" units="fmol"/>
+        <variable initial_value="0" name="q_W_init" units="fmol"/>
+        <variable initial_value="0" name="q_S_init" units="fmol"/>
+        <!-- Global value-->
+        <variable name="q_TRPN" public_interface="out" units="fmol"/>
+        <variable name="q_Ca_i" public_interface="out" units="fmol"/>
+        <variable name="q_Ca_TRPN" public_interface="out" units="fmol"/>
+        <variable name="q_B" public_interface="out" units="fmol"/>
+        <variable name="q_U" public_interface="out" units="fmol"/>
+        <variable name="q_W" public_interface="out" units="fmol"/>
+        <variable name="q_S" public_interface="out" units="fmol"/>
         <!-- From submodule-->
-        <variable name="v_R_TRPNCa" public_interface="in" units="fmol_per_sec"/>
-        <variable name="v_R_BU" public_interface="in" units="fmol_per_sec"/>
-        <variable name="v_R_UW" public_interface="in" units="fmol_per_sec"/>
-        <variable name="v_R_WS" public_interface="in" units="fmol_per_sec"/>
-        <variable name="v_R_SU" public_interface="in" units="fmol_per_sec"/>
+        <variable name="q_TRPN_mcrossbridge_TRPN" public_interface="in" units="fmol"/>
+        <variable name="q_Ca_i_mcrossbridge_TRPN" public_interface="in" units="fmol"/>
+        <variable name="q_Ca_TRPN_mcrossbridge_TRPN" public_interface="in" units="fmol"/>
+        <variable name="q_B_mcrossbridge_TRPN" public_interface="in" units="fmol"/>
+        <variable name="q_U_mcrossbridge_TRPN" public_interface="in" units="fmol"/>
+        <variable name="q_W_mcrossbridge_TRPN" public_interface="in" units="fmol"/>
+        <variable name="q_S_mcrossbridge_TRPN" public_interface="in" units="fmol"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>q_Cai</ci>
-                </apply>
-                <apply>
-                    <minus/>
-                    <ci>v_R_TRPNCa</ci>
-                </apply>
-            </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>q_TRPN</ci>
-                </apply>
-                <apply>
-                    <minus/>
-                    <ci>v_R_TRPNCa</ci>
-                </apply>
-            </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>q_Ca_TRPN</ci>
-                </apply>
-                <ci>v_R_TRPNCa</ci>
-            </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>q_B</ci>
-                </apply>
-                <apply>
-                    <minus/>
-                    <ci>v_R_BU</ci>
-                </apply>
-            </apply>
-            <apply>
-                <eq/>
-                <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>q_U</ci>
-                </apply>
+                <ci>q_TRPN</ci>
                 <apply>
                     <plus/>
-                    <apply>
-                        <minus/>
-                        <ci>v_R_BU</ci>
-                        <ci>v_R_UW</ci>
-                    </apply>
-                    <ci>v_R_SU</ci>
+                    <ci>q_TRPN_mcrossbridge_TRPN</ci>
+                    <ci>q_TRPN_init</ci>
                 </apply>
             </apply>
             <apply>
                 <eq/>
+                <ci>q_Ca_i</ci>
                 <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>q_W</ci>
-                </apply>
-                <apply>
-                    <minus/>
-                    <ci>v_R_UW</ci>
-                    <ci>v_R_WS</ci>
+                    <plus/>
+                    <ci>q_Ca_i_mcrossbridge_TRPN</ci>
+                    <ci>q_Ca_i_init</ci>
                 </apply>
             </apply>
             <apply>
                 <eq/>
+                <ci>q_Ca_TRPN</ci>
                 <apply>
-                    <diff/>
-                    <bvar>
-                        <ci>time</ci>
-                    </bvar>
-                    <ci>q_S</ci>
+                    <plus/>
+                    <ci>q_Ca_TRPN_mcrossbridge_TRPN</ci>
+                    <ci>q_Ca_TRPN_init</ci>
                 </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_B</ci>
                 <apply>
-                    <minus/>
-                    <ci>v_R_WS</ci>
-                    <ci>v_R_SU</ci>
+                    <plus/>
+                    <ci>q_B_mcrossbridge_TRPN</ci>
+                    <ci>q_B_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_U</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_U_mcrossbridge_TRPN</ci>
+                    <ci>q_U_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_W</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_W_mcrossbridge_TRPN</ci>
+                    <ci>q_W_init</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <ci>q_S</ci>
+                <apply>
+                    <plus/>
+                    <ci>q_S_mcrossbridge_TRPN</ci>
+                    <ci>q_S_init</ci>
                 </apply>
             </apply>
         </math>
@@ -201,7 +172,7 @@
         <variable initial_value="0.00782356" name="kappa_R_WS" public_interface="out" units="fmol_per_sec"/>
         <variable initial_value="140824" name="kappa_R_SU" public_interface="out" units="fmol_per_sec"/>
         <variable initial_value="1.27424" name="K_TRPN" public_interface="out" units="per_fmol"/>
-        <variable initial_value="1.27424" name="K_Cai" public_interface="out" units="per_fmol"/>
+        <variable initial_value="1.27424" name="K_Ca_i" public_interface="out" units="per_fmol"/>
         <variable initial_value="0.11171" name="K_Ca_TRPN" public_interface="out" units="per_fmol"/>
         <variable initial_value="6.06164" name="K_B" public_interface="out" units="per_fmol"/>
         <variable initial_value="2.27312" name="K_U" public_interface="out" units="per_fmol"/>
@@ -219,7 +190,7 @@
         <variable name="kappa_R_WS" public_interface="in" units="fmol_per_sec"/>
         <variable name="kappa_R_SU" public_interface="in" units="fmol_per_sec"/>
         <variable name="K_TRPN" public_interface="in" units="per_fmol"/>
-        <variable name="K_Cai" public_interface="in" units="per_fmol"/>
+        <variable name="K_Ca_i" public_interface="in" units="per_fmol"/>
         <variable name="K_Ca_TRPN" public_interface="in" units="per_fmol"/>
         <variable name="K_B" public_interface="in" units="per_fmol"/>
         <variable name="K_U" public_interface="in" units="per_fmol"/>
@@ -227,26 +198,34 @@
         <variable name="K_S" public_interface="in" units="per_fmol"/>
         <variable initial_value="1.1" name="n_Tm" units="dimensionless"/>
         <!-- Input from global environment-->
-        <variable name="q_TRPN" public_interface="in" units="fmol"/>
-        <variable name="q_Cai" public_interface="in" units="fmol"/>
-        <variable name="q_Ca_TRPN" public_interface="in" units="fmol"/>
-        <variable name="q_B" public_interface="in" units="fmol"/>
-        <variable name="q_U" public_interface="in" units="fmol"/>
-        <variable name="q_W" public_interface="in" units="fmol"/>
-        <variable name="q_S" public_interface="in" units="fmol"/>
+        <variable name="q_TRPN_global" public_interface="in" units="fmol"/>
+        <variable name="q_Ca_i_global" public_interface="in" units="fmol"/>
+        <variable name="q_Ca_TRPN_global" public_interface="in" units="fmol"/>
+        <variable name="q_B_global" public_interface="in" units="fmol"/>
+        <variable name="q_U_global" public_interface="in" units="fmol"/>
+        <variable name="q_W_global" public_interface="in" units="fmol"/>
+        <variable name="q_S_global" public_interface="in" units="fmol"/>
+        <!-- Output to global environment-->
+        <variable initial_value="1e-16" name="q_TRPN" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-16" name="q_Ca_i" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-16" name="q_Ca_TRPN" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-16" name="q_B" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-16" name="q_U" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-16" name="q_W" public_interface="out" units="fmol"/>
+        <variable initial_value="1e-16" name="q_S" public_interface="out" units="fmol"/>
         <!-- Constitutive parameters-->
         <variable name="mu_TRPN" units="J_per_mol"/>
-        <variable name="mu_Cai" units="J_per_mol"/>
+        <variable name="mu_Ca_i" units="J_per_mol"/>
         <variable name="mu_Ca_TRPN" units="J_per_mol"/>
         <variable name="mu_B" units="J_per_mol"/>
         <variable name="mu_U" units="J_per_mol"/>
         <variable name="mu_W" units="J_per_mol"/>
         <variable name="mu_S" units="J_per_mol"/>
-        <variable name="v_R_TRPNCa" public_interface="out" units="fmol_per_sec"/>
-        <variable name="v_R_BU" public_interface="out" units="fmol_per_sec"/>
-        <variable name="v_R_UW" public_interface="out" units="fmol_per_sec"/>
-        <variable name="v_R_WS" public_interface="out" units="fmol_per_sec"/>
-        <variable name="v_R_SU" public_interface="out" units="fmol_per_sec"/>
+        <variable name="v_R_TRPNCa" units="fmol_per_sec"/>
+        <variable name="v_R_BU" units="fmol_per_sec"/>
+        <variable name="v_R_UW" units="fmol_per_sec"/>
+        <variable name="v_R_WS" units="fmol_per_sec"/>
+        <variable name="v_R_SU" units="fmol_per_sec"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -260,14 +239,14 @@
                         <apply>
                             <times/>
                             <ci>K_TRPN</ci>
-                            <ci>q_TRPN</ci>
+                            <ci>q_TRPN_global</ci>
                         </apply>
                     </apply>
                 </apply>
             </apply>
             <apply>
                 <eq/>
-                <ci>mu_Cai</ci>
+                <ci>mu_Ca_i</ci>
                 <apply>
                     <times/>
                     <ci>R</ci>
@@ -276,8 +255,8 @@
                         <ln/>
                         <apply>
                             <times/>
-                            <ci>K_Cai</ci>
-                            <ci>q_Cai</ci>
+                            <ci>K_Ca_i</ci>
+                            <ci>q_Ca_i_global</ci>
                         </apply>
                     </apply>
                 </apply>
@@ -294,7 +273,7 @@
                         <apply>
                             <times/>
                             <ci>K_Ca_TRPN</ci>
-                            <ci>q_Ca_TRPN</ci>
+                            <ci>q_Ca_TRPN_global</ci>
                         </apply>
                     </apply>
                 </apply>
@@ -311,7 +290,7 @@
                         <apply>
                             <times/>
                             <ci>K_B</ci>
-                            <ci>q_B</ci>
+                            <ci>q_B_global</ci>
                         </apply>
                     </apply>
                 </apply>
@@ -328,7 +307,7 @@
                         <apply>
                             <times/>
                             <ci>K_U</ci>
-                            <ci>q_U</ci>
+                            <ci>q_U_global</ci>
                         </apply>
                     </apply>
                 </apply>
@@ -345,7 +324,7 @@
                         <apply>
                             <times/>
                             <ci>K_W</ci>
-                            <ci>q_W</ci>
+                            <ci>q_W_global</ci>
                         </apply>
                     </apply>
                 </apply>
@@ -362,7 +341,7 @@
                         <apply>
                             <times/>
                             <ci>K_S</ci>
-                            <ci>q_S</ci>
+                            <ci>q_S_global</ci>
                         </apply>
                     </apply>
                 </apply>
@@ -381,7 +360,7 @@
                                 <divide/>
                                 <apply>
                                     <plus/>
-                                    <ci>mu_Cai</ci>
+                                    <ci>mu_Ca_i</ci>
                                     <ci>mu_TRPN</ci>
                                 </apply>
                                 <apply>
@@ -564,6 +543,108 @@
                             </apply>
                         </apply>
                     </apply>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_Ca_i</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_R_TRPNCa</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_TRPN</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_R_TRPNCa</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_Ca_TRPN</ci>
+                </apply>
+                <ci>v_R_TRPNCa</ci>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_B</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_R_BU</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_U</ci>
+                </apply>
+                <apply>
+                    <plus/>
+                    <apply>
+                        <minus/>
+                        <ci>v_R_BU</ci>
+                        <ci>v_R_UW</ci>
+                    </apply>
+                    <ci>v_R_SU</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_W</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_R_UW</ci>
+                    <ci>v_R_WS</ci>
+                </apply>
+            </apply>
+            <apply>
+                <eq/>
+                <apply>
+                    <diff/>
+                    <bvar>
+                        <ci>time</ci>
+                    </bvar>
+                    <ci>q_S</ci>
+                </apply>
+                <apply>
+                    <minus/>
+                    <ci>v_R_WS</ci>
+                    <ci>v_R_SU</ci>
                 </apply>
             </apply>
         </math>
@@ -1039,18 +1120,20 @@
     <connection>
         <map_components component_1="environment" component_2="crossbridge_TRPN"/>
         <map_variables variable_1="time" variable_2="time"/>
-        <map_variables variable_1="q_TRPN" variable_2="q_TRPN"/>
-        <map_variables variable_1="q_Cai" variable_2="q_Cai"/>
-        <map_variables variable_1="q_Ca_TRPN" variable_2="q_Ca_TRPN"/>
-        <map_variables variable_1="q_B" variable_2="q_B"/>
-        <map_variables variable_1="q_U" variable_2="q_U"/>
-        <map_variables variable_1="q_W" variable_2="q_W"/>
-        <map_variables variable_1="q_S" variable_2="q_S"/>
-        <map_variables variable_1="v_R_TRPNCa" variable_2="v_R_TRPNCa"/>
-        <map_variables variable_1="v_R_BU" variable_2="v_R_BU"/>
-        <map_variables variable_1="v_R_UW" variable_2="v_R_UW"/>
-        <map_variables variable_1="v_R_WS" variable_2="v_R_WS"/>
-        <map_variables variable_1="v_R_SU" variable_2="v_R_SU"/>
+        <map_variables variable_1="q_TRPN_mcrossbridge_TRPN" variable_2="q_TRPN"/>
+        <map_variables variable_1="q_TRPN" variable_2="q_TRPN_global"/>
+        <map_variables variable_1="q_Ca_i_mcrossbridge_TRPN" variable_2="q_Ca_i"/>
+        <map_variables variable_1="q_Ca_i" variable_2="q_Ca_i_global"/>
+        <map_variables variable_1="q_Ca_TRPN_mcrossbridge_TRPN" variable_2="q_Ca_TRPN"/>
+        <map_variables variable_1="q_Ca_TRPN" variable_2="q_Ca_TRPN_global"/>
+        <map_variables variable_1="q_B_mcrossbridge_TRPN" variable_2="q_B"/>
+        <map_variables variable_1="q_B" variable_2="q_B_global"/>
+        <map_variables variable_1="q_U_mcrossbridge_TRPN" variable_2="q_U"/>
+        <map_variables variable_1="q_U" variable_2="q_U_global"/>
+        <map_variables variable_1="q_W_mcrossbridge_TRPN" variable_2="q_W"/>
+        <map_variables variable_1="q_W" variable_2="q_W_global"/>
+        <map_variables variable_1="q_S_mcrossbridge_TRPN" variable_2="q_S"/>
+        <map_variables variable_1="q_S" variable_2="q_S_global"/>
         <map_variables variable_1="T_total" variable_2="T_total"/>
         <map_variables variable_1="SL" variable_2="SL"/>
     </connection>
@@ -1062,7 +1145,7 @@
         <map_variables variable_1="kappa_R_WS" variable_2="kappa_R_WS"/>
         <map_variables variable_1="kappa_R_SU" variable_2="kappa_R_SU"/>
         <map_variables variable_1="K_TRPN" variable_2="K_TRPN"/>
-        <map_variables variable_1="K_Cai" variable_2="K_Cai"/>
+        <map_variables variable_1="K_Ca_i" variable_2="K_Ca_i"/>
         <map_variables variable_1="K_Ca_TRPN" variable_2="K_Ca_TRPN"/>
         <map_variables variable_1="K_B" variable_2="K_B"/>
         <map_variables variable_1="K_U" variable_2="K_U"/>

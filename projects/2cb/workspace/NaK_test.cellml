@@ -4,10 +4,7 @@
 <model cmeta:id="Strieter_1992_NaK" name="Strieter_1992_NaK" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
     <import xlink:href="Units/Units.cellml">
         <units name="mM" units_ref="mM"/>
-        <units name="mV" units_ref="mV"/>
         <units name="mM_per_s" units_ref="mM_per_s"/>
-        <units name="umol_per_s_per_cm2" units_ref="umol_per_s_per_cm2"/>
-        <units name="mA_per_cm2" units_ref="mA_per_cm2"/>
     </import>
     <import xlink:href="Strieter_1992_NaK.cellml">
         <component component_ref="NaK" name="NaK"/>
@@ -17,11 +14,11 @@
     </component>
     <component name="concentrations">
         <variable name="time" public_interface="in" units="second"/>
-        <variable initial_value="-150.0" name="V" public_interface="out" units="mV"/>
-        <variable initial_value="10.0" name="Na_int" public_interface="out" units="mM"/>
-        <variable initial_value="0.001" name="Na_ext" public_interface="out" units="mM"/>
-        <variable initial_value="0.001" name="K_int" public_interface="out" units="mM"/>
-        <variable initial_value="50.0" name="K_ext" public_interface="out" units="mM"/>
+        <variable initial_value="0.0" name="Na_int" public_interface="out" units="mM"/>
+        <variable initial_value="0.0" name="Na_ext" public_interface="out" units="mM"/>
+        <variable initial_value="39.0" name="K_int" public_interface="out" units="mM"/>
+        <variable initial_value="10.0" name="K_ext" public_interface="out" units="mM"/>
+        <variable initial_value="0.0" name="NH4_ext" public_interface="out" units="mM"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -37,9 +34,9 @@
         </math>
     </component>
     <component name="fluxes">
-        <variable name="J_NaK" public_interface="in" units="umole_per_s_per_cm2"/>
-        <variable initial_value="0.0108" name="J_NaK_max" public_interface="out" units="umol_per_s_per_cm2"/>
-        <variable name="I_NaK" public_interface="in" units="mA_per_cm2"/>
+        <variable name="J_NaK_Na" public_interface="in" units="mM_per_s"/>
+        <variable name="J_NaK_K" public_interface="in" units="mM_per_s"/>
+        <variable name="J_NaK_NH4" public_interface="in" units="mM_per_s"/>
     </component>
     <connection>
         <map_components component_1="concentrations" component_2="NaK"/>
@@ -47,13 +44,13 @@
         <map_variables variable_1="Na_ext" variable_2="Na_ext"/>
         <map_variables variable_1="K_int" variable_2="K_int"/>
         <map_variables variable_1="K_ext" variable_2="K_ext"/>
-        <map_variables variable_1="V" variable_2="V"/>
+        <map_variables variable_1="NH4_ext" variable_2="NH4_ext"/>
     </connection>
     <connection>
         <map_components component_1="fluxes" component_2="NaK"/>
-        <map_variables variable_1="J_NaK" variable_2="J_NaK"/>
-        <map_variables variable_1="J_NaK_max" variable_2="J_NaK_max"/>
-        <map_variables variable_1="I_NaK" variable_2="I_NaK"/>
+        <map_variables variable_1="J_NaK_Na" variable_2="J_NaK_Na"/>
+        <map_variables variable_1="J_NaK_K" variable_2="J_NaK_K"/>
+        <map_variables variable_1="J_NaK_NH4" variable_2="J_NaK_NH4"/>
     </connection>
     <connection>
         <map_components component_1="concentrations" component_2="environment"/>

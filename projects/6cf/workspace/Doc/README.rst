@@ -11,7 +11,7 @@ Model status
 =============
 
 The current CellML implementation runs in OpenCOR_.
-The results have been validated against the data extracted from the figures in the published `Bursztyn, Limor, et al (2007)`_. We provide the settings used for the figure reproduction with the simulation results shown under ``Experiments``. The model structure can be found in the documentation of ``Components``. The curation process has been summarized in the `Model history`_ and  `Known issues`_.
+The results have been validated against the data extracted from the figures in the published `Bursztyn, Limor, et al (2007)`_. We found a few inconsistencies in parameter values and units presented in the primary paper. While the primary paper does not provide complete simulation experiment settings, we provide the settings used for the figure reproduction with the simulation results shown under ``Experiments``. The model structure can be found in the documentation of ``Components``. The limitation and curation process has been summarized in the `Model history`_ and  `Known issues`_.
 
 Model overview
 ===================
@@ -22,7 +22,7 @@ The `Bursztyn, Limor, et al (2007)`_ paper describes three :math:`Ca^{2+}` contr
 .. _`Hai and Murphy (1988)`: https://doi.org/10.1152/ajpcell.1988.254.1.C99
 
 .. figure::  Doc/model.png
-   :width: 70%
+   :width: 75%
    :align: center
    :alt: Schematics of the model
 
@@ -73,8 +73,7 @@ This workspace has seven sets of experiments and corresponding simulation result
 Simulation settings 
 -------------------
 Simulation settings are encoded in SED-ML_ documents for experiment execution. It is common that we may need to vary experimental settings to obtain data under various conditions. Hence, the full experimental settings are encoded in the simulation scripts.
-The Python scripts to run simulation and reproduce the figures in the original paper are included under the ``Simulation`` folder. The name of the simulation and plot scripts
-indicates the Figure number in the primary paper. For example, Fig2_sim.py is used to generate the simulation data and Fig2_plot.py reproduces the graph shown in Figure 2 in the primary paper.
+The Python scripts to run simulation and reproduce the figures in the original paper are included under the ``Simulation`` folder.
 
 .. _SED-ML: http://sed-ml.org/
 
@@ -85,17 +84,16 @@ There is no publicly available code for this model.
 Known issues
 ===================
 
-1.  During curation process, we noticed trivial typographical errors in parameter units and references in Table 3 of `Bursztyn, Limor, et al (2007)`_. Hence, we correct
-these in Table 4 to remove potential confusion.
+1.  A few inconsistencies of parameter values and units, which seems to be typos and listed in the following table.
    
 .. figure::  Doc/para.png
    :width: 85%
    :align: center
-   :alt: Correction of primary Table 3
+   :alt: Inconsistency of parameter values and units
 
-   Correction of primary Table 3 
+   Inconsistency of parameter values and units 
 
-2. We have summarized experiment settings along with simulation results, providing more details that were not included in the primary paper.
+2. The specification of experiment settings for simulation is incomplete in the primary paper, and the experiment settings that we use are summarized along with simulation results.
  
 .. _OpenCOR: https://opencor.ws/
 

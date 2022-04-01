@@ -135,7 +135,7 @@
       <unit units="second"/>
    </units>
    
-   <units  name="nM">
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM">
          <unit units="mole" prefix="nano"/>
          <unit units="liter" exponent="-1"/>
       </units>
@@ -153,7 +153,6 @@
      
     <component name="geometry">
          <variable name="Ccn" units="dimensionless" initial_value="50" private_interface="out"/>
-         <variable name="t" units="s" public_interface="in" private_interface="out"/>
     </component>
    
       <component name="NFAT_Cycling_interface">
@@ -187,26 +186,25 @@
         </component_ref>
 </group>   
 
-<connection>
-    <map_components
-        component_1="environment" component_2="geometry" />
-    <map_variables variable_1="t" variable_2="t" />
-</connection>
    
 <connection>
     <map_components
-        component_1="geometry" component_2="calcium" />
+        component_1="environment" component_2="calcium" />
     <map_variables variable_1="t" variable_2="t" />
 </connection>
 
 <connection>
-    <map_components component_1="geometry" component_2="calcineurin" />
+    <map_components component_1="environment" component_2="calcineurin" />
+        <map_variables variable_1="t" variable_2="t" />
+</connection>
+
+<connection>
+    <map_components component_1="environment" component_2="NFAT_Cycling" />
         <map_variables variable_1="t" variable_2="t" />
 </connection>
 
 <connection>
     <map_components component_1="geometry" component_2="NFAT_Cycling" />
-        <map_variables variable_1="t" variable_2="t" />
         <map_variables variable_1="Ccn" variable_2="Ccn" />
 </connection>
 

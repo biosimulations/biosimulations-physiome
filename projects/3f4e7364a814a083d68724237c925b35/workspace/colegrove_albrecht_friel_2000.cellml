@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='utf-8'?>
 <!--  FILE :  colegrove_model_2000.xml
 
 CREATED :  21st March 2002
@@ -20,7 +20,7 @@ CHANGES:
   28/03/2003 - AAC - Changed the name and cmeta:id of the model to reflect the 
                      proper spelling of Colegrove.
   09/04/2003 - AAC - Added publication date information.  
---><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xml:base="file:///H:/colegrove_albrecht_friel_2000/colegrove_albrecht_friel_2000.cellml" cmeta:id="colegrove_albrecht_friel_2000_version01" name="colegrove_albrecht_friel_2000_version01">
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="colegrove_albrecht_friel_2000_version01" name="colegrove_albrecht_friel_2000_version01">
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
   <articleinfo>
@@ -88,35 +88,35 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
   -->
   
   <units name="per_second">
-    <unit exponent="-1" units="second"/>
+    <unit units="second" exponent="-1"/>
   </units>
   
   <units name="millivolt">
-    <unit prefix="milli" units="volt"/>
+    <unit units="volt" prefix="milli"/>
   </units>
   
   <units name="micromolar">
-    <unit prefix="micro" units="mole"/>
-    <unit exponent="-1" units="litre"/>
+    <unit units="mole" prefix="micro"/>
+    <unit units="litre" exponent="-1"/>
   </units>
   
   <units name="nanomolar">
-    <unit prefix="nano" units="mole"/>
-    <unit exponent="-1" units="litre"/>
+    <unit units="mole" prefix="nano"/>
+    <unit units="litre" exponent="-1"/>
   </units>
   
   <units name="nanomolar_per_second">
     <unit units="nanomolar"/>
-    <unit exponent="-1" units="second"/>
+    <unit units="second" exponent="-1"/>
   </units>
   
   <units name="micromolar_per_second">
     <unit units="micromolar"/>
-    <unit exponent="-1" units="second"/>
+    <unit units="second" exponent="-1"/>
   </units>
   
   <units name="micro_litre">
-    <unit prefix="micro" units="litre"/>
+    <unit units="litre" prefix="micro"/>
   </units>
   
   <!--
@@ -124,22 +124,22 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
     all or most of the other components, in this case just "time".
   -->
   <component name="environment">
-    <variable name="time" public_interface="out" units="second"/>
+    <variable units="second" public_interface="out" name="time"/>
   </component>
   
-  <component cmeta:id="id_00001" name="Ca_extrusion_across_the_plasma_membrane">
-    <variable cmeta:id="id_00035" name="J_pm" public_interface="out" units="nanomolar_per_second"/>
+  <component name="Ca_extrusion_across_the_plasma_membrane">
+    <variable units="nanomolar_per_second" public_interface="out" name="J_pm"/>
    
-    <variable cmeta:id="id_00002" name="J_leak" units="nanomolar_per_second"/>
-    <variable cmeta:id="id_00034" name="J_extru" units="nanomolar_per_second"/>
-    <variable cmeta:id="id_00003" initial_value="0.00000037" name="k_leak" units="per_second"/>
-    <variable cmeta:id="id_00033" initial_value="28.3" name="Vmax_extru" units="nanomolar_per_second"/>
-    <variable cmeta:id="id_00031" initial_value="378.8" name="EC50_extru" units="nanomolar"/>
-    <variable cmeta:id="id_00032" initial_value="1.8" name="n_extru" units="dimensionless"/>
-    <variable cmeta:id="id_00004" initial_value="0.002" name="Ca_o" units="nanomolar"/>
+    <variable units="nanomolar_per_second" name="J_leak"/>
+    <variable units="nanomolar_per_second" name="J_extru"/>
+    <variable units="per_second" name="k_leak" initial_value="0.00000037"/>
+    <variable units="nanomolar_per_second" name="Vmax_extru" initial_value="28.3"/>
+    <variable units="nanomolar" name="EC50_extru" initial_value="378.8"/>
+    <variable units="dimensionless" name="n_extru" initial_value="1.8"/>
+    <variable units="nanomolar" name="Ca_o" initial_value="0.002"/>
    
-    <variable cmeta:id="id_00005" name="Ca_i" public_interface="in" units="nanomolar"/>
-    <variable name="time" public_interface="in" units="second"/>
+    <variable units="nanomolar" public_interface="in" name="Ca_i"/>
+    <variable units="second" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="J_pm_calculation">
@@ -174,7 +174,7 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
           <ci> Vmax_extru </ci>
           <apply>
             <plus/>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
             <apply>
               <power/>
               <apply>
@@ -190,15 +190,15 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
     </math>
   </component>
         
-  <component cmeta:id="id_00011" name="mitochondrial_Ca_uptake">
-    <variable cmeta:id="id_00012" name="J_uni" public_interface="out" units="nanomolar_per_second"/>
+  <component name="mitochondrial_Ca_uptake">
+    <variable units="nanomolar_per_second" public_interface="out" name="J_uni"/>
    
-    <variable cmeta:id="id_00013" initial_value="75.9" name="kuni_max" units="per_second"/>
-    <variable cmeta:id="id_00014" initial_value="10.0" name="EC50_uni" units="micromolar"/>
-    <variable cmeta:id="id_00015" initial_value="2.0" name="n_uni" units="dimensionless"/>
+    <variable units="per_second" name="kuni_max" initial_value="75.9"/>
+    <variable units="micromolar" name="EC50_uni" initial_value="10.0"/>
+    <variable units="dimensionless" name="n_uni" initial_value="2.0"/>
    
-    <variable cmeta:id="id_00010" name="Ca_i" public_interface="in" units="nanomolar"/>
-    <variable name="time" public_interface="in" units="second"/>
+    <variable units="nanomolar" public_interface="in" name="Ca_i"/>
+    <variable units="second" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="J_uni_calculation">
@@ -213,7 +213,7 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
           </apply>
           <apply>
             <plus/>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
             <apply>
               <power/>
               <apply>
@@ -229,21 +229,21 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
     </math>
   </component>
   
-  <component cmeta:id="id_00016" name="mitochondrial_Ca_release">
-    <variable cmeta:id="id_00017" name="J_NaCa" public_interface="out" units="nanomolar_per_second"/>
-    <variable cmeta:id="id_00018" name="Ca_inhibited_J_NaCa" public_interface="out" units="nanomolar_per_second"/>
-    <variable cmeta:id="id_00030" name="J_mito" public_interface="out" units="nanomolar_per_second"/>
+  <component name="mitochondrial_Ca_release">
+    <variable units="nanomolar_per_second" public_interface="out" name="J_NaCa"/>
+    <variable units="nanomolar_per_second" public_interface="out" name="Ca_inhibited_J_NaCa"/>
+    <variable units="nanomolar_per_second" public_interface="out" name="J_mito"/>
    
-    <variable cmeta:id="id_00019" initial_value="-35.0" name="Vmax_NaCa" units="nanomolar_per_second"/>
-    <variable cmeta:id="id_00020" initial_value="307.0" name="EC50_NaCa" units="nanomolar"/>
-    <variable cmeta:id="id_00021" initial_value="6.0" name="n_inhib" units="dimensionless"/>
-    <variable cmeta:id="id_00022" initial_value="500.0" name="k_inhib" units="nanomolar"/>
-    <variable cmeta:id="id_00023" name="delta_Ca_i" units="dimensionless"/>
+    <variable units="nanomolar_per_second" name="Vmax_NaCa" initial_value="-35.0"/>
+    <variable units="nanomolar" name="EC50_NaCa" initial_value="307.0"/>
+    <variable units="dimensionless" name="n_inhib" initial_value="6.0"/>
+    <variable units="nanomolar" name="k_inhib" initial_value="500.0"/>
+    <variable units="dimensionless" name="delta_Ca_i"/>
    
-    <variable cmeta:id="id_00024" name="J_uni" public_interface="in" units="nanomolar_per_second"/>
-    <variable cmeta:id="id_00025" name="Ca_i" public_interface="in" units="nanomolar"/>
-    <variable cmeta:id="id_00026" name="Ca_m" public_interface="in" units="nanomolar"/>
-    <variable name="time" public_interface="in" units="second"/>
+    <variable units="nanomolar_per_second" public_interface="in" name="J_uni"/>
+    <variable units="nanomolar" public_interface="in" name="Ca_i"/>
+    <variable units="nanomolar" public_interface="in" name="Ca_m"/>
+    <variable units="second" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="J_NaCa_calculation">
@@ -257,7 +257,7 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
           </apply>
           <apply>
             <plus/>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
             <apply>
               <divide/>
               <ci> EC50_NaCa </ci>
@@ -282,7 +282,7 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
           </apply>
           <apply>
             <plus/>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
             <apply>
               <divide/>
               <ci> EC50_NaCa </ci>
@@ -297,13 +297,13 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
         <ci> delta_Ca_i </ci>
         <apply>
           <minus/>
-          <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+          <cn cellml:units="dimensionless"> 1.0 </cn>
           <apply>
             <divide/>
-            <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+            <cn cellml:units="dimensionless"> 1.0 </cn>
             <apply>
               <minus/>
-              <cn xmlns:cellml="http://www.cellml.org/cellml/1.0#" cellml:units="dimensionless"> 1.0 </cn>
+              <cn cellml:units="dimensionless"> 1.0 </cn>
               <apply>
                 <power/>
                 <apply>
@@ -330,12 +330,12 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
     </math>
   </component>
   
-  <component cmeta:id="id_00006" name="intracellular_calcium">
-    <variable cmeta:id="id_00007" initial_value="0.002" name="Ca_i" public_interface="out" units="nanomolar"/>
+  <component name="intracellular_calcium">
+    <variable units="nanomolar" public_interface="out" name="Ca_i"/>
    
-    <variable name="J_pm" public_interface="in" units="nanomolar_per_second"/>
-    <variable cmeta:id="id_00029" name="J_mito" public_interface="in" units="nanomolar_per_second"/>
-    <variable name="time" public_interface="in" units="second"/>
+    <variable units="nanomolar_per_second" public_interface="in" name="J_pm"/>
+    <variable units="nanomolar_per_second" public_interface="in" name="J_mito"/>
+    <variable units="second" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="Ca_i_diff_eq">
@@ -359,20 +359,17 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
     </math>
   </component>
   
-<component cmeta:id="id_00008" name="mitochondrial_calcium">
+  <component name="mitochondrial_calcium">
+    <variable units="nanomolar" public_interface="out" name="Ca_m"/>
     
-   <variable cmeta:id="id_00009" initial_value="50.0e-9" name="Ca_m" public_interface="out" units="nanomolar"/>
-     
-     <variable cmeta:id="id_00027" initial_value="2.0" name="gamma" units="dimensionless"/>
-    
-    <!-- <variable units="micro_litre" name="v_m"/>
-     <variable units="dimensionless" name="k_m"/>
-     <variable units="micro_litre" name="v_i"/>
+    <variable units="dimensionless" name="gamma" initial_value="2.0"/>
+    <variable units="micro_litre" name="v_m"/>
+    <variable units="dimensionless" name="k_m"/>
+    <variable units="micro_litre" name="v_i"/>
     <variable units="dimensionless" name="k_i"/>
-    <variable units="dimensionless" name="k_i"/> -->
-     
-     <variable cmeta:id="id_00028" name="J_mito" public_interface="in" units="nanomolar_per_second"/>
-     <variable name="time" public_interface="in" units="second"/>
+    
+    <variable units="nanomolar_per_second" public_interface="in" name="J_mito"/>
+    <variable units="second" public_interface="in" name="time"/>
     
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="Ca_m_diff_eq">
@@ -390,63 +387,272 @@ Quantitative Analysis of Mitochondrial Ca<superscript>2+</superscript> Uptake an
           <ci> gamma </ci>
         </apply>
       </apply>
+      
+      <apply id="gamma_calculation">
+        <eq/>
+        <ci> gamma </ci>
+        <apply>
+          <divide/>
+          <apply>
+            <times/>
+            <ci> v_m </ci>
+            <ci> k_m </ci>
+          </apply>
+          <apply>
+            <times/>
+            <ci> v_i </ci>
+            <ci> k_i </ci>
+          </apply>
+        </apply>
+      </apply>
     </math>
   </component>
   
   <connection>
-    <map_components component_1="Ca_extrusion_across_the_plasma_membrane" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="Ca_extrusion_across_the_plasma_membrane"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="mitochondrial_Ca_uptake" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="mitochondrial_Ca_uptake"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="mitochondrial_Ca_release" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="mitochondrial_Ca_release"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="intracellular_calcium" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="intracellular_calcium"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="mitochondrial_calcium" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="mitochondrial_calcium"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection> 
   
   <connection>
-    <map_components component_1="Ca_extrusion_across_the_plasma_membrane" component_2="intracellular_calcium"/>
-    <map_variables variable_1="J_pm" variable_2="J_pm"/>
-    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+    <map_components component_2="intracellular_calcium" component_1="Ca_extrusion_across_the_plasma_membrane"/>
+    <map_variables variable_2="J_pm" variable_1="J_pm"/>
+    <map_variables variable_2="Ca_i" variable_1="Ca_i"/>
   </connection>
   
   <connection>
-    <map_components component_1="mitochondrial_Ca_uptake" component_2="intracellular_calcium"/>
-    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+    <map_components component_2="intracellular_calcium" component_1="mitochondrial_Ca_uptake"/>
+    <map_variables variable_2="Ca_i" variable_1="Ca_i"/>
   </connection>
   
   <connection>
-    <map_components component_1="mitochondrial_Ca_uptake" component_2="mitochondrial_Ca_release"/>
-    <map_variables variable_1="J_uni" variable_2="J_uni"/>
+    <map_components component_2="mitochondrial_Ca_release" component_1="mitochondrial_Ca_uptake"/>
+    <map_variables variable_2="J_uni" variable_1="J_uni"/>
   </connection>
   
   <connection>
-    <map_components component_1="mitochondrial_Ca_release" component_2="intracellular_calcium"/>
-    <map_variables variable_1="J_mito" variable_2="J_mito"/>
-    <map_variables variable_1="Ca_i" variable_2="Ca_i"/>
+    <map_components component_2="intracellular_calcium" component_1="mitochondrial_Ca_release"/>
+    <map_variables variable_2="J_mito" variable_1="J_mito"/>
+    <map_variables variable_2="Ca_i" variable_1="Ca_i"/>
   </connection>
   
   <connection>
-    <map_components component_1="mitochondrial_Ca_release" component_2="mitochondrial_calcium"/>
-    <map_variables variable_1="Ca_m" variable_2="Ca_m"/>
-    <map_variables variable_1="J_mito" variable_2="J_mito"/>
+    <map_components component_2="mitochondrial_calcium" component_1="mitochondrial_Ca_release"/>
+    <map_variables variable_2="Ca_m" variable_1="Ca_m"/>
+    <map_variables variable_2="J_mito" variable_1="J_mito"/>
   </connection>
   
 
 
-
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00018"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006852"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00019"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006852"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00020"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006852"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00021"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00022"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00023"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00024"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00025"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00026"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00027"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00028"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00029"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00030"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006851"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051560"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00031"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00032"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00033"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00034"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00035"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description></rdf:RDF></model>
+<rdf:RDF>
+  <rdf:Bag rdf:about="rdf:#c32af19e-6bc0-4535-b0e3-d355cba81348">
+    <rdf:li>calcium dynamics</rdf:li>
+    <rdf:li>neuron</rdf:li>
+    <rdf:li>sympathetic</rdf:li>
+    <rdf:li>electrophysiology</rdf:li>
+  </rdf:Bag>
+  <rdf:Seq rdf:about="rdf:#66e8815f-2d77-46f0-b46a-a2919d8eaa70">
+    <rdf:li rdf:resource="rdf:#9f11eca5-e8ee-463d-a892-860bf0299d1d"/>
+    <rdf:li rdf:resource="rdf:#54804b41-fa52-4e5d-8d24-bf840a9363ad"/>
+    <rdf:li rdf:resource="rdf:#4c55cf6c-5bc2-4dfb-9333-cdcb363bdb54"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="">
+    <dc:publisher>The University of Auckland, Bioengineering Institute</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#11e8d270-3a86-4123-b21c-a800cea9c670"/>
+    <dcterms:created rdf:resource="rdf:#032a2aa0-439a-4182-942e-0c335ed24852"/>
+    <dc:creator rdf:resource="rdf:#0943c8e3-046d-4980-b8c0-453d47a86270"/>
+    <cmeta:modification rdf:resource="rdf:#18da788a-e335-4f23-b50e-64d019c06fa8"/>
+    <cmeta:modification rdf:resource="rdf:#299ece5d-3d77-4dd3-932e-aa5308a309da"/>
+    <cmeta:modification rdf:resource="rdf:#a0b71f90-a6f0-4e77-a32b-f0da24f372af"/>
+    <cmeta:modification rdf:resource="rdf:#f4c255a9-864d-4a8d-a09a-e30f95033946"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2a66c8f9-9a21-447b-b93f-9913e5dc832d">
+    <vCard:N rdf:resource="rdf:#b671c6ec-e206-4c0b-a47e-b1c6ef27a87a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#032a2aa0-439a-4182-942e-0c335ed24852">
+    <dcterms:W3CDTF>2002-03-21T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#242b8f41-13f6-47c9-8cdb-0ac04f1218c5">
+    <dcterms:W3CDTF>2000-03</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a6189788-adf5-4375-8624-99a5edb6bc8c">
+    <vCard:N rdf:resource="rdf:#fd12f9b8-0647-4332-ab69-e17e555a3ee9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a0b71f90-a6f0-4e77-a32b-f0da24f372af">
+    <dcterms:modified rdf:resource="rdf:#08ffc2ef-27c5-4248-a828-d04361e115bd"/>
+    <rdf:value>
+          Added more metadata.
+        </rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#2a66c8f9-9a21-447b-b93f-9913e5dc832d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bfb5711f-98fe-41b1-a7f5-b66ea97b1158">
+    <dc:title>Journal of General Physiology</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8ec08365-ffb0-477f-8fef-a9434b58fcf7">
+    <bqs:Pubmed_id>10694264</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#b3ddd6c1-6e66-4b28-b4d6-7bc22176f615"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#78c9959b-c942-483a-84f3-44c722b99fdc">
+    <vCard:Given>Stephen</vCard:Given>
+    <vCard:Family>Colegrove</vCard:Family>
+    <vCard:Other>L</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#54804b41-fa52-4e5d-8d24-bf840a9363ad">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#784a653d-0e35-4c93-acc2-91fc946a3d53"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7098e4e2-aabe-4389-9b2b-db65bfb38adf">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>The Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="#colegrove_albrecht_friel_2000_version01">
+    <dc:title>
+        Quantitative analysis of mitochondrial Ca2+ uptake and release.
+      </dc:title>
+    <cmeta:bio_entity>sympathetic neuron</cmeta:bio_entity>
+    <cmeta:comment rdf:resource="rdf:#bed2e8da-84d2-4bc6-aa8e-b5a2e52b070a"/>
+    <bqs:reference rdf:resource="rdf:#8ce5c17a-31d1-48ff-aea0-c097bbd775a5"/>
+    <bqs:reference rdf:resource="rdf:#8ec08365-ffb0-477f-8fef-a9434b58fcf7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#43a3e122-5e9b-417b-bda6-b3ee4f612dc3">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value rdf:resource="rdf:#c32af19e-6bc0-4535-b0e3-d355cba81348"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#07d373b1-f2e7-4c01-8b08-3fde0f368b11">
+    <dcterms:W3CDTF>2003-04-09</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f7f1a7a8-96f9-4b1e-b1b9-53e160951811">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bed2e8da-84d2-4bc6-aa8e-b5a2e52b070a">
+    <dc:creator rdf:resource="rdf:#60eb3f15-7edf-4ef7-8e03-18401794cc32"/>
+    <rdf:value>This is the CellML description of Colegrove et al's 2000 model of &#13;
+          mitochondrial Ca2+ uptake and release pathways in sympathetic neurons.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#102b3c52-8a2c-4bc9-9e4d-0a6efe9e1407">
+    <dcterms:W3CDTF>2009-06-05T15:33:47+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bf0bc8c5-41da-41a8-9215-4b2d40657a05">
+    <dcterms:W3CDTF>2003-03-28</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#784a653d-0e35-4c93-acc2-91fc946a3d53">
+    <vCard:Given>Meredith</vCard:Given>
+    <vCard:Family>Albrecht</vCard:Family>
+    <vCard:Other>A</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#11e8d270-3a86-4123-b21c-a800cea9c670">
+    <dc:creator rdf:resource="rdf:#fc2db557-dd0b-490c-baad-a7683648f363"/>
+    <rdf:value/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9f11eca5-e8ee-463d-a892-860bf0299d1d">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#78c9959b-c942-483a-84f3-44c722b99fdc"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b671c6ec-e206-4c0b-a47e-b1c6ef27a87a">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7c904e32-a025-4122-9845-95fb0271af84">
+    <vCard:Given>David</vCard:Given>
+    <vCard:Family>Friel</vCard:Family>
+    <vCard:Other>D</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#299ece5d-3d77-4dd3-932e-aa5308a309da">
+    <dcterms:modified rdf:resource="rdf:#07d373b1-f2e7-4c01-8b08-3fde0f368b11"/>
+    <rdf:value>
+          Added publication date information.
+        </rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#a6189788-adf5-4375-8624-99a5edb6bc8c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#60eb3f15-7edf-4ef7-8e03-18401794cc32">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0943c8e3-046d-4980-b8c0-453d47a86270">
+    <vCard:ORG rdf:resource="rdf:#7098e4e2-aabe-4389-9b2b-db65bfb38adf"/>
+    <vCard:EMAIL rdf:resource="rdf:#2697f942-6764-4b30-aced-e281061d99d8"/>
+    <vCard:N rdf:resource="rdf:#f7f1a7a8-96f9-4b1e-b1b9-53e160951811"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#71687366-e5a3-455d-b9f0-9f31ef36fba4">
+    <vCard:N rdf:resource="rdf:#802dd7eb-eb02-41c5-9257-463e7a0dad2e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f4c255a9-864d-4a8d-a09a-e30f95033946">
+    <dcterms:modified rdf:resource="rdf:#bf0bc8c5-41da-41a8-9215-4b2d40657a05"/>
+    <rdf:value>
+          Changed the name and cmeta:id of the model to reflect the proper 
+          spelling of Colegrove.
+        </rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#71687366-e5a3-455d-b9f0-9f31ef36fba4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a22098a3-902d-4bbf-a213-893e30baf099">
+    <vCard:Given>James</vCard:Given>
+    <vCard:Family>Lawson</vCard:Family>
+    <vCard:Other>Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#08ffc2ef-27c5-4248-a828-d04361e115bd">
+    <dcterms:W3CDTF>2002-07-18</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#fd12f9b8-0647-4332-ab69-e17e555a3ee9">
+    <vCard:Given>Autumn</vCard:Given>
+    <vCard:Family>Cuellar</vCard:Family>
+    <vCard:Other>A</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2697f942-6764-4b30-aced-e281061d99d8">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b3ddd6c1-6e66-4b28-b4d6-7bc22176f615">
+    <dc:creator rdf:resource="rdf:#66e8815f-2d77-46f0-b46a-a2919d8eaa70"/>
+    <dc:title>Quantitive Analysis of Mitochondrial Ca2+ Uptake and Release                     Pathways in Sympathetic Neurons Reconstruction of the Recovery after             Depolarisation-evoked [Ca2+] Elevations</dc:title>
+    <bqs:volume>115</bqs:volume>
+    <bqs:first_page>371</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#bfb5711f-98fe-41b1-a7f5-b66ea97b1158"/>
+    <dcterms:issued rdf:resource="rdf:#242b8f41-13f6-47c9-8cdb-0ac04f1218c5"/>
+    <bqs:last_page>388</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#18da788a-e335-4f23-b50e-64d019c06fa8">
+    <dcterms:modified rdf:resource="rdf:#102b3c52-8a2c-4bc9-9e4d-0a6efe9e1407"/>
+    <rdf:value>updated curation status, removed reference link in documentation</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#e212039e-54ca-40ff-a0c9-92262be24fe6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8ce5c17a-31d1-48ff-aea0-c097bbd775a5">
+    <dc:subject rdf:resource="rdf:#43a3e122-5e9b-417b-bda6-b3ee4f612dc3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#802dd7eb-eb02-41c5-9257-463e7a0dad2e">
+    <vCard:Given>Autumn</vCard:Given>
+    <vCard:Family>Cuellar</vCard:Family>
+    <vCard:Other>A</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e212039e-54ca-40ff-a0c9-92262be24fe6">
+    <vCard:N rdf:resource="rdf:#a22098a3-902d-4bbf-a213-893e30baf099"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4c55cf6c-5bc2-4dfb-9333-cdcb363bdb54">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#7c904e32-a025-4122-9845-95fb0271af84"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#fc2db557-dd0b-490c-baad-a7683648f363">
+    <vCard:FN/>
+  </rdf:Description>
+</rdf:RDF>
+</model>

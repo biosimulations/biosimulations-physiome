@@ -2,45 +2,64 @@
 <!-- This CellML file was generated from:
  Weinstein, Alan M. "A mathematical model of the outer medullary collecting duct of the rat." American Journal of Physiology-Renal Physiology 279.1 (2000): F24-F45.-->
 <model cmeta:id="Weinstein_2000_AE1" name="Weinstein_2000_AE1" xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<rdf:Description rdf:about="">
+			<dc:title>A kinetic model of Cl-/HCO3- exchanger (AE1)</dc:title>
+		</rdf:Description>
+		<rdf:Description rdf:about="#Weinstein_2000_AE1">
+			<bqs:reference rdf:parseType="Resource">
+				<dc:subject rdf:parseType="Resource">
+					<bqs:subject_type>keyword</bqs:subject_type>
+					<rdf:value>
+						<rdf:Bag>
+							<rdf:li>protein module</rdf:li>
+						</rdf:Bag>
+					</rdf:value>
+				</dc:subject>
+			</bqs:reference>
+		</rdf:Description>
+	</rdf:RDF>
+
     <import xlink:href="Units/Units.cellml">
         <units name="mM" units_ref="mM"/>
         <units name="mM_per_s" units_ref="mM_per_s"/>
-        <units name="cm_per_s" units_ref="cm_per_s"/>
-        <units name="umol_per_s_per_cm2" units_ref="umol_per_s_per_cm2"/>
+        <units name="per_s" units_ref="per_s"/>
     </import>
     <component name="AE1">
         <variable name="HCO3_int" public_interface="in" units="mM"/>
         <variable name="HCO3_ext" public_interface="in" units="mM"/>
         <variable name="Cl_int" public_interface="in" units="mM"/>
         <variable name="Cl_ext" public_interface="in" units="mM"/>
-        <variable name="J_AE1_HCO3" public_interface="out" units="umol_per_s_per_cm2"/>
-        <variable name="J_AE1_Cl" public_interface="out" units="umol_per_s_per_cm2"/>
-        <variable name="J_HCO3_influx" public_interface="out" units="umol_per_s_per_cm2"/>
-        <variable name="J_Cl_influx" public_interface="out" units="umol_per_s_per_cm2"/>
+        <variable name="J_AE1_HCO3" public_interface="out" units="mM_per_s"/>
+        <variable name="J_AE1_Cl" public_interface="out" units="mM_per_s"/>
+        <variable name="J_HCO3_influx" public_interface="out" units="mM_per_s"/>
+        <variable name="J_Cl_influx" public_interface="out" units="mM_per_s"/>
         <variable initial_value="198" name="K_HCO3_ext" units="mM"/>
         <variable initial_value="198" name="K_HCO3_int" units="mM"/>
         <variable initial_value="50" name="K_Cl_ext" units="mM"/>
         <variable initial_value="50" name="K_Cl_int" units="mM"/>
-        <variable initial_value="1247" name="P_HCO3_ext" units="cm_per_s"/>
-        <variable initial_value="135" name="P_HCO3_int" units="cm_per_s"/>
-        <variable initial_value="562" name="P_Cl_ext" units="cm_per_s"/>
-        <variable initial_value="61" name="P_Cl_int" units="cm_per_s"/>
+        <variable initial_value="1247" name="P_HCO3_ext" units="per_s"/>
+        <variable initial_value="135" name="P_HCO3_int" units="per_s"/>
+        <variable initial_value="562" name="P_Cl_ext" units="per_s"/>
+        <variable initial_value="61" name="P_Cl_int" units="per_s"/>
         <variable name="beta_ext" units="dimensionless"/>
         <variable name="beta_int" units="dimensionless"/>
         <variable name="gamma_ext" units="dimensionless"/>
         <variable name="gamma_int" units="dimensionless"/>
-        <variable name="sigma" units="cm_per_s"/>
-        <variable initial_value="1.0" name="x_Tmax" units="mM"/>
+        <variable name="sigma" units="per_s"/>
+        <variable initial_value="1" name="x_Tmax" units="mM"/>
         <variable initial_value="172" name="K_I" units="mM"/>
         <variable name="x_T" units="mM"/>
         <variable name="x_ext" units="mM"/>
         <variable name="x_int" units="mM"/>
-        <variable name="Jo_bm" units="umol_per_s_per_cm2"/>
-        <variable name="Ji_bm" units="umol_per_s_per_cm2"/>
-        <variable name="Js_bm" units="umol_per_s_per_cm2"/>
-        <variable name="Jo_cm" units="umol_per_s_per_cm2"/>
-        <variable name="Ji_cm" units="umol_per_s_per_cm2"/>
-        <variable name="Js_cm" units="umol_per_s_per_cm2"/>
+        <variable name="Jo_bm" units="mM_per_s"/>
+        <variable name="Ji_bm" units="mM_per_s"/>
+        <variable name="Js_bm" units="mM_per_s"/>
+        <variable name="Jo_cm" units="mM_per_s"/>
+        <variable name="Ji_cm" units="mM_per_s"/>
+        <variable name="Js_cm" units="mM_per_s"/>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
                 <eq/>
@@ -517,23 +536,6 @@
             </apply>
         </math>
     </component>
-    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="">
-            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A kinetic model of Cl-/HCO3- exchanger (AE1)</dc:title>
-        </rdf:Description>
-        <rdf:Description xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:about="#Weinstein_2000_AE1">
-            <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                    <bqs:subject_type xmlns:bqs="http://www.cellml.org/bqs/1.0#">keyword</bqs:subject_type>
-                    <rdf:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                        <rdf:Bag xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-                            <rdf:li xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">protein module</rdf:li>
-                        </rdf:Bag>
-                    </rdf:value>
-                </dc:subject>
-            </bqs:reference>
-        </rdf:Description>
-    </rdf:RDF>
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <!--
       The following RDF block contains metadata that applies to this document

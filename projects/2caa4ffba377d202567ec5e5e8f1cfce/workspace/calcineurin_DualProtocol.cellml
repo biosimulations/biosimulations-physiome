@@ -6,6 +6,28 @@
     xmlns:cellml="http://www.cellml.org/cellml/1.1#"
     xmlns:cmeta="http://www.cellml.org/metadata/1.0#">
     
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:cmeta="http://www.cellml.org/metadata/1.0#"
+    xmlns:bqs="http://www.cellml.org/bqs/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <rdf:Description rdf:about="#calcineurin">
+        <dc:creator rdf:parseType="Resource">
+            <vCard:N rdf:parseType="Resource">
+                <vCard:Family>Cooling</vCard:Family>
+                <vCard:Given>Michael</vCard:Given>
+            </vCard:N>
+            <vCard:EMAIL rdf:parseType="Resource">
+                <rdf:value>m.cooling@auckland.ac.nz</rdf:value>
+                <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet" />
+            </vCard:EMAIL>
+        </dc:creator>
+
+        <dc:title>Cooling's calcineurin module for the Dual calcium protocol</dc:title>
+    </rdf:Description>
+</rdf:RDF> 
 <!--
 *******************************************************
 ***         U   N   I   T   S                       ***
@@ -15,7 +37,7 @@
       <unit units="second"/>
    </units>
    
-   <units  name="nM">
+   <units xmlns="http://www.cellml.org/cellml/1.0#" name="nM">
          <unit units="mole" prefix="nano"/>
          <unit units="liter" exponent="-1"/>
       </units>
@@ -26,14 +48,14 @@
 *********************************************************
 -->
      <component name="calcineurin">
-         <variable cmeta:id="v7" name="t"   units="s" public_interface="in"/>
-         <variable cmeta:id="v4" name="Ca" units="nM" public_interface="in"/>
-         <variable cmeta:id="v1" name="M" units="nM" initial_value="6000"/>
-         <variable cmeta:id="v0" name="Ntot" units="nM" initial_value="1000" public_interface="out"/>
-         <variable cmeta:id="v2" name="K_mN" units="nM" initial_value="535"/>
-         <variable cmeta:id="v3" name="n" units="dimensionless" initial_value="2.92"/>
-         <variable cmeta:id="v6" name="K_dN" units="nM" initial_value="1760"/>
-         <variable cmeta:id="v5" name="act_N" units="dimensionless" public_interface="out"/>
+         <variable name="t"   units="s" public_interface="in"/>
+         <variable name="Ca" units="nM" public_interface="in"/>
+         <variable name="M" units="nM" initial_value="6000"/>
+         <variable name="Ntot" units="nM" initial_value="1000" public_interface="out"/>
+         <variable name="K_mN" units="nM" initial_value="535"/>
+         <variable name="n" units="dimensionless" initial_value="2.92"/>
+         <variable name="K_dN" units="nM" initial_value="1760"/>
+         <variable name="act_N" units="dimensionless" public_interface="out"/>
       
        <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>
@@ -75,5 +97,5 @@
                </apply>
          </math>
    </component>
-   
+
 </model>

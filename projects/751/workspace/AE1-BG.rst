@@ -1,9 +1,5 @@
-
-********************************************
-Bond graph implementation of AE1 exchanger
-********************************************
 About this model
-******************
+====================
 
 :Original publication: `Weinstein, A. M. (2000)`_:
   "A computational model of induced pluripotent stem-cell derived cardiomyocytes \

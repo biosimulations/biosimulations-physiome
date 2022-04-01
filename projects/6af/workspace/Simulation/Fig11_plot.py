@@ -8,7 +8,7 @@ filename = 'simFig11_0.csv'
 prefig = 'Fig11'
 figfile = 'sim%s' % prefig
 # Set figure dimension (width, height) in inches.
-fw, fh = 6, 6
+fw, fh = 8, 6
 fig = plt.figure(figsize=(fw,fh))
 # Set subplots
 subpRow, subpCol = 1, 1
@@ -32,7 +32,7 @@ for i, varName in enumerate(y_name):
     x_data = data[x_name]
     y_data = data[varName]
     ny_data=y_data/max(abs(y_data))   
-    ax[i].plot(x_data, ny_data,  color=cycle[1], label = '@$Ca_i$=$Ca_o$=%.4f nM, $Na_i$=%.2f mM, T=%dK' % (Cai, Nai,T))
+    ax[i].plot(x_data, ny_data,  color=cycle[1], label = 'CellML@$Ca_i$=$Ca_o$=%.4f nM, $Na_i$=%.2f mM, T=%dK' % (Cai, Nai,T))
 
     ofilename ='fig11.csv' 
     odata = pd.read_csv(ofilename)
@@ -44,7 +44,7 @@ for i, varName in enumerate(y_name):
     ax[i].legend(loc = 'best', fontsize=lfontsize, frameon=False)
     ax[i].set_xlabel ('Voltage (mV)', fontsize= labelfontsize)
     ax[i].set_ylabel (y_labels[i], fontsize= labelfontsize)
-    ax[i].set_title('%s in the primary publication' % (prefig))
+    ax[i].set_title('%s in the paper' % (prefig))
 
 figfiles = '%s.png' % (figfile)
 plt.savefig(figfiles)        

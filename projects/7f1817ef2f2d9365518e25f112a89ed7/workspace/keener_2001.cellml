@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='utf-8'?>
 <!--  FILE :  keener_model_2001.xml
 
 CREATED :  20th November 2002
@@ -17,7 +17,7 @@ DESCRIPTION :  This file contains a CellML description of James Keener's 2001 ma
 CHANGES:  
   09/04/2003 - AAC - Added publication date information.  
  
---><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/keener_2001/keener_2001.cellml" cmeta:id="keener_2001_version01" name="keener_2001_version01">
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" cmeta:id="keener_2001_version01" name="keener_2001_version01">
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
   <articleinfo>
@@ -52,8 +52,9 @@ The complete original paper reference is cited below:
 </para>
 
 <para>
-Diffusion Induced Oscillatory Insulin Secretion, James P. Keener, 2001, <emphasis>Bulletin of Mathematical Biology</emphasis>
-, 63, 625-641. <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=11497161&amp;dopt=Abstract">PubMed ID: 11497161</ulink> 
+<ulink url="http://www.sciencedirect.com/science?_ob=ArticleURL&amp;_udi=B6WC7-4593YHR-R&amp;_user=140507&amp;_coverDate=07%2F31%2F2001&amp;_rdoc=2&amp;_fmt=summary&amp;_orig=browse&amp;_srch=%23toc%236731%232001%23999369995%23288659!&amp;_cdi=6731&amp;_sort=d&amp;_docanchor=&amp;wchp=dGLbVzz-lSztb&amp;_acct=C000011498&amp;_version=1&amp;_urlVersion=0&amp;_userid=140507&amp;md5=ab655a0002a58212a7c8f4893876257a">Diffusion Induced Oscillatory Insulin Secretion</ulink>, James P. Keener, 2001, <ulink url="http://www.sciencedirect.com/science?_ob=JournalURL&amp;_cdi=6731&amp;_auth=y&amp;_acct=C000011498&amp;_version=1&amp;_urlVersion=0&amp;_userid=140507&amp;md5=2670d6bf58ba6625cf8c13344d6a4cb5">
+            <emphasis>Bulletin of Mathematical Biology</emphasis>
+          </ulink>, 63, 625-641. (A PDF version of the article is available to subscribers on the Bulletin of Mathematical Biology website.)  <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=11497161&amp;dopt=Abstract">PubMed ID: 11497161</ulink> 
 </para>
 
 <informalfigure float="0" id="fig_cell_diagram">
@@ -83,31 +84,31 @@ The raw CellML descriptions of the model can be downloaded in various formats as
   -->
   
   <units name="millimolar">
-    <unit prefix="milli" units="mole"/>
-    <unit exponent="-1" units="litre"/>
+    <unit units="mole" prefix="milli"/>
+    <unit units="litre" exponent="-1"/>
   </units>
   
   <units name="minute">
-    <unit multiplier="60.0" units="second"/>
+    <unit units="second" multiplier="60.0"/>
   </units>
   
   <units name="flux">
     <unit units="millimolar"/>
-    <unit exponent="-1" units="minute"/>
+    <unit units="minute" exponent="-1"/>
   </units>
   
   <units name="cm2_per_second">
-    <unit exponent="2" prefix="centi" units="metre"/>
-    <unit exponent="-1" units="second"/>
+    <unit units="metre" prefix="centi" exponent="2"/>
+    <unit units="second" exponent="-1"/>
   </units>
   
   <units name="mm">
-    <unit prefix="milli" units="metre"/>
+    <unit units="metre" prefix="milli"/>
   </units>
   
   <units name="mm_per_minute">
-    <unit prefix="milli" units="metre"/>
-    <unit exponent="-1" units="minute"/>
+    <unit units="metre" prefix="milli"/>
+    <unit units="minute" exponent="-1"/>
   </units>
   
   <!--
@@ -116,18 +117,18 @@ The raw CellML descriptions of the model can be downloaded in various formats as
   -->
   
   <component name="environment">
-    <variable name="time" public_interface="out" units="minute"/>
-    <variable name="rho" public_interface="out" units="dimensionless"/>
+    <variable units="minute" public_interface="out" name="time"/>
+    <variable units="dimensionless" public_interface="out" name="rho"/>
   </component>
   
-  <component cmeta:id="id_00001" name="intracellular_glucose">
-    <variable cmeta:id="id_00002" initial_value="0.0" name="G_i" public_interface="out" units="millimolar"/>
+  <component name="intracellular_glucose">
+    <variable units="millimolar" public_interface="out" name="G_i" initial_value="0.0"/>
     
-    <variable name="time" public_interface="in" units="minute"/>
-    <variable name="Rm" public_interface="in" units="flux"/>
-    <variable name="R1" public_interface="in" units="flux"/>
-    <variable name="R2" public_interface="in" units="flux"/>
-    <variable name="rho" public_interface="in" units="dimensionless"/>
+    <variable units="minute" public_interface="in" name="time"/>
+    <variable units="flux" public_interface="in" name="Rm"/>
+    <variable units="flux" public_interface="in" name="R1"/>
+    <variable units="flux" public_interface="in" name="R2"/>
+    <variable units="dimensionless" public_interface="in" name="rho"/>
   
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="G_i_diff_eq">
@@ -156,19 +157,19 @@ The raw CellML descriptions of the model can be downloaded in various formats as
     </math>
   </component>
  
-  <component cmeta:id="id_00003" name="extracellular_glucose">
-    <variable cmeta:id="id_00004" initial_value="5.0" name="G" public_interface="out" units="millimolar"/>
-    <variable initial_value="0.1" name="x" public_interface="out" units="mm"/>
-    <variable initial_value="3.8" name="V" public_interface="out" units="mm_per_minute"/>
+  <component name="extracellular_glucose">
+    <variable units="millimolar" public_interface="out" name="G" initial_value="5.0"/>
+    <variable units="mm" public_interface="out" name="x" initial_value="0.1"/>
+    <variable units="mm_per_minute" public_interface="out" name="V" initial_value="3.8"/>
    
-    <variable initial_value="6.6E-6" name="D_G" units="cm2_per_second"/>
-    <variable name="A" units="dimensionless"/>
-    <variable name="B" units="dimensionless"/>
+    <variable units="cm2_per_second" name="D_G" initial_value="6.6E-6"/>
+    <variable units="dimensionless" name="A"/>
+    <variable units="dimensionless" name="B"/>
    
-    <variable name="time" public_interface="in" units="minute"/>
-    <variable name="R1" public_interface="in" units="flux"/>
-    <variable name="R2" public_interface="in" units="flux"/>
-    <variable name="rho" public_interface="in" units="dimensionless"/>
+    <variable units="minute" public_interface="in" name="time"/>
+    <variable units="flux" public_interface="in" name="R1"/>
+    <variable units="flux" public_interface="in" name="R2"/>
+    <variable units="dimensionless" public_interface="in" name="rho"/>
    
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="G_partialdiff_eq">
@@ -249,17 +250,17 @@ The raw CellML descriptions of the model can be downloaded in various formats as
     </math>
   </component>
   
-  <component cmeta:id="id_00004" name="insulin">
-    <variable cmeta:id="id_00005" initial_value="0.0" name="I" public_interface="out" units="millimolar"/>
+  <component name="insulin">
+    <variable units="millimolar" public_interface="out" name="I" initial_value="0.0"/>
    
-    <variable initial_value="2.1E-6" name="D_I" units="cm2_per_second"/>
-    <variable name="C" units="dimensionless"/>
-    <variable name="D" units="dimensionless"/>
+    <variable units="cm2_per_second" name="D_I" initial_value="2.1E-6"/>
+    <variable units="dimensionless" name="C"/>
+    <variable units="dimensionless" name="D"/>
    
-    <variable name="time" public_interface="in" units="minute"/>
-    <variable name="Rs" public_interface="in" units="flux"/>
-    <variable name="x" public_interface="in" units="mm"/>
-    <variable name="V" public_interface="in" units="mm_per_minute"/>
+    <variable units="minute" public_interface="in" name="time"/>
+    <variable units="flux" public_interface="in" name="Rs"/>
+    <variable units="mm" public_interface="in" name="x"/>
+    <variable units="mm_per_minute" public_interface="in" name="V"/>
    
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="I_partialdiff_eq">
@@ -322,15 +323,15 @@ The raw CellML descriptions of the model can be downloaded in various formats as
     </math>
   </component>
   
-  <component cmeta:id="id_00006" name="insulin_inhibition">
-    <variable name="J" public_interface="out" units="dimensionless"/>
+  <component name="insulin_inhibition">
+    <variable units="dimensionless" public_interface="out" name="J"/>
    
-    <variable initial_value="2.1E-6" name="J_infinity" units="dimensionless"/>
-    <variable initial_value="20.0" name="J_tau" units="minute"/>
-    <variable initial_value="1.0E-6" name="K_inh" units="millimolar"/>
+    <variable units="dimensionless" name="J_infinity" initial_value="2.1E-6"/>
+    <variable units="minute" name="J_tau" initial_value="20.0"/>
+    <variable units="millimolar" name="K_inh" initial_value="1.0E-6"/>
    
-    <variable name="time" public_interface="in" units="minute"/>
-    <variable name="I" public_interface="in" units="millimolar"/>
+    <variable units="minute" public_interface="in" name="time"/>
+    <variable units="millimolar" public_interface="in" name="I"/>
    
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="J_diff_eq">
@@ -369,15 +370,15 @@ The raw CellML descriptions of the model can be downloaded in various formats as
     </math>
   </component>
       
-  <component cmeta:id="id_00007" name="glucose_metabolism">
-    <variable cmeta:id="id_00008" name="Rm" public_interface="out" units="flux"/>
+  <component name="glucose_metabolism">
+    <variable units="flux" public_interface="out" name="Rm"/>
     
-    <variable initial_value="0.24" name="Vm" units="flux"/>
-    <variable initial_value="9.8" name="Km" units="millimolar"/>
+    <variable units="flux" name="Vm" initial_value="0.24"/>
+    <variable units="millimolar" name="Km" initial_value="9.8"/>
     
-    <variable name="time" public_interface="in" units="minute"/>
-    <variable name="G_i" public_interface="in" units="millimolar"/>
-    <variable name="rho" public_interface="in" units="dimensionless"/>
+    <variable units="minute" public_interface="in" name="time"/>
+    <variable units="millimolar" public_interface="in" name="G_i"/>
+    <variable units="dimensionless" public_interface="in" name="rho"/>
   
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="Rm_calculation">
@@ -404,18 +405,18 @@ The raw CellML descriptions of the model can be downloaded in various formats as
     </math>
   </component>
       
-  <component cmeta:id="id_00009" name="GLUT_1_transporter">
-    <variable name="R1" public_interface="out" units="flux"/>
+  <component name="GLUT_1_transporter">
+    <variable units="flux" public_interface="out" name="R1"/>
     
-    <variable initial_value="120.0" name="V1" units="flux"/>
-    <variable initial_value="1.4" name="K1" units="millimolar"/>
-    <variable initial_value="4.0E-5" name="Ki" units="millimolar"/>
+    <variable units="flux" name="V1" initial_value="120.0"/>
+    <variable units="millimolar" name="K1" initial_value="1.4"/>
+    <variable units="millimolar" name="Ki" initial_value="4.0E-5"/>
     
-    <variable name="time" public_interface="in" units="minute"/>
-    <variable name="I" public_interface="in" units="millimolar"/>
-    <variable name="G" public_interface="in" units="millimolar"/>
-    <variable name="G_i" public_interface="in" units="millimolar"/>
-    <variable name="rho" public_interface="in" units="dimensionless"/>
+    <variable units="minute" public_interface="in" name="time"/>
+    <variable units="millimolar" public_interface="in" name="I"/>
+    <variable units="millimolar" public_interface="in" name="G"/>
+    <variable units="millimolar" public_interface="in" name="G_i"/>
+    <variable units="dimensionless" public_interface="in" name="rho"/>
   
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="R1_calculation">
@@ -467,17 +468,17 @@ The raw CellML descriptions of the model can be downloaded in various formats as
     </math>
   </component>
   
-  <component cmeta:id="id_00010" name="GLUT_2_transporter">
-    <variable name="R2" public_interface="out" units="flux"/>
+  <component name="GLUT_2_transporter">
+    <variable units="flux" public_interface="out" name="R2"/>
     
-    <variable initial_value="32.0" name="V2" units="flux"/>
-    <variable initial_value="17.0" name="K2" units="millimolar"/>
-    <variable name="Jm" units="dimensionless"/>
+    <variable units="flux" name="V2" initial_value="32.0"/>
+    <variable units="millimolar" name="K2" initial_value="17.0"/>
+    <variable units="dimensionless" name="Jm"/>
     
-    <variable name="time" public_interface="in" units="minute"/>
-    <variable name="G" public_interface="in" units="millimolar"/>
-    <variable name="G_i" public_interface="in" units="millimolar"/>
-    <variable name="rho" public_interface="in" units="dimensionless"/>
+    <variable units="minute" public_interface="in" name="time"/>
+    <variable units="millimolar" public_interface="in" name="G"/>
+    <variable units="millimolar" public_interface="in" name="G_i"/>
+    <variable units="dimensionless" public_interface="in" name="rho"/>
   
     <math xmlns="http://www.w3.org/1998/Math/MathML">   
       <apply id="R2_calculation">
@@ -524,16 +525,16 @@ The raw CellML descriptions of the model can be downloaded in various formats as
     </math>
   </component>
       
-  <component cmeta:id="id_00011" name="insulin_secretion">
-    <variable name="Rs" public_interface="out" units="flux"/>
+  <component name="insulin_secretion">
+    <variable units="flux" public_interface="out" name="Rs"/>
     
-    <variable initial_value="0.034" name="Vs" units="flux"/>
-    <variable initial_value="0.13" name="Ks" units="millimolar"/>
-    <variable initial_value="0.01" name="L" units="flux"/>
+    <variable units="flux" name="Vs" initial_value="0.034"/>
+    <variable units="millimolar" name="Ks" initial_value="0.13"/>
+    <variable units="flux" name="L" initial_value="0.01"/>
     
-    <variable name="time" public_interface="in" units="minute"/>
-    <variable name="Rm" public_interface="in" units="flux"/>
-    <variable name="rho" public_interface="in" units="dimensionless"/>
+    <variable units="minute" public_interface="in" name="time"/>
+    <variable units="flux" public_interface="in" name="Rm"/>
+    <variable units="dimensionless" public_interface="in" name="rho"/>
   
     <math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply id="Rs_calculation">
@@ -606,107 +607,221 @@ The raw CellML descriptions of the model can be downloaded in various formats as
   </component>
   
   <connection>
-    <map_components component_1="intracellular_glucose" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
-    <map_variables variable_1="rho" variable_2="rho"/>
+    <map_components component_2="environment" component_1="intracellular_glucose"/>
+    <map_variables variable_2="time" variable_1="time"/>
+    <map_variables variable_2="rho" variable_1="rho"/>
   </connection>
   
   <connection>
-    <map_components component_1="extracellular_glucose" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
-    <map_variables variable_1="rho" variable_2="rho"/>
+    <map_components component_2="environment" component_1="extracellular_glucose"/>
+    <map_variables variable_2="time" variable_1="time"/>
+    <map_variables variable_2="rho" variable_1="rho"/>
   </connection>
   
   <connection>
-    <map_components component_1="insulin" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="insulin"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="insulin_inhibition" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
+    <map_components component_2="environment" component_1="insulin_inhibition"/>
+    <map_variables variable_2="time" variable_1="time"/>
   </connection>
   
   <connection>
-    <map_components component_1="glucose_metabolism" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
-    <map_variables variable_1="rho" variable_2="rho"/>
+    <map_components component_2="environment" component_1="glucose_metabolism"/>
+    <map_variables variable_2="time" variable_1="time"/>
+    <map_variables variable_2="rho" variable_1="rho"/>
   </connection>
   
   <connection>
-    <map_components component_1="GLUT_1_transporter" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
-    <map_variables variable_1="rho" variable_2="rho"/>
+    <map_components component_2="environment" component_1="GLUT_1_transporter"/>
+    <map_variables variable_2="time" variable_1="time"/>
+    <map_variables variable_2="rho" variable_1="rho"/>
   </connection>
   
   <connection>
-    <map_components component_1="GLUT_2_transporter" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
-    <map_variables variable_1="rho" variable_2="rho"/>
+    <map_components component_2="environment" component_1="GLUT_2_transporter"/>
+    <map_variables variable_2="time" variable_1="time"/>
+    <map_variables variable_2="rho" variable_1="rho"/>
   </connection>
   
   <connection>
-    <map_components component_1="insulin_secretion" component_2="environment"/>
-    <map_variables variable_1="time" variable_2="time"/>
-    <map_variables variable_1="rho" variable_2="rho"/>
+    <map_components component_2="environment" component_1="insulin_secretion"/>
+    <map_variables variable_2="time" variable_1="time"/>
+    <map_variables variable_2="rho" variable_1="rho"/>
   </connection>
   
   <connection>
-    <map_components component_1="intracellular_glucose" component_2="glucose_metabolism"/>
-    <map_variables variable_1="G_i" variable_2="G_i"/>
-    <map_variables variable_1="Rm" variable_2="Rm"/>
+    <map_components component_2="glucose_metabolism" component_1="intracellular_glucose"/>
+    <map_variables variable_2="G_i" variable_1="G_i"/>
+    <map_variables variable_2="Rm" variable_1="Rm"/>
   </connection>
   
   <connection>
-    <map_components component_1="intracellular_glucose" component_2="GLUT_1_transporter"/>
-    <map_variables variable_1="G_i" variable_2="G_i"/>
-    <map_variables variable_1="R1" variable_2="R1"/>
+    <map_components component_2="GLUT_1_transporter" component_1="intracellular_glucose"/>
+    <map_variables variable_2="G_i" variable_1="G_i"/>
+    <map_variables variable_2="R1" variable_1="R1"/>
   </connection>
   
   <connection>
-    <map_components component_1="intracellular_glucose" component_2="GLUT_2_transporter"/>
-    <map_variables variable_1="G_i" variable_2="G_i"/>
-    <map_variables variable_1="R2" variable_2="R2"/>
+    <map_components component_2="GLUT_2_transporter" component_1="intracellular_glucose"/>
+    <map_variables variable_2="G_i" variable_1="G_i"/>
+    <map_variables variable_2="R2" variable_1="R2"/>
   </connection>
   
   <connection>
-    <map_components component_1="extracellular_glucose" component_2="GLUT_1_transporter"/>
-    <map_variables variable_1="G" variable_2="G"/>
-    <map_variables variable_1="R1" variable_2="R1"/>
+    <map_components component_2="GLUT_1_transporter" component_1="extracellular_glucose"/>
+    <map_variables variable_2="G" variable_1="G"/>
+    <map_variables variable_2="R1" variable_1="R1"/>
   </connection>
   
   <connection>
-    <map_components component_1="extracellular_glucose" component_2="GLUT_2_transporter"/>
-    <map_variables variable_1="G" variable_2="G"/>
-    <map_variables variable_1="R2" variable_2="R2"/>
+    <map_components component_2="GLUT_2_transporter" component_1="extracellular_glucose"/>
+    <map_variables variable_2="G" variable_1="G"/>
+    <map_variables variable_2="R2" variable_1="R2"/>
   </connection>
   
   <connection>
-    <map_components component_1="insulin" component_2="insulin_inhibition"/>
-    <map_variables variable_1="I" variable_2="I"/>
+    <map_components component_2="insulin_inhibition" component_1="insulin"/>
+    <map_variables variable_2="I" variable_1="I"/>
   </connection>
   
   <connection>
-    <map_components component_1="insulin" component_2="insulin_secretion"/>
-    <map_variables variable_1="Rs" variable_2="Rs"/>
+    <map_components component_2="insulin_secretion" component_1="insulin"/>
+    <map_variables variable_2="Rs" variable_1="Rs"/>
   </connection>
   
   <connection>
-    <map_components component_1="insulin" component_2="GLUT_1_transporter"/>
-    <map_variables variable_1="I" variable_2="I"/>
+    <map_components component_2="GLUT_1_transporter" component_1="insulin"/>
+    <map_variables variable_2="I" variable_1="I"/>
   </connection>
   
   <connection>
-    <map_components component_1="insulin" component_2="extracellular_glucose"/>
-    <map_variables variable_1="x" variable_2="x"/>
-    <map_variables variable_1="V" variable_2="V"/>
+    <map_components component_2="extracellular_glucose" component_1="insulin"/>
+    <map_variables variable_2="x" variable_1="x"/>
+    <map_variables variable_2="V" variable_1="V"/>
   </connection>
   
   <connection>
-    <map_components component_1="insulin_secretion" component_2="glucose_metabolism"/>
-    <map_variables variable_1="Rm" variable_2="Rm"/>
+    <map_components component_2="glucose_metabolism" component_1="insulin_secretion"/>
+    <map_variables variable_2="Rm" variable_1="Rm"/>
   </connection>
   
 
-
-<rdf:RDF><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:82743"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:82743"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:82743"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:5931"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0016088"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:83365"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:5931"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0016088"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:83365"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:5931"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0016088"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:83365"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0050796"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006006"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006006"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015758"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005355"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015758"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005355"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:5931"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0016088"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:83365"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/cl/CL:0000168"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030073"/></isVersionOf></rdf:Description></rdf:RDF></model>
+<rdf:RDF>
+  <rdf:Bag rdf:about="rdf:#4387d728-b36a-44e8-a441-6a78843901ee">
+    <rdf:li>oscillator</rdf:li>
+    <rdf:li>beta cell</rdf:li>
+    <rdf:li>calcium dynamics</rdf:li>
+    <rdf:li>Pancreatic Beta-Cell</rdf:li>
+    <rdf:li>insulin</rdf:li>
+    <rdf:li>metabolism</rdf:li>
+  </rdf:Bag>
+  <rdf:Description rdf:about="">
+    <dc:publisher>
+        The University of Auckland, Bioengineering Institute
+      </dc:publisher>
+    <cmeta:modification rdf:resource="rdf:#607bdccc-bb74-4947-8ef1-3303675540e2"/>
+    <dcterms:created rdf:resource="rdf:#b7878110-f9cf-4dcc-9b12-96cc7dff28f1"/>
+    <dc:creator rdf:resource="rdf:#0a7a32cf-deb1-4796-ab41-0c972bd0defb"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ba8ca845-6b1f-4515-b083-bd9ce2c13320">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#140e36d2-77be-46ac-9d8c-e10a9bd2e75e">
+    <dc:subject rdf:resource="rdf:#15ae8bab-e3fa-4b1c-9f95-cbf6857fde89"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7e4528c0-a2dd-4383-be66-40361909ae08">
+    <vCard:Given>Autumn</vCard:Given>
+    <vCard:Family>Cuellar</vCard:Family>
+    <vCard:Other>A</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0a7a32cf-deb1-4796-ab41-0c972bd0defb">
+    <vCard:ORG rdf:resource="rdf:#7bbfc7ba-aded-44a8-acd9-a0447c4ea144"/>
+    <vCard:EMAIL rdf:resource="rdf:#1036b57a-114c-44c7-bef0-ec95fdfb46a2"/>
+    <vCard:N rdf:resource="rdf:#b4b93091-2370-40c7-b529-96846bc87729"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b4b93091-2370-40c7-b529-96846bc87729">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d96130ee-4877-44fb-a82d-498e7161d2b9">
+    <vCard:Given>James</vCard:Given>
+    <vCard:Family>Keener</vCard:Family>
+    <vCard:Other>P</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#7bbfc7ba-aded-44a8-acd9-a0447c4ea144">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>The Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#15ae8bab-e3fa-4b1c-9f95-cbf6857fde89">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value rdf:resource="rdf:#4387d728-b36a-44e8-a441-6a78843901ee"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b7878110-f9cf-4dcc-9b12-96cc7dff28f1">
+    <dcterms:W3CDTF>2002-11-20</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#171f280f-b1c0-45a1-aada-6207ead14b9e">
+    <bqs:Pubmed_id>11497161</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#9c630e70-c2d0-4cc1-9273-00268051e5d0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4aa9a64c-b582-4ccc-a9a2-435f79bc3e10">
+    <vCard:N rdf:resource="rdf:#d96130ee-4877-44fb-a82d-498e7161d2b9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#1036b57a-114c-44c7-bef0-ec95fdfb46a2">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#3ccef712-df6f-4505-b75e-7e3f7be291bd">
+    <dcterms:W3CDTF>2003-04-09</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#627b570b-4aa4-4ca7-913a-20f8e8e0643d">
+    <dcterms:W3CDTF>2001-07</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#12653e92-d4ad-4ed7-a006-b94c32c4ddd7">
+    <dc:creator rdf:resource="rdf:#ba8ca845-6b1f-4515-b083-bd9ce2c13320"/>
+    <rdf:value>
+          This is the CellML description of James Keener's 2001 mathematical
+          model of insulin secretion oscillations in pancreatic beta cells.
+        </rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#607bdccc-bb74-4947-8ef1-3303675540e2">
+    <dcterms:modified rdf:resource="rdf:#3ccef712-df6f-4505-b75e-7e3f7be291bd"/>
+    <rdf:value>
+          Added publication date information.
+        </rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#395de265-7885-461b-b4b8-656fe6663880"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9c630e70-c2d0-4cc1-9273-00268051e5d0">
+    <dc:creator rdf:resource="rdf:#997e5f63-e8d0-479c-82e0-b102dac2da06"/>
+    <dc:title>
+            Diffusion Induced Oscillatory Insulin Secretion
+          </dc:title>
+    <bqs:volume>63</bqs:volume>
+    <bqs:first_page>625</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#d0f71468-ff50-45fb-bb78-d3f1fad076f5"/>
+    <dcterms:issued rdf:resource="rdf:#627b570b-4aa4-4ca7-913a-20f8e8e0643d"/>
+    <bqs:last_page>641</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#395de265-7885-461b-b4b8-656fe6663880">
+    <vCard:N rdf:resource="rdf:#7e4528c0-a2dd-4383-be66-40361909ae08"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#997e5f63-e8d0-479c-82e0-b102dac2da06">
+    <bqs:Person rdf:resource="rdf:#4aa9a64c-b582-4ccc-a9a2-435f79bc3e10"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d0f71468-ff50-45fb-bb78-d3f1fad076f5">
+    <dc:title>Bulletin of Mathematical Biology</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="#keener_2001_version01">
+    <dc:title>
+        James Keener's 2001 mathematical model of insulin secretion oscillations         in pancreatic beta cells.
+      </dc:title>
+    <cmeta:bio_entity>Pancreatic Beta Cell</cmeta:bio_entity>
+    <cmeta:comment rdf:resource="rdf:#12653e92-d4ad-4ed7-a006-b94c32c4ddd7"/>
+    <bqs:reference rdf:resource="rdf:#140e36d2-77be-46ac-9d8c-e10a9bd2e75e"/>
+    <bqs:reference rdf:resource="rdf:#171f280f-b1c0-45a1-aada-6207ead14b9e"/>
+  </rdf:Description>
+</rdf:RDF>
+</model>

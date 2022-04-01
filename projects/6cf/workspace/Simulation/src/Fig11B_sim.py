@@ -16,11 +16,11 @@ simulation = oc.open_simulation(simfile)
 data = simulation.data()
 # Set the experiments
 Vholding=[-80]
-t_ss = 0
+t_ss = 3
 t_act = [0.1]
 Vtest = [0]
 Nai=[ 16.55]
-Cai_init = 130e-6
+Cai_init = 0.1e-3
 end =[20+t_ss]
 # Define the interval of interest for this simulation experiment
 start, pointInterval = 0, 0.001

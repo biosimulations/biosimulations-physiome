@@ -8,7 +8,7 @@ http://COR.physiol.ox.ac.uk/ - COR@physiol.ox.ac.uk
 
 CellML 1.0 was used to generate this cellular model
 http://www.CellML.org/
---><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xml:base="file:///H:/hinch_greenstein_tanskanen_xu_winslow_2004/hinch_greenstein_tanskanen_xu_winslow_2004.cellml" cmeta:id="Hinch_2004" name="Hinch">
+--><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xml:base="" cmeta:id="Hinch_2004" name="Hinch">
 
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
@@ -119,11 +119,11 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
       <variable cmeta:id="environment_time" name="time" public_interface="out" units="ms"/>
    </component>
    <component name="cell_geometry">
-      <variable cmeta:id="id_00001" initial_value="25.84e3" name="V_myo" public_interface="out" units="um3"/>
-      <variable cmeta:id="id_00001" initial_value="2.098e3" name="V_SR" public_interface="out" units="um3"/>
+      <variable initial_value="25.84e3" name="V_myo" public_interface="out" units="um3"/>
+      <variable initial_value="2.098e3" name="V_SR" public_interface="out" units="um3"/>
       <variable initial_value="1.534e4" name="A_cap" public_interface="out" units="um2"/>
    </component>
-   <component cmeta:id="id_00002" name="membrane">
+   <component name="membrane">
       <variable cmeta:id="membrane_V" name="V" public_interface="out" units="mV"/>
       <variable initial_value="8314.5" name="R" public_interface="out" units="mJ_per_mole_K"/>
       <variable initial_value="295" name="T" public_interface="out" units="kelvin"/>
@@ -188,22 +188,22 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00011" name="CaRU">
+   <component name="CaRU">
       <variable initial_value="0.065" name="g_D" private_interface="out" units="um3_per_ms"/>
       <variable initial_value="0.02" name="J_R" private_interface="out" units="um3_per_ms"/>
       <variable initial_value="9.13e-4" name="J_L" private_interface="out" units="um3_per_ms"/>
       <variable name="V_myo" private_interface="out" public_interface="in" units="um3"/>
       <variable initial_value="50000" name="N" private_interface="out" units="dimensionless"/>
       <variable name="V" private_interface="out" public_interface="in" units="mV"/>
-      <variable cmeta:id="id_00003" name="Ca_i" private_interface="out" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00004" name="Ca_o" private_interface="out" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00005" name="Ca_SR" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="Ca_i" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="Ca_o" private_interface="out" public_interface="in" units="mM"/>
+      <variable name="Ca_SR" private_interface="out" public_interface="in" units="mM"/>
       <variable name="time" private_interface="out" public_interface="in" units="ms"/>
-      <variable cmeta:id="id_00023" name="FVRT_Ca" private_interface="out" public_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00006" name="I_RyR" private_interface="in" public_interface="out" units="mM_per_ms"/>
-      <variable cmeta:id="id_00017" name="I_LCC" private_interface="in" public_interface="out" units="mM_per_ms"/>
+      <variable name="FVRT_Ca" private_interface="out" public_interface="in" units="dimensionless"/>
+      <variable name="I_RyR" private_interface="in" public_interface="out" units="mM_per_ms"/>
+      <variable name="I_LCC" private_interface="in" public_interface="out" units="mM_per_ms"/>
    </component>
-   <component cmeta:id="id_00012" name="CaRU_Transitions">
+   <component name="CaRU_Transitions">
       <variable name="V" public_interface="in" units="mV"/>
       <variable name="C_oc" public_interface="in" units="mM"/>
       <variable name="C_co" public_interface="in" units="mM"/>
@@ -217,7 +217,7 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
       <variable initial_value="2.43" name="tau_R" units="ms"/>
       <variable initial_value="0.05" name="phi_R" units="dimensionless"/>
       <variable initial_value="0.012" name="theta_R" units="dimensionless"/>
-      <variable cmeta:id="id_00007" initial_value="41e-3" name="K_RyR" units="mM"/>
+      <variable initial_value="41e-3" name="K_RyR" units="mM"/>
       <variable initial_value="0.22e-3" name="K_L" units="mM"/>
       <variable initial_value="0.0625" name="a" units="dimensionless"/>
       <variable initial_value="14" name="b" units="dimensionless"/>
@@ -628,11 +628,11 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00032" name="DS_Calcium_Concentrations">
-      <variable cmeta:id="id_00033" name="Ca_i" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00035" name="Ca_SR" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00034" name="Ca_o" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00036" name="FVRT_Ca" public_interface="in" units="dimensionless"/>
+   <component name="DS_Calcium_Concentrations">
+      <variable name="Ca_i" public_interface="in" units="mM"/>
+      <variable name="Ca_SR" public_interface="in" units="mM"/>
+      <variable name="Ca_o" public_interface="in" units="mM"/>
+      <variable name="FVRT_Ca" public_interface="in" units="dimensionless"/>
       <variable name="g_D" public_interface="in" units="um3_per_ms"/>
       <variable name="J_R" public_interface="in" units="um3_per_ms"/>
       <variable name="J_L" public_interface="in" units="um3_per_ms"/>
@@ -921,14 +921,14 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00008" name="LCC_and_RyR_fluxes">
+   <component name="LCC_and_RyR_fluxes">
       <variable name="g_D" public_interface="in" units="um3_per_ms"/>
       <variable name="J_R" public_interface="in" units="um3_per_ms"/>
       <variable name="J_L" public_interface="in" units="um3_per_ms"/>
-      <variable cmeta:id="id_00019" name="Ca_i" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00020" name="Ca_SR" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00021" name="Ca_o" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00022" name="FVRT_Ca" public_interface="in" units="dimensionless"/>
+      <variable name="Ca_i" public_interface="in" units="mM"/>
+      <variable name="Ca_SR" public_interface="in" units="mM"/>
+      <variable name="Ca_o" public_interface="in" units="mM"/>
+      <variable name="FVRT_Ca" public_interface="in" units="dimensionless"/>
       <variable name="J_Loo" public_interface="out" units="um3_mM_per_ms"/>
       <variable name="J_Loc" public_interface="out" units="um3_mM_per_ms"/>
       <variable name="J_Rco" public_interface="out" units="um3_mM_per_ms"/>
@@ -1518,7 +1518,7 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00013" name="CaRU_states">
+   <component name="CaRU_states">
       <variable name="alpha_p" public_interface="in" units="per_ms"/>
       <variable name="alpha_m" public_interface="in" units="per_ms"/>
       <variable name="beta_pcc" public_interface="in" units="per_ms"/>
@@ -1764,7 +1764,7 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00014" name="CaRU_reduced_states">
+   <component name="CaRU_reduced_states">
       <variable name="y_oc" public_interface="in" units="dimensionless"/>
       <variable name="y_cc" public_interface="in" units="dimensionless"/>
       <variable name="y_co" public_interface="in" units="dimensionless"/>
@@ -1791,7 +1791,7 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
       <variable initial_value="0.0087302" name="z_2" public_interface="out" units="dimensionless"/>
       <variable initial_value="0.0026566" name="z_3" public_interface="out" units="dimensionless"/>
       <variable name="z_4" public_interface="out" units="dimensionless"/>
-      <variable cmeta:id="id_00009" name="time" public_interface="in" units="ms"/>
+      <variable name="time" public_interface="in" units="ms"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -2025,7 +2025,7 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00015" name="RyR_current">
+   <component name="RyR_current">
       <variable name="y_oo" public_interface="in" units="dimensionless"/>
       <variable name="y_co" public_interface="in" units="dimensionless"/>
       <variable name="y_oc" public_interface="in" units="dimensionless"/>
@@ -2102,7 +2102,7 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00018" name="LCC_current">
+   <component name="LCC_current">
       <variable name="y_oo" public_interface="in" units="dimensionless"/>
       <variable name="y_oc" public_interface="in" units="dimensionless"/>
       <variable name="alpha_p" public_interface="in" units="per_ms"/>
@@ -2178,17 +2178,17 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00024" name="Na_Ca_Exchanger">
+   <component name="Na_Ca_Exchanger">
       <variable name="FVRT" public_interface="in" units="dimensionless"/>
       <variable initial_value="87.5" name="K_mNa" units="mM"/>
       <variable initial_value="1.38" name="K_mCa" units="mM"/>
       <variable initial_value="0.35" name="eta" units="dimensionless"/>
       <variable initial_value="0.1" name="k_sat" units="dimensionless"/>
-      <variable cmeta:id="id_00025" initial_value="38.5e-3" name="g_NCX" units="mM_per_ms"/>
+      <variable initial_value="38.5e-3" name="g_NCX" units="mM_per_ms"/>
       <variable name="Na_i" public_interface="in" units="mM"/>
       <variable name="Na_o" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00027" name="Ca_i" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00026" name="Ca_o" public_interface="in" units="mM"/>
+      <variable name="Ca_i" public_interface="in" units="mM"/>
+      <variable name="Ca_o" public_interface="in" units="mM"/>
       <variable cmeta:id="Na_Ca_Exchanger_I_NaCa" name="I_NaCa" public_interface="out" units="mM_per_ms"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -2286,11 +2286,11 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00028" name="SERCA">
-      <variable cmeta:id="id_00029" initial_value="0.45e-3" name="g_SERCA" units="mM_per_ms"/>
-      <variable cmeta:id="id_00030" initial_value="0.5e-3" name="K_SERCA" units="mM"/>
+   <component name="SERCA">
+      <variable initial_value="0.45e-3" name="g_SERCA" units="mM_per_ms"/>
+      <variable initial_value="0.5e-3" name="K_SERCA" units="mM"/>
       <variable cmeta:id="SERCA_I_SERCA" name="I_SERCA" public_interface="out" units="mM_per_ms"/>
-      <variable cmeta:id="id_00031" name="Ca_i" public_interface="in" units="mM"/>
+      <variable name="Ca_i" public_interface="in" units="mM"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -2323,9 +2323,9 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00037" name="Sarcolemmal_Ca_pump">
-      <variable cmeta:id="id_00038" initial_value="0.0035e-3" name="g_pCa" units="mM_per_ms"/>
-      <variable cmeta:id="id_00039" initial_value="0.5e-3" name="K_mpCa" units="mM"/>
+   <component name="Sarcolemmal_Ca_pump">
+      <variable initial_value="0.0035e-3" name="g_pCa" units="mM_per_ms"/>
+      <variable initial_value="0.5e-3" name="K_mpCa" units="mM"/>
       <variable name="Ca_i" public_interface="in" units="mM"/>
       <variable cmeta:id="Sarcolemmal_Ca_pump_I_pCa" name="I_pCa" public_interface="out" units="mM_per_ms"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -2348,15 +2348,15 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00040" name="Background_Ca_current">
+   <component name="Background_Ca_current">
       <variable name="V" public_interface="in" units="mV"/>
       <variable name="R" public_interface="in" units="mJ_per_mole_K"/>
       <variable name="T" public_interface="in" units="kelvin"/>
       <variable name="F" public_interface="in" units="C_per_mole"/>
       <variable name="Ca_i" public_interface="in" units="mM"/>
       <variable name="Ca_o" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00041" name="E_Ca" public_interface="out" units="mV"/>
-      <variable cmeta:id="id_00042" initial_value="2.6875e-8" name="g_CaB" units="mM_per_mV_ms"/>
+      <variable name="E_Ca" public_interface="out" units="mV"/>
+      <variable initial_value="2.6875e-8" name="g_CaB" units="mM_per_mV_ms"/>
       <variable cmeta:id="Background_Ca_current_I_CaB" name="I_CaB" public_interface="out" units="mM_per_ms"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -2402,10 +2402,10 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00043" name="SR_Ca_leak_current">
-      <variable cmeta:id="id_00044" name="Ca_i" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00045" name="Ca_SR" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00046" initial_value="1.8951e-5" name="g_SRl" units="per_ms"/>
+   <component name="SR_Ca_leak_current">
+      <variable name="Ca_i" public_interface="in" units="mM"/>
+      <variable name="Ca_SR" public_interface="in" units="mM"/>
+      <variable initial_value="1.8951e-5" name="g_SRl" units="per_ms"/>
       <variable cmeta:id="SR_Ca_leak_current_I_SR" name="I_SR" public_interface="out" units="mM_per_ms"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -2423,13 +2423,13 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00047" name="troponin_Ca_buffer">
-      <variable cmeta:id="id_00048" initial_value="0.04" name="k_m_TRPN" units="per_ms"/>
-      <variable cmeta:id="id_00049" initial_value="0.04e3" name="k_p_TRPN" units="per_mM_ms"/>
-      <variable cmeta:id="id_00050" initial_value="70e-3" name="B_TRPN" units="mM"/>
-      <variable cmeta:id="id_00051" name="TRPN" public_interface="in" units="mM"/>
+   <component name="troponin_Ca_buffer">
+      <variable initial_value="0.04" name="k_m_TRPN" units="per_ms"/>
+      <variable initial_value="0.04e3" name="k_p_TRPN" units="per_mM_ms"/>
+      <variable initial_value="70e-3" name="B_TRPN" units="mM"/>
+      <variable name="TRPN" public_interface="in" units="mM"/>
       <variable name="Ca_i" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00052" name="I_TRPN" public_interface="out" units="mM_per_ms"/>
+      <variable name="I_TRPN" public_interface="out" units="mM_per_ms"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -2455,11 +2455,11 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00053" name="calmodulin_Ca_buffer">
-      <variable cmeta:id="id_00054" initial_value="2.382e-3" name="k_CMDN" units="mM"/>
-      <variable cmeta:id="id_00055" initial_value="50e-3" name="B_CMDN" units="mM"/>
+   <component name="calmodulin_Ca_buffer">
+      <variable initial_value="2.382e-3" name="k_CMDN" units="mM"/>
+      <variable initial_value="50e-3" name="B_CMDN" units="mM"/>
       <variable name="Ca_i" public_interface="in" units="mM"/>
-      <variable cmeta:id="id_00056" name="beta_CMDN" public_interface="out" units="dimensionless"/>
+      <variable name="beta_CMDN" public_interface="out" units="dimensionless"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -2495,23 +2495,23 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00016" name="intracellular_ion_concentrations">
-      <variable cmeta:id="id_00071" initial_value="10" name="Na_i" public_interface="out" units="mM"/>
+   <component name="intracellular_ion_concentrations">
+      <variable initial_value="10" name="Na_i" public_interface="out" units="mM"/>
       <variable cmeta:id="intracellular_ion_concentrations_Ca_i" initial_value="0.0001" name="Ca_i" public_interface="out" units="mM"/>
-      <variable cmeta:id="id_00067" initial_value="700e-3" name="Ca_SR" public_interface="out" units="mM"/>
-      <variable cmeta:id="id_00057" initial_value="0.0636364" name="TRPN" public_interface="out" units="mM"/>
+      <variable initial_value="700e-3" name="Ca_SR" public_interface="out" units="mM"/>
+      <variable initial_value="0.0636364" name="TRPN" public_interface="out" units="mM"/>
       <variable name="time" public_interface="in" units="ms"/>
       <variable name="V_myo" public_interface="in" units="um3"/>
-      <variable cmeta:id="id_00066" name="V_SR" public_interface="in" units="um3"/>
-      <variable cmeta:id="id_00065" name="beta_CMDN" public_interface="in" units="dimensionless"/>
-      <variable cmeta:id="id_00064" name="I_SERCA" public_interface="in" units="mM_per_ms"/>
-      <variable cmeta:id="id_00063" name="I_pCa" public_interface="in" units="mM_per_ms"/>
-      <variable cmeta:id="id_00062" name="I_CaB" public_interface="in" units="mM_per_ms"/>
-      <variable cmeta:id="id_00061" name="I_TRPN" public_interface="in" units="mM_per_ms"/>
-      <variable cmeta:id="id_00060" name="I_SR" public_interface="in" units="mM_per_ms"/>
-      <variable cmeta:id="id_00059" name="I_NaCa" public_interface="in" units="mM_per_ms"/>
-      <variable cmeta:id="id_00010" name="I_RyR" public_interface="in" units="mM_per_ms"/>
-      <variable cmeta:id="id_00058" name="I_LCC" public_interface="in" units="mM_per_ms"/>
+      <variable name="V_SR" public_interface="in" units="um3"/>
+      <variable name="beta_CMDN" public_interface="in" units="dimensionless"/>
+      <variable name="I_SERCA" public_interface="in" units="mM_per_ms"/>
+      <variable name="I_pCa" public_interface="in" units="mM_per_ms"/>
+      <variable name="I_CaB" public_interface="in" units="mM_per_ms"/>
+      <variable name="I_TRPN" public_interface="in" units="mM_per_ms"/>
+      <variable name="I_SR" public_interface="in" units="mM_per_ms"/>
+      <variable name="I_NaCa" public_interface="in" units="mM_per_ms"/>
+      <variable name="I_RyR" public_interface="in" units="mM_per_ms"/>
+      <variable name="I_LCC" public_interface="in" units="mM_per_ms"/>
       <variable cmeta:id="intracellular_ion_concentrations_CaSR_plot" name="CaSR_plot" units="mM"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
@@ -2607,9 +2607,9 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00069" name="extracellular_ion_concentrations">
-      <variable cmeta:id="id_00070" initial_value="140" name="Na_o" public_interface="out" units="mM"/>
-      <variable cmeta:id="id_00068" initial_value="1" name="Ca_o" public_interface="out" units="mM"/>
+   <component name="extracellular_ion_concentrations">
+      <variable initial_value="140" name="Na_o" public_interface="out" units="mM"/>
+      <variable initial_value="1" name="Ca_o" public_interface="out" units="mM"/>
    </component>
    <group>
       <relationship_ref relationship="containment"/>
@@ -2858,5 +2858,181 @@ A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac V
       <map_variables variable_1="V_SR" variable_2="V_SR"/>
    </connection>
 
-
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67225"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030322"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0060075"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042391"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#RyR_current_I_RyR"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005219"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005219"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005219"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005219"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005219"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005219"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005219"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62492"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005219"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62343"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00018"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#LCC_current_I_LCC"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00019"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00020"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00021"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00022"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00023"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00024"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00025"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#Na_Ca_Exchanger_I_NaCa"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00026"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00027"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00028"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051208"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070296"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00029"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051208"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051563"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00030"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051208"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051563"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#SERCA_I_SERCA"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051208"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051563"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00031"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00032"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00033"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00034"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00035"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00036"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00037"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00038"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00039"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#Sarcolemmal_Ca_pump_I_pCa"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070588"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0015085"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0006816"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00040"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00041"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00042"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#Background_Ca_current_I_CaB"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00043"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00044"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00045"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00046"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#SR_Ca_leak_current_I_SR"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00047"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00048"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00049"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00050"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00051"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00052"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67901"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030172"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00053"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62343"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005516"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00054"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62343"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005516"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00055"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62343"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005516"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00056"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62343"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005516"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00057"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00058"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00059"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030181"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00060"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67225"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00061"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62338"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00062"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00063"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00064"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051208"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0070296"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00065"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:62343"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00066"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67225"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00067"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/fma/FMA:67225"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#intracellular_ion_concentrations_Ca_i"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00068"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00069"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00070"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00071"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#intracellular_ion_concentrations_CaSR_plot"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf></rdf:Description></rdf:RDF></model>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Seq rdf:about="rdf:#ed19aac9-377e-476b-bfd3-83569d6eedf9">
+    <rdf:li rdf:resource="rdf:#883ec100-80ad-4401-a2ef-014282726be0"/>
+    <rdf:li rdf:resource="rdf:#a55641e8-b12c-4e08-9436-ce49db8418fb"/>
+    <rdf:li rdf:resource="rdf:#21cd429e-d093-4f0e-a1de-3719eee9a7af"/>
+    <rdf:li rdf:resource="rdf:#e200e375-7779-4075-a6d6-6c12c6bf9666"/>
+    <rdf:li rdf:resource="rdf:#b0f3b883-62c6-4e82-acec-8ca4952f3cf6"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#bab84a90-7d70-4a73-9201-aee97fc3ec08">
+    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#03b9f6f1-a154-4056-8ec5-9effe5d0c9da">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">L</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Xu</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#9fc576f8-fb37-4824-b806-f91c4ea89ce3">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#ed19aac9-377e-476b-bfd3-83569d6eedf9"/>
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A Simplified Local Control Model of Calcium-Induced Calcium Release in Cardiac Ventricular Myocytes</dc:title>
+    <bqs:volume xmlns:bqs="http://www.cellml.org/bqs/1.0#">87(6)</bqs:volume>
+    <bqs:first_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">3723</bqs:first_page>
+    <bqs:Journal xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#231dadf8-d571-416f-9096-7cc0fba18335"/>
+    <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#47474752-8548-4e07-bd2e-5a79278b96f1"/>
+    <bqs:last_page xmlns:bqs="http://www.cellml.org/bqs/1.0#">3736</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b0f3b883-62c6-4e82-acec-8ca4952f3cf6">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#87133e87-617d-4b0b-8bb6-d5021f049ffa"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bf9f836f-d1cc-496e-b5a3-d27bca2a612c">
+    <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#6f58c9e7-80f2-4129-bf44-5ca37b965225"/>
+    <rdf:value>This model runs in both COR and PCEnv.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#74e3dffe-535e-44da-9678-0a6f8a3ca45a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c15c64f7-534d-406c-95b4-ad1391c525e1">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">A</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Tanskanen</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">J</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6f2c694c-ac70-41f5-a2cc-211adc09e0af">
+    <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#58790332-40c9-4e31-a568-80c4672df9bd"/>
+    <rdf:value>added cmeta:ids to some variables</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#098631b0-f9dd-458a-a5b3-8cb31b078889"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#58790332-40c9-4e31-a568-80c4672df9bd">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2008-08-04T15:07:01+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#21cd429e-d093-4f0e-a1de-3719eee9a7af">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#c15c64f7-534d-406c-95b4-ad1391c525e1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$bUwr.2">
+    <ns7:boundIntervals xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" rdf:resource="rdf:#$cUwr.2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#87133e87-617d-4b0b-8bb6-d5021f049ffa">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">R</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Winslow</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">L</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#231dadf8-d571-416f-9096-7cc0fba18335">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Biophysical Journal</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#883ec100-80ad-4401-a2ef-014282726be0">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#0ab10cef-58d6-4865-bd2b-4a50dec4fd0f"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#62d8b973-47a8-44fe-b04d-eaefa203a1cb">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>j.terkildsen@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="#Hinch_2004">
+    <ns7:simulation xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" rdf:resource="rdf:#$bUwr.2"/>
+    <bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#2705de26-2a37-49d6-9c76-4f5403abd457"/>
+<bqs:reference xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:parseType="Resource">
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:parseType="Resource">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value>
+      <rdf:Bag>
+        <rdf:li>ventricular myocyte</rdf:li>
+        <rdf:li>calcium dynamics</rdf:li>
+        <rdf:li>calcium</rdf:li>
+        <rdf:li>electrophysiology</rdf:li>
+        <rdf:li>cardiac</rdf:li>
+        <rdf:li>myocyte</rdf:li>
+      </rdf:Bag>
+    </rdf:value>
+  </dc:subject>
+</bqs:reference>
+    <cmeta:comment rdf:resource="rdf:#b3ea8a65-d195-4e10-b359-a5009b6a9cf0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ab160a30-83d7-4dae-a05d-1a925451091b">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#bab84a90-7d70-4a73-9201-aee97fc3ec08"/>
+    <rdf:value/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#f1486b69-0486-466b-b07a-478c162905e3">
+    <vCard:FN xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#2705de26-2a37-49d6-9c76-4f5403abd457">
+    <bqs:Pubmed_id xmlns:bqs="http://www.cellml.org/bqs/1.0#">15465866</bqs:Pubmed_id>
+    <bqs:JournalArticle xmlns:bqs="http://www.cellml.org/bqs/1.0#" rdf:resource="rdf:#9fc576f8-fb37-4824-b806-f91c4ea89ce3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a55641e8-b12c-4e08-9436-ce49db8418fb">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#11df2923-f8f6-4e27-81c9-1c8ba5d94e0e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$cUwr.2">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="rdf:#$dUwr.2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$dUwr.2">
+    <ns7:endingValue xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#">500</ns7:endingValue>
+    <ns7:nonstandard-pointDensity xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#">10000</ns7:nonstandard-pointDensity>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#219f0c72-a79a-432f-90e1-9feea33c5955">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">James</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Lawson</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#845f46b7-9ce8-41a6-b2a5-46247620abc2">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Jonna</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Terkildsen</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#47474752-8548-4e07-bd2e-5a79278b96f1">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2004-12-01 00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#0ab10cef-58d6-4865-bd2b-4a50dec4fd0f">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Robert</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Hinch</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#3eb3aad3-20f4-457e-9e13-d08cc271ec4c">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Jonna</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Terkildsen</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">University of Auckland</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#ab160a30-83d7-4dae-a05d-1a925451091b"/>
+    <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="rdf:#c2adc79c-4f00-435b-a7c4-d6f862285665"/>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#a1024322-9d50-46c5-a4e1-25c02829244c"/>
+    <cmeta:modification rdf:resource="rdf:#6f2c694c-ac70-41f5-a2cc-211adc09e0af"/>
+    <cmeta:modification rdf:resource="rdf:#bf9f836f-d1cc-496e-b5a3-d27bca2a612c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#e200e375-7779-4075-a6d6-6c12c6bf9666">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#03b9f6f1-a154-4056-8ec5-9effe5d0c9da"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b3ea8a65-d195-4e10-b359-a5009b6a9cf0">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="rdf:#f1486b69-0486-466b-b07a-478c162905e3"/>
+    <rdf:value/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#c2adc79c-4f00-435b-a7c4-d6f862285665">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2007-12-20T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#11df2923-f8f6-4e27-81c9-1c8ba5d94e0e">
+    <vCard:Given xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">J</vCard:Given>
+    <vCard:Family xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Greenstein</vCard:Family>
+    <vCard:Other xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">L</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6f58c9e7-80f2-4129-bf44-5ca37b965225">
+    <dcterms:W3CDTF xmlns:dcterms="http://purl.org/dc/terms/">2007-12-20T15:28:34+13:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6e75de51-7dfc-4788-9fcd-5f8e41c57598">
+    <vCard:Orgname xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Auckland Bioengineering Institute</vCard:Orgname>
+    <vCard:Orgunit xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">Systems Biology Group</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#a1024322-9d50-46c5-a4e1-25c02829244c">
+    <vCard:ORG xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#6e75de51-7dfc-4788-9fcd-5f8e41c57598"/>
+    <vCard:EMAIL xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#62d8b973-47a8-44fe-b04d-eaefa203a1cb"/>
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#3eb3aad3-20f4-457e-9e13-d08cc271ec4c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#098631b0-f9dd-458a-a5b3-8cb31b078889">
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#219f0c72-a79a-432f-90e1-9feea33c5955"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#74e3dffe-535e-44da-9678-0a6f8a3ca45a">
+    <vCard:N xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" rdf:resource="rdf:#845f46b7-9ce8-41a6-b2a5-46247620abc2"/>
+  </rdf:Description>
+</rdf:RDF>
+</model>

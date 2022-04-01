@@ -53,7 +53,6 @@ function [VOI, STATES, ALGEBRAIC, CONSTANTS] = solveModel()
     plot_selected(i_alg,VOI,ALGEBRAIC,'s',LEGEND_ALGEBRAIC,'ALGEBRAIC',ceil(sqrt(length(i_alg))))
 end            
 
-
 function [i_con, i_st, i_alg] = find_indices(labels, LEGEND_CONSTANTS, LEGEND_STATES, LEGEND_ALGEBRAIC)
 % return the indices for the selected labels
     all_legends = [LEGEND_CONSTANTS; LEGEND_STATES; LEGEND_ALGEBRAIC];
@@ -75,7 +74,6 @@ function [i_con, i_st, i_alg] = find_indices(labels, LEGEND_CONSTANTS, LEGEND_ST
         error('missing index');
     end
 end
-
 
 function [] = plot_selected(ids,x,y,legend_x,legend_y,titlestr,ns)
     istart = 1;
@@ -99,11 +97,10 @@ function [] = plot_selected(ids,x,y,legend_x,legend_y,titlestr,ns)
     suptitle(titlestr)    
 end
 
-
 function [LEGEND_STATES, LEGEND_ALGEBRAIC, LEGEND_VOI, LEGEND_CONSTANTS] = createLegends()
     LEGEND_STATES = ''; LEGEND_ALGEBRAIC = ''; LEGEND_VOI = ''; LEGEND_CONSTANTS = '';
     LEGEND_VOI = strpad('time in component environment (second)');
-    LEGEND_CONSTANTS(:,1) = strpad('q_Cai_init in component environment (fmol)');
+    LEGEND_CONSTANTS(:,1) = strpad('q_Ca_i_init in component environment (fmol)');
     LEGEND_CONSTANTS(:,2) = strpad('q_TRPN_init in component environment (fmol)');
     LEGEND_CONSTANTS(:,3) = strpad('q_Ca_TRPN_init in component environment (fmol)');
     LEGEND_CONSTANTS(:,4) = strpad('q_B_init in component environment (fmol)');
@@ -111,14 +108,14 @@ function [LEGEND_STATES, LEGEND_ALGEBRAIC, LEGEND_VOI, LEGEND_CONSTANTS] = creat
     LEGEND_CONSTANTS(:,6) = strpad('q_W_init in component environment (fmol)');
     LEGEND_CONSTANTS(:,7) = strpad('q_S_init in component environment (fmol)');
     LEGEND_ALGEBRAIC(:,3) = strpad('q_TRPN in component environment (fmol)');
-    LEGEND_ALGEBRAIC(:,6) = strpad('q_Cai in component environment (fmol)');
+    LEGEND_ALGEBRAIC(:,6) = strpad('q_Ca_i in component environment (fmol)');
     LEGEND_ALGEBRAIC(:,9) = strpad('q_Ca_TRPN in component environment (fmol)');
     LEGEND_ALGEBRAIC(:,10) = strpad('q_B in component environment (fmol)');
     LEGEND_ALGEBRAIC(:,11) = strpad('q_U in component environment (fmol)');
     LEGEND_ALGEBRAIC(:,12) = strpad('q_W in component environment (fmol)');
     LEGEND_ALGEBRAIC(:,13) = strpad('q_S in component environment (fmol)');
     LEGEND_STATES(:,1) = strpad('q_TRPN in component crossbridge_TRPN (fmol)');
-    LEGEND_STATES(:,2) = strpad('q_Cai in component crossbridge_TRPN (fmol)');
+    LEGEND_STATES(:,2) = strpad('q_Ca_i in component crossbridge_TRPN (fmol)');
     LEGEND_STATES(:,3) = strpad('q_Ca_TRPN in component crossbridge_TRPN (fmol)');
     LEGEND_STATES(:,4) = strpad('q_B in component crossbridge_TRPN (fmol)');
     LEGEND_STATES(:,5) = strpad('q_U in component crossbridge_TRPN (fmol)');
@@ -132,7 +129,7 @@ function [LEGEND_STATES, LEGEND_ALGEBRAIC, LEGEND_VOI, LEGEND_CONSTANTS] = creat
     LEGEND_CONSTANTS(:,11) = strpad('kappa_R_WS in component crossbridge_TRPN_parameters (fmol_per_sec)');
     LEGEND_CONSTANTS(:,12) = strpad('kappa_R_SU in component crossbridge_TRPN_parameters (fmol_per_sec)');
     LEGEND_CONSTANTS(:,13) = strpad('K_TRPN in component crossbridge_TRPN_parameters (per_fmol)');
-    LEGEND_CONSTANTS(:,14) = strpad('K_Cai in component crossbridge_TRPN_parameters (per_fmol)');
+    LEGEND_CONSTANTS(:,14) = strpad('K_Ca_i in component crossbridge_TRPN_parameters (per_fmol)');
     LEGEND_CONSTANTS(:,15) = strpad('K_Ca_TRPN in component crossbridge_TRPN_parameters (per_fmol)');
     LEGEND_CONSTANTS(:,16) = strpad('K_B in component crossbridge_TRPN_parameters (per_fmol)');
     LEGEND_CONSTANTS(:,17) = strpad('K_U in component crossbridge_TRPN_parameters (per_fmol)');
@@ -142,7 +139,7 @@ function [LEGEND_STATES, LEGEND_ALGEBRAIC, LEGEND_VOI, LEGEND_CONSTANTS] = creat
     LEGEND_CONSTANTS(:,21) = strpad('T in component constants (kelvin)');
     LEGEND_CONSTANTS(:,22) = strpad('n_Tm in component crossbridge_TRPN (dimensionless)');
     LEGEND_ALGEBRAIC(:,14) = strpad('mu_TRPN in component crossbridge_TRPN (J_per_mol)');
-    LEGEND_ALGEBRAIC(:,15) = strpad('mu_Cai in component crossbridge_TRPN (J_per_mol)');
+    LEGEND_ALGEBRAIC(:,15) = strpad('mu_Ca_i in component crossbridge_TRPN (J_per_mol)');
     LEGEND_ALGEBRAIC(:,16) = strpad('mu_Ca_TRPN in component crossbridge_TRPN (J_per_mol)');
     LEGEND_ALGEBRAIC(:,17) = strpad('mu_B in component crossbridge_TRPN (J_per_mol)');
     LEGEND_ALGEBRAIC(:,19) = strpad('mu_U in component crossbridge_TRPN (J_per_mol)');
@@ -200,7 +197,7 @@ function [LEGEND_STATES, LEGEND_ALGEBRAIC, LEGEND_VOI, LEGEND_CONSTANTS] = creat
     LEGEND_ALGEBRAIC(:,32) = strpad('mu_T_passive in component crossbridge_TRPN (kPa)');
     LEGEND_ALGEBRAIC(:,34) = strpad('T_passive in component crossbridge_TRPN (kPa)');
     LEGEND_CONSTANTS(:,40) = strpad('F in component constants (C_per_mol)');
-    LEGEND_RATES(:,2) = strpad('d/dt q_Cai in component crossbridge_TRPN (fmol)');
+    LEGEND_RATES(:,2) = strpad('d/dt q_Ca_i in component crossbridge_TRPN (fmol)');
     LEGEND_RATES(:,1) = strpad('d/dt q_TRPN in component crossbridge_TRPN (fmol)');
     LEGEND_RATES(:,3) = strpad('d/dt q_Ca_TRPN in component crossbridge_TRPN (fmol)');
     LEGEND_RATES(:,4) = strpad('d/dt q_B in component crossbridge_TRPN (fmol)');
@@ -216,7 +213,6 @@ function [LEGEND_STATES, LEGEND_ALGEBRAIC, LEGEND_VOI, LEGEND_CONSTANTS] = creat
     LEGEND_RATES = LEGEND_RATES';
     LEGEND_CONSTANTS = LEGEND_CONSTANTS';
 end
-
 
 function [STATES, CONSTANTS] = initConsts()
     VOI = 0; CONSTANTS = []; STATES = []; ALGEBRAIC = [];

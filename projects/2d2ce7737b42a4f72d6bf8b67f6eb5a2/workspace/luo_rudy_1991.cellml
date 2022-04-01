@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='utf-8'?>
 <!--
 This CellML file was generated on 06/11/2007 at 17:08:44 using:
 
@@ -8,7 +8,8 @@ http://COR.physiol.ox.ac.uk/ - COR@physiol.ox.ac.uk
 
 CellML 1.0 was used to generate this cellular model
 http://www.CellML.org/
---><model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xml:base="file:///H:/luo_rudy_1991/luo_rudy_1991.cellml" cmeta:id="luo_rudy_1991" name="luo_rudy_1991">
+-->
+<model xmlns="http://www.cellml.org/cellml/1.0#" xmlns:cmeta="http://www.cellml.org/metadata/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqs="http://www.cellml.org/bqs/1.0#" xmlns:cellml="http://www.cellml.org/cellml/1.0#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:ns7="http://www.cellml.org/metadata/simulation/1.0#" cmeta:id="luo_rudy_1991" name="luo_rudy_1991">
 
 <documentation xmlns="http://cellml.org/tmp-documentation">
 <article>
@@ -60,71 +61,71 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
 </documentation>
 
    <units name="millisecond">
-      <unit prefix="milli" units="second"/>
+      <unit units="second" prefix="milli"/>
    </units>
    <units name="per_millisecond">
-      <unit exponent="-1" prefix="milli" units="second"/>
+      <unit units="second" prefix="milli" exponent="-1"/>
    </units>
    <units name="millivolt">
-      <unit prefix="milli" units="volt"/>
+      <unit units="volt" prefix="milli"/>
    </units>
    <units name="per_millivolt">
-      <unit exponent="-1" prefix="milli" units="volt"/>
+      <unit units="volt" prefix="milli" exponent="-1"/>
    </units>
    <units name="per_millivolt_millisecond">
-      <unit exponent="-1" units="millivolt"/>
-      <unit exponent="-1" units="millisecond"/>
+      <unit units="millivolt" exponent="-1"/>
+      <unit units="millisecond" exponent="-1"/>
    </units>
    <units name="per_1000_centimetre">
-      <unit exponent="-1" multiplier="1000" prefix="-2" units="metre"/>
+      <unit units="metre" prefix="-2" exponent="-1" multiplier="1000"/>
    </units>
    <units name="milliS_per_cm2">
-      <unit prefix="milli" units="siemens"/>
-      <unit exponent="-2" prefix="centi" units="metre"/>
+      <unit units="siemens" prefix="milli"/>
+      <unit units="metre" prefix="centi" exponent="-2"/>
    </units>
    <units name="microF_per_cm2">
-      <unit prefix="micro" units="farad"/>
-      <unit exponent="-2" prefix="centi" units="metre"/>
+      <unit units="farad" prefix="micro"/>
+      <unit units="metre" prefix="centi" exponent="-2"/>
    </units>
    <units name="microA_per_cm2">
-      <unit prefix="micro" units="ampere"/>
-      <unit exponent="-2" prefix="centi" units="metre"/>
+      <unit units="ampere" prefix="micro"/>
+      <unit units="metre" prefix="centi" exponent="-2"/>
    </units>
    <units name="millimolar">
-      <unit prefix="milli" units="mole"/>
-      <unit exponent="-1" units="litre"/>
+      <unit units="mole" prefix="milli"/>
+      <unit units="litre" exponent="-1"/>
    </units>
    <units name="joule_per_kilomole_kelvin">
       <unit units="joule"/>
-      <unit exponent="-1" prefix="kilo" units="mole"/>
-      <unit exponent="-1" units="kelvin"/>
+      <unit units="mole" prefix="kilo" exponent="-1"/>
+      <unit units="kelvin" exponent="-1"/>
    </units>
    <units name="coulomb_per_mole">
       <unit units="coulomb"/>
-      <unit exponent="-1" units="mole"/>
+      <unit units="mole" exponent="-1"/>
    </units>
    <component name="environment">
-      <variable name="time" public_interface="out" units="millisecond"/>
+      <variable name="time" units="millisecond" public_interface="out"/>
    </component>
-   <component cmeta:id="id_00001" name="membrane">
-      <variable cmeta:id="id_00002" initial_value="-84.3801107371" name="V" public_interface="out" units="millivolt"/>
-      <variable initial_value="8314" name="R" public_interface="out" units="joule_per_kilomole_kelvin"/>
-      <variable initial_value="310" name="T" public_interface="out" units="kelvin"/>
-      <variable initial_value="96484.6" name="F" public_interface="out" units="coulomb_per_mole"/>
-      <variable initial_value="1" name="C" units="microF_per_cm2"/>
+   <component name="membrane">
+      <variable name="V" units="millivolt" initial_value="-84.3801107371" public_interface="out"/>
+      <variable name="R" units="joule_per_kilomole_kelvin" initial_value="8314" public_interface="out"/>
+      <variable name="T" units="kelvin" initial_value="310" public_interface="out"/>
+      <variable name="F" units="coulomb_per_mole" initial_value="96484.6" public_interface="out"/>
+      <variable name="C" units="microF_per_cm2" initial_value="1"/>
       <variable name="I_stim" units="microA_per_cm2"/>
-      <variable name="time" public_interface="in" units="millisecond"/>
-      <variable cmeta:id="id_00024" name="i_Na" public_interface="in" units="microA_per_cm2"/>
-      <variable name="i_si" public_interface="in" units="microA_per_cm2"/>
-      <variable cmeta:id="id_00025" name="i_K" public_interface="in" units="microA_per_cm2"/>
-      <variable name="i_K1" public_interface="in" units="microA_per_cm2"/>
-      <variable name="i_Kp" public_interface="in" units="microA_per_cm2"/>
-      <variable name="i_b" public_interface="in" units="microA_per_cm2"/>
-      <variable initial_value="100" name="stim_start" units="millisecond"/>
-      <variable initial_value="9000" name="stim_end" units="millisecond"/>
-      <variable initial_value="1000" name="stim_period" units="millisecond"/>
-      <variable initial_value="2" name="stim_duration" units="millisecond"/>
-      <variable initial_value="-25.5" name="stim_amplitude" units="microA_per_cm2"/>
+      <variable name="time" units="millisecond" public_interface="in"/>
+      <variable name="i_Na" units="microA_per_cm2" public_interface="in"/>
+      <variable name="i_si" units="microA_per_cm2" public_interface="in"/>
+      <variable name="i_K" units="microA_per_cm2" public_interface="in"/>
+      <variable name="i_K1" units="microA_per_cm2" public_interface="in"/>
+      <variable name="i_Kp" units="microA_per_cm2" public_interface="in"/>
+      <variable name="i_b" units="microA_per_cm2" public_interface="in"/>
+      <variable name="stim_start" units="millisecond" initial_value="100"/>
+      <variable name="stim_end" units="millisecond" initial_value="9000"/>
+      <variable name="stim_period" units="millisecond" initial_value="1000"/>
+      <variable name="stim_duration" units="millisecond" initial_value="2"/>
+      <variable name="stim_amplitude" units="microA_per_cm2" initial_value="-25.5"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -212,20 +213,20 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00003" name="fast_sodium_current">
-      <variable cmeta:id="id_00048" name="i_Na" public_interface="out" units="microA_per_cm2"/>
-      <variable cmeta:id="id_00049" initial_value="23" name="g_Na" units="milliS_per_cm2"/>
-      <variable cmeta:id="id_00050" name="E_Na" units="millivolt"/>
-      <variable name="time" private_interface="out" public_interface="in" units="millisecond"/>
-      <variable name="R" public_interface="in" units="joule_per_kilomole_kelvin"/>
-      <variable name="T" public_interface="in" units="kelvin"/>
-      <variable name="F" public_interface="in" units="coulomb_per_mole"/>
-      <variable cmeta:id="id_00051" name="Nao" public_interface="in" units="millimolar"/>
-      <variable cmeta:id="id_00052" name="Nai" public_interface="in" units="millimolar"/>
-      <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
-      <variable name="m" private_interface="in" units="dimensionless"/>
-      <variable name="h" private_interface="in" units="dimensionless"/>
-      <variable name="j" private_interface="in" units="dimensionless"/>
+   <component name="fast_sodium_current">
+      <variable name="i_Na" units="microA_per_cm2" public_interface="out"/>
+      <variable name="g_Na" units="milliS_per_cm2" initial_value="23"/>
+      <variable name="E_Na" units="millivolt"/>
+      <variable name="time" units="millisecond" public_interface="in" private_interface="out"/>
+      <variable name="R" units="joule_per_kilomole_kelvin" public_interface="in"/>
+      <variable name="T" units="kelvin" public_interface="in"/>
+      <variable name="F" units="coulomb_per_mole" public_interface="in"/>
+      <variable name="Nao" units="millimolar" public_interface="in"/>
+      <variable name="Nai" units="millimolar" public_interface="in"/>
+      <variable name="V" units="millivolt" public_interface="in" private_interface="out"/>
+      <variable name="m" units="dimensionless" private_interface="in"/>
+      <variable name="h" units="dimensionless" private_interface="in"/>
+      <variable name="j" units="dimensionless" private_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -273,12 +274,12 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00004" name="fast_sodium_current_m_gate">
-      <variable initial_value="0.00171338077730188" name="m" public_interface="out" units="dimensionless"/>
+   <component name="fast_sodium_current_m_gate">
+      <variable name="m" units="dimensionless" initial_value="0.00171338077730188" public_interface="out"/>
       <variable name="alpha_m" units="per_millisecond"/>
       <variable name="beta_m" units="per_millisecond"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
-      <variable name="time" public_interface="in" units="millisecond"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
+      <variable name="time" units="millisecond" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -363,12 +364,12 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00005" name="fast_sodium_current_h_gate">
-      <variable initial_value="0.982660523699656" name="h" public_interface="out" units="dimensionless"/>
+   <component name="fast_sodium_current_h_gate">
+      <variable name="h" units="dimensionless" initial_value="0.982660523699656" public_interface="out"/>
       <variable name="alpha_h" units="per_millisecond"/>
       <variable name="beta_h" units="per_millisecond"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
-      <variable name="time" public_interface="in" units="millisecond"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
+      <variable name="time" units="millisecond" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -509,12 +510,12 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00006" name="fast_sodium_current_j_gate">
-      <variable initial_value="0.989108212766685" name="j" public_interface="out" units="dimensionless"/>
+   <component name="fast_sodium_current_j_gate">
+      <variable name="j" units="dimensionless" initial_value="0.989108212766685" public_interface="out"/>
       <variable name="alpha_j" units="per_millisecond"/>
       <variable name="beta_j" units="per_millisecond"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
-      <variable name="time" public_interface="in" units="millisecond"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
+      <variable name="time" units="millisecond" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -716,14 +717,14 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00028" name="slow_inward_current">
-      <variable cmeta:id="id_00030" name="i_si" public_interface="out" units="microA_per_cm2"/>
-      <variable cmeta:id="id_00031" name="E_si" units="millivolt"/>
-      <variable name="time" private_interface="out" public_interface="in" units="millisecond"/>
-      <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
-      <variable cmeta:id="id_00029" name="Cai" public_interface="in" units="millimolar"/>
-      <variable name="d" private_interface="in" units="dimensionless"/>
-      <variable name="f" private_interface="in" units="dimensionless"/>
+   <component name="slow_inward_current">
+      <variable name="i_si" units="microA_per_cm2" public_interface="out"/>
+      <variable name="E_si" units="millivolt"/>
+      <variable name="time" units="millisecond" public_interface="in" private_interface="out"/>
+      <variable name="V" units="millivolt" public_interface="in" private_interface="out"/>
+      <variable name="Cai" units="millimolar" public_interface="in"/>
+      <variable name="d" units="dimensionless" private_interface="in"/>
+      <variable name="f" units="dimensionless" private_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -762,12 +763,12 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00026" name="slow_inward_current_d_gate">
-      <variable initial_value="0.00302126301779861" name="d" public_interface="out" units="dimensionless"/>
+   <component name="slow_inward_current_d_gate">
+      <variable name="d" units="dimensionless" initial_value="0.00302126301779861" public_interface="out"/>
       <variable name="alpha_d" units="per_millisecond"/>
       <variable name="beta_d" units="per_millisecond"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
-      <variable name="time" public_interface="in" units="millisecond"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
+      <variable name="time" units="millisecond" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -885,12 +886,12 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00027" name="slow_inward_current_f_gate">
-      <variable initial_value="0.999967936476325" name="f" public_interface="out" units="dimensionless"/>
+   <component name="slow_inward_current_f_gate">
+      <variable name="f" units="dimensionless" initial_value="0.999967936476325" public_interface="out"/>
       <variable name="alpha_f" units="per_millisecond"/>
       <variable name="beta_f" units="per_millisecond"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
-      <variable name="time" public_interface="in" units="millisecond"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
+      <variable name="time" units="millisecond" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1008,22 +1009,22 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00007" name="time_dependent_potassium_current">
-      <variable cmeta:id="id_00034" name="i_K" public_interface="out" units="microA_per_cm2"/>
-      <variable cmeta:id="id_00033" name="g_K" units="milliS_per_cm2"/>
-      <variable cmeta:id="id_00032" name="E_K" units="millivolt"/>
-      <variable initial_value="0.01833" name="PR_NaK" units="dimensionless"/>
-      <variable name="time" private_interface="out" public_interface="in" units="millisecond"/>
-      <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
-      <variable name="R" public_interface="in" units="joule_per_kilomole_kelvin"/>
-      <variable name="T" public_interface="in" units="kelvin"/>
-      <variable name="F" public_interface="in" units="coulomb_per_mole"/>
-      <variable cmeta:id="id_00035" name="Ko" public_interface="in" units="millimolar"/>
-      <variable cmeta:id="id_00036" name="Ki" public_interface="in" units="millimolar"/>
-      <variable cmeta:id="id_00037" name="Nao" public_interface="in" units="millimolar"/>
-      <variable cmeta:id="id_00038" name="Nai" public_interface="in" units="millimolar"/>
-      <variable name="X" private_interface="in" units="dimensionless"/>
-      <variable name="Xi" private_interface="in" units="dimensionless"/>
+   <component name="time_dependent_potassium_current">
+      <variable name="i_K" units="microA_per_cm2" public_interface="out"/>
+      <variable name="g_K" units="milliS_per_cm2"/>
+      <variable name="E_K" units="millivolt"/>
+      <variable name="PR_NaK" units="dimensionless" initial_value="0.01833"/>
+      <variable name="time" units="millisecond" public_interface="in" private_interface="out"/>
+      <variable name="V" units="millivolt" public_interface="in" private_interface="out"/>
+      <variable name="R" units="joule_per_kilomole_kelvin" public_interface="in"/>
+      <variable name="T" units="kelvin" public_interface="in"/>
+      <variable name="F" units="coulomb_per_mole" public_interface="in"/>
+      <variable name="Ko" units="millimolar" public_interface="in"/>
+      <variable name="Ki" units="millimolar" public_interface="in"/>
+      <variable name="Nao" units="millimolar" public_interface="in"/>
+      <variable name="Nai" units="millimolar" public_interface="in"/>
+      <variable name="X" units="dimensionless" private_interface="in"/>
+      <variable name="Xi" units="dimensionless" private_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1098,12 +1099,12 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00008" name="time_dependent_potassium_current_X_gate">
-      <variable initial_value="0.0417603108167287" name="X" public_interface="out" units="dimensionless"/>
+   <component name="time_dependent_potassium_current_X_gate">
+      <variable name="X" units="dimensionless" initial_value="0.0417603108167287" public_interface="out"/>
       <variable name="alpha_X" units="per_millisecond"/>
       <variable name="beta_X" units="per_millisecond"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
-      <variable name="time" public_interface="in" units="millisecond"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
+      <variable name="time" units="millisecond" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1218,10 +1219,10 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00009" name="time_dependent_potassium_current_Xi_gate">
-      <variable name="Xi" public_interface="out" units="dimensionless"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
-      <variable name="time" public_interface="in" units="millisecond"/>
+   <component name="time_dependent_potassium_current_Xi_gate">
+      <variable name="Xi" units="dimensionless" public_interface="out"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
+      <variable name="time" units="millisecond" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1287,17 +1288,17 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00010" name="time_independent_potassium_current">
-      <variable cmeta:id="id_00039" name="i_K1" public_interface="out" units="microA_per_cm2"/>
-      <variable cmeta:id="id_00040" name="E_K1" private_interface="out" public_interface="out" units="millivolt"/>
-      <variable cmeta:id="id_00041" name="g_K1" units="milliS_per_cm2"/>
-      <variable name="V" private_interface="out" public_interface="in" units="millivolt"/>
-      <variable name="Ko" public_interface="in" units="millimolar"/>
-      <variable name="Ki" public_interface="in" units="millimolar"/>
-      <variable name="R" public_interface="in" units="joule_per_kilomole_kelvin"/>
-      <variable name="T" public_interface="in" units="kelvin"/>
-      <variable name="F" public_interface="in" units="coulomb_per_mole"/>
-      <variable cmeta:id="id_00047" name="K1_infinity" private_interface="in" units="dimensionless"/>
+   <component name="time_independent_potassium_current">
+      <variable name="i_K1" units="microA_per_cm2" public_interface="out"/>
+      <variable name="E_K1" units="millivolt" public_interface="out" private_interface="out"/>
+      <variable name="g_K1" units="milliS_per_cm2"/>
+      <variable name="V" units="millivolt" public_interface="in" private_interface="out"/>
+      <variable name="Ko" units="millimolar" public_interface="in"/>
+      <variable name="Ki" units="millimolar" public_interface="in"/>
+      <variable name="R" units="joule_per_kilomole_kelvin" public_interface="in"/>
+      <variable name="T" units="kelvin" public_interface="in"/>
+      <variable name="F" units="coulomb_per_mole" public_interface="in"/>
+      <variable name="K1_infinity" units="dimensionless" private_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1355,12 +1356,12 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00011" name="time_independent_potassium_current_K1_gate">
-      <variable name="K1_infinity" public_interface="out" units="dimensionless"/>
+   <component name="time_independent_potassium_current_K1_gate">
+      <variable name="K1_infinity" units="dimensionless" public_interface="out"/>
       <variable name="alpha_K1" units="per_millisecond"/>
       <variable name="beta_K1" units="per_millisecond"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
-      <variable cmeta:id="id_00042" name="E_K1" public_interface="in" units="millivolt"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
+      <variable name="E_K1" units="millivolt" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1478,13 +1479,13 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00022" name="plateau_potassium_current">
-      <variable cmeta:id="id_00023" name="i_Kp" public_interface="out" units="microA_per_cm2"/>
-      <variable cmeta:id="id_00043" name="E_Kp" units="millivolt"/>
-      <variable cmeta:id="id_00044" initial_value="0.0183" name="g_Kp" units="milliS_per_cm2"/>
+   <component name="plateau_potassium_current">
+      <variable name="i_Kp" units="microA_per_cm2" public_interface="out"/>
+      <variable name="E_Kp" units="millivolt"/>
+      <variable name="g_Kp" units="milliS_per_cm2" initial_value="0.0183"/>
       <variable name="Kp" units="dimensionless"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
-      <variable cmeta:id="id_00046" name="E_K1" public_interface="in" units="millivolt"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
+      <variable name="E_K1" units="millivolt" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1531,11 +1532,11 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
          </apply>
       </math>
    </component>
-   <component cmeta:id="id_00018" name="background_current">
-      <variable cmeta:id="id_00019" name="i_b" public_interface="out" units="microA_per_cm2"/>
-      <variable cmeta:id="id_00020" initial_value="-59.87" name="E_b" units="millivolt"/>
-      <variable cmeta:id="id_00021" initial_value="0.03921" name="g_b" units="milliS_per_cm2"/>
-      <variable name="V" public_interface="in" units="millivolt"/>
+   <component name="background_current">
+      <variable name="i_b" units="microA_per_cm2" public_interface="out"/>
+      <variable name="E_b" units="millivolt" initial_value="-59.87"/>
+      <variable name="g_b" units="milliS_per_cm2" initial_value="0.03921"/>
+      <variable name="V" units="millivolt" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1553,15 +1554,15 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
       </math>
    </component>
    <component name="ionic_concentrations">
-      <variable cmeta:id="id_00014" initial_value="140" name="Nao" public_interface="out" units="millimolar"/>
-      <variable cmeta:id="id_00015" initial_value="18" name="Nai" public_interface="out" units="millimolar"/>
-      <variable cmeta:id="id_00016" initial_value="145" name="Ki" public_interface="out" units="millimolar"/>
-      <variable cmeta:id="id_00017" initial_value="5.4" name="Ko" public_interface="out" units="millimolar"/>
+      <variable name="Nao" units="millimolar" initial_value="140" public_interface="out"/>
+      <variable name="Nai" units="millimolar" initial_value="18" public_interface="out"/>
+      <variable name="Ki" units="millimolar" initial_value="145" public_interface="out"/>
+      <variable name="Ko" units="millimolar" initial_value="5.4" public_interface="out"/>
    </component>
-   <component cmeta:id="id_00012" name="intracellular_calcium_concentration">
-      <variable cmeta:id="id_00013" initial_value="0.00017948816388306" name="Cai" public_interface="out" units="millimolar"/>
-      <variable name="time" public_interface="in" units="millisecond"/>
-      <variable cmeta:id="id_00045" name="i_si" public_interface="in" units="microA_per_cm2"/>
+   <component name="intracellular_calcium_concentration">
+      <variable name="Cai" units="millimolar" initial_value="0.00017948816388306" public_interface="out"/>
+      <variable name="time" units="millisecond" public_interface="in"/>
+      <variable name="i_si" units="microA_per_cm2" public_interface="in"/>
       <math xmlns="http://www.w3.org/1998/Math/MathML">
          <apply>
             <eq/>
@@ -1777,5 +1778,183 @@ A Model of the Ventricular Cardiac Action Potential - Depolarisation, Repolarisa
       <map_variables variable_1="E_K1" variable_2="E_K1"/>
    </connection>
 
-
-<rdf:RDF><rdf:Description rdf:about="#id_00001"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030322"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042391"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0060075"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00002"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0030322"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0042391"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0060075"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00003"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00004"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0090072"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00005"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00006"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00007"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00008"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00009"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00010"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022841"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00011"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022841"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00012"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051480"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00013"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:39124"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0051480"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00014"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00015"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00016"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26216"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00017"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26216"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00018"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00019"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00020"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00021"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00022"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00023"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00024"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00025"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00026"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00027"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00028"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00029"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:22984"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00030"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00031"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005245"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005891"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005262"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034704"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00032"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00033"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00034"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00035"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26216"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00036"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26216"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00037"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00038"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00039"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022841"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0055075"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00040"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022841"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0055075"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00041"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022841"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0055075"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00042"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022841"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0055075"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00043"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00044"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005249"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0008076"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00045"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00046"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0022840"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0055075"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00047"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005267"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034705"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00048"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00049"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00050"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005248"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0001518"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0005272"/></isVersionOf><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/go/GO:0034706"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00051"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description><rdf:Description rdf:about="#id_00052"><isVersionOf xmlns="http://biomodels.net/biology-qualifiers/"><rdf:Description rdf:about="http://identifiers.org/chebi/CHEBI:26708"/></isVersionOf></rdf:Description></rdf:RDF></model>
+<rdf:RDF>
+  <rdf:Seq rdf:about="rdf:#73ec2c5d-8614-4b68-8fb4-07c9075197cf">
+    <rdf:li rdf:resource="rdf:#dea95de2-bf60-412e-9f2a-a7804a27a4aa"/>
+    <rdf:li rdf:resource="rdf:#38267902-8aeb-4e06-a3f7-cdb6912f0d0b"/>
+  </rdf:Seq>
+  <rdf:Description rdf:about="rdf:#3243986d-8966-454f-a494-54221fe6ae0e">
+    <vCard:Given>Y</vCard:Given>
+    <vCard:Family>Rudy</vCard:Family>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#eea5916a-b39f-4e11-9d55-9527925febd5">
+    <dcterms:modified rdf:resource="rdf:#5f1982a3-34d7-41f0-88c0-b867e074cab7"/>
+    <rdf:value>Added a repeating stimulus protocol using the stimulus duration (2ms) and amplitude (-25.5 microA_per_cm2) used for the original single stimulus.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#8afbfa45-70a8-4571-acb6-b5bfbde8fbf6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$gaO9U1">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="rdf:#$haO9U1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#89cf1513-8b8a-4399-94fe-41b8067374d4">
+    <dcterms:modified rdf:resource="rdf:#b7aed6b3-ab6a-4b0b-887f-5259ade45b5d"/>
+    <rdf:value>Added a repeating stimulus protocol using the stimulus duration (2ms) and amplitude (-25.5 microA_per_cm2) used for the original single stimulus.</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#74247b9c-6c65-42b6-bd8d-964bffbfc67d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="">
+    <dc:publisher>The University of Auckland, Bioengineering Institute</dc:publisher>
+    <cmeta:comment rdf:resource="rdf:#6686e580-1d7e-4710-a41c-4871e5e1926c"/>
+    <dcterms:created rdf:resource="rdf:#d32f426a-bb40-4199-8cb4-49b8854a56f2"/>
+    <dc:creator rdf:resource="rdf:#339f8795-fc60-47d3-87d4-979826782813"/>
+    <cmeta:modification rdf:resource="rdf:#11254370-df65-4bc8-9bd4-3df421baf53e"/>
+    <cmeta:modification rdf:resource="rdf:#5fc865f0-2903-42d0-bb85-1a4ee71108c9"/>
+    <cmeta:modification rdf:resource="rdf:#89cf1513-8b8a-4399-94fe-41b8067374d4"/>
+    <cmeta:modification rdf:resource="rdf:#eea5916a-b39f-4e11-9d55-9527925febd5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bbba3f89-0525-4a9c-a37d-5bf5ba4065eb">
+    <bqs:Pubmed_id>1709839</bqs:Pubmed_id>
+    <bqs:JournalArticle rdf:resource="rdf:#b1c393da-9fea-4766-8302-bd3faa745556"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#976702bd-ef3c-492e-ad7a-6ccb18a547ef">
+    <dc:creator rdf:resource="rdf:#407fb736-37fd-4a32-bae0-32e760c0e5f9"/>
+    <rdf:value>This is the CellML description of Luo and Rudy's mathematical model of the membrane action potential of the mammalian ventricular cell. It describes six ionic currents and it is a development of the Beeler-Reuter 1977 mammalian ventricular model, using Hodgkin-Huxley type equations.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#3f228c62-6863-4c1a-8e3a-ef3abc9b65d7">
+    <vCard:Given>James</vCard:Given>
+    <vCard:Family>Lawson</vCard:Family>
+    <vCard:Other>Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#4f9894e4-ba43-4019-85d1-116fd379f55a">
+    <dcterms:W3CDTF>2006-03-31</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8ae5da9c-41a4-40c6-af6b-ab2a78e84f48">
+    <vCard:Given>Catherine</vCard:Given>
+    <vCard:Family>Lloyd</vCard:Family>
+    <vCard:Other>May</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#339f8795-fc60-47d3-87d4-979826782813">
+    <vCard:ORG rdf:resource="rdf:#5e83e17c-395a-4f9d-93fd-9979dc7a0326"/>
+    <vCard:EMAIL rdf:resource="rdf:#ad710ec0-4a83-46a5-94b9-59a95fd5f934"/>
+    <vCard:N rdf:resource="rdf:#8ae5da9c-41a4-40c6-af6b-ab2a78e84f48"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#265aca8e-b435-4acf-9444-233921e92073">
+    <vCard:Given>James</vCard:Given>
+    <vCard:Family>Lawson</vCard:Family>
+    <vCard:Other>Richard</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bc925d16-be7c-41a5-9c77-54ffab463f33">
+    <dcterms:W3CDTF>2008-02-25T11:01:56+13:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="#luo_rudy_1991">
+    <ns7:simulation rdf:resource="rdf:#$faO9U1"/>
+    <bqs:reference rdf:resource="rdf:#bbba3f89-0525-4a9c-a37d-5bf5ba4065eb"/>
+<bqs:reference rdf:parseType="Resource">
+  <dc:subject rdf:parseType="Resource">
+    <bqs:subject_type>keyword</bqs:subject_type>
+    <rdf:value>
+      <rdf:Bag>
+        <rdf:li>Ventricular Myocyte</rdf:li>
+        <rdf:li>cardiac</rdf:li>
+        <rdf:li>electrophysiology</rdf:li>
+        <rdf:li>ventricular myocyte</rdf:li>
+      </rdf:Bag>
+    </rdf:value>
+  </dc:subject>
+</bqs:reference>
+    <cmeta:comment rdf:resource="rdf:#976702bd-ef3c-492e-ad7a-6ccb18a547ef"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#d32f426a-bb40-4199-8cb4-49b8854a56f2">
+    <dcterms:W3CDTF>2001-09-15T00:00:00+00:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#bd873dae-fea6-437b-a0fb-ec1bf4dd7430">
+    <dcterms:W3CDTF>1991-01-01</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#cc7d038e-68a1-4b7f-b40f-734f8d091208">
+    <vCard:N rdf:resource="rdf:#38399eb4-3b29-4e8f-bd37-73618d31ed60"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#38267902-8aeb-4e06-a3f7-cdb6912f0d0b">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#3243986d-8966-454f-a494-54221fe6ae0e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#07438854-0f96-4db6-9833-530845dd98c5">
+    <vCard:Given>C</vCard:Given>
+    <vCard:Family>Luo</vCard:Family>
+    <vCard:Other>H</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#38399eb4-3b29-4e8f-bd37-73618d31ed60">
+    <vCard:Given>Penny</vCard:Given>
+    <vCard:Family>Noble</vCard:Family>
+    <vCard:Other>J</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#74247b9c-6c65-42b6-bd8d-964bffbfc67d">
+    <vCard:N rdf:resource="rdf:#3f228c62-6863-4c1a-8e3a-ef3abc9b65d7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#dea95de2-bf60-412e-9f2a-a7804a27a4aa">
+    <rdf:type rdf:resource="http://www.cellml.org/bqs/1.0#Person"/>
+    <vCard:N rdf:resource="rdf:#07438854-0f96-4db6-9833-530845dd98c5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b1c393da-9fea-4766-8302-bd3faa745556">
+    <dc:creator rdf:resource="rdf:#73ec2c5d-8614-4b68-8fb4-07c9075197cf"/>
+    <dc:title>A Model of the Ventricular Cardiac Action Potential. Depolarization, repolarization and their interaction</dc:title>
+    <bqs:volume>68(6)</bqs:volume>
+    <bqs:first_page>1501</bqs:first_page>
+    <bqs:Journal rdf:resource="rdf:#b24a7361-861f-476c-8376-53530612747e"/>
+    <dcterms:issued rdf:resource="rdf:#bd873dae-fea6-437b-a0fb-ec1bf4dd7430"/>
+    <bqs:last_page>1526</bqs:last_page>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8afbfa45-70a8-4571-acb6-b5bfbde8fbf6">
+    <vCard:N rdf:resource="rdf:#265aca8e-b435-4acf-9444-233921e92073"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b24a7361-861f-476c-8376-53530612747e">
+    <dc:title>Circulation Research</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#11254370-df65-4bc8-9bd4-3df421baf53e">
+    <dcterms:modified rdf:resource="rdf:#bc925d16-be7c-41a5-9c77-54ffab463f33"/>
+    <rdf:value>Units checked, curated. Some cmeta:id's added to variables to allow referencing by PCEnv session file</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#cc7d038e-68a1-4b7f-b40f-734f8d091208"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#8da5f2ba-cf52-43d2-807c-fbb0d698043d">
+    <vCard:N rdf:resource="rdf:#351ab618-936a-4d45-baae-8a69791c22ce"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#b7aed6b3-ab6a-4b0b-887f-5259ade45b5d">
+    <dcterms:W3CDTF>2007-08-17T12:59:52+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#351ab618-936a-4d45-baae-8a69791c22ce">
+    <vCard:Given>Peter</vCard:Given>
+    <vCard:Family>Villiger</vCard:Family>
+    <vCard:Other>J</vCard:Other>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#060ba229-5ae6-4e89-b0af-73b2a3f29ef9">
+    <vCard:FN>James Lawson</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#ad710ec0-4a83-46a5-94b9-59a95fd5f934">
+    <rdf:type rdf:resource="http://imc.org/vCard/3.0#internet"/>
+    <rdf:value>c.lloyd@auckland.ac.nz</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#6686e580-1d7e-4710-a41c-4871e5e1926c">
+    <dc:creator rdf:resource="rdf:#060ba229-5ae6-4e89-b0af-73b2a3f29ef9"/>
+    <rdf:value>This model has had a repeating current stimulus protocol added to allow it to simulate trains of action potentials. This model is known to run in PCEnv and produce the correct output.</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#407fb736-37fd-4a32-bae0-32e760c0e5f9">
+    <vCard:FN>Catherine Lloyd</vCard:FN>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5fc865f0-2903-42d0-bb85-1a4ee71108c9">
+    <dcterms:modified rdf:resource="rdf:#4f9894e4-ba43-4019-85d1-116fd379f55a"/>
+    <rdf:value>added metadata</rdf:value>
+    <cmeta:modifier rdf:resource="rdf:#8da5f2ba-cf52-43d2-807c-fbb0d698043d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5e83e17c-395a-4f9d-93fd-9979dc7a0326">
+    <vCard:Orgname>The University of Auckland</vCard:Orgname>
+    <vCard:Orgunit>The Bioengineering Institute</vCard:Orgunit>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#5f1982a3-34d7-41f0-88c0-b867e074cab7">
+    <dcterms:W3CDTF>2007-08-17T12:59:52+12:00</dcterms:W3CDTF>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$haO9U1">
+    <ns7:endingValue>10000</ns7:endingValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="rdf:#$faO9U1">
+    <ns7:boundIntervals rdf:resource="rdf:#$gaO9U1"/>
+  </rdf:Description>
+</rdf:RDF>
+</model>

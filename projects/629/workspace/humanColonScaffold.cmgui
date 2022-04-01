@@ -1,0 +1,20 @@
+gfx create material colon normal_mode ambient 0.8 0.6588 0.5607 diffuse 0.8 0.6588 0.5607 emission 0 0 0 specular 0.3 0.3 0.3 alpha 1 shininess 0.3;
+
+gfx read element humanColon.exf 
+
+gfx cre win
+gfx edit sce
+
+gfx define tessellation default minimum_divisions "1" refinement_factors "3*3*1" circle_divisions 12;
+gfx modify g_element "/" general clear;
+gfx modify g_element "/" lines subgroup "colon" domain_mesh1d coordinate coordinates face all tessellation default LOCAL line line_base_size 0 select_on material colon selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "taenia libera" coordinate coordinates face all tessellation default LOCAL select_on material colon selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "taenia mesocolica" coordinate coordinates face all tessellation default LOCAL select_on material colon selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "taenia omentalis" coordinate coordinates face all tessellation default LOCAL select_on material colon selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "ascending colon" coordinate coordinates face xi3_0 tessellation default LOCAL no_select material colon selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "transverse colon" coordinate coordinates face xi3_0 tessellation default LOCAL select_on material colon selected_material default_selected render_shaded;
+gfx modify g_element "/" surfaces domain_mesh2d subgroup "descending colon" coordinate coordinates face xi3_0 tessellation default LOCAL select_on material colon selected_material default_selected render_shaded;
+
+
+gfx mod window 1 set antialias 8
+gfx export threejs file humanColon
