@@ -1,55 +1,132 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/7b7.omex">
     <dc:title>BG_B1AR</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7b7.omex">
-    <dc:description>About this model
-This is a bond-graph model of beta-1 adrenergic receptor ( β-1AR) metabolism in the cardiac cell.
+    <dc:description>
 
-INPUTS:
+### About this model
 
-Ligand (L) stimulus e.g. isoproterenol
 
-OUTPUTS:
+This is a bond-graph model of beta-1 adrenergic receptor ( *β*-1AR) metabolism in the cardiac cell.
 
-Change in molar amount of β-1AR (R),
 
-REACTIONS:
 
-Phosphorylation of β-1AR by β-ARK, producing β-1ARd
-Phosphorylation of β-1AR by PKACI, producing β-1ARp
+&gt; 
+&gt; 
+&gt; **INPUTS:**
+&gt; * Ligand (L) stimulus e.g. isoproterenol
+&gt; 
+&gt; 
+&gt; 
+&gt; **OUTPUTS:**
+&gt; * Change in molar amount of *β*-1AR (R),
+&gt; 
+&gt; 
+&gt; 
+&gt; **REACTIONS:**
+&gt; * Phosphorylation of *β*-1AR by *β*-ARK, producing *β*-1ARd
+&gt; * Phosphorylation of *β*-1AR by PKACI, producing *β*-1ARp
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
 
-Model status
+
+
+
+### Model status
+
+
 The current CellML implementation runs in OpenCOR.
 
-Model overview
+
+
+
+### Model overview
+
+
 This model is made by from an existing kinetic model, where the mathematics are translated into the bond-graph formalism. This describes the model in energetic terms and forces adherence to the laws of thermodynamics.
-The creation of the composite LR and LRG species are not included in this module. See the module for L, R, and G binding for these.
+
+
+The creation of the composite LR and LRG species are not included in this module. See the [module for L, R, and G binding for these.](https://models.physiomeproject.org/workspace/6f7)
+
+
 For the following figures, all enzymes are shown in maroon.
 
+
+
+![Original kinetic formulations](https://models.physiomeproject.org/e/7b7/exposure/kinetic_reactions.png "kinetic_reactions.png")
 Fig. 1. Original kinetic formulations.
 
-Fig. 2. Bond-graph formulation of the reaction involving  the β-ARK enzyme, in the phosphorylation of β-1AR (Figure 1, left). The β-ARK enzyme was added as both a reactant and product to the original reaction, to show the fependence of the reaction rate on its concentration.
 
-Fig. 3. Bond-graph formulation of the reaction involving the PKACI enzyme, in the phosphorylation of β-1AR at another site to the β-ARK enzyme (Figure 1, right).
+
+
+  
+
+
+
+![BG BARK reaction](https://models.physiomeproject.org/e/7b7/exposure/BG_BARK_reaction.png "BG_BARK_reaction.png")
+Fig. 2. Bond-graph formulation of the reaction involving the *β*-ARK enzyme, in the phosphorylation of *β*-1AR (Figure 1, left). The *β*-ARK enzyme was added as both a reactant and product to the original reaction, to show the fependence of the reaction rate on its concentration.
+
+
+
+
+  
+
+
+
+![BG PKACI reaction](https://models.physiomeproject.org/e/7b7/exposure/BG_PKACI_reaction.png "BG_PKACI_reaction.png")
+Fig. 3. Bond-graph formulation of the reaction involving the PKACI enzyme, in the phosphorylation of *β*-1AR at another site to the *β*-ARK enzyme (Figure 1, right).
+
+
+
+
+  
+
 
 For the above bond-graphs, a '0' node refers to a junction where all chemical potentials are the same. A '1' node refers to all fluxes being the same going in and out of the junction.
 
-Parameter finding
-A description of the process to find bond-graph parameters is shown in the folder    parameter_finder, which relies on the:
 
-stoichiometry of system
-kinetic constants for forward/reverse reactions
 
-If not already, all reactions are made reversible by assigning a small value to the reverse  direction.
+#### Parameter finding
 
-linear algebra script.
+
+A description of the process to find bond-graph parameters is shown in the folder [parameter\_finder](https://models.physiomeproject.org/e/7b7/parameter_finder), which relies on the:
+
+
+1. stoichiometry of system
+2. kinetic constants for forward/reverse reactions
+
+
+
+&gt; 
+&gt; * If not already, all reactions are made reversible by assigning a small value to the reverse direction.
+&gt; 
+&gt; 
+&gt; 
+
+
+3. [linear algebra script](https://models.physiomeproject.org/workspace/6ba/file/c32be022513dc4b620d74803a6ace6ca2d817e11/parameter_finder/find_BG_parameters.py).
+
 
 Here, this solve process is performed in Python.
 
-Original kinetic model
-Saucerman et al: Modeling beta-adrenergic control of cardiac myocyte contractility in silico.</dc:description>
+
+
+
+
+### Original kinetic model
+
+
+Saucerman et al: [Modeling beta-adrenergic control of cardiac myocyte contractility in silico.](https://models.physiomeproject.org/exposure/9766d9bd0325c31e47a31b291e26ccad)
+
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -58,7 +135,7 @@ Saucerman et al: Modeling beta-adrenergic control of cardiac myocyte contractili
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -70,7 +147,7 @@ Saucerman et al: Modeling beta-adrenergic control of cardiac myocyte contractili
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/7b7">https://models.physiomeproject.org/e/7b7</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 7b7</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7b7.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>
@@ -87,13 +164,55 @@ Saucerman et al: Modeling beta-adrenergic control of cardiac myocyte contractili
   <rdf:Description rdf:about="http://omex-library.org/7b7.omex/BG_B1AR.cellml">
     <dc:title>BG_B1AR.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7b7.omex/BG_B1AR.cellml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7b7.omex/BG_B1AR.cellml">
+    <dc:license rdf:resource="local:00004">local:00004</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7b7.omex/BG_BARK_reaction.png">
     <dc:title>BG_BARK_reaction.png</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7b7.omex/BG_BARK_reaction.png">
+    <dc:license rdf:resource="local:00005">local:00005</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7b7.omex/BG_PKACI_reaction.png">
     <dc:title>BG_PKACI_reaction.png</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7b7.omex/BG_PKACI_reaction.png">
+    <dc:license rdf:resource="local:00006">local:00006</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7b7.omex/kinetic_reactions.png">
     <dc:title>kinetic_reactions.png</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7b7.omex/kinetic_reactions.png">
+    <dc:license rdf:resource="local:00007">local:00007</dc:license>
   </rdf:Description>
 </rdf:RDF>

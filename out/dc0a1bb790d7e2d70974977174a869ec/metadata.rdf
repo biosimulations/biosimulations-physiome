@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex">
     <dc:title>Pasek, Simurda, Orchard, Christe, 2008</dc:title>
   </rdf:Description>
@@ -16,21 +16,50 @@
     <prism:keyword>electrophysiology</prism:keyword>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex">
-    <dc:description>Model Status
+    <dc:description>
 
-This CellML model is known to run in both COR and OpenCell to recreate the published results.  The units have been checked and they are consistent. This particular version of the CellML model was translated from the author's original Matlab code.
+#### Model Status
 
-Please note that this model is relatively stiff.  If you run the model using the default COR settings, you will get a message that reads: "Problem with the CVODE integrator: at t=0.00170178, mxstep steps taken before reaching tout." This basically means that you have to increase the maximum number of steps which is, by default, set to 500. Such a value is sufficient for most ODE problems, but not for ODE problems that have very stiff ODEs, such as the current model. Anyway, you will see that the model runs fine if you increase the value to something like 5000. Note that you also need to set the maximum time step to a sensible value, i.e. the duration of the stimulus which is here 1ms.
+
+
+ This CellML model is known to run in both COR and OpenCell to recreate the published results. The units have been checked and they are consistent. This particular version of the CellML model was translated from the author's original Matlab code.
+ 
+
+
+Please note that this model is relatively stiff. If you run the model using the default COR settings, you will get a message that reads: "Problem with the CVODE integrator: at t=0.00170178, mxstep steps taken before reaching tout." This basically means that you have to increase the maximum number of steps which is, by default, set to 500. Such a value is sufficient for most ODE problems, but not for ODE problems that have very stiff ODEs, such as the current model. Anyway, you will see that the model runs fine if you increase the value to something like 5000. Note that you also need to set the maximum time step to a sensible value, i.e. the duration of the stimulus which is here 1ms.
+
+
 Regarding OpenCell, it uses a higher value than COR for the maximum number of steps, which is why the model will run in OpenCell without having to change this particular setting. Otherwise, like in COR there is a need to set the maximum time step to a sensible value. OpenCell uses a default value of 1s for the Pasek model, which is clearly not small enough as can be seen when running the model for 10s. If one uses 0.001s, then everything is fine.
-Model Structure
+
+
+#### Model Structure
+
+
 
 ABSTRACT: A model of the guinea-pig cardiac ventricular myocyte has been developed that includes a representation of the transverse-axial tubular system (TATS), including heterogeneous distribution of ion flux pathways between the surface and tubular membranes. The model reproduces frequency-dependent changes of action potential shape and intracellular ion concentrations and can replicate experimental data showing ion diffusion between the tubular lumen and external solution in guinea-pig myocytes. The model is stable at rest and during activity and returns to rested state after perturbation. Theoretical analysis and model simulations show that, due to tight electrical coupling, tubular and surface membranes behave as a homogeneous whole during voltage and current clamp (maximum difference 0.9 mV at peak tubular INa of -38 nA). However, during action potentials, restricted diffusion and ionic currents in TATS cause depletion of tubular Ca2+ and accumulation of tubular K+ (up to -19.8% and +3.4%, respectively, of bulk extracellular values, at 6 Hz). These changes, in turn, decrease ion fluxes across the TATS membrane and decrease sarcoplasmic reticulum (SR) Ca2+ load. Thus, the TATS plays a potentially important role in modulating the function of guinea-pig ventricular myocyte in physiological conditions.
 
+
+
+
 The complete original paper reference is cited below:
 
-A model of the guinea-pig ventricular cardiac myocyte incorporating a transverse-axial tubular system, Michal Pasek, Jiri Simurda, Clive H. Orchard, and Georges Christe, 2008, Progress in Biophysics and Molecular Biology, 96, 258-280. PubMed ID: 17888503
 
-Schematic diagram of the ventricular cell model. The description of electrical activity of the surface (s) and tubular (t) membranes comprises formulation of the ion transporters shown. The intracellular space contains the subspace, the Ca2+-network (NSR) and junctional (JSR) compartments of sarcoplasmic reticulum and the Ca2+ buffers calmodulin (Bcm), troponin (Bhtrpn, Bltrpn) and calsequestrin (Bcs). The small filled rectangles in JSR membrane represent ryanodine receptors. The small bi-directional arrows denote Ca2+ diffusion. Ion diffusion between the tubular and the extracellular space is represented by the dashed arrow.</dc:description>
+
+
+ A model of the guinea-pig ventricular cardiac myocyte incorporating a transverse-axial tubular system, Michal Pasek, Jiri Simurda, Clive H. Orchard, and Georges Christe, 2008, *Progress in Biophysics and Molecular Biology*, 96, 258-280. [PubMed ID: 17888503](http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=17888503&amp;dopt=Abstract)
+
+
+
+
+
+|  |
+| --- |
+|  |
+| Schematic diagram of the ventricular cell model. The description of electrical activity of the surface (s) and tubular (t) membranes comprises formulation of the ion transporters shown. The intracellular space contains the subspace, the Ca2+-network (NSR) and junctional (JSR) compartments of sarcoplasmic reticulum and the Ca2+ buffers calmodulin (Bcm), troponin (Bhtrpn, Bltrpn) and calsequestrin (Bcs). The small filled rectangles in JSR membrane represent ryanodine receptors. The small bi-directional arrows denote Ca2+ diffusion. Ion diffusion between the tubular and the extracellular space is represented by the dashed arrow.  |
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex">
     <collex:thumbnail rdf:resource="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex/pasek_2008.png">http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex/pasek_2008.png</collex:thumbnail>
@@ -78,7 +107,7 @@ Schematic diagram of the ventricular cell model. The description of electrical a
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00005">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00005">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -99,7 +128,7 @@ Schematic diagram of the ventricular cell model. The description of electrical a
     <dc:identifier rdf:resource="https://identifiers.org/pmr:dc0a1bb790d7e2d70974977174a869ec">https://identifiers.org/pmr:dc0a1bb790d7e2d70974977174a869ec</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00007">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR: dc0a1bb790d7e2d70974977174a869ec</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex">
     <bqmodel:is rdf:resource="local:00007">local:00007</bqmodel:is>
@@ -124,5 +153,64 @@ Schematic diagram of the ventricular cell model. The description of electrical a
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex/pasek_simurda_orchard_christe_2008.cellml">
     <dc:title>A model of the guinea-pig ventricular cardiac myocyte incorporating a transverse-axial tubular system</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex/pasek_simurda_orchard_christe_2008.cellml">
+    <dc:description>
+
+#### Model Status
+
+
+
+ This CellML model is known to run in both COR and OpenCell to recreate the published results. The units have been checked and they are consistent. This particular version of the CellML model was translated from the author's original Matlab code.
+ 
+
+
+Please note that this model is relatively stiff. If you run the model using the default COR settings, you will get a message that reads: "Problem with the CVODE integrator: at t=0.00170178, mxstep steps taken before reaching tout." This basically means that you have to increase the maximum number of steps which is, by default, set to 500. Such a value is sufficient for most ODE problems, but not for ODE problems that have very stiff ODEs, such as the current model. Anyway, you will see that the model runs fine if you increase the value to something like 5000. Note that you also need to set the maximum time step to a sensible value, i.e. the duration of the stimulus which is here 1ms.
+
+
+Regarding OpenCell, it uses a higher value than COR for the maximum number of steps, which is why the model will run in OpenCell without having to change this particular setting. Otherwise, like in COR there is a need to set the maximum time step to a sensible value. OpenCell uses a default value of 1s for the Pasek model, which is clearly not small enough as can be seen when running the model for 10s. If one uses 0.001s, then everything is fine.
+
+
+#### Model Structure
+
+
+
+ABSTRACT: A model of the guinea-pig cardiac ventricular myocyte has been developed that includes a representation of the transverse-axial tubular system (TATS), including heterogeneous distribution of ion flux pathways between the surface and tubular membranes. The model reproduces frequency-dependent changes of action potential shape and intracellular ion concentrations and can replicate experimental data showing ion diffusion between the tubular lumen and external solution in guinea-pig myocytes. The model is stable at rest and during activity and returns to rested state after perturbation. Theoretical analysis and model simulations show that, due to tight electrical coupling, tubular and surface membranes behave as a homogeneous whole during voltage and current clamp (maximum difference 0.9 mV at peak tubular INa of -38 nA). However, during action potentials, restricted diffusion and ionic currents in TATS cause depletion of tubular Ca2+ and accumulation of tubular K+ (up to -19.8% and +3.4%, respectively, of bulk extracellular values, at 6 Hz). These changes, in turn, decrease ion fluxes across the TATS membrane and decrease sarcoplasmic reticulum (SR) Ca2+ load. Thus, the TATS plays a potentially important role in modulating the function of guinea-pig ventricular myocyte in physiological conditions.
+
+
+
+
+The complete original paper reference is cited below:
+
+
+
+
+ A model of the guinea-pig ventricular cardiac myocyte incorporating a transverse-axial tubular system, Michal Pasek, Jiri Simurda, Clive H. Orchard, and Georges Christe, 2008, *Progress in Biophysics and Molecular Biology*, 96, 258-280. [PubMed ID: 17888503](http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=17888503&amp;dopt=Abstract)
+
+
+
+
+
+|  |
+| --- |
+|  |
+| Schematic diagram of the ventricular cell model. The description of electrical activity of the surface (s) and tubular (t) membranes comprises formulation of the ion transporters shown. The intracellular space contains the subspace, the Ca2+-network (NSR) and junctional (JSR) compartments of sarcoplasmic reticulum and the Ca2+ buffers calmodulin (Bcm), troponin (Bhtrpn, Bltrpn) and calsequestrin (Bcs). The small filled rectangles in JSR membrane represent ryanodine receptors. The small bi-directional arrows denote Ca2+ diffusion. Ion diffusion between the tubular and the extracellular space is represented by the dashed arrow.  |
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex/pasek_simurda_orchard_christe_2008.cellml">
+    <collex:thumbnail rdf:resource="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex/pasek_2008.png">http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex/pasek_2008.png</collex:thumbnail>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00010">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00010">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/dc0a1bb790d7e2d70974977174a869ec.omex/pasek_simurda_orchard_christe_2008.cellml">
+    <dc:license rdf:resource="local:00010">local:00010</dc:license>
   </rdf:Description>
 </rdf:RDF>

@@ -1,49 +1,118 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/4b3.omex">
     <dc:title>Tran 2017 - Cross-bridge model of shortening heat</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/4b3.omex">
-    <dc:description>Computational code to reproduce simulation figures in the J. Physiol publication: "Experimental and modelling evidence of shortening heat in cardiac muscle."
-DOI: 10.1113/JP274680
+    <dc:description>
+Computational code to reproduce simulation figures in the J. Physiol publication: "Experimental and modelling evidence of shortening heat in cardiac muscle."
+DOI: [10.1113/JP274680](https://dx.doi.org/10.1113/JP274680)
 
+
+
+![Schematic of cross-bridge model.](tran_2009.png)
 Schematic of cross-bridge model.
 
-Main.m
+
+
+
+### Main.m
+
+
 This script sets up and executes the model simulations in the presence of passive force. Run this code to simulate Figures 3, 4, 7 and 8.
 
-PlotFigures.m
+
+
+
+### PlotFigures.m
+
+
 After Main.m has been executed, run this script to plot Figures 3, 4, 7 and 8.
 
-Main_noPassive.m
+
+
+
+### Main\_noPassive.m
+
+
 This script sets up and executes the model simulations in the absence of passive force. Run this code to simulate Figures 6 and 7.
 
-PlotFigures_noPassive.m
-After Main_noPassive.m has been executed, run this script to plot Figures 6 and 7.
 
-XBSolve.m
-A function that contains the algoritms for setting up isometric and work-loop contractions. This function is called by Main.m and Main_noPassive.m.
 
-XBModel.m
-This function returns the RHS vector of the Tran et al., (2010) model of cross-bridge cycling.
 
-getDeriv.m
+### PlotFigures\_noPassive.m
+
+
+After Main\_noPassive.m has been executed, run this script to plot Figures 6 and 7.
+
+
+
+
+### XBSolve.m
+
+
+A function that contains the algoritms for setting up isometric and work-loop contractions. This function is called by Main.m and Main\_noPassive.m.
+
+
+
+
+### XBModel.m
+
+
+This function returns the RHS vector of the [Tran et al., (2010) model of cross-bridge cycling](https://models.physiomeproject.org/workspace/tran_2009).
+
+
+
+
+### getDeriv.m
+
+
 This function calls XBModel.m to setup the RHS vector. It is also called after completion of a solve to return the Force and ATPase information.
 
-getCai.m
+
+
+
+### getCai.m
+
+
 This function returns a Ca transient.
 
-passiveForces.m
+
+
+
+### passiveForces.m
+
+
 This function returns the passive force.
 
-IC_XBModel.m
+
+
+
+### IC\_XBModel.m
+
+
 This script file contains the initial parameters of the cross-bridge model.
 
-Parameters_XBModel.m
+
+
+
+### Parameters\_XBModel.m
+
+
 This script contains the parameters for the cross-bridge model.
 
-Fevents.m
-This function is used to detect when the isotonic phase of the work-loop starts. It is used in the work-loop section of XBSolve.m when the ode15s solver is called.  The Fevents function is setup using the 'options' argument of the solver on line 36.</dc:description>
+
+
+
+### Fevents.m
+
+
+This function is used to detect when the isotonic phase of the work-loop starts. It is used in the work-loop section of XBSolve.m when the ode15s solver is called. The Fevents function is setup using the 'options' argument of the solver on line 36.
+
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -52,7 +121,7 @@ This function is used to detect when the isotonic phase of the work-loop starts.
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -64,7 +133,7 @@ This function is used to detect when the isotonic phase of the work-loop starts.
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/4b3">https://models.physiomeproject.org/e/4b3</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 4b3</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/4b3.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>

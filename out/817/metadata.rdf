@@ -1,25 +1,41 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/817.omex">
     <dc:title>Reproducibility of the computational model of induced pluripotent stem-cell derived cardiomyocytes</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex">
-    <dc:description>About this model
+    <dc:description>
 
-Original publication:
-Kernik et al. (2019):
-"A computational model of induced pluripotent stem-cell derived cardiomyocytes incorporating experimental variability from multiple data sources" J  Physiol. 2019 Sep 1; 597(17): 4533-4564.
+### About this model
 
-DOI:https://dx.doi.org/10.1113%2FJP277724
 
-Model status
-The current CellML model implementation runs OpenCOR.
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+
+### Model status
+
+
+The current CellML model implementation runs [OpenCOR](https://opencor.ws/).
 The simulation setting saved in SED-ML file. SED-ML file then loaded into Python script in order for the code to go through the loop and capture the results for different initial conditions and inputs.
 Each Python script under the Navigation menu reproduces a given
 result from Kernik et al (2019). Each of the scripts is documented to describe the CellML model(s) used and the results obtained.
 
-Model overview
-This workspace holds a CellML and Python encoding of the Kernik et al. (2019)
+
+
+
+### Model overview
+
+
+This workspace holds a [CellML](https://www.cellml.org/) and Python encoding of the [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/)
 model. The original model developed a whole cell model of
 induced pluripotent stem cell-derived cardiomyocytes (iPSC-CMs)
 composed of simple model components comprising ion channel models with single exponential
@@ -30,34 +46,58 @@ This approach links molecular mechanisms to known cellular-level iPSC-CM phenoty
 as shown by comparing immature and mature subpopulations of models to analyse the contributing
 factors underlying each phenotype.
 
+
+
+![Schematics of the model](schematic-diagram.jpg)
 A diagrammatic representation of the Kernik et al. (2019) model. (Image from Fig 1 in the original paper)
 
-Modular description
+
+
+
+
+### Modular description
+
+
 CellML can build a model in a modular way which divides the model
 into distinct modules, which can be re-used.
 The main CellML files:
 
-Main file that put all the other required files together: Channels
 
-this file is the main CellML file which is the top model in the hierarchical modular
-presentation and rest of the files need to be imported here in order to run the simulation.
+* Main file that put all the other required files together: [Channels](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Channels.cellml)
 
-These files have the formulation for calculating each channel's current (for instance: Current_Ik1): Current_Ik1
 
-Probability of channels gates being open or close: (for instance: gating_Ik1): gating_Ik1
 
-these files has the fomulation for calculating the probability of channels gates being
-open or close and also the activation/inactivation time constants.
-gating files need to be imported into their associated current files in order to run the simulation and calculate the Voltage-dependent activation/inactivation gating variables (Xact and Xinact).
+&gt; 
+&gt; this file is the main CellML file which is the top model in the hierarchical modular
+&gt; presentation and rest of the files need to be imported here in order to run the simulation.
+&gt; 
+&gt; 
+&gt;
+* These files have the formulation for calculating each channel's current (for instance: *Current\_Ik1*): [Current\_Ik1](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Current_Ik1.cellml)
+* Probability of channels gates being open or close: (for instance: *gating\_Ik1*): [gating\_Ik1](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/gating_Ik1.cellml)
 
-General file for required parameters: parameter
 
-This file is a general file, specific parameters for calculating the probability of each channel's gate being
-open or close are presented in associated python script.
 
-some of the channels have their own parameters which are collected in specific file (for instance: parameter_Ik1): parameter_Ik1
+&gt; 
+&gt; these files has the fomulation for calculating the probability of channels gates being
+&gt; open or close and also the activation/inactivation time constants.
+&gt; gating files need to be imported into their associated current files in order to run the simulation and calculate the Voltage-dependent activation/inactivation gating variables (*X**act* and *X**inact*).
+&gt; 
+&gt; 
+&gt;
+* General file for required parameters: [parameter](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/parameter.cellml)
 
-All the required units for this simulation: unit
+
+
+&gt; 
+&gt; This file is a general file, specific parameters for calculating the probability of each channel's gate being
+&gt; open or close are presented in associated python script.
+&gt; 
+&gt; 
+&gt;
+* some of the channels have their own parameters which are collected in specific file (for instance: *parameter\_Ik1*): [parameter\_Ik1](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/parameter_Ik1.cellml)
+* All the required units for this simulation: [unit](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/unit.cellml)
+
 
 The model run the simulation for each channel in the primary paper by using the python scripts in order to reproduce the figures.
 In each section in the navigation panel, simulation calculates
@@ -69,20 +109,28 @@ were optimized to iPSC-CM experimental data from various laboratories. baseline 
 current through different channels and needs its own python script in order to plot the action potential of developed model.
 Calcium analysis needs the python script for the baseline model as well as other function saved in different script in order to show
 the calcium analysis.
+
+
 This workspace has nine sets of python scripts and corresponding simulation results, we just provided
 the simulation results here in order to check the reproducibility of figures (3-11) in the primary paper:
 
-INa : Sodium current model optimization
-ICaL : Calcium current model optimization
-IKr : Rapid delayed rectifier potassium current model optimization
-Ito : Transient outward potassium current model optimization
-IKs : Slow delayed rectifier potassium current model optimization
-If : Pacemaker/funny current model optimization
-IK1 : Inward rectifier potassium current model optimization
-Calcium Analysis :  Optimization of calcium handling in the iPSC-CM baseline model
-baseline model AP: Action potential in the iPSC-CM baseline model
 
-Simulation settings
+1. *I**Na* : [Sodium current model optimization](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig2.py)
+2. *I**CaL* : [Calcium current model optimization](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig3.py)
+3. *I**Kr* : [Rapid delayed rectifier potassium current model optimization](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig4.py)
+4. *I**to* : [Transient outward potassium current model optimization](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig5.py)
+5. *I**Ks* : [Slow delayed rectifier potassium current model optimization](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig6.py)
+6. *I**f* : [Pacemaker/funny current model optimization](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig7.py)
+7. *I**K*1 : [Inward rectifier potassium current model optimization](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig8.py)
+8. Calcium Analysis : [Optimization of calcium handling in the iPSC-CM baseline model](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig9.py)
+9. baseline model AP: [Action potential in the iPSC-CM baseline model](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig10.py)
+
+
+
+
+### Simulation settings
+
+
 Simulation settings (solver, duration of the simulation, etc) are stored in SED-ML files.
 The Python scripts contains the required parameters and conditions for each channel
 to run simulation and then plot the results with Matplotlib library to reproduce the figures
@@ -91,13 +139,27 @@ For example, fig2.py is used to generate the simulation and reproduces the graph
 Figure 3 in the original study.
 In order to reproduce this figure, once all the files are downloaded to the same folder,
 execute the following script from the command line (command prompt):
+
+
 cd [PathToThisFile]
+
+
 [PathToOpenCOR]/pythonshell fig2.py
 
-Model History
-The original model of induced pluripotent stem-cell derived cardiomyocytes incorporating
-experimental variability from multiple data sources was built in MATLAB which can be
-downloaded from GitHub.</dc:description>
+
+
+
+### Model History
+
+
+The original model of **induced pluripotent stem-cell derived cardiomyocytes incorporating
+experimental variability from multiple data sources** was built in MATLAB which can be
+downloaded from [GitHub](https://github.com/ClancyLabUCD/IPSC-model/).
+
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -106,7 +168,7 @@ downloaded from GitHub.</dc:description>
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -118,7 +180,7 @@ downloaded from GitHub.</dc:description>
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/817">https://models.physiomeproject.org/e/817</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 817</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>
@@ -135,103 +197,1031 @@ downloaded from GitHub.</dc:description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/Channels.cellml">
     <dc:title>Channels.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Channels.cellml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Channels.cellml">
+    <dc:license rdf:resource="local:00004">local:00004</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ica.cellml">
     <dc:title>Current_Ica.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ica.cellml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ica.cellml">
+    <dc:license rdf:resource="local:00005">local:00005</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_If.cellml">
     <dc:title>Current_If.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_If.cellml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_If.cellml">
+    <dc:license rdf:resource="local:00006">local:00006</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ik1.cellml">
     <dc:title>Current_Ik1.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ik1.cellml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ik1.cellml">
+    <dc:license rdf:resource="local:00007">local:00007</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ikr.cellml">
     <dc:title>Current_Ikr.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ikr.cellml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00008">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00008">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ikr.cellml">
+    <dc:license rdf:resource="local:00008">local:00008</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Iks.cellml">
     <dc:title>Current_Iks.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Iks.cellml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00009">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00009">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Iks.cellml">
+    <dc:license rdf:resource="local:00009">local:00009</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ina.cellml">
     <dc:title>Current_Ina.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ina.cellml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00010">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00010">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ina.cellml">
+    <dc:license rdf:resource="local:00010">local:00010</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ito.cellml">
     <dc:title>Current_Ito.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ito.cellml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00011">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00011">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/Current_Ito.cellml">
+    <dc:license rdf:resource="local:00011">local:00011</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/fig2.py">
     <dc:title>fig2.py</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig2.py">
+    <dc:description>
+
+About this model
+----------------
+
+
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+### Figure 02
+
+
+
+#### Sodium current (*I**Na*) model optimization
+
+
+For sodium currents, model parameters were optimized to multiple experimental datasets,
+resulting in dataset-specific parameterization instances of the model.
+For each dataset-specific model, external ion concentrations
+and voltage protocols were set to reflect the corresponding experimental conditions.
+All of the experimental data used to optimize the models were collected in iCell iPSC-CMs.
+This process was used to generate dataset-specific models.
+Three separate experimental iPSC-CM datasets are used for sodium current:
+(A) Ma et al. (B) Jalife Immature, (C) Jalife Mature and (D) Baseline model
+
+
+[Current\_Ina.cellml](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Current_Ina.cellml) is the main CellML files which has all the formulation for sodium current,
+Its associated Sedml file contains all the simulation settings.
+
+
+All the CellML files and SED-ML files related to this channel need to be downloaded in a same folder (Current\_Ina, gating\_Ina, parameter\_Ina, parameter, unit)
+as well as python script ([fig2.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig2.py)). In the python script, required SED-ML file (Current\_Ina.sedml) is loaded
+into the script and by running the code following figure is reproduced. fig2.py is used to
+generate the simulation and reproduces the graph shown in Figure 3 in the original study.
+In order to reproduce Figure 3, once all the files are downloaded to the same folder,
+execute the following script from the command line (command prompt):
+
+
+cd [PathToThisFile]
+
+
+[PathToOpenCOR]/pythonshell fig2.py
+
+
+
+![Sodium current model optimization](Figure02.png)
+A, steady-state inactivation and activation curves. The sodium current model used in the baseline whole-cell model is shown in black. Colours represent distinct experimental iPSC-CM data from [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/) and from immature and mature cell preparations from the Jalife lab ([Herron et al. 2016](https://pubmed.ncbi.nlm.nih.gov/27069088/)). B, I–V curves for INa. Dataset-specific models were simulated using the experimental conditions of the corresponding experimental data. C, INa activation (m-gate) time constants. D, INa fast-inactivation (h-gate) time constants. E, INa slow-inactivation (j-gate) time constants. j-gate time constant parameters for all INa models were optimized to experimental iPSC-CM data from the Kurokawa lab ([Li et al. 2017](https://pubmed.ncbi.nlm.nih.gov/28615142/)).
+
+
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00012">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00012">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig2.py">
+    <dc:license rdf:resource="local:00012">local:00012</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/fig3.py">
     <dc:title>fig3.py</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig3.py">
+    <dc:description>
+
+About this model
+----------------
+
+
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+### Figure 03
+
+
+
+#### Calcium current model optimization
+
+
+Steady-state inactivation and activation iPSC-CM experimental data, with optimized dataset-specific models for
+different dataset (Fig. 3 A). I-V curves for ICaL. Calcium-dependent gating model formulation retained from
+ten [Tusscher (2004)](https://pubmed.ncbi.nlm.nih.gov/14656705/) adult cardiomyocyte model with parameter optimization to fit whole cell iPSC-CM outputs (Fig. 3 B)
+Time constants were extracted from current recordings by [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/)
+(same as sodium current). The activation and inactivation time constant data used for model optimization, and the resulting
+models, are shown in Fig. 3 C and D.
+
+
+[Current\_Ica.cellml](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Current_Ica.cellml) is the main CellML files which has all the formulation for calcium current,
+Its associated Sedml file contains all the simulation settings.
+
+
+All the CellML files and SED-ML files related to this channel need to be downloaded in a same folder (Current\_Ica, gating\_Ica, parameter\_Ica, parameter, unit)
+as well as python script ([fig3.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig3.py)). In the python script, required Sedml file (Current\_Ica.sedml) is loaded
+into the script and by running the code following figure is reproduced. fig3.py is used to
+generate the simulation and reproduces the graph shown in Figure 4 in the original study.
+In order to reproduce Figure 4, once all the files are downloaded to the same folder,
+execute the following script from the command line (command prompt):
+
+
+cd [PathToThisFile]
+
+
+[PathToOpenCOR]/pythonshell fig3.py
+
+
+
+![Calcium current model optimization](Figure03.png)
+
+A, L-type calcium current (ICaL) steady-state inactivation and activation curves with dataset-specific model optimized to experimental data. The L-type calcium model used in the baseline cellular model is shown in black. Coloured symbols represent experimental iPSC-CM data from [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/) ,`Veerman et al. (2016)`\_ and [Es-Salah-Lamoureux et al. (2016)](https://pubmed.ncbi.nlm.nih.gov/27590098/). B, I-V curves for ICaL,
+C, time constants of ICaL activation gate. D, time constants of ICaL inactivation gate.
+
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00013">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00013">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig3.py">
+    <dc:license rdf:resource="local:00013">local:00013</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/fig4.py">
     <dc:title>fig4.py</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig4.py">
+    <dc:description>
+
+About this model
+----------------
+
+
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes
+incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+### Figure 04
+
+
+
+#### Rapid delayed rectifier potassium current (*I**Kr*) model optimization
+
+
+The voltage dependent activation and inactivation gating variables were modeled here.
+The single exponential voltage-dependent rate constant model
+was optimized to fit the voltage dependence of *I**Kr* inactivation in the [ten
+Tusscher 2004 model](https://journals.physiology.org/doi/full/10.1152/ajpheart.00794.2003/). The result of inactivation gating is shown in Fig. 4 A and D.
+Activation gating model were fit to four different data for multiple labs; [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/),
+[Garg et al. (2018)](https://www.jacc.org/doi/abs/10.1016/j.jacc.2018.04.041), [Bellin et al. (2013)](https://www.nature.com/articles/srep30967/https://www.embopress.org/doi/full/10.1038/emboj.2013.240) and [Es-Salah-Lamoureux et al. (2016)](https://pubmed.ncbi.nlm.nih.gov/27590098/).
+Parameters in [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/), [Garg et al. (2018)](https://www.jacc.org/doi/abs/10.1016/j.jacc.2018.04.041) and [Es-Salah-Lamoureux et al. (2016)](https://pubmed.ncbi.nlm.nih.gov/27590098/).
+model, were optimized using the time constant activation of [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/). Time
+constant activation in [Bellin et al. (2013)](https://www.nature.com/articles/srep30967/https://www.embopress.org/doi/full/10.1038/emboj.2013.240) were used in the model. (Fig. 4 C)
+I-V curve for *I**Kr* shows in Fig. 4 B.
+
+
+[Current\_Ikr.cellml](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Current_Ikr.cellml) is the main CellML files which has all the formulation for rapid delayed rectifier potassium current,
+Its associated Sedml file contains all the simulation settings.
+
+
+All the CellML files and SED-ML files related to this channel need to be downloaded in a same folder (Current\_Ikr, gating\_Ikr, parameter\_Ikr, parameter, unit)
+as well as python script ([fig4.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig4.py)). In the python script, required Sedml file (Current\_Ikr.sedml) is loaded
+into the script and by running the code following figure is reproduced. fig4.py is used to
+generate the simulation and reproduces the graph shown in Figure 5 in the original study.
+In order to reproduce Figure 5, once all the files are downloaded to the same folder,
+execute the following script from the command line (command prompt):
+
+
+cd [PathToThisFile]
+
+
+[PathToOpenCOR]/pythonshell fig4.py
+
+
+
+![Rapid delayed rectifier potassium current model optimization](Figure04.png)
+
+A, optimized activation with dataset-specific model fits. Different colour represent experimental
+iPSC-CM data from multiple laboratories. B, I-V curve, C, Time constant of *I**Kr* activation gate. D,
+Time constant of *I**Kr* inactivation gate.
+
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00014">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00014">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig4.py">
+    <dc:license rdf:resource="local:00014">local:00014</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/fig5.py">
     <dc:title>fig5.py</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig5.py">
+    <dc:description>
+
+About this model
+----------------
+
+
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes
+incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+### Figure 05
+
+
+
+#### Transient outward potassium current (*I**to*) model optimization
+
+
+The voltage dependent activation and inactivation gating variables were modeled here.
+experimental iPSC‐CM data collected from [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/), [Cordeiro et al. (2013)](https://pubmed.ncbi.nlm.nih.gov/23542310/)
+and [Veerman et al. (2016)](https://www.nature.com/articles/srep30967/) in order to optimize data specific model.
+Steady-state inactivation and activation iPSC-CM experimental data, with optimized dataset-specific models for
+different dataset (Fig. 5 A)
+Since non of the datasets had both steady-state activation and inactivation data therefore,
+Inactivation time constant parameters of [Veerman et al. (2016)](https://www.nature.com/articles/srep30967/) model were optimized with time
+constant activation from [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/). [Cordeiro et al. (2013)](https://pubmed.ncbi.nlm.nih.gov/23542310/) model parameters were optimized
+with steady-state activation parameters from [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/) and steady-state inactivation
+data from [Cordeiro et al. (2013)](https://pubmed.ncbi.nlm.nih.gov/23542310/) were used to optimize the model of [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/). All the
+results are presented in Fig. 5. D.
+Time constant activation parameters were optimized to [ten Tusscher (2004)](https://journals.physiology.org/doi/full/10.1152/ajpheart.00794.2003/) model which is shown
+in Fig. 5 C. I-V curves for *I**to* (Fig. 5. B).
+
+
+[Current\_Ito.cellml](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Current_Ito.cellml) is the main CellML files which has all the formulation for transient outward potassium current,
+Its associated Sedml file contains all the simulation settings.
+
+
+All the CellML files and SED-ML files related to this channel need to be downloaded in a same folder (Current\_Ito, gating\_Ito, parameter\_Ito, parameter, unit)
+as well as python script ([fig5.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig5.py)). In the python script, required Sedml file (Current\_Ito.sedml) is loaded
+into the script and by running the code following figure is reproduced. [fig5.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig5.py) is used to
+generate the simulation and reproduces the graph shown in Figure 6 in the original study.
+In order to reproduce Figure 6, once all the files are downloaded to the same folder,
+execute the following script from the command line (command prompt):
+
+
+cd [PathToThisFile]
+
+
+[PathToOpenCOR]/pythonshell fig5.py
+
+
+
+![Transient outward potassium current model optimization](Figure05.png)
+
+A, optimized activation with dataset-specific model fits. Different colour represent experimental
+iPSC-CM data from multiple laboratories. B. I-V curves, C, Time constant of *I**to* activation gate. D,
+Time constant of *I**to* inactivation gate.
+
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00015">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00015">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig5.py">
+    <dc:license rdf:resource="local:00015">local:00015</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/fig6.py">
     <dc:title>fig6.py</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig6.py">
+    <dc:description>
+
+About this model
+----------------
+
+
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes
+incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+### Figure 06
+
+
+
+#### Slow delayed rectifier potassium current (*I**Ks*) model optimization
+
+
+The voltage dependent activation gating variables were modeled here.
+experimental iPSC‐CM data collected from [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/) and two other independent datasets
+from [Ma et al. (2015)](https://pubmed.ncbi.nlm.nih.gov/25889101/) in order to optimize data specific model.
+Steady-state inactivation and activation iPSC-CM experimental data, with optimized dataset-specific models for
+different dataset (Fig. 6 A)
+Parameters in all models were parameterized using the activation time constants from [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/) (Fig. 6. B). and I-V curves for
+*I**Ks* (Fig. 6. C).
+
+
+[Current\_Iks.cellml](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Current_Iks.cellml) is the main CellML files which has all the formulation for slow delayed rectifier potassium current,
+Its associated Sedml file contains all the simulation settings.
+
+
+All the CellML files and SED-ML files related to this channel need to be downloaded in a same folder (Current\_Iks, gating\_Iks, parameter\_Iks, parameter, unit)
+as well as python script ([fig6.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig6.py)). In the python script, required Sedml file (Current\_Iks.sedml) is loaded
+into the script and by running the code following figure is reproduced. [fig6.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig6.py) is used to
+generate the simulation and reproduces the graph shown in Figure 7 in the original study.
+In order to reproduce Figure 7, once all the files are downloaded to the same folder,
+execute the following script from the command line (command prompt):
+
+
+cd [PathToThisFile]
+
+
+[PathToOpenCOR]/pythonshell fig6.py
+
+
+
+![Slow delayed rectifier potassium current model optimization](Figure06.png)
+
+A, optimized steady-state activation with dataset-specific model fits. Different colour represent experimental
+iPSC-CM data from multiple laboratories. B, Time constant of *I**Ks* activation gate. C, I-V curves.
+
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00016">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00016">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig6.py">
+    <dc:license rdf:resource="local:00016">local:00016</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/fig7.py">
     <dc:title>fig7.py</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig7.py">
+    <dc:description>
+
+About this model
+----------------
+
+
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes
+incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+### Figure 07
+
+
+
+#### Pacemaker/funny current (*I**f*) model optimization
+
+
+The voltage dependent activation gating variables were modeled here.
+experimental iPSC‐CM data collected from [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/) and Kurokawa Lab [Li et al. (2017)](https://pubmed.ncbi.nlm.nih.gov/28615142/)
+in order to optimize data specific model. Activation gate parameters were
+optimized using the steady-state activation and activation time constants from experimental data
+(Fig. 7. A and B). I-V curves for *I**f* (Fig. 7. C).
+
+
+[Current\_If.cellml](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Current_If.cellml) is the main CellML files which has all the formulation for Pacemaker/funny current,
+Its associated Sedml file contains all the simulation settings.
+
+
+All the CellML files and SED-ML files related to this channel need to be downloaded in a same folder (Current\_If, gating\_If, parameter\_If, parameter, unit)
+as well as python script ([fig7.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig7.py)). In the python script, required Sedml file (Current\_If.sedml) is loaded
+into the script and by running the code following figure is reproduced.`fig7.py`\_ is used to
+generate the simulation and reproduces the graph shown in Figure 8 in the original study.
+In order to reproduce Figure 8, once all the files are downloaded to the same folder,
+execute the following script from the command line (command prompt):
+
+
+cd [PathToThisFile]
+
+
+[PathToOpenCOR]/pythonshell fig7.py
+
+
+
+![Pacemaker/funny current model optimization](Figure07.png)
+
+A, optimized steady-state activation with dataset-specific model fits. Different colour represent experimental
+iPSC-CM data from multiple laboratories. B, Time constant of *I**f* activation gate. C, I-V curves.
+
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00017">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00017">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig7.py">
+    <dc:license rdf:resource="local:00017">local:00017</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/fig8.py">
     <dc:title>fig8.py</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig8.py">
+    <dc:description>
+
+About this model
+----------------
+
+
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes
+incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+### Figure 08
+
+
+
+#### Inward rectifier potassium current (*I**K*1) model optimization
+
+
+The slow delayed rectifier potassium current was modeled here.
+experimental iPSC-CM data collected from [Ma et al. (2011)](https://pubmed.ncbi.nlm.nih.gov/21890694/) , Kurokawa Lab ([Li et al. (2017)](https://pubmed.ncbi.nlm.nih.gov/28615142/)),
+and the Jalife Lab ([Herron et al. (2016)](https://www.ahajournals.org/doi/full/10.1161/CIRCEP.113.003638)) in order to optimize data specific model.
+
+
+[Current\_Ik1.cellml](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Current_Ik1.cellml) is the main CellML files which has all the formulation for Inward rectifier potassium current,
+Its associated Sedml file contains all the simulation settings.
+
+
+All the CellML files and SED-ML files related to this channel need to be downloaded in a same folder (Current\_Ik1, gating\_Ik1, parameter\_Ik1, parameter, unit)
+as well as python script ([fig8.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig8.py)). In the python script, required Sedml file (Current\_Ik1.sedml) is loaded
+into the script and by running the code following figure is reproduced.`fig8.py`\_ is used to
+generate the simulation and reproduces the graph shown in Figure 9 in the original study.
+In order to reproduce Figure 9, once all the files are downloaded to the same folder,
+execute the following script from the command line (command prompt):
+
+
+cd [PathToThisFile]
+
+
+[PathToOpenCOR]/pythonshell fig8.py
+
+
+
+![I-V curve with dataset-specific model fits. Different colour represent experimental iPSC-CM data from multiple laboratories](Figure08.png)
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00018">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00018">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig8.py">
+    <dc:license rdf:resource="local:00018">local:00018</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/fig9.py">
     <dc:title>fig9.py</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig9.py">
+    <dc:description>
+
+About this model
+----------------
+
+
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes
+incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+### Figure 09
+
+
+
+#### Optimization of calcium handling in the iPSC-CM baseline model
+
+
+In figure 9-A baseline model of calcium transient is shown. Also the contribution of SERCA (*J**up*),
+sodium-calcium exchanger(*I**NCX*) and sarcolema pump(*I**PMCA*) fluxes are presented in figure 9-B.
+comparison of the mentioned fluxes were provided by [Hwang et al. (2015)](https://www.sciencedirect.com/science/article/pii/S0022282815001510) from six iPSC-CM datasets within three different
+labs. Maximal of *I**SERCA*, *I**NCX* and *I**PMCA* in the baseline model first optimized
+to fit the relative contribution of each current during a single CaT and then normalized to total calcium contribution
+from all the currents for a single action potential in the baseline model after reaching steady state.
+
+
+[Channels.cellml](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Channels.cellml) is the main CellML file which shows the I-V curves for different channels fitted to
+different experimental data from multiple laboratories.
+Its associated SED-ML file contains all the simulation settings.
+All the CellML files and SED-ML files need to be download in a same folder (gating\_Ik1, parameter\_Ik1, gating\_Ikr,
+parameter\_Ikr, gating\_Iks, parameter\_Iks, gating\_Ito, parameter\_Ito, gating\_Ica, parameter\_Ica, gating\_Icat,
+gating\_Ina, parameter\_Ina, gating\_If, parameter\_If, parameter, unit)
+as well as python scripts ([fig9.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig9.py) ). In the [fig9.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig9.py) python script,
+required SED-ML file (Channels.sedml) is loaded into the script and by running the code all the required currents
+are calculated and the following figure is reproduced. [fig9.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig9.py) are used to
+generate the simulation and reproduces the graph shown in Figure 10 in the original study.
+In order to reproduce Figure 10, once all the files are downloaded to the same folder,
+execute the following script from the command line (command prompt):
+
+
+cd [PathToThisFile]
+
+
+[PathToOpenCOR]/pythonshell fig9.py
+
+
+
+![A, baseline model CaT. B, relative contribution of calcium from :math:`I_{SERCA}`, :math:`I_{NCX}` and :math:`I_{PMCA}` to the CaT during a single AP in the baseline mode. (Blue: 62% SERCA, Red: 31% NCX, Yellow: 7% non-NCX (SL-pump))](Figure09.png)
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00019">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00019">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig9.py">
+    <dc:license rdf:resource="local:00019">local:00019</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/fig10.py">
     <dc:title>fig10.py</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig10.py">
+    <dc:description>
+
+About this model
+----------------
+
+
+
+
+
+| Original publication: |
+| --- |
+|  | [Kernik et al. (2019)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6767694/):
+"A computational model of induced pluripotent stem-cell derived cardiomyocytes
+incorporating experimental variability from multiple data sources" J Physiol. 2019 Sep 1; 597(17): 4533-4564. |
+| DOI: | &lt;https://dx.doi.org/10.1113%2FJP277724&gt; |
+
+
+
+### Figure 10
+
+
+
+#### Action potential in the baseline model
+
+
+The developed baseline model including all the channels and current was optimized to reproduce
+the spontaneous beating of actional potential as a e key feature of the immature iPSC-CM
+phenotype which shows in figure 10.
+
+
+[Channels.cellml](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/Channels.cellml) is the main CellML file which shows the I-V curves for different channels fitted to
+different experimental data from multiple laboratories.
+Its associated SED-ML file contains all the simulation settings.
+All the CellML files and SED-ML files need to be download in a same folder (gating\_Ik1, parameter\_Ik1, gating\_Ikr,
+parameter\_Ikr, gating\_Iks, parameter\_Iks, gating\_Ito, parameter\_Ito, gating\_Ica, parameter\_Ica, gating\_Icat,
+gating\_Ina, parameter\_Ina, gating\_If, parameter\_If, parameter, unit)
+as well as python scripts ([fig10.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig10.py)). In the [fig10.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig10.py) python script,
+required SED-ML file (Channels.sedml) is loaded into the script and by running the code all the required currents
+are calculated, and the following figure is reproduced. [fig10.py](https://models.physiomeproject.org/workspace/702/rawfile/a619946dc2f89d6d787cebfbd9b1f2a54f5aa227/fig10.py) is used to
+generate the simulation and reproduces the graph shown in Figure 11 in the original study.
+In order to reproduce Figure 11, once all the files are downloaded to the same folder,
+execute the following script from the command line (command prompt):
+
+
+cd [PathToThisFile]
+
+
+[PathToOpenCOR]/pythonshell fig10.py
+
+
+
+![time course of the spontaneously beating APs in the baseline model](Figure10.png)
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00020">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00020">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/fig10.py">
+    <dc:license rdf:resource="local:00020">local:00020</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ica.cellml">
     <dc:title>gating_Ica.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00021">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00021">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ica.cellml">
+    <dc:license rdf:resource="local:00021">local:00021</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Icat.cellml">
     <dc:title>gating_Icat.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00022">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00022">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Icat.cellml">
+    <dc:license rdf:resource="local:00022">local:00022</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_If.cellml">
     <dc:title>gating_If.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00023">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00023">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_If.cellml">
+    <dc:license rdf:resource="local:00023">local:00023</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ik1.cellml">
     <dc:title>gating_Ik1.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00024">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00024">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ik1.cellml">
+    <dc:license rdf:resource="local:00024">local:00024</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ikr.cellml">
     <dc:title>gating_Ikr.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00025">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00025">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ikr.cellml">
+    <dc:license rdf:resource="local:00025">local:00025</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Iks.cellml">
     <dc:title>gating_Iks.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00026">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00026">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Iks.cellml">
+    <dc:license rdf:resource="local:00026">local:00026</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ina.cellml">
     <dc:title>gating_Ina.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00027">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00027">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ina.cellml">
+    <dc:license rdf:resource="local:00027">local:00027</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ito.cellml">
     <dc:title>gating_Ito.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00028">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00028">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/gating_Ito.cellml">
+    <dc:license rdf:resource="local:00028">local:00028</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter.cellml">
     <dc:title>parameter.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00029">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00029">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter.cellml">
+    <dc:license rdf:resource="local:00029">local:00029</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ica.cellml">
     <dc:title>parameter_Ica.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00030">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00030">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ica.cellml">
+    <dc:license rdf:resource="local:00030">local:00030</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_If.cellml">
     <dc:title>parameter_If.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00031">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00031">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_If.cellml">
+    <dc:license rdf:resource="local:00031">local:00031</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ik1.cellml">
     <dc:title>parameter_Ik1.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00032">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00032">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ik1.cellml">
+    <dc:license rdf:resource="local:00032">local:00032</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ikr.cellml">
     <dc:title>parameter_Ikr.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00033">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00033">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ikr.cellml">
+    <dc:license rdf:resource="local:00033">local:00033</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Iks.cellml">
     <dc:title>parameter_Iks.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00034">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00034">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Iks.cellml">
+    <dc:license rdf:resource="local:00034">local:00034</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ina.cellml">
     <dc:title>parameter_Ina.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00035">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00035">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ina.cellml">
+    <dc:license rdf:resource="local:00035">local:00035</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ito.cellml">
     <dc:title>parameter_Ito.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00036">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00036">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/parameter_Ito.cellml">
+    <dc:license rdf:resource="local:00036">local:00036</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/817.omex/unit.cellml">
     <dc:title>unit.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00037">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00037">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/817.omex/unit.cellml">
+    <dc:license rdf:resource="local:00037">local:00037</dc:license>
   </rdf:Description>
 </rdf:RDF>

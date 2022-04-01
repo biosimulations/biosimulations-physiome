@@ -1,63 +1,118 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/7e2.omex">
     <dc:title>FCU_adenylylCyclase</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7e2.omex">
-    <dc:description>About this model
+    <dc:description>
+
+### About this model
+
+
 This is a Functional Cell Unit for adenylyl cyclase metabolism in the cardiac cell.
+
+
 This is a composite module, composed of several individual modules, and merged together in a modular fashion.
 
-INPUTS:
 
-Ligands for beta-1 adrenergic and muscarinic receptors.
 
-OUTPUTS:
+&gt; 
+&gt; 
+&gt; **INPUTS:**
+&gt; * Ligands for beta-1 adrenergic and muscarinic receptors.
+&gt; 
+&gt; 
+&gt; 
+&gt; **OUTPUTS:**
+&gt; * Change in molar amount of cyclic AMP.
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
 
-Change in molar amount of cyclic AMP.
 
-Model status
+
+
+### Model status
+
+
 The current CellML implementation runs in OpenCOR.
 
-Model overview
+
+
+
+### Model overview
+
+
 All components are presented in bond-graph form.
 Components are made by converting an existing kinetic model and translating into bond-graph form.
 
+
+
+![Components of the model](https://models.physiomeproject.org/e/7e2/exposure/FCU_picture.png "FCU_picture.png")
 Components of the model.
 
-A description of the process to find bond-graph parameter is shown in the folder    parameter_finder, which relies on the:
 
-stoichiometry of system
-kinetic constants for forward/reverse reactions
 
-If not already, all reactions are made reversible by assigning a small value to the reverse  direction.
+A description of the process to find bond-graph parameter is shown in the folder [parameter\_finder](https://models.physiomeproject.org/e/7e2/parameter_finder), which relies on the:
 
-linear algebra script.
+
+1. stoichiometry of system
+2. kinetic constants for forward/reverse reactions
+
+
+
+&gt; 
+&gt; * If not already, all reactions are made reversible by assigning a small value to the reverse direction.
+&gt; 
+&gt; 
+&gt; 
+
+
+3. [linear algebra script](https://models.physiomeproject.org/workspace/705/rawfile/9a5197806ac1691741ad8d2392127f91d77a8c24/parameter_finder/find_BG_parameters_composite.py).
+
 
 Here, this solve process is performed in Python.
 
-Modular description
 
-Components
+
+
+### Modular description
+
+
+
+#### Components
+
+
 CellML divides the mathematical model into distinct components, which are able to be re-used in other composite models.
 These CellML components are:
 
-beta-1 adrenergic receptor and Gs protein (GPCR-β 1AR)
-muscarinic receptor and Gi Protein (GPCR-M2)  (M2)
-cyclic AMP (cAMP)
+
+* [beta-1 adrenergic receptor and Gs protein](https://models.physiomeproject.org/workspace/7dc) (GPCR-*β* 1AR)
+* [muscarinic receptor and Gi Protein (GPCR-M2)](https://models.physiomeproject.org/workspace/7dd) (M2)
+* [cyclic AMP](https://models.physiomeproject.org/workspace/674) (cAMP)
+
+
+
 
 Origin of kinetic model components
 
-Source
-Components
 
-Saucerman et al.
-GPCR-β 1AR, cAMP
 
-Iancu et al.
-GPCR-M2
+| Source | Components |
+| --- | --- |
+| [Saucerman et al.](https://models.physiomeproject.org/exposure/9766d9bd0325c31e47a31b291e26ccad) | GPCR-*β* 1AR, cAMP |
+| [Iancu et al.](https://models.physiomeproject.org/exposure/f67b68f901fc3986fcea0dcfceb503f9) | GPCR-M2 |
 
-Each of these blocks is itself a CellML model, complete with bond-graph parameters appropriate for the isolated system.</dc:description>
+
+Each of these blocks is itself a CellML model, complete with bond-graph parameters appropriate for the isolated system.
+
+
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -66,7 +121,7 @@ Each of these blocks is itself a CellML model, complete with bond-graph paramete
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -78,7 +133,7 @@ Each of these blocks is itself a CellML model, complete with bond-graph paramete
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/7e2">https://models.physiomeproject.org/e/7e2</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 7e2</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7e2.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>
@@ -95,7 +150,137 @@ Each of these blocks is itself a CellML model, complete with bond-graph paramete
   <rdf:Description rdf:about="http://omex-library.org/7e2.omex/FCU_adenylylCyclase.cellml">
     <dc:title>FCU_adenylylCyclase.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7e2.omex/FCU_adenylylCyclase.cellml">
+    <dc:description>
+
+
+### About this model
+
+
+This is a Functional Cell Unit for adenylyl cyclase metabolism in the cardiac cell.
+
+
+This is a composite module, composed of several individual modules, and merged together in a modular fashion.
+
+
+
+&gt; 
+&gt; 
+&gt; **INPUTS:**
+&gt; * Ligands for beta-1 adrenergic and muscarinic receptors.
+&gt; 
+&gt; 
+&gt; 
+&gt; **OUTPUTS:**
+&gt; * Change in molar amount of cyclic AMP.
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+
+
+
+
+### Model status
+
+
+The current CellML implementation runs in OpenCOR.
+
+
+
+
+### Model overview
+
+
+All components are presented in bond-graph form.
+Components are made by converting an existing kinetic model and translating into bond-graph form.
+
+
+
+![Components of the model](https://models.physiomeproject.org/e/7e2/exposure/FCU_picture.png "FCU_picture.png")
+Components of the model.
+
+
+
+A description of the process to find bond-graph parameter is shown in the folder [parameter\_finder](https://models.physiomeproject.org/e/7e2/parameter_finder), which relies on the:
+
+
+1. stoichiometry of system
+2. kinetic constants for forward/reverse reactions
+
+
+
+&gt; 
+&gt; * If not already, all reactions are made reversible by assigning a small value to the reverse direction.
+&gt; 
+&gt; 
+&gt; 
+
+
+3. [linear algebra script](https://models.physiomeproject.org/workspace/705/rawfile/9a5197806ac1691741ad8d2392127f91d77a8c24/parameter_finder/find_BG_parameters_composite.py).
+
+
+Here, this solve process is performed in Python.
+
+
+
+
+### Modular description
+
+
+
+#### Components
+
+
+CellML divides the mathematical model into distinct components, which are able to be re-used in other composite models.
+These CellML components are:
+
+
+* [beta-1 adrenergic receptor and Gs protein](https://models.physiomeproject.org/workspace/7dc) (GPCR-*β* 1AR)
+* [muscarinic receptor and Gi Protein (GPCR-M2)](https://models.physiomeproject.org/workspace/7dd) (M2)
+* [cyclic AMP](https://models.physiomeproject.org/workspace/674) (cAMP)
+
+
+
+
+Origin of kinetic model components
+
+
+
+| Source | Components |
+| --- | --- |
+| [Saucerman et al.](https://models.physiomeproject.org/exposure/9766d9bd0325c31e47a31b291e26ccad) | GPCR-*β* 1AR, cAMP |
+| [Iancu et al.](https://models.physiomeproject.org/exposure/f67b68f901fc3986fcea0dcfceb503f9) | GPCR-M2 |
+
+
+Each of these blocks is itself a CellML model, complete with bond-graph parameters appropriate for the isolated system.
+
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7e2.omex/FCU_adenylylCyclase.cellml">
+    <dc:license rdf:resource="local:00004">local:00004</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7e2.omex/FCU_picture.png">
     <dc:title>FCU_picture.png</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7e2.omex/FCU_picture.png">
+    <dc:license rdf:resource="local:00005">local:00005</dc:license>
   </rdf:Description>
 </rdf:RDF>

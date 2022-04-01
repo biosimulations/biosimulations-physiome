@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/33.omex">
     <dc:title>Shiferaw, Watanabe, Garfinkel, Weiss, Karma, 2003</dc:title>
   </rdf:Description>
@@ -19,48 +19,81 @@
     <prism:keyword>ventricular myocyte</prism:keyword>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/33.omex">
-    <dc:description>Model Status
+    <dc:description>
 
-This is the original unchecked version of the model imported from the previous
-CellML model repository, 24-Jan-2006.
+#### Model Status
 
-Model Structure
 
-Cardiac myocyte contraction is stimulated by a rise in the concentration of intracellular calcium ([Ca2+]i), which in turn is due to the coordinated release of calcium from the sarcoplasmic reticulum (SR) via ryanodine receptors (RyR).  These receptors are close to the L-type calcium channels in the cell surface membrane, and when the cell is depolarised, the calcium that enters the cell through the L-type channels is confined within a microdomain (the dyadic junction).  The RyR then sense this increase in [Ca2+]i and respond by opening and releasing more calcium from the SR in a process known as calcium-induced calcium releases (CICR).  The cell's contractile elements are activated by this increase in [Ca2+]i and the cell contracts.  A calcium-activated uptake pump then pumps calcium back into the SR.  This interaction between membrane potential and intracellular calcium cycling forms the basis of excitation-contraction (EC) coupling.  The calcium system is driven by an action potential waveform that is itself dependent on the dynamics of the calcium system.
+
+ This is the original unchecked version of the model imported from the previous
+ CellML model repository, 24-Jan-2006.
+ 
+
+
+#### Model Structure
+
+
+
+Cardiac myocyte contraction is stimulated by a rise in the concentration of intracellular calcium ([Ca2+]i), which in turn is due to the coordinated release of calcium from the sarcoplasmic reticulum (SR) via ryanodine receptors (RyR). These receptors are close to the L-type calcium channels in the cell surface membrane, and when the cell is depolarised, the calcium that enters the cell through the L-type channels is confined within a microdomain (the dyadic junction). The RyR then sense this increase in [Ca2+]i and respond by opening and releasing more calcium from the SR in a process known as calcium-induced calcium releases (CICR). The cell's contractile elements are activated by this increase in [Ca2+]i and the cell contracts. A calcium-activated uptake pump then pumps calcium back into the SR. This interaction between membrane potential and intracellular calcium cycling forms the basis of excitation-contraction (EC) coupling. The calcium system is driven by an action potential waveform that is itself dependent on the dynamics of the calcium system.
+
+
+
 
 There have been several efforts to mathematically model intracellular calcium dynamics, such as:
 
-Modelling the Functional Ca2+ Release Unit, 1999, Rice et al., 1999
 
-Model of Ryanodine Receptor Gating in Cardiac Muscle, 1999, Stern et al.
 
-Sobie et al. Mechanism of Cardiac Ca2+ Spark Termination, 2002
+* [Modelling the Functional Ca2+ Release Unit, 1999, Rice *et al.*, 1999](http://www.cellml.org/models/rice_jafri_winslow_2000_version02)
+* [Model of Ryanodine Receptor Gating in Cardiac Muscle, 1999, Stern *et al.*](http://www.cellml.org/models/stern_song_sham_yang_boheler_rios_1999_version02)
+* [Sobie *et al.* Mechanism of Cardiac Ca2+ Spark Termination, 2002](http://www.cellml.org/models/sobie_dilly_dossantoscruz_lederer_jafri_2002_version01)
 
-which focus on the detailed calcium dynamics within the dyadic junction.  Several authors have developed models of calcium cycling at the whole cell level, including:
 
-Luo-Rudy Ventricular Model II (dynamic), 1994
 
-Jafri-Rice-Winslow Ventricular Model, 1998
+which focus on the detailed calcium dynamics within the dyadic junction. Several authors have developed models of calcium cycling at the whole cell level, including:
 
-Snyder et al., Cardiocyte Ca2+ Dynamics, 2000
+
+
+* [Luo-Rudy Ventricular Model II (dynamic), 1994](http://www.cellml.org/models/luo_rudy_1994_version02)
+* [Jafri-Rice-Winslow Ventricular Model, 1998](http://www.cellml.org/models/jafri_rice_winslow_1998_version03)
+* [Snyder *et al.*, Cardiocyte Ca2+ Dynamics, 2000](http://www.cellml.org/models/snyder_palmer_moore_2000_version01)
+
 
 However, some of these models are lacking in physiological detail; for example, some ignore intracellular calcium compartmentation, or they overlook the fact that calcium release from the SR is in fact the summation of several discrete events.
 
-In the publication described here, Shiferaw et al. present a new model of EC coupling in ventricular myocytes (see 
-the figure
-below).  In contrast to the previously published models this one represents calcium release from the SR as a summation of elementary release events that correspond to calcium sparks.  In addition, the model includes features that are absent in the earlier models, such as:
 
-a description of intracellular sodium accumulation;
 
-compartmentation of myoplasm into a submembrane space near the sarcolemma, and the rest of the myoplasm; and
 
-a calcium diffusional delay between the network SR (NSR) and the junctional SR (JSR)
+In the publication described here, Shiferaw *et al.* present a new model of EC coupling in ventricular myocytes (see 
+ the figure
+ below). In contrast to the previously published models this one represents calcium release from the SR as a summation of elementary release events that correspond to calcium sparks. In addition, the model includes features that are absent in the earlier models, such as:
+
+
+
+* a description of intracellular sodium accumulation;
+* compartmentation of myoplasm into a submembrane space near the sarcolemma, and the rest of the myoplasm; and
+* a calcium diffusional delay between the network SR (NSR) and the junctional SR (JSR)
+
+
 
 The complete original paper reference is cited below:
 
-Model of Intracellular Calcium Cycling in Ventricular Myocytes, Y. Shiferaw, M. A. Wantanabe, A. Garfinkel, J. N. Weiss, and A. Karma, 2003, Biophysical Journal, 85, 3666-3686.  PubMed ID: 14645059
 
-A schematic diagram of the intracellular compartments relevant to calcium cycling in ventricular myocytes.</dc:description>
+
+
+Model of Intracellular Calcium Cycling in Ventricular Myocytes, Y. Shiferaw, M. A. Wantanabe, A. Garfinkel, J. N. Weiss, and A. Karma, 2003, *Biophysical Journal*, 85, 3666-3686. [PubMed ID: 14645059](http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=14645059&amp;dopt=Abstract)
+
+
+
+
+
+|  |
+| --- |
+|  |
+| A schematic diagram of the intracellular compartments relevant to calcium cycling in ventricular myocytes. |
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/33.omex">
     <collex:thumbnail rdf:resource="http://omex-library.org/33.omex/shiferaw_2003.png">http://omex-library.org/33.omex/shiferaw_2003.png</collex:thumbnail>
@@ -117,7 +150,7 @@ A schematic diagram of the intracellular compartments relevant to calcium cyclin
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00006">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00006">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -138,7 +171,7 @@ A schematic diagram of the intracellular compartments relevant to calcium cyclin
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/33">https://models.physiomeproject.org/e/33</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00008">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 33</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/33.omex">
     <bqmodel:is rdf:resource="local:00008">local:00008</bqmodel:is>
@@ -163,5 +196,95 @@ A schematic diagram of the intracellular compartments relevant to calcium cyclin
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/33.omex/shiferaw_watanabe_garfinkel_weiss_karma_2003.cellml">
     <dc:title>Model of Intracellular Calcium Cycling in Ventricular Myocytes</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/33.omex/shiferaw_watanabe_garfinkel_weiss_karma_2003.cellml">
+    <dc:description>
+
+#### Model Status
+
+
+
+ This is the original unchecked version of the model imported from the previous
+ CellML model repository, 24-Jan-2006.
+ 
+
+
+#### Model Structure
+
+
+
+Cardiac myocyte contraction is stimulated by a rise in the concentration of intracellular calcium ([Ca2+]i), which in turn is due to the coordinated release of calcium from the sarcoplasmic reticulum (SR) via ryanodine receptors (RyR). These receptors are close to the L-type calcium channels in the cell surface membrane, and when the cell is depolarised, the calcium that enters the cell through the L-type channels is confined within a microdomain (the dyadic junction). The RyR then sense this increase in [Ca2+]i and respond by opening and releasing more calcium from the SR in a process known as calcium-induced calcium releases (CICR). The cell's contractile elements are activated by this increase in [Ca2+]i and the cell contracts. A calcium-activated uptake pump then pumps calcium back into the SR. This interaction between membrane potential and intracellular calcium cycling forms the basis of excitation-contraction (EC) coupling. The calcium system is driven by an action potential waveform that is itself dependent on the dynamics of the calcium system.
+
+
+
+
+There have been several efforts to mathematically model intracellular calcium dynamics, such as:
+
+
+
+* [Modelling the Functional Ca2+ Release Unit, 1999, Rice *et al.*, 1999](http://www.cellml.org/models/rice_jafri_winslow_2000_version02)
+* [Model of Ryanodine Receptor Gating in Cardiac Muscle, 1999, Stern *et al.*](http://www.cellml.org/models/stern_song_sham_yang_boheler_rios_1999_version02)
+* [Sobie *et al.* Mechanism of Cardiac Ca2+ Spark Termination, 2002](http://www.cellml.org/models/sobie_dilly_dossantoscruz_lederer_jafri_2002_version01)
+
+
+
+which focus on the detailed calcium dynamics within the dyadic junction. Several authors have developed models of calcium cycling at the whole cell level, including:
+
+
+
+* [Luo-Rudy Ventricular Model II (dynamic), 1994](http://www.cellml.org/models/luo_rudy_1994_version02)
+* [Jafri-Rice-Winslow Ventricular Model, 1998](http://www.cellml.org/models/jafri_rice_winslow_1998_version03)
+* [Snyder *et al.*, Cardiocyte Ca2+ Dynamics, 2000](http://www.cellml.org/models/snyder_palmer_moore_2000_version01)
+
+
+However, some of these models are lacking in physiological detail; for example, some ignore intracellular calcium compartmentation, or they overlook the fact that calcium release from the SR is in fact the summation of several discrete events.
+
+
+
+
+In the publication described here, Shiferaw *et al.* present a new model of EC coupling in ventricular myocytes (see 
+ the figure
+ below). In contrast to the previously published models this one represents calcium release from the SR as a summation of elementary release events that correspond to calcium sparks. In addition, the model includes features that are absent in the earlier models, such as:
+
+
+
+* a description of intracellular sodium accumulation;
+* compartmentation of myoplasm into a submembrane space near the sarcolemma, and the rest of the myoplasm; and
+* a calcium diffusional delay between the network SR (NSR) and the junctional SR (JSR)
+
+
+
+The complete original paper reference is cited below:
+
+
+
+
+Model of Intracellular Calcium Cycling in Ventricular Myocytes, Y. Shiferaw, M. A. Wantanabe, A. Garfinkel, J. N. Weiss, and A. Karma, 2003, *Biophysical Journal*, 85, 3666-3686. [PubMed ID: 14645059](http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;list_uids=14645059&amp;dopt=Abstract)
+
+
+
+
+
+|  |
+| --- |
+|  |
+| A schematic diagram of the intracellular compartments relevant to calcium cycling in ventricular myocytes. |
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/33.omex/shiferaw_watanabe_garfinkel_weiss_karma_2003.cellml">
+    <collex:thumbnail rdf:resource="http://omex-library.org/33.omex/shiferaw_2003.png">http://omex-library.org/33.omex/shiferaw_2003.png</collex:thumbnail>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00011">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00011">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/33.omex/shiferaw_watanabe_garfinkel_weiss_karma_2003.cellml">
+    <dc:license rdf:resource="local:00011">local:00011</dc:license>
   </rdf:Description>
 </rdf:RDF>

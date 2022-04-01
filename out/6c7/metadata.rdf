@@ -1,100 +1,151 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex">
     <dc:title>Model of Human Jejunal Smooth Muscle Cell Electrophysiology</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex">
-    <dc:description>About this model
+    <dc:description>
 
-Original publication:
-Poh, Yong Cheng, et al (2012):  "A quantitative model of human jejunal smooth muscle cell electrophysiology." PloS one 7.8 (2012): e42385.
+### About this model
 
-DOI:https://doi.org/10.1371/journal.pone.0042385
 
-Model status
-The current CellML model implementation runs in OpenCOR.
-The results have been validated against the data extracted from the figures in the published Poh, Yong Cheng, et al (2012). Using the default parameters provided in the paper except for the modification listed in the following sections, Figure 4, 5, 8, 9, 13 can be reproduced with marginal difference, while the difference becomes significant at less negative clamping voltages in Figure 2, 3, and 6. By increasing the intracellular concentrations, we have got better simulated IV curves, however, the specific experiment settings cannot be confirmed by the authors. For the same reason, there is a discrepancy in Figiure 10.
-The model structure can be found in the documentation of Components, while the  simulation results are shown under Experiments. The limitation and curation process has been summarized in the Model history and  Known issues.
 
-Model overview
-This workspace holds a CellML encoding of the Poh, Yong Cheng, et al (2012) model.
-The Poh, Yong Cheng, et al (2012) paper describes the first biophysically based computational model of human jejunal SMC (hJSMC) electrophysiology.
+
+
+| Original publication: |
+| --- |
+|  | [Poh, Yong Cheng, et al (2012)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042385): "A quantitative model of human jejunal smooth muscle cell electrophysiology." PloS one 7.8 (2012): e42385. |
+| DOI: | &lt;https://doi.org/10.1371/journal.pone.0042385&gt; |
+
+
+
+
+### Model status
+
+
+The current CellML model implementation runs in [OpenCOR](https://opencor.ws/).
+The results have been validated against the data extracted from the figures in the published [Poh, Yong Cheng, et al (2012)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042385). Using the default parameters provided in the paper except for the modification listed in the following sections, Figure 4, 5, 8, 9, 13 can be reproduced with marginal difference, while the difference becomes significant at less negative clamping voltages in Figure 2, 3, and 6. By increasing the intracellular concentrations, we have got better simulated IV curves, however, the specific experiment settings cannot be confirmed by the authors. For the same reason, there is a discrepancy in Figiure 10.
+
+
+The model structure can be found in the documentation of Components, while the simulation results are shown under Experiments. The limitation and curation process has been summarized in the [Model history](#model-history) and [Known issues](#known-issues).
+
+
+
+
+### Model overview
+
+
+This workspace holds a [CellML](https://www.cellml.org/) encoding of the [Poh, Yong Cheng, et al (2012)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042385) model.
+The [Poh, Yong Cheng, et al (2012)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0042385) paper describes the first biophysically based computational model of human jejunal SMC (hJSMC) electrophysiology.
 It includes nine types of ion channels and transporters, while the ionic currents are described by either a traditional Hodgkin-Huxley (HH) formalism or a deterministic multi-state Markov (MM) formalism.
 
+
+
+![Schematics of the model](Doc/schematics.png)
 A diagrammatic representation of the Poh, Yong Cheng, et al (2012) model.
 
-Modular description
 
-Components
+
+
+
+### Modular description
+
+
+
+#### Components
+
+
 CellML divides the mathematical model into distinct components, which are able to be re-used.
 The main CellML components are:
 
-Membrane potential component
 
-Clamped current component (the ionic current during a voltage clamp)
+* [Membrane potential component](https://models.physiomeproject.org/e/6c7/Components/Membrane_potential.cellml/view)
+* [Clamped current component](https://models.physiomeproject.org/e/6c7/Components/Clamped_current_Xi.cellml/view) (the ionic current during a voltage clamp)
+* [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml), a single definition instantiated for:
 
-Ionic currents component, a single definition instantiated for:
+	+ L-type *Ca*2 + channels: [ICaL](https://models.physiomeproject.org/e/6c7/Components/ICaL.cellml)
+	+ T-type *Ca*2 + channels: [ICaT](https://models.physiomeproject.org/e/6c7/Components/ICaT.cellml)
+	+ Voltage dependent *K*+ channels: [IKv](https://models.physiomeproject.org/e/6c7/Components/IKv.cellml)
+	+ Large conductance *Ca*2 + and voltage activated *K*+ channels: [IBK](https://models.physiomeproject.org/e/6c7/Components/IBK.cellml)
+	+ *Na*+ channels: [INa](https://models.physiomeproject.org/e/6c7/Components/INa.cellml)
+* The rest of currents are defined separately:
 
-L-type Ca2 +  channels: ICaL
-T-type Ca2 +  channels: ICaT
-Voltage dependent K +  channels: IKv
-Large conductance Ca2 +  and voltage activated K +  channels: IBK
-Na +  channels: INa
+	+ *Na*+- *K*+ pump: [INaK](https://models.physiomeproject.org/e/6c7/Components/INaK.cellml)
+	+ *Na*+- *Ca*2 + exchanger: [INCX](https://models.physiomeproject.org/e/6c7/Components/INCX.cellml)
+	+ Non-selective leak current (sodium and potassium): [INS\_Na](https://models.physiomeproject.org/e/6c7/Components/INS_Na.cellml) and [INS\_K](https://models.physiomeproject.org/e/6c7/Components/INS_K.cellml)
+* [Ionic concentrations component](https://models.physiomeproject.org/e/6c7/Components/Ionic_concentrations.cellml) for *Ca*2 +*i*, *Na*+*i* and *K*+*i*
+* [Gating kinetics component](https://models.physiomeproject.org/e/6c7/Components/gating_kinetics.cellml) – a single definition instantiated for the d, f, x, and y gates
+* Channel states for the MM formalism of IBK, INa and ICaL
+* [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/Nernst_potential.cellml), a single definition instantiated for [Na, Ca2+ and K](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml)
+* [Temperature component](https://models.physiomeproject.org/e/6c7/Components/temperature_factor.cellml/view)
+* [Time component](https://models.physiomeproject.org/e/6c7/Components/time.cellml/view)
 
-The rest of currents are defined separately:
-
-Na + - K +  pump: INaK
-Na + - Ca2 +  exchanger: INCX
-Non-selective leak current (sodium and potassium): INS_Na and INS_K
-
-Ionic concentrations component for Ca2 + i, Na + i and K + i
-
-Gating kinetics component – a single definition instantiated for the d, f, x, and y gates
-
-Channel states for the MM formalism of IBK, INa and ICaL
-
-Nernst potential component, a single definition instantiated for Na, Ca2+ and K
-
-Temperature component
-
-Time component
 
 Each of these blocks is itself a CellML model, which enables us to reuse the various components in future studies and models.
 
-Experiments
+
+
+
+#### Experiments
+
+
 Following best practices, this model separates the mathematics from the parameterisation of the model. The mathematical model is imported into a specific parameterised instance in order to perform numerical simulations.
 The parameterisation would include defining the stimulus protocol to be applied.
+
+
 This workspace has three sets of experiments and corresponding simulation results:
 
-Periodic stimulation experiment
-Voltage clamp experiment
-Sensitivity analysis experiment
 
-Simulation settings
-Simulation settings are encoded in SED-ML documents for experiment execution.
+1. [Periodic stimulation experiment](https://models.physiomeproject.org/e/6c7/Experiments/Periodic_stimulation.cellml/view)
+2. [Voltage clamp experiment](https://models.physiomeproject.org/e/6c7/Experiments/Patch_clampXi_experiment.cellml/view)
+3. [Sensitivity analysis experiment](https://models.physiomeproject.org/e/6c7/Experiments/Periodic_stimulation_SA.cellml/view)
+
+
+
+
+#### Simulation settings
+
+
+Simulation settings are encoded in [SED-ML](http://sed-ml.org/) documents for experiment execution.
 The python scripts to run simulation and reproduce the figures in the original paper are also included.
 
-Model history
-The original model implementation is from A Quantitative Model of Human Jejunal Smooth Muscle Cell Electrophysiology encoded in CellML by Yong Cheng Poh. The main modification is summarized as follows:
 
-Modularize the CellML model for reusability.
-Add  Clamped current component,  Patch clamp protocol and Voltage clamp experiment to simulate a membrane current during a voltage clamp.
-Modify Periodic IStim protocol  and Periodic stimulation experiment to enable the periodic stimulation for Figure 8.
-Modify a few parameters based on the author provided C code to reproduce the figures in the original paper. (please see Known issues).
-Modify some equations according to the author provided CellML code to reproduce the figures in the original paper. (please see Known issues).
-Add the python scripts to run simulation and reproduce the figures in the original paper.
 
-Known issues
 
-The parameters PNCX = 1992.1865, PNaK = 16.197, τdCat = 1.9508 and 0.005956  in Eq(S-24) are different from the values provided in the supplemental materials of the paper.
-The equations (S-5, S-6, S-7) have been multiplied by 1e − 15 for unit conversion.
-The equations (S-13, S-14), (S-23,..., S-28), (S-33, S-34), (S-36, S-37), (S-43, S-44), and (S-80,..., S-91) have been multiplied by corresponding temperature factors. The reference temperature for ICaL is 310 K, while ICaT is constructed based on 297 K. The reference temperatures for other currents are 297 K.
-The intracellular Ca2 +  concentrations terms have been removed from the equations (S-67,..., S-70) and (S-75,..., S-78).
-For voltage clamp experiments, as the clamping values for intracellular concentrations of Ca2 + i, Na + i and K + i were not specified in the paper, we use the initial values that the author used in their CellML model.
-For clamped ICaL in Figure 2, the θ and δ are set to 0 to switch off the Ca2 + i dependency.
-The holding voltage for Figure 5 was not specified, and we use  − 70 mV.
-Using the default parameters provided in the paper except for the above modification, Figure 4, 5, 8, 9, 13 can be reproduced with marginal difference, while the difference becomes significant at less negative clamping voltages in Figure 2, 3, and 6. By increasing the intracellular concentrations, we have got better simulated IV curves, however, the specific experiment settings cannot be confirmed by the authors. For the same reason, there is a discrepancy in Figiure 10.
-The partial notations in the mathematical equations of state transitions for ICaL are different from the ones in the referenced paper.</dc:description>
+
+### Model history
+
+
+The original model implementation is from [A Quantitative Model of Human Jejunal Smooth Muscle Cell Electrophysiology](https://models.physiomeproject.org/w/yc_poh/poh_2012) encoded in CellML by Yong Cheng Poh. The main modification is summarized as follows:
+
+
+1. Modularize the CellML model for reusability.
+2. Add [Clamped current component](https://models.physiomeproject.org/e/6c7/Components/Clamped_current_Xi.cellml/view), [Patch clamp protocol](https://models.physiomeproject.org/e/6c7/Experiments/Patch_clamp_protocol.cellml) and [Voltage clamp experiment](https://models.physiomeproject.org/e/6c7/Experiments/Patch_clampXi_experiment.cellml/view) to simulate a membrane current during a voltage clamp.
+3. Modify [Periodic IStim protocol](https://models.physiomeproject.org/e/6c7/Experiments/Periodic_IStim_protocol.cellml) and [Periodic stimulation experiment](https://models.physiomeproject.org/e/6c7/Experiments/Periodic_stimulation.cellml/view) to enable the periodic stimulation for Figure 8.
+4. Modify a few parameters based on the author provided [C code](https://computationalbiolab.github.io/jejunal_smc_model/) to reproduce the figures in the original paper. (please see [Known issues](#known-issues)).
+5. Modify some equations according to the author provided CellML code to reproduce the figures in the original paper. (please see [Known issues](#known-issues)).
+6. Add the python scripts to run simulation and reproduce the figures in the original paper.
+
+
+
+
+### Known issues
+
+
+1. The parameters *P**NCX* = 1992.1865, *P**NaK* = 16.197, *τ**dCat* = 1.9508 and 0.005956 in Eq(S-24) are different from the values provided in the supplemental materials of the paper.
+2. The equations (S-5, S-6, S-7) have been multiplied by 1*e* − 15 for unit conversion.
+3. The equations (S-13, S-14), (S-23,..., S-28), (S-33, S-34), (S-36, S-37), (S-43, S-44), and (S-80,..., S-91) have been multiplied by corresponding temperature factors. The reference temperature for *I**CaL* is 310 K, while *I**CaT* is constructed based on 297 K. The reference temperatures for other currents are 297 K.
+4. The intracellular *Ca*2 + concentrations terms have been removed from the equations (S-67,..., S-70) and (S-75,..., S-78).
+5. For voltage clamp experiments, as the clamping values for intracellular concentrations of *Ca*2 +*i*, *Na*+*i* and *K*+*i* were not specified in the paper, we use the initial values that the author used in their CellML model.
+6. For clamped *I**CaL* in Figure 2, the *θ* and *δ* are set to 0 to switch off the *Ca*2 +*i* dependency.
+7. The holding voltage for Figure 5 was not specified, and we use  − 70 mV.
+8. Using the default parameters provided in the paper except for the above modification, Figure 4, 5, 8, 9, 13 can be reproduced with marginal difference, while the difference becomes significant at less negative clamping voltages in Figure 2, 3, and 6. By increasing the intracellular concentrations, we have got better simulated IV curves, however, the specific experiment settings cannot be confirmed by the authors. For the same reason, there is a discrepancy in Figiure 10.
+9. The partial notations in the mathematical equations of state transitions for *I**CaL* are different from the ones in [the referenced paper](https://doi.org/10.1529/biophysj.106.088807).
+
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -103,7 +154,7 @@ The partial notations in the mathematical equations of state transitions for ICa
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -115,7 +166,7 @@ The partial notations in the mathematical equations of state transitions for ICa
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/6c7">https://models.physiomeproject.org/e/6c7</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 6c7</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>
@@ -132,22 +183,435 @@ The partial notations in the mathematical equations of state transitions for ICa
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Clamped_current_Xi.cellml">
     <dc:title>Clamped_current_Xi.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Clamped_current_Xi.cellml">
+    <dc:description>
+
+Clamped current model
+---------------------
+
+
+The [Clamped current component](https://models.physiomeproject.org/e/6c7/Components/Clamped_current_Xi.cellml) defines the complete [equations of the total ionic current](https://models.physiomeproject.org/e/6c7/Components/Clamped_current_Xi.cellml/cellml_math).
+It combines the imported ionic current components:
+
+
+* L-type *Ca*2 + channels: [ICaL](https://models.physiomeproject.org/e/6c7/Components/ICaL.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *PO* using [ICaL channel states component](https://models.physiomeproject.org/e/6c7/Components/ICaL_channel_states.cellml), while the Nernst potential *E**Ca* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* T-type *Ca*2 + channels: [ICaT](https://models.physiomeproject.org/e/6c7/Components/ICaT.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *PO* using [ICaT channel states component](https://models.physiomeproject.org/e/6c7/Components/ICaT_channel_states.cellml), while the Nernst potential *E**Ca* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* Voltage dependent *K*+ channels: [IKv](https://models.physiomeproject.org/e/6c7/Components/Components/IKv.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *P**Kv* = *x**Kv***y**Kv*. The gating kinetics is defined in the imported [gating kinetics component](https://models.physiomeproject.org/e/6c7/Components/gating_kinetics.cellml), while the steady states of x and y gate are defined by the imported [IKv gating steady state component](https://models.physiomeproject.org/e/6c7/Components/IKv_gating_inf.cellml), the Nernst potential *E**K* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* Large conductance *Ca*2 + and voltage activated *K*+ channels: [IBK](https://models.physiomeproject.org/e/6c7/Components/Components/IBK.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *PO* using [IBK channel states component](https://models.physiomeproject.org/e/6c7/Components/IBK_channel_states.cellml), while the Nernst potential *E**K* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* *Na*+ channels: [INa](https://models.physiomeproject.org/e/6c7/Components/Components/INa.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *PO* using [INa channel states component](https://models.physiomeproject.org/e/6c7/Components/INa_channel_states.cellml), while the Nernst potential *E**Na* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* *Na*+- *K*+ pump: [INaK](https://models.physiomeproject.org/e/6c7/Components/Components/INaK.cellml)
+* *Na*+- *Ca*2 + exchanger: [INCX](https://models.physiomeproject.org/e/6c7/Components/Components/INCX.cellml)
+* Non-selective sodium leak current: [INS\_Na](https://models.physiomeproject.org/e/6c7/Components/Components/INS_Na.cellml)
+* Non-selective potassium leak current: [INS\_K](https://models.physiomeproject.org/e/6c7/Components/Components/INS_K.cellml)
+
+
+The intracellular ionic concentrations *Ca*2 +*i*, *Na*+*i* and *K*+*i* should be given by the clamping parameters.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Clamped_current_Xi.cellml">
+    <dc:license rdf:resource="local:00004">local:00004</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Membrane_potential.cellml">
     <dc:title>Membrane_potential.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Membrane_potential.cellml">
+    <dc:description>
+
+Membrane potential model
+------------------------
+
+
+The [Membrane potential component](https://models.physiomeproject.org/e/6c7/Components/Membrane_potential.cellml) defines the complete [equations of the membrane potential and total ionic current](https://models.physiomeproject.org/e/6c7/Components/Membrane_potential.cellml/cellml_math).
+It combines the imported ionic current components and ionic concentrations components:
+
+
+* L-type *Ca*2 + channels: [ICaL](https://models.physiomeproject.org/e/6c7/Components/ICaL.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *PO* using [ICaL channel states component](https://models.physiomeproject.org/e/6c7/Components/ICaL_channel_states.cellml), while the Nernst potential *E**Ca* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* T-type *Ca*2 + channels: [ICaT](https://models.physiomeproject.org/e/6c7/Components/ICaT.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *PO* using [ICaT channel states component](https://models.physiomeproject.org/e/6c7/Components/ICaT_channel_states.cellml), while the Nernst potential *E**Ca* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* Voltage dependent *K*+ channels: [IKv](https://models.physiomeproject.org/e/6c7/Components/Components/IKv.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *P**Kv* = *x**Kv***y**Kv*. The gating kinetics is defined in the imported [gating kinetics component](https://models.physiomeproject.org/e/6c7/Components/gating_kinetics.cellml), while the steady states of x and y gate are defined by the imported [IKv gating steady state component](https://models.physiomeproject.org/e/6c7/Components/IKv_gating_inf.cellml), the Nernst potential *E**K* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* Large conductance *Ca*2 + and voltage activated *K*+ channels: [IBK](https://models.physiomeproject.org/e/6c7/Components/Components/IBK.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *PO* using [IBK channel states component](https://models.physiomeproject.org/e/6c7/Components/IBK_channel_states.cellml), while the Nernst potential *E**K* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* *Na*+ channels: [INa](https://models.physiomeproject.org/e/6c7/Components/Components/INa.cellml)
+
+
+It instantiates the imported [Ionic currents component](https://models.physiomeproject.org/e/6c7/Components/Ionic_currents.cellml) with computed *PO* using [INa channel states component](https://models.physiomeproject.org/e/6c7/Components/INa_channel_states.cellml), while the Nernst potential *E**Na* computation is defined by the [Nernst potential component](https://models.physiomeproject.org/e/6c7/Components/E_Nernst.cellml).
+
+
+* *Na*+- *K*+ pump: [INaK](https://models.physiomeproject.org/e/6c7/Components/Components/INaK.cellml)
+* *Na*+- *Ca*2 + exchanger: [INCX](https://models.physiomeproject.org/e/6c7/Components/Components/INCX.cellml)
+* Non-selective sodium leak current: [INS\_Na](https://models.physiomeproject.org/e/6c7/Components/Components/INS_Na.cellml)
+* Non-selective potassium leak current: [INS\_K](https://models.physiomeproject.org/e/6c7/Components/Components/INS_K.cellml)
+* The imported ionic concentrations components include *Ca*2 +*i*, *Na*+*i* and *K*+*i*.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Membrane_potential.cellml">
+    <dc:license rdf:resource="local:00005">local:00005</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Patch_clampXi_experiment.cellml">
     <dc:title>Patch_clampXi_experiment.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Patch_clampXi_experiment.cellml">
+    <dc:description>
+
+
+### Voltage clamp experiment
+
+
+In the [Voltage clamp experiment](https://models.physiomeproject.org/e/6c7/Experiments/Patch_clampXi_experiment.cellml), the [Clamped current component](https://models.physiomeproject.org/e/6c7/Components/Clamped_current_Xi.cellml/view) is configured and parameterised with an applied [Patch clamp protocol](https://models.physiomeproject.org/e/6c7/Experiments/Patch_clamp_protocol.cellml).
+
+
+You can change the clamping parameters in the component Clamp\_parameters.
+
+
+You can also bypass the parameters in the component model\_parameters and initial\_conditions and define your own parameters.
+
+
+The simulation experiment can be obtained by loading the [corresponding SED-ML document](https://models.physiomeproject.org/e/6c7/Simulation/Patch_clampXi_experiment.sedml) into OpenCOR and executing the simulation.
+
+
+
+
+### Clamped *I**CaL*
+
+
+Figure [[1]](#id3) shows normalized L-type calcium channels peak I–V plot for simulated data derived from the publication (dots) and the current CellML model (solid line) with different intracelluar concentrations.
+
+
+
+
+| [[1]](#id2) |  |
+
+
+
+![simFig2](../Simulation/simFig2.png)
+
+
+
+### Clamped *I**CaT*
+
+
+Figure [[2]](#id5) shows normalized T-type calcium channels peak I–V plot for simulated data derived from the publication (dots) and the current CellML model (solid line) with different intracelluar concentrations.
+
+
+
+
+| [[2]](#id4) |  |
+
+
+
+![simFig3](../Simulation/simFig3.png)
+
+
+
+### Clamped *I**Kv*
+
+
+Figure [[3]](#id7) shows normalized I–V plot of whole cell voltage-activated potassium currents for simulated data derived from the publication (dots) and the current CellML model (solid line).
+
+
+
+
+| [[3]](#id6) |  |
+
+
+
+![simFig4](../Simulation/simFig4.png)
+
+
+
+### Clamped *P**BK*
+
+
+Figure [[4]](#id9) shows Open probability of BK channel versus clamping voltage (@ various *Ca*2 +*i*) for simulated data derived from the publication (dots) and the current CellML model (solid line).
+
+
+
+
+| [[4]](#id8) |  |
+
+
+
+![simFig5](../Simulation/simFig5.png)
+
+
+
+### Clamped *I**Na*
+
+
+Figure [[5]](#id11) shows normalized *Na*+ channel peak I–V plot for simulated data derived from the publication (dots) and the current CellML model (solid line) with different intracelluar concentrations.
+
+
+
+
+| [[5]](#id10) |  |
+
+
+
+![simFig6](../Simulation/simFig6.png)
+
+Figure [[6]](#id13) shows whole cell current versus time traces subjected to voltage clamp at different holding voltages for simulated data derived from the publication (dots) and the current CellML model (solid line).
+
+
+
+
+| [[6]](#id12) |  |
+
+
+
+![simFig10](../Simulation/simFig10.png)
+
+Figure [[7]](#id15) shows whole cell normalized I–V data from hJSMC model under near calcium-free conditions for simulated data derived from the publication (dots) and the current CellML model (solid line).
+
+
+
+
+| [[7]](#id14) |  |
+
+
+
+![simFig11](../Simulation/simFig11.png)
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Patch_clampXi_experiment.cellml">
+    <dc:license rdf:resource="local:00006">local:00006</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Periodic_stimulation.cellml">
     <dc:title>Periodic_stimulation.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Periodic_stimulation.cellml">
+    <dc:description>
+
+
+### Periodic stimulation
+
+
+In the [periodic stimulation experiment](https://models.physiomeproject.org/e/6c7/Experiments/Periodic_stimulation.cellml), the [Membrane potential component](https://models.physiomeproject.org/e/6c7/Components/Membrane_potential.cellml/view) is configured and parameterised with an applied [periodic stimulus current](https://models.physiomeproject.org/e/6c7/Experiments/Periodic_IStim_protocol.cellml).
+
+
+You can change the parameters of stimulation in the component Istim\_parameters. The following simulation uses 310K for the temperature setting.
+
+
+You can also bypass the parameters in the component model\_parameters and initial\_conditions and define your own parameters.
+
+
+The simulation experiment can be obtained by loading the [corresponding SED-ML document](https://models.physiomeproject.org/e/6c7/Simulation/Periodic_stimulation.sedml) into OpenCOR and executing the simulation.
+
+
+
+
+### Membrane action potential
+
+
+Figure [[1]](#id2) shows the simulated hJSMC action potential trace and free intracellular calcium concentration after a simulation of 30 minutes of electrical activity (@ 6 cpm).
+
+
+
+
+| [[1]](#id1) |  |
+
+
+
+![simFig8](../Simulation/simFig8.png)
+Simulated hJSMC action potentials after a simulation of 30 minutes of electrical activity and free intracellular calcium concentration.
+
+
+
+Figure [[2]](#id4) shows the simulated hJSMC action potential trace after a simulation of 30 minutes of electrical activity (@ 7.5 cpm). Note: ICC stimulus were modified.
+
+
+
+
+| [[2]](#id3) |  |
+
+
+
+![simFig9](../Simulation/simFig9.png)
+Simulated hJSMC action potentials after a simulation of 30 minutes of electrical activity (@ 7.5 cpm).
+
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Periodic_stimulation.cellml">
+    <dc:license rdf:resource="local:00007">local:00007</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Periodic_stimulation_SA.cellml">
     <dc:title>Periodic_stimulation_SA.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Periodic_stimulation_SA.cellml">
+    <dc:description>
+
+
+### Sensitivity analysis
+
+
+In the [Sensitivity analysis experiment](https://models.physiomeproject.org/e/6c7/Experiments/Periodic_stimulation_SA.cellml), the [Membrane potential component](https://models.physiomeproject.org/e/6c7/Components/Membrane_potential.cellml/view) is configured and parameterised with an applied [periodic stimulus current](https://models.physiomeproject.org/e/6c7/Experiments/Periodic_IStim_protocol.cellml).
+
+
+You can change the parameters of stimulation in the component Istim\_parameters and the maximum conductances of ionic channels in the component g\_parameters.
+
+
+You can also bypass the parameters in the component model\_parameters and initial\_conditions and define your own parameters.
+
+
+The simulation experiment can be obtained by loading the [corresponding SED-ML document](https://models.physiomeproject.org/e/6c7/Simulation/Periodic_stimulation_SA.sedml) into OpenCOR and executing the simulation.
+
+
+
+
+### Sensitivity analysis result
+
+
+Figure [[1]](#id2) shows sensitivity analysis by 50% increase or decrease in maximum channel conductance. This evaluates the contributions of key ionic currents towards hJSMC membrane voltage. (e) shows the free intracellular *Ca*2 + concentrations corresponding to changes in (d).
+
+
+
+
+| [[1]](#id1) |  |
+
+
+
+![simFig13](../Simulation/simFig13.png)
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00008">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00008">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/Periodic_stimulation_SA.cellml">
+    <dc:license rdf:resource="local:00008">local:00008</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex/temperature_factor.cellml">
     <dc:title>temperature_factor.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/temperature_factor.cellml">
+    <dc:description>
+
+Temperature component
+---------------------
+
+
+The equations (S-13, S-14), (S-23,..., S-28), (S-36, S-37), (S-43, S-44), and (S-80,..., S-91) have been multiplied by corresponding temperature factors *φ*. The *φ* equation is defined in [temperature\_factor.cellml](https://models.physiomeproject.org/e/6c7/components/temperature_factor.cellml). The reference temperature *T*0 for *I**CaL* is 310 K, while *I**CaT* is constructed based on 297 K. The reference temperatures *T*0 for other currents are 297 K. The *Q*10 coefficients for calcium, potassium and sodium channels are 2.1, 3.1 and 2.45 respectively.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00009">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00009">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/temperature_factor.cellml">
+    <dc:license rdf:resource="local:00009">local:00009</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/6c7.omex/time.cellml">
     <dc:title>time.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/time.cellml">
+    <dc:description>
+
+Time component
+--------------
+
+
+It is often useful to separate time into its own component as it is used throughout the model and is usually one of the main variables to be managed when joining models together.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00010">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00010">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/6c7.omex/time.cellml">
+    <dc:license rdf:resource="local:00010">local:00010</dc:license>
   </rdf:Description>
 </rdf:RDF>

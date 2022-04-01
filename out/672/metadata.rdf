@@ -1,79 +1,137 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/672.omex">
     <dc:title>Hodgkin &amp; Huxley (1952) model</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex">
-    <dc:description>About this model
+    <dc:description>
 
-Original publication:
-Hodgkin &amp; Huxley (1952): ‘A Quantitative Description of Membrane Current and its Application to Conduction and Excitation in Nerve’, J. Physiol. 117: 500-544.
+### About this model
 
-DOI:https://doi.org/10.1113/jphysiol.1952.sp004764
 
-Model status
-The current CellML model implementation runs in OpenCOR.
-The results have been validated against the data extracted from the figures in the published Hodgkin &amp; Huxley (1952).
+
+
+
+| Original publication: |
+| --- |
+|  | [Hodgkin &amp; Huxley (1952)](http://www.ncbi.nlm.nih.gov/pubmed/12991237): ‘A Quantitative Description of Membrane Current and its Application to Conduction and Excitation in Nerve’, J. Physiol. 117: 500-544. |
+| DOI: | &lt;https://doi.org/10.1113/jphysiol.1952.sp004764&gt; |
+
+
+
+
+### Model status
+
+
+The current CellML model implementation runs in [OpenCOR](https://opencor.ws/).
+The results have been validated against the data extracted from the figures in the published [Hodgkin &amp; Huxley (1952)](http://www.ncbi.nlm.nih.gov/pubmed/12991237).
 The model structure, simulation results and limitation have been detailed in the following sections.
 
-Model overview
-This workspace holds a CellML encoding of the Hodgkin &amp; Huxley (1952) model.
-The Hodgkin &amp; Huxley (1952) (HH) model is one of the foundational models of cellular electrophysiology.
+
+
+
+### Model overview
+
+
+This workspace holds a [CellML](https://www.cellml.org/) encoding of the [Hodgkin &amp; Huxley (1952)](http://www.ncbi.nlm.nih.gov/pubmed/12991237) model.
+The [Hodgkin &amp; Huxley (1952)](http://www.ncbi.nlm.nih.gov/pubmed/12991237) (HH) model is one of the foundational models of cellular electrophysiology.
 It defined the “standard” gating kinetics still used in many models today.
 The model includes potassium, sodium, and ‘leakage’ currents as well and the transmembrane electrical potential.
 The HH model was originally developed to investigate flow of electric charge in giant nerve axons in squid.
 
+
+
+![Schematics of the model](doc/math-overview.png)
 A diagrammatic representation of the Hodgkin &amp; Huxley (1952) model.
 
-Modular description
 
-Components
+
+
+
+### Modular description
+
+
+
+#### Components
+
+
 CellML divides the mathematical model into distinct components, which are able to be re-used.
 The main CellML components are:
 
-Membrane potential component
-Membrane current component (the ionic current during a voltage clamp)
-Propagated action potential component
-Potassium current component
-Sodium current component
-Leakage current component
-Gating kinetics component – a single definition instantiated three times for the n, m, and h gates
-Gating rates components (open/close rates for n, m, and h gates respectively)
-Gate initialization components (steady state values of n, m, and h gates for specified membrane potentials)
-Temperature component
-Time component
+
+* [Membrane potential component](https://models.physiomeproject.org/e/672/components/stimulated.cellml/view)
+* [Membrane current component](https://models.physiomeproject.org/e/672/components/clamped_current.cellml/view) (the ionic current during a voltage clamp)
+* [Propagated action potential component](https://models.physiomeproject.org/e/672/components/propagated_AP.cellml/view)
+* [Potassium current component](https://models.physiomeproject.org/e/672/components/IK.cellml)
+* [Sodium current component](https://models.physiomeproject.org/e/672/components/INa.cellml)
+* [Leakage current component](https://models.physiomeproject.org/e/672/components/Ileak.cellml)
+* [Gating kinetics component](https://models.physiomeproject.org/e/672/components/gating-variable.cellml) – a single definition instantiated three times for the n, m, and h gates
+* Gating rates components (open/close rates for n, m, and h gates respectively)
+* [Gate initialization components](https://models.physiomeproject.org/e/672/components/gate_initials.cellml/view) (steady state values of n, m, and h gates for specified membrane potentials)
+* [Temperature component](https://models.physiomeproject.org/e/672/components/temperature_factor.cellml/view)
+* [Time component](https://models.physiomeproject.org/e/672/experiments/time.cellml/view)
+
 
 Each of these blocks is itself a CellML model, which enables us to reuse the various components in future studies and models.
 
-Experiments
+
+
+
+#### Experiments
+
+
 Following best practices, this model separates the mathematics from the parameterisation of the model. The mathematical model is imported into a specific parameterised instance in order to perform numerical simulations.
 The parameterisation would include defining the stimulus protocol to be applied.
+
+
 This workspace has three sets of experiments:
 
-Periodic stimulation
-Voltage clamp experiment
-Action potential propagation along 1D cable model (please see Known issues)
 
-Simulation settings
-Simulation settings are encoded in SED-ML documents for experiment execution.
+1. [Periodic stimulation](https://models.physiomeproject.org/e/672/experiments/periodic-stimulus.cellml/view)
+2. [Voltage clamp experiment](https://models.physiomeproject.org/e/672/experiments/voltage_clamp_experiment.cellml/view)
+3. [Action potential propagation along 1D cable model](https://models.physiomeproject.org/e/672/experiments/AP_propagation_experiment.cellml/view) (please see [Known issues](#known-issues))
+
+
+
+
+#### Simulation settings
+
+
+Simulation settings are encoded in [SED-ML](http://sed-ml.org/) documents for experiment execution.
 The python scripts to run simulation and reproduce the figures in the original paper are also included.
 
-Model history
-The original model implementation is from VPH-MIP case study. The main modification is summarized as follows:
 
-Add the temperature component to enable the simulation at different temperatures.
-Add  membrane current component,  voltage clamp and voltage clamp experiment to simulate a membrane current during a voltage clamp.
-Add gate initialization components to enable the simulation of anode break excitation.
-Add propagated action potential model and action potential propagation experiment to simulate a propagated action potential (please see Known issues).
-Add the python scripts to run simulation and reproduce the figures in the original paper.
 
-Known issues
 
-The voltage clamp value cannot be -10 mV as the αn would be infinity.
-The propagated action potential model does not work, which needs further investigation in future.
-The temperature unit is set to Kelvin in the CellML models. If you want to simulate the model behavior at temperature T with unit Celsius, you do not need to do conversion as the offset is cancelled in the mathematical expressions including temperature factor.
-You need to set appropriate parameters and initial values in the CellML files, if you want to run simulation using OpenCOR rather than the provided Python scripts.
-The V in the model is defined relative to the resting potential, while the inward current is positive. This is different from the convention of modern physiological modelling.</dc:description>
+
+### Model history
+
+
+The original model implementation is from [VPH-MIP case study](https://models.physiomeproject.org/w/andre/VPH-MIP). The main modification is summarized as follows:
+
+
+1. Add the [temperature component](https://models.physiomeproject.org/e/672/components/temperature_factor.cellml/view) to enable the simulation at different temperatures.
+2. Add [membrane current component](https://models.physiomeproject.org/e/672/components/clamped_current.cellml/view), [voltage clamp](https://models.physiomeproject.org/e/672/experiments/voltage_clamp_protocol.cellml) and [voltage clamp experiment](https://models.physiomeproject.org/e/672/experiments/voltage_clamp_experiment.cellml/view) to simulate a membrane current during a voltage clamp.
+3. Add [gate initialization components](https://models.physiomeproject.org/e/672/components/gate_initials.cellml/view) to enable the simulation of anode break excitation.
+4. Add [propagated action potential model](https://models.physiomeproject.org/e/672/components/propagated_AP.cellml/view) and [action potential propagation experiment](https://models.physiomeproject.org/e/672/experiments/AP_propagation_experiment.cellml) to simulate a propagated action potential (please see [Known issues](#known-issues)).
+5. Add the python scripts to run simulation and reproduce the figures in the original paper.
+
+
+
+
+### Known issues
+
+
+1. The voltage clamp value cannot be -10 mV as the *α**n* would be infinity.
+2. The [propagated action potential model](https://models.physiomeproject.org/e/672/components/propagated_AP.cellml/view) does not work, which needs further investigation in future.
+3. The temperature unit is set to Kelvin in the CellML models. If you want to simulate the model behavior at temperature T with unit Celsius, you do not need to do conversion as the offset is cancelled in the mathematical expressions including temperature factor.
+4. You need to set appropriate parameters and initial values in the CellML files, if you want to run simulation using [OpenCOR](https://opencor.ws/) rather than the provided Python scripts.
+5. The *V* in the model is defined relative to the resting potential, while the inward current is positive. This is different from the convention of modern physiological modelling.
+
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -82,7 +140,7 @@ The V in the model is defined relative to the resting potential, while the inwar
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -94,7 +152,7 @@ The V in the model is defined relative to the resting potential, while the inwar
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/672">https://models.physiomeproject.org/e/672</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 672</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>
@@ -111,28 +169,424 @@ The V in the model is defined relative to the resting potential, while the inwar
   <rdf:Description rdf:about="http://omex-library.org/672.omex/AP_propagation_experiment.cellml">
     <dc:title>AP_propagation_experiment.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/AP_propagation_experiment.cellml">
+    <dc:description>
+
+Action potential propagation along 1D cable model
+-------------------------------------------------
+
+
+In the [action potential propagation experiment](https://models.physiomeproject.org/e/672/experiments/AP_propagation_experiment.cellml), the [propagated action potential model](https://models.physiomeproject.org/e/672/components/propagated_AP.cellml/view) is configured and parameterised to simulate an action potential propagating along 1D cable.
+
+
+You can modify the parameters of temperature *T* and initial depolarization *V**initial* in the component parameters and initial\_conditions, respectively.
+
+
+The simulation experiment can be obtained by loading the [corresponding SED-ML document](https://models.physiomeproject.org/e/672/sed-ml/AP_propagation_experiment.sedml) into OpenCOR and executing the simulation.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/AP_propagation_experiment.cellml">
+    <dc:license rdf:resource="local:00004">local:00004</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex/clamped_current.cellml">
     <dc:title>clamped_current.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/clamped_current.cellml">
+    <dc:description>
+
+Membrane current model
+----------------------
+
+
+The [clamped\_current.cellml](https://models.physiomeproject.org/e/672/components/clamped_current.cellml) defines [the total current during a voltage clamp](https://models.physiomeproject.org/e/672/components/clamped_current.cellml/cellml_math).
+It combines the imported ionic current components:
+
+
+* Potassium current component
+
+
+The [IK.cellml](https://models.physiomeproject.org/e/672/components/IK.cellml) defines the equation of the potassium current.
+It instantiates the imported [gating kinetics component](https://models.physiomeproject.org/e/672/components/gating-variable.cellml) for n gate, while the n gate rate is defined in [IK-gating-rates.cellml](https://models.physiomeproject.org/e/672/components/IK-gating-rates.cellml).
+
+
+* Sodium current component
+
+
+The [INa.cellml](https://models.physiomeproject.org/e/672/components/INa.cellml) defines the equation of the sodium current.
+It instantiates the imported [gating kinetics component](https://models.physiomeproject.org/e/672/components/gating-variable.cellml) for m and h gates, while the gate rates are defined in [INa-gating-rates.cellml](https://models.physiomeproject.org/e/672/components/INa-gating-rates.cellml).
+
+
+* Leakage current component
+
+
+The [Ileak.cellml](https://models.physiomeproject.org/e/672/components/Ileak.cellml) defines the equation of the leakage current.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/clamped_current.cellml">
+    <dc:license rdf:resource="local:00005">local:00005</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex/gate_initials.cellml">
     <dc:title>gate_initials.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/gate_initials.cellml">
+    <dc:description>
+
+Gate initialization
+-------------------
+
+
+The [gate\_initials.cellml](https://models.physiomeproject.org/e/672/components/gate_initials.cellml) computes the initial values of m, n and h based on the value of membrane potential *V*, while the [gate\_steady.cellml](https://models.physiomeproject.org/e/672/components/gate_steady.cellml) defines the equation of steady state values of m, n and h gates.
+This component is imported by experimental models and parameterised according to the experiment settings.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/gate_initials.cellml">
+    <dc:license rdf:resource="local:00006">local:00006</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex/periodic-stimulus.cellml">
     <dc:title>periodic-stimulus.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/periodic-stimulus.cellml">
+    <dc:description>
+
+
+### Periodic stimulation
+
+
+In the [periodic stimulation experiment](https://models.physiomeproject.org/e/672/experiments/periodic-stimulus.cellml), the [membrane potential model](https://models.physiomeproject.org/e/672/components/stimulated.cellml/view) is configured and parameterised with an applied [periodic stimulus current](https://models.physiomeproject.org/e/672/experiments/periodic-IStim-protocol.cellml).
+
+
+You can change the parameters of stimulation amplitude, duration and period in the component stimulus\_protocol\_params. By default, the current is 0.
+
+
+You can also modify the parameters of temperature *T*, initial depolarization *V**initial* and boundary condition of the potential *V**b*, in the component parameters, initial\_conditions and boundary\_conditions respectively.
+
+
+The simulation experiment can be obtained by loading the [corresponding SED-ML document](https://models.physiomeproject.org/e/672/sed-ml/periodic-stimulus.sedml) into OpenCOR and executing the simulation.
+
+
+
+
+### Membrane action potential
+
+
+Figure [[1]](#id2) shows the action potentials with different initial displacement of membrane potential (The parameter setting is in the component initial\_conditions).
+
+
+
+
+| [[1]](#id1) |  |
+
+
+
+![originalFig12](../sed-ml/originalFig12.png)
+Membrane potentials for initial depolarizations of -90, -15, -7 and -6 mV at 6 ○*C*
+
+
+
+
+
+### Subthreshold responses
+
+
+When the displacement of membrane potential is less than the threshold for setting up a spike, characteristic subthreshold responses are seen [[2]](#id4).
+
+
+
+
+| [[2]](#id3) |  |
+
+
+
+![originalFig21](../sed-ml/originalFig21.png)
+
+
+
+### Responses to stimuli during positive phase
+
+
+The depolarization stimulation can be applied at various times during the positive phases of the membrane action potential. Figure [[3]](#id6) shows the responses of the membrane when it is depolarized by -90 mv at *t* = 0, 4.7284, 5.7302, 7.7352*s*
+
+
+
+
+| [[3]](#id5) |  |
+
+
+
+![originalFig20](../sed-ml/originalFig20.png)
+
+
+
+### Form of action potential at 18.5 ○*C*
+
+
+You can change the temperature T in the component parameters.
+Figure [[4]](#id8) shows the action potential at 18.5 ○*C* with initial depolarization of -15 mV.
+
+
+
+
+| [[4]](#id7) |  |
+
+
+
+![originalFig14](../sed-ml/originalFig14.png)
+Membrane potentials for initial depolarizations of -15 mV at 18.5 ○*C*
+
+
+
+
+
+### Anode break excitation
+
+
+To simulate anode break responses where current is made to flow inward through the membrane, we set the initial potential value to be 30 mV. Meanwhile, the m, n and h gate have the steady state values for *V* = 30*mV* when *t* = 0. That is, we set *V**b* = 30 in the component boundary\_conditions. The simulation result is shown in Figure [[5]](#id10).
+
+
+
+
+| [[5]](#id9) |  |
+
+
+
+![originalFig22](../sed-ml/originalFig22.png)
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/periodic-stimulus.cellml">
+    <dc:license rdf:resource="local:00007">local:00007</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex/propagated_AP.cellml">
     <dc:title>propagated_AP.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/propagated_AP.cellml">
+    <dc:description>
+
+Propagated action potential model
+---------------------------------
+
+
+The [propagated\_AP.cellml](https://models.physiomeproject.org/e/672/components/propagated_AP.cellml) defines the [equation of a propagated action potential](https://models.physiomeproject.org/e/672/components/propagated_AP.cellml/cellml_math).
+It combines the imported ionic current components:
+
+
+* Potassium current component
+
+
+The [IK.cellml](https://models.physiomeproject.org/e/672/components/IK.cellml) defines the equation of the potassium current.
+It instantiates the imported [gating kinetics component](https://models.physiomeproject.org/e/672/components/gating-variable.cellml) for n gate, while the n gate rate is defined in [IK-gating-rates.cellml](https://models.physiomeproject.org/e/672/components/IK-gating-rates.cellml).
+
+
+* Sodium current component
+
+
+The [INa.cellml](https://models.physiomeproject.org/e/672/components/INa.cellml) defines the equation of the sodium current.
+It instantiates the imported [gating kinetics component](https://models.physiomeproject.org/e/672/components/gating-variable.cellml) for m and h gates, while the gate rates are defined in [INa-gating-rates.cellml](https://models.physiomeproject.org/e/672/components/INa-gating-rates.cellml).
+
+
+* Leakage current component
+
+
+The [Ileak.cellml](https://models.physiomeproject.org/e/672/components/Ileak.cellml) defines the equation of the leakage current.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00008">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00008">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/propagated_AP.cellml">
+    <dc:license rdf:resource="local:00008">local:00008</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex/stimulated.cellml">
     <dc:title>stimulated.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/stimulated.cellml">
+    <dc:description>
+
+Membrane potential model
+------------------------
+
+
+The [stimulated.cellml](https://models.physiomeproject.org/e/672/components/stimulated.cellml) defines the complete [equations of the membrane potential and conductance](https://models.physiomeproject.org/e/672/components/stimulated.cellml/cellml_math).
+It combines the imported ionic current components:
+
+
+* Potassium current component
+
+
+The [IK.cellml](https://models.physiomeproject.org/e/672/components/IK.cellml) defines the equation of the potassium current .
+It instantiates the imported [gating kinetics component](https://models.physiomeproject.org/e/672/components/gating-variable.cellml) for n gate, while the n gate rate is defined in [IK-gating-rates.cellml](https://models.physiomeproject.org/e/672/components/IK-gating-rates.cellml).
+
+
+* Sodium current component
+
+
+The [INa.cellml](https://models.physiomeproject.org/e/672/components/INa.cellml) defines the equation of the sodium current.
+It instantiates the imported [gating kinetics component](https://models.physiomeproject.org/e/672/components/gating-variable.cellml) for m and h gates, while the gate rates are defined in [INa-gating-rates.cellml](https://models.physiomeproject.org/e/672/components/INa-gating-rates.cellml).
+
+
+* Leakage current component
+
+
+The [Ileak.cellml](https://models.physiomeproject.org/e/672/components/Ileak.cellml) defines the equation of the leakage current.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00009">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00009">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/stimulated.cellml">
+    <dc:license rdf:resource="local:00009">local:00009</dc:license>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex/temperature_factor.cellml">
     <dc:title>temperature_factor.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/temperature_factor.cellml">
+    <dc:description>
+
+Temperature component
+---------------------
+
+
+The expressions for the *α* and *β* in the gating rates components are scaled with a temperature factor *φ* .
+This factor is defined in [temperature\_factor.cellml](https://models.physiomeproject.org/e/672/components/temperature_factor.cellml), i.e., *Q*10 of 3.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00010">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00010">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/temperature_factor.cellml">
+    <dc:license rdf:resource="local:00010">local:00010</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex/time.cellml">
     <dc:title>time.cellml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/time.cellml">
+    <dc:description>
+
+Time component
+--------------
+
+
+It is often useful to separate time into its own component as it is used throughout the model and is usually one of the main variables to be managed when joining models together.
+The [time.cellml](https://models.physiomeproject.org/e/672/experiments/time.cellml) is put in the directory of experiments.
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00011">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00011">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/time.cellml">
+    <dc:license rdf:resource="local:00011">local:00011</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/672.omex/voltage_clamp_experiment.cellml">
     <dc:title>voltage_clamp_experiment.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/voltage_clamp_experiment.cellml">
+    <dc:description>
+
+
+### Voltage clamp experiment
+
+
+In the [voltage clamp experiment](https://models.physiomeproject.org/e/672/experiments/voltage_clamp_experiment.cellml), the [membrane current model](https://models.physiomeproject.org/e/672/components/clamped_current.cellml/view) is configured and parameterised to simulate the behaviour during a [voltage clamp](https://models.physiomeproject.org/e/672/experiments/voltage_clamp_protocol.cellml).
+
+
+You can change the parameters of voltage clamp, such as start/end time and amplitude in the component voltage\_clamp\_protocol\_params.
+
+
+You can also modify the parameters of temperature *T* and boundary condition of the potential *V**b*, in the component parameters and boundary\_conditions respectively.
+
+
+The simulation experiment can be obtained by loading the [corresponding SED-ML document](https://models.physiomeproject.org/e/672/sed-ml/voltage_clamp_experiment.sedml) into OpenCOR and executing the simulation.
+
+
+
+
+### Membrane currents during a voltage clamp
+
+
+Figure [[1]](#id3) shows the membrane current during a voltage clamp.
+
+
+
+
+| [[1]](#id2) |  |
+
+
+
+![originalFig11](../sed-ml/originalFig11.png)
+Membrane current during voltage clamp at 4 ○*C*
+
+
+
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00012">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00012">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/672.omex/voltage_clamp_experiment.cellml">
+    <dc:license rdf:resource="local:00012">local:00012</dc:license>
   </rdf:Description>
 </rdf:RDF>

@@ -1,16 +1,25 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/606.omex">
     <dc:title>Ni et al. 2017 Human atrial model</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/606.omex">
-    <dc:description>Based on the code for the model by Ni et al. 2017 [1], which is an update of
+    <dc:description>
+
+
+Based on the code for the model by Ni et al. 2017 [1], which is an update of
 a model by Colman et al. (2013, 2017) [2, 3], which in turn was based on the
 1998 model by Courtemanche et al. [4]. The model includes a simplified version
 of the calcium subspaces used by Koivumaki et al. [5].
 
+
+
+
 The state derivatives from this implementation were verified against output
 from the original code.
+
+
+
 
 The model contained a mixture of volume and time units (pL, inherited from [5]
 and um^3, inherited from [4]). This was adjusted so that all rates are in 1/ms
@@ -18,52 +27,93 @@ and all volumes in um^3. In doing so, a scaling mistake in the equations for
 the SR calcium concentrations (resulting in the dynamics being sped up). This
 was left in so that this implementation matches the published code.
 
+
+
+
 The stimulus was set to 0.5ms and -8000pA
 
+
+
+
 [1] Synergistic Anti-arrhythmic Effects in Human Atria with Combined Use of
-Sodium Blockers and Acacetin
-Ni, Whittaker, Zhang et al.
-2017. Frontiers in Physiology
-https://doi.org/10.3389/fphys.2017.00946
+ Sodium Blockers and Acacetin
+ Ni, Whittaker, Zhang et al.
+ 2017. Frontiers in Physiology
+ https://doi.org/10.3389/fphys.2017.00946
+
+
+
 
 [2] Pro-arrhythmogenic effects of atrial fibrillation-induced electrical
-remodelling: insights from the three-dimensional virtual human atria.
-Colman, Aslanidi, Zhang et al.
-2013. Journal of Physiology
-https://doi.org/10.1113/jphysiol.2013.254987
+ remodelling: insights from the three-dimensional virtual human atria.
+ Colman, Aslanidi, Zhang et al.
+ 2013. Journal of Physiology
+ https://doi.org/10.1113/jphysiol.2013.254987
+
+
+
 
 [3] In silico assessment of genetic variation in KCNA5 reveals multiple
-mechanisms of human atrial arrhythmogenesis.
-Colman, Ni, Zhang, et al.
-2017 PLoS Computational Biology
-https://doi.org/10.1371/journal.pcbi.1005587
+ mechanisms of human atrial arrhythmogenesis.
+ Colman, Ni, Zhang, et al.
+ 2017 PLoS Computational Biology
+ https://doi.org/10.1371/journal.pcbi.1005587
+
+
+
 
 [4] Ionic mechanisms underlying human atrial action potential properties:
-insights from a mathematical model
-Courtemanche, Ramirez, Nattel
-1998. American Journal of Physiology
-https://doi.org/10.1152/ajpheart.1998.275.1.H301
+ insights from a mathematical model
+ Courtemanche, Ramirez, Nattel
+ 1998. American Journal of Physiology
+ https://doi.org/10.1152/ajpheart.1998.275.1.H301
+
+
+
 
 [5] Impact of Sarcoplasmic Reticulum Calcium Release on Calcium Dynamics and
-Action Potential Morphology in Human Atrial Myocytes: A Computational
-Study.
-Koivumaki JT, Korhonen T, Tavi P.
-2011, PLoS Comput Biol 7(1): e1001067.
-https://doi.org/10.1371/journal.pcbi.1001067
+ Action Potential Morphology in Human Atrial Myocytes: A Computational
+ Study.
+ Koivumaki JT, Korhonen T, Tavi P.
+ 2011, PLoS Comput Biol 7(1): e1001067.
+ https://doi.org/10.1371/journal.pcbi.1001067
+
+
+
 
 Original comments:
 
-Implementation of IKur and INa state-dependent drug blockade. (using guarded-receptor model)
 
-This is the updatd CNZ model, update from the Colman et al. model 2013 Journal of Physiology Paper,
 
-Updates:  New IKur Model,
-Modifications to the conductances of several key ionic currents.
 
-Modifications to the Calcium dynamics model. change in the Refractory Parameters to make it faster, and thus
-remove the alternans seen at 400 ms of BCL.
+ Implementation of IKur and INa state-dependent drug blockade. (using guarded-receptor model)
 
-RMP: around -76 mV.</dc:description>
+
+
+
+ This is the updatd CNZ model, update from the Colman et al. model 2013 Journal of Physiology Paper,
+
+
+
+
+ Updates: New IKur Model,
+ Modifications to the conductances of several key ionic currents.
+
+
+
+
+ Modifications to the Calcium dynamics model. change in the Refractory Parameters to make it faster, and thus
+ remove the alternans seen at 400 ms of BCL.
+
+
+
+
+ RMP: around -76 mV.
+
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -72,7 +122,7 @@ RMP: around -76 mV.</dc:description>
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -84,7 +134,7 @@ RMP: around -76 mV.</dc:description>
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/606">https://models.physiomeproject.org/e/606</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 606</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/606.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>

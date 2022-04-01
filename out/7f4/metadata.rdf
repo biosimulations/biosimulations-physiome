@@ -1,60 +1,121 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/7f4.omex">
     <dc:title>BG_GPCR_B1AR_reduced</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7f4.omex">
-    <dc:description>About this model
+    <dc:description>
+
+### About this model
+
+
 This is a bond-graph model of the metabolism of the G-protein coupled receptor (beta-1 adrenergic receptor, R) and the associated Gs protein in the cardiac cell.
 
-INPUTS:
 
-Ligand (L) stimulus e.g. isoproterenol
 
-OUTPUTS:
+&gt; 
+&gt; 
+&gt; **INPUTS:**
+&gt; * Ligand (L) stimulus e.g. isoproterenol
+&gt; 
+&gt; 
+&gt; 
+&gt; **OUTPUTS:**
+&gt; * Change in molar amount of Gs*α*GTP
+&gt; 
+&gt; 
+&gt; 
+&gt; **REACTIONS:**
+&gt; * Rswitch: Spontaneous activation of R from an inactivate state to a state that can bind a Gs protein
+&gt; * LRswitch: Similar to Rswitch, but with substrate of inactive complex LR
+&gt; * RL: the binding of L to R
+&gt; * RC: the binding of Gs to R
+&gt; * RR: the binding of Gs to complex LR
+&gt; * Act1: Bundled reactions representing the transient exchange of GDP for GTP on the active RG complex, which forms Gs*α*GTP, Gs*β**γ*, GDP and Rtag. The latter is the R protein tagged for internalisation
+&gt; * Act2: Similar to Act1, but with substrate LRG and product LRtag
+&gt; * Hyd: Hydration of GTP on Gs*α* GTP, forming Gs*α*GDP and phosphate
+&gt; * Reassoc: Binding of Gs*α*GDP and Gs*β**γ* to reform Gs
+&gt; * InternR: Internalisation of Rtag by the GRK and arrestin proteins
+&gt; * InternLR: Similar to InternR, but for substrate LR tag
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
 
-Change in molar amount of GsαGTP
 
-REACTIONS:
 
-Rswitch: Spontaneous activation of R from an inactivate state to a state that can bind a Gs protein
-LRswitch: Similar to Rswitch, but with substrate of inactive complex LR
-RL: the binding of L to R
-RC: the binding of Gs to R
-RR: the binding of Gs to complex LR
-Act1: Bundled reactions representing the transient exchange of GDP for GTP on the active RG complex, which forms GsαGTP, Gsβγ, GDP and Rtag. The latter is the R protein tagged for internalisation
-Act2: Similar to Act1, but with substrate LRG and product LRtag
-Hyd: Hydration of GTP on Gsα GTP, forming GsαGDP and phosphate
-Reassoc: Binding of GsαGDP and Gsβγ to reform Gs
-InternR: Internalisation of Rtag by the GRK and arrestin proteins
-InternLR: Similar to InternR, but for substrate LR tag
 
-Model status
+### Model status
+
+
 The current CellML implementation runs in OpenCOR.
 
-Model overview
+
+
+
+### Model overview
+
+
 This model is based on existing kinetic model, where the mathematics are translated into the bond-graph formalism. This describes the model in energetic terms and forces adherence to the laws of thermodynamics.
+
+
 For the following figures, all enzymes are shown in maroon.
 
-Fig. 1. Bond-graph formulation of the GPCR-β1AR network
+
+
+![BG PKACI reaction](https://models.physiomeproject.org/e/7f4/exposure/BG_GPCR_B1AR.png "BG_GPCR_B1AR.png")
+Fig. 1. Bond-graph formulation of the GPCR-*β*1AR network
+
+
+
+
+  
+
 
 For the above bond-graphs, a '0' node refers to a junction where all chemical potentials are the same. A '1' node refers to all fluxes being the same going in and out of the junction.
 
-Parameter finding
-A description of the process to find bond-graph parameters is shown in the folder    parameter_finder, which relies on the:
 
-stoichiometry of system
-kinetic constants for forward/reverse reactions
 
-If not already, all reactions are made reversible by assigning a small value to the reverse  direction.
+#### Parameter finding
 
-linear algebra script.
+
+A description of the process to find bond-graph parameters is shown in the folder [parameter\_finder](https://models.physiomeproject.org/e/7f4/parameter_finder), which relies on the:
+
+
+1. stoichiometry of system
+2. kinetic constants for forward/reverse reactions
+
+
+
+&gt; 
+&gt; * If not already, all reactions are made reversible by assigning a small value to the reverse direction.
+&gt; 
+&gt; 
+&gt; 
+
+
+3. [linear algebra script](https://models.physiomeproject.org/workspace/7dc/rawfile/29d84125387d3b09137c8a01e76721eda14cae33/parameter_finder/kinetic_parameters_GPCR_B1AR_reduced.py).
+
 
 Here, this solve process is performed in Python.
 
-Original kinetic model
-Saucerman et al: Modeling beta-adrenergic control of cardiac myocyte contractility in silico.
-Additional detail on receptor internalisation were provided by Stephen Duffull et al. (University of Otago).</dc:description>
+
+
+
+
+### Original kinetic model
+
+
+Saucerman et al: [Modeling beta-adrenergic control of cardiac myocyte contractility in silico.](https://models.physiomeproject.org/exposure/9766d9bd0325c31e47a31b291e26ccad)
+
+
+Additional detail on receptor internalisation were provided by Stephen Duffull et al. (University of Otago).
+
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -63,7 +124,7 @@ Additional detail on receptor internalisation were provided by Stephen Duffull e
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -75,7 +136,7 @@ Additional detail on receptor internalisation were provided by Stephen Duffull e
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/7f4">https://models.physiomeproject.org/e/7f4</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 7f4</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7f4.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>
@@ -92,7 +153,25 @@ Additional detail on receptor internalisation were provided by Stephen Duffull e
   <rdf:Description rdf:about="http://omex-library.org/7f4.omex/BG_GPCR_B1AR.png">
     <dc:title>BG_GPCR_B1AR.png</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7f4.omex/BG_GPCR_B1AR.png">
+    <dc:license rdf:resource="local:00004">local:00004</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/7f4.omex/BG_GPCR_B1AR_reduced.cellml">
     <dc:title>BG_GPCR_B1AR_reduced.cellml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/7f4.omex/BG_GPCR_B1AR_reduced.cellml">
+    <dc:license rdf:resource="local:00005">local:00005</dc:license>
   </rdf:Description>
 </rdf:RDF>

@@ -1,22 +1,49 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/c2.omex">
     <dc:title>Andre playing with nested tasks in SED-ML</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/c2.omex">
-    <dc:description>Testing out the nest proposal variants with CellML models
+    <dc:description>
 
-I wanted to have a play with some concrete examples of the SED-ML nested proposal with CellML models in order to be clear in my own mind about how this stuff works. So I wrote up a couple of dummy test cases: sin_approximations_sedml-nested-Frank.xml uses Frank's nested simulation variant of the proposal to trivial 'parameter scan' using a very simple test model, and sin_approximations_sedml-nested-Nicolas.xml does the same but using Nicolas' repeated task varianbt of the proposal. In both of these (and the following), the data generators are largely ignored and irrelevant for now.
+Testing out the nest proposal variants with CellML models
+=========================================================
 
-Such trivial examples don't help a lot, so I thought I'd try something a bit more like what I'd actually want to be able to do. We have a CellML encoding of a really fancy and modern human cardiac electrophysiology model (The ORd human ventricular action potential model). This model has three variants representing the three cell types generally considered in modelling the electrophysiology of cardiac muscle - epicardial, midmyocardial, and endocardial. The specific variant for a simulation is selected with the celltype parameter in the model (0, 1, or 2). The default model includes a single electrical stimulus applied at the time specified by the stimStart parameter value.
 
-So, to test out a simple repeated task I set up nestedTask-cellType-ORd.xml which uses a vectorRange to specify the values to loop over representing the various cell types. Because there are no tools to run this yet, I also set up various models needed to do this using SED-ML L1V1 which gives the following output using the SED-ML web tools.
 
-The various CellML models are available in this workspace, and the SED-ML document is: ORd/nestedTask-cellType-ORd--sedml.xml.
+ I wanted to have a play with some concrete examples of the SED-ML nested proposal with CellML models in order to be clear in my own mind about how this stuff works. So I wrote up a couple of dummy test cases: [sin\_approximations\_sedml-nested-Frank.xml](https://models.physiomeproject.org/e/c2/sin_approximations_sedml-nested-Frank.xml) uses Frank's nested simulation variant of the proposal to trivial 'parameter scan' using a very simple test model, and [sin\_approximations\_sedml-nested-Nicolas.xml](https://models.physiomeproject.org/e/c2/sin_approximations_sedml-nested-Nicolas.xml) does the same but using Nicolas' repeated task varianbt of the proposal. In both of these (and the following), the data generators are largely ignored and irrelevant for now.
+ 
 
-Then I thought to test out nested repeated tasks, a common experiment to perform is to investigate the effect of stimulus protocol on each of the cell types. nestedTask-cellType-stimulusTime-ORd.xml uses the same repeated task to iterate over the various cell types, but now has a nested sub task which loops over multiple values for the time at which the electrical stimulus is applied. Once again, I set up a subset of the full set of models required to duplicate this experiment in SED-ML L1V1 which gives the following output from the SED-ML Web Tools.
 
-The various CellML models are available in this workspace, and the SED-ML document is: ORd/nestedTask-cellType-stimulusTime-ORd--sedml.xml.</dc:description>
+
+ Such trivial examples don't help a lot, so I thought I'd try something a bit more like what I'd actually want to be able to do. We have a CellML encoding of a really fancy and modern human cardiac electrophysiology model ([The ORd human ventricular action potential model](http://models.cellml.org/e/71)). This model has three variants representing the three cell types generally considered in modelling the electrophysiology of cardiac muscle - epicardial, midmyocardial, and endocardial. The specific variant for a simulation is selected with the `celltype` parameter in the model (0, 1, or 2). The default model includes a single electrical stimulus applied at the time specified by the `stimStart` parameter value.
+ 
+
+
+
+ So, to test out a simple repeated task I set up [nestedTask-cellType-ORd.xml](https://models.physiomeproject.org/e/c2/nestedTask-cellType-ORd.xml) which uses a `vectorRange` to specify the values to loop over representing the various cell types. Because there are no tools to run this yet, I also set up various models needed to do this using SED-ML L1V1 which gives the following output using the SED-ML web tools.
+ 
+
+
+![](ORd/nestedTask-cellType-ORd--sedml.xml.png)
+
+ The various CellML models are available in this workspace, and the SED-ML document is: [ORd/nestedTask-cellType-ORd--sedml.xml](https://models.physiomeproject.org/e/c2/ORd/nestedTask-cellType-ORd--sedml.xml).
+ 
+
+
+
+ Then I thought to test out nested repeated tasks, a common experiment to perform is to investigate the effect of stimulus protocol on each of the cell types. [nestedTask-cellType-stimulusTime-ORd.xml](https://models.physiomeproject.org/e/c2/nestedTask-cellType-stimulusTime-ORd.xml) uses the same repeated task to iterate over the various cell types, but now has a nested sub task which loops over multiple values for the time at which the electrical stimulus is applied. Once again, I set up a subset of the full set of models required to duplicate this experiment in SED-ML L1V1 which gives the following output from the SED-ML Web Tools.
+ 
+
+
+![](ORd/nestedTask-cellType-stimulusTime-ORd--sedml.xml.png)
+
+ The various CellML models are available in this workspace, and the SED-ML document is: [ORd/nestedTask-cellType-stimulusTime-ORd--sedml.xml](https://models.physiomeproject.org/e/c2/ORd/nestedTask-cellType-stimulusTime-ORd--sedml.xml).
+ 
+
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -25,7 +52,7 @@ The various CellML models are available in this workspace, and the SED-ML docume
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -37,7 +64,7 @@ The various CellML models are available in this workspace, and the SED-ML docume
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/c2">https://models.physiomeproject.org/e/c2</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: c2</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/c2.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>

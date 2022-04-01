@@ -1,20 +1,43 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<rdf:RDF xmlns:dc="http://dublincore.org/specifications/dublin-core/dcmi-terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
   <rdf:Description rdf:about="http://omex-library.org/46.omex">
     <dc:title>Collier et al (1996) Delta-Notch model</dc:title>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/46.omex">
-    <dc:description>An initial attempt to demonstrate one use of CellML with multicellular models using the Delta-Notch model of Collier et al (1996) as an example. In the current state of this workspace, I show the two cell variant of the Collier model as described in Figure 3 of the Collier article. In this encoding of the model, we use CellML 1.1 to separate the single cell dynamics from the population model. In the single cell model I have encoded the two ODEs which make up the dynamics (Equation 2 in the Collier paper) and left the initial conditions and parameters undefined. The population model (collier-2cell.xml) uses the CellML import feature to "instantiate" two cells, as shown in the diagram below:
+    <dc:description>
 
-Model hierarchy (generated using CellML2Dot) of the two cell variant of the Collier et al Delta-Notch signalling model.
+ 
+ An initial attempt to demonstrate one use of CellML with multicellular models using the Delta-Notch model of Collier et al (1996) as an example. In the current state of this workspace, I show the two cell variant of the Collier model as described in Figure 3 of the [Collier article](http://www.ncbi.nlm.nih.gov/pubmed/9015458). In this encoding of the model, we use CellML 1.1 to separate the single cell dynamics from the population model. In the single cell model I have encoded the two ODEs which make up the dynamics (Equation 2 in the Collier paper) and left the initial conditions and parameters undefined. The population model (collier-2cell.xml) uses the CellML import feature to *"instantiate"* two cells, as shown in the diagram below:
 
-The two single cell models are then connected together in the two cell variant of the Collier model. The parent model defines the parameters to be used in both instances of the single cell model along with the different initial conditions for each cell. I define a neighbourhood average for delta for each of the cells, which for the two cell variant simply consists of the delta value from the other cell and the zero boundary condition. The connections between the single cell models can be seen in the figure below:
 
-Model connections (generated using CellML2Dot) of the two cell variant of the Collier et al Delta-Notch signalling model. The common model parameters can be seen as well as the initial conditions for the individual cells.
 
-Simulations of the two cell variant of the Collier model can be performed to demonstrate that the model is correctly encoded. A reproduction of the results from Figure 3 of the Collier et al (1996) article can be seen below, using the two cell variant as encoded in CellML.
 
-Simulation results (generated using CellMLSimulator) of the two cell variant of the Collier Delta-Notch signalling model. These results correspond to those shown in Figure 3 of the Collier et al (1996) article.</dc:description>
+![](collier-2cell-hierarchy.png)
+  
+Model hierarchy (generated using [CellML2Dot](http://cellml.sourceforge.net/CellML2Dot)) of the two cell variant of the Collier et al Delta-Notch signalling model.
+
+
+ The two single cell models are then connected together in the two cell variant of the Collier model. The parent model defines the parameters to be used in both instances of the single cell model along with the different initial conditions for each cell. I define a neighbourhood average for delta for each of the cells, which for the two cell variant simply consists of the delta value from the other cell and the zero boundary condition. The connections between the single cell models can be seen in the figure below:
+
+
+
+
+![](collier-2cell-variable-connections.png)
+  
+Model connections (generated using [CellML2Dot](http://cellml.sourceforge.net/CellML2Dot)) of the two cell variant of the Collier et al Delta-Notch signalling model. The common model parameters can be seen as well as the initial conditions for the individual cells.
+
+
+ Simulations of the two cell variant of the Collier model can be performed to demonstrate that the model is correctly encoded. A reproduction of the results from Figure 3 of the Collier et al (1996) article can be seen below, using the two cell variant as encoded in CellML.
+
+
+
+
+![](collier-2cell-graph.png)
+  
+Simulation results (generated using [CellMLSimulator](http://cellml.sourceforge.net/CellMLSimulator)) of the two cell variant of the Collier Delta-Notch signalling model. These results correspond to those shown in Figure 3 of the Collier et al (1996) article.
+
+
+</dc:description>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
@@ -23,7 +46,7 @@ Simulation results (generated using CellMLSimulator) of the two cell variant of 
     <rdfs:label>Bilal Shaikh</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
-    <foaf:accountName rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</foaf:accountName>
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
   </rdf:Description>
   <rdf:Description rdf:about="local:00001">
     <foaf:name>Bilal Shaikh</foaf:name>
@@ -35,7 +58,7 @@ Simulation results (generated using CellMLSimulator) of the two cell variant of 
     <dc:identifier rdf:resource="https://models.physiomeproject.org/e/46">https://models.physiomeproject.org/e/46</dc:identifier>
   </rdf:Description>
   <rdf:Description rdf:about="local:00002">
-    <rdfs:label>PMR</rdfs:label>
+    <rdfs:label>PMR/e: 46</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/46.omex">
     <bqmodel:is rdf:resource="local:00002">local:00002</bqmodel:is>
@@ -52,7 +75,37 @@ Simulation results (generated using CellMLSimulator) of the two cell variant of 
   <rdf:Description rdf:about="http://omex-library.org/46.omex/collier-2cell.xml">
     <dc:title>collier-2cell.xml</dc:title>
   </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/46.omex/collier-2cell.xml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/46.omex/collier-2cell.xml">
+    <dc:license rdf:resource="local:00004">local:00004</dc:license>
+  </rdf:Description>
   <rdf:Description rdf:about="http://omex-library.org/46.omex/single-cell.xml">
     <dc:title>single-cell.xml</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/46.omex/single-cell.xml">
+    <dc:description>
+
+
+</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/46.omex/single-cell.xml">
+    <dc:license rdf:resource="local:00005">local:00005</dc:license>
   </rdf:Description>
 </rdf:RDF>
