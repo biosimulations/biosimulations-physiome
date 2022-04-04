@@ -25,6 +25,7 @@ from biosimulators_utils.warnings import BioSimulatorsWarning  # type: ignore
 import os
 import json
 from loguru import logger
+from sympy import O
 
 OUT_DIR = "out"
 
@@ -293,6 +294,7 @@ def process(metadata, project_path):
 
     combine_contents = []
     has_sedml = False
+    generated_sedml = False
     for root, dirs, files in os.walk(contents_path):
 
         for content in files:
@@ -309,28 +311,27 @@ def process(metadata, project_path):
                 "./", "")
             file_format = get_content_format_from_file_extension(file_ending)
             is_unspecified_xml = file_format == CombineArchiveContentFormat.XML
-            
+
             if(is_unspecified_xml):
-                
+
                 try:
                     tree = ET.parse(os.path.join(root, content))
                     xml_root = tree.getroot()
-                    
-                    
+
                     # check if root is a model with cellml namespaces
-                    
+
                     if xml_root.tag.endswith("model"):
                         logger.debug("Found CellML file {}".format(content))
                         file_format = CombineArchiveContentFormat.CellML
                     # check if root is sedML
-                    
+
                     elif xml_root.tag.endswith("sedML"):
                         logger.debug("Found SED-ML file {}".format(content))
                         file_format = CombineArchiveContentFormat.SED_ML
                 except Exception as e:
+                    logger.error("Could not parse XML file {}".format(content))
                     logger.error(e)
-                    
-            
+
             is_sedml = file_format == CombineArchiveContentFormat.SED_ML
             if(is_sedml):
                 has_sedml = True
@@ -363,6 +364,7 @@ def process(metadata, project_path):
         try:
             sedml_content = generate_sedml(contents_path)
             combine_contents = combine_contents + sedml_content
+            generated_sedml = True
         except(Exception) as e:
             logger.error(
                 "Error generating SEDML for project {}: {}".format(project_id, e))
@@ -384,6 +386,7 @@ def process(metadata, project_path):
         "title": metadata["title"],
         "description": metadata["description"],
         "has_sedml": has_sedml,
+        "generated_sedml": generated_sedml,
         "has_journal": journal_article is not None,
         "combine_archive_path": combine_archive_path,
         "errors": errors,
@@ -408,134 +411,149 @@ def generate_sedml(contents_path) -> List[CombineArchiveContent]:
                     cellml_files.append(os.path.join(root, file))
 
     # make a dict of each file name and boolean value of whether it is imported by another file
-    is_imported = {file: False for file in cellml_files}
-
+    is_imported = {}
+    non_imported_files = []
     for file in cellml_files:
+        dir_path = os.path.realpath(contents_path)
+
+        file_path = os.path.realpath(file)
+
+        rel_file_path = os.path.relpath(file_path, dir_path)
+
+        is_imported[rel_file_path] = False
+
         tree = ET.parse(file)
         root = tree.getroot()
         for child in root:
             if child.tag == "import":
                 imported_file = child.attrib["xlink:href"]
-                imported_file = os.path.basename(imported_file)
-                is_imported[imported_file] = True
+                is_imported[rel_file_path] = True
+
     # make a list of all the files that are not imported
+
     non_imported_files = [
-        file for file in cellml_files if not is_imported[file]]
+         file for file in is_imported.keys() if not is_imported[file]]
 
     if len(non_imported_files) == 0:
         raise Exception("No non imported files found")
-    # get the first non imported file
-    first_non_imported_file = non_imported_files[0]
+
     for index, cellml_file in enumerate(non_imported_files):
-        print(f"Cell ML file: {cellml_file}")
+        logger.debug("Generating SED-ML for {}".format(cellml_file))
         # create  sed document for the model
         params,  sims, vars, plots = get_parameters_variables_outputs_for_simulation(
-            cellml_file, ModelLanguage.CellML, UniformTimeCourseSimulation, "KISAO_0000019")
+            contents_path + "/" + cellml_file, ModelLanguage.CellML, UniformTimeCourseSimulation, "KISAO_0000019")
+        if(len(vars) > 0):
 
-        sedml_doc = SedDocument()
-        model = Model(
-            id='model',
-            source=os.path.basename(cellml_file),
-            language=ModelLanguage.CellML.value,
-            changes=params,
-        )
-        sedml_doc.models.append(model)
-        for i_sim, sim in enumerate(sims):
-            sedml_doc.simulations.append(sim)
+            sedml_doc = SedDocument()
+            logger.debug(f"Creating SED-ML document for {cellml_file}")
 
-            if len(sims) > 1:
-                sim_suffix = '_' + str(i_sim)
-            else:
-                sim_suffix = ''
-
-            task = Task(
-                id='task' + sim_suffix,
-                model=model,
-                simulation=sim,
+            model = Model(
+                id='model',
+                source=cellml_file,
+                language=ModelLanguage.CellML.value,
+                changes=params,
             )
-            sedml_doc.tasks.append(task)
+            sedml_doc.models.append(model)
+            for i_sim, sim in enumerate(sims):
+                sedml_doc.simulations.append(sim)
 
-            report = Report(
-                id='report' + sim_suffix,
-            )
-            sedml_doc.outputs.append(report)
-
-            var_data_gen_map = {}
-
-            for var in vars:
-                var_copy = copy.copy(var)
-                var_copy.id = '{}{}'.format(var_copy.id, sim_suffix)
-                var_copy.task = task
-                data_gen = DataGenerator(
-                    id='data_generator{}_{}'.format(sim_suffix, var_copy.id),
-                    name=var_copy.name,
-                    variables=[var_copy],
-                    math=var_copy.id,
-                )
-                sedml_doc.data_generators.append(data_gen)
-                var_data_gen_map[var] = data_gen
-
-                report.data_sets.append(DataSet(
-                    id='data_set{}_{}'.format(sim_suffix, var_copy.id),
-                    label=var_copy.id,
-                    name=var_copy.name,
-                    data_generator=data_gen,
-                ))
-
-            for plot in plots:
-                plot_copy = copy.copy(plot)
-                plot_copy.id = '{}{}'.format(plot_copy.id, sim_suffix)
-
-                if isinstance(plot, Plot2D):
-                    plot_copy.curves = []
-                    for curve in plot.curves:
-                        assert len(curve.x_data_generator.variables) == 1
-                        assert len(curve.y_data_generator.variables) == 1
-                        assert curve.x_data_generator.math == curve.x_data_generator.variables[
-                            0].id
-                        assert curve.y_data_generator.math == curve.y_data_generator.variables[
-                            0].id
-
-                        plot_copy.curves.append(Curve(
-                            id='{}{}'.format(curve.id, sim_suffix),
-                            name=curve.name,
-                            x_data_generator=var_data_gen_map[curve.x_data_generator.variables[0]],
-                            y_data_generator=var_data_gen_map[curve.y_data_generator.variables[0]],
-                            x_scale=curve.x_scale,
-                            y_scale=curve.y_scale,
-                        ))
-
+                if len(sims) > 1:
+                    sim_suffix = '_' + str(i_sim)
                 else:
-                    plot_copy.surfaces = []
-                    for surface in plot.surfaces:
-                        assert len(curve.x_data_generator.variables) == 1
-                        assert len(curve.y_data_generator.variables) == 1
-                        assert len(curve.z_data_generator.variables) == 1
-                        assert curve.x_data_generator.math == curve.x_data_generator.variables[
-                            0].id
-                        assert curve.y_data_generator.math == curve.y_data_generator.variables[
-                            0].id
-                        assert curve.z_data_generator.math == curve.z_data_generator.variables[
-                            0].id
+                    sim_suffix = ''
 
-                        plot_copy.curves.append(Surface(
-                            id='{}{}'.format(curve.id, sim_suffix),
-                            name=curve.name,
-                            x_data_generator=var_data_gen_map[curve.x_data_generator.variables[0]],
-                            y_data_generator=var_data_gen_map[curve.y_data_generator.variables[0]],
-                            z_data_generator=var_data_gen_map[curve.z_data_generator.variables[0]],
-                            x_scale=curve.x_scale,
-                            y_scale=curve.y_scale,
-                            z_scale=curve.z_scale,
-                        ))
+                task = Task(
+                    id='task' + sim_suffix,
+                    model=model,
+                    simulation=sim,
+                )
+                sedml_doc.tasks.append(task)
 
-                sedml_doc.outputs.append(plot_copy)
+                report = Report(
+                    id='report' + sim_suffix,
+                )
+                sedml_doc.outputs.append(report)
 
-        SedmlSimulationWriter().run(sedml_doc, os.path.join(
-            contents_path, f'simulation_{index}.sedml'))
-        content = CombineArchiveContent(
-            contents_path + f'/simulation_{index}.sedml', CombineArchiveContentFormat.SED_ML, True)
-        contents.append(content)
+                var_data_gen_map = {}
+
+                for var in vars:
+                    var_copy = copy.copy(var)
+                    var_copy.id = '{}{}'.format(var_copy.id, sim_suffix)
+                    var_copy.task = task
+                    logger.debug(f"Adding variable {var_copy.id} to report")
+
+                    data_gen = DataGenerator(
+                        id='data_generator{}_{}'.format(sim_suffix, var_copy.id),
+                        name=var_copy.name,
+                        variables=[var_copy],
+                        math=var_copy.id,
+                    )
+                    sedml_doc.data_generators.append(data_gen)
+                    var_data_gen_map[var] = data_gen
+
+                    report.data_sets.append(DataSet(
+                        id='data_set{}_{}'.format(sim_suffix, var_copy.id),
+                        label=var_copy.id,
+                        name=var_copy.name,
+                        data_generator=data_gen,
+                    ))
+
+                for plot in plots:
+                    plot_copy = copy.copy(plot)
+                    plot_copy.id = '{}{}'.format(plot_copy.id, sim_suffix)
+
+                    if isinstance(plot, Plot2D):
+                        plot_copy.curves = []
+                        for curve in plot.curves:
+                            assert len(curve.x_data_generator.variables) == 1
+                            assert len(curve.y_data_generator.variables) == 1
+                            assert curve.x_data_generator.math == curve.x_data_generator.variables[
+                                0].id
+                            assert curve.y_data_generator.math == curve.y_data_generator.variables[
+                                0].id
+
+                            plot_copy.curves.append(Curve(
+                                id='{}{}'.format(curve.id, sim_suffix),
+                                name=curve.name,
+                                x_data_generator=var_data_gen_map[curve.x_data_generator.variables[0]],
+                                y_data_generator=var_data_gen_map[curve.y_data_generator.variables[0]],
+                                x_scale=curve.x_scale,
+                                y_scale=curve.y_scale,
+                            ))
+
+                    else:
+                        plot_copy.surfaces = []
+                        for surface in plot.surfaces:
+                            assert len(curve.x_data_generator.variables) == 1
+                            assert len(curve.y_data_generator.variables) == 1
+                            assert len(curve.z_data_generator.variables) == 1
+                            assert curve.x_data_generator.math == curve.x_data_generator.variables[
+                                0].id
+                            assert curve.y_data_generator.math == curve.y_data_generator.variables[
+                                0].id
+                            assert curve.z_data_generator.math == curve.z_data_generator.variables[
+                                0].id
+
+                            plot_copy.curves.append(Surface(
+                                id='{}{}'.format(curve.id, sim_suffix),
+                                name=curve.name,
+                                x_data_generator=var_data_gen_map[curve.x_data_generator.variables[0]],
+                                y_data_generator=var_data_gen_map[curve.y_data_generator.variables[0]],
+                                z_data_generator=var_data_gen_map[curve.z_data_generator.variables[0]],
+                                x_scale=curve.x_scale,
+                                y_scale=curve.y_scale,
+                                z_scale=curve.z_scale,
+                            ))
+
+                    sedml_doc.outputs.append(plot_copy)
+
+            SedmlSimulationWriter().run(sedml_doc, os.path.join(
+                contents_path, f'simulation_{index}.sedml'))
+            content = CombineArchiveContent(
+                f'/simulation_{index}.sedml', CombineArchiveContentFormat.SED_ML, True)
+            contents.append(content)
+        else: 
+            logger.warning(f"No variables found in {cellml_file}")
     return contents
 
 
