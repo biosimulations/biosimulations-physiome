@@ -550,7 +550,7 @@ def generate_sedml(contents_path) -> List[CombineArchiveContent]:
             SedmlSimulationWriter().run(sedml_doc, os.path.join(
                 contents_path, f'simulation_{index}.sedml'))
             content = CombineArchiveContent(
-                f'/simulation_{index}.sedml', CombineArchiveContentFormat.SED_ML, True)
+                f'simulation_{index}.sedml', CombineArchiveContentFormat.SED_ML, True)
             contents.append(content)
         else: 
             logger.warning(f"No variables found in {cellml_file}")
