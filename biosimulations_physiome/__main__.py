@@ -1,12 +1,12 @@
 
 from re import S
-from . import load_projects, process_projects
+from . import load_projects, process_projects, submit_projects
 import asyncio
 import fire
 import json
 from loguru import logger
 CONFIG = {
-    "GetWorkspaces": True,
+    "GetWorkspaces": False,
     "GetMetadata": True,
     "GetArchives": False,
     "Overwrite": True,
@@ -61,7 +61,7 @@ class BiosimulationsPhysiome:
 
         if project_id:
             project = [
-                project for project in projects if project["identifier"] == project_id][0]
+                project for project in projects if project["identifier"] == str(project_id)][0]
 
             logger.debug(project)
             project_info = process_sub(project)
@@ -83,7 +83,7 @@ class BiosimulationsPhysiome:
 
     def submit(self, project_id=None, projects_file="projects.json", out_dir="output"):
         logger.debug(f'Submitting projects from {projects_file}')
-        projects = json.load(open(projects_file))
+        submit_projects.submit()
 
 
 def main():

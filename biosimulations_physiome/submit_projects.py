@@ -8,7 +8,7 @@ import requests
 
 def submit():
     projects = json.load(open("projects.processed.json"))
-    projects = [project for project in projects if project["has_sedml"]]
+    #projects = [project for project in projects if project["has_sedml"]]
 
     OUT_DIR = "out"
     runs = []
@@ -28,7 +28,7 @@ def submit():
         logger.success(
             f'Submitted project https://run.biosimulations.org/runs/{run_id}')
         runs.append(
-            {"id": run_id, "url": f'https://run.biosimulations.org/runs/{run_id}', "status": 'submitted'})
+            {"runId": run_id,"id": project["identifier"], "url": f'https://run.biosimulations.org/runs/{run_id}', "status": 'submitted'})
 
     completed = False
 
@@ -36,7 +36,7 @@ def submit():
         for run in runs:
 
             api_run = requests.get(
-                f'https://api.biosimulations.org/runs/{run["id"]}')
+                f'https://api.biosimulations.org/runs/{run["runId"]}')
             api_run.raise_for_status()
             run['status'] = api_run.json()['status']
             logger.debug(f'{run["id"]} {run["status"]}')
@@ -46,7 +46,7 @@ def submit():
         logger.warning([run['status'] for run in runs])
         logger.info("Check again")
         logger.info(completed)
-        sleep(10)
+        sleep(20)
         json.dump(runs, open('runs.json', 'w'), indent=4)
     json.dump(runs, open('runs.json', 'w'), indent=4)
 
