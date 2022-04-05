@@ -375,10 +375,6 @@ def process(metadata, project_path):
 
     combine_writer.run(combine_archive, contents_path, combine_archive_path)
 
-    os.makedirs("archives", exist_ok=True)
-    combine_archive_path = "archives/" + project_id + ".omex"
-    combine_writer.run(combine_archive, contents_path, combine_archive_path)
-
     # Remove combine input directory
     shutil.rmtree(contents_path, ignore_errors=True)
     project_info = {
@@ -432,7 +428,7 @@ def generate_sedml(contents_path) -> List[CombineArchiveContent]:
     # make a list of all the files that are not imported
 
     non_imported_files = [
-         file for file in is_imported.keys() if not is_imported[file]]
+        file for file in is_imported.keys() if not is_imported[file]]
 
     if len(non_imported_files) == 0:
         raise Exception("No non imported files found")
@@ -483,7 +479,8 @@ def generate_sedml(contents_path) -> List[CombineArchiveContent]:
                     logger.debug(f"Adding variable {var_copy.id} to report")
 
                     data_gen = DataGenerator(
-                        id='data_generator{}_{}'.format(sim_suffix, var_copy.id),
+                        id='data_generator{}_{}'.format(
+                            sim_suffix, var_copy.id),
                         name=var_copy.name,
                         variables=[var_copy],
                         math=var_copy.id,
@@ -552,7 +549,7 @@ def generate_sedml(contents_path) -> List[CombineArchiveContent]:
             content = CombineArchiveContent(
                 f'simulation_{index}.sedml', CombineArchiveContentFormat.SED_ML, True)
             contents.append(content)
-        else: 
+        else:
             logger.warning(f"No variables found in {cellml_file}")
     return contents
 
