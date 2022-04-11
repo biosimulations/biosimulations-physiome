@@ -9,11 +9,16 @@ import requests
 def submit():
     projects = json.load(open("projects.processed.json"))
     #projects = [project for project in projects if project["has_sedml"]]
-
+    skips = json.load(open("skip.json"))
+    all_skipped_projects = []
+    for skip in skips:
+        skipped_projects = skip["projects"]
+        all_skipped_projects.extend(skipped_projects)
+    projects= [project for project in projects if project["identifier"] not in all_skipped_projects]
     OUT_DIR = "out"
     runs = []
-    for project in projects:
-        
+    for index, project in enumerate(projects):
+
         run_id = utils.run_simulation_project(
             project['identifier'],
             f'{OUT_DIR}/{project["identifier"]}/{project["identifier"]}.omex',
@@ -24,11 +29,13 @@ def submit():
             purpose="academic",
 
         )
+        if(not index==0 and index % 10 == 0):
+            sleep(120)
         logger.debug(f'Submitting project {project["title"]}')
         logger.success(
             f'Submitted project https://run.biosimulations.org/runs/{run_id}')
         runs.append(
-            {"runId": run_id,"id": project["identifier"], "url": f'https://run.biosimulations.org/runs/{run_id}', "status": 'submitted'})
+            {"runId": run_id, "id": project["identifier"], "url": f'https://run.biosimulations.org/runs/{run_id}', "status": 'submitted'})
 
     completed = False
 

@@ -207,28 +207,33 @@ def parseHTMLPage(html_page, model_metadata):
     if(summary):
         summary = summary.text.strip()
     else:
-        summary = ""
+        summary = None
 
     model_metadata['summary'] = summary
-    content_core = content.find('div', id='content-core')
-    for child in (content_core.children or []):
-        if child.name == 'title':
-            child.decompose()
-        elif child.name == 'table':
-            child.decompose()
-        else:
-            pass
-    description = markdownify.markdownify(str(content_core))
-    with open(f'descriptions', 'a') as f:
-        f.write(description)
-
-    # Get the metadata from the page
+    
     images = soup.find_all(
         "img", class_="tmp-doc-informalfigure")
 
     for image in (images or []):
 
         model_metadata['thumbnails'].append(image['src'])
+
+
+    content_core = content.find('div', id='content-core')
+    children = content_core.findChildren(recursive=True)
+    for child in (children or []):
+        
+        if child.name == 'title':
+            child.decompose()
+        elif child.name == 'table':
+            child.decompose()
+        else:
+            pass
+    description = markdownify.markdownify(str(content_core).strip())
+    
+    with open(f'descriptions', 'a') as f:
+        f.write(description)
+  
 
     # We might have the title already from the JSON call above
     if(title and model_metadata['title'] == ''):

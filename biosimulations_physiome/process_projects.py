@@ -1,10 +1,13 @@
 from cProfile import label
+from importlib.metadata import metadata
 import logging
 import shutil
 import time
 from dataclasses import dataclass, asdict
 from typing import List
 import xml.etree.ElementTree as ET
+from lxml import etree
+
 
 import Bio  # type: ignore
 from biosimulators_utils.combine.data_model import CombineArchive, CombineArchiveContent, CombineArchiveContentFormat   # type: ignore
@@ -179,21 +182,23 @@ def get_journal_info(metadata, out_path):
     return journal_article, journal_article_authors
 
 
-def make_omex_metadata(metadata, journal_article, journal_article_authors):
+def make_omex_metadata(metadata, journal_article, journal_article_authors ):
 
     # Todo default contributor to file/config
-    contributors = [{
+
+    default_contributor= {
         "label": "Bilal Shaikh",
         "uri": 'http://identifiers.org/orcid:0000-0001-5801-5510'
 
-    }]
+    }
+    contributors = []
     model_author = metadata['authors']
     if(model_author):
         contributors.append({
             "label": model_author,
             "uri": None
         })
-
+    contributors.append(default_contributor)
     creators = []
     for author in journal_article_authors:
         creators.append({
@@ -225,7 +230,7 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors):
         "thumbnails": thumbnails,
         "abstract": None,
         "keywords": [tag[-1] for tag in (metadata["tags"] or []) if tag is not None and len(tag) > 1],
-        "description": metadata["description"],
+        "description": metadata["description"].strip(),
         "license": {
             "uri": "https://creativecommons.org/licenses/by/3.0/",
             "label": "CC BY 3.0",
@@ -258,7 +263,7 @@ def getChildMetadata(metadata) -> List:
             "uri": contentMetadata["file_name"],
             "title": contentMetadata["title"],
             "thumbnails": contentMetadata["thumbnails"] or [],
-            "description": contentMetadata["description"],
+            "description": contentMetadata["description"].strip(),
             "license": {
                 "uri": "https://creativecommons.org/licenses/by/3.0/",
                 "label": "CC BY 3.0",
@@ -295,6 +300,7 @@ def process(metadata, project_path):
     combine_contents = []
     has_sedml = False
     generated_sedml = False
+    sedml_files = []
     for root, dirs, files in os.walk(contents_path):
 
         for content in files:
@@ -335,12 +341,12 @@ def process(metadata, project_path):
             is_sedml = file_format == CombineArchiveContentFormat.SED_ML
             if(is_sedml):
                 has_sedml = True
-
+                sedml_files.append(content_rel_path)
+                correct_sedml_files(project_id, content_rel_path, root)
             combine_content = CombineArchiveContent(
                 content_rel_path, file_format, is_sedml)
             combine_contents.append(combine_content)
-
-    # Get Journal Info
+            # Get Journal Info
     journal_article, journal_article_authors = get_journal_info(
         metadata, project_out_dir)
 
@@ -348,7 +354,22 @@ def process(metadata, project_path):
     omex_metadata = make_omex_metadata(
         metadata, journal_article, journal_article_authors)
 
-    # write omex metadata to combine root
+    if(has_sedml):
+        pass
+    else:
+        try:
+            identifier= metadata["identifier"]
+            sedml_content, sedml_metadata = generate_sedml(contents_path, identifier)
+            combine_contents = combine_contents + sedml_content
+            omex_metadata = omex_metadata + sedml_metadata
+            generated_sedml = True
+        except(Exception) as e:
+            logger.error(
+                "Error generating SEDML for project {}: {}".format(project_id, e))
+            
+
+
+        # write omex metadata to combine root
     metadata_file, errors, warning = write_metadata(
         omex_metadata, contents_path)
     # write metadata to output file as well
@@ -357,18 +378,6 @@ def process(metadata, project_path):
     metadata_content = CombineArchiveContent(
         "metadata.rdf", CombineArchiveContentFormat.OMEX_METADATA)
     combine_contents.append(metadata_content)
-
-    if(has_sedml):
-        pass
-    else:
-        try:
-            sedml_content = generate_sedml(contents_path)
-            combine_contents = combine_contents + sedml_content
-            generated_sedml = True
-        except(Exception) as e:
-            logger.error(
-                "Error generating SEDML for project {}: {}".format(project_id, e))
-            errors.append(str(e))
 
     combine_archive = CombineArchive(
         contents=combine_contents,)
@@ -380,21 +389,32 @@ def process(metadata, project_path):
     project_info = {
         "identifier": project_id,
         "title": metadata["title"],
-        "description": metadata["description"],
+        "description": metadata["description"].strip(),
         "has_sedml": has_sedml,
         "generated_sedml": generated_sedml,
         "has_journal": journal_article is not None,
         "combine_archive_path": combine_archive_path,
         "errors": errors,
     }
-
+    
     return project_info
 
 
-def generate_sedml(contents_path) -> List[CombineArchiveContent]:
+def correct_sedml_files(project_id, rel_path, root):
+
+    if project_id == "4a6" and rel_path == "simulation-experiment.sedml":
+        sedml_file = os.path.join(root, rel_path)
+        sedml_file_content = open(sedml_file, "r").read()
+        sedml_file_content = sedml_file_content.replace(
+            "source=\"Boron CO2 expts - original eqns - SS--RO--PH.cellml\"", "source=\"model.cellml\"")
+        open(sedml_file, "w").write(sedml_file_content)
+
+
+def generate_sedml(contents_path, identifier) -> List[CombineArchiveContent]:
     # get a list of all the files in the contents_path and subdirectories that end in .cellml
     cellml_files = []
     contents = []
+    metadatas = []
     for root, dirs, files in os.walk(contents_path):
         for file in files:
             if file.endswith(".cellml"):
@@ -435,6 +455,16 @@ def generate_sedml(contents_path) -> List[CombineArchiveContent]:
 
     for index, cellml_file in enumerate(non_imported_files):
         logger.debug("Generating SED-ML for {}".format(cellml_file))
+
+        # Rewrite cellml file to remove all groups to enable SED-ML to use xpaths with opencor python interface
+        tree = etree.parse(os.path.join(contents_path, cellml_file))
+        root = tree.getroot()
+        for child in root:
+            if(child.tag == "{http://www.cellml.org/cellml/1.0#}group"):
+                root.remove(child)
+        tree.write(os.path.join(contents_path, cellml_file),
+                   encoding="utf-8", xml_declaration=True)
+
         # create  sed document for the model
         params,  sims, vars, plots = get_parameters_variables_outputs_for_simulation(
             contents_path + "/" + cellml_file, ModelLanguage.CellML, UniformTimeCourseSimulation, "KISAO_0000019")
@@ -548,10 +578,45 @@ def generate_sedml(contents_path) -> List[CombineArchiveContent]:
                 contents_path, f'simulation_{index}.sedml'))
             content = CombineArchiveContent(
                 f'simulation_{index}.sedml', CombineArchiveContentFormat.SED_ML, True)
+            metadata = {
+                'uri': f'simulation_{index}.sedml',
+                "combine_archive_uri": BIOSIMULATIONS_ROOT_URI_FORMAT.format(identifier),
+                "title": f"Simulation {index}",
+                "abstract": None,
+                "description": f'Automatically generated SED-ML file for model {cellml_file}',
+                "license": {
+                    "uri": "https://creativecommons.org/licenses/by/4.0/",
+                    "label": "CC BY 4.0",
+                },
+                "contributors": [],
+                "creators": [],
+                'identifiers': [],
+                'predecessors': [],
+                'successors': [],
+                'see_also': [],
+                'funders': [],
+                'other':[
+                    {
+                        "attribute":{
+                            "uri": "http://biomodels.net/model-qualifiers/isDerivedFrom",
+                            "label": "isDerivedFrom",
+                        },
+                        "value": {
+                            "uri": f'{BIOSIMULATIONS_ROOT_URI_FORMAT.format(identifier)}/{cellml_file}',
+                            "label": f'{cellml_file.split(".cellml")[0] if cellml_file.endswith(".cellml") else (cellml_file.split(".xml")[0] if cellml_file.endswith(".xml") else cellml_file)}',
+                        }
+
+                    }
+                ],
+                'citations': []
+            }
+
+            
             contents.append(content)
+            metadatas.append(metadata)
         else:
             logger.warning(f"No variables found in {cellml_file}")
-    return contents
+    return contents, metadatas
 
 
 def write_metadata(metadata, project_out_dir):
