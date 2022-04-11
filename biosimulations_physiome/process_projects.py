@@ -263,7 +263,7 @@ def getChildMetadata(metadata) -> List:
             "uri": contentMetadata["file_name"],
             "title": contentMetadata["title"],
             "thumbnails": contentMetadata["thumbnails"] or [],
-            "description": contentMetadata["description"].strip(),
+            "description": contentMetadata["description"].strip() if contentMetadata["description"] else None,
             "license": {
                 "uri": "https://creativecommons.org/licenses/by/3.0/",
                 "label": "CC BY 3.0",

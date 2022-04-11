@@ -29,7 +29,7 @@ def submit():
             purpose="academic",
 
         )
-        if(not index==0 and index % 10 == 0):
+        if(not index==0 and index % 20 == 0):
             sleep(120)
         logger.debug(f'Submitting project {project["title"]}')
         logger.success(

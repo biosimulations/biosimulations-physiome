@@ -58,7 +58,23 @@ async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=Tr
     # have to do this synchronously because otherwise we seem to be overloading the pmr git server
     if(getWorkspaces):
         sleep(2)
-        getGitRepos(projectLinks)
+        dates = getGitRepos(projectLinks)
+    for date in dates:
+        projectName = date[0]
+        created, last_modified = date[1]
+        if(created):
+            # find the project in the list metdata that has the identifier name, and update it 
+            for project in metadata:
+                if(project['identifier'] == projectName):
+                    project['created'] = created
+                    project['last_modified'] = last_modified
+                    break
+    with open('projects.json', 'w') as f:
+        json.dump(metadata, f, indent=4)
+    
+        
+
+        
 
 
 def getProjectHash(id):
@@ -151,42 +167,51 @@ async def getProjectHrefs(session, projectExposureHref):
 
 
 def getGitRepos(projectLinks):
-    success = []
+    dates = []
     for projectLink in projectLinks:
         sleep(1)
         projectName = projectLink['project'].split('/')[-1]
-        success.append(getGitRepo(projectName, projectLink['workspace']))
+        dates.append({projectName, getGitRepo(
+            projectName, projectLink['workspace'])})
 
     # Delete all the .git folders and .gitmodules files to prevent issues with top level git repo
     logger.debug(f'Deleting .git folders and .gitmodules files')
     os.system('find ./projects -type d -name ".git" -ls -exec rm -rvf {} +')
     os.system('find ./projects -type f -name ".git" -ls -exec rm -rvf {} +')
     os.system('find ./projects -type f -name ".gitmodules" -delete')
+    return dates
 
 
 def getGitRepo(name, link):
     logger.debug(f'Getting git repo for {name}')
     shutil.rmtree(f'projects/{name}/workspace', ignore_errors=True)
     project_hash = getProjectHash(name)
+    created = None
+    last_modified = None
     if(link):
         try:
             logger.info(f'Cloning {name}')
             os.system(
                 f'git clone --recurse-submodules {link} projects/{name}/workspace ')
+            cwd = os.getcwd()
+            os.chdir(f'projects/{name}/workspace')
             if(project_hash):
-                cwd = os.getcwd()
-                os.chdir(f'projects/{name}/workspace')
                 os.system(f'git checkout {project_hash}')
-                os.chdir(cwd)
+            last_modified = os.popen("git log -1 --format=%ct").read()
+            created = os.popen(
+                "git log --pretty=format:'%at' | tail -1").read()
+            logger.debug(f'Project {name} created at {created}, last modified at {last_modified}')
+            os.chdir(cwd)
+
             shutil.rmtree(
                 f'projects/{name}/workspace/.git', ignore_errors=True)
             shutil.rmtree(
                 f'projects/{name}/workspace/.gitmodules', ignore_errors=True)
         except Exception as e:
-            logger.error(e)
-            return False
 
-    return True
+            logger.error(e)
+
+    return created, last_modified
 
 
 def parseHTMLPage(html_page, model_metadata):
@@ -210,7 +235,7 @@ def parseHTMLPage(html_page, model_metadata):
         summary = None
 
     model_metadata['summary'] = summary
-    
+
     images = soup.find_all(
         "img", class_="tmp-doc-informalfigure")
 
@@ -218,11 +243,10 @@ def parseHTMLPage(html_page, model_metadata):
 
         model_metadata['thumbnails'].append(image['src'])
 
-
     content_core = content.find('div', id='content-core')
     children = content_core.findChildren(recursive=True)
     for child in (children or []):
-        
+
         if child.name == 'title':
             child.decompose()
         elif child.name == 'table':
@@ -230,10 +254,6 @@ def parseHTMLPage(html_page, model_metadata):
         else:
             pass
     description = markdownify.markdownify(str(content_core).strip())
-    
-    with open(f'descriptions', 'a') as f:
-        f.write(description)
-  
 
     # We might have the title already from the JSON call above
     if(title and model_metadata['title'] == ''):

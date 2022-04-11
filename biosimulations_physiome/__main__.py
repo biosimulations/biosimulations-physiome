@@ -6,7 +6,7 @@ import fire
 import json
 from loguru import logger
 CONFIG = {
-    "GetWorkspaces": False,
+    "GetWorkspaces": True,
     "GetMetadata": True,
     "GetArchives": False,
     "Overwrite": True,
