@@ -597,23 +597,16 @@ def generate_sedml(contents_path, identifier) -> List[CombineArchiveContent]:
                 "contributors": [],
                 "creators": [],
                 'identifiers': [],
-                'predecessors': [],
-                'successors': [],
-                'see_also': [],
-                'funders': [],
-                'other':[
-                    {
-                        "attribute":{
-                            "uri": "http://biomodels.net/model-qualifiers/isDerivedFrom",
-                            "label": "isDerivedFrom",
-                        },
-                        "value": {
+                'predecessors': [ {
                             "uri": f'{BIOSIMULATIONS_ROOT_URI_FORMAT.format(identifier)}/{cellml_file}',
                             "label": f'{cellml_file.split(".cellml")[0] if cellml_file.endswith(".cellml") else (cellml_file.split(".xml")[0] if cellml_file.endswith(".xml") else cellml_file)}',
                         }
-
-                    }
+                    
                 ],
+                'successors': [],
+                'see_also': [],
+                'funders': [],
+                'other':[],
                 'citations': []
             }
 
