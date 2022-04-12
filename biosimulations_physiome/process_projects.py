@@ -1,13 +1,10 @@
-from cProfile import label
-from importlib.metadata import metadata
-import logging
 import shutil
 import time
 from dataclasses import dataclass, asdict
 from typing import List
 import xml.etree.ElementTree as ET
 from lxml import etree
-
+import datetime
 
 import Bio  # type: ignore
 from biosimulators_utils.combine.data_model import CombineArchive, CombineArchiveContent, CombineArchiveContentFormat   # type: ignore
@@ -222,9 +219,12 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors ):
         identifier_uri = "https://models.physiomeproject.org/e/{}".format(
             project_id)
         label = "PMR/e: {}".format(project_id)
-
+    
+    
     omex_metadata = [{
         'uri': '.',
+        "created": datetime.datetime.fromtimestamp(int(metadata['created'].strip())) if metadata['created'] else None,
+        "modified": [datetime.datetime.fromtimestamp(int(metadata['last_modified'].strip()))] if metadata['last_modified'] else [],
         "combine_archive_uri": BIOSIMULATIONS_ROOT_URI_FORMAT.format(metadata["identifier"]),
         "title": metadata["title"],
         "thumbnails": thumbnails,
@@ -395,6 +395,8 @@ def process(metadata, project_path):
         "has_journal": journal_article is not None,
         "combine_archive_path": combine_archive_path,
         "errors": errors,
+        
+        
     }
     
     return project_info

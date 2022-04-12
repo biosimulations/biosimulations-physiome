@@ -171,8 +171,8 @@ def getGitRepos(projectLinks):
     for projectLink in projectLinks:
         sleep(1)
         projectName = projectLink['project'].split('/')[-1]
-        dates.append({projectName, getGitRepo(
-            projectName, projectLink['workspace'])})
+        dates.append((projectName, getGitRepo(
+            projectName, projectLink['workspace'])))
 
     # Delete all the .git folders and .gitmodules files to prevent issues with top level git repo
     logger.debug(f'Deleting .git folders and .gitmodules files')
