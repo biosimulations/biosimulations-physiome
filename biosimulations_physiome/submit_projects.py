@@ -14,7 +14,8 @@ def submit():
     for skip in skips:
         skipped_projects = skip["projects"]
         all_skipped_projects.extend(skipped_projects)
-    projects= [project for project in projects if project["identifier"] not in all_skipped_projects]
+    projects = [project for project in projects if project["identifier"]
+                not in all_skipped_projects]
     OUT_DIR = "out"
     runs = []
     for index, project in enumerate(projects):
@@ -29,8 +30,9 @@ def submit():
             purpose="academic",
 
         )
-        if(not index==0 and index % 20 == 0):
-            sleep(120)
+        if(not index == 0 and index % 20 == 0):
+            check_runs(runs)
+            sleep(30)
         logger.debug(f'Submitting project {project["title"]}')
         logger.success(
             f'Submitted project https://run.biosimulations.org/runs/{run_id}')
@@ -40,22 +42,24 @@ def submit():
     completed = False
 
     while(not completed):
-        for run in runs:
-
-            api_run = requests.get(
-                f'https://api.biosimulations.org/runs/{run["runId"]}')
-            api_run.raise_for_status()
-            run['status'] = api_run.json()['status']
-            logger.debug(f'{run["id"]} {run["status"]}')
-
-        completed = all(
-            [(run['status'] == 'SUCCEEDED' or run['status'] == 'FAILED') for run in runs])
-        logger.warning([run['status'] for run in runs])
-        logger.info("Check again")
-        logger.info(completed)
+        completed = check_runs(runs)
         sleep(20)
-        json.dump(runs, open('runs.json', 'w'), indent=4)
+
+
+def check_runs(runs):
+    for run in runs:
+
+        api_run = requests.get(
+            f'https://api.biosimulations.org/runs/{run["runId"]}')
+        api_run.raise_for_status()
+        run['status'] = api_run.json()['status']
+        logger.debug(f'{run["id"]} {run["status"]}')
+
+    completed = all(
+        [(run['status'] == 'SUCCEEDED' or run['status'] == 'FAILED') for run in runs])
+
     json.dump(runs, open('runs.json', 'w'), indent=4)
+    return completed
 
 
 if __name__ == "__main__":

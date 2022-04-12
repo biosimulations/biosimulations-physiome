@@ -223,8 +223,8 @@ def make_omex_metadata(metadata, journal_article, journal_article_authors ):
     
     omex_metadata = [{
         'uri': '.',
-        "created": datetime.datetime.fromtimestamp(int(metadata['created'].strip())) if metadata['created'] else None,
-        "modified": [datetime.datetime.fromtimestamp(int(metadata['last_modified'].strip()))] if metadata['last_modified'] else [],
+        "created": datetime.datetime.fromtimestamp(int(metadata['created'].strip())) if metadata.get('created',None) else None,
+        "modified": [datetime.datetime.fromtimestamp(int(metadata['last_modified'].strip()))] if metadata.get('last_modified',None) else [],
         "combine_archive_uri": BIOSIMULATIONS_ROOT_URI_FORMAT.format(metadata["identifier"]),
         "title": metadata["title"],
         "thumbnails": thumbnails,
@@ -469,7 +469,11 @@ def generate_sedml(contents_path, identifier) -> List[CombineArchiveContent]:
 
         # create  sed document for the model
         params,  sims, vars, plots = get_parameters_variables_outputs_for_simulation(
-            contents_path + "/" + cellml_file, ModelLanguage.CellML, UniformTimeCourseSimulation, "KISAO_0000019")
+            contents_path + "/" + cellml_file, ModelLanguage.CellML, UniformTimeCourseSimulation, "KISAO_0000019", model_language_options={
+                ModelLanguage.CellML:{
+                    "observable_only": True,
+                }
+            })
         if(len(vars) > 0):
 
             sedml_doc = SedDocument()
