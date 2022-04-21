@@ -3,36 +3,29 @@ import json
 from time import sleep
 from biosimulators_utils.biosimulations import utils
 from loguru import logger
+from .auth import get_token
 import requests
 
 
-def submit():
-    projects = json.load(open("projects.processed.json"))
-    #projects = [project for project in projects if project["has_sedml"]]
-    skips = json.load(open("skip.json"))
-    all_skipped_projects = []
-    for skip in skips:
-        skipped_projects = skip["projects"]
-        all_skipped_projects.extend(skipped_projects)
-    projects = [project for project in projects if project["identifier"]
-                not in all_skipped_projects]
+def submit(projects):
+    logger.debug(projects)
     OUT_DIR = "out"
     runs = []
+    token = get_token()
     for index, project in enumerate(projects):
 
         run_id = utils.run_simulation_project(
             project['identifier'],
             f'{OUT_DIR}/{project["identifier"]}/{project["identifier"]}.omex',
             "opencor",
-
             simulator_version="latest",
-
             purpose="academic",
-
+            auth=token,
+            project_id=project['title'],
         )
         if(not index == 0 and index % 20 == 0):
             check_runs(runs)
-            sleep(30)
+            sleep(60)
         logger.debug(f'Submitting project {project["title"]}')
         logger.success(
             f'Submitted project https://run.biosimulations.org/runs/{run_id}')
@@ -47,7 +40,9 @@ def submit():
 
 
 def check_runs(runs):
-    for run in runs:
+    runs_to_check = [run for run in runs if not(
+        (run['status'] == 'SUCCEEDED' or run['status'] == 'FAILED'))]
+    for run in runs_to_check:
 
         api_run = requests.get(
             f'https://api.biosimulations.org/runs/{run["runId"]}')
@@ -58,6 +53,10 @@ def check_runs(runs):
     completed = all(
         [(run['status'] == 'SUCCEEDED' or run['status'] == 'FAILED') for run in runs])
 
+    failed_runs = [run for run in runs if run['status'] == 'FAILED']
+    success_runs = [run['id'] for run in runs if run['status'] == 'SUCCEEDED']
+    json.dump(success_runs, open('success_runs.json', 'w'))
+    json.dump(failed_runs, open('failed_runs.json', 'w'))
     json.dump(runs, open('runs.json', 'w'), indent=4)
     return completed
 

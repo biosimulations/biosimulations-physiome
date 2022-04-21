@@ -14,7 +14,8 @@ from aiohttp_client_cache import CachedSession, FileBackend, SQLiteBackend
 from loguru import logger
 import markdownify
 FULL_LIST = "https://models.physiomeproject.org/exposure/listing/full-list"
-CACHE = cache = SQLiteBackend(cache_name="cache", include_headers=True)
+CACHE = cache = SQLiteBackend(
+    cache_name="cache/cache.sqlite", include_headers=True)
 
 
 async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=True, overwrite=False):
@@ -23,7 +24,7 @@ async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=Tr
     """
 
     projectExposureLinks = await getProjectsList(startAt, endAt)
-    with open("Allprojects.json", "w") as f:
+    with open("cache/allprojects.json", "w") as f:
         json.dump(projectExposureLinks, f)
 
     numProjects = len(projectExposureLinks)
@@ -38,7 +39,7 @@ async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=Tr
             project_urls_task.append(getProjectHrefs(session, project))
 
         projectLinks = await asyncio.gather(*project_urls_task, return_exceptions=False)
-        with open('projectLinks.json', 'w') as f:
+        with open('cache/projectLinks.json', 'w') as f:
             json.dump(projectLinks, f, indent=4)
         # Extract the metadata we can from each project
         metadata_tasks = []
@@ -63,7 +64,7 @@ async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=Tr
         projectName = date[0]
         created, last_modified = date[1]
         if(created):
-            # find the project in the list metdata that has the identifier name, and update it 
+            # find the project in the list metdata that has the identifier name, and update it
             for project in metadata:
                 if(project['identifier'] == projectName):
                     project['created'] = created
@@ -71,10 +72,6 @@ async def importProjects(startAt=0, endAt=-1, getWorkspaces=True, getMetadata=Tr
                     break
     with open('projects.json', 'w') as f:
         json.dump(metadata, f, indent=4)
-    
-        
-
-        
 
 
 def getProjectHash(id):
@@ -200,7 +197,8 @@ def getGitRepo(name, link):
             last_modified = os.popen("git log -1 --format=%ct").read()
             created = os.popen(
                 "git log --pretty=format:'%at' | tail -1").read()
-            logger.debug(f'Project {name} created at {created}, last modified at {last_modified}')
+            logger.debug(
+                f'Project {name} created at {created}, last modified at {last_modified}')
             os.chdir(cwd)
 
             shutil.rmtree(

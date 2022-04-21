@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:collex="http://www.collex.org/schema#" xmlns:bqmodel="http://biomodels.net/model-qualifiers/" xmlns:scoro="http://purl.org/spar/scoro/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:biomodel="http://biomodels.net/model-qualifiers/">
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex">
+    <dc:title>Cell Viability Models for Tissue Exposed to Ablative Temperatures</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex">
+    <dc:description>Cell viability models for tissue exposed to ablative temperatures can be broadly split into two classes: mechanistic lumped parameters models based on observations of the response of individual cells; and statistical models. Several of the mechanistic models are presented here as they can be captured by CellML.
+
+
+
+
+The lumped parameter models of cell viability are based on observations that cells exposed to thermal insult can either recover or die. For this reason the models have a minimum of two compartments representing dead or alive cells, and a potentially infinite number of compartments representing the states between alive and dead. This can be represented schematically, as in Figure 1.
+
+
+
+
+The four models presented here are:
+
+
+* Arrhenius - 2 x compartments,
+* Moussa1979 - 3 x compartments,
+* Jung1986 - ∞ x compartments,
+* O'Neill2011 - 3 x compartments, nonlinear.
+
+
+
+
+---
+
+
+
+Sheldon Hall ([sheldon.hall@eng.ox.ac.uk](mailto:sheldon.hall@eng.ox.ac.uk))  
+
+The Institute of Biomedical Engineering  
+
+University of Oxford</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex">
+    <collex:thumbnail rdf:resource="http://omex-library.org/1cc.omex/cell-death-schem.png">http://omex-library.org/1cc.omex/cell-death-schem.png</collex:thumbnail>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00001">
+    <rdfs:label>Sheldon Hall</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00001">
+    <foaf:name>Sheldon Hall</foaf:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex">
+    <dc:contributor rdf:resource="local:00001">local:00001</dc:contributor>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00002">
+    <dc:identifier rdf:resource="http://identifiers.org/orcid:0000-0001-5801-5510">http://identifiers.org/orcid:0000-0001-5801-5510</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00002">
+    <rdfs:label>Bilal Shaikh</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00002">
+    <foaf:accountName rdf:resource="https://orcid.org/0000-0001-5801-5510">https://orcid.org/0000-0001-5801-5510</foaf:accountName>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00002">
+    <foaf:name>Bilal Shaikh</foaf:name>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex">
+    <dc:contributor rdf:resource="local:00002">local:00002</dc:contributor>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00003">
+    <dc:identifier rdf:resource="https://models.physiomeproject.org/e/1cc">https://models.physiomeproject.org/e/1cc</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00003">
+    <rdfs:label>PMR/e: 1cc</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex">
+    <bqmodel:is rdf:resource="local:00003">local:00003</bqmodel:is>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00004">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex">
+    <dc:license rdf:resource="local:00004">local:00004</dc:license>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex">
+    <dc:created>2014-08-18T11:57:42</dc:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex">
+    <dc:modified>2014-09-22T15:48:42</dc:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/arrhenius-cell-death.cellml">
+    <dc:title>Arrenhius</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/arrhenius-cell-death.cellml">
+    <dc:description>### Model Status
+
+
+
+This model is given by Equation 8 in the cited paper. It is the simplest model of cell death and is based on first order reaction kinetics (the Arrenhius formulation). Figure 6 of the cited paper is reproduced by the default values.
+
+
+
+### Model Structure
+
+
+
+ABSTRACT: The standard method for assessing hyperthermia treatment has been calculation of cumulative equivalent minutes at 43°C, CEM43 and its variations. This parameter normalises treatment thermal histories rather than predicts treatment results. Arrhenius models have been widely used in analysing higher temperature thermal treatments and successfully employed to predict irreversible thermal alterations in structural proteins. Unfortunately, in many, but not all cases they fail to represent thermally induced damage or cell death at hyperthermic temperatures, 43-50°C, exhibiting significant over-prediction of the initial ‘shoulder’ region. The failure arises from the simplifying assumptions used to derive the irreversible reaction format that has been used in thermal damage studies. Several successful multi-parameter fit methods have been employed to model cell survival data. The two-state statistical thermodynamic model was derived from basic thermodynamic principles. The three-state model results from relaxing the assumptions under the Arrhenius formulation that result in an irreversible reaction. In other cell processes studied in vitro the irreversible Arrhenius model holds, and is sufficient to provide an accurate and useful estimate of thermal damage and cell death. It is essential in numerical model work to include multiple thermal damage processes operating in parallel to obtain a clear image of the likely outcome in tissues. Arrhenius and other C(t) models have that capability, while a single value for CEM43, does not.
+
+
+
+
+CITATION: Pearce, J. A. (2013). Comparative analysis of mathematical models of cell death and thermal damage processes. International Journal of Hyperthermia, 29(4), 262-280. [doi:10.3109/02656736.2013.786140](http://dx.doi.org/10.3109/02656736.2013.786140)</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00005">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/arrhenius-cell-death.cellml">
+    <dc:license rdf:resource="local:00005">local:00005</dc:license>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/jung-10-lesion.cellml">
+    <dc:title>Jung 1986</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/jung-10-lesion.cellml">
+    <dc:description>### Model Status
+
+
+
+The model described in Equations 2 and 3 has been implemented with n=10, which appears to be sufficient. This can be checked by comparing variable A against the analytic solution S for a constant temperature T. The system of equations is explicitly solved to allow temperature to vary over time T(t).
+
+
+
+### Model Structure
+
+
+
+ABSTRACT: Based on the analysis of many survival curves obtained after hyperthermic treatments of CHO cells at various temperatures, or after consecutive exposure to two different temperatures, a generalized concept has been developed for the action of heat on cell survival. The basic idea of this concept is that cellular inactivation by heat is a two step process. In the first step, heating produces nonlethal lesions. In the second step, the nonlethal lesions are converted into lethal events upon further heating. The conversion of one of the nonlethal lesions in a cell leads to cell death. Based on the assumption that both production and conversion of nonlethal lesions occur at random and depend only on temperature, a mathematical model has been worked out that quantitatively describes cell killing by single heating as well as by step-down or step-up heating. After the cells are heated at a certain temperature for a time t, the surviving fraction is given by the equation S(t) = exp{(p/c)·[1 - c·t - exp(-c·t)]} where p is the rate constant for the production of nonlethal lesions per cell and per unit of time, and c is the rate constant for the conversion of one nonlethal lesion into a lethal event per unit of time. When heating is performed consecutively at two different temperatures; i.e., when a pretreatment at the temperature T1 for the time t1 is followed by a graded exposure to the temperature T for the time t, the surviving fraction is given by the equation S(t1,t)=exp{(p1/c1)·exp(-c·t)·[1 - c1·t1·exp(-c·t)-exp(-c1·t1)]+(p/c)·[1-c·t-exp(-c·t)]} where p1 and c1 are the production rate and the conversion rate at the temperature T1 of the pretreatment, and p and c are the corresponding values at the temperature of the second treatment. By fitting the equations given above to the experimental data of many heat survival curves, the values of p and c were determined for the temperature range 39 to 45°C. In this range, the conversion rate c increases exponentially with temperature; the slope corresponds to an activation energy of Ea=86±6 kcal/mol. The Arrhenius plot of the production rate p shows an inflection point at 42.5°C. Above that temperature, the activation energy is 185 ± 14 kcal/mol; below Ea=370±30 kcal/mol, was obtained. The proposed concept describes quantitatively, among other phenomena, the occurrence of the shoulder on heat survival curves, as well as the increase in slope and the reduction of shoulder width observed after step-down heating.
+
+
+
+
+CITATION: Jung, H. (1986). A Generalized Concept for Cell Killing by Heat. Radiation Research, 106(1), 56-72. Retrieved from [doi:10.2307/3576561](http://www.rrjournal.org/doi/abs/10.2307/3576561)</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00006">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/jung-10-lesion.cellml">
+    <dc:license rdf:resource="local:00006">local:00006</dc:license>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/moussa.cellml">
+    <dc:title>Moussa, Tell &amp; Cravalho 1979</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/moussa.cellml">
+    <dc:description>### Model Status
+
+
+
+The kinetic model in Equation 2 of the paper has been implemented. Visual comparison of the results in Figure 1 agree with solutions of the CellML model. This model is slightly more general as it allows modelling of cell viability when the temperature is changing over time.
+
+
+
+### Model Structure
+
+
+
+ABSTRACT: Populations of erythrocytes in solution were heated “instantaneously” to and maintained at temperatures in the range of 44 to 60°C on a microscope stage specifically designed for this purpose. Simultaneously, the visually observed hemolysis-time history of these cells was measured. The results were successfully correlated on the basis of two models: 1) a kinetic scheme assuming two sequential, first-order reactions by which the cells are first reversibly altered and then irreversibly damaged; and 2) a statistical model for which the number of cells that are damaged at each instant is assumed to be normally distributed. From the experimental data the rate constants for the two reactions in the kinetic model were determined and were found to have an Arrhenius dependence on temperature. By applying the statistical model to the data, we were able to determine the mean and standard deviation of the distribution curve for this model. The logarithms of these latter two parameters vary with temperature in a linear fashion.
+
+
+
+
+CITATION: Moussa, N., Tell, E., &amp; Cravalho, E. (1979). Time progression of hemolysis of erythrocyte populations exposed to supraphysiological temperatures. Journal of Biomechanical Engineering, 101(August 1979), 213-217. [doi:10.1115/1.3426247](http://dx.doi.org/10.1115/1.3426247)</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00007">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/moussa.cellml">
+    <dc:license rdf:resource="local:00007">local:00007</dc:license>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/oneill_cell_death_fast.cellml">
+    <dc:title>O'Neill et al. 2011</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/oneill_cell_death_fast.cellml">
+    <dc:description>### Model Status
+
+
+
+The model is capable of capturing the viability of cells in culture exposed to ablative temperatures. Parameters should be derived for specific cell types and tissues if possible.
+
+
+
+### Model Structure
+
+
+
+ABSTRACT: Thermal treatments for tissue ablation rely upon the heating of cells past a threshold beyond which the cells are considered destroyed, denatured, or killed. In this article, a novel three-state model for cell death is proposed where there exists a vulnerable state positioned between the alive and dead states used in a number of existing cell death models. Proposed rate coefficients include temperature dependence and the model is fitted to experimental data of heated co-cultures of hepatocytes and lung fibroblasts with very small RMS error. The experimental data utilized include further reductions in cell viabilities over 24 and 48 h post-heating and these data are used to extend the three-state model to account for slow cell death. For the two cell lines employed in the experimental data, the three parameters for fast cell death appear to be linearly increasing with % content of lung fibroblast, while the sparse nature of the data did not indicate any co-culture make-up dependence for the parameters for slow cell death. A critical post-heating cell viability threshold is proposed beyond which cells progress to death; and these results are of practical importance with potential for more accurate prediction of cell death.
+
+
+
+
+CITATION: O'Neill, D. P., Peng, T., Stiegler, P., Mayrhauser, U., Koestenbauer, S., Tscheliessnigg, K., &amp; Payne, S. J. (2011). A three-state mathematical model of hyperthermic cell death. *Annals of Biomedical Engineering*, 39(1), 570-9. [doi:10.1007/s10439-010-0177-1](http://dx.doi.org/10.1007/s10439-010-0177-1)
+
+
+
+
+Cells exposed to ablative temperatures are assumed to be in one of three states: alive, vulnerable or dead. This is based on direct observations of cells during and after exposure to elevated temperatures. The rates at which cells transition between alive and vulnerable, and towards death are determined by fitting the model to data collected during cell culture experiments.
+
+This model has been coupled to the bioheat equation, and solved for patient specific geometries, to predict the outcome of ablation procedures.</dc:description>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/oneill_cell_death_fast.cellml">
+    <collex:thumbnail rdf:resource="http://omex-library.org/1cc.omex/oneill-fig.png">http://omex-library.org/1cc.omex/oneill-fig.png</collex:thumbnail>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00008">
+    <dc:identifier rdf:resource="https://creativecommons.org/licenses/by/3.0/">https://creativecommons.org/licenses/by/3.0/</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="local:00008">
+    <rdfs:label>CC BY 3.0</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://omex-library.org/1cc.omex/oneill_cell_death_fast.cellml">
+    <dc:license rdf:resource="local:00008">local:00008</dc:license>
+  </rdf:Description>
+</rdf:RDF>
