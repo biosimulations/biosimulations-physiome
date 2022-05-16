@@ -15,13 +15,13 @@ def submit(projects):
     for index, project in enumerate(projects):
 
         run_id = utils.run_simulation_project(
-            project['identifier'],
+            f'{project["identifier"]}-{project["title"]}',
             f'{OUT_DIR}/{project["identifier"]}/{project["identifier"]}.omex',
             "opencor",
             simulator_version="latest",
             purpose="academic",
             auth=token,
-            project_id=project['title'],
+            # project_id=project['title'],
         )
         if(not index == 0 and index % 20 == 0):
             check_runs(runs)
@@ -54,7 +54,7 @@ def check_runs(runs):
         [(run['status'] == 'SUCCEEDED' or run['status'] == 'FAILED') for run in runs])
 
     failed_runs = [run for run in runs if run['status'] == 'FAILED']
-    success_runs = [run['id'] for run in runs if run['status'] == 'SUCCEEDED']
+    success_runs = [run for run in runs if run['status'] == 'SUCCEEDED']
     json.dump(success_runs, open('success_runs.json', 'w'))
     json.dump(failed_runs, open('failed_runs.json', 'w'))
     json.dump(runs, open('runs.json', 'w'), indent=4)

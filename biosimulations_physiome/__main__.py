@@ -1,5 +1,7 @@
 from sympy import O
-from . import load_projects, process_projects, submit_projects, run_projects
+
+
+from . import load_projects, process_projects, submit_projects, run_projects, publish_projects
 import asyncio
 import fire
 import json
@@ -98,7 +100,13 @@ class BiosimulationsPhysiome:
         logger.debug(f'Submitting projects from {projects_file}')
         projects = get_non_skipped_projects(projects_file)
         submit_projects.submit(projects)
-
+    def publish(self, project_id=None, projects_file="success_runs.json",):
+        logger.debug(f'Publishing projects from {projects_file}')
+        #projects = get_non_skipped_projects(projects_file)
+        projects = json.load(open(projects_file))
+        
+        publish_projects.publish(projects)
+        
 
 def main():
     fire.Fire(BiosimulationsPhysiome)
