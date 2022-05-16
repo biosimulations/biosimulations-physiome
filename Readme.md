@@ -29,7 +29,7 @@ This package is released under the [MIT license](LICENSE). Physiome is licensed 
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York and the [Center for Reproducible Biomedical Modeling](http://reproduciblebiomodels.org). Physiome was developed by the [Auckland Bioengineering Institute](https://www.auckland.ac.nz/en/abi.html) at The University of Auckland, with assistance from the contributors listed [here](CONTRIBUTORS.md).
 
 ## Contributing to BioSimulations-Physiome
-We enthusiastically welcome contributions to BioSimulations-Physiome! Please see the [guide to contributing](CONTRIBUTING.md) and the [developer's code of conduct](CODE_OF_CONDUCT.md).
+We enthusiastically welcome contributions to BioSimulations-Physiome! Please see the [guide to contributing](https://docs.biosimulations.org/developers/) and the [developer's code of conduct](https://docs.biosimulations.org/developers/conduct/).
 
 ## Acknowledgements
 This work was supported by National Institutes of Health award P41EB023912.
